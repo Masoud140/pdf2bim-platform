@@ -1,36 +1,180 @@
 {
  "format": "pdf2bim.bridge/0.1",
  "documents": [
-  {"id": "GA-01", "title": "General arrangement — sheet 1", "number": "DRG-XXXX-001", "revision": "A", "kind": "drawing"}
+  {
+   "id": "GA-01",
+   "title": "General arrangement — sheet 1",
+   "number": "DRG-XXXX-001",
+   "revision": "A",
+   "kind": "drawing"
+  }
  ],
  "library": "library/products.json",
  "standards": "standards/AS5100-2017.json",
  "project": {
-  "bridge_id": {"value": "BR-XX", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "title block", "text": "BRIDGE BR-XX"}},
-  "importance_level": {"value": null, "tag": "Missing-Flagged", "status": "open", "note": "Not on the GA; ask the client / design criteria"}
+  "bridge_id": {
+   "value": "BR-XX",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "title block",
+    "text": "BRIDGE BR-XX"
+   }
+  },
+  "importance_level": {
+   "value": null,
+   "tag": "Missing-Flagged",
+   "status": "open",
+   "note": "Not on the GA; ask the client / design criteria"
+  }
  },
  "deck": {
-  "edge_left": {"value": -4.3, "unit": "m", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "typical section", "text": "4300"}},
-  "edge_right": {"value": 4.9, "unit": "m", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "typical section", "text": "4900"}},
-  "slab_thickness": {"value": 200, "unit": "mm", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "typical section", "text": "200 SLAB"}},
+  "edge_left": {
+   "value": -4.3,
+   "unit": "m",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "4300"
+   }
+  },
+  "edge_right": {
+   "value": 4.9,
+   "unit": "m",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "4900"
+   }
+  },
+  "slab_thickness": {
+   "value": 200,
+   "unit": "mm",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "200 SLAB"
+   }
+  },
   "barriers": [
-   {"id": "BL", "side": {"value": "left", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "typical section"}},
-    "weight": {"value": 8, "unit": "kN/m", "tag": "Assumed", "status": "accepted", "decision": "D-1", "source": {"note": "barrier drawing not in the set; agreed placeholder so the model runs"}, "replace_with": "barrier drawing / product data sheet"}}
+   {
+    "id": "BL",
+    "side": {
+     "value": "left",
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "GA-01",
+      "view": "typical section"
+     }
+    },
+    "weight": {
+     "value": 8,
+     "unit": "kN/m",
+     "tag": "Assumed",
+     "status": "accepted",
+     "decision": "D-1",
+     "source": {
+      "note": "barrier drawing not in the set; agreed placeholder so the model runs"
+     },
+     "replace_with": "barrier drawing / product data sheet"
+    }
+   }
   ]
  },
  "superstructure": {
-  "type": {"value": "plank", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "typical section"}},
+  "type": {
+   "value": "plank",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section"
+   }
+  },
   "members": [
-   {"id": "P1", "line_offset_A": {"value": null, "unit": "m", "tag": "Missing-Flagged", "status": "open"}}
+   {
+    "id": "P1",
+    "line_offset_A": {
+     "value": null,
+     "unit": "m",
+     "tag": "Missing-Flagged",
+     "status": "open"
+    }
+   }
   ]
  },
  "supports": [
-  {"id": "A", "kind": {"value": "spill-through abutment", "tag": "Direct", "status": "accepted", "source": {"doc": "GA-01", "view": "elevation"}},
-   "soil_layers": {"rows": [
-    {"cells": {"name": "fill", "rl_top": null, "kh": 10}, "tag": "Assumed", "status": "open", "source": {"note": "geotechnical report not received"}, "replace_with": "geotechnical report"}
-   ]}}
+  {
+   "id": "A",
+   "kind": {
+    "value": "spill-through abutment",
+    "tag": "Direct",
+    "status": "accepted",
+    "source": {
+     "doc": "GA-01",
+     "view": "elevation"
+    }
+   },
+   "soil_layers": {
+    "rows": [
+     {
+      "cells": {
+       "name": "fill",
+       "rl_top": null,
+       "kh": 10
+      },
+      "tag": "Assumed",
+      "status": "open",
+      "source": {
+       "note": "geotechnical report not received"
+      },
+      "replace_with": "geotechnical report"
+     }
+    ]
+   }
+  }
  ],
  "loads": {
-  "shrinkage_creep_shortening": {"value": 300, "unit": "1e-6", "tag": "Assumed", "status": "open", "source": {"note": "placeholder"}, "replace_with": "time-dependent analysis"}
+  "shrinkage_creep_shortening": {
+   "value": 300,
+   "unit": "1e-6",
+   "tag": "Assumed",
+   "status": "open",
+   "source": {
+    "note": "placeholder"
+   },
+   "replace_with": "time-dependent analysis"
+  }
+ },
+ "custom": {
+  "deck_joints": {
+   "section": "deck",
+   "columns": {
+    "support": "",
+    "type": ""
+   },
+   "rows": [
+    {
+     "cells": {
+      "support": "A",
+      "type": "compression seal"
+     },
+     "tag": "Assumed",
+     "status": "open",
+     "source": {
+      "note": "joint not shown on the GA"
+     },
+     "replace_with": "joint schedule"
+    }
+   ]
+  }
  }
 }

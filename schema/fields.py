@@ -211,6 +211,10 @@ DESIGN = {
     'stations': ('table', '', 'Design stations / load-case positions', {'name': ('str', ''), 'rule': ('enum', ''), 's': ('num', 'm')}),
 }
 
+# Project-specific items: every bridge is different. Anything the catalogue does not have goes here as a named
+# tagged value or table (same tag rules), so nothing is lost and the catalogue can grow from what projects actually use.
+CUSTOM_NOTE = 'Project-specific items not in the catalogue: name -> tagged value or table (same tag rules)'
+
 SECTIONS = {
     'project': PROJECT, 'alignment': ALIGNMENT, 'deck': DECK, 'superstructure': SUPERSTRUCTURE, 'bearings': BEARINGS,
     'supports': ('list', SUPPORT, 'Supports (abutments A and B for a single span), id = support id used on the support lines'),

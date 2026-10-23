@@ -1,4 +1,4 @@
-# Bridge description format — pdf2bim.bridge/0.1 (step B1, for review)
+# Bridge description format — pdf2bim.bridge/0.1 (step B1, agreed 2026-10-23)
 
 One bridge = one folder: `projects/<bridge>/`.
 - **`<bridge>.bridge.json`:** every value the platform uses, each tagged (format below).
@@ -83,7 +83,19 @@ The groups are `project`, `alignment`, `deck`, `superstructure` (type, members, 
 - **Superstructure type:** `superstructure.type` selects Super-T or plank. Members point to a type definition, so mixed edge and inner girder types are possible.
 - **Results are not stored here.** The model, analysis and design outputs are generated from this file and can be rebuilt at any time.
 
-## 5. Checked by
+## 5. Project-specific items (`custom`)
+
+Every project is different. Anything the catalogue does not have goes under `custom` as a named tagged value or table, with `section` saying where it belongs, for example an approach slab, deck joints or a pile cap. The same tag rules apply. Items that keep appearing across projects are moved into the catalogue later.
+
+## 6. Agreed at review (2026-10-23)
+
+- **Field list:** stays as is. Project-specific items use `custom`.
+- **Plank fields:** placeholders only for now. Plank products are added to the library (like the Super-T sections) from the engineer's plank drawings, after the platform is set up. Not a current priority.
+- **Acceptance policy:** as in section 3.
+- **Wind, temperature and earthquake inputs:** stay as name/value tables.
+- **Priority:** read and model any bridge from the primary drawings plus engineering input first. Then refine.
+
+## 7. Checked by
 
 `python3 tests/schema/test_schema.py`. The example passes, and ten deliberately broken values are rejected:
 - a Direct value with no source;
@@ -99,7 +111,7 @@ The groups are `project`, `alignment`, `deck`, `superstructure` (type, members, 
 
 Two more rejections cover the decision log: overruling a Direct value without evidence, and an accepted entry without an approver.
 
-## Next (after review)
+## Next
 
 - **B2:** BR13A filled in from the dashboard.
 - **B3:** decision log seeded with this month's decisions.

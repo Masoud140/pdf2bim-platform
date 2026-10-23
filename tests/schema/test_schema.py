@@ -24,6 +24,7 @@ bad = [
  ('unknown field', lambda x: x['deck'].update(colour={'value': 'red', 'tag': 'Direct', 'status': 'open', 'source': {'doc': 'GA-01'}})),
  ('wrong unit', lambda x: x['deck']['slab_thickness'].update(unit='m')),
  ('enum outside the list', lambda x: x['superstructure']['type'].update(value='box girder')),
+ ('custom item without a source (Direct)', lambda x: x['custom'].update(approach_slab={'value': 6, 'tag': 'Direct', 'status': 'accepted'})),
  ('table row without a tag', lambda x: x['supports'][0]['soil_layers']['rows'][0].pop('tag')),
 ]
 for name, f in bad:

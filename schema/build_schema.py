@@ -74,8 +74,11 @@ schema = {
                                                'kind': {'enum': ['drawing', 'report', 'specification', 'email', 'other']}, 'file': {'type': 'string'}}}},
         'library': {'type': 'string', 'description': 'Product library file used (lib: keys)'},
         'standards': {'type': 'string', 'description': 'Standards parameter file used (std: keys)'},
+        'custom': {'type': 'object', 'description': F.CUSTOM_NOTE, 'additionalProperties': {'oneOf': [{'$ref': '#/$defs/customValue'}, {'$ref': '#/$defs/customTable'}]}},
     }, **{k: node(v) for k, v in F.SECTIONS.items()}),
     '$defs': {
+        'customValue': dict(leaf('str', '', 'custom value'), properties=dict(leaf('str', '', '')['properties'], value={}, unit={'type': 'string'}, section={'type': 'string', 'description': 'Which group it belongs to, e.g. deck'})),
+        'customTable': dict(leaf('table', '', 'custom table', {}), properties=dict(rows={'type': 'array', 'items': dict(leaf('table', '', '', {})['properties']['rows']['items'], properties=dict(leaf('table', '', '', {})['properties']['rows']['items']['properties'], cells={'type': 'object'}))}, note={'type': 'string'}, section={'type': 'string'}, columns={'type': 'object'})),
         'source': {'type': 'object', 'additionalProperties': False, 'description': 'Where the value comes from',
                    'properties': {'doc': {'type': 'string', 'description': 'documents[].id'}, 'sheet': {'type': 'string'}, 'view': {'type': 'string'},
                                   'text': {'type': 'string', 'description': 'Text / dimension as printed'}, 'note': {'type': 'string'}}},
