@@ -1,0 +1,151 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://github.com/Masoud140/pdf2bim-platform/schema/decision.schema.json",
+ "title": "Decision log entry (one JSON object per line in <bridge>.decisions.jsonl) \u2014 pdf2bim.decision/0.1",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "id",
+  "date",
+  "by",
+  "key",
+  "to",
+  "to_tag",
+  "reason",
+  "status"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^D-[0-9]+$"
+  },
+  "date": {
+   "type": "string",
+   "format": "date-time",
+   "description": "When the entry was made"
+  },
+  "by": {
+   "type": "string",
+   "description": "Person name, or 'AI' for an agent proposal"
+  },
+  "key": {
+   "type": "string",
+   "description": "Path of the value in the bridge file, e.g. supports[A].piles[A1].ground_rl or superstructure.supert_types[ST1].strand_pattern/rows[3]"
+  },
+  "from": {
+   "description": "Previous value (any JSON)"
+  },
+  "from_tag": {
+   "enum": [
+    "Direct",
+    "Calculated",
+    "Missing-Flagged",
+    "Standard-verify",
+    "Input-user",
+    "Confirmed-Engineer",
+    "Assumed",
+    "Model",
+    null
+   ]
+  },
+  "to": {
+   "description": "New value (any JSON)"
+  },
+  "to_tag": {
+   "enum": [
+    "Direct",
+    "Calculated",
+    "Missing-Flagged",
+    "Standard-verify",
+    "Input-user",
+    "Confirmed-Engineer",
+    "Assumed",
+    "Model"
+   ]
+  },
+  "reason": {
+   "type": "string",
+   "description": "Why \u2014 required for every change; overruling a Direct value needs evidence"
+  },
+  "evidence": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "description": "documents[].id, sheet references, calculation refs, meeting notes"
+  },
+  "status": {
+   "enum": [
+    "proposed",
+    "accepted",
+    "rejected",
+    "superseded"
+   ]
+  },
+  "approved_by": {
+   "type": "string"
+  },
+  "approved_at": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "affects": {
+   "type": "array",
+   "items": {
+    "enum": [
+     "extraction",
+     "geometry",
+     "model",
+     "analysis.static",
+     "analysis.modal",
+     "traffic",
+     "loads",
+     "combinations",
+     "design.supert",
+     "design.plank",
+     "substructure",
+     "reports"
+    ]
+   }
+  },
+  "supersedes": {
+   "type": "string",
+   "pattern": "^D-[0-9]+$"
+  },
+  "query": {
+   "type": "string",
+   "description": "Query Register item this decision answers, if any"
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "status": {
+      "const": "accepted"
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "approved_by",
+     "approved_at"
+    ]
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "from_tag": {
+      "const": "Direct"
+     }
+    }
+   },
+   "then": {
+    "required": [
+     "evidence"
+    ]
+   }
+  }
+ ]
+}
