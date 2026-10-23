@@ -19,6 +19,8 @@
 - **Not merged; the owner controls `main`** (ADR-013).
 - Merge order and review notes: `MERGE_REVIEW.md`.
 
+**Status dashboard:** `status/index.html`, built from `status/stages.json` + baseline + test records + git (`status/README.md`). Keep `stages.json` in step with this file.
+
 ## 2. Stage status
 
 - **P0** (architecture, principles, verification, decisions): documented. Awaiting owner review.

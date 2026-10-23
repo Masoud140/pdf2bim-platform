@@ -1,6 +1,6 @@
 # Current status — 2026-10-23
 
-**Resume point:** `NEXT_SESSION.md`.
+**Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
 **Stage:** P0.1 (BR13A baseline) completed, awaiting review. Next: P0.2 format 0.2, then P0.3 standards framework, then P1 geometry (plan in `P1_GEOMETRY_PLAN.md`). No code refactor has started.
 

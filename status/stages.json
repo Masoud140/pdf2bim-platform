@@ -1,0 +1,29 @@
+{
+ "_note": "Hand-maintained project data: stage status and risks. Each 'completed' stage must name its evidence (files in this repository). Update when a stage changes; the dashboard is rebuilt from this file plus generated evidence.",
+ "stages": [
+  {"id": "A-B2", "name": "Existing BR13A dashboard brought under version control and described in the bridge format", "plain": "The working prototype (one HTML app) and BR13A's data are in GitHub, rebuildable byte-for-byte.", "status": "completed", "evidence": ["build.sh", "projects/BR13A/BR13A.bridge.json", "tests/schema/test_schema.py"], "branch": "step-b2-br13a"},
+  {"id": "P0", "name": "Architecture, rules and verification plan", "plain": "Agreed target design, working rules and how results will be checked.", "status": "completed", "review": "awaiting owner review", "evidence": ["docs/ARCHITECTURE.md", "docs/DEVELOPMENT_PRINCIPLES.md", "docs/VERIFICATION_STRATEGY.md", "docs/DECISIONS.md"]},
+  {"id": "P0.1", "name": "BR13A baseline (regression reference)", "plain": "A recorded fingerprint of what today's software produces for BR13A, so any later change is noticed.", "status": "completed", "review": "audit report written; awaiting owner review", "evidence": ["baseline/BR13A/snapshot.json", "tests/baseline/test_baseline.py", "docs/P0.1_AUDIT_REPORT.md"]},
+  {"id": "P0.2", "name": "Bridge data format 0.2 (keep original drawing values, overrides, file fingerprint)", "plain": "Every change to a drawing value keeps the original and who approved the change.", "status": "not_started", "evidence": ["docs/FORMAT_0_2_SPEC.md"]},
+  {"id": "P0.3", "name": "Standards data framework", "plain": "All code-standard numbers in one reviewed place, each marked unverified until checked.", "status": "not_started", "evidence": ["docs/STANDARDS_DATA_SPEC.md"]},
+  {"id": "P1", "name": "Geometry generation (Python)", "plain": "Bridge geometry computed from the bridge data alone, for any bridge.", "status": "not_started", "review": "plan awaiting owner approval", "evidence": ["docs/P1_GEOMETRY_PLAN.md"]},
+  {"id": "P2", "name": "Sections and products", "plain": "Girder and deck properties from one Super-T definition.", "status": "not_started", "evidence": []},
+  {"id": "P3", "name": "Structural model builder and analysis core", "plain": "Build the analysis model from the bridge data instead of a fixed BR13A file.", "status": "not_started", "evidence": []},
+  {"id": "P4", "name": "Independent structural verification", "plain": "Check results against an independent MIDAS model and textbook cases.", "status": "not_started", "evidence": []},
+  {"id": "P5", "name": "PDF extraction and decision workflow", "plain": "Read the drawings into the bridge data; engineer approves decisions in the app.", "status": "not_started", "note": "an earlier extraction prototype exists but is not connected", "evidence": []},
+  {"id": "P6", "name": "Second-bridge validation", "plain": "Run a different bridge end to end with no code changes.", "status": "not_started", "evidence": []},
+  {"id": "P7", "name": "Web application and planks", "plain": "Multi-user web app; plank bridges.", "status": "not_started", "evidence": []}
+ ],
+ "next": {"task": "Owner review of P0.1 + approval of the P1 plan, then P0.2 (format 0.2)", "why": "All later work is checked against the baseline, and every value change must keep its original drawing value before the platform starts generating geometry from data.", "evidence": "P0.2: schema tests incl. rejection of edited originals; BR13A migrated with values unchanged; worked example original → override → approved"},
+ "risks": [
+  {"id": "D-3", "title": "Girder end region over-utilised in the current design run", "plain": "Near the bearings (x = 0.75 m) bending and shear/torsion utilisation exceed 1.0. The end zone (solid end block) is not defined, and strands are placeholders.", "why": "Could be a real design issue or a missing input; it must be resolved before any girder design is relied on.", "severity": "high"},
+  {"id": "VER", "title": "No result is independently verified yet", "plain": "All numbers are reproducible outputs of the current software. None has been checked against an independent model.", "why": "Software tests passing does not mean the bridge results are right.", "severity": "high"},
+  {"id": "R-1", "title": "177 assumed input values in BR13A", "plain": "Placeholders let the model run; each needs data or an engineer decision.", "why": "Results depend on them.", "severity": "high"},
+  {"id": "D-1", "title": "Strand and bar layout are placeholders", "plain": "A standard T4 layout is used because the BR13A strand drawings are not in the set.", "why": "Design capacities and stresses depend on them.", "severity": "high"},
+  {"id": "E-1", "title": "Design engine neutral axis differs from the worked example", "plain": "Capacity matches but the neutral-axis depth is about 8 % off.", "why": "Indicates an engine difference that may matter in other cases.", "severity": "medium"},
+  {"id": "STD", "title": "Code-standard values not yet verified", "plain": "Load factors, spectra and similar values are in the code and not yet checked against authorised copies.", "why": "Every design action depends on them.", "severity": "medium"},
+  {"id": "E-2", "title": "Analysis model is a fixed BR13A file", "plain": "The model is not yet generated from bridge data.", "why": "Blocks use on any other bridge.", "severity": "medium"},
+  {"id": "F-1", "title": "Simplified load combination envelopes", "plain": "Traffic moment, shear and torsion are enveloped separately; earthquake results are unsigned.", "why": "Can be conservative or, for some checks, not concurrent.", "severity": "medium"},
+  {"id": "H-2", "title": "Some plots draw invalid coordinates", "plain": "88 drawing errors per run (no calculation error).", "why": "A plot may show wrong or missing lines.", "severity": "low"}
+ ]
+}

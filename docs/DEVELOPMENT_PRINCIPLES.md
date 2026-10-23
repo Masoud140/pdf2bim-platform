@@ -74,7 +74,7 @@ A module is done when:
 3. **Verify the save.** After a push, confirm that `git ls-remote origin <branch>` equals the local `HEAD`. Only then report that something is saved to GitHub. If the push fails, say so and keep the work on the local branch.
 4. **End of session:**
    - update `docs/NEXT_SESSION.md` (last verified checkpoint, stage status, next action, open questions, setup commands);
-   - update `docs/CURRENT_STATUS.md`;
+   - update `docs/CURRENT_STATUS.md` and `status/stages.json`, and rebuild the status dashboard (`python3 status/build_status.py`);
    - commit and push them;
    - update the Claude Project memory (`areas/platform-architecture.md`) and the project doc `claude/SOURCE_REPOSITORY.md` with the branch and commit.
 5. **Start of session:**
