@@ -1,0 +1,8 @@
+{
+  "name": "br13a-platform",
+  "private": true,
+  "version": "0.44.0",
+  "description": "BR13A single-span Super-T dashboard sources (AS 5100) — step A of the reusable platform",
+  "scripts": { "build": "./build.sh", "test:quick": "node tests/sub_t.js && node tests/sl_t.js && node tests/tm_t.js" },
+  "devDependencies": { "playwright": "^1.40.0" }
+}
