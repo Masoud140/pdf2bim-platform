@@ -4,3 +4,5 @@ src/dsg3_ui.js
 src/dsg5_ui.js
 dist/*.html
 !dist/README.md
+__pycache__/
+*.pyc

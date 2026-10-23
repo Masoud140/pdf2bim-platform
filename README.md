@@ -9,7 +9,16 @@ The source of the BR13A offline dashboard (`dist/BR13A_grillage_dashboard.html`,
 - Hog Calculator;
 - Word / Excel / MIDAS exports.
 
-This repository is **step A** of turning that work into a reusable platform for single-span Super-T and plank bridges: the sources are kept, the build is reproducible, and the checks can be re-run. See `docs/ROADMAP.md` for the later steps.
+This repository is the start of a reusable platform for single-span Super-T and plank bridges (PDF → bridge description → model → analysis → AS 5100 design → reports). BR13A is the first regression case, not a template.
+
+**Start here:**
+- `docs/ARCHITECTURE.md`: target layers A–H, and the current code mapped against them;
+- `docs/DEVELOPMENT_PRINCIPLES.md`: engineering and repository rules, the 10-step stage process;
+- `docs/VERIFICATION_STRATEGY.md`: test levels, tolerances, latest executed results;
+- `docs/ROADMAP.md`: stages P0–P7;
+- `docs/DECISIONS.md`: platform decisions (ADRs);
+- `docs/CURRENT_STATUS.md`: branches, what works, known issues;
+- `docs/BRIDGE_DESCRIPTION_FORMAT.md` + `schema/`: the bridge description format; `projects/BR13A/`: BR13A in that format.
 
 > Status: BR13A-specific. Many values and rules are still tied to BR13A (see `docs/BR13A_SPECIFIC.md`). Values not in the drawing set are tagged **Assumed** in the dashboard and listed in its Needs Review tab. None of them are drawing values.
 
@@ -21,7 +30,7 @@ OUT=/tmp/x.html ./build.sh       # other output path
 ```
 
 - **Needs:** Python 3 and bash. No network access or npm install.
-- **Reproducibility:** the build of commit 1 is byte-identical to the delivered `BR13A_grillage_dashboard_v44.html` (sha256 `4f981dbc5308…`).
+- **Reproducibility:** the build is byte-identical to the delivered `BR13A_grillage_dashboard_v45.html` (sha256 `710b259d2c71…`). Commit 1 matched v44.
 
 **How the build works** (`src/mk19.sh`):
 1. `mk17.py` makes `dsg3_ui.js` from `dsg3_sec.js` + `dsg2_ui.js`.
@@ -52,6 +61,7 @@ node tests/x_t.js                # Super-T design combination "x"
 node tests/gw_t.js               # deck width along each girder, Hog length from the model
 node tests/dg36_t.js             # girder definition tab + design re-run
 node tests/engine/dsg_test.js    # section engine vs the worked example (prints model vs target)
+python3 tests/schema/test_schema.py   # bridge description format: examples, BR13A file, rejection cases (pass/fail)
 ```
 
 - Most tests print values against their hand or target values; turning them into pass/fail assertions is on the roadmap.
