@@ -1,4 +1,5 @@
-const { chromium } = require('playwright'); const fs=require('fs');
+const { chromium } = require('playwright');
+const XL=require('path').resolve(__dirname,'xlout'); require('fs').mkdirSync(XL,{recursive:true}); const fs=require('fs');
 (async () => {
   const b = await chromium.launch({ executablePath:'/opt/pw-browsers/chromium' });
   const p=await (await b.newContext({ viewport:{width:1500,height:1300} })).newPage();
@@ -9,6 +10,6 @@ const { chromium } = require('playwright'); const fs=require('fs');
   await p.click('#dg_fill');
   await p.waitForFunction(()=>DG.gird&&DG.gird.ver===DG.ver&&!DG.girdBusy,null,{timeout:240000});
   const bl=await p.evaluate(async()=>{ const bl=await dgDocx(); const ab=await bl.arrayBuffer(); let s=''; const u=new Uint8Array(ab); for(let i=0;i<u.length;i+=8192) s+=String.fromCharCode.apply(null,u.subarray(i,i+8192)); return btoa(s); });
-  fs.writeFileSync('xlout/report33.docx',Buffer.from(bl,'base64'));
+  fs.writeFileSync(XL+'/report33.docx',Buffer.from(bl,'base64'));
   console.log('errors', JSON.stringify(errs)); await b.close();
 })();

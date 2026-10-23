@@ -1,4 +1,5 @@
-const { chromium } = require('playwright'); const fs=require('fs');
+const { chromium } = require('playwright');
+const XL=require('path').resolve(__dirname,'xlout'); require('fs').mkdirSync(XL,{recursive:true}); const fs=require('fs');
 const temp=process.argv[2]==='temp';
 (async () => {
   const b = await chromium.launch({ executablePath:'/opt/pw-browsers/chromium' });
@@ -15,7 +16,7 @@ const temp=process.argv[2]==='temp';
   await p.waitForTimeout(500);
   if(temp){ await p.evaluate(()=>{ DG.lc.forEach(function(lc){ lc.Tsel=1; lc.Tf=dgK1(); }); DG.res.lc=DG.res.lc.map(function(o,i){ var q=JSON.parse(JSON.stringify(DG.lc[i])); q.free=dgFreeFor('b+'); var o2=dgLC(o.X,o.B,q); o2.X=o.X; o2.B=o.B; o2.solid=o.solid; o2.Mu=o.Mu; o2.dn=o.dn; o2.phiMu=o.phiMu; o2.sh=o.sh; return o2; }); }); }
   const res=await p.evaluate(()=>JSON.stringify(DG.res.lc.map((o,i)=>({lc:DG.lc[i].name, Ns:DG.lc[i].Ns, s1b:o.g1bot, s1t:o.g1top, sb:o.sv.girBot, sgt:o.sv.girTop, sdk:o.sv.deckTop, Mdec:o.Mdec, Mal:o.Mal, MdecT:o.MdecT, MalT:o.MalT, Mcr:o.Mcr, dn:o.dn, kuo:o.kuo, Mu:o.Mu, phMu:o.phiMu, uV:o.sh&&o.sh.uV, uL:o.sh&&o.sh.uL, uT:o.sh&&o.sh.uT, free:!!DG.lc[i].free}))));
-  fs.writeFileSync('xlout/engine.json',res);
-  const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#dg_xl')]); await dl.saveAs('xlout/export.xlsx');
+  fs.writeFileSync(XL+'/engine.json',res);
+  const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#dg_xl')]); await dl.saveAs(XL+'/export.xlsx');
   console.log('errors', JSON.stringify(errs)); await b.close();
 })();

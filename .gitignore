@@ -6,3 +6,4 @@ dist/*.html
 !dist/README.md
 __pycache__/
 *.pyc
+tests/xlout/

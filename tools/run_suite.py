@@ -28,14 +28,20 @@ def run(cmd, timeout=1200):
     return rc, time.time() - t0, out
 
 
+ENV_ERR = re.compile(r"net::ERR_(TUNNEL_CONNECTION_FAILED|PROXY|NAME_NOT_RESOLVED|INTERNET_DISCONNECTED)")
+
+
 def js_errors(out):
+    """(real errors, environment errors). Environment = the sandbox blocking an external resource (e.g. a web font)."""
     m = re.findall(r"^errors (\[.*\])\s*$", out, re.M)
     if not m:
-        return None
+        return None, None
     try:
-        return len(json.loads(m[-1]))
+        e = json.loads(m[-1])
     except Exception:
-        return "?"
+        return "?", "?"
+    env = [x for x in e if ENV_ERR.search(x)]
+    return len(e) - len(env), len(env)
 
 
 def main():
@@ -47,13 +53,15 @@ def main():
            [(n, ["python3", f], "asserts") for n, f in PY]
     for name, cmd, kind in jobs:
         rc, dt, out = run(cmd)
-        e = js_errors(out)
+        e, envn = js_errors(out)
         if kind == "asserts":
             m = re.search(r"(\d+) passed, (\d+) failed", out) or re.search(r"(\d+) PASS, (\d+) FAIL", out)
             npass = len(re.findall(r"^PASS", out, re.M)); nfail = len(re.findall(r"^FAIL", out, re.M))
             outcome = f"{npass} PASS / {nfail} FAIL" + ("" if rc == 0 else f" (exit {rc})")
         else:
             outcome = "ran, no JS errors" if rc == 0 and (e in (None, 0)) else f"ERROR (exit {rc}, js errors {e})"
+            if envn:
+                outcome += f"; {envn} environment error(s): external resource blocked by sandbox"
         rows.append(f"| {name} | `{' '.join(cmd)}` | {kind} | {rc} | {dt:.0f} | {'-' if e is None else e} | {outcome} |")
         tail = "\n".join(out.strip().splitlines()[-12:])
         detail.append(f"### {name}\n\n```\n{tail}\n```\n")
@@ -62,7 +70,8 @@ def main():
            f"- Commit: `{commit}`", f"- Dashboard: `dist/BR13A_grillage_dashboard.html`", f"- Command: `python3 tools/run_suite.py`", "",
            "**Meaning of the outcome column.** 'prints' scripts show values next to hand/target values and do not assert; "
            "'ran, no JS errors' means only that they completed. It is NOT a pass of an engineering check. "
-           "'asserts' scripts report their own PASS/FAIL.", "",
+           "'asserts' scripts report their own PASS/FAIL. 'environment error' = the sandbox blocked an external resource "
+           "(net::ERR_TUNNEL_CONNECTION_FAILED, e.g. a web font); it is listed but not counted as a software error.", "",
            "| Script | Command | Type | Exit | Time (s) | JS errors | Outcome |", "|---|---|---|---|---|---|---|"] + rows + ["", "## Last output lines", ""] + detail
     os.makedirs(os.path.dirname(os.path.join(ROOT, a.out)), exist_ok=True)
     open(os.path.join(ROOT, a.out), "w").write("\n".join(doc) + "\n")
