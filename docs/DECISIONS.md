@@ -13,10 +13,14 @@
 | 005 | Acceptance policy for values | accepted | 2026-10-23, owner |
 | 006 | Python engineering core, TypeScript front end, strangler migration | accepted (timing open) | 2026-10-23, master instruction |
 | 007 | Bearings: fixed at one support, free longitudinally at the other | accepted | owner |
-| 008 | Keep the original drawing value in the value record | proposed | 2026-10-23 |
-| 009 | Standards as versioned data with a check status | proposed | 2026-10-23 |
+| 008 | Format 0.2: immutable original, append-only overrides, current value, significance, revision + hash | accepted in principle, with safeguards (spec `FORMAT_0_2_SPEC.md`; implementation P0.2) | 2026-10-23, owner |
+| 009 | Standards as versioned data; framework separate from content approval | architecture accepted; **no content approved** (spec `STANDARDS_DATA_SPEC.md`; implementation P0.3) | 2026-10-23, owner |
 | 010 | Planks after the shared platform is verified | accepted | 2026-10-23, owner |
 | 011 | Wind, temperature and earthquake inputs stay as name/value tables | accepted | 2026-10-23, owner |
+| 012 | Verification tolerances are provisional test thresholds, not release gates | accepted | 2026-10-23, owner |
+| 013 | `main` is controlled by the owner; no merges by the agent | accepted | 2026-10-23, owner |
+| 014 | The BR13A baseline is a regression reference, not a verified result | accepted | 2026-10-23, owner |
+| 015 | First implementation task is P0.1 (baseline) before P1 geometry | accepted, P0.1 done | 2026-10-23, owner |
 
 ---
 
@@ -80,20 +84,34 @@
 - **Decision:** bearings are fixed at one support and free longitudinally at the other. Transverse and vertical restraint follow the bearing data in the bridge description.
 - **Why:** owner instruction.
 
-## ADR-008 Keep the original drawing value in the value record (proposed)
+## ADR-008 Format 0.2 — original, overrides, significance, revision and hash
 
-- **Proposal:** add `original: {value, unit, tag, source}` to a value when it is overridden, plus `significance` (high / medium / low) and a description `revision` and `hash` at the top of the file.
-- **Why:** the master instruction requires the original to be kept, and runs need a revision to record. Today the original exists only in the decision log.
-- **Needs:** owner approval; this is a format change (0.1 → 0.2).
+- **Decision (owner, 2026-10-23):** approved in principle, with these safeguards:
+  - The original extracted value is **immutable**.
+  - An engineer's override is stored **separately**, and the current accepted value is clearly identified.
+  - Each change records: original source reference, old and new values, units, reason, evidence, author, timestamp, approval status.
+  - The hash coverage and canonicalisation are defined exactly. The hash identifies content and detects change; it is **not** proof that the data are correct.
+  - The schema migration and backward compatibility with 0.1 are documented. Schema tests and a worked example (original → override → approved value) are included.
+- **Design:** `docs/FORMAT_0_2_SPEC.md`.
+- **Status:** design documented; implementation is stage **P0.2** (not started).
 
-## ADR-009 Standards as versioned data (proposed)
+## ADR-009 Standards data — framework now, content by review
 
-- **Proposal:**
-  - A `standards/` data set: clause id, value or table, units, edition, and status (implemented / checked / approved), with the checker and date.
-  - No Standard text is copied.
-  - Engine code reads values from it, not from constants. Examples today: AS 1170.4 spectral shape is a transcribed table; the dynamic factor uses a regex.
-- **Why:** traceability and licence safety.
-- **Needs:** owner approval and a licensed copy for the checking.
+- **Decision (owner, 2026-10-23):** a centralised, versioned standards-data architecture is approved in principle. The implementation of the framework is kept separate from approval of its engineering content.
+- **Each entry records:**
+  - standard, edition and amendment;
+  - clause / table / authorised reference;
+  - units, applicability and calculation context;
+  - verification status, reviewer and date;
+  - implementation version;
+  - open interpretation.
+- **Safeguards:**
+  - Coefficients from the existing code are never entered as approved; their highest status is `code-extracted-unverified`.
+  - The owner takes responsibility for engineering review and will arrange independent verification against authorised copies of AS 5100 and AS/NZS 1170.4.
+  - Rules that need specialist interpretation are flagged for that review.
+  - Until values and implementations are verified, the calculations that use them are flagged **unverified** and are not presented as validated final design results.
+- **Design:** `docs/STANDARDS_DATA_SPEC.md`.
+- **Status:** design documented; implementation is stage **P0.3** (not started).
 
 ## ADR-010 Planks later
 
@@ -103,3 +121,35 @@
 
 - **Decision:** wind, temperature and earthquake inputs stay as name/value tables in the bridge description, not fully typed fields, for now.
 - **Why:** owner priority is to read and model every bridge from primary and engineering input first.
+
+## ADR-012 Tolerances are provisional
+
+- **Decision (owner, 2026-10-23):** the proposed tolerances are approved as **initial engineering-software test thresholds for review**. They are not universal acceptance criteria.
+- **Retained:** coordinates 1 mm, equilibrium 0.1 %, modal periods 3 %.
+- **Before any tolerance is used as a release gate,** its justification and applicability are documented. The complete table (quantity, benchmark, metric, tolerance, justification, action) is in `VERIFICATION_STRATEGY.md` §4.
+- **Distinctions the table must keep:**
+  - coordinate tolerance is generation accuracy, not survey or drawing uncertainty;
+  - equilibrium defines its reference load, the force and moment residuals, and numerical precision;
+  - modal comparison requires the same benchmark boundary conditions and mass source, MAC pairing, and physically comparable modes.
+- **Rule:** a passing tolerance never overrides a failed physical check, an incorrect boundary condition, a modelling error or an unresolved discrepancy. Stricter or different criteria are set where the quantity needs them.
+
+## ADR-013 Control of `main`
+
+- **Decision (owner, 2026-10-23):** no branch is merged into `main` until the owner has reviewed and approved it.
+- The agent:
+  - keeps `step-b2-br13a` and `docs/p0-architecture` available;
+  - prepares a merge review (`docs/MERGE_REVIEW.md`);
+  - works on new feature branches from the appropriate reviewed base;
+  - never force-pushes or overwrites branches.
+
+## ADR-014 Baseline is a regression reference
+
+- **Decision (owner, 2026-10-23):** the P0.1 baseline records what the current software produces, so that regressions can be detected. The outputs are not treated as correct because they are reproducible.
+- Verified reference results are kept separate from indicative outputs. Today every quantity is `indicative`; only the internal consistency checks are evaluated pass / fail.
+- Replacing the reference snapshot is a reviewed change with its reason.
+
+## ADR-015 Order of work
+
+- **Decision (owner, 2026-10-23):** P0.1 (baseline) before P1 (geometry in Python).
+- The substantial Python geometry work starts only after the baseline and the architecture decisions are documented and the P1 plan is reviewed.
+- **Proposed sequence:** P0.1 → (review) → P0.2 format 0.2 → P0.3 standards framework → P1. P0.2 / P0.3 may run before or alongside P1 at the owner's choice.

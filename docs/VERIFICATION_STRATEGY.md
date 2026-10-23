@@ -8,7 +8,7 @@
 |---|---|---|---|
 | **V1 Unit** | One function: geometry formula, section property, a load formula, a clause value | Every commit | Assert against a hand value with a stated tolerance |
 | **V2 Model checks** | Automatic checks on every built model (list in §2) | Every model build and every run | All pass, or the run is marked **not for design** |
-| **V3 Regression** | BR13A snapshot of key outputs with run record; compare new runs to it | Every commit that touches C–F | Equal within tolerance, or the difference is explained and the snapshot is updated by a reviewed decision |
+| **V3 Regression** | BR13A snapshot of key outputs with run record (`baseline/BR13A/`, P0.1); compare new runs to it | Every commit that touches C–F | T1 exact, or the difference is explained and the snapshot is updated by a reviewed commit |
 | **V4 Benchmarks** | Independent solutions: textbook / worked examples, closed-form beams, MIDAS models built independently, Hambly-type grillage cases | Per module, before switching to it | Within stated tolerance |
 | **V5 Cross-implementation** | Python core against the JavaScript dashboard on the same input during migration | Per migrated module | Within tolerance; differences explained |
 | **V6 Engineer review** | Engineer reviews results, decisions and approximations | At each stage gate | Recorded as a decision |
@@ -35,40 +35,50 @@ All four cases are required before the geometry engine is used:
 
 Each case has hand-checked coordinates. Transverse members are not assumed perpendicular to girders.
 
-## 4. Tolerances (initial, to be confirmed by the engineer)
+## 4. Tolerances — provisional test thresholds (approved 2026-10-23 for review, ADR-012)
 
-| Quantity | Tolerance |
-|---|---|
-| Coordinates | 1 mm |
-| Section properties (A, I, J, centroid) | 0.5 % (FD torsion 2 %) |
-| Equilibrium (reactions vs applied) | 0.1 % of total |
-| Benchmark actions (M, V, reactions) | 2 % (grillage vs closed form 5 %) |
-| Design capacities vs worked example | 1 % |
-| Modal periods vs MIDAS | 3 % |
+**Status:** these are **initial engineering-software test thresholds**. They are not universal acceptance criteria for every bridge model. Each row must keep its justification. A row becomes a **release gate** only after the engineer has reviewed its justification and applicability.
 
-## 5. Current state of the tests (executed 2026-10-23 on the v45 build)
+**Overriding rules:**
+1. **A passing tolerance never overrides** a failed physical check, an incorrect boundary condition, a modelling error or an unresolved discrepancy. Those are failures whatever the number.
+2. When the engineering quantity or benchmark needs it, stricter or different criteria are set, and recorded here.
+3. A tolerance compares an implementation with a **benchmark**. It says nothing about the uncertainty of the **inputs** (survey, drawing, Assumed values). Input uncertainty is recorded on the value itself (tag, significance), not in this table.
 
-These are the results actually run on branch `docs/p0-architecture` (code = step-b2-br13a 42dcec7):
+| # | Test quantity | Benchmark | Metric | Tolerance | Justification | Action if exceeded |
+|---|---|---|---|---|---|---|
+| T1 | Same-software regression (all snapshot quantities) | `baseline/BR13A/snapshot.json` from the same engine | \|a−b\| ≤ max(1e-12, 1e-9·max(\|a\|,\|b\|)) | exact (1e-9 relative) | Same code + same inputs must give the same numbers; only floating-point summation order may differ | Stop. Explain the difference (an intended change or a bug). Replace the reference only by a reviewed commit with the reason |
+| T2 | Generated coordinates: nodes, bearing points, chord ends, deck and flange edges | Analytical geometry from the same inputs (hand / closed-form for the 4 P1 cases; dashboard values for BR13A) | Max point-to-point distance in plan and level | 1 mm | **Generation accuracy only.** Geometry formulas are exact; 1 mm allows numerical roundoff and series truncation (spirals) while staying far below construction tolerance. It does **not** cover survey or drawing uncertainty, which is often 5–20 mm and belongs to the input value | Find the formula / step at fault. For P1 the geometry module fails. Never widen the tolerance to absorb a drawing conflict; record the conflict as a query instead |
+| T3 | Lengths and angles derived from coordinates (span, chord length, skew) | Same as T2 | Absolute difference | 1 mm; 0.001° | Follows from T2 (an angle over about 30 m: 1 mm ≈ 0.002°) | As T2 |
+| T4 | Equilibrium of every load case, each direction | Applied loads of the same case | **Force:** \|ΣR + ΣF\| ≤ 0.1 % of Σ\|F\| (reference load = sum of absolute applied forces in that direction). **Moment** about the support-line midpoint: residual ≤ 0.1 % of Σ\|F\|·L_ref, with L_ref = span. Numerical floor 1e-6 kN | 0.1 % | A linear solve satisfies equilibrium to roundoff (about 1e-10 relative, as measured on BR13A SDL: 4.8e-10). 0.1 % flags lost loads, wrong load directions or unconnected members while ignoring precision noise | **Physical failure.** Do not use the results. Look for missing reactions (springs, links), loads off the model, or a mechanism. Not overridable by any other pass |
+| T5 | Section properties A, I, centroid, shear areas | Independent calculation (hand / independent software) of the same geometry | Relative difference | 0.5 % | Polygon integration is exact; 0.5 % allows fillet / chamfer discretisation. Differences above this point to a geometry or definition error | Compare the outlines and the definition (product type, overrides). Do not proceed to P3 with that section |
+| T6 | St Venant torsion J (open / closed cell) | Finite-difference or FE torsion solution, refined mesh (`claude/torsion_fd.py`) | Relative difference | 2 % | Torsion of thin-walled and composite sections is mesh-sensitive; 2 % is the convergence band seen in the FD study | Refine the mesh; check the cell idealisation |
+| T7 | Modal periods | Independent MIDAS eigen model of the same structure: **same boundary conditions** (springs, bearings), **same mass source** (self weight + SDL, mass type stated: lumped or consistent), same stiffness assumptions | Modes paired by MAC ≥ 0.9 and the same dominant direction; compare only paired modes with effective mass ≥ 5 % in some direction; relative difference of T | 3 % | Modal periods depend on mass and stiffness representation (lumped vs consistent, rigid link mass, discretisation). 3 % separates those from real errors. **Unpaired or physically different modes are not compared;** mode order alone is not pairing | Check the mass source, boundary conditions and rigid-link mass. A mode in one model with no partner in the other is a finding to explain, not a tolerance pass |
+| T8 | Member actions and reactions vs closed form (simply supported beam, single girder, uniform load / point load) | Closed-form solution | Relative difference at control points (midspan M, support V / R) | 2 % | Grillage of one girder should reproduce beam theory closely; 2 % allows shear deformation and discretisation | Find the stiffness / connectivity / load-position error |
+| T9 | Grillage distribution vs refined model (multi-girder, skew) | Independent MIDAS grillage or plate model; Hambly-type benchmark cases | Relative difference of governing actions | 5 % | Grillage idealisation (transverse stiffness, torsion) legitimately differs from refined models; 5 % is a typical engineering band. **To be confirmed by the engineer per case** | Investigate the idealisation. A larger difference may be acceptable only by recorded engineer decision |
+| T10 | Integrated model (substructure, springs) vs independent MIDAS model | Independent MIDAS model built from the same bridge description | Bearing, pile and headstock actions per case | 2 % (actions), 3 % (periods, see T7) | Same idealisation in both models, so differences should be small | As T8; boundary conditions first |
+| T11 | Design capacities and stresses | Published / worked examples (each example referenced) | Relative difference of Mu, Vu, Tu, stresses, **and of the intermediate quantities** (dn, ku, strain) | 1 % | Strain-compatibility calculations are exact apart from fibre discretisation. Intermediate quantities must agree too: matching Mu with a different neutral axis (E-1) is a **failure** | Fix the engine before any design use |
+| T12 | Pile head stiffness vs closed form (Hetenyi) | Beam on elastic foundation | Relative difference | 5 % (provisional) | The discretised spring model approximates a continuous foundation; measured 1.5 % on BR13A | Refine the spring spacing; check the soil input |
+| T13 | Uniform temperature free elongation (girder with one free bearing) | αΔTL | Ratio | ±1 % | Measured −0.05 % … +0.49 % on BR13A; restraint from bearings and piles is small but not zero | Check the bearing restraint and link stiffness |
 
-- **Build:** reproducible. sha256 of `dist/` = delivered v45 (`710b259d2c7117d0…`).
-- **Schema tests** (`python3 tests/schema/test_schema.py`): 17 PASS, 0 FAIL.
-- **Engine worked-example scripts** (print only, no asserts):
-  - `dsg_test` ULS: Mu 68971 vs target 68979 (0.01 %). **However** dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (**about 8 % off**). The moment agrees but the neutral axis does not. **Open item E-1.**
-  - `dsg_t2` (γ = 0.7 variant): Mu 68214.6 vs 68978.9 (1.1 %); dn 259.9 vs 240.9.
-  - `dsg_t3` Ms 39591 vs 39590.6 ✓; `dsg_t4` 1.2 Mcr 40802 ✓.
-- **Browser scripts** (print only):
-  - `sub_t`: pile head stiffness 2740.35 vs Hetenyi hand 2700.14 kN/m (1.5 %);
-  - `sl_t`: spring sums = applied (EP 22.2 / −21.5);
-  - `tm_t`: chord elongation ratio ≈ 1.00;
-  - `dg36_t`: runs, no errors, Mu 18326, LC4 sh.uL 0.383.
-- **Not run in this session:** `eq_t`, `rx_t`, `wd_t`, `tg_t`, `x_t`, `gw_t`, `soil_t`, `dgxl_t`, `dgdoc_t`. They passed visual checks when their features were built, but they are not re-verified here.
+**Recording rule:** every test result records the row number (T1–T13), the benchmark used and the measured value. It does not record only pass / fail.
 
-**What is missing:**
-- assertions (most tests only print);
-- a regression snapshot (V3);
-- an independent MIDAS model of the integrated structure (V4);
-- automatic model checks (V2);
-- the four geometry cases (§3).
+## 5. Current state of the tests (executed 2026-10-23)
+
+- **Branch and code:** branch `p0.1-baseline`. The dashboard code is identical to step-b2-br13a `42dcec7`. Build sha256 `710b259d2c71…` (= v45).
+- **The full record is in** `baseline/BR13A/test_run.md`: every script, its command, exit code, time and last output lines.
+- **Assertion tests:**
+  - schema: PASS (see `test_run.md`);
+  - baseline comparator: 8 PASS / 0 FAIL;
+  - baseline live (`BASELINE_LIVE=1`): the current build reproduces the reference exactly (0 differences in 953 quantities), and a perturbed input (girder E +3.4 %) is detected (755 differences).
+- **Baseline consistency checks** (`baseline/BR13A/snapshot.json`): 14 PASS, 1 FAIL (H-2, SVG drawn with NaN / Infinity).
+- **Print-only scripts:** they complete or fail with errors. **They do not assert;** completing is not a pass. Values worth noting:
+  - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
+  - `sub_t`: 2740.35 vs 2700.14 kN/m.
+- **Missing:**
+  - assertions in the browser and engine scripts;
+  - an independent MIDAS model of the integrated structure (T10);
+  - the P1 geometry cases (T2–T3);
+  - automatic V2 model checks on every build.
 
 ## 6. Gates before design use
 

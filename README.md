@@ -19,6 +19,7 @@ This repository is the start of a reusable platform for single-span Super-T and 
 - `docs/DECISIONS.md`: platform decisions (ADRs);
 - `docs/CURRENT_STATUS.md`: branches, what works, known issues;
 - `docs/BRIDGE_DESCRIPTION_FORMAT.md` + `schema/`: the bridge description format; `projects/BR13A/`: BR13A in that format.
+- `baseline/BR13A/`: P0.1 regression baseline of the current software (indicative values, not verified results); `docs/MERGE_REVIEW.md`: branches awaiting review.
 
 > Status: BR13A-specific. Many values and rules are still tied to BR13A (see `docs/BR13A_SPECIFIC.md`). Values not in the drawing set are tagged **Assumed** in the dashboard and listed in its Needs Review tab. None of them are drawing values.
 
@@ -48,7 +49,7 @@ OUT=/tmp/x.html ./build.sh       # other output path
 The tests are browser runs: Playwright drives Chromium on the built file. Set `DASH=/path/to/file.html` to test another build. Screenshots go to `tests/shots/`.
 
 ```bash
-npm i -D playwright@1            # once; set PLAYWRIGHT_BROWSERS_PATH or executablePath for Chromium
+npm i -D playwright@1            # once (or NODE_PATH to an existing install); Chromium path via executablePath / CHROMIUM
 node tests/sub_t.js              # integrated model: pile head stiffness 2740 vs Hetenyi 2700 kN/m
 node tests/sl_t.js               # earth pressure / braking / centrifugal: spring sums = applied loads
 node tests/soil_t.js             # soil levels along the columns
@@ -62,6 +63,9 @@ node tests/gw_t.js               # deck width along each girder, Hog length from
 node tests/dg36_t.js             # girder definition tab + design re-run
 node tests/engine/dsg_test.js    # section engine vs the worked example (prints model vs target)
 python3 tests/schema/test_schema.py   # bridge description format: examples, BR13A file, rejection cases (pass/fail)
+python3 tests/baseline/test_baseline.py              # baseline comparator (pass/fail); BASELINE_LIVE=1 adds a live run + perturbation (~4 min)
+node tools/baseline_snapshot.js --out /tmp/now.json && python3 tools/compare_snapshot.py baseline/BR13A/snapshot.json /tmp/now.json
+python3 tools/run_suite.py                           # run every script; record in baseline/BR13A/test_run.md
 ```
 
 - Most tests print values against their hand or target values; turning them into pass/fail assertions is on the roadmap.

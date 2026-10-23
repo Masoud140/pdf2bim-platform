@@ -1,6 +1,6 @@
 # Current status — 2026-10-23
 
-**Stage:** P0 (audit, architecture, verification plan). No code refactor has started.
+**Stage:** P0.1 (BR13A baseline) completed, awaiting review. Next: P0.2 format 0.2, then P0.3 standards framework, then P1 geometry (plan in `P1_GEOMETRY_PLAN.md`). No code refactor has started.
 
 ## Branches
 
@@ -9,7 +9,8 @@
 | `main` | 8a60b74 | Step A (sources, build, tests) + B1 (format) | protected by rule: merge only after review |
 | `step-b1-format` | 8a60b74 | same as main | merged |
 | `step-b2-br13a` | 42dcec7 | B2 BR13A description, v45 one Super-T definition, review brief | **awaiting review / merge** |
-| `docs/p0-architecture` | (this branch) | P0 docs: architecture, principles, verification, decisions, status | awaiting review |
+| `docs/p0-architecture` | 7d00263 | P0 docs: architecture, principles, verification, decisions, status | awaiting review |
+| `p0.1-baseline` | (this branch) | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
 
 ## What works today (BR13A)
 
@@ -38,8 +39,17 @@
 | A-1 | Extraction (agent spec, Excel takeoff) is not connected to the bridge description | A |
 | H-1 | No decision UI; decisions are written by hand / script | H |
 | R-1 | 177 Assumed values in BR13A need engineer decisions or data | data |
-| X-1 | `schema/__pycache__` was committed (removed on this branch) | repo |
+| X-1 | `schema/__pycache__` was committed (removed in 7d00263) | repo |
+| H-2 | Plots drawn with NaN / Infinity coordinates: 88 SVG console errors per baseline run (baseline check `chk.no_svg_nan` fails) | H |
+| D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
 
-## Next task (proposed, awaiting agreement)
+## Baseline (P0.1)
 
-**P0.1 BR13A baseline regression snapshot.** See `ROADMAP.md`.
+- `baseline/BR13A/`: the reference snapshot (953 indicative quantities, 15 consistency checks: 14 PASS, 1 FAIL H-2), a readable summary, the test-run record and reproduction commands.
+- All quantities are **indicative**. None is a verified reference result yet.
+
+## Next tasks (proposed, awaiting the owner's go)
+
+1. **P0.2:** implement format 0.2 (`FORMAT_0_2_SPEC.md`).
+2. **P0.3:** implement the standards-data framework, with all content `code-extracted-unverified` (`STANDARDS_DATA_SPEC.md`).
+3. **P1:** geometry engine in Python (`P1_GEOMETRY_PLAN.md`).
