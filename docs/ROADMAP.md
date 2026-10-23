@@ -1,15 +1,18 @@
-# Roadmap — from the BR13A dashboard to a reusable single-span platform
+# Roadmap (re-sequenced 2026-10-23) — see docs/REVIEW_BRIEF.md section 7 for the acceptance tests
 
-- **A. Done:** sources, reproducible build, tests and notes in one repository.
-- **B. Bridge description file and decision log.**
-  - **Description file:** one JSON file holds every value with its tag (Direct / Calculated / Assumed / Engineer / Standard), source sheet and status.
-  - **Decision log:** every change records who, what, from and to, why, when, and which results went out of date.
-  - **First example:** BR13A.
-- **C. Callable library.** Split the engines (solver, loads, combinations, design, reports) into a library an agent can call without the browser. The dashboard becomes a viewer of the library.
-- **D. Model generator.** Build the grillage and substructure from the description (span, skew, curve, girder count and type, bearings, piles, soil), replacing the frozen MCT.
-- **E. Plank module.** Plank section library, grillage pattern (shear keys, transverse stressing) and design checks.
-- **F. Agent skills, one per stage.** Extract → describe → queries → model → analyse → combine → design → report. Engineer checkpoints sit between stages, with the Query Register as the gate.
-- **G. Pilot on a second bridge.** Preferably a plank bridge, to expose the remaining BR13A-specific rules.
-- **Throughout:**
-  - turn the tests into pass/fail assertions (hand checks, the ASBD comparison, the MIDAS round trip);
-  - keep one reviewed standards-parameters file checked against the licensed Standards.
+- **Done:**
+  - **A:** sources, build and tests in the repository.
+  - **B1:** bridge description format.
+  - **B2:** BR13A described in the format.
+  - **v45:** one Super-T definition; flange widths per girder.
+- **R0:** review and merge B2 + v45.
+- **R1 Geometry engine:** everything geometric, from the bridge description only.
+- **R2 Section engine:** Super-T T1–T5 + overrides, open / solid, flared flanges, composite, closed-cell torsion; product library.
+- **R3 Model builder:** grillage, bearings, substructure, piles and springs from the description. Members are tagged by role; MIDAS .mct is written out. Replaces the fixed BR13A .mct.
+- **R4 Callable library:** solver, loads, combinations, design and reports without the browser. The dashboard becomes a viewer / editor of a bridge file.
+- **R5 Standards file and product library:** each value checked once against the licensed Standards.
+- **R6 Extraction:** writes the bridge description and the Query Register; decisions in the dashboard.
+- **R7 Plank module.**
+- **R8 Pilot on a second, different bridge**, with no code change.
+- **R9 Agent skills per stage**, with engineer checkpoints.
+- **Throughout:** pass/fail tests, the BR13A regression kept green, Assumed values replaced as data arrive.
