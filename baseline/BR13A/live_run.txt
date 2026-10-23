@@ -1,0 +1,18 @@
+# run: 2026-10-23T05:02:44Z
+# commit: 2811b270df224cf47ff0220d07c6d8de82779ea0
+# command: BASELINE_LIVE=1 python3 tests/baseline/test_baseline.py
+PASS reference has quantities, checks and a run record
+PASS every quantity is tagged indicative with reasons
+PASS reference compared with itself: no differences
+PASS a 0.01 % change of one bearing reaction is detected (exact mode)  [[{'id': 'brg.A_L1.V.DLc', 'kind': 'value', 'ref': 738.657495448, 'new': 738.7313611975447, 'rel': 9.999999999997245e-05, 'tolerance': 'exact regression'}]]
+PASS the same change is within the provisional engineering tolerance
+PASS a 2 mm chord change fails engineering mode (1 mm tolerance)
+PASS a removed quantity is detected
+PASS a change in a consistency check's pass/fail is detected
+PASS live: snapshot of the current build runs  [snapshot: 953 quantities, 14/15 checks pass, 88 page errors, 104 s -> ../../../tmp/tmpkwlpw7_z/now.json
+CHECK FAIL chk.no_svg_nan 88 = 0]
+PASS live: current build reproduces the reference exactly  [0 differences, first: []]
+PASS live: perturbed input (girder E +3.4 %) is detected  [755 differences]
+
+11 passed, 0 failed
+# exit: 0

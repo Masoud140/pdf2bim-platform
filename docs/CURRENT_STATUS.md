@@ -49,6 +49,7 @@
 
 - `baseline/BR13A/`: the reference snapshot (953 indicative quantities, 15 consistency checks: 14 PASS, 1 FAIL H-2), a readable summary, the test-run record and reproduction commands.
 - All quantities are **indicative**. None is a verified reference result yet.
+- Latest full test run: `baseline/BR13A/test_run.md` (commit `2811b27`). Live baseline test: `baseline/BR13A/live_run.txt` (11/11 PASS). Audit: `P0.1_AUDIT_REPORT.md`.
 
 ## Next tasks (proposed, awaiting the owner's go)
 

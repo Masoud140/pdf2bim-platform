@@ -12,7 +12,8 @@
 | Last commit (pushed) | see `git log -1 origin/p0.1-baseline`. The P0.1 work is commit `a46b21e`; the commit that adds this file follows it | `git fetch` + `git ls-remote origin p0.1-baseline` equals the local HEAD |
 | Dashboard build | `./build.sh` → sha256 `710b259d2c7117d0…` (v45) | rebuilt and hashed |
 | Baseline | `baseline/BR13A/snapshot.json`, 953 quantities; 15 checks: 14 PASS, 1 FAIL (H-2) | 2 runs identical; live test reproduced the reference exactly; perturbed input detected |
-| Tests | `baseline/BR13A/test_run.md` (every script, exit codes) | `python3 tools/run_suite.py` |
+| Tests | `baseline/BR13A/test_run.md` (full run on `2811b27`: 2 asserting files 25/25 PASS; 18 scripts print-only, all ran) and `baseline/BR13A/live_run.txt` (11/11 PASS on `2811b27`) | `python3 tools/run_suite.py`; live test log |
+| Audit | `docs/P0.1_AUDIT_REPORT.md`: verdict partially verified (software reproducible; nothing independently verified) | audit of a46b21e, 5392777, 2811b27 |
 
 **Branch stack:** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline`.
 - **Not merged; the owner controls `main`** (ADR-013).
