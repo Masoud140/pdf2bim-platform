@@ -29,6 +29,13 @@ bad = [
 ]
 for name, f in bad:
     x = copy.deepcopy(ex); f(x); check('rejects: ' + name, False, list(B.iter_errors(x)))
+import glob
+for f in sorted(glob.glob(os.path.join(R, 'projects', '*', '*.bridge.json'))):
+    check('project file valid: ' + os.path.relpath(f, R), True, list(B.iter_errors(json.load(open(f)))))
+    lf = f.replace('.bridge.json', '.decisions.jsonl')
+    if os.path.exists(lf):
+        errs = [e for l in open(lf) for e in D.iter_errors(json.loads(l))]
+        check('project decision log valid: ' + os.path.relpath(lf, R), True, errs)
 d = json.loads(open(os.path.join(R, 'examples/new_bridge.decisions.jsonl')).readline())
 x = dict(d, from_tag='Direct'); check('rejects: overruling a Direct value without evidence', False, list(D.iter_errors(x)))
 x = dict(d); x.pop('approved_by'); check('rejects: accepted decision without approver', False, list(D.iter_errors(x)))
