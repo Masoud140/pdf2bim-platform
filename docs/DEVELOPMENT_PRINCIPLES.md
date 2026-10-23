@@ -61,3 +61,28 @@ A module is done when:
 - it does not depend on BR13A names;
 - its results carry a run record (`ARCHITECTURE.md` §2);
 - its documentation is updated.
+
+## 5. Progress saving and recovery (approved 2026-10-23, ADR-016)
+
+**Purpose:** any session can stop at any time, and the next session resumes from the last verified checkpoint without the owner repeating history.
+
+1. **Save incrementally.** During every substantial task, commit and push the working branch at each checkpoint: a completed step, a passing test, a written document, or before any long run. Do not keep more than about one hour of work only on the local disk.
+2. **What a checkpoint contains:**
+   - the code / docs;
+   - the test results actually executed (command + outcome), recorded in the repository;
+   - an updated `docs/CURRENT_STATUS.md`.
+3. **Verify the save.** After a push, confirm that `git ls-remote origin <branch>` equals the local `HEAD`. Only then report that something is saved to GitHub. If the push fails, say so and keep the work on the local branch.
+4. **End of session:**
+   - update `docs/NEXT_SESSION.md` (last verified checkpoint, stage status, next action, open questions, setup commands);
+   - update `docs/CURRENT_STATUS.md`;
+   - commit and push them;
+   - update the Claude Project memory (`areas/platform-architecture.md`) and the project doc `claude/SOURCE_REPOSITORY.md` with the branch and commit.
+5. **Start of session:**
+   - read `docs/NEXT_SESSION.md` and `CURRENT_STATUS.md`;
+   - `git fetch` and check the branch heads against them;
+   - check for uncommitted work;
+   - rebuild and run the fast tests before changing anything.
+6. **Never discard work.**
+   - No `reset --hard`, no force-push, no deleting branches.
+   - Unfinished work is committed on its branch with "WIP:" in the message rather than lost.
+7. **Long runs:** results of long test runs are written to files in the repository (for example `baseline/BR13A/test_run.md`) and committed, so they survive the session.

@@ -21,6 +21,7 @@
 | 013 | `main` is controlled by the owner; no merges by the agent | accepted | 2026-10-23, owner |
 | 014 | The BR13A baseline is a regression reference, not a verified result | accepted | 2026-10-23, owner |
 | 015 | First implementation task is P0.1 (baseline) before P1 geometry | accepted, P0.1 done | 2026-10-23, owner |
+| 016 | Progress saving and recovery policy | accepted | 2026-10-23, owner |
 
 ---
 
@@ -153,3 +154,11 @@
 - **Decision (owner, 2026-10-23):** P0.1 (baseline) before P1 (geometry in Python).
 - The substantial Python geometry work starts only after the baseline and the architecture decisions are documented and the P1 plan is reviewed.
 - **Proposed sequence:** P0.1 → (review) → P0.2 format 0.2 → P0.3 standards framework → P1. P0.2 / P0.3 may run before or alongside P1 at the owner's choice.
+
+## ADR-016 Progress saving and recovery
+
+- **Decision (owner, 2026-10-23):**
+  - Progress is saved incrementally throughout every substantial task (commit and push at checkpoints).
+  - At the end of each session, the next session must be able to resume from the last verified checkpoint without asking the owner to repeat history.
+  - A save to GitHub is reported only after it is verified against the remote.
+- **Implementation:** `DEVELOPMENT_PRINCIPLES.md` §5; `docs/NEXT_SESSION.md` (resume point) and `docs/CURRENT_STATUS.md`; Claude Project memory and `claude/SOURCE_REPOSITORY.md` updated at session end.

@@ -12,6 +12,7 @@ The source of the BR13A offline dashboard (`dist/BR13A_grillage_dashboard.html`,
 This repository is the start of a reusable platform for single-span Super-T and plank bridges (PDF → bridge description → model → analysis → AS 5100 design → reports). BR13A is the first regression case, not a template.
 
 **Start here:**
+- `docs/NEXT_SESSION.md`: resume point (last verified checkpoint, next action, open questions);
 - `docs/ARCHITECTURE.md`: target layers A–H, and the current code mapped against them;
 - `docs/DEVELOPMENT_PRINCIPLES.md`: engineering and repository rules, the 10-step stage process;
 - `docs/VERIFICATION_STRATEGY.md`: test levels, tolerances, latest executed results;

@@ -1,5 +1,7 @@
 # Current status — 2026-10-23
 
+**Resume point:** `NEXT_SESSION.md`.
+
 **Stage:** P0.1 (BR13A baseline) completed, awaiting review. Next: P0.2 format 0.2, then P0.3 standards framework, then P1 geometry (plan in `P1_GEOMETRY_PLAN.md`). No code refactor has started.
 
 ## Branches
@@ -10,7 +12,7 @@
 | `step-b1-format` | 8a60b74 | same as main | merged |
 | `step-b2-br13a` | 42dcec7 | B2 BR13A description, v45 one Super-T definition, review brief | **awaiting review / merge** |
 | `docs/p0-architecture` | 7d00263 | P0 docs: architecture, principles, verification, decisions, status | awaiting review |
-| `p0.1-baseline` | (this branch) | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
+| `p0.1-baseline` | a46b21e + later docs commits (see `git log`) | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
 
 ## What works today (BR13A)
 
