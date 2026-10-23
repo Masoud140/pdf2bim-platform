@@ -69,6 +69,7 @@ node tests/engine/dsg_test.js    # section engine vs the worked example (prints 
 | `src/dsg_xl.js`, `dsg_rep.js`, `dsg_calc.js`, `dsg_docx.js`, `xlw.js` | Excel, HTML and Word reports |
 | `src/srf.js` | Properties → Girder definition tab (strands, debonding, bars, zones, fitments) |
 | `src/srf2.js` | Deck width along each girder (straight between bearings); Hog length and offset follow the model (v44) |
+| `src/gdef.js` | One Super-T definition: Section designer shape → Hog section "Girder definition" → design; flange widths per girder (gap, edge setback) (v45) |
 | `src/sub.js` | Integrated model: bearings, piles, rock and soil springs, soil levels and layers, hand check (v37–v39) |
 | `src/sub2.js` | Earth pressure, traffic surcharge, braking, centrifugal (v38) |
 | `src/sub3.js` | Uniform temperature; bearing deformation helper `brgDef` (v39) |

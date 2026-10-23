@@ -16,7 +16,7 @@ function slGeom(){ var M=AN.parseMCT(document.getElementById('an_mct_src').textC
     out.abs[a]={nodes:ord, s:ord.map(s), t:t, len:tl, c:[pts.reduce(function(a2,q){ return a2+q[0]; },0)/pts.length, pts.reduce(function(a2,q){ return a2+q[1]; },0)/pts.length]}; });
   ['A','B'].forEach(function(a){ var o=out.abs[a], other=out.abs[a==='A'?'B':'A']; if(!o||!other) return; var n=[-o.t[1],o.t[0]], v=[other.c[0]-o.c[0],other.c[1]-o.c[1]]; if(n[0]*v[0]+n[1]*v[1]<0) n=[-n[0],-n[1]]; o.n=n; });
   /* retained height: headstock depth + bearing zone + girder + deck + surfacing */
-  var gd=1.515, tD=(typeof P!=='undefined'&&P.slab)||0.2, ts=(typeof P!=='undefined'&&P.surf)||0.075;
+  var gd=(typeof gdDepth==='function'?gdDepth():1.515), tD=(typeof P!=='undefined'&&P.slab)||0.2, ts=(typeof P!=='undefined'&&P.surf)||0.075;
   ['A','B'].forEach(function(a){ var H=d+SL.hBrg+gd+tD+ts; out.abs[a]&&(out.abs[a].Hc=H, out.abs[a].H=(SL.Hov[a]>0?SL.Hov[a]:H)); });
   out.parts={d:d,gd:gd,tD:tD,ts:ts}; return out; }
 function slK(){ var f=SL.phi*Math.PI/180; return SL.kmode==='Ka'?(1-Math.sin(f))/(1+Math.sin(f)):1-Math.sin(f); }

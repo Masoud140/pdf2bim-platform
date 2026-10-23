@@ -1,6 +1,6 @@
 """BR13A — one-off migration of the v44 dashboard state into the bridge description format (step B2).
 
-Input : projects/BR13A/source/dashboard_v44_state.json  (tools/dump_dashboard_state.js)
+Input : projects/BR13A/source/dashboard_v45_state.json  (tools/dump_dashboard_state.js)
 Output: projects/BR13A/BR13A.bridge.json and BR13A.decisions.jsonl
 
 This converter is BR13A-specific on purpose: it moves the first bridge into the general format. New bridges are
@@ -11,7 +11,7 @@ Rules kept: every value keeps the tag it had in the dashboard; template / placeh
 import json, os, re, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-S = json.load(open(os.path.join(HERE, 'source', 'dashboard_v44_state.json')))
+S = json.load(open(os.path.join(HERE, 'source', 'dashboard_v45_state.json')))
 NOW = '2026-10-23T13:00:00+11:00'
 DOCS = {}
 DEC = []
@@ -23,12 +23,13 @@ def doc_of(*texts):
             n = m.group(1); DOCS.setdefault('DRG-' + n, {'id': 'DRG-' + n, 'number': n, 'kind': 'drawing', 'revision': '02'}); return 'DRG-' + n
     return 'GA-Rev02'
 
-def dec(key, to, to_tag, reason, by='Engineer', frm=None, from_tag=None, status='accepted', affects=None, evidence=None, approved_by='Masoud', date=NOW, note=None):
+def dec(key, to, to_tag, reason, by='Engineer', frm=None, from_tag=None, status='accepted', affects=None, evidence=None, approved_by='Masoud', date=NOW, note=None, supersedes=None):
     i = 'D-%d' % (len(DEC) + 1)
     e = {'id': i, 'date': date, 'by': by, 'key': key, 'from': frm, 'from_tag': from_tag, 'to': to, 'to_tag': to_tag, 'reason': reason, 'status': status}
     if status == 'accepted': e.update(approved_by=approved_by, approved_at=date)
     if affects: e['affects'] = affects
     if evidence: e['evidence'] = evidence
+    if supersedes: e['supersedes'] = supersedes
     DEC.append(e); return i
 
 def V(value, unit, tag, doc=None, view=None, text=None, note=None, formula=None, inputs=None, ref=None, decision=None, replace=None, status=None):
@@ -132,6 +133,15 @@ B['deck'] = {
 # ---------------- superstructure ----------------
 D_STRAIGHT = dec('superstructure.members[*].straight', True, 'Input-user', 'Engineer choice for the girder definition: girders straight between their bearings; shared strands/zones with per-girder width', affects=['design.supert'])
 D_HOG = dec('superstructure.members[*].length', 'from the model girder line', 'Calculated', 'Hog beam length and bearing offset follow the model (was 34950 / 530 mm from the workbook template). Done in v44 on the engineer request "do from top to bottom".', by='AI', from_tag='Assumed', frm=34950, affects=['design.supert'])
+D_SEC = dec('superstructure.supert_types[ST1].section', 'lib:supert/1500', 'Input-user',
+            'CONFLICT: the GA says four 1515 deep PSC Super-T girders and the grillage uses 1515 mm, but the Hog / design section is the workbook template "1825 Super-T". AI proposes the 1500 Super-T product section (to be confirmed against DRG 202301–303), then re-run the design.',
+            by='AI', frm='lib:supert/1825', from_tag='Assumed', status='superseded', evidence=['GA-Rev02 title / header', 'model girder sections G1–G4 (1515 mm)'], affects=['design.supert', 'reports'])
+D_ONE = dec('superstructure.supert_types[ST1]', 'one Super-T definition: Girder definition (Section designer shape from DRG 202304, T4 with depth 1515, flange 90, bottom flange 265); the Hog analysis, design checks, earth pressure and wind use it', 'Direct',
+            'Engineer instruction 2026-10-23 14:30: one place to define the Super-T, every analysis and design uses it. Replaces the Hog template 1825 section and the proposal ' + D_SEC + '.',
+            frm='lib:supert/1825', from_tag='Assumed', supersedes=None, evidence=['DRG-202304'], affects=['analysis.static', 'analysis.modal', 'design.supert', 'loads', 'reports'], date='2026-10-23T14:30:00+11:00')
+D_FLARE = dec('superstructure.members[*].flange_edges', 'edge girder outer flange flares with the deck edge; widths from the model geometry, girders straight between bearings', 'Calculated',
+            'Engineer instruction 2026-10-23 14:30 / 14:36: the outer flange edge of G1 and G4 lines up exactly with the deck edge; widths calculated from the grillage geometry', date='2026-10-23T14:36:00+11:00', affects=['analysis.static', 'design.supert'])
+D_GAP = dec('superstructure.flange_gap', S['GD']['gap'], 'Calculated', 'Engineer 2026-10-23 14:36: the gap between flanges is a field the engineer can change; default = spacing − flange width', date='2026-10-23T14:36:00+11:00', affects=['analysis.static', 'design.supert'])
 mem = []
 for g in S['gw']:
     k = g['k']
@@ -142,28 +152,30 @@ for g in S['gw']:
                 'length': V(round(g['Ltot'], 3), 'm', 'Calculated', formula='length of the model girder line, deck end to deck end', inputs=['alignment', 'deck', 'alignment.support_lines'], decision=D_HOG),
                 'bearing_offset_A': V(round(g['sA'] * 1000), 'mm', 'Calculated', formula='girder end to bearing node along the model girder line', inputs=['bearings']),
                 'bearing_offset_B': V(round((g['Ltot'] - g['sB']) * 1000), 'mm', 'Calculated', formula='girder end to bearing node along the model girder line', inputs=['bearings']),
-                'type_ref': V('ST1', None, 'Model', note='all four girders use one type definition; per-girder deck width along the length (girder definition)')})
-hog, sec = S['hog'], S['DGsec']
-D_SEC = dec('superstructure.supert_types[ST1].section', 'lib:supert/1500', 'Input-user',
-            'CONFLICT: the GA says four 1515 deep PSC Super-T girders and the grillage uses 1515 mm, but the Hog / design section is the workbook template "1825 Super-T". AI proposes the 1500 Super-T product section (to be confirmed against DRG 202301–303), then re-run the design.',
-            by='AI', frm='lib:supert/1825', from_tag='Assumed', status='proposed', evidence=['GA-Rev02 title / header', 'model girder sections G1–G4 (1515 mm)'], affects=['design.supert', 'reports'])
+                'type_ref': V('ST1', None, 'Model', note='all four girders use one type definition; per-girder flange and deck width along the length (girder definition)'),
+                'flange_edges': {'rows': [row({'t': q['t'], 'left': round(q['L'], 1), 'right': round(q['R'], 1), 'deck_width': round(q['deck'], 1)}, 'Calculated',
+                                              formula='inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder', inputs=['alignment', 'deck.edge_left', 'deck.edge_right', 'bearings', 'superstructure.flange_gap', 'superstructure.edge_flange_setback'], decision=D_FLARE)
+                                          for q in next(f for f in S['flange'] if f['k'] == k)['pts']]}})
+hog, sec, SG = S['hog'], S['DGsec'], S['secGeo']
 on = [t for t in hog['S'] if t.get('on')]
 B['superstructure'] = {
     'type': V('super-t', None, 'Direct', doc='GA-Rev02', view=hdr, text='four 1515 deep PSC Super-T girders'),
     'spans': V(1, None, 'Direct', doc='GA-Rev02', view=hdr, text='30 m single span'),
     'members': mem,
+    'flange_gap': V(S['GD']['gap'], 'mm', 'Calculated' if S['GD']['gapUser'] is None else 'Input-user', formula='girder spacing − nominal flange width (dashboard parameters gspac − flange)', inputs=['custom.dashboard_parameters/gspac', 'custom.dashboard_parameters/flange'], decision=D_GAP),
+    'edge_flange_setback': V(S['GD']['setback'], 'mm', 'Input-user', decision=D_FLARE),
     'supert_types': [{
         'id': 'ST1',
-        'section': V('lib:supert/1825', None, 'Assumed', note='Hog Calculator workbook template section ("1825 Super-T"), not read from BR13A — conflicts with the 1515 mm girders on the GA; see ' + D_SEC, replace='Super-T type on DRG 202301–303 (decision ' + D_SEC + ' proposed)', status='open'),
-        'depth': V(1515, 'mm', 'Direct', doc='GA-Rev02', view=hdr, text='1515 deep', note='The design section currently in the dashboard is 1825 deep — open conflict ' + D_SEC),
-        'top_flange_width': V(round(P['flange'] * 1000, 1), 'mm', 'Calculated', formula=META['flange'][0], inputs=['custom.dashboard_parameters/flange']),
+        'section': V('lib:supert/T4', None, 'Standard-verify', ref='lib:supert/T4', decision=D_ONE, note='T4 family from the product table; the dimensions that differ are Direct overrides from DRG 202304 (custom.supert_shape)'),
+        'depth': V(SG['D'], 'mm', 'Direct', doc=doc_of('202304'), view='DRG 202304 girder section', text='1515', decision=D_ONE),
+        'top_flange_width': V(round(P['flange'] * 1000, 1), 'mm', 'Calculated', formula='nominal flange width = girder spacing − flange gap (members carry the flared widths along their length)', inputs=['custom.dashboard_parameters/gspac', 'superstructure.flange_gap']),
         'concrete_transfer': V(hog['p']['fci'], 'MPa', 'Assumed', note='Hog template value', decision=D_STATE, replace='girder drawings / specification'),
         'concrete_28d': V(sec['fcg'], 'MPa', 'Input-user', decision=D_MAT),
         'strand_pattern': {'rows': [row({'y': t['y'], 'x': t['x'], 'diameter': hog['p']['db'], 'debond_left': t.get('d') or 0, 'debond_right': t.get('d2') or 0, 'on': bool(t.get('on'))}, 'Assumed',
-                                        note='Hog workbook template strand pattern', replace_with='girder drawings (strand pattern / debonding not in this set)') for t in hog['S']],
-                           'note': '%d positions, %d strands on — template, not BR13A' % (len(hog['S']), len(on))},
+                                        note='TfNSW standard layout for the T4 (1500) family, used as a placeholder', replace_with='girder drawings (strand pattern / debonding not in this set)') for t in hog['S']],
+                           'note': '%d positions, %d strands on — standard T4 layout as a placeholder, not the BR13A pattern' % (len(hog['S']), len(on))},
         'jacking_ratio': V(hog['p']['ji'], None, 'Assumed', note='Hog template value', decision=D_STATE, replace='girder drawings / specification'),
-        'bars': {'rows': [row({'y': b['y'], 'diameter': b['d'], 'number': 1, 'from': None, 'to': None}, 'Assumed', note='Hog workbook template bar at x = %s' % b['x'], replace_with='girder drawings') for b in hog['B']]},
+        'bars': {'rows': [row({'y': b['y'], 'diameter': b['d'], 'number': 1, 'from': None, 'to': None}, 'Assumed', note='Hog default bar for the T4 family at x = %s' % b['x'], replace_with='girder drawings') for b in hog['B']]},
         'fitments': {'rows': [], 'note': 'Not entered — Missing'},
         'zones': {'rows': [], 'note': 'No solid end zones defined — Missing'},
         'deck_bars': {'rows': [row({'face': d['pos'], 'diameter': d['d'], 'spacing': d['s'], 'cover': d['c']}, 'Missing-Flagged') for d in sec['dbars']]},
@@ -287,7 +299,12 @@ def takeoff(rows, name):
             out.append(row({'row': r[0], 'group': r[1], 'item': r[2], 'symbol': r[3], 'unit': r[4], 'support': ab, 'value': r[i]}, tag, **kw))
     return {'section': 'supports', 'columns': {'row': '', 'group': '', 'item': '', 'symbol': '', 'unit': '', 'support': '', 'value': ''}, 'rows': out,
             'note': 'Every row of the BR13A takeoff workbook tab, both supports, with its tag and note (migrated from the dashboard DATA).'}
+TAGS_SD = {'D': 'Direct', 'S': 'Standard-verify'}
 B['custom'] = {
+    'supert_shape': {'section': 'superstructure', 'columns': {'key': '', 'name': '', 'value': '', 'unit': ''},
+                     'rows': [row({'key': k, 'name': n, 'value': SG.get(k), 'unit': u}, TAGS_SD[S['STAG'][k]], **({'doc': doc_of('202304'), 'view': 'DRG 202304 girder section (Section designer)'} if S['STAG'][k] == 'D' else {'ref': 'lib:supert/T4/' + k}))
+                              for k, n, _, u in S['SROWS'] if k in S['STAG']],
+                     'note': 'The one Super-T definition (Girder definition → Section shape): T4 family with the DRG 202304 values; A = %.0f mm2, centroid %.1f mm above the soffit' % (SG['A'], SG['yb'])},
     'takeoff_abutments': takeoff(ABT, 'takeoff_abutments'),
     'takeoff_piles': takeoff(PIL, 'takeoff_piles'),
     'dashboard_parameters': {'section': 'alignment', 'columns': {'key': '', 'label': '', 'unit': '', 'value': ''},

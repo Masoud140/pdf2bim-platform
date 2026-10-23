@@ -79,6 +79,8 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.type` | enum |  | Superstructure type — one of: super-t, plank |
 | `superstructure.spans` | int |  | Number of spans (the platform covers 1) |
 | `superstructure.members[]` | list | | Girders or planks, ordered across the deck (fields below) |
+| `superstructure.flange_gap` | num | mm | Gap between adjacent precast top flanges |
+| `superstructure.edge_flange_setback` | num | mm | Outer flange edge of an edge member: setback from the deck edge (0 = lines up with the deck edge) |
 | `superstructure.supert_types[]` | list | | Super-T girder definitions (members refer to them) (fields below) |
 | `superstructure.plank_types[]` | list | | Plank definitions (fields below) |
 
@@ -93,6 +95,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.members[].bearing_offset_A` | num | mm | Bearing centre from the girder end at A |
 | `superstructure.members[].bearing_offset_B` | num | mm | Bearing centre from the girder end at B |
 | `superstructure.members[].type_ref` | str |  | Which girder type definition applies (id in supert_types / plank_types) |
+| `superstructure.members[].flange_edges` | table |  | Precast top flange edges from the member centreline along its length (t = 0 at bearing A, 1 at bearing B) — columns: t, left (mm), right (mm), deck_width (mm) |
 | `superstructure.members[].deck_width_override` | table |  | Width of deck acting with this member, overrides along its length — columns: t, width (mm) |
 
 #### `superstructure.supert_types[]` — each item has an `id` plus:

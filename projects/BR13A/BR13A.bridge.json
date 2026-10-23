@@ -624,9 +624,255 @@
      "value": "ST1",
      "tag": "Model",
      "source": {
-      "note": "all four girders use one type definition; per-girder deck width along the length (girder definition)"
+      "note": "all four girders use one type definition; per-girder flange and deck width along the length (girder definition)"
      },
      "status": "accepted"
+    },
+    "flange_edges": {
+     "rows": [
+      {
+       "cells": {
+        "t": 0,
+        "left": 1135.1,
+        "right": 1114.5,
+        "deck_width": 2264.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.1,
+        "left": 1039.7,
+        "right": 1120.2,
+        "deck_width": 2174.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.2,
+        "left": 965.6,
+        "right": 1126.0,
+        "deck_width": 2106.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.3,
+        "left": 912.8,
+        "right": 1131.7,
+        "deck_width": 2059.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.4,
+        "left": 881.3,
+        "right": 1137.5,
+        "deck_width": 2033.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.5,
+        "left": 870.9,
+        "right": 1143.3,
+        "deck_width": 2029.2
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.6,
+        "left": 881.8,
+        "right": 1149.0,
+        "deck_width": 2045.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.7,
+        "left": 913.9,
+        "right": 1154.8,
+        "deck_width": 2083.7
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.8,
+        "left": 967.2,
+        "right": 1160.6,
+        "deck_width": 2142.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.9,
+        "left": 1041.8,
+        "right": 1166.3,
+        "deck_width": 2223.1
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 1,
+        "left": 1136.6,
+        "right": 1172.1,
+        "deck_width": 2323.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      }
+     ]
     }
    },
    {
@@ -706,9 +952,255 @@
      "value": "ST1",
      "tag": "Model",
      "source": {
-      "note": "all four girders use one type definition; per-girder deck width along the length (girder definition)"
+      "note": "all four girders use one type definition; per-girder flange and deck width along the length (girder definition)"
      },
      "status": "accepted"
+    },
+    "flange_edges": {
+     "rows": [
+      {
+       "cells": {
+        "t": 0,
+        "left": 1111.4,
+        "right": 1114.6,
+        "deck_width": 2256.0
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.1,
+        "left": 1117.1,
+        "right": 1120.4,
+        "deck_width": 2267.5
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.2,
+        "left": 1122.9,
+        "right": 1126.1,
+        "deck_width": 2279.0
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.3,
+        "left": 1128.6,
+        "right": 1131.8,
+        "deck_width": 2290.5
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.4,
+        "left": 1134.4,
+        "right": 1137.6,
+        "deck_width": 2302.0
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.5,
+        "left": 1140.1,
+        "right": 1143.3,
+        "deck_width": 2313.4
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.6,
+        "left": 1145.9,
+        "right": 1149.1,
+        "deck_width": 2324.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.7,
+        "left": 1151.6,
+        "right": 1154.8,
+        "deck_width": 2336.4
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.8,
+        "left": 1157.4,
+        "right": 1160.5,
+        "deck_width": 2347.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.9,
+        "left": 1163.1,
+        "right": 1166.3,
+        "deck_width": 2359.4
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 1,
+        "left": 1168.9,
+        "right": 1172.0,
+        "deck_width": 2370.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      }
+     ]
     }
    },
    {
@@ -788,9 +1280,255 @@
      "value": "ST1",
      "tag": "Model",
      "source": {
-      "note": "all four girders use one type definition; per-girder deck width along the length (girder definition)"
+      "note": "all four girders use one type definition; per-girder flange and deck width along the length (girder definition)"
      },
      "status": "accepted"
+    },
+    "flange_edges": {
+     "rows": [
+      {
+       "cells": {
+        "t": 0,
+        "left": 1111.5,
+        "right": 1114.9,
+        "deck_width": 2256.4
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.1,
+        "left": 1117.3,
+        "right": 1120.6,
+        "deck_width": 2267.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.2,
+        "left": 1123.0,
+        "right": 1126.3,
+        "deck_width": 2279.3
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.3,
+        "left": 1128.7,
+        "right": 1132.0,
+        "deck_width": 2290.7
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.4,
+        "left": 1134.4,
+        "right": 1137.7,
+        "deck_width": 2302.1
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.5,
+        "left": 1140.2,
+        "right": 1143.4,
+        "deck_width": 2313.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.6,
+        "left": 1145.9,
+        "right": 1149.1,
+        "deck_width": 2325.0
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.7,
+        "left": 1151.6,
+        "right": 1154.8,
+        "deck_width": 2336.4
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.8,
+        "left": 1157.3,
+        "right": 1160.5,
+        "deck_width": 2347.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.9,
+        "left": 1163.1,
+        "right": 1166.2,
+        "deck_width": 2359.3
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 1,
+        "left": 1168.8,
+        "right": 1171.9,
+        "deck_width": 2370.7
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      }
+     ]
     }
    },
    {
@@ -870,34 +1608,300 @@
      "value": "ST1",
      "tag": "Model",
      "source": {
-      "note": "all four girders use one type definition; per-girder deck width along the length (girder definition)"
+      "note": "all four girders use one type definition; per-girder flange and deck width along the length (girder definition)"
      },
      "status": "accepted"
+    },
+    "flange_edges": {
+     "rows": [
+      {
+       "cells": {
+        "t": 0,
+        "left": 1111.8,
+        "right": 1133.8,
+        "deck_width": 2260.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.1,
+        "left": 1117.5,
+        "right": 1224.0,
+        "deck_width": 2356.5
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.2,
+        "left": 1123.2,
+        "right": 1295.6,
+        "deck_width": 2433.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.3,
+        "left": 1128.9,
+        "right": 1347.0,
+        "deck_width": 2490.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.4,
+        "left": 1134.5,
+        "right": 1377.7,
+        "deck_width": 2527.3
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.5,
+        "left": 1140.2,
+        "right": 1388.0,
+        "deck_width": 2543.3
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.6,
+        "left": 1145.9,
+        "right": 1377.9,
+        "deck_width": 2538.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.7,
+        "left": 1151.6,
+        "right": 1347.3,
+        "deck_width": 2513.9
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.8,
+        "left": 1157.3,
+        "right": 1296.3,
+        "deck_width": 2468.6
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 0.9,
+        "left": 1163.0,
+        "right": 1224.8,
+        "deck_width": 2402.8
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      },
+      {
+       "cells": {
+        "t": 1,
+        "left": 1168.7,
+        "right": 1135.4,
+        "deck_width": 2319.0
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "derivation": {
+        "formula": "inner edge = half distance to the next girder chord − gap/2; outer edge of an edge girder = distance to the deck edge − setback; deck width = half distances / to the deck edge; square to the straight girder",
+        "inputs": [
+         "alignment",
+         "deck.edge_left",
+         "deck.edge_right",
+         "bearings",
+         "superstructure.flange_gap",
+         "superstructure.edge_flange_setback"
+        ]
+       },
+       "decision": "D-9"
+      }
+     ]
     }
    }
   ],
+  "flange_gap": {
+   "value": 30,
+   "tag": "Calculated",
+   "unit": "mm",
+   "derivation": {
+    "formula": "girder spacing − nominal flange width (dashboard parameters gspac − flange)",
+    "inputs": [
+     "custom.dashboard_parameters/gspac",
+     "custom.dashboard_parameters/flange"
+    ]
+   },
+   "decision": "D-10",
+   "status": "accepted"
+  },
+  "edge_flange_setback": {
+   "value": 0,
+   "tag": "Input-user",
+   "unit": "mm",
+   "decision": "D-9",
+   "status": "accepted"
+  },
   "supert_types": [
    {
     "id": "ST1",
     "section": {
-     "value": "lib:supert/1825",
-     "tag": "Assumed",
-     "source": {
-      "note": "Hog Calculator workbook template section (\"1825 Super-T\"), not read from BR13A — conflicts with the 1515 mm girders on the GA; see D-7"
-     },
-     "replace_with": "Super-T type on DRG 202301–303 (decision D-7 proposed)",
-     "status": "open"
+     "value": "lib:supert/T4",
+     "tag": "Standard-verify",
+     "note": "T4 family from the product table; the dimensions that differ are Direct overrides from DRG 202304 (custom.supert_shape)",
+     "ref": "lib:supert/T4",
+     "decision": "D-8",
+     "status": "accepted"
     },
     "depth": {
      "value": 1515,
      "tag": "Direct",
      "unit": "mm",
-     "note": "The design section currently in the dashboard is 1825 deep — open conflict D-7",
      "source": {
-      "doc": "GA-Rev02",
-      "view": "title block / dashboard header",
-      "text": "1515 deep"
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section",
+      "text": "1515"
      },
+     "decision": "D-8",
      "status": "accepted"
     },
     "top_flange_width": {
@@ -905,9 +1909,10 @@
      "tag": "Calculated",
      "unit": "mm",
      "derivation": {
-      "formula": "Top flange width",
+      "formula": "nominal flange width = girder spacing − flange gap (members carry the flared widths along their length)",
       "inputs": [
-       "custom.dashboard_parameters/flange"
+       "custom.dashboard_parameters/gspac",
+       "superstructure.flange_gap"
       ]
      },
      "status": "accepted"
@@ -935,22 +1940,6 @@
       {
        "cells": {
         "y": 60,
-        "x": -275,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": false
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 60,
         "x": -225,
         "diameter": 15.2,
         "debond_left": 0,
@@ -960,23 +1949,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 60,
-        "x": -175,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": false
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -992,7 +1965,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1008,7 +1981,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1024,7 +1997,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1040,7 +2013,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1056,7 +2029,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1072,23 +2045,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 60,
-        "x": 175,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": false
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1104,23 +2061,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 60,
-        "x": 275,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": false
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1131,12 +2072,12 @@
         "diameter": 15.2,
         "debond_left": 0,
         "debond_right": 0,
-        "on": false
+        "on": true
        },
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1152,7 +2093,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1168,7 +2109,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1184,7 +2125,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1200,7 +2141,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1216,7 +2157,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1232,7 +2173,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1248,7 +2189,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1264,7 +2205,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1280,7 +2221,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1296,7 +2237,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1307,12 +2248,12 @@
         "diameter": 15.2,
         "debond_left": 0,
         "debond_right": 0,
-        "on": false
+        "on": true
        },
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1323,12 +2264,12 @@
         "diameter": 15.2,
         "debond_left": 0,
         "debond_right": 0,
-        "on": false
+        "on": true
        },
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1344,7 +2285,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1360,7 +2301,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1376,7 +2317,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1392,7 +2333,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1408,7 +2349,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1424,7 +2365,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1440,7 +2381,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1456,7 +2397,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1472,7 +2413,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1488,7 +2429,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1499,12 +2440,12 @@
         "diameter": 15.2,
         "debond_left": 0,
         "debond_right": 0,
-        "on": false
+        "on": true
        },
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1520,7 +2461,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1536,7 +2477,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1552,7 +2493,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1568,7 +2509,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1584,7 +2525,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1600,7 +2541,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1616,7 +2557,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1632,7 +2573,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1648,7 +2589,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1664,7 +2605,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1680,7 +2621,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1696,7 +2637,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1712,167 +2653,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": -225,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": -175,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": -125,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": -75,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": -25,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": 25,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": 75,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": 125,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": 175,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 260,
-        "x": 225,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
@@ -1888,45 +2669,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
       {
        "cells": {
-        "y": 310,
-        "x": -225,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 310,
-        "x": 225,
-        "diameter": 15.2,
-        "debond_left": 0,
-        "debond_right": 0,
-        "on": true
-       },
-       "tag": "Assumed",
-       "status": "accepted",
-       "source": {
-        "note": "Hog workbook template strand pattern"
-       },
-       "replace_with": "girder drawings (strand pattern / debonding not in this set)"
-      },
-      {
-       "cells": {
-        "y": 1745,
+        "y": 1420,
         "x": -495,
         "diameter": 15.2,
         "debond_left": 0,
@@ -1936,13 +2685,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       },
       {
        "cells": {
-        "y": 1745,
+        "y": 1420,
         "x": 495,
         "diameter": 15.2,
         "debond_left": 0,
@@ -1952,12 +2701,12 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template strand pattern"
+        "note": "TfNSW standard layout for the T4 (1500) family, used as a placeholder"
        },
        "replace_with": "girder drawings (strand pattern / debonding not in this set)"
       }
      ],
-     "note": "64 positions, 56 strands on — template, not BR13A"
+     "note": "48 positions, 48 strands on — standard T4 layout as a placeholder, not the BR13A pattern"
     },
     "jacking_ratio": {
      "value": 0.75,
@@ -1982,7 +2731,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -304"
+        "note": "Hog default bar for the T4 family at x = -325"
        },
        "replace_with": "girder drawings"
       },
@@ -1997,13 +2746,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 304"
+        "note": "Hog default bar for the T4 family at x = 325"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 185,
+        "y": 160,
         "diameter": 20,
         "number": 1,
         "from": null,
@@ -2012,13 +2761,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -316"
+        "note": "Hog default bar for the T4 family at x = -325"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 185,
+        "y": 160,
         "diameter": 20,
         "number": 1,
         "from": null,
@@ -2027,13 +2776,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 316"
+        "note": "Hog default bar for the T4 family at x = 325"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 310,
+        "y": 260,
         "diameter": 20,
         "number": 1,
         "from": null,
@@ -2042,13 +2791,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -325"
+        "note": "Hog default bar for the T4 family at x = -325"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 310,
+        "y": 260,
         "diameter": 20,
         "number": 1,
         "from": null,
@@ -2057,13 +2806,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 325"
+        "note": "Hog default bar for the T4 family at x = 325"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2072,13 +2821,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -630"
+        "note": "Hog default bar for the T4 family at x = -630"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2087,13 +2836,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 630"
+        "note": "Hog default bar for the T4 family at x = 630"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2102,13 +2851,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -745"
+        "note": "Hog default bar for the T4 family at x = -745"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2117,13 +2866,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 745"
+        "note": "Hog default bar for the T4 family at x = 745"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2132,13 +2881,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -859"
+        "note": "Hog default bar for the T4 family at x = -859"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1775,
+        "y": 1450,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2147,13 +2896,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 859"
+        "note": "Hog default bar for the T4 family at x = 859"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 731,
+        "y": 592,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2162,13 +2911,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -359"
+        "note": "Hog default bar for the T4 family at x = -375"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 731,
+        "y": 592,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2177,13 +2926,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 359"
+        "note": "Hog default bar for the T4 family at x = 375"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1063,
+        "y": 870,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2192,13 +2941,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -391"
+        "note": "Hog default bar for the T4 family at x = -401"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1063,
+        "y": 870,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2207,13 +2956,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 391"
+        "note": "Hog default bar for the T4 family at x = 401"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1394,
+        "y": 1147,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2222,13 +2971,13 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = -423"
+        "note": "Hog default bar for the T4 family at x = -428"
        },
        "replace_with": "girder drawings"
       },
       {
        "cells": {
-        "y": 1394,
+        "y": 1147,
         "diameter": 12,
         "number": 1,
         "from": null,
@@ -2237,7 +2986,7 @@
        "tag": "Assumed",
        "status": "accepted",
        "source": {
-        "note": "Hog workbook template bar at x = 423"
+        "note": "Hog default bar for the T4 family at x = 428"
        },
        "replace_with": "girder drawings"
       }
@@ -2390,13 +3139,13 @@
     "restraint_longitudinal": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2485,13 +3234,13 @@
     "restraint_longitudinal": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2580,13 +3329,13 @@
     "restraint_longitudinal": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2675,13 +3424,13 @@
     "restraint_longitudinal": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2770,13 +3519,13 @@
     "restraint_longitudinal": {
      "value": "free",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2865,13 +3614,13 @@
     "restraint_longitudinal": {
      "value": "free",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -2960,13 +3709,13 @@
     "restraint_longitudinal": {
      "value": "free",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -3055,13 +3804,13 @@
     "restraint_longitudinal": {
      "value": "free",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "restraint_transverse": {
      "value": "fixed",
      "tag": "Input-user",
-     "decision": "D-8",
+     "decision": "D-11",
      "status": "accepted"
     },
     "height": {
@@ -3209,7 +3958,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3297,7 +4046,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3385,7 +4134,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3473,7 +4222,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3499,7 +4248,7 @@
        "note": "layer 1 (top = ground at each pile)"
       },
       "replace_with": "geotechnical report",
-      "decision": "D-9"
+      "decision": "D-12"
      }
     ]
    },
@@ -3510,7 +4259,7 @@
     "source": {
      "note": "geotechnical report not in this set"
     },
-    "decision": "D-9",
+    "decision": "D-12",
     "replace_with": "geotechnical report",
     "status": "accepted"
    },
@@ -3664,7 +4413,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3752,7 +4501,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3840,7 +4589,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3928,7 +4677,7 @@
       "source": {
        "note": "ground taken at the column head (sill soffit): embankment level at the piles not in this set"
       },
-      "decision": "D-9",
+      "decision": "D-12",
       "replace_with": "embankment / spill-through levels, geotechnical report",
       "status": "accepted"
      },
@@ -3954,7 +4703,7 @@
        "note": "layer 1 (top = ground at each pile)"
       },
       "replace_with": "geotechnical report",
-      "decision": "D-9"
+      "decision": "D-12"
      }
     ]
    },
@@ -3965,7 +4714,7 @@
     "source": {
      "note": "geotechnical report not in this set"
     },
-    "decision": "D-9",
+    "decision": "D-12",
     "replace_with": "geotechnical report",
     "status": "accepted"
    },
@@ -4866,7 +5615,7 @@
      "tag": "Standard-verify",
      "status": "accepted",
      "ref": "std:AS5100.2-2017/register/SOo",
-     "decision": "D-10"
+     "decision": "D-13"
     },
     {
      "cells": {
@@ -4927,7 +5676,7 @@
      "tag": "Standard-verify",
      "status": "accepted",
      "ref": "std:AS5100.2-2017/register/SCR",
-     "decision": "D-10"
+     "decision": "D-13"
     },
     {
      "cells": {
@@ -5579,7 +6328,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-11"
+     "decision": "D-14"
     },
     {
      "cells": {
@@ -5588,7 +6337,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-12"
+     "decision": "D-15"
     }
    ]
   },
@@ -5749,6 +6498,88 @@
   }
  },
  "custom": {
+  "supert_shape": {
+   "section": "superstructure",
+   "columns": {
+    "key": "",
+    "name": "",
+    "value": "",
+    "unit": ""
+   },
+   "rows": [
+    {
+     "cells": {
+      "key": "D",
+      "name": "Overall depth",
+      "value": 1515,
+      "unit": "mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section (Section designer)"
+     }
+    },
+    {
+     "cells": {
+      "key": "bw",
+      "name": "Soffit width",
+      "value": 757,
+      "unit": "mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section (Section designer)"
+     }
+    },
+    {
+     "cells": {
+      "key": "tw",
+      "name": "Web thickness",
+      "value": 100,
+      "unit": "mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section (Section designer)"
+     }
+    },
+    {
+     "cells": {
+      "key": "d1",
+      "name": "Void floor fall",
+      "value": 58,
+      "unit": "mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section (Section designer)"
+     }
+    },
+    {
+     "cells": {
+      "key": "d2",
+      "name": "Bottom flange depth at CL",
+      "value": 265,
+      "unit": "mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "DRG-202304",
+      "view": "DRG 202304 girder section (Section designer)"
+     }
+    }
+   ],
+   "note": "The one Super-T definition (Girder definition → Section shape): T4 family with the DRG 202304 values; A = 594165 mm2, centroid 723.1 mm above the soffit"
+  },
   "takeoff_abutments": {
    "section": "supports",
    "columns": {
@@ -6113,7 +6944,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-13"
+     "decision": "D-16"
     },
     {
      "cells": {
@@ -6127,7 +6958,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-14"
+     "decision": "D-17"
     },
     {
      "cells": {
@@ -6540,7 +7371,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-15"
+     "decision": "D-18"
     },
     {
      "cells": {
@@ -6554,7 +7385,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-16"
+     "decision": "D-19"
     },
     {
      "cells": {
@@ -9306,7 +10137,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-17"
+     "decision": "D-20"
     },
     {
      "cells": {
@@ -9320,7 +10151,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-18"
+     "decision": "D-21"
     },
     {
      "cells": {
@@ -9776,7 +10607,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-19"
+     "decision": "D-22"
     },
     {
      "cells": {
@@ -9790,7 +10621,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-20"
+     "decision": "D-23"
     },
     {
      "cells": {
@@ -10189,7 +11020,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-21"
+     "decision": "D-24"
     },
     {
      "cells": {
@@ -10203,7 +11034,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-22"
+     "decision": "D-25"
     },
     {
      "cells": {
@@ -10871,7 +11702,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-23"
+     "decision": "D-26"
     },
     {
      "cells": {
@@ -10885,7 +11716,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-24"
+     "decision": "D-27"
     },
     {
      "cells": {
@@ -10899,7 +11730,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-25"
+     "decision": "D-28"
     },
     {
      "cells": {
@@ -10913,7 +11744,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-26"
+     "decision": "D-29"
     },
     {
      "cells": {
@@ -11233,7 +12064,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-27"
+     "decision": "D-30"
     },
     {
      "cells": {
@@ -11247,7 +12078,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-28"
+     "decision": "D-31"
     },
     {
      "cells": {
@@ -11635,7 +12466,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-29"
+     "decision": "D-32"
     },
     {
      "cells": {
@@ -11649,7 +12480,7 @@
      },
      "tag": "Confirmed-Engineer",
      "status": "accepted",
-     "decision": "D-30"
+     "decision": "D-33"
     },
     {
      "cells": {
@@ -12880,6 +13711,12 @@
   {
    "id": "DRG-202281",
    "number": "202281",
+   "kind": "drawing",
+   "revision": "02"
+  },
+  {
+   "id": "DRG-202304",
+   "number": "202304",
    "kind": "drawing",
    "revision": "02"
   },

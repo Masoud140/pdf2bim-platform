@@ -1,7 +1,7 @@
 # BR13A.bridge.json — summary
 
-**Catalogue fields: 459 values** — Assumed 194, Direct 70, Standard-verify 61, Model 50, Calculated 47, Input-user 23, Missing-Flagged 10, Confirmed-Engineer 4
-**Custom (project-specific rows): 434 values** — Direct 274, Calculated 94, Missing-Flagged 43, Confirmed-Engineer 18, Model 5
+**Catalogue fields: 489 values** — Assumed 177, Calculated 92, Direct 70, Standard-verify 62, Model 50, Input-user 24, Missing-Flagged 10, Confirmed-Engineer 4
+**Custom (project-specific rows): 439 values** — Direct 279, Calculated 94, Missing-Flagged 43, Confirmed-Engineer 18, Model 5
 
 ## Missing — flagged (catalogue)
 
@@ -27,9 +27,8 @@
 | `deck.barriers[barrier_right].height` | 1100.0 | barrier drawing DRG 202401 / product sheet |
 | `deck.barriers[barrier_right].weight` | 8 | barrier drawing DRG 202401 / product sheet |
 | `deck.barriers[barrier_right].solid` | true | barrier drawing |
-| `superstructure.supert_types[ST1].section` | "lib:supert/1825" | Super-T type on DRG 202301–303 (decision D-7 proposed) |
 | `superstructure.supert_types[ST1].concrete_transfer` | 40 | girder drawings / specification |
-| `superstructure.supert_types[ST1].strand_pattern.rows[*]` | "64 rows" | girder drawings (strand pattern / debonding not in this set) |
+| `superstructure.supert_types[ST1].strand_pattern.rows[*]` | "48 rows" | girder drawings (strand pattern / debonding not in this set) |
 | `superstructure.supert_types[ST1].jacking_ratio` | 0.75 | girder drawings / specification |
 | `superstructure.supert_types[ST1].bars.rows[*]` | "18 rows" | girder drawings |
 | `superstructure.supert_types[ST1].age_at_transfer` | 7 | construction programme |
@@ -101,6 +100,6 @@
 
 ## Decisions waiting for the engineer
 
-- **D-7** `superstructure.supert_types[ST1].section`: "lib:supert/1825" → "lib:supert/1500" — CONFLICT: the GA says four 1515 deep PSC Super-T girders and the grillage uses 1515 mm, but the Hog / design section is the workbook template "1825 Super-T". AI proposes the 1500 Super-T product section (to be confirmed against DRG 202301–303), then re-run the design.
+- none
 
-Decision log: 30 entries (Counter({'accepted': 29, 'proposed': 1}))
+Decision log: 33 entries (Counter({'accepted': 32, 'superseded': 1}))

@@ -33,6 +33,8 @@ css=""".dgx{overflow-x:auto;max-width:100%}.dgt th.l,.dgt td.l{text-align:left}.
 css+=open('dg17.css').read()+open('dg23.css').read()
 o="window.HOG_API={snap:function(){"; assert src.count(o)==1
 src=src.replace(o,"window.HOG_API={lib:function(){ var o={}; Object.keys(SEC).forEach(function(k){ if(SEC[k].t==='T') o[k]=JSON.parse(JSON.stringify(SEC[k])); }); return o; }, snap:function(){")
+o4="window.HOG_API={lib:function(){"; assert src.count(o4)==1
+src=src.replace(o4,"window.HOG_API={addSec:function(k,s){ SEC[k]=s; var sel=document.getElementById('hog_sec'); if(sel&&![].some.call(sel.options,function(o){ return o.value===k; })){ var op=document.createElement('option'); op.value=k; op.textContent=k; sel.insertBefore(op,sel.firstChild); } if(cur===k){ var q=secProps(k); document.getElementById('hog_A').value=q.A.toFixed(0); document.getElementById('hog_yb').value=q.yb.toFixed(1); document.getElementById('hog_I').value=q.I.toExponential(4); document.getElementById('hog_H').value=q.H; document.getElementById('hog_ue').value=q.ue.toFixed(0); drawSec(); } }, pick:function(k,like){ var sel=document.getElementById('hog_sec'); if(sel) sel.value=k; pickSec(k); if(like&&SEC[like]){ S=grid(like); layFromS(); B=barDefault(like); barFromB(); drawSec(); } }, cur:function(){ return cur; }, lib:function(){")
 o3="function showTab(id){ACTIVE=id;const G=tabGroup(id);G.last=id;"; assert src.count(o3)==1
 src=src.replace(o3,o3+"{const w=document.querySelector('.wrap');if(w)w.classList.toggle('nopanel',G.g!=='view');}")
 css+='.wrap.nopanel{grid-template-columns:minmax(0,1fr)}.wrap.nopanel>#panel{display:none}.dgx1{font-weight:600}'
@@ -81,6 +83,7 @@ k=src.rindex('</body>'); src=src[:k]+'<script>\n'+open('sub5.js').read()+'\n</sc
 k=src.rindex('</body>'); src=src[:k]+'<script>\n'+open('sub6.js').read()+'\n</script>\n'+src[k:]
 k=src.rindex('</body>'); src=src[:k]+'<script>\n'+open('sub7.js').read()+'\n</script>\n'+src[k:]
 k=src.rindex('</body>'); src=src[:k]+'<script>\n'+open('srf2.js').read()+'\n</script>\n'+src[k:]
+k=src.rindex('</body>'); src=src[:k]+'<script>\n'+open('gdef.js').read()+'\n</script>\n'+src[k:]
 assert src.count('rulesUI();regUI();draw();')==1
 src=src.replace('rulesUI();regUI();draw();','window.CBX={R:R,genAll:genAll,opt:opt,caseList:caseList};R.forEach(r=>{if(r.id===\'SOo\'||r.id===\'SCR\')r.on=1;});rulesUI();regUI();draw();')
 open(OUT,'w').write(src)

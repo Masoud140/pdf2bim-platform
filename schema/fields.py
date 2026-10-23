@@ -126,9 +126,13 @@ SUPERSTRUCTURE = {
         'bearing_offset_A': ('num', 'mm', 'Bearing centre from the girder end at A'),
         'bearing_offset_B': ('num', 'mm', 'Bearing centre from the girder end at B'),
         'type_ref': ('str', '', 'Which girder type definition applies (id in supert_types / plank_types)'),
+        'flange_edges': ('table', '', 'Precast top flange edges from the member centreline along its length (t = 0 at bearing A, 1 at bearing B)',
+                         {'t': ('num', ''), 'left': ('num', 'mm'), 'right': ('num', 'mm'), 'deck_width': ('num', 'mm')}),
         'deck_width_override': ('table', '', 'Width of deck acting with this member, overrides along its length',
                                 {'t': ('num', ''), 'width': ('num', 'mm')}),
     }, 'Girders or planks, ordered across the deck'),
+    'flange_gap': ('num', 'mm', 'Gap between adjacent precast top flanges'),
+    'edge_flange_setback': ('num', 'mm', 'Outer flange edge of an edge member: setback from the deck edge (0 = lines up with the deck edge)'),
     'supert_types': ('list', SUPERT, 'Super-T girder definitions (members refer to them)'),
     'plank_types': ('list', PLANK, 'Plank definitions'),
 }

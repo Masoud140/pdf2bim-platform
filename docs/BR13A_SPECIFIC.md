@@ -17,9 +17,9 @@ This is the input for roadmap steps B to D (bridge description file, library, mo
 - **Deck mesh:** `ldDeck()` matches the dashboard mesh to the MCT nodes by plan position. A mesh change "no longer matches the frozen MCT".
 
 ## Values in code
-- **Girder depth** 1.515 m is fixed in `slGeom()` (sub2.js) and `wdGeom()` (sub4.js), for earth pressure and wind.
+- **Girder depth:** read from the one Super-T definition (`gdDepth()`, v45). It used to be hard-coded at 1.515 m.
 - **Pile data** is read from the BR13A takeoff rows (`DATA.LIVE`, `PIR`, `PIO`) by row keys `dia`, `sock`, `rlA`, `rlB`.
-- **Hog Calculator defaults** come from the workbook template: 1825 Super-T, strand pattern, 34950 / 530 mm before v44.
+- **Hog Calculator section:** since v45 it is "Girder definition", built from the Section designer shape. Strands and bars are the TfNSW T4 standard layout as a placeholder. Before v45 it was the workbook template (1825 Super-T, 34950 / 530 mm).
 - **Combos builder:** its register (`const R=[…]`) is scoped. It is exposed by a string replacement in `build_v23.py` (`window.CBX`, with SOo and SCR switched on).
 - **Design factors:** `dgFac()` reads the design load factors by regex from the register script text.
 - **Earthquake spectrum:** the AS 1170.4 spectral shape table is transcribed in sub5.js (`EQ_CH`). It must be checked against the Standard.

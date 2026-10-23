@@ -8,7 +8,7 @@ function wdGeom(){ var D=ldDeck(), M=AN.parseMCT(document.getElementById('an_mct
   var lines=D.lines.filter(function(l){ var g=l.p.filter(function(q){ return D.role[q.id]==='girder'; }).length; return g>=l.p.length/2&&l.p.length>2; })
     .map(function(l){ return {o:l.o, p:l.p.filter(function(q){ return M.nodes[q.id]; }).slice().sort(function(a,b){ return a.c-b.c; })}; });
   var all=D.lines.map(function(l){ return l.o; }), oL=Math.min.apply(null,all), oR=Math.max.apply(null,all);
-  var gd=1.515, tD=(typeof P!=='undefined'&&P.slab)||0.2, ts=(typeof P!=='undefined'&&P.surf)||0.075;
+  var gd=(typeof gdDepth==='function'?gdDepth():1.515), tD=(typeof P!=='undefined'&&P.slab)||0.2, ts=(typeof P!=='undefined'&&P.surf)||0.075;
   return {M:M, lines:lines, oL:oL, oR:oR, b:oR-oL, oc:(oL+oR)/2, gd:gd, tD:tD, ts:ts}; }
 function wdQ(){ return 0.5*WD.rho*WD.V*WD.V/1000; }   /* kPa */
 function wdCases(G){ var q=wdQ(), nG=G.lines.length, add=function(L,n,f){ var a=L[n]=L[n]||[0,0,0,0,0,0]; for(var i=0;i<6;i++) a[i]+=f[i]||0; };

@@ -69,7 +69,7 @@ function gwCard(){ var Z; try{ Z=gwGeom(); }catch(e){ return '<section class="ca
   return h; }
 (function(){ if(typeof window.srfRender!=='function') return; var r0=window.srfRender;
   window.srfRender=function(k){ r0.apply(this,arguments); var kk=k||(document.querySelector('.srfdb.on')||{getAttribute:function(){ return ''; }}).getAttribute('data-def'); if(kk!=='zone') return;
-    var host=document.getElementById('srf_zone'); if(!host) return; var sec=host.closest('.card'), old=document.getElementById('gw_card'); if(old) old.remove(); var d=document.createElement('div'); d.innerHTML=gwCard(); sec.parentNode.insertBefore(d.firstChild,sec.nextSibling);
+    var host=document.getElementById('srf_zone'); if(!host) return; var sec=host.closest('.card'); ['gw_card','gf_card'].forEach(function(id){ var old=document.getElementById(id); if(old) old.remove(); }); var d=document.createElement('div'); d.innerHTML=gwCard(); var ref=sec.nextSibling; while(d.firstChild) sec.parentNode.insertBefore(d.firstChild,ref);
     var stale=function(){ try{ DG.res=null; DG.gird=null; DG.poiCache=null; DG.ver=(DG.ver||0)+1; }catch(e){} };
     var on=document.getElementById('gw_on'); if(on) on.onchange=function(){ GW.on=on.checked; stale(); };
     [].forEach.call(document.querySelectorAll('.gwov'),function(el){ el.onchange=function(){ var v=el.value.trim(); if(v===''||!isFinite(+v)) delete GW.ov[el.getAttribute('data-k')]; else GW.ov[el.getAttribute('data-k')]=+v; stale(); }; }); }; })();
