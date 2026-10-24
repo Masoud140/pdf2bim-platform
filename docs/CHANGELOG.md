@@ -2,6 +2,17 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P3a model builder + solver (branch `p3-model`)
+
+- **Added:**
+  - `pdf2bim/model/solver.py` (3D Timoshenko frame, MIDAS-type links, springs); equals the dashboard solver on the integrated BR13A model to 7e-10;
+  - `pdf2bim/model/builder.py` (superstructure grillage, model 2 on straight chords);
+  - `tools/compare_frozen_superstructure.py`.
+- **Tests:** 11 solver + 17 builder.
+- **Format:** `superstructure.cross_girders`; zones kinds `solid_end_A/B`.
+- **BR13A:** D-37 (cross girder 800 × 1065) and D-38 (2.0 m solid end zones) proposed. P2 now produces the solid end sections.
+- **Result:** the BR13A superstructure vs the frozen model is −1.2 % weight, ≤ 2 % midspan deflection and ±11 % bearing reactions (explained). See `docs/P3_MODEL_METHOD.md`.
+
 ## 2026-10-24 — P2 sections and products (branch `p2-sections`)
 
 - **Added:**

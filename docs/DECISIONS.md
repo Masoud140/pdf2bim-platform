@@ -25,6 +25,7 @@
 | 017 | Format 0.2 implementation choices (exact-key migration, null unknown units, provenance rule, approval transitions) | provisional (agent, reversible) | 2026-10-24, Claude |
 | 018 | Autonomous development and minimal communication | accepted | 2026-10-24, owner (project instructions) |
 | 019 | Standards inventory choices (null edition, row-per-factor, specialist flags) | provisional (agent, reversible) | 2026-10-24, Claude |
+| 022 | P3a model: dashboard model 2 topology on straight chords; Python solver; bearings as links in girder axes; modelling constants as the dashboard (tag Model) | provisional (agent, reversible) | 2026-10-24, Claude |
 | 021 | P2 sections: one Super-T definition = product type + `supert_types[].shape`; asymmetric flared flanges from P1; composite on the P1 deck width; FD torsion | provisional (agent, reversible) | 2026-10-24, Claude |
 | 020 | P1 geometry definitions: support line by printed bearing; bearing centre = girder line ∩ support line; chord; flange square to chord | provisional (agent, reversible) | 2026-10-24, Claude |
 
@@ -222,3 +223,17 @@
   - D-36 (haunch Assumed 0 mm) — proposed.
 
   Sections are labelled PROVISIONAL until both are accepted.
+
+## ADR-022 P3a model builder choices (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. Keep the dashboard's engineer-confirmed **Super-T model 2** topology (D-15), rebuilt on the straight chords from P1, with P2 sections along each girder and nodes at every section change.
+  2. Use the dashboard's modelling constants: dummy × 1e-3, rigid × 1e3, deck strips with full rectangular J, deck-strip weight 0, cross girders weighted. They are **reported as Model settings**, so a Hambly-style alternative (for example slab J = b t³/6) remains an open engineering choice.
+  3. **Bearings:** zero-length links in girder axes, stiffness 1e9 for fixed and 0 for free; elastic bearings come in P3b.
+  4. **One Python solver** for all analyses. It was verified against the dashboard solver on the integrated BR13A model to 7e-10.
+- **Alternatives considered:**
+  - model 1 (girder centrelines only): rejected because the engineer confirmed model 2;
+  - keeping the frozen .mct: rejected because the platform must build models for any bridge.
+- **Consequence:**
+  - the BR13A superstructure reproduces the frozen model within −1.2 % weight, 2 % deflection and ±11 % per-bearing reaction, with the differences explained (P3_MODEL_METHOD §3);
+  - new proposed inputs D-37 (cross girder) and D-38 (solid end zones).

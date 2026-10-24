@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2, P0.3, P1 geometry and **P2 sections** completed 2026-10-24. **Next: P3 model builder.** P0 → P2 await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2 and **P3a** (superstructure model + Python solver) completed 2026-10-24. **Next: P3b** (substructure, elastic bearings, load cases, .mct). P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -16,7 +16,8 @@
 | `p0.2-format` | f1fdc7a | P0.2 format 0.2: c14n + hash, 0.2 schema, rules, migration, BR13A 0.2, example, 47 tests | awaiting review |
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
 | `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
-| `p2-sections` | see `git log` (from 5e91a8f) | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
+| `p2-sections` | e476e99 | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
+| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder, 28 tests, BR13A comparison with the frozen model (provisional, D-34…D-38) | awaiting review |
 
 ## What works today (BR13A)
 
@@ -106,6 +107,14 @@
 - Live baseline 11 / 11.
 - Re-run on `5ab04c7` (p2-sections): 24 scripts, 161 / 161 assertions PASS (incl. sections 24, format 48).
 
+## P3a (model + solver), done 2026-10-24
+
+- **Python solver:** equals the dashboard solver on the integrated BR13A model to 7e-10 (V5).
+- **Superstructure builder** (model 2 on straight chords): BR13A gives 275 nodes and 514 members. Against the frozen superstructure: weight −1.2 %, midspan deflection ≤ 2 %, bearing reactions ±11 % (explained, `P3_MODEL_METHOD.md` §3).
+- **New proposed inputs:**
+  - D-37: cross girder 800 × 1065 (engineer query answer);
+  - D-38: 2.0 m solid end zones (interpretation pending, Task B-1).
+
 ## Next task
 
-**P3:** model builder. Build the grillage (chords, transverse members, bearings, substructure, springs) from the description + P1 + P2 into a Python model with roles and stable ids, and write MIDAS .mct. Compare with the frozen model (reactions, modes). Branch `p3-model` from `p2-sections`.
+**P3b:** substructure (sill beams, columns / piles, soil / rock springs) and elastic bearings from the description; then SDL and the other load cases; then the MIDAS .mct writer (needs an engineer import test). Branch: continue `p3-model`.

@@ -100,7 +100,14 @@
    "name": "Structural model builder and analysis core",
    "plain": "Build the analysis model from the bridge data instead of a fixed BR13A file.",
    "status": "in_progress",
-   "evidence": []
+   "evidence": [
+    "docs/P3_MODEL_METHOD.md",
+    "pdf2bim/model/builder.py",
+    "tests/model/test_builder.py",
+    "projects/BR13A/model/BR13A.superstructure_vs_frozen.md"
+   ],
+   "note": "P3a done: Python solver (equals the dashboard to 7e-10) and superstructure builder; P3b substructure / bearings / loads / .mct next",
+   "branch": "p3-model"
   },
   {
    "id": "P4",
@@ -133,9 +140,9 @@
   }
  ],
  "next": {
-  "task": "P3 model builder: build the analysis model from the bridge data (P1 geometry + P2 sections) instead of the fixed BR13A file",
-  "why": "This is what makes the platform work for any bridge; it also removes the frozen-model approximations found in P1/P2 (bearing nodes off the support line, no flare).",
-  "evidence": "V2 model checks (equilibrium 0.1 %, no mechanisms); BR13A reactions and modal periods vs the frozen model within tolerance (differences explained); MIDAS .mct written"
+  "task": "P3b: substructure and elastic bearings from the bridge data, then load cases (SDL, traffic, temperature …) and the MIDAS .mct writer",
+  "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
+  "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },
  "risks": [
   {
@@ -147,8 +154,8 @@
   },
   {
    "id": "D-35",
-   "title": "BR13A Super-T shape and haunch wait for your acceptance",
-   "plain": "The import had missed the top flange thickness (90 mm on the girder drawing). The agent proposed the full shape (D-35) and a placeholder haunch of 0 mm (D-36).",
+   "title": "BR13A Super-T shape, haunch, cross girder and end blocks wait for your acceptance",
+   "plain": "The agent proposed the full Super-T shape (D-35, incl. the 90 mm top flange the import missed), a placeholder haunch of 0 mm (D-36), the cross girder 800 x 1065 (D-37, from your query answer) and 2.0 m solid end blocks (D-38, interpretation pending).",
    "why": "Section stiffness depends on both; sections are provisional until accepted.",
    "severity": "medium"
   },
