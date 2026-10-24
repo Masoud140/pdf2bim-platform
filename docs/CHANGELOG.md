@@ -2,6 +2,22 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P3b stages 3–5: SDL, MIDAS .mct, modes (branch `p3-model`)
+
+- **Added:**
+  - `pdf2bim/model/loads.py` (SDL case);
+  - `pdf2bim/model/mct.py` + `tools/export_mct.py` (MIDAS writer; BR13A `.mct` + import checklist);
+  - `Model.modes()` (consistent mass, lumped SDL);
+  - `Model.solve(loads=...)` (per-solve load case);
+  - dashboard dump tools for SDL and modes; `tools/check_mct_dashboard.js`;
+  - comparisons `BR13A.sdl_vs_frozen.md` and `BR13A.modes_vs_frozen.md`.
+- **Tests:** loads 25, mct 16, modes 10 (mutation checks 4 / 4, 3 / 3, 3 / 3).
+- **Findings:**
+  - H-3: the dashboard's modal / earthquake mass includes the deck strips (+9.8 %);
+  - M-1: SDL bearing split at A differs between the models (distribution alone within 8 %);
+  - M-2: P3b horizontal modes 5–8 % shorter than frozen.
+- **Roadmap:** the remaining load cases and the combinations move to P3c (ADR-024).
+
 ## 2026-10-24 — P3b stage 2: integrated model (branch `p3-model`)
 
 - **Added:**

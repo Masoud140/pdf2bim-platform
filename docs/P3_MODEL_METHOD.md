@@ -126,11 +126,61 @@ All of these are **proposed**, so every P3 result is PROVISIONAL.
 - **F-5:** the abutment drawings' bearing positions along the line of bearings (A: 4977 / 2251 / −810 / −3706 mm from the SOP; B: −3708 / −812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line ∩ support line, from the GA girder setout) by **50–530 mm**. The model uses the P1 centres. Which is correct must be confirmed against DRG 202100 / 202101 and the GA.
 - **F-6:** the Direct seat RLs sit 100–127 mm below the P1 girder soffit, but the Assumed bearing height is 150 mm (−23 to −50 mm). Both the bearing height (Assumed) and the haunch (D-36, Assumed 0) feed into this. The model takes the drawn levels; the bearing height is not used for geometry.
 
-## 6. Not yet done (P3b, remaining)
+## 6. P3b stages 3–5 — SDL, MIDAS .mct, modes
 
-- Load cases beyond self weight: SDL, traffic, temperature and the others; then combinations via the standards data.
-- MIDAS .mct writer. Its syntax must be verified by import (MCT_EXPORT_METHOD §0), so it needs an engineer import test.
-- Modes (T7): no eigen-solver in the Python core yet.
+### 6.1 SDL load case (`pdf2bim/model/loads.py`, `tests/model/test_loads.py` 25 / 25)
+
+- **Inputs, from the description only:**
+  - surfacing γ·t over the carriageway (`deck.carriageway_left / right`, `surfacing_thickness` Direct, `surfacing_density` Standard-verify);
+  - barriers: `deck.barriers[].weight` (Assumed 8 kN/m) on `offset` (Calculated);
+  - `deck.other_sdl` only if it has a value (BR13A: Missing-Flagged → reported as not applied).
+
+  The case is characteristic (unfactored); factors belong to the combinations.
+- **Discretisation:** 0.2 × 0.1 m cells in chainage / offset, as plan quadrilaterals **clipped exactly** by the deck-end half-planes. Each cell's load = pressure × plan area at its centroid. Barriers are cut into pieces along their offset curve.
+- **Distribution:** Delaunay triangulation of the deck-line nodes in (chainage, offset), with barycentric weights. Force and both first moments are exact, including in the skewed corner triangles. A point up to 50 mm outside the node hull (the end line is straight in plan but slightly curved in ch / o) is projected onto it; anything further out is refused.
+- **Two faults found during development and fixed:**
+  - the shoelace area at survey coordinates (~6e6 m) lost the cell area to round-off; it is now computed relative to a vertex, and a test shows the plain formula is off by more than 1e-6 m²;
+  - line-bracketing distribution: rejected after it clamped 276 corner points (1.2 % of the load) in the skewed ends.
+- **BR13A:**
+  - total 897.2 kN vs the dashboard 894.5 kN (+0.30 %; the dashboard drops partial cells at the skewed ends);
+  - surfacing area = an independent boundary-polygon area (252.37 m²);
+  - barrier lengths = independent 1 mm integration.
+- **Vs the dashboard (`BR13A.sdl_vs_frozen.md`):**
+  - bearing Rz −10.7 … +25.1 %, pile toes ≤ 8.7 %, midspan ≤ 0.5 mm;
+  - **isolation:** the P3b loads placed on the frozen model's own nodes reproduce the dashboard's bearing reactions within −8.1 … +4.7 %. So the larger differences at abutment A come from the **models**, not the load distribution (open item M-1).
+
+### 6.2 MIDAS .mct writer (`pdf2bim/model/mct.py`, `tools/export_mct.py`, `tests/model/test_mct.py` 16 / 16)
+
+- **Written as verified** (MCT_EXPORT_METHOD §1 / §1b):
+  - UNIT, NODE (shifted by the documented project base point), ELEMENT BEAM, MATERIAL USER (names ≤ 16);
+  - SECTION DBUSER SB rectangles (sill, cross girders, deck strips) and VALUE (4 lines);
+  - STLDCASE / CONSTRAINT / USE-STLD / SELFWEIGHT.
+- **Written as UNVERIFIED** (marked in the file and the report): ELASTICLINK and SPRING, in the dashboard's export format.
+- **Not written:** nodal loads (no documented `*CONLOAD` syntax), and links with explicit axes (refused).
+- **Self weight in MIDAS** = density × area. So each member gets a material with density = w / A: composite girders carry the gross weight on a transformed section, and dummies, deck strips and rigid members are massless (49 materials for BR13A).
+- **Checks without MIDAS:**
+  - round trip (write → read → solve): self weight equal to 2e-8 relative, displacements to 1.1e-6;
+  - the dashboard's own parser reads the same counts, no warnings, the same self weight and the same links.
+- **This is not an import test.** `projects/BR13A/model/BR13A.integrated.mct.md` is the engineer's import checklist.
+
+### 6.3 Modes (`Model.modes`, `tests/model/test_modes.py` 10 / 10)
+
+- **Method:** consistent beam mass as the dashboard's mLocal (μ = w / g; torsional inertia μ(Iy+Iz)/A) plus lumped translational extra mass; shift-invert Lanczos (dense Cholesky path for small models, where M may be singular).
+- **Closed form:** simply supported f1 / f2 and cantilever f1 within 1e-6; spring–mass exact; effective masses sum to 1.
+- **Dashboard AN.modal reproduced to 4.5e-8** on the frozen model, once its mass rule is used.
+- **Finding H-3:** the dashboard's modal (and earthquake RSA) preparation weights every member, including the deck strips and dummies whose weight is already inside the composite girders: +836 kN (+9.8 % mass), periods up to ~9 % long. The P3b analysis does not do this. The dashboard engine is not changed here (it would need a baseline re-run).
+- **P3b vs frozen** (both with the static mass + SDL, `BR13A.modes_vs_frozen.md`):
+  - vertical main mode +0.6 %;
+  - longitudinal −8.0 %; transverse −5.4 % (P3b stiffer horizontally).
+
+  The suspected cause is the bearing-link idealisation (1.78 m frozen links that pass half the bearing moment into the sill vs short links at the drawn seat levels), **unconfirmed** (open item M-2).
+- **Not T7:** T7 needs an independent MIDAS eigen model (P4).
+
+## 7. Not yet done (moved to P3c)
+
+- Load cases beyond SDL: traffic (M1600 / S1600 / W80 / A160 movable loads), braking, centrifugal, temperature (uniform and gradient), shrinkage / creep, wind, earth pressure, earthquake RSA; then the AS 5100.2 combinations, through the standards accessor.
+- MIDAS: nodal loads, once a native export documents `*CONLOAD`; composite girders as COMPOSITE-GEN (stress recovery).
+- MAC pairing of modes on common points.
 - Per-element deck-strip tributary at the skewed ends (MEMBER_PROPERTIES Stage A); for now the end stations use a half step.
 - Shear areas Asy for girders (Asy = none, so horizontal shear deformation is ignored); the girder Asz uses the webs only.
 - Run records (input hash, engine commit, settings) on analysis results.

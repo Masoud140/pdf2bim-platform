@@ -32,5 +32,6 @@
 - **P2 sections — DONE 2026-10-24** (branch `p2-sections`, ADR-021): 24 / 24 tests. Details in `P2_SECTIONS_METHOD.md`. BR13A sections are provisional until D-34 / D-35 / D-36 are accepted.
 - **P3a superstructure model + solver — DONE 2026-10-24** (branch `p3-model`, ADR-022): 28 tests. Details in `P3_MODEL_METHOD.md`.
 - **P3b stage 1–2 substructure + elastic bearings — DONE 2026-10-24** (ADR-023): 35 tests; `P3_MODEL_METHOD.md` §5.
-- **P3b remaining: load cases (SDL first), MIDAS .mct writer, modes — next.**
+- **P3b stages 3–5 SDL, MIDAS .mct writer, modes — DONE 2026-10-24** (ADR-024): 51 tests; `P3_MODEL_METHOD.md` §6. The .mct awaits the engineer import test.
+- **P3c remaining load cases (traffic, braking, temperature, shrinkage / creep, wind, earth pressure, earthquake) and AS 5100.2 combinations — next** (ADR-024).
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

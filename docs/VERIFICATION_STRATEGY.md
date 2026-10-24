@@ -75,6 +75,10 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
+- **P3b SDL / .mct / modes** (2026-10-24, branch `p3-model`):
+  - loads 25 / 25: exact clipping, survey-coordinate precision, conservation of force and first moments, independent area and length integrations, T4 equilibrium; vs the dashboard total +0.3 %, distribution alone ≤ 8 %;
+  - mct 16 / 16: round trip and dashboard parser. **No MIDAS import yet.**
+  - modes 10 / 10: closed form within 1e-6; dashboard AN.modal reproduced to 4.5e-8. **T7 not met yet** (needs an independent MIDAS eigen model).
 - **P3b integrated model** (2026-10-24, branch `p3-model`): `tests/model/test_substructure.py` 35 / 35 (closed-form bearing stiffness; V2 invariants: equilibrium, toe reactions = weight, bearing forces = superstructure weight; pile-head stiffness vs Hetényi +1.1 %; mechanism refusal; 4 / 4 mutations caught). Vs the frozen integrated model (V5): bearing Rz ≤ 5.6 %, pile toe ≤ 2.4 %, midspan ≤ 0.3 mm. Bearing stiffness coefficients **unverified** (standards data). Modes (T7) not yet available.
 - **P3a solver and model** (2026-10-24, branch `p3-model`):
   - solver: 11 / 11 (closed form exact; dashboard integrated model reproduced to 7e-10, V5);

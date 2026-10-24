@@ -251,3 +251,13 @@
   - long links to the girder node line, as frozen: rejected, because it is not the physical bearing height;
   - take bearing positions from the abutment drawing: deferred until F-5 is resolved.
 - **Consequence:** BR13A vs the frozen integrated model: weight −0.6 %, bearing Rz within 5.6 %, pile toe within 2.4 %, midspan within 0.3 mm. New proposals D-39 (sill setout), D-40 (layer 12 mm, Assumed), D-41 (seat RLs).
+
+## ADR-024 P3b load case, MIDAS writer and modes (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. **Area and line loads are discretised in plan, with cells clipped exactly at the skewed deck ends,** and distributed by barycentric weights on a triangulation of the deck nodes (exact force and first moments). Line bracketing was tried and rejected: it lost moment conservation for 1.2 % of the load in the skew corners.
+  2. **The .mct writer writes verified syntax only.** Elastic links and springs are written in the dashboard's format, marked UNVERIFIED. Nodal loads are not written until a native export documents `*CONLOAD`. Self weight is preserved through per-member materials (density = w / A).
+  3. **Composite girders go to VALUE sections** (stiffness only) for now; COMPOSITE-GEN is deferred.
+  4. **Modal mass = the static self weight + SDL** (deck strips, dummies and rigid members massless). The dashboard's modal mass rule (every member weighted) is **not** reproduced except to verify the solver (finding H-3).
+  5. **The remaining load cases and the combinations move to a new stage P3c,** so that P3b closes with the model, bearings, SDL, export and modes.
+- **Consequence:** the BR13A SDL total is within 0.3 % of the dashboard, and the distribution alone within 8 %. Modal solver = dashboard to 4.5e-8. The .mct needs the engineer's import test. Open items: M-1 (SDL split at A between the models), M-2 (horizontal modes 5–8 % shorter), H-3.
