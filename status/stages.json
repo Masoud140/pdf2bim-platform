@@ -114,9 +114,13 @@
     "projects/BR13A/model/BR13A.sdl_vs_frozen.md",
     "projects/BR13A/model/BR13A.modes_vs_frozen.md",
     "pdf2bim/model/traffic.py",
-    "projects/BR13A/model/BR13A.traffic_vs_frozen.md"
+    "projects/BR13A/model/BR13A.traffic_vs_frozen.md",
+    "pdf2bim/model/thermal.py",
+    "pdf2bim/model/horizontal.py",
+    "pdf2bim/model/wind.py",
+    "pdf2bim/model/earthquake.py"
    ],
-   "note": "P3a + P3b done; P3c traffic (M1600 / S1600) done and checked against the dashboard to 0.01 %. Next: braking, temperature, shrinkage, wind, earth pressure, earthquake, then combinations",
+   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model. Next: AS 5100.2 combinations",
    "branch": "p3-model"
   },
   {
@@ -150,7 +154,7 @@
   }
  ],
  "next": {
-  "task": "P3c: braking, temperature, shrinkage / creep, wind, earth pressure and earthquake load cases, then the AS 5100.2 combinations",
+  "task": "P3c: the AS 5100.2 load combinations (port the dashboard's generator, inventory its factors, apply to all load cases)",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },
@@ -167,6 +171,13 @@
    "title": "Dashboard traffic overstates inner bearings",
    "plain": "The dashboard's way of spreading wheel loads onto nodes sends load along whole lines straight into four bearings. Inner bearing reactions come out up to 44 % high and girder moments 1-6 % low.",
    "why": "Bearing design from the dashboard is conservative there, girder moments slightly unconservative.",
+   "severity": "medium"
+  },
+  {
+   "id": "M-3",
+   "title": "Temperature forces at the fixed abutment depend on the bearing model",
+   "plain": "Restraint forces from temperature and shrinkage at abutment A differ by 30-80 % between the new model and the dashboard's, because they depend on how the fixed bearings are modelled.",
+   "why": "Needs the bearing / restraint-block detail and the independent MIDAS check.",
    "severity": "medium"
   },
   {

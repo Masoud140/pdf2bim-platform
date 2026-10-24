@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-24 (P0.2 → P2, P3a, P3b and P3c stage 1 traffic done; P3c remaining load cases next).
+**Last updated:** 2026-10-25 (P0.2 → P2, P3a, P3b and the P3c load cases done; P3c combinations next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -33,21 +33,26 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3b stage 1–2 integrated model:** DONE (`P3_MODEL_METHOD.md` §5, ADR-023). BR13A PROVISIONAL (D-34…D-41). Findings F-5, F-6.
 - **P3b stages 3–5:** SDL, MIDAS .mct writer, modes — DONE (`P3_MODEL_METHOD.md` §6, ADR-024). The .mct awaits the engineer import test.
 - **P3c stage 1 traffic:** DONE (`P3_MODEL_METHOD.md` §7, ADR-025). Findings H-4, H-5.
-- **P3c remaining:** braking / centrifugal, temperature, shrinkage / creep, wind, earth pressure, earthquake RSA, combinations — next.
+- **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
+- **P3c combinations:** next.
 
 ## 3. Next actions
 
-1. **P3c remaining**, on `p3-model`, each as a load case on the integrated model (`Model.solve(gravity=(0, 0, 0), loads=...)`, or imposed strains as equivalent end forces):
-   - braking (`loads.braking_force`, Assumed 500 kN) and centrifugal (`loads.design_speed`);
-   - uniform temperature (`loads.temperature`) and gradient (`loads.gradient_positive / negative`); shrinkage / creep (`loads.shrinkage_creep_shortening`);
-   - wind (`loads.wind`; coefficients via the accessor); earth pressure (`supports[].backfill`, `loads.traffic_surcharge`);
-   - earthquake RSA with `Model.modes` (AS 1170.4 Ch via the accessor), CQC + missing mass, as the dashboard;
-   - each cross-checked against the dashboard (dump tool + comparison, isolation where models differ);
-   - then the AS 5100.2 combinations from the load-factor register (all unverified).
-2. Keep the generality guard green: `python3 tests/geometry/test_geometry.py` (no bridge names / constants in `pdf2bim/`, comments included).
-3. Re-run `tools/run_suite.py` (≈ 35 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
+1. **P3c combinations**, on `p3-model`:
+   - Inventory the combination generator's constants into `standards/extract_from_code.py` (unverified, with a Node-evaluated test, as the traffic entries):
+     - A1 / A2 (23.2: 1.35 / 0.9);
+     - accompanying factors k1 0.7, k2 0.5, rf 0.25;
+     - wind speed rules (the dashboard's `cb_*` defaults).
+   - Port the generator (base dashboard, the "AS 5100.2 Combination Builder" script: `genAll`, `peSets`, `roadStates`, `windDirs`, `therm01` / `thermK`, `eqStates`) to `pdf2bim/model/combinations.py`, keeping the register ids (`AS5100.2:load_factor:*`).
+   - Apply the generated combinations to the P3c cases: traffic envelopes, SDL, self weight, thermal, horizontal, wind with (V/V_uls)², earthquake 100/30. Report per response the governing combination.
+   - Cross-check against the dashboard's combined actions (`src/sub6.js` rxPrim / RX) with a dump tool; isolate the engine on the frozen model as before.
+2. Keep the generality guard green. The local pre-commit hook (`.git/hooks/pre-commit`, not committed; re-create it in a fresh clone from CHANGELOG 2026-10-25) refuses bridge-specific text in `pdf2bim/`.
+3. Re-run `tools/run_suite.py` (≈ 40 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
 
-New in P3c stage 1 (for reference): `pdf2bim/model/traffic.py` (`Influence`, `lane_effect`, `combine_lanes`, `traffic_envelope`), `Model.stiffness()`, standards `AS5100.2:traffic:*`, `tools/dump_dashboard_traffic.js` (MODE=def | sweep), `tools/compare_frozen_traffic.py`, `tests/model/test_traffic.py`.
+New in P3c stages 2–5 (for reference):
+- `pdf2bim/model/{thermal,horizontal,wind,earthquake}.py`; solver `imposed=`, `modes(matrices=True)`;
+- tools `dump_dashboard_{thermal,horizontal,wind,earthquake}.js`, `compare_frozen_{thermal,horizontal,wind,earthquake}.py`;
+- tests `test_{thermal,horizontal,wind,earthquake}.py`.
 
 ## 4. Do not
 
@@ -78,6 +83,7 @@ New in P3c stage 1 (for reference): `pdf2bim/model/traffic.py` (`Influence`, `la
   - the one-node bearing "lines" overstate inner-bearing reactions (up to +44 %) and understate girder moments (1–6 %).
 
   Were any dashboard traffic results already used outside the platform?
+- **M-3:** temperature / shrinkage restraint forces at the fixed abutment are sensitive to the bearing idealisation. The restraint-block / dowel detail would settle the bearing model.
 
   Once these are settled, geometry, sections and the model are no longer provisional.
 

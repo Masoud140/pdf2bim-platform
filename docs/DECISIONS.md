@@ -274,3 +274,17 @@
   - with the dashboard's rule, the engine reproduces the dashboard's envelope to 0.01 % (moments);
   - BR13A M1600 girder moments vs the dashboard sweep: −2 … +6 %.
   - The dashboard's design-time traffic results are affected by H-4 (G3 / G4 and outer bearings understated) and H-5 (inner bearings overstated, moments understated by 1–6 %); the owner decides on the dashboard.
+
+## ADR-026 P3c imposed-strain, horizontal, wind and earthquake cases (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):**
+  1. **Each case is ported from the dashboard and verified with an isolation run** (the P3c method on the dashboard's frozen model) before being run on the P3b model.
+  2. **Corrections kept, not reproduced:**
+     - the gradient is integrated exactly over each element's own section (not one design section);
+     - the earth-pressure retained height is calculated from the levels (not a built-up height with an assumed 0.15 m bearing zone);
+     - wind levers are measured from the model's node level (H-6);
+     - the vertical-wind split uses exact statics (H-7);
+     - the earthquake mass is the static self weight + SDL (H-3).
+  3. **Centrifugal force uses the smallest alignment radius under the deck** (Model, conservative); wind at the ULS speed with (V/V_uls)² scale factors.
+  4. **The combinations are a separate next stage,** after their remaining constants are inventoried.
+- **Consequence:** every P3c case reproduces the dashboard on the dashboard's own model, to round-off or to its documented differences. On the P3b model the differences come from the documented model and input differences (M-2, M-3, H-3, retained height).

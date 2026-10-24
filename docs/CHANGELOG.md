@@ -2,6 +2,13 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P3c stages 2–5: imposed strains, horizontal loads, wind, earthquake (branch `p3-model`)
+
+- **Added:** `pdf2bim/model/thermal.py`, `horizontal.py`, `wind.py`, `earthquake.py`; solver `imposed=` (free deformations), `Model.modes(matrices=True)`; dashboard dump tools for each, plus comparisons (`projects/BR13A/model/BR13A.{thermal,horizontal,wind,earthquake}_vs_frozen.md`).
+- **Tests:** thermal 20, horizontal 22, wind 14, earthquake 14 (mutation checks all caught).
+- **Findings:** M-3 (fixed-bearing restraint forces sensitive to the bearing idealisation); H-6 (dashboard wind levers 0.2 m low); H-7 (dashboard vertical-wind split ±0.9 %).
+- **Process:** a local git pre-commit hook now refuses bridge-specific text in `pdf2bim/` (the generality guard had caught it three times).
+
 ## 2026-10-24 — P3c stage 1: traffic M1600 / S1600 (branch `p3-model`)
 
 - **Added:**

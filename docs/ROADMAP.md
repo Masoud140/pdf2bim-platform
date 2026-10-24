@@ -34,5 +34,6 @@
 - **P3b stage 1–2 substructure + elastic bearings — DONE 2026-10-24** (ADR-023): 35 tests; `P3_MODEL_METHOD.md` §5.
 - **P3b stages 3–5 SDL, MIDAS .mct writer, modes — DONE 2026-10-24** (ADR-024): 51 tests; `P3_MODEL_METHOD.md` §6. The .mct awaits the engineer import test.
 - **P3c stage 1 traffic M1600 / S1600 — DONE 2026-10-24** (ADR-025): 20 tests; `P3_MODEL_METHOD.md` §7.
-- **P3c remaining: braking / centrifugal, temperature, shrinkage / creep, wind, earth pressure, earthquake RSA, then the AS 5100.2 combinations — next.**
+- **P3c stages 2–5 thermal, horizontal, wind, earthquake — DONE 2026-10-25** (ADR-026): 70 tests; `P3_MODEL_METHOD.md` §8.
+- **P3c remaining: AS 5100.2 combinations (port + inventory of their constants) — next.**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

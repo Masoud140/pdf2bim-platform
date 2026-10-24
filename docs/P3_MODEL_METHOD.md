@@ -205,9 +205,34 @@ All of these are **proposed**, so every P3 result is PROVISIONAL.
 
   The dashboard's design (default layout) used G1 3455 kN·m, G4 2734 kN·m.
 
-## 8. Not yet done (P3c, remaining)
+## 8. P3c stages 2–5 — imposed strains, horizontal loads, wind, earthquake
 
-- Load cases: W80 / A160 local loads, braking, centrifugal, temperature (uniform and gradient), shrinkage / creep, wind, earth pressure, earthquake RSA; then the AS 5100.2 combinations, through the standards accessor.
+All are characteristic load cases on the integrated model. Inputs are description values (BR13A: Assumed / Standard-verify). Each was checked against closed forms and against the dashboard with an **isolation run** (the P3c method on the dashboard's own frozen model).
+
+| Stage | Module / tests | Method (summary) | Engine check vs the dashboard (same model) | P3b model vs the dashboard |
+|---|---|---|---|---|
+| Uniform temperature, gradient, shrinkage + creep | `thermal.py` / `test_thermal.py` 20 | Superstructure by connectivity (not crossing bearing links). α·ΔT or −ε axial. Gradient integrated **exactly** over each element's composite section into e0, φ; imposed free deformations in the solver (`imposed=`) | All five cases to 3e-7 kN | Gradient e0 −5 % / φ −1 % (own sections). Fixed-bearing restraint forces: H −30 %, vertical couples +35 … +80 % (**M-3**, bearing idealisation) |
+| Earth pressure, surcharge, braking, centrifugal | `horizontal.py` / `test_horizontal.py` 22 | K0 / Ka; 0.5Kγ H² at H/3, KqH at H/2 on the sill; braking along the tangent; centrifugal W V² / (g R_min) outward | Load totals equal with the dashboard's H (0.1 kN) | Retained height calculated from the levels: 3.58 vs 3.46 m (+3.5 %). Pile M: EP +11 %, braking −17 % (M-2) |
+| Wind | `wind.py` / `test_wind.py` 14 | q = 0.5ρV²; WT, WTV, WVU / WVD, WL; levers from the model node level; vertical resultant exact; SLS / with-traffic as (V/V_uls)² | Horizontal totals equal (0.05 kN) | **H-6:** the dashboard's levers are measured from the deck top though its nodes are at the girder top (0.2 m low). **H-7:** its vertical-wind split is off by ±0.9 % |
+| Earthquake RSA | `earthquake.py` / `test_earthquake.py` 14 | Static mass + SDL; Sa = kp Z Ch(T) / Rf (Ch from the standards data, unverified); CQC + missing mass; 100 / 30 | Periods equal; responses to 3e-6 relative (with the dashboard's mass) | H-3 alone: pile M −6.5 %. P3b: EQ-L pile M −9 … −15 % (mass + model) |
+
+Closed-form checks include:
+- bar and beam imposed strain / curvature;
+- rectangle and two-material gradient integration, plus a 1 mm brute force on the real section;
+- K0 / Ka; Hetényi-free statics of the sill loads;
+- q, wT, wV, levers;
+- SDOF RSA: F = m Sa g, effective mass 1, zero residual.
+
+Each module's mutation check caught every injected fault (after one test was added to the thermal checks: pure-bending imposition).
+
+**Findings for the engineer:**
+- **M-3:** temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (link length, lever, sill / pile stiffness). Check them in the independent MIDAS model (P4) and with the bearing / restraint-block detail.
+- **H-6, H-7:** dashboard wind (minor).
+
+## 9. Not yet done (P3c, remaining)
+
+- **AS 5100.2 combinations** (port of the dashboard's generator: 23.2 / 23.3 (b)–(k) / 23.4; PE max / min / mixed; lane placements; accompanying factors), after inventorying its remaining constants (23.2 factors 1.35 / 0.9, k1 0.7, k2 0.5, rf 0.25) as unverified standards data.
+- W80 / A160 local wheel loads; pedestrian (BR13A: Missing).
 - Traffic responses not yet enveloped: girder shear and torsion, pile actions, sill actions; concurrent actions (the envelopes are per response).
 - MIDAS: nodal loads, once a native export documents `*CONLOAD`; composite girders as COMPOSITE-GEN (stress recovery).
 - MAC pairing of modes on common points.
