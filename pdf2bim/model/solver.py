@@ -237,7 +237,7 @@ class Model:
         free = np.setdiff1d(np.arange(nd), fixed)
         return Kt, free, idx
 
-    def modes(self, n=10, extra_mass=None, g=9.80665):
+    def modes(self, n=10, extra_mass=None, g=9.80665, matrices=False):
         """Lowest n natural modes (consistent beam mass, as the dashboard: translations Hermite with mu = w / g, axial,
         torsional inertia mu (Iy + Iz) / A; links and springs massless) + lumped translational extra_mass {node: t}.
         Generalised eigenproblem K phi = w2 M phi on the free dofs (shift-invert Lanczos). Returns periods, mass-normalised
@@ -293,7 +293,11 @@ class Model:
             full = np.zeros(nd); full[free] = phi
             out.append({"w": math.sqrt(w2[k]), "T": 2 * math.pi / math.sqrt(w2[k]), "f": math.sqrt(w2[k]) / (2 * math.pi), "eff": eff,
                         "shape": {nn: full[DOF * idx[nn]:DOF * idx[nn] + 6] for nn in ids}})
-        return {"modes": out, "mass_t": mtot}
+        res = {"modes": out, "mass_t": mtot}
+        if matrices:      # for response-spectrum analysis: free-dof K, M, mass-normalised shapes, w^2, dof map
+            Phi = np.column_stack([V[:, k] / math.sqrt(V[:, k] @ (Mff @ V[:, k])) for k in range(len(w2))])
+            res.update({"K": Kff, "M": Mff, "free": free, "idx": idx, "Phi": Phi, "w2": w2})
+        return res
 
     def end_forces(self, eid):
         """Local end forces f = K T u - f_eq (forces the nodes exert on the element), for a beam id."""
