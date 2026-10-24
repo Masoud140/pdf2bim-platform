@@ -20,6 +20,11 @@
    "file": "src/sub7.js",
    "item": "TG.T0 = 32, eps = 300e-6",
    "why": "gradient top temperature and shrinkage/creep strain \u2014 project / material inputs"
+  },
+  {
+   "file": "src/sub.js",
+   "item": "S.brg internal layer thickness about 12 mm (n = round(T/12))",
+   "why": "bearing layer thickness \u2014 bearing schedule / supplier (BR13A: bearings.items[*].layer_thickness, D-40)"
   }
  ]
 }

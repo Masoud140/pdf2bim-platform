@@ -157,12 +157,16 @@ BEARINGS = {
         'restraint_longitudinal': ('enum', '', 'fixed | free | elastic', ['fixed', 'free', 'elastic']),
         'restraint_transverse': ('enum', '', 'fixed | free | elastic', ['fixed', 'free', 'elastic']),
         'height': ('num', 'mm', 'Bearing + plinth height (headstock top to girder soffit)'),
+        'layer_thickness': ('num', 'mm', 'Thickness of one internal elastomer layer (sets the shape factor and the compression stiffness)'),
     }, 'Every bearing'),
 }
 
 SUPPORT = {
     'kind': ('enum', '', 'Support type', ['spill-through abutment', 'wall abutment', 'integral abutment', 'pier']),
     'headstock': ('table', '', 'Headstock / sill beam', {'width': ('num', 'mm'), 'depth': ('num', 'mm'), 'length': ('num', 'm'), 'rl_top': ('num', 'm'), 'rl_soffit': ('num', 'm')}),
+    'headstock_setout': ('table', '', 'Headstock / sill beam plan setout from the support setout point (support_lines E, N): edge = front | back = face offset '
+                         'square to the line of bearings (+ toward the span); edge = start | end = sill end along the line of bearings (+ in the support_lines.bearing direction)',
+                         {'edge': ('enum', ''), 'value': ('num', 'mm')}),
     'curtain_wall': ('table', '', 'Curtain / ballast wall', {'thickness': ('num', 'mm'), 'height': ('num', 'mm')}),
     'wingwalls': ('table', '', 'Wingwalls', {'side': ('enum', ''), 'length': ('num', 'm'), 'thickness': ('num', 'mm')}),
     'piles': ('list', {

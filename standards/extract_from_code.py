@@ -109,12 +109,27 @@ def environment():
     return e
 
 
+def bearings():
+    line, m = find("src/sub.js", r"Ec=([\d.]+)\*S\.eG\*Sf\*Sf, Eeff=1/\(1/Ec\+1/([\d.]+)\)")
+    e = [entry("AS5100.4:elastomer:compression_modulus_factor", "AS 5100.4", None,
+               "laminated elastomeric bearing: compression modulus Ec = c * G * S^2 (S = shape factor of one internal layer); value = c", "-",
+               float(m.group(1)), "rectangular laminated elastomeric bearings; vertical stiffness Kv = Eeff * A / T",
+               "bearing vertical stiffness (Boundary tab; P3 model builder)", [f"src/sub.js:{line}", "pdf2bim/model/bearings.py"],
+               interp="Form and coefficient as coded; not checked against an authorised copy of AS 5100.4 (the Standard's own compression-stiffness method may differ). Edition not recorded.",
+               specialist=True),
+         entry("AS5100.4:elastomer:bulk_modulus", "AS 5100.4", None, "bulk modulus of the elastomer, combined in series with Ec: 1/Eeff = 1/Ec + 1/Eb", "MPa",
+               float(m.group(2)), "laminated elastomeric bearings", "bearing vertical stiffness", [f"src/sub.js:{line}", "pdf2bim/model/bearings.py"],
+               interp="Value as coded; not checked against AS 5100.4 or supplier data.", specialist=True)]
+    return e
+
+
 # project inputs found next to the standards values: NOT standards data (they belong in the bridge description)
 PROJECT_DEFAULTS = [
     ("src/sub4.js", "WD.V = 45 m/s", "design wind speed — site-specific (region, terrain, return period)"),
     ("src/sub5.js", "EQ.Z = 0.08, site 'Ce'", "hazard factor and site class — site-specific"),
     ("src/sub3.js", "TM.Tmax / Tmin / Tset", "shade air temperatures and set temperature — site-specific"),
     ("src/sub7.js", "TG.T0 = 32, eps = 300e-6", "gradient top temperature and shrinkage/creep strain — project / material inputs"),
+    ("src/sub.js", "S.brg internal layer thickness about 12 mm (n = round(T/12))", "bearing layer thickness — bearing schedule / supplier (BR13A: bearings.items[*].layer_thickness, D-40)"),
 ]
 
 
@@ -122,7 +137,8 @@ def main():
     groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"],
               "AS1170.4": earthquake(),
               "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"],
-              "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"]}
+              "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],
+              "AS5100.4": bearings()}
     os.makedirs(OUT, exist_ok=True)
     keep = ("status", "review", "edition", "amendment", "interpretation")
     report = []

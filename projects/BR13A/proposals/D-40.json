@@ -1,0 +1,169 @@
+{
+ "decision": {
+  "id": "D-40",
+  "by": "AI",
+  "reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
+  "evidence": [
+   "src/sub.js line 22 (S.brg)",
+   "bearings.items[*].elastomer_thickness (Assumed 60 mm)"
+  ],
+  "affects": [
+   "model"
+  ]
+ },
+ "created": "2026-10-24T15:41:00+11:00",
+ "add": [
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G1"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G2"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G3"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G4"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G1"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G2"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G3"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G4"
+    },
+    "layer_thickness"
+   ],
+   "record": {
+    "value": 12,
+    "unit": "mm",
+    "tag": "Assumed",
+    "source": {
+     "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+    },
+    "replace_with": "bearing schedule / supplier data"
+   }
+  }
+ ]
+}

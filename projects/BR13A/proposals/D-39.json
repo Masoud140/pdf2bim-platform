@@ -1,0 +1,138 @@
+{
+ "decision": {
+  "id": "D-39",
+  "by": "AI",
+  "reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
+  "evidence": [
+   "custom.takeoff_abutments rows 17, 21-27",
+   "DRG-202100 / 202101 plan dimension chains",
+   "DRG-202103 Sec 3/7"
+  ],
+  "affects": [
+   "model"
+  ]
+ },
+ "created": "2026-10-24T15:40:00+11:00",
+ "add": [
+  {
+   "path": [
+    "supports",
+    {
+     "id": "A"
+    },
+    "headstock_setout"
+   ],
+   "record": {
+    "rows": [
+     {
+      "cells": {
+       "edge": "front",
+       "value": 835
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+      }
+     },
+     {
+      "cells": {
+       "edge": "back",
+       "value": -865
+      },
+      "tag": "Calculated",
+      "derivation": {
+       "formula": "curtain wall front face - curtain wall thickness = -515 - 350 (the curtain wall stands on the back of the sill beam, 202103 Sec 3); takeoff row 23",
+       "inputs": [
+        "custom.takeoff_abutments row 21",
+        "supports[A].curtain_wall.thickness"
+       ]
+      }
+     },
+     {
+      "cells": {
+       "edge": "start",
+       "value": -5645
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+      }
+     },
+     {
+      "cells": {
+       "edge": "end",
+       "value": 5283
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "path": [
+    "supports",
+    {
+     "id": "B"
+    },
+    "headstock_setout"
+   ],
+   "record": {
+    "rows": [
+     {
+      "cells": {
+       "edge": "front",
+       "value": 824
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202103",
+       "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+      }
+     },
+     {
+      "cells": {
+       "edge": "back",
+       "value": -876
+      },
+      "tag": "Calculated",
+      "derivation": {
+       "formula": "curtain wall front face - curtain wall thickness = -526 - 350 (same construction as abutment A; the takeoff row 23 formula cell for B reads #N/A)",
+       "inputs": [
+        "custom.takeoff_abutments row 21",
+        "supports[B].curtain_wall.thickness"
+       ]
+      }
+     },
+     {
+      "cells": {
+       "edge": "start",
+       "value": -4751
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202101",
+       "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+      }
+     },
+     {
+      "cells": {
+       "edge": "end",
+       "value": 6694
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202101",
+       "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

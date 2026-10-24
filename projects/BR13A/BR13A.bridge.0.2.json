@@ -7451,6 +7451,29 @@
       "replace_with": "bearing schedule / girder seat detail"
      },
      "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
     }
    },
    {
@@ -7654,6 +7677,29 @@
        "note": "bearing + plinth height not dimensioned"
       },
       "replace_with": "bearing schedule / girder seat detail"
+     },
+     "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
     }
@@ -7861,6 +7907,29 @@
       "replace_with": "bearing schedule / girder seat detail"
      },
      "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
     }
    },
    {
@@ -8064,6 +8133,29 @@
        "note": "bearing + plinth height not dimensioned"
       },
       "replace_with": "bearing schedule / girder seat detail"
+     },
+     "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
     }
@@ -8271,6 +8363,29 @@
       "replace_with": "bearing schedule / girder seat detail"
      },
      "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
     }
    },
    {
@@ -8474,6 +8589,29 @@
        "note": "bearing + plinth height not dimensioned"
       },
       "replace_with": "bearing schedule / girder seat detail"
+     },
+     "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
     }
@@ -8681,6 +8819,29 @@
       "replace_with": "bearing schedule / girder seat detail"
      },
      "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
     }
    },
    {
@@ -8884,6 +9045,29 @@
        "note": "bearing + plinth height not dimensioned"
       },
       "replace_with": "bearing schedule / girder seat detail"
+     },
+     "current": "original"
+    },
+    "layer_thickness": {
+     "value": 12,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+     },
+     "replace_with": "bearing schedule / supplier data",
+     "status": "proposed",
+     "decision": "D-40",
+     "original": {
+      "value": 12,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:41:00+11:00",
+      "source": {
+       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
+      },
+      "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
     }
@@ -9812,6 +9996,128 @@
       "current": "original"
      }
     ]
+   },
+   "headstock_setout": {
+    "rows": [
+     {
+      "cells": {
+       "edge": "front",
+       "value": 835
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "front",
+        "value": 835
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202100",
+        "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "back",
+       "value": -865
+      },
+      "tag": "Calculated",
+      "derivation": {
+       "formula": "curtain wall front face - curtain wall thickness = -515 - 350 (the curtain wall stands on the back of the sill beam, 202103 Sec 3); takeoff row 23",
+       "inputs": [
+        "custom.takeoff_abutments row 21",
+        "supports[A].curtain_wall.thickness"
+       ]
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "back",
+        "value": -865
+       },
+       "unit": null,
+       "tag": "Calculated",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "derivation": {
+        "formula": "curtain wall front face - curtain wall thickness = -515 - 350 (the curtain wall stands on the back of the sill beam, 202103 Sec 3); takeoff row 23",
+        "inputs": [
+         "custom.takeoff_abutments row 21",
+         "supports[A].curtain_wall.thickness"
+        ]
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "start",
+       "value": -5645
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "start",
+        "value": -5645
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202100",
+        "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "end",
+       "value": 5283
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202100",
+       "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "end",
+        "value": 5283
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202100",
+        "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+       }
+      },
+      "current": "original"
+     }
+    ]
    }
   },
   {
@@ -10731,6 +11037,128 @@
         "note": "fill properties assumed; retained height Calculated on the soil page from the GA depths + 0.15 m bearing zone"
        },
        "replace_with": "geotechnical report"
+      },
+      "current": "original"
+     }
+    ]
+   },
+   "headstock_setout": {
+    "rows": [
+     {
+      "cells": {
+       "edge": "front",
+       "value": 824
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202103",
+       "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "front",
+        "value": 824
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202103",
+        "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "back",
+       "value": -876
+      },
+      "tag": "Calculated",
+      "derivation": {
+       "formula": "curtain wall front face - curtain wall thickness = -526 - 350 (same construction as abutment A; the takeoff row 23 formula cell for B reads #N/A)",
+       "inputs": [
+        "custom.takeoff_abutments row 21",
+        "supports[B].curtain_wall.thickness"
+       ]
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "back",
+        "value": -876
+       },
+       "unit": null,
+       "tag": "Calculated",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "derivation": {
+        "formula": "curtain wall front face - curtain wall thickness = -526 - 350 (same construction as abutment A; the takeoff row 23 formula cell for B reads #N/A)",
+        "inputs": [
+         "custom.takeoff_abutments row 21",
+         "supports[B].curtain_wall.thickness"
+        ]
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "start",
+       "value": -4751
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202101",
+       "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "start",
+        "value": -4751
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202101",
+        "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
+       }
+      },
+      "current": "original"
+     },
+     {
+      "cells": {
+       "edge": "end",
+       "value": 6694
+      },
+      "tag": "Direct",
+      "source": {
+       "doc": "DRG-202101",
+       "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+      },
+      "status": "proposed",
+      "decision": "D-39",
+      "original": {
+       "cells": {
+        "edge": "end",
+        "value": 6694
+       },
+       "unit": null,
+       "tag": "Direct",
+       "recorded_by": "AI",
+       "recorded_at": "2026-10-24T15:40:00+11:00",
+       "source": {
+        "doc": "DRG-202101",
+        "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
+       }
       },
       "current": "original"
      }
@@ -30196,17 +30624,17 @@
   }
  ],
  "revision": {
-  "number": 7,
-  "parent_hash": "sha256:6686b5e38ac37d80ed15bab17f525f3e2fc2ba02ed1509c50698265ffb2b3717",
-  "created": "2026-10-24T13:31:00+11:00",
+  "number": 9,
+  "parent_hash": "sha256:28905ae1ac807eb36243b8dfa865459639d3996e8b27be82fd1d5b16728a7dc0",
+  "created": "2026-10-24T15:41:00+11:00",
   "author": "AI",
-  "note": "D-38 proposed: 1 new record(s)",
+  "note": "D-40 proposed: 8 new record(s)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:33872c09dc4de6c2f951f606508fd3d359b27b71165669b5397c01d7ec2dc982"
+  "value": "sha256:c8137e55024af4d41ab4a5854f11710078a8312f104d03012e299410aad2aa6a"
  }
 }

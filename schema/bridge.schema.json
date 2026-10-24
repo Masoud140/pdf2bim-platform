@@ -19213,6 +19213,201 @@
           }
          }
         ]
+       },
+       "layer_thickness": {
+        "type": "object",
+        "description": "Thickness of one internal elastomer layer (sets the shape factor and the compression stiffness) [mm]",
+        "additionalProperties": false,
+        "required": [
+         "value",
+         "tag",
+         "status"
+        ],
+        "properties": {
+         "value": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "unit": {
+          "const": "mm"
+         },
+         "tag": {
+          "enum": [
+           "Direct",
+           "Calculated",
+           "Missing-Flagged",
+           "Standard-verify",
+           "Input-user",
+           "Confirmed-Engineer",
+           "Assumed",
+           "Model"
+          ],
+          "description": "Data source category"
+         },
+         "source": {
+          "$ref": "#/$defs/source"
+         },
+         "derivation": {
+          "$ref": "#/$defs/derivation"
+         },
+         "ref": {
+          "type": "string",
+          "pattern": "^(lib|std):",
+          "description": "Product library or standards key"
+         },
+         "status": {
+          "enum": [
+           "open",
+           "proposed",
+           "accepted",
+           "rejected",
+           "superseded"
+          ]
+         },
+         "decision": {
+          "type": "string",
+          "pattern": "^D-[0-9]+$",
+          "description": "Last decision-log entry that set this value"
+         },
+         "replace_with": {
+          "type": "string",
+          "description": "What the real value will come from (Assumed values)"
+         },
+         "note": {
+          "type": "string"
+         }
+        },
+        "allOf": [
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Direct"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "doc"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Calculated"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "derivation"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Missing-Flagged"
+            }
+           }
+          },
+          "then": {
+           "properties": {
+            "status": {
+             "enum": [
+              "open"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Standard-verify"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "ref"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Assumed"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source",
+            "replace_with"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "enum": [
+              "Input-user",
+              "Confirmed-Engineer"
+             ]
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "decision"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Model"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         }
+        ]
        }
       },
       "required": [
@@ -19487,6 +19682,227 @@
               "null"
              ],
              "description": "m"
+            }
+           }
+          },
+          "tag": {
+           "enum": [
+            "Direct",
+            "Calculated",
+            "Missing-Flagged",
+            "Standard-verify",
+            "Input-user",
+            "Confirmed-Engineer",
+            "Assumed",
+            "Model"
+           ],
+           "description": "Data source category"
+          },
+          "source": {
+           "$ref": "#/$defs/source"
+          },
+          "derivation": {
+           "$ref": "#/$defs/derivation"
+          },
+          "ref": {
+           "type": "string",
+           "pattern": "^(lib|std):",
+           "description": "Product library or standards key"
+          },
+          "status": {
+           "enum": [
+            "open",
+            "proposed",
+            "accepted",
+            "rejected",
+            "superseded"
+           ]
+          },
+          "decision": {
+           "type": "string",
+           "pattern": "^D-[0-9]+$",
+           "description": "Last decision-log entry that set this value"
+          },
+          "replace_with": {
+           "type": "string",
+           "description": "What the real value will come from (Assumed values)"
+          },
+          "note": {
+           "type": "string"
+          }
+         },
+         "allOf": [
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Direct"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "doc"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Calculated"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "derivation"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Missing-Flagged"
+             }
+            }
+           },
+           "then": {
+            "properties": {
+             "status": {
+              "enum": [
+               "open"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Standard-verify"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "ref"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Assumed"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source",
+             "replace_with"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "note"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "enum": [
+               "Input-user",
+               "Confirmed-Engineer"
+              ]
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "decision"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Model"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "note"
+              ]
+             }
+            }
+           }
+          }
+         ]
+        }
+       },
+       "note": {
+        "type": "string"
+       }
+      }
+     },
+     "headstock_setout": {
+      "type": "object",
+      "description": "Headstock / sill beam plan setout from the support setout point (support_lines E, N): edge = front | back = face offset square to the line of bearings (+ toward the span); edge = start | end = sill end along the line of bearings (+ in the support_lines.bearing direction)",
+      "additionalProperties": false,
+      "required": [
+       "rows"
+      ],
+      "properties": {
+       "rows": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "cells",
+          "tag",
+          "status"
+         ],
+         "additionalProperties": false,
+         "properties": {
+          "cells": {
+           "type": "object",
+           "additionalProperties": false,
+           "properties": {
+            "edge": {
+             "type": [
+              "string",
+              "null"
+             ],
+             "description": ""
+            },
+            "value": {
+             "type": [
+              "number",
+              "null"
+             ],
+             "description": "mm"
             }
            }
           },

@@ -1,0 +1,79 @@
+{
+ "format": "pdf2bim.standards/0.1",
+ "group": "AS5100.4",
+ "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
+ "entries": [
+  {
+   "id": "AS5100.4:elastomer:bulk_modulus",
+   "standard": "AS 5100.4",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "bulk modulus of the elastomer, combined in series with Ec: 1/Eeff = 1/Ec + 1/Eb",
+   "units": "MPa",
+   "value": 2000.0,
+   "applicability": "laminated elastomeric bearings",
+   "context": "bearing vertical stiffness",
+   "implementation": {
+    "used_by": [
+     "src/sub.js:22",
+     "pdf2bim/model/bearings.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Value as coded; not checked against AS 5100.4 or supplier data.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.4:elastomer:compression_modulus_factor",
+   "standard": "AS 5100.4",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "laminated elastomeric bearing: compression modulus Ec = c * G * S^2 (S = shape factor of one internal layer); value = c",
+   "units": "-",
+   "value": 6.0,
+   "applicability": "rectangular laminated elastomeric bearings; vertical stiffness Kv = Eeff * A / T",
+   "context": "bearing vertical stiffness (Boundary tab; P3 model builder)",
+   "implementation": {
+    "used_by": [
+     "src/sub.js:22",
+     "pdf2bim/model/bearings.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Form and coefficient as coded; not checked against an authorised copy of AS 5100.4 (the Standard's own compression-stiffness method may differ). Edition not recorded.",
+    "specialist_review": true
+   }
+  }
+ ]
+}

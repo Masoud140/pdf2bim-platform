@@ -158,6 +158,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `bearings.items[].restraint_longitudinal` | enum |  | fixed / free / elastic — one of: fixed, free, elastic |
 | `bearings.items[].restraint_transverse` | enum |  | fixed / free / elastic — one of: fixed, free, elastic |
 | `bearings.items[].height` | num | mm | Bearing + plinth height (headstock top to girder soffit) |
+| `bearings.items[].layer_thickness` | num | mm | Thickness of one internal elastomer layer (sets the shape factor and the compression stiffness) |
 
 ## supports[] — Supports (abutments A and B for a single span), id = support id used on the support lines
 
@@ -165,6 +166,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 |---|---|---|---|
 | `supports[].kind` | enum |  | Support type — one of: spill-through abutment, wall abutment, integral abutment, pier |
 | `supports[].headstock` | table |  | Headstock / sill beam — columns: width (mm), depth (mm), length (m), rl_top (m), rl_soffit (m) |
+| `supports[].headstock_setout` | table |  | Headstock / sill beam plan setout from the support setout point (support_lines E, N): edge = front / back = face offset square to the line of bearings (+ toward the span); edge = start / end = sill end along the line of bearings (+ in the support_lines.bearing direction) — columns: edge, value (mm) |
 | `supports[].curtain_wall` | table |  | Curtain / ballast wall — columns: thickness (mm), height (mm) |
 | `supports[].wingwalls` | table |  | Wingwalls — columns: side, length (m), thickness (mm) |
 | `supports[].piles[]` | list | | Piles / columns (fields below) |
