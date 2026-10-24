@@ -92,7 +92,10 @@ class Model:
         self.loads[n] = self.loads.get(n, np.zeros(6)) + np.asarray(f, float)
 
     # ------------------------------------------------------------------
-    def solve(self, gravity=(0.0, 0.0, -1.0)):
+    def solve(self, gravity=(0.0, 0.0, -1.0), loads=None):
+        """gravity: self-weight direction (0 vector = no self weight). loads: {node: (Fx..Mz)} for this solve only
+        (a load case); None = the loads added with load()."""
+        nodal = self.loads if loads is None else {n: np.asarray(f, float) for n, f in loads.items()}
         ids = sorted(self.nodes)
         idx = {n: i for i, n in enumerate(ids)}
         nd = DOF * len(ids)
@@ -151,7 +154,7 @@ class Model:
             for d in range(6):
                 if k[d]:
                     rows.append(DOF * idx[n] + d); cols.append(DOF * idx[n] + d); vals.append(k[d])
-        for n, f in self.loads.items():
+        for n, f in nodal.items():
             F[DOF * idx[n]:DOF * idx[n] + 6] += f
         Kt = sp.csr_matrix((vals, (rows, cols)), shape=(nd, nd))
         fixed = sorted(DOF * idx[n] + d for n, ds in self.fixed.items() for d in ds)
@@ -175,7 +178,7 @@ class Model:
         reac = {n: Rall[DOF * idx[n]:DOF * idx[n] + 6].copy() for n in self.fixed}
         spr = {n: -self.springs[n] * u[DOF * idx[n]:DOF * idx[n] + 6] for n in self.springs}  # force the spring exerts on the node
         # equilibrium: applied (self weight + nodal) + support reactions + spring forces = 0
-        applied = tot_w + sum((f[:3] for f in self.loads.values()), np.zeros(3))
+        applied = tot_w + sum((f[:3] for f in nodal.values()), np.zeros(3))
         R_sup = sum((r[:3] for r in reac.values()), np.zeros(3))
         resid = applied + R_sup + sum((s[:3] for s in spr.values()), np.zeros(3))
         free_resid = float(np.abs(Rall[free]).max()) if len(free) else 0.0
