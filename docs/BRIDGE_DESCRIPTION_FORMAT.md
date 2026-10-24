@@ -1,5 +1,7 @@
 # Bridge description format — pdf2bim.bridge/0.1 (step B1, agreed 2026-10-23)
 
+> **Format 0.2** (implemented 2026-10-24) adds an immutable `original`, append-only `overrides`, `current`, `significance`, and a file `revision` + content `hash`. See `FORMAT_0_2_SPEC.md`. Everything below still applies to 0.2.
+
 One bridge = one folder: `projects/<bridge>/`.
 - **`<bridge>.bridge.json`:** every value the platform uses, each tagged (format below).
 - **`<bridge>.decisions.jsonl`:** the decision log, one entry per line, append-only.

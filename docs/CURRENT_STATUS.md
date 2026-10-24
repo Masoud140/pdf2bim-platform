@@ -1,8 +1,8 @@
-# Current status — 2026-10-23
+# Current status — 2026-10-24
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.1 (BR13A baseline) completed, awaiting review. Next: P0.2 format 0.2, then P0.3 standards framework, then P1 geometry (plan in `P1_GEOMETRY_PLAN.md`). No code refactor has started.
+**Stage:** P0.2 (format 0.2) completed 2026-10-24 on branch `p0.2-format`; P0.3 (standards-data framework) in progress. P0 and P0.1 await owner review (they don't block, ADR-018). Then P1 geometry (`P1_GEOMETRY_PLAN.md`). No engine code has been changed.
 
 ## Branches
 
@@ -12,7 +12,8 @@
 | `step-b1-format` | 8a60b74 | same as main | merged |
 | `step-b2-br13a` | 42dcec7 | B2 BR13A description, v45 one Super-T definition, review brief | **awaiting review / merge** |
 | `docs/p0-architecture` | 7d00263 | P0 docs: architecture, principles, verification, decisions, status | awaiting review |
-| `p0.1-baseline` | a46b21e + later docs commits (see `git log`) | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
+| `p0.1-baseline` | 0d36579 | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
+| `p0.2-format` | see `git log` (from 0d36579) | P0.2 format 0.2: c14n + hash, 0.2 schema, rules, migration, BR13A 0.2, example, 47 tests | awaiting review |
 
 ## What works today (BR13A)
 
@@ -51,8 +52,18 @@
 - All quantities are **indicative**. None is a verified reference result yet.
 - Latest full test run: `baseline/BR13A/test_run.md` (commit `2811b27`). Live baseline test: `baseline/BR13A/live_run.txt` (11/11 PASS). Audit: `P0.1_AUDIT_REPORT.md`.
 
-## Next tasks (proposed, awaiting the owner's go)
+## P0.2 (format 0.2), done 2026-10-24
 
-1. **P0.2:** implement format 0.2 (`FORMAT_0_2_SPEC.md`).
-2. **P0.3:** implement the standards-data framework, with all content `code-extracted-unverified` (`STANDARDS_DATA_SPEC.md`).
-3. **P1:** geometry engine in Python (`P1_GEOMETRY_PLAN.md`).
+- **Tests:**
+  - `tests/schema/test_format_0_2.py`: 47 / 47 PASS. Every rejection test asserts its own rule code.
+  - Existing tests unchanged: schema 17 / 17, baseline 8 / 8.
+- **BR13A:** `BR13A.bridge.0.2.json`; all 928 values, units, tags and statuses unchanged; 4 originals rebuilt (D-6).
+- **Flagged for the engineer** (`BR13A.bridge.0.2.migration.md`):
+  - the original unit of the D-6 value 34950 was not recorded (probably mm);
+  - D-8's earlier section is not assigned to a single field;
+  - no significance levels have been set.
+
+## Next tasks
+
+1. **P0.3** standards-data framework (in progress, `STANDARDS_DATA_SPEC.md`).
+2. **P1** geometry engine in Python (`P1_GEOMETRY_PLAN.md`).

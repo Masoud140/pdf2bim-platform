@@ -66,6 +66,7 @@ node tests/gw_t.js               # deck width along each girder, Hog length from
 node tests/dg36_t.js             # girder definition tab + design re-run
 node tests/engine/dsg_test.js    # section engine vs the worked example (prints model vs target)
 python3 tests/schema/test_schema.py   # bridge description format: examples, BR13A file, rejection cases (pass/fail)
+python3 tests/schema/test_format_0_2.py   # format 0.2: canonical hash, overrides rules R1-R7, example, BR13A migration (pass/fail)
 python3 tests/baseline/test_baseline.py              # baseline comparator (pass/fail); BASELINE_LIVE=1 adds a live run + perturbation (~4 min)
 node tools/baseline_snapshot.js --out /tmp/now.json && python3 tools/compare_snapshot.py baseline/BR13A/snapshot.json /tmp/now.json
 python3 tools/run_suite.py                           # run every script; record in baseline/BR13A/test_run.md

@@ -22,6 +22,8 @@
 | 014 | The BR13A baseline is a regression reference, not a verified result | accepted | 2026-10-23, owner |
 | 015 | First implementation task is P0.1 (baseline) before P1 geometry | accepted, P0.1 done | 2026-10-23, owner |
 | 016 | Progress saving and recovery policy | accepted | 2026-10-23, owner |
+| 017 | Format 0.2 implementation choices (exact-key migration, null unknown units, provenance rule, approval transitions) | provisional (agent, reversible) | 2026-10-24, Claude |
+| 018 | Autonomous development and minimal communication | accepted | 2026-10-24, owner (project instructions) |
 
 ---
 
@@ -94,7 +96,7 @@
   - The hash coverage and canonicalisation are defined exactly. The hash identifies content and detects change; it is **not** proof that the data are correct.
   - The schema migration and backward compatibility with 0.1 are documented. Schema tests and a worked example (original → override → approved value) are included.
 - **Design:** `docs/FORMAT_0_2_SPEC.md`.
-- **Status:** design documented; implementation is stage **P0.2** (not started).
+- **Status:** **implemented 2026-10-24** on branch `p0.2-format` (`FORMAT_0_2_SPEC.md` §6); tests 47/47 PASS. Awaiting owner review and merge.
 
 ## ADR-009 Standards data — framework now, content by review
 
@@ -162,3 +164,22 @@
   - At the end of each session, the next session must be able to resume from the last verified checkpoint without asking the owner to repeat history.
   - A save to GitHub is reported only after it is verified against the remote.
 - **Implementation:** `DEVELOPMENT_PRINCIPLES.md` §5; `docs/NEXT_SESSION.md` (resume point) and `docs/CURRENT_STATUS.md`; Claude Project memory and `claude/SOURCE_REPOSITORY.md` updated at session end.
+
+## ADR-017 Format 0.2 implementation choices (provisional)
+
+- **Decision (agent, 2026-10-24; reversible; owner review invited):**
+  1. Migration rebuilds an original only when the decision key equals the record path exactly. **Alternative rejected:** matching parent keys, which wrongly gave the Super-T depth the old section name as its "original".
+  2. Units not recorded in 0.1 stay `null`. **Alternative rejected:** parsing units from free-text reasons.
+  3. New provenance rule: record source / derivation / ref describe the current entry.
+  4. Approval transitions are limited to proposed→accepted/rejected and accepted→superseded.
+- **Consequence:** BR13A has 4 reconstructed originals (D-6). D-8's earlier value stays only in the decision log.
+- **Risk:** none to engineering values. All 928 values, units, tags and statuses are unchanged (tested).
+
+## ADR-018 Autonomous development policy
+
+- **Decision (owner, 2026-10-24, project instructions):**
+  - The agent works through the roadmap autonomously and makes reversible decisions itself, recorded here.
+  - It asks only when safety, the validity of calculations, licensing / confidentiality / security, or an irreversible action is at stake.
+  - End-of-session reports are short (completed / tests / risks / next); detail stays in repository files.
+  - **Progress is saved continuously** (ADR-016).
+- **Consequence:** owner reviews of earlier stages (P0, P0.1) remain open but no longer block independent next stages. `main` is still never merged by the agent.

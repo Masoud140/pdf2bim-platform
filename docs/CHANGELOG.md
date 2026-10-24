@@ -1,0 +1,36 @@
+# Changelog
+
+Meaningful project changes, newest first. Details are in the linked documents and commits.
+
+## 2026-10-24 — P0.2 bridge description format 0.2 (branch `p0.2-format`)
+
+- **Added:**
+  - format 0.2: immutable `original`, append-only `overrides`, `current`, `significance`, `revision`, content `hash`;
+  - canonical JSON (RFC 8785 based) and content hash;
+  - rule checker (R1–R7);
+  - migration tool.
+- BR13A migrated to `BR13A.bridge.0.2.json`. All 928 values are unchanged; 4 originals are rebuilt from decision D-6. The 0.1 file is untouched.
+- Worked example (fictional bridge): original 200 mm → proposed 220 mm → approved.
+- 47 new test assertions. The existing tests are unchanged (schema 17/17, baseline 8/8).
+- See `docs/FORMAT_0_2_SPEC.md` §6 and ADR-017.
+
+## 2026-10-23 — P0.1 baseline, audit, status dashboard (branch `p0.1-baseline`)
+
+- BR13A baseline snapshot (953 indicative values, 15 consistency checks), comparator and live / perturbation tests.
+- Audit report (`docs/P0.1_AUDIT_REPORT.md`). Test-harness fix (`dgxl_t`, `dgdoc_t`).
+- Status dashboard `status/index.html`, generated from repository data.
+- Progress-saving policy (ADR-016), `NEXT_SESSION.md`.
+
+## 2026-10-23 — P0 architecture (branch `docs/p0-architecture`)
+
+- Architecture, development principles, verification strategy, decisions (ADR-001…011), current status, roadmap P0–P7.
+
+## 2026-10-23 — B2 / v45 (branch `step-b2-br13a`)
+
+- BR13A in the bridge description format (928 tagged values, decision log).
+- Dashboard v45: one Super-T definition, flange widths per girder.
+
+## 2026-10-23 — A / B1 (`main`)
+
+- Dashboard sources under version control; reproducible build.
+- Bridge description format 0.1 and decision log schema.

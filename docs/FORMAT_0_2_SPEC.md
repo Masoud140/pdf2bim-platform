@@ -1,6 +1,8 @@
 # Bridge description format 0.2 — specification and migration (ADR-008)
 
-**Status:** approved in principle 2026-10-23, with safeguards (owner). This document is the design. **Implementation is stage P0.2:** schema, validator, migration tool, tests and the worked example. Until P0.2 is merged, 0.1 remains the only implemented format.
+**Status:** approved in principle 2026-10-23, with safeguards (owner).
+
+**Implemented 2026-10-24 (P0.2, branch `p0.2-format`, not merged).** Section 6 lists the implementation and the provisional decisions made during it. 0.1 remains supported and unchanged.
 
 ## 1. What changes from 0.1
 
@@ -52,7 +54,7 @@
    - overriding a `Direct` original needs non-empty `evidence`;
    - an AI author may only have an override accepted when its tag is `Calculated`;
    - `Missing-Flagged` values are never `accepted`.
-5. **Units:** `from_unit` / `unit` must be units known to the field catalogue. A unit change is allowed only with an explicit conversion in `reason`.
+5. **Units:** a unit change (`from_unit` ≠ `unit`, both known) needs an explicit `conversion` field. Unknown units stay `null`; they are never guessed.
 6. **Decision log link:** each override that is approved has a matching decision-log entry (`decision`). The decision log stays the history of *why*; the value record holds *what* and *which is current*.
 7. **Significance:**
    - Engineers set it; the AI may propose it.
@@ -95,7 +97,7 @@ The P0.2 implementation (Python) will be tested against the RFC 8785 test vector
 - **Round trip test:** for every value, `value` / `unit` / `tag` in the 0.2 file equal the 0.1 file.
 - **The engine side is unaffected:** engines read `value`.
 
-## 5. P0.2 deliverables (to implement)
+## 5. P0.2 deliverables (as specified)
 
 - `schema/fields.py` / `build_schema.py`: generate `bridge.schema.0.2.json` (0.1 schema kept).
 - Validator rules 1–7 above (JSON Schema plus a Python rule checker, because rules 1, 2 and 3 compare across fields and revisions).
@@ -109,3 +111,32 @@ The P0.2 implementation (Python) will be tested against the RFC 8785 test vector
   - Direct override without evidence;
   - AI-accepted Assumed value.
 - Updated `docs/BRIDGE_DESCRIPTION_FORMAT.md` and `BRIDGE_FIELDS.md`.
+
+## 6. Implementation (P0.2, 2026-10-24)
+
+| Item | File |
+|---|---|
+| Canonical JSON + hash (`pdf2bim-c14n/1`) | `schema/c14n.py` |
+| 0.2 JSON Schema (generated alongside the unchanged 0.1 schema) | `schema/build_schema.py` → `schema/bridge.schema.0.2.json` |
+| Rule checker R1–R7 + hash; revision checker | `schema/rules_0_2.py` (`check`, `check_revision`) |
+| Migration tool + report | `schema/migrate_0_1_to_0_2.py` |
+| BR13A in 0.2 (0.1 file kept, unchanged) | `projects/BR13A/BR13A.bridge.0.2.json`, `…0.2.migration.md` |
+| Worked example: original → proposed override → approved | `examples/override_example/` (fictional bridge; `build.py` regenerates rev1–rev3) |
+| Tests (47 assertions) | `tests/schema/test_format_0_2.py` |
+
+**Provisional decisions made during implementation** (recorded in `DECISIONS.md`, ADR-017; reversible):
+1. **The migration rebuilds an original from the decision log only when the decision key equals the record path exactly** (`[*]` matches any list id).
+   - BR13A: the four D-6 girder lengths (34950, Assumed → the Calculated chord lengths).
+   - D-8 names a parent object (`supert_types[ST1]`), so it is **not** assigned to the section or depth field. Those keep their first recorded state as original, and the earlier value stays in the log.
+2. **Unknown units stay `null`.** D-6's 34950 is very likely mm (the decision text says "34950 / 530 mm"), but the unit was not recorded as data, so it is left `null` and flagged.
+3. **Added rule (R3 provenance):** when the current value is an override, the record's `source` / `derivation` / `ref` must be the override's.
+   - This stops a drawing source (for example "200 SLAB") from staying attached to a changed value (220).
+   - The drawing source stays on `original`.
+4. **"One current value":** every accepted override that is not current must be superseded by a later override (`supersedes`).
+5. **Allowed approval transitions between revisions:** `proposed → accepted | rejected`, `accepted → superseded`. Nothing else.
+6. `significance` is never set by migration; it is set by the engineer.
+
+**Not done yet:**
+- engines and the dashboard still read 0.1 (they read `value`, so 0.2 is compatible);
+- no UI for proposing or approving overrides (P5);
+- `docs/BRIDGE_FIELDS.md` documents fields, which are the same in 0.1 and 0.2.
