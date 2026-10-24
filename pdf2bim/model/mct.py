@@ -11,9 +11,9 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 |---|---|---|
 | *UNIT, *NODE, *ELEMENT BEAM, *MATERIAL USER (name <= 16 chars) | verified | MCT_EXPORT_METHOD §1 |
 | *SECTION DBUSER SB rectangle (H, B) | verified | §1 |
-| *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; BR13A v8 file |
+| *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; first-case v8 file |
 | *STLDCASE, *CONSTRAINT, *USE-STLD, *SELFWEIGHT | from the engineer's native model, import of a generated file not yet confirmed | §1b |
-| *ELASTICLINK (GEN, angle, SDx..SRz, bSHEAR, DRy, DRz, group) | UNVERIFIED | dashboard export (src/sub.js) / BR13A v8 header |
+| *ELASTICLINK (GEN, angle, SDx..SRz, bSHEAR, DRy, DRz, group) | UNVERIFIED | dashboard export (src/sub.js) / first-case v8 header |
 | *SPRING (LINEAR) | UNVERIFIED | dashboard export (src/sub.js), marked "VERIFY the field order" by its author |
 | nodal loads (*CONLOAD) | NOT WRITTEN | no documented syntax: ask for a native export |
 
@@ -26,7 +26,7 @@ Content rules:
 - sections: members with shape ('rect', H, B) -> DBUSER SB (MIDAS computes A, I, J, shear areas itself; its J and shear
   areas can differ slightly from the solver's); every other member -> VALUE with the solver's A, Asy, Asz, J, Iy, Iz
   (stiffness only: no stress recovery points; composite girders are NOT written as COMPOSITE-GEN yet);
-- section offset: CT (DBUSER) / CC (VALUE) as the BR13A file; whether MIDAS shifts a section relative to the node line is
+- section offset: CT (DBUSER) / CC (VALUE) as the first-case v8 file; whether MIDAS shifts a section relative to the node line is
   unverified (§2 rule 7).
 """
 import math
