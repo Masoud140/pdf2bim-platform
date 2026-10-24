@@ -75,6 +75,8 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
+- **P2 sections** (2026-10-24, branch `p2-sections`): `tests/sections/test_sections.py` 24 / 24 PASS. **T5 met** (30 published rows within 0.47 %); **T6 met** (exact closed-cell tube within 0.8 %). BR13A G2 / G3 composite vs the frozen model within 0.1 % (V5).
+- **Full suite** (2026-10-24, commit `5e91a8f`): 23 scripts, 136 / 136 assertions PASS, 18 print-only scripts ran without software errors (`baseline/BR13A/test_run.md`). Live baseline 11 / 11 (`live_run.txt`).
 - **P1 geometry** (2026-10-24, branch `p1-geometry`): `tests/geometry/test_geometry.py` 36 / 36 PASS. **T2 / T3 met** on the 4 closed-form cases (§3). BR13A: misclosure ≤ 2.2 mm, base point 0.3 mm, skew 0.002°. Deck widths vs the dashboard ≤ 2 mm (V5). Bearing nodes vs the dashboard 1.4–33 mm (explained, F-4). Mutation check: all 4 injected faults were caught.
 - **Standards framework** (2026-10-24, branch `p0.3-standards`): `tests/standards/test_standards.py` 28 / 28 PASS. These are framework tests and an inventory-vs-code check. **No standards value is verified.**
 - **Missing:**

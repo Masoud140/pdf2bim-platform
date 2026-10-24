@@ -29,5 +29,6 @@
 - **P0.2 format 0.2 — DONE 2026-10-24** (branch `p0.2-format`, ADR-008 / 017): 47 / 47 tests pass. Details in `FORMAT_0_2_SPEC.md` §6.
 - **P0.3 standards-data framework — DONE 2026-10-24** (branch `p0.3-standards`, ADR-009 / 019). 63 entries inventoried, **none approved**; 28 / 28 tests. Details in `STANDARDS_DATA_SPEC.md` §5.
 - **P1 geometry — DONE 2026-10-24** (branch `p1-geometry`, ADR-020): 36 / 36 tests. Details in `P1_GEOMETRY_METHOD.md`. BR13A geometry is provisional until D-34 is accepted.
-- **P2 sections — next.**
+- **P2 sections — DONE 2026-10-24** (branch `p2-sections`, ADR-021): 24 / 24 tests. Details in `P2_SECTIONS_METHOD.md`. BR13A sections are provisional until D-34 / D-35 / D-36 are accepted.
+- **P3 model builder + callable core — next.**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

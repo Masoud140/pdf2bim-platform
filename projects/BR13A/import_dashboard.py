@@ -303,7 +303,7 @@ TAGS_SD = {'D': 'Direct', 'S': 'Standard-verify'}
 B['custom'] = {
     'supert_shape': {'section': 'superstructure', 'columns': {'key': '', 'name': '', 'value': '', 'unit': ''},
                      'rows': [row({'key': k, 'name': n, 'value': SG.get(k), 'unit': u}, TAGS_SD[S['STAG'][k]], **({'doc': doc_of('202304'), 'view': 'DRG 202304 girder section (Section designer)'} if S['STAG'][k] == 'D' else {'ref': 'lib:supert/T4/' + k}))
-                              for k, n, _, u in S['SROWS'] if k in S['STAG']],
+                              for k, n, _, u in S['SROWS'] + S.get('SDET', []) if k in S['STAG']],  # SDET added 2026-10-24: the detail rows (ttf, S, fillets, recess, chamfer) were skipped before; see D-35
                      'note': 'The one Super-T definition (Girder definition → Section shape): T4 family with the DRG 202304 values; A = %.0f mm2, centroid %.1f mm above the soffit' % (SG['A'], SG['yb'])},
     'takeoff_abutments': takeoff(ABT, 'takeoff_abutments'),
     'takeoff_piles': takeoff(PIL, 'takeoff_piles'),

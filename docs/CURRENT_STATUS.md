@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2, P0.3 and **P1 geometry** completed 2026-10-24 (branches `p0.2-format`, `p0.3-standards`, `p1-geometry`). **Next: P2 sections.** P0 / P0.1 / P1 await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2, P0.3, P1 geometry and **P2 sections** completed 2026-10-24. **Next: P3 model builder.** P0 → P2 await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -15,7 +15,8 @@
 | `p0.1-baseline` | 0d36579 | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
 | `p0.2-format` | f1fdc7a | P0.2 format 0.2: c14n + hash, 0.2 schema, rules, migration, BR13A 0.2, example, 47 tests | awaiting review |
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
-| `p1-geometry` | see `git log` (from ff93af7) | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
+| `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
+| `p2-sections` | see `git log` (from 5e91a8f) | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
 
 ## What works today (BR13A)
 
@@ -46,6 +47,7 @@
 | R-1 | 177 Assumed values in BR13A need engineer decisions or data | data |
 | X-1 | `schema/__pycache__` was committed (removed in 7d00263) | repo |
 | H-2 | Plots drawn with NaN / Infinity coordinates: 88 SVG console errors per baseline run (baseline check `chk.no_svg_nan` fails) | H |
+| D-35/36 | BR13A Super-T shape rows (incl. ttf 90) and haunch (Assumed 0) only proposed; sections provisional | data |
 | D-34 | BR13A support-line bearing (44.029166°) only proposed; geometry provisional until the engineer accepts it | data |
 | F-4 | Dashboard model bearing nodes up to 26 mm off the straight support line; not collinear | E |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
@@ -88,6 +90,22 @@
 
   Details in `P1_GEOMETRY_METHOD.md` §3.
 
+## P2 (sections), done 2026-10-24
+
+- `pdf2bim/sections/`: `tests/sections/test_sections.py` 24 / 24 PASS. 30 published Super-T rows within 0.47 %; exact torsion benchmarks met.
+- **BR13A** (`projects/BR13A/sections/BR13A.sections.md`):
+  - the one definition equals the dashboard exactly;
+  - the G2 / G3 composite equals the frozen model within 0.1 %;
+  - the edge-girder flare now enters the sections (G4 area +8 % at midspan).
+- **PROVISIONAL:** uses D-34, D-35 and D-36 (proposed).
+- **Found and fixed:** the B2 importer had skipped the Super-T detail rows, including ttf 90 mm.
+
+## Tests (latest full run)
+
+- Commit `5e91a8f`: 23 scripts; 136 / 136 assertions PASS; 18 print-only scripts ran.
+- Live baseline 11 / 11.
+- After that run: sections 24 / 24 and format 48 / 48 (updated) on `p2-sections`.
+
 ## Next task
 
-**P2:** sections and products. Super-T properties per girder segment from the one definition, with the P1 flange widths. Branch `p2-sections` from `p1-geometry`.
+**P3:** model builder. Build the grillage (chords, transverse members, bearings, substructure, springs) from the description + P1 + P2 into a Python model with roles and stable ids, and write MIDAS .mct. Compare with the frozen model (reactions, modes). Branch `p3-model` from `p2-sections`.

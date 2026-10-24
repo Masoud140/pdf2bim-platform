@@ -25,6 +25,7 @@
 | 017 | Format 0.2 implementation choices (exact-key migration, null unknown units, provenance rule, approval transitions) | provisional (agent, reversible) | 2026-10-24, Claude |
 | 018 | Autonomous development and minimal communication | accepted | 2026-10-24, owner (project instructions) |
 | 019 | Standards inventory choices (null edition, row-per-factor, specialist flags) | provisional (agent, reversible) | 2026-10-24, Claude |
+| 021 | P2 sections: one Super-T definition = product type + `supert_types[].shape`; asymmetric flared flanges from P1; composite on the P1 deck width; FD torsion | provisional (agent, reversible) | 2026-10-24, Claude |
 | 020 | P1 geometry definitions: support line by printed bearing; bearing centre = girder line ∩ support line; chord; flange square to chord | provisional (agent, reversible) | 2026-10-24, Claude |
 
 ---
@@ -207,3 +208,17 @@
   - curved girder lines: contradict ADR-003.
 - **BR13A:** the support bearing exists only in a note. It is proposed as D-34 (by AI, not accepted). Geometry is built with `allow_proposed` and labelled PROVISIONAL until the engineer accepts D-34.
 - **Consequence:** P3 must build the model on these chords and bearing centres, not on the frozen-mesh nodes (F-4).
+
+## ADR-021 P2 section definitions (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. **One Super-T definition** = product type (`lib:supert/<type>`) + the drawing dimensions in the new catalogue table `supert_types[].shape`. Engines never read shape values from `custom`.
+  2. **Flange tips:** left and right are taken separately from the P1 flange edges, so the edge-girder flare enters the precast section, per ADR-004 (owner: edge Super-T widths flare to match the deck).
+  3. **Composite:** deck slab of the P1 tributary width on the flange plus the `haunch`, transformed by n = E_deck / E_girder.
+  4. **Torsion:** finite differences on the real geometry, as one material.
+  5. **Missing solid-end zones are reported,** not assumed.
+- **BR13A:**
+  - D-35 (13 shape rows, including ttf 90 that the B2 importer had skipped) — proposed;
+  - D-36 (haunch Assumed 0 mm) — proposed.
+
+  Sections are labelled PROVISIONAL until both are accepted.

@@ -7,7 +7,7 @@ const DASH=path.resolve(process.argv[2]||path.join(__dirname,'../dist/BR13A_gril
   const p=await (await b.newContext()).newPage();
   await p.goto('file://'+DASH); await p.waitForTimeout(2500);
   const d=await p.evaluate(()=>{ dgSecInit(); var hdr=document.querySelector('header')||document.body;  const s=HOG_API.snap(); return JSON.stringify({ABT:DATA.ABT, PIL:DATA.PIL, PRM:DATA.PRM, VAL:DATA.VAL, LIVE:DATA.LIVE, P:P, DEF:DEF, META:META,
-     STAG:typeof STAG!=='undefined'?STAG:null, SROWS:typeof SROWS!=='undefined'?SROWS:null, SKEYS:typeof SKEYS!=='undefined'?SKEYS:null,
+     STAG:typeof STAG!=='undefined'?STAG:null, SROWS:typeof SROWS!=='undefined'?SROWS:null, SKEYS:typeof SKEYS!=='undefined'?SKEYS:null, SDET:typeof SDET!=='undefined'?SDET:null,
      hog:{cur:s.cur, p:s.p, S:s.S, B:s.B, R:s.R}, DGsec:(()=>{ const q=Object.assign({},DG.sec); delete q.orig; return q; })(), gird:DG.sec.gird,
      SUBM:{bA:SUBM.bA,bB:SUBM.bB,ea:SUBM.ea,eb:SUBM.eb,eT:SUBM.eT,eG:SUBM.eG,kFix:SUBM.kFix,khRock:SUBM.khRock,fac:SUBM.fac,toe:SUBM.toe,colSoil:SUBM.colSoil,soil:SUBM.soil,piles:SUBM.info.piles.map(q=>({id:q.id,ab:q.ab,x:q.x,y:q.y,rock:q.rock,zTop:q.zTop,zToe:q.zToe,ground:q.ground}))},
      SL, TM:{Tmax:TM.Tmax,Tmin:TM.Tmin,Tset:TM.Tset,alpha:TM.alpha}, TG:{T0:TG.T0,negF:TG.negF,eps:TG.eps}, temp:DG.temp, WD:Object.assign({},WD,{res:null}), EQ:{kp:EQ.kp,Z:EQ.Z,site:EQ.site,Rf:EQ.Rf,zeta:EQ.zeta,nModes:EQ.nModes,wbar:EQ.wbar,vert:EQ.vert}, RX:{Vs:RX.Vs,V35:RX.V35}, LD:LD,

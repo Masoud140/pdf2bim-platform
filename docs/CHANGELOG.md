@@ -2,6 +2,22 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P2 sections and products (branch `p2-sections`)
+
+- **Added:**
+  - `pdf2bim/sections/`: polygon properties; Super-T outline port with asymmetric flanges; FD torsion; girder and composite sections along each girder;
+  - `library/products/supert.json` (code-extracted, unverified);
+  - `tools/build_sections.py`;
+  - 24 tests.
+- **Format:** `supert_types[].shape` and `haunch`. BR13A D-35 (shape incl. ttf 90) and D-36 (haunch Assumed 0) proposed.
+- **Fixed:** the B2 importer skipped the detail shape rows (SDET); fixed for future imports.
+- **Results:**
+  - 30 published Super-T rows within 0.47 %;
+  - BR13A one definition equals the dashboard exactly;
+  - G2 / G3 composites equal the frozen model within 0.1 %;
+  - the edge-girder flare now changes the sections.
+- See `docs/P2_SECTIONS_METHOD.md` and ADR-021.
+
 ## 2026-10-24 — P1 geometry engine (branch `p1-geometry`)
 
 - **Added:**

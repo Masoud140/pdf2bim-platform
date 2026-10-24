@@ -85,14 +85,21 @@
    "id": "P2",
    "name": "Sections and products",
    "plain": "Girder and deck properties from one Super-T definition.",
-   "status": "in_progress",
-   "evidence": []
+   "status": "completed",
+   "evidence": [
+    "docs/P2_SECTIONS_METHOD.md",
+    "pdf2bim/sections/girder.py",
+    "tests/sections/test_sections.py",
+    "projects/BR13A/sections/BR13A.sections.md"
+   ],
+   "review": "awaiting owner review; BR13A sections PROVISIONAL until D-35/D-36 accepted",
+   "branch": "p2-sections"
   },
   {
    "id": "P3",
    "name": "Structural model builder and analysis core",
    "plain": "Build the analysis model from the bridge data instead of a fixed BR13A file.",
-   "status": "not_started",
+   "status": "in_progress",
    "evidence": []
   },
   {
@@ -126,9 +133,9 @@
   }
  ],
  "next": {
-  "task": "P2 sections and products: Super-T section properties per girder segment from the one definition, including flared flange widths from P1",
-  "why": "The analysis model needs correct stiffness per member; today the model uses fixed sections and ignores the flare, and the design section is placed by hand.",
-  "evidence": "Section properties (A, I, centroid, J) to 0.5 % / 2 % against independent calculations; flare applied from the P1 flange widths; product library file with each Super-T type tagged"
+  "task": "P3 model builder: build the analysis model from the bridge data (P1 geometry + P2 sections) instead of the fixed BR13A file",
+  "why": "This is what makes the platform work for any bridge; it also removes the frozen-model approximations found in P1/P2 (bearing nodes off the support line, no flare).",
+  "evidence": "V2 model checks (equilibrium 0.1 %, no mechanisms); BR13A reactions and modal periods vs the frozen model within tolerance (differences explained); MIDAS .mct written"
  },
  "risks": [
   {
@@ -136,6 +143,13 @@
    "title": "BR13A support-line bearing waits for your acceptance",
    "plain": "The geometry needs the support-line bearing (44.029166° from the skew diagram). It was only in a note, so the agent proposed it as decision D-34. Until accepted, BR13A geometry is labelled provisional.",
    "why": "All girder positions depend on it.",
+   "severity": "medium"
+  },
+  {
+   "id": "D-35",
+   "title": "BR13A Super-T shape and haunch wait for your acceptance",
+   "plain": "The import had missed the top flange thickness (90 mm on the girder drawing). The agent proposed the full shape (D-35) and a placeholder haunch of 0 mm (D-36).",
+   "why": "Section stiffness depends on both; sections are provisional until accepted.",
    "severity": "medium"
   },
   {
