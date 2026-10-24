@@ -57,17 +57,21 @@
    "id": "P0.3",
    "name": "Standards data framework",
    "plain": "All code-standard numbers in one reviewed place, each marked unverified until checked.",
-   "status": "in_progress",
+   "status": "completed",
    "evidence": [
-    "docs/STANDARDS_DATA_SPEC.md"
-   ]
+    "docs/STANDARDS_DATA_SPEC.md",
+    "standards/accessor.py",
+    "standards/REVIEW_REGISTER.md",
+    "tests/standards/test_standards.py"
+   ],
+   "review": "awaiting owner review; content NOT approved",
+   "branch": "p0.3-standards"
   },
   {
    "id": "P1",
    "name": "Geometry generation (Python)",
    "plain": "Bridge geometry computed from the bridge data alone, for any bridge.",
-   "status": "not_started",
-   "review": "plan awaiting owner approval",
+   "status": "in_progress",
    "evidence": [
     "docs/P1_GEOMETRY_PLAN.md"
    ]
@@ -117,9 +121,9 @@
   }
  ],
  "next": {
-  "task": "P0.3 standards-data framework (all content marked unverified)",
-  "why": "Every load factor, spectrum and design coefficient must live in one place with its source and review status, so unverified values are always flagged in results.",
-  "evidence": "Schema + accessor + inventory of current code constants (status code-extracted-unverified); tests that block approval without reviewer/date/reference and flag results using unapproved entries"
+  "task": "P1 geometry engine in Python (from the bridge description, MGA, straight chords)",
+  "why": "Geometry is the first engine layer; every later stage (sections, model, analysis) builds on it, and it must work for any bridge, not only BR13A.",
+  "evidence": "4 synthetic validation cases to 1 mm with hand-checked coordinates; BR13A girder chords equal the baseline to 1 mm; no BR13A constants in code"
  },
  "risks": [
   {
@@ -160,7 +164,7 @@
   {
    "id": "STD",
    "title": "Code-standard values not yet verified",
-   "plain": "Load factors, spectra and similar values are in the code and not yet checked against authorised copies.",
+   "plain": "63 code-standard values are now inventoried in one place (standards/REVIEW_REGISTER.md), but none is verified against an authorised copy; 27 need specialist interpretation.",
    "why": "Every design action depends on them.",
    "severity": "medium"
   },

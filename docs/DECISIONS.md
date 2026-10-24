@@ -24,6 +24,7 @@
 | 016 | Progress saving and recovery policy | accepted | 2026-10-23, owner |
 | 017 | Format 0.2 implementation choices (exact-key migration, null unknown units, provenance rule, approval transitions) | provisional (agent, reversible) | 2026-10-24, Claude |
 | 018 | Autonomous development and minimal communication | accepted | 2026-10-24, owner (project instructions) |
+| 019 | Standards inventory choices (null edition, row-per-factor, specialist flags) | provisional (agent, reversible) | 2026-10-24, Claude |
 
 ---
 
@@ -114,7 +115,7 @@
   - Rules that need specialist interpretation are flagged for that review.
   - Until values and implementations are verified, the calculations that use them are flagged **unverified** and are not presented as validated final design results.
 - **Design:** `docs/STANDARDS_DATA_SPEC.md`.
-- **Status:** design documented; implementation is stage **P0.3** (not started).
+- **Status:** **framework implemented 2026-10-24** on branch `p0.3-standards` (`STANDARDS_DATA_SPEC.md` §5); 28 / 28 tests pass. **Content: 63 entries, all `code-extracted-unverified`. Nothing approved.**
 
 ## ADR-010 Planks later
 
@@ -183,3 +184,12 @@
   - End-of-session reports are short (completed / tests / risks / next); detail stays in repository files.
   - **Progress is saved continuously** (ADR-016).
 - **Consequence:** owner reviews of earlier stages (P0, P0.1) remain open but no longer block independent next stages. `main` is still never merged by the agent.
+
+## ADR-019 Standards inventory choices (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  - Edition and amendment are left `null` because the code does not record them. **Alternative rejected:** assuming the current editions.
+  - Each load-factor row is one entry (`uls`, `uls_relieving`, `sls`).
+  - Project inputs (wind speed, Z, temperatures) are excluded from standards data and listed separately.
+  - The extractor keeps a review only while the code value is unchanged.
+- **Consequence:** every calculation is labelled UNVERIFIED until the owner's reviewers approve entries.

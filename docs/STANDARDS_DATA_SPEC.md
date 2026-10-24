@@ -3,7 +3,7 @@
 **Status:**
 - The **architecture** was approved in principle on 2026-10-23.
 - The **engineering content is not approved.** The owner is responsible for engineering review and will arrange independent verification of the AS 5100 and AS/NZS 1170.4 requirements against authorised copies.
-- **Implementation is stage P0.3.**
+- **Framework implemented 2026-10-24 (P0.3, branch `p0.3-standards`).** See section 5. **No content is approved.**
 
 ## 1. Principle: framework separate from content
 
@@ -73,3 +73,26 @@ All entries listed here will be created at `code-extracted-unverified` (or `plac
   - an entry cannot be saved as `checked` / `approved` without reviewer, date and authorised reference;
   - the accessor returns the status;
   - a result that uses an unapproved entry is flagged unverified.
+
+## 5. Implementation (P0.3, 2026-10-24)
+
+| Item | File |
+|---|---|
+| Inventory extractor: reads the values the code uses, records the file:line of each, status `code-extracted-unverified` | `standards/extract_from_code.py` |
+| Data: 63 entries (AS 5100.2: 52 load-factor rows + 3 wind; AS 5100.5: 5; AS 1170.4: 2; AS/NZS 1170.2: 1) | `standards/data/*.json` |
+| Project inputs found next to standards values (wind speed, Z, temperatures): listed, **not** standards data | `standards/data/_project_defaults_not_standards.json` |
+| Accessor: `get()` returns value + status and records use; `result_status()` gives "UNVERIFIED …" unless every used entry is approved; loader rejects unreviewed `checked` / `approved`, AI reviewers, missing edition | `standards/accessor.py` |
+| Review register (generated): 63 to review, 27 flagged for specialist interpretation | `standards/review_register.py` → `standards/REVIEW_REGISTER.md` |
+| Tests (28) | `tests/standards/test_standards.py` |
+
+**Provisional decisions** (ADR-019):
+- **Edition and amendment are `null`.** The code records clause numbers only.
+- **One entry per load-factor row**, with `{uls, uls_relieving, sls}`, rather than three entries.
+- **Specialist-review flag** on: traffic, earthquake, collision and rail rows; earth-pressure-from-traffic (EPT); SDL rows; the wind coefficients; the N-M φ.
+
+**Limitations (open):**
+- **The JavaScript dashboard does not read through the accessor yet.** It still uses its own constants (F-2).
+  - The test "committed data equals a fresh extraction" ties the data to the code, so a code change is caught.
+  - Python engines (P3 onwards) must use `Standards.get()`.
+- **The inventory covers the constants found** (load-factor register, earthquake spectrum, stress block, φ, wind and thermal defaults).
+  - **Not yet inventoried:** traffic load model geometry and dynamic load allowance (inside the frozen base traffic code), AS 5100.5 crack-control and shear-formula constants, and earth-pressure coefficients. They will be added as those modules migrate.

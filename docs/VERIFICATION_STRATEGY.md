@@ -75,6 +75,7 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
+- **Standards framework** (2026-10-24, branch `p0.3-standards`): `tests/standards/test_standards.py` 28 / 28 PASS. These are framework tests and an inventory-vs-code check. **No standards value is verified.**
 - **Missing:**
   - assertions in the browser and engine scripts;
   - an independent MIDAS model of the integrated structure (T10);

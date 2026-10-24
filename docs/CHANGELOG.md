@@ -2,6 +2,14 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P0.3 standards-data framework (branch `p0.3-standards`)
+
+- **Added:**
+  - `standards/`: extractor, 63 inventoried entries (all `code-extracted-unverified`, each with its code location), accessor with status propagation, generated review register.
+  - 28 tests, including an independent Node evaluation of the code literals.
+- **Fixed during work:** the extractor's id pattern missed ids with lowercase letters (8 rows, e.g. DLc). It was caught by the independent count.
+- See `docs/STANDARDS_DATA_SPEC.md` §5 and ADR-019.
+
 ## 2026-10-24 — P0.2 bridge description format 0.2 (branch `p0.2-format`)
 
 - **Added:**
