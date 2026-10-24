@@ -1,0 +1,370 @@
+{
+ "format": "pdf2bim.library/0.1",
+ "product": "Super-T",
+ "note": "Product data hard-coded in the dashboard (workbook SectionDesigner port). NOT verified against the TfNSW standard drawings.",
+ "status": "code-extracted-unverified",
+ "source": {
+  "types": "base/BR13A_grillage_dashboard_v15.html:504 (STD)",
+  "defaults": "base/BR13A_grillage_dashboard_v15.html:509 (SD)",
+  "published_properties": "base/BR13A_grillage_dashboard_v15.html:512 (PUB)"
+ },
+ "units": "mm, mm^2, mm^4; S = web slope (horizontal run per unit... as coded: x = bw/2 + y/S); rho t/m3",
+ "parameters": {
+  "D": "overall depth",
+  "bw": "soffit width",
+  "tw": "web thickness (normal to the web)",
+  "d1": "bottom flange: web-junction height above d2",
+  "d2": "bottom flange thickness at the centreline",
+  "b1": "void floor half-width (as tabulated; secGeom recomputes it)",
+  "b2": "tabulated top width",
+  "ttf": "top flange thickness",
+  "S": "web slope factor",
+  "fW": "outer fillet width on the flange underside",
+  "fD": "outer fillet depth on the web",
+  "r": "top recess size (open flange)",
+  "ifW": "void top fillet width",
+  "ifD": "void top fillet depth",
+  "ch": "bottom chamfer"
+ },
+ "types": {
+  "T1": {
+   "D": 750,
+   "bw": 899,
+   "tw": 100,
+   "d1": 72,
+   "d2": 240,
+   "b1": 379,
+   "b2": 840
+  },
+  "T2": {
+   "D": 1000,
+   "bw": 852,
+   "tw": 100,
+   "d1": 67,
+   "d2": 240,
+   "b1": 354,
+   "b2": 840
+  },
+  "T3": {
+   "D": 1200,
+   "bw": 814,
+   "tw": 100,
+   "d1": 64,
+   "d2": 260,
+   "b1": 337,
+   "b2": 840
+  },
+  "T4": {
+   "D": 1500,
+   "bw": 757,
+   "tw": 100,
+   "d1": 58,
+   "d2": 260,
+   "b1": 308,
+   "b2": 840
+  },
+  "T5": {
+   "D": 1800,
+   "bw": 700,
+   "tw": 120,
+   "d1": 50,
+   "d2": 320,
+   "b1": 265,
+   "b2": 800
+  }
+ },
+ "span_range": {
+  "T1": "15 to 20",
+  "T2": "17 to 23",
+  "T3": "18 to 27",
+  "T4": "22 to 33",
+  "T5": "28 to 37"
+ },
+ "defaults": {
+  "ttf": 75,
+  "S": 10.556,
+  "fW": 100,
+  "fD": 75,
+  "r": 25,
+  "ifW": 100,
+  "ifD": 75,
+  "ch": 12
+ },
+ "flange_width_limits": {
+  "min": 1800,
+  "max": 2500
+ },
+ "density_t_per_m3": 2.6,
+ "published_properties": [
+  {
+   "flange": "Open-flange",
+   "W": 1800,
+   "type": "T1",
+   "A": 413900,
+   "yb": 312,
+   "I": 24710000000,
+   "mass_t_per_m": 1.076
+  },
+  {
+   "flange": "Open-flange",
+   "W": 1800,
+   "type": "T2",
+   "A": 449500,
+   "yb": 416,
+   "I": 52030000000,
+   "mass_t_per_m": 1.169
+  },
+  {
+   "flange": "Open-flange",
+   "W": 1800,
+   "type": "T3",
+   "A": 491500,
+   "yb": 500,
+   "I": 83090000000,
+   "mass_t_per_m": 1.278
+  },
+  {
+   "flange": "Open-flange",
+   "W": 1800,
+   "type": "T4",
+   "A": 533600,
+   "yb": 644,
+   "I": 144500000000,
+   "mass_t_per_m": 1.387
+  },
+  {
+   "flange": "Open-flange",
+   "W": 1800,
+   "type": "T5",
+   "A": 669800,
+   "yb": 796,
+   "I": 247700000000,
+   "mass_t_per_m": 1.741
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2100,
+   "type": "T1",
+   "A": 436400,
+   "yb": 333,
+   "I": 28140000000,
+   "mass_t_per_m": 1.135
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2100,
+   "type": "T2",
+   "A": 472000,
+   "yb": 442,
+   "I": 58450000000,
+   "mass_t_per_m": 1.227
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2100,
+   "type": "T3",
+   "A": 514000,
+   "yb": 529,
+   "I": 92530000000,
+   "mass_t_per_m": 1.336
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2100,
+   "type": "T4",
+   "A": 556100,
+   "yb": 677,
+   "I": 159000000000,
+   "mass_t_per_m": 1.446
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2100,
+   "type": "T5",
+   "A": 692300,
+   "yb": 827,
+   "I": 268000000000,
+   "mass_t_per_m": 1.8
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2400,
+   "type": "T1",
+   "A": 458900,
+   "yb": 352,
+   "I": 31230000000,
+   "mass_t_per_m": 1.193
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2400,
+   "type": "T2",
+   "A": 494500,
+   "yb": 466,
+   "I": 64280000000,
+   "mass_t_per_m": 1.286
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2400,
+   "type": "T3",
+   "A": 536500,
+   "yb": 556,
+   "I": 101200000000,
+   "mass_t_per_m": 1.395
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2400,
+   "type": "T4",
+   "A": 578600,
+   "yb": 707,
+   "I": 172400000000,
+   "mass_t_per_m": 1.504
+  },
+  {
+   "flange": "Open-flange",
+   "W": 2400,
+   "type": "T5",
+   "A": 714800,
+   "yb": 857,
+   "I": 287100000000,
+   "mass_t_per_m": 1.858
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 1800,
+   "type": "T1",
+   "A": 483300,
+   "yb": 369,
+   "I": 34060000000,
+   "mass_t_per_m": 1.257
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 1800,
+   "type": "T2",
+   "A": 518900,
+   "yb": 488,
+   "I": 69760000000,
+   "mass_t_per_m": 1.349
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 1800,
+   "type": "T3",
+   "A": 560900,
+   "yb": 582,
+   "I": 109500000000,
+   "mass_t_per_m": 1.458
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 1800,
+   "type": "T4",
+   "A": 603000,
+   "yb": 737,
+   "I": 185300000000,
+   "mass_t_per_m": 1.568
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 1800,
+   "type": "T5",
+   "A": 736200,
+   "yb": 883,
+   "I": 303600000000,
+   "mass_t_per_m": 1.914
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2100,
+   "type": "T1",
+   "A": 505800,
+   "yb": 385,
+   "I": 36610000000,
+   "mass_t_per_m": 1.315
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2100,
+   "type": "T2",
+   "A": 541400,
+   "yb": 508,
+   "I": 74610000000,
+   "mass_t_per_m": 1.408
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2100,
+   "type": "T3",
+   "A": 583400,
+   "yb": 604,
+   "I": 116800000000,
+   "mass_t_per_m": 1.517
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2100,
+   "type": "T4",
+   "A": 625500,
+   "yb": 763,
+   "I": 196700000000,
+   "mass_t_per_m": 1.626
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2100,
+   "type": "T5",
+   "A": 758700,
+   "yb": 909,
+   "I": 320500000000,
+   "mass_t_per_m": 1.973
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2400,
+   "type": "T1",
+   "A": 528300,
+   "yb": 398,
+   "I": 38940000000,
+   "mass_t_per_m": 1.374
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2400,
+   "type": "T2",
+   "A": 563900,
+   "yb": 526,
+   "I": 79090000000,
+   "mass_t_per_m": 1.466
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2400,
+   "type": "T3",
+   "A": 605900,
+   "yb": 625,
+   "I": 123500000000,
+   "mass_t_per_m": 1.575
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2400,
+   "type": "T4",
+   "A": 648000,
+   "yb": 788,
+   "I": 207400000000,
+   "mass_t_per_m": 1.685
+  },
+  {
+   "flange": "Closed-flange",
+   "W": 2400,
+   "type": "T5",
+   "A": 781200,
+   "yb": 933,
+   "I": 336500000000,
+   "mass_t_per_m": 2.031
+  }
+ ]
+}
