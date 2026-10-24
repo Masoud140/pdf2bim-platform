@@ -115,6 +115,10 @@
   - D-37: cross girder 800 × 1065 (engineer query answer);
   - D-38: 2.0 m solid end zones (interpretation pending, Task B-1).
 
+## Tests (latest full run)
+
+- Commit `4494bd0`: 26 scripts; **191 / 191 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
+
 ## Next task
 
 **P3b:** substructure (sill beams, columns / piles, soil / rock springs) and elastic bearings from the description; then SDL and the other load cases; then the MIDAS .mct writer (needs an engineer import test). Branch: continue `p3-model`.

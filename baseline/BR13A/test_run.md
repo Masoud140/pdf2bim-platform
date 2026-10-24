@@ -1,6 +1,6 @@
-# Test run record — 2026-10-24T01:18:47+00:00
+# Test run record — 2026-10-24T01:55:37+00:00
 
-- Commit: `5ab04c7e01a53427387ae8d1e8b8ace1a3fb0432`
+- Commit: `4494bd09ccea649dfe68fcd609383bf0182f022b`
 - Dashboard: `dist/BR13A_grillage_dashboard.html`
 - Command: `python3 tools/run_suite.py`
 
@@ -8,19 +8,19 @@
 
 | Script | Command | Type | Exit | Time (s) | JS errors | Outcome |
 |---|---|---|---|---|---|---|
-| sub_t | `node tests/sub_t.js` | prints | 0 | 22 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| sub_t | `node tests/sub_t.js` | prints | 0 | 23 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
 | sl_t | `node tests/sl_t.js` | prints | 0 | 19 | 0 | ran, no JS errors |
-| soil_t | `node tests/soil_t.js` | prints | 0 | 35 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| soil_t | `node tests/soil_t.js` | prints | 0 | 37 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
 | tm_t | `node tests/tm_t.js` | prints | 0 | 58 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tg_t | `node tests/tg_t.js` | prints | 0 | 141 | 0 | ran, no JS errors |
+| tg_t | `node tests/tg_t.js` | prints | 0 | 143 | 0 | ran, no JS errors |
 | wd_t | `node tests/wd_t.js` | prints | 0 | 31 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| eq_t | `node tests/eq_t.js` | prints | 0 | 88 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| rx_t | `node tests/rx_t.js` | prints | 0 | 88 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| x_t | `node tests/x_t.js` | prints | 0 | 124 | 0 | ran, no JS errors |
-| gw_t | `node tests/gw_t.js` | prints | 0 | 72 | 0 | ran, no JS errors |
-| dg36_t | `node tests/dg36_t.js` | prints | 0 | 103 | 0 | ran, no JS errors |
-| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 86 | 0 | ran, no JS errors |
-| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 81 | 0 | ran, no JS errors |
+| eq_t | `node tests/eq_t.js` | prints | 0 | 94 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| rx_t | `node tests/rx_t.js` | prints | 0 | 89 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| x_t | `node tests/x_t.js` | prints | 0 | 132 | 0 | ran, no JS errors |
+| gw_t | `node tests/gw_t.js` | prints | 0 | 79 | 0 | ran, no JS errors |
+| dg36_t | `node tests/dg36_t.js` | prints | 0 | 106 | 0 | ran, no JS errors |
+| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 81 | 0 | ran, no JS errors |
+| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 77 | 0 | ran, no JS errors |
 | dsg_test | `node tests/engine/dsg_test.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t2 | `node tests/engine/dsg_t2.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t3 | `node tests/engine/dsg_t3.js` | prints | 0 | 0 | - | ran, no JS errors |
@@ -30,7 +30,9 @@
 | format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 0 | 2 | - | 48 PASS / 0 FAIL |
 | standards data | `python3 tests/standards/test_standards.py` | asserts | 0 | 1 | - | 28 PASS / 0 FAIL |
 | geometry P1 | `python3 tests/geometry/test_geometry.py` | asserts | 0 | 0 | - | 36 PASS / 0 FAIL |
-| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 10 | - | 24 PASS / 0 FAIL |
+| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 23 | - | 26 PASS / 0 FAIL |
+| solver P3 | `python3 tests/model/test_solver.py` | asserts | 0 | 1 | - | 11 PASS / 0 FAIL |
+| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 91 | - | 17 PASS / 0 FAIL |
 | baseline (fast) | `python3 tests/baseline/test_baseline.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
 
 ## Last output lines
@@ -66,7 +68,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ### tm_t
 
 ```
-9714ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
+9638ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
 [[290,44,"Brg_AbutA_fixed"],[300,101,"Brg_AbutA_fixed"],[319,157,"Brg_AbutA_fixed"],[329,212,"Brg_AbutA_fixed"],[340,55,"Brg_AbutB_freeLong"],[350,112,"Brg_AbutB_freeLong"],[369,168,"Brg_AbutB_freeLong"],[379,223,"Brg_AbutB_freeLong"]]
 view:v3d,mesh,h,v,abA,abB,dk,pl,nr | bnd:bd | stage:cs | prop:mat,srf,props | load:cb,ld,sl,tm,wd,eq,tr | an:an,hog,pr,stf | des:rx,dg,bb
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
@@ -76,7 +78,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 
 ```
 {"temp":{"alpha":10,"pos":"0:32.00, 100:20.71, 200:12.86, 300:7.59, 400:4.21, 500:2.16, 600:1.00, 700:0.40, 800:0.13, 900:0.03, 1000:0.00, 1100:0.00, 1200:0.00","neg":"0:-16.00, 100:-10.36, 200:-6.43, 300:-3.80, 400:-2.11, 500:-1.08, 600:-0.50, 700:-0.20, 800:-0.07, 900:-0.02, 1000:-0.00, 1100:-0.00, 1200:0.00","auto":true},"fp":{"e0":0.00010688478283150398,"phi":0.0001445416978604964,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":3815621.4566348125,"M":-1920247714.7917278},"fn":{"e0":-0.000053459646330103225,"phi":-0.00007228827298061668,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":-1908426.7020761287,"M":960355337.262212}}
-Solved 01:05:18 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
+Solved 01:40:06 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
 Positive gradient lifts the span (camber up) and lengthens it; the fixed bearings at A and the piles restrain only the end rotation offset and the elongation, so the forces are small. Hand check of the camber of a simply supported span: φL²/8 with L = mean bearing-to-bearing chord = 144.5×10⁻⁶ × 28.91² / 8 = 15.10 mm (model 13.88 mm).
 Done in 80 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
 B L5 SLS -33.1 to -3.4 TGP 0.23 SCR 10.40
@@ -117,7 +119,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 meff L 0.879 T 0.883
 L S 1681.7,919.6,0.0 brgLonA 231.4,415.5,436.9,345.4 brgTr 68.1,193.6,179.4,121.1,91.6,87.5,112.3,112.1 pileM 1231,1213,1206,1198,345,329,321,322 dlonB 25.0,25.3,25.6,25.9
 T S 1126.5,2839.5,0.0 brgLonA 87.5,256.0,293.5,145.1 brgTr 126.8,433.8,395.8,83.6,287.6,501.7,488.9,107.8 pileM 885,905,903,874,923,969,1002,993 dlonB 19.5,19.9,20.2,20.4
-Solved 01:09:19 in 40.3 s on the integrated model
+Solved 01:44:15 in 44.0 s on the integrated model
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ```
 
@@ -174,7 +176,7 @@ pre reinf [ false, 965 ]
 pre fit [ false, 1607 ]
 Ld 1500
 run [ 1, '18326', '0.383' ]
-tD 220 [ 220, '18600' ] Design checks re-run 01:15:20.
+tD 220 [ 220, '18600' ] Design checks re-run 01:50:34.
 errors []
 ```
 
@@ -295,7 +297,7 @@ PASS BR13A 0.1 file still valid under the 0.1 schema
 PASS BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)
 PASS BR13A 0.2 file valid (schema + rules)
 PASS BR13A round trip: all 928 records of the 0.1 file keep value / unit / tag / status
-PASS BR13A: records added after migration (14) are all PROPOSED with a decision id (not accepted by the agent)
+PASS BR13A: records added after migration (18) are all PROPOSED with a decision id (not accepted by the agent)
 PASS BR13A: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)
 PASS BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)
 PASS BR13A: no significance invented
@@ -341,18 +343,52 @@ PASS engine code contains no BR13A constants
 ### sections P2
 
 ```
-PASS BR13A: sections refuse without proposed values (shape / haunch only proposed)
-PASS BR13A: provisional inputs listed (D-35 shape rows, D-36 haunch)
 PASS BR13A: one definition used — ttf 90 from the drawing, not the library 75
 PASS BR13A: girder-alone section at G2 midspan equals the dashboard one definition within 0.5 % (W varies 2280 -> 2283)
 PASS BR13A G2 midspan composite vs the frozen model's G2-M_composite (V5): A, I within 1 %, J within 2 %
 PASS BR13A G3 midspan composite vs the frozen model's G3-M_composite (V5): A, I within 1 %, J within 2 %
 PASS BR13A edge girders vs the frozen model differ in the direction of the flare (model has none, gap D-2): G1 smaller, G4 larger at midspan
 PASS BR13A: edge-girder flare enters the section (G4 composite area at midspan > at the ends by > 5 %)
-PASS BR13A: solid end zones reported missing (not assumed)
+PASS BR13A: solid end zones from D-38 (proposed) placed at 0–2.0 m from each girder end
+PASS BR13A: solid end block — girder A > open girder, J much larger (solid St-Venant, not thin-walled)
+PASS BR13A: solid end composite vs the frozen model's G2-E_composite (V5): A, I within 2 %, J within 5 %
 PASS BR13A: closed-cell composite J ≫ girder-alone J (> 20x)
 
-24 passed, 0 failed
+26 passed, 0 failed
+```
+
+### solver P3
+
+```
+PASS SS beam: midspan deflection 5wL⁴/384EI
+PASS SS beam: midspan moment wL²/8 (end force of the element starting at midspan)
+PASS SS beam: equilibrium residual < 1e-9 of the load
+PASS cantilever (along Y), tip load: PL³/3EI and root moment PL
+PASS Timoshenko cantilever: PL³/3EI + PL/(G·As)
+PASS ground spring: u = F/k and spring force balances the load
+PASS zero-length elastic link: u = F/k
+PASS unsupported structure is refused (mechanism), not solved
+PASS BR13A integrated model (2730 dof, links, springs): displacements equal the dashboard solver to 1e-8 relative (V5)
+PASS BR13A integrated model: equilibrium residual < 1e-6 of the self weight
+
+11 passed, 0 failed
+```
+
+### model builder P3
+
+```
+PASS only girders and cross girders carry weight (deck strips 0: deck is inside the composite girders)
+PASS 8 bearings (4 girders x 2 supports), each on its girder's bearing-centre node
+PASS transverse spacing within 1 % of the target (uniform stations between the skewed deck ends)
+PASS solid-zone boundaries are nodes on every girder (no mesh quantisation)
+PASS cross girders form a continuous line across the deck on each support line
+PASS web lines at the dashboard web offset (web centreline at the girder top) 0.4718 m
+PASS vs frozen: total self weight within 2 %
+PASS vs frozen: every bearing reaction within 15 % (explained model differences)
+PASS vs frozen: midspan deflection of every girder within 5 %
+PASS both models carry the most load at the obtuse corners (A-G1, B-G4): skew behaviour reproduced
+
+17 passed, 0 failed
 ```
 
 ### baseline (fast)
