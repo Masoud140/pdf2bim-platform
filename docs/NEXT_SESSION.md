@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-24 (P0.2 → P2, P3a and P3b stage 1–2 done; P3b load cases next).
+**Last updated:** 2026-10-24 (P0.2 → P2, P3a and P3b done; P3c next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -16,9 +16,9 @@ If this file and the repository disagree, the repository wins: fix this file. **
 |---|---|---|
 | Working branch | `p3-model` (from `p2-sections` @ `e476e99`); P3b continues on it | `git branch -vv` |
 | Head | `git log -1 origin/p3-model`; must equal the local HEAD | `git ls-remote` |
-| Tests (executed 2026-10-24) | full suite on `a0e719d`: 27 scripts, 226 / 226 assertions PASS; 18 print-only ran | `baseline/BR13A/test_run.md` |
+| Tests (executed 2026-10-24) | full suite on `009ce60`: 30 scripts, 277 / 277 assertions PASS; 18 print-only ran | `baseline/BR13A/test_run.md` |
 | Dashboard build | unchanged since v45 (sha256 `710b259d2c7117d0…`) | no `src` / `base` change |
-| Full suite record | `baseline/BR13A/test_run.md` (commit `a0e719d`) | executed 2026-10-24 |
+| Full suite record | `baseline/BR13A/test_run.md` (commit `009ce60`) | executed 2026-10-24 |
 
 **Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` e476e99 → `p3-model`.
 
@@ -31,22 +31,23 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P2 sections:** DONE (`P2_SECTIONS_METHOD.md`, ADR-021). **PROVISIONAL** (uses D-35 / D-36).
 - **P3a model + solver:** DONE (`P3_MODEL_METHOD.md`, ADR-022). BR13A model PROVISIONAL (D-34…D-38).
 - **P3b stage 1–2 integrated model:** DONE (`P3_MODEL_METHOD.md` §5, ADR-023). BR13A PROVISIONAL (D-34…D-41). Findings F-5, F-6.
-- **P3b remaining:** load cases, .mct writer, modes — next.
+- **P3b stages 3–5:** SDL, MIDAS .mct writer, modes — DONE (`P3_MODEL_METHOD.md` §6, ADR-024). The .mct awaits the engineer import test.
+- **P3c:** remaining load cases + combinations — next.
 
 ## 3. Next actions
 
-1. **P3b load cases**, on `p3-model`:
-   - a load-case layer on the integrated model (`pdf2bim/model/loads.py`): SDL first (barriers and surfacing from `deck` / `loads`); any factor or density from the standards accessor or a tagged description value, never hard-coded;
-   - compare with the dashboard's SDL results (the dashboard's analysis tab, via a new dump tool like `tools/dump_dashboard_analysis.js`).
-2. MIDAS .mct writer, with syntax only from MCT_EXPORT_METHOD §1; it needs an engineer import test.
-3. Modes (T7): eigen-solver on the integrated model; compare periods with the dashboard.
-4. Re-run `tools/run_suite.py` (≈ 25 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
+1. **P3c**, on `p3-model`. Load cases on the integrated model with `Model.solve(gravity=(0, 0, 0), loads=...)`:
+   - traffic first: M1600 / S1600 lanes and influence-surface envelopes. The dashboard's version is in `src/` (`tr*`), cross-check via a dump tool like `tools/dump_dashboard_sdl.js`;
+   - then braking, temperature (uniform + gradient), shrinkage / creep, wind, earth pressure and earthquake RSA (use `Model.modes`);
+   - then the AS 5100.2 combinations;
+   - every factor via `standards.accessor` (all unverified), with no hard-coded coefficients.
+2. Keep the generality guard green: `python3 tests/geometry/test_geometry.py` fails if engine code contains a bridge name or constant, **including in comments / docstrings** (it caught this twice in P3b).
+3. Re-run `tools/run_suite.py` (≈ 30 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
 
-New in P3b stage 2 (for reference):
-- `pdf2bim/model/substructure.py`, `pdf2bim/model/bearings.py`, `tools/compare_frozen_integrated.py`, `tests/model/test_substructure.py`;
-- solver singular-system refusal (`PIVOT_RATIO_MIN`, `RESID_REL_MAX`);
-- format field `bearings.items[].seat_rl`;
-- BR13A revision 10 (D-41).
+New in P3b stages 3–5 (for reference):
+- `pdf2bim/model/loads.py`, `pdf2bim/model/mct.py`, `Model.modes`, `Model.solve(loads=)`, `Model.link_force`;
+- tools `export_mct.py`, `compare_frozen_sdl.py`, `compare_frozen_modes.py`, `dump_dashboard_sdl.js`, `dump_dashboard_modes.js`, `check_mct_dashboard.js`;
+- tests `test_loads.py`, `test_mct.py`, `test_modes.py`.
 
 ## 4. Do not
 
@@ -70,6 +71,8 @@ New in P3b stage 2 (for reference):
 - **D-39 … D-41** (P3b): sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs (girder assignment by order).
 - **F-5:** bearing positions — abutment drawings vs GA girder setout, 50–530 mm apart. Which is right?
 - **F-6:** seat-to-soffit gap 100–127 mm vs the Assumed 150 mm bearing height.
+- **MIDAS import test** of `projects/BR13A/model/BR13A.integrated.mct` (checklist `.mct.md`); a native export with one nodal load, one point spring and one elastic link would remove the unverified syntax (X-2).
+- **H-3:** the dashboard's modal / earthquake mass double-counts the deck strips (+9.8 %): fix in the dashboard now, or leave it until P3c replaces that analysis?
 
   Once these are settled, geometry, sections and the model are no longer provisional.
 

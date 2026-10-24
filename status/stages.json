@@ -107,9 +107,14 @@
     "projects/BR13A/model/BR13A.superstructure_vs_frozen.md",
     "pdf2bim/model/substructure.py",
     "tests/model/test_substructure.py",
-    "projects/BR13A/model/BR13A.integrated_vs_frozen.md"
+    "projects/BR13A/model/BR13A.integrated_vs_frozen.md",
+    "pdf2bim/model/loads.py",
+    "pdf2bim/model/mct.py",
+    "projects/BR13A/model/BR13A.integrated.mct.md",
+    "projects/BR13A/model/BR13A.sdl_vs_frozen.md",
+    "projects/BR13A/model/BR13A.modes_vs_frozen.md"
    ],
-   "note": "P3a done (solver = dashboard to 7e-10; superstructure builder). P3b integrated model done: sill beams, piles, rock / fill springs, elastomeric bearing links; vs the frozen model bearing reactions within 5.6 %, pile toes within 2.4 %. Next: load cases, MIDAS .mct, modes",
+   "note": "P3a + P3b done: solver, superstructure, substructure + bearings, SDL load case, MIDAS .mct export (awaiting your import test), natural modes. Next P3c: traffic and the other load cases, then combinations",
    "branch": "p3-model"
   },
   {
@@ -143,7 +148,7 @@
   }
  ],
  "next": {
-  "task": "P3b remaining: load cases (SDL first, then traffic, temperature …), the MIDAS .mct writer (needs an engineer import test) and modes",
+  "task": "P3c: traffic (M1600 / S1600) and the other load cases on the integrated model, then the AS 5100.2 combinations",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },
@@ -160,6 +165,20 @@
    "title": "BR13A Super-T shape, haunch, cross girder and end blocks wait for your acceptance",
    "plain": "The agent proposed the full Super-T shape (D-35, incl. the 90 mm top flange the import missed), a placeholder haunch of 0 mm (D-36), the cross girder 800 x 1065 (D-37, from your query answer) and 2.0 m solid end blocks (D-38, interpretation pending).",
    "why": "Section stiffness depends on both; sections are provisional until accepted.",
+   "severity": "medium"
+  },
+  {
+   "id": "X-2",
+   "title": "MIDAS file needs your import test",
+   "plain": "The platform now writes the BR13A model as a MIDAS .mct. Bearing links and soil springs use a syntax no one has confirmed in MIDAS yet, and the SDL loads are not in the file.",
+   "why": "Until imported once, the file may not open or may misread the links / springs.",
+   "severity": "medium"
+  },
+  {
+   "id": "H-3",
+   "title": "Dashboard earthquake mass is about 10 % too high",
+   "plain": "The dashboard's modal analysis also weights the deck strips, whose weight is already in the girders. Periods come out up to ~9 % long.",
+   "why": "Affects the dashboard's earthquake results; the new platform analysis does not do this.",
    "severity": "medium"
   },
   {

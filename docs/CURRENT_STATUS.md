@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b stage 1–2** (integrated model: substructure + elastomeric bearings) completed 2026-10-24. **Next: P3b load cases** (SDL first), then the .mct writer and modes. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **Next: P3c** (remaining load cases + AS 5100.2 combinations). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -53,6 +53,10 @@
 | F-4 | Dashboard model bearing nodes up to 26 mm off the straight support line; not collinear | E |
 | F-5 | BR13A abutment-drawing bearing positions (DRG 202100 / 202101) differ from the GA girder setout by 50–530 mm along the line of bearings; model uses the GA (P1) positions. **Engineer to resolve** | data / C |
 | F-6 | BR13A drawn seat-to-soffit gap 100–127 mm vs Assumed bearing height 150 mm (haunch Assumed 0, D-36); model uses the drawn levels | data |
+| H-3 | Dashboard modal / earthquake RSA mass weights every member, including the deck strips and dummies already inside the composite girders: +836 kN (+9.8 % mass), periods up to ~9 % long. Dashboard engine not changed (needs a baseline re-run) | H / F |
+| M-1 | BR13A SDL bearing split at abutment A: P3b vs frozen −11 … +25 %; the load distribution alone agrees within 8 %, so the difference is in the models. Check in the independent MIDAS model (P4) | E |
+| M-2 | BR13A horizontal modes: P3b 8 % (longitudinal) / 5 % (transverse) shorter than frozen; vertical +0.6 %. Suspected bearing-link idealisation, unconfirmed | E |
+| X-2 | MIDAS .mct: ELASTICLINK / SPRING syntax unverified; nodal loads not written (no *CONLOAD syntax). Needs an engineer import test and one native export with a nodal load, a spring and a link | E / interop |
 | D-39…41 | BR13A sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs — proposed; integrated model provisional | data |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
 
@@ -132,11 +136,23 @@
   See `P3_MODEL_METHOD.md` §5.
 - **PROVISIONAL:** D-34…D-41. **Findings F-5, F-6** for the engineer.
 
+## P3b stages 3–5 (SDL, .mct, modes), done 2026-10-24
+
+- **SDL** (`pdf2bim/model/loads.py`): exact clipping at the skewed ends; barycentric distribution.
+  - BR13A total 897.2 kN vs the dashboard 894.5 kN (+0.3 %).
+  - Distribution alone within 8 % per bearing.
+- **MIDAS .mct** (`pdf2bim/model/mct.py`): `projects/BR13A/model/BR13A.integrated.mct` + import checklist.
+  - Round trip and the dashboard parser both agree.
+  - **No MIDAS import yet.**
+- **Modes** (`Model.modes`): dashboard AN.modal reproduced to 4.5e-8.
+  - BR13A P3b vs frozen: vertical +0.6 %, horizontal −5 … −8 % (M-2).
+- **Findings:** H-3, M-1, M-2, X-2 (table above). Details in `P3_MODEL_METHOD.md` §6.
+
 ## Tests (latest full run)
 
-- Commit `a0e719d`: 27 scripts; **226 / 226 assertions PASS**; 18 print-only scripts ran without errors (`baseline/BR13A/test_run.md`).
-- The earlier run on `4d33ae7` had 1 FAIL: the generality guard found "BR13A" in two engine comments. Fixed in `a0e719d` and re-run.
+- Commit `009ce60`: 30 scripts; **277 / 277 assertions PASS**; 18 print-only scripts ran without errors (`baseline/BR13A/test_run.md`).
+- The run on `37e7f04` had 1 FAIL: the generality guard found "BR13A" in the .mct writer docstring. Fixed in `009ce60` and re-run.
 
 ## Next task
 
-**P3b load cases:** SDL first (barriers, surfacing from `deck`; factors only through the standards accessor), then the others; then the MIDAS .mct writer (needs an engineer import test) and modes (T7). Branch: continue `p3-model`.
+**P3c:** the remaining load cases (traffic M1600 / S1600 first, then braking, temperature, shrinkage / creep, wind, earth pressure, earthquake RSA) on the integrated model, then the AS 5100.2 combinations. All factors go through the standards accessor (unverified). Branch: continue `p3-model`.
