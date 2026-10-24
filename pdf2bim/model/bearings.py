@@ -10,7 +10,7 @@ Method (as the dashboard, src/sub.js S.brg; NOT verified against AS 5100.4):
     1/Eeff = 1/Ec + 1/Eb                      (Eb: standards entry AS5100.4:elastomer:bulk_modulus)
     Ks = G A / T,  Kv = Eeff A / T            (T = total elastomer thickness)
 The two coefficients come from standards/data (status code-extracted-unverified), so every result carries the
-UNVERIFIED label from the accessor. The bearing inputs themselves are BR13A placeholders (Assumed) until the bearing
+UNVERIFIED label from the accessor. The bearing inputs may be Assumed placeholders until a bearing
 schedule is available; their tags are returned so the caller can list them.
 """
 from ..description import MissingInput

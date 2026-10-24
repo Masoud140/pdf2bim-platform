@@ -18,7 +18,7 @@ import scipy.sparse as sp
 import scipy.sparse.linalg as spl
 
 DOF = 6
-# Refusal thresholds (Model, P3b): a true mechanism gives an LU pivot ratio ~1e-16; valid BR13A models ~1e-8 with
+# Refusal thresholds (Model, P3b): a true mechanism gives an LU pivot ratio ~1e-16; valid first-case models ~1e-8 with
 # 1e9 / 1e-3 stiffness contrasts. Residual check on the free dofs relative to the largest load term.
 PIVOT_RATIO_MIN = 1e-13
 RESID_REL_MAX = 1e-4
