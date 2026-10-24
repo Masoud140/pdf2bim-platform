@@ -89,7 +89,8 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - builder: 17 / 17 (V2 model checks; T4 equilibrium; vs the frozen superstructure: weight −1.2 %, deflection ≤ 2 %, reactions ±11 %, explained).
   - **No independent MIDAS model yet** (T10, P4).
 - **P2 sections** (2026-10-24, branch `p2-sections`): `tests/sections/test_sections.py` 24 / 24 PASS. **T5 met** (30 published rows within 0.47 %); **T6 met** (exact closed-cell tube within 0.8 %). BR13A G2 / G3 composite vs the frozen model within 0.1 % (V5).
-- **Full suite** (2026-10-24, commit `a0e719d`): 27 scripts, 226 / 226 assertions PASS, 18 print-only ran (`baseline/BR13A/test_run.md`).
+- **Full suite** (2026-10-24, commit `48ee031`): 31 scripts, 298 / 298 assertions PASS, 18 print-only ran (`baseline/BR13A/test_run.md`).
+- **Earlier full suite** (2026-10-24, commit `a0e719d`): 27 scripts, 226 / 226 assertions PASS, 18 print-only ran (`baseline/BR13A/test_run.md`).
 - **Earlier full suite** (2026-10-24, commit `5e91a8f`): 23 scripts, 136 / 136 assertions PASS, 18 print-only scripts ran without software errors (`baseline/BR13A/test_run.md`). Live baseline 11 / 11 (`live_run.txt`).
 - **P1 geometry** (2026-10-24, branch `p1-geometry`): `tests/geometry/test_geometry.py` 36 / 36 PASS. **T2 / T3 met** on the 4 closed-form cases (§3). BR13A: misclosure ≤ 2.2 mm, base point 0.3 mm, skew 0.002°. Deck widths vs the dashboard ≤ 2 mm (V5). Bearing nodes vs the dashboard 1.4–33 mm (explained, F-4). Mutation check: all 4 injected faults were caught.
 - **Standards framework** (2026-10-24, branch `p0.3-standards`): `tests/standards/test_standards.py` 28 / 28 PASS. These are framework tests and an inventory-vs-code check. **No standards value is verified.**
