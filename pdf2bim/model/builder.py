@@ -267,7 +267,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         mid_[0] += 1
         Ex = E if E is not None else Ed
         mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role)
-        members.append({"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex})
+        members.append({"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
+                        "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape")})
 
     # girder + girder-alone (for dummies / rigid) per girder
     galone = {}
@@ -325,7 +326,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 r = xg[c["support"]]
                 bw_, h_ = r["width"] / 1000, r["depth"] / 1000
                 A = bw_ * h_
-                sec = {"A": A, "Iy": bw_ * h_ ** 3 / 12, "Iz": h_ * bw_ ** 3 / 12, "J": _rect_J(bw_, h_), "Asy": A * 5 / 6, "Asz": A * 5 / 6}
+                sec = {"A": A, "Iy": bw_ * h_ ** 3 / 12, "Iz": h_ * bw_ ** 3 / 12, "J": _rect_J(bw_, h_), "Asy": A * 5 / 6, "Asz": A * 5 / 6, "shape": ("rect", h_, bw_)}
                 add(a, b, "cross_girder", sec, w=A * dens_d, line=c["id"])
             elif c["kind"] == "deck_end":
                 add(a, b, "deck_end", dummy_of(any_g), line=c["id"])
@@ -334,7 +335,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 add(a, b, "rigid", rigid_of(gid), line=c["id"])
             else:
                 bt = _tributary(c, cross, step)
-                sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": _rect_J(bt, tD), "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6}
+                sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": _rect_J(bt, tD), "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6, "shape": ("rect", tD, bt)}
                 add(a, b, "slab", sec, line=c["id"])
     # outriggers at girder special nodes that are not on a cross line (zone boundaries): none needed (girder line only)
 

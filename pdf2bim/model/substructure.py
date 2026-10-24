@@ -115,7 +115,8 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         mid[0] += 1
         Ex = E if E is not None else Es
         mdl.beam(mid[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role)
-        members.append({"id": mid[0], "n1": n1, "n2": n2, "role": role, "w": w, "E": Ex, **{k: sec[k] for k in ("A", "Iy", "Iz", "J")}, **meta})
+        members.append({"id": mid[0], "n1": n1, "n2": n2, "role": role, "w": w, "E": Ex, **{k: sec[k] for k in ("A", "Iy", "Iz", "J")},
+                        "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape"), **meta})
         return mid[0]
 
     for sid, gs in gsup.items():
@@ -192,7 +193,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
                 if lab[1] is not None:
                     sill_at[lab[1]] = k
         Asb = b * d
-        sec_sb = {"A": Asb, "Iy": b * d ** 3 / 12, "Iz": d * b ** 3 / 12, "J": _rect_J(b, d), "Asy": Asb * 5 / 6, "Asz": Asb * 5 / 6}
+        sec_sb = {"A": Asb, "Iy": b * d ** 3 / 12, "Iz": d * b ** 3 / 12, "J": _rect_J(b, d), "Asy": Asb * 5 / 6, "Asz": Asb * 5 / 6, "shape": ("rect", d, b)}
         rig = {k: v * RIGID for k, v in sec_sb.items() if k in ("A", "Iy", "Iz", "J")}
         rig.update({"Asy": None, "Asz": None})
         for a, bnode in zip(sill_nodes, sill_nodes[1:]):
@@ -219,7 +220,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             zs = _pile_levels(p["rl_top"], p["rl_toe"], [rock, ground] + [L["top"] for L in layers] + [L["bot"] for L in layers], seg)
             chain = [head] + [node(p["E"], p["N"], z, "pile", support=sid, pile=p["id"]) for z in zs[1:]]
             Ap = math.pi * D * D / 4; Ip = math.pi * D ** 4 / 64
-            sec_p = {"A": Ap, "Iy": Ip, "Iz": Ip, "J": 2 * Ip, "Asy": PILE_ASHEAR * Ap, "Asz": PILE_ASHEAR * Ap}
+            sec_p = {"A": Ap, "Iy": Ip, "Iz": Ip, "J": 2 * Ip, "Asy": PILE_ASHEAR * Ap, "Asz": PILE_ASHEAR * Ap, "shape": ("circle", D)}
             for a, bnode in zip(chain, chain[1:]):
                 beam(a, bnode, "pile", sec_p, w=Ap * dens, support=sid, pile=p["id"])
             mdl.fix(chain[-1], toe_dofs)
