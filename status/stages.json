@@ -104,9 +104,12 @@
     "docs/P3_MODEL_METHOD.md",
     "pdf2bim/model/builder.py",
     "tests/model/test_builder.py",
-    "projects/BR13A/model/BR13A.superstructure_vs_frozen.md"
+    "projects/BR13A/model/BR13A.superstructure_vs_frozen.md",
+    "pdf2bim/model/substructure.py",
+    "tests/model/test_substructure.py",
+    "projects/BR13A/model/BR13A.integrated_vs_frozen.md"
    ],
-   "note": "P3a done: Python solver (equals the dashboard to 7e-10) and superstructure builder; P3b substructure / bearings / loads / .mct next",
+   "note": "P3a done (solver = dashboard to 7e-10; superstructure builder). P3b integrated model done: sill beams, piles, rock / fill springs, elastomeric bearing links; vs the frozen model bearing reactions within 5.6 %, pile toes within 2.4 %. Next: load cases, MIDAS .mct, modes",
    "branch": "p3-model"
   },
   {
@@ -140,7 +143,7 @@
   }
  ],
  "next": {
-  "task": "P3b: substructure and elastic bearings from the bridge data, then load cases (SDL, traffic, temperature …) and the MIDAS .mct writer",
+  "task": "P3b remaining: load cases (SDL first, then traffic, temperature …), the MIDAS .mct writer (needs an engineer import test) and modes",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },
@@ -158,6 +161,27 @@
    "plain": "The agent proposed the full Super-T shape (D-35, incl. the 90 mm top flange the import missed), a placeholder haunch of 0 mm (D-36), the cross girder 800 x 1065 (D-37, from your query answer) and 2.0 m solid end blocks (D-38, interpretation pending).",
    "why": "Section stiffness depends on both; sections are provisional until accepted.",
    "severity": "medium"
+  },
+  {
+   "id": "F-5",
+   "title": "BR13A bearing positions disagree between drawings",
+   "plain": "The abutment drawings place the bearings 50–530 mm away from where the GA girder setout puts them. The model uses the GA positions for now.",
+   "why": "Bearing positions set where the girders sit on the abutment; the right drawing must be confirmed.",
+   "severity": "medium"
+  },
+  {
+   "id": "F-6",
+   "title": "BR13A bearing height does not fit the drawn levels",
+   "plain": "The drawn bearing seats are 100–127 mm below the girder soffit, but the placeholder bearing height is 150 mm (haunch also a 0 mm placeholder). The model uses the drawn levels.",
+   "why": "Needs the bearing schedule and the haunch to close the vertical geometry.",
+   "severity": "low"
+  },
+  {
+   "id": "D-39",
+   "title": "Substructure inputs D-39, D-40, D-41 wait for your acceptance",
+   "plain": "Sill beam setout and bearing seat levels were copied from the abutment takeoff into the bridge data; the elastomer layer thickness (12 mm) is a placeholder.",
+   "why": "Until accepted, the integrated model is provisional.",
+   "severity": "low"
   },
   {
    "id": "D-3",

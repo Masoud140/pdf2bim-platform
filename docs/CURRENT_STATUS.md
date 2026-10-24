@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2 and **P3a** (superstructure model + Python solver) completed 2026-10-24. **Next: P3b** (substructure, elastic bearings, load cases, .mct). P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b stage 1–2** (integrated model: substructure + elastomeric bearings) completed 2026-10-24. **Next: P3b load cases** (SDL first), then the .mct writer and modes. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -17,7 +17,7 @@
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
 | `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
 | `p2-sections` | e476e99 | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
-| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder, 28 tests, BR13A comparison with the frozen model (provisional, D-34…D-38) | awaiting review |
+| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder; P3b integrated model (sill, piles, springs, bearings); 63 model tests; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
 
 ## What works today (BR13A)
 
@@ -51,6 +51,9 @@
 | D-35/36 | BR13A Super-T shape rows (incl. ttf 90) and haunch (Assumed 0) only proposed; sections provisional | data |
 | D-34 | BR13A support-line bearing (44.029166°) only proposed; geometry provisional until the engineer accepts it | data |
 | F-4 | Dashboard model bearing nodes up to 26 mm off the straight support line; not collinear | E |
+| F-5 | BR13A abutment-drawing bearing positions (DRG 202100 / 202101) differ from the GA girder setout by 50–530 mm along the line of bearings; model uses the GA (P1) positions. **Engineer to resolve** | data / C |
+| F-6 | BR13A drawn seat-to-soffit gap 100–127 mm vs Assumed bearing height 150 mm (haunch Assumed 0, D-36); model uses the drawn levels | data |
+| D-39…41 | BR13A sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs — proposed; integrated model provisional | data |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
 
 ## Baseline (P0.1)
@@ -115,10 +118,25 @@
   - D-37: cross girder 800 × 1065 (engineer query answer);
   - D-38: 2.0 m solid end zones (interpretation pending, Task B-1).
 
+## P3b stage 1–2 (integrated model), done 2026-10-24
+
+- `pdf2bim/model/substructure.py` + `bearings.py`: sill beams on their setout, piles split at rock / ground / layer levels, rock and fill springs, elastomeric bearing links from the Direct seat RLs to the girder soffit.
+- **Solver:** now refuses numerically singular systems (a mechanism had been solved silently: 814 m displacement).
+- **BR13A vs the frozen integrated model:**
+  - weight −0.6 %;
+  - bearing Rz within 5.6 %;
+  - pile toe Rz within 2.4 %;
+  - midspan within 0.3 mm;
+  - pile-head stiffness vs Hetényi +1.1 %.
+
+  See `P3_MODEL_METHOD.md` §5.
+- **PROVISIONAL:** D-34…D-41. **Findings F-5, F-6** for the engineer.
+
 ## Tests (latest full run)
 
-- Commit `4494bd0`: 26 scripts; **191 / 191 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
+- Commit `a0e719d`: 27 scripts; **226 / 226 assertions PASS**; 18 print-only scripts ran without errors (`baseline/BR13A/test_run.md`).
+- The earlier run on `4d33ae7` had 1 FAIL: the generality guard found "BR13A" in two engine comments. Fixed in `a0e719d` and re-run.
 
 ## Next task
 
-**P3b:** substructure (sill beams, columns / piles, soil / rock springs) and elastic bearings from the description; then SDL and the other load cases; then the MIDAS .mct writer (needs an engineer import test). Branch: continue `p3-model`.
+**P3b load cases:** SDL first (barriers, surfacing from `deck`; factors only through the standards accessor), then the others; then the MIDAS .mct writer (needs an engineer import test) and modes (T7). Branch: continue `p3-model`.

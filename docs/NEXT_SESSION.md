@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-24 (P0.2 → P2 and P3a done; P3b next).
+**Last updated:** 2026-10-24 (P0.2 → P2, P3a and P3b stage 1–2 done; P3b load cases next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -16,9 +16,9 @@ If this file and the repository disagree, the repository wins: fix this file. **
 |---|---|---|
 | Working branch | `p3-model` (from `p2-sections` @ `e476e99`); P3b continues on it | `git branch -vv` |
 | Head | `git log -1 origin/p3-model`; must equal the local HEAD | `git ls-remote` |
-| Tests (executed 2026-10-24) | full suite on `4494bd0`: 26 scripts, 191 / 191 assertions PASS; 18 print-only ran | `baseline/BR13A/test_run.md` |
+| Tests (executed 2026-10-24) | full suite on `a0e719d`: 27 scripts, 226 / 226 assertions PASS; 18 print-only ran | `baseline/BR13A/test_run.md` |
 | Dashboard build | unchanged since v45 (sha256 `710b259d2c7117d0…`) | no `src` / `base` change |
-| Full suite record | `baseline/BR13A/test_run.md` (commit `4494bd0`) | executed 2026-10-24 |
+| Full suite record | `baseline/BR13A/test_run.md` (commit `a0e719d`) | executed 2026-10-24 |
 
 **Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` e476e99 → `p3-model`.
 
@@ -30,17 +30,23 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P1 geometry:** DONE (`P1_GEOMETRY_METHOD.md`, ADR-020). **BR13A geometry is PROVISIONAL** (uses the proposed D-34).
 - **P2 sections:** DONE (`P2_SECTIONS_METHOD.md`, ADR-021). **PROVISIONAL** (uses D-35 / D-36).
 - **P3a model + solver:** DONE (`P3_MODEL_METHOD.md`, ADR-022). BR13A model PROVISIONAL (D-34…D-38).
-- **P3b:** next (substructure, elastic bearings, load cases, .mct).
+- **P3b stage 1–2 integrated model:** DONE (`P3_MODEL_METHOD.md` §5, ADR-023). BR13A PROVISIONAL (D-34…D-41). Findings F-5, F-6.
+- **P3b remaining:** load cases, .mct writer, modes — next.
 
 ## 3. Next actions
 
-1. **P3b**, on `p3-model`:
-   - add the substructure from `supports[]` (sill beam / headstock, columns / piles, soil / rock springs). The dashboard's version is `src/sub.js` with `SUBM.build`, and the fixture `tests/model/fixtures/br13a_dashboard_selfweight.json` holds the frozen integrated model to compare against;
-   - add elastomeric bearings as links from `bearings.items` (plan size, thickness, G);
-   - compare the integrated model with the frozen one (reactions, pile head stiffness, modes T7).
-2. Then the load cases: SDL first (barriers, surfacing from `deck`), through the standards accessor for any factor.
-3. MIDAS .mct writer, with syntax only from MCT_EXPORT_METHOD §1; it needs an engineer import test.
-4. Re-run `tools/run_suite.py`, commit the record, rebuild the status page.
+1. **P3b load cases**, on `p3-model`:
+   - a load-case layer on the integrated model (`pdf2bim/model/loads.py`): SDL first (barriers and surfacing from `deck` / `loads`); any factor or density from the standards accessor or a tagged description value, never hard-coded;
+   - compare with the dashboard's SDL results (the dashboard's analysis tab, via a new dump tool like `tools/dump_dashboard_analysis.js`).
+2. MIDAS .mct writer, with syntax only from MCT_EXPORT_METHOD §1; it needs an engineer import test.
+3. Modes (T7): eigen-solver on the integrated model; compare periods with the dashboard.
+4. Re-run `tools/run_suite.py` (≈ 25 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
+
+New in P3b stage 2 (for reference):
+- `pdf2bim/model/substructure.py`, `pdf2bim/model/bearings.py`, `tools/compare_frozen_integrated.py`, `tests/model/test_substructure.py`;
+- solver singular-system refusal (`PIVOT_RATIO_MIN`, `RESID_REL_MAX`);
+- format field `bearings.items[].seat_rl`;
+- BR13A revision 10 (D-41).
 
 ## 4. Do not
 
@@ -61,7 +67,11 @@ If this file and the repository disagree, the repository wins: fix this file. **
   - replace the haunch (Assumed 0 mm);
   - confirm the 2000 END DIAPHRAGM reading (Task B-1).
 
-  Once that is done, geometry, sections and the model are no longer provisional.
+- **D-39 … D-41** (P3b): sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs (girder assignment by order).
+- **F-5:** bearing positions — abutment drawings vs GA girder setout, 50–530 mm apart. Which is right?
+- **F-6:** seat-to-soffit gap 100–127 mm vs the Assumed 150 mm bearing height.
+
+  Once these are settled, geometry, sections and the model are no longer provisional.
 
 ## 6. Setup (cloud workspace)
 
