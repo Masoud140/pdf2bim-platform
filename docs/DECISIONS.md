@@ -25,6 +25,7 @@
 | 017 | Format 0.2 implementation choices (exact-key migration, null unknown units, provenance rule, approval transitions) | provisional (agent, reversible) | 2026-10-24, Claude |
 | 018 | Autonomous development and minimal communication | accepted | 2026-10-24, owner (project instructions) |
 | 019 | Standards inventory choices (null edition, row-per-factor, specialist flags) | provisional (agent, reversible) | 2026-10-24, Claude |
+| 020 | P1 geometry definitions: support line by printed bearing; bearing centre = girder line ∩ support line; chord; flange square to chord | provisional (agent, reversible) | 2026-10-24, Claude |
 
 ---
 
@@ -193,3 +194,16 @@
   - Project inputs (wind speed, Z, temperatures) are excluded from standards data and listed separately.
   - The extractor keeps a review only while the code value is unchanged.
 - **Consequence:** every calculation is labelled UNVERIFIED until the owner's reviewers approve entries.
+
+## ADR-020 P1 geometry definitions (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. A support line is defined by its printed whole-circle **bearing**. The new optional column `support_lines.bearing` (format 0.1 and 0.2, additive) holds it. Skew alone is not used: drawings give no sign convention, and BR13A showed the skew is chord-referenced.
+  2. **Bearing centre** = girder line (control line offset by `line_offset`, square) ∩ support line. This follows the catalogue definition "offset at support bearing line".
+  3. **Girder** = straight chord between bearing centres, extended by `bearing_offset`.
+  4. **Flange edges** are measured square to the chord, as the dashboard `gwWidth` does.
+- **Alternatives rejected:**
+  - local normal + skew: wrong by up to 195 mm on BR13A;
+  - curved girder lines: contradict ADR-003.
+- **BR13A:** the support bearing exists only in a note. It is proposed as D-34 (by AI, not accepted). Geometry is built with `allow_proposed` and labelled PROVISIONAL until the engineer accepts D-34.
+- **Consequence:** P3 must build the model on these chords and bearing centres, not on the frozen-mesh nodes (F-4).

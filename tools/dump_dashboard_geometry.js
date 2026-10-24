@@ -13,7 +13,8 @@ const DASH = process.env.DASH || path.join(ROOT, 'dist/BR13A_grillage_dashboard.
   const g = await p.evaluate(() => { const Z = gwGeom(), M = AN.parseMCT(document.getElementById('an_mct_src').textContent);
     return { girders: Z.G.map(q => ({ k: q.k, offset: q.o, path_length: q.Ltot, sA: q.sA, sB: q.sB, PA: q.PA, PB: q.PB, nodes: q.nodes.map(n => M.nodes[n]) })),
              edge_left: Z.eL ? Z.eL.p : null, edge_right: Z.eR ? Z.eR.p : null,
-             links: M.links.map(l => ({ group: l.group, n1: M.nodes[l.n1], n2: M.nodes[l.n2] })) }; });
+             links: M.links.map(l => ({ group: l.group, n1: M.nodes[l.n1], n2: M.nodes[l.n2] })),
+             widths: Z.G.map((q, j) => [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].map(t => ({ t, w: gwWidth(j, t) }))) }; });
   await b.close();
   const out = { note: 'Dashboard (v45) girder geometry in MCT local coordinates, for P1 cross-implementation comparison. NOT an independent benchmark.',
     dashboard_sha256: crypto.createHash('sha256').update(fs.readFileSync(DASH)).digest('hex'), captured: new Date().toISOString(), ...g };

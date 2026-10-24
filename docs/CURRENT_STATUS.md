@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 and P0.3 completed 2026-10-24 (branches `p0.2-format`, `p0.3-standards`). **P1 geometry in progress** (`P1_GEOMETRY_PLAN.md`). P0 / P0.1 await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2, P0.3 and **P1 geometry** completed 2026-10-24 (branches `p0.2-format`, `p0.3-standards`, `p1-geometry`). **Next: P2 sections.** P0 / P0.1 / P1 await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -14,7 +14,8 @@
 | `docs/p0-architecture` | 7d00263 | P0 docs: architecture, principles, verification, decisions, status | awaiting review |
 | `p0.1-baseline` | 0d36579 | P0.1 baseline snapshot + tools + tests; decisions ADR-008…015; specs for format 0.2, standards data, P1 | awaiting review (see `MERGE_REVIEW.md`) |
 | `p0.2-format` | f1fdc7a | P0.2 format 0.2: c14n + hash, 0.2 schema, rules, migration, BR13A 0.2, example, 47 tests | awaiting review |
-| `p0.3-standards` | see `git log` (from f1fdc7a) | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
+| `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
+| `p1-geometry` | see `git log` (from ff93af7) | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
 
 ## What works today (BR13A)
 
@@ -45,6 +46,8 @@
 | R-1 | 177 Assumed values in BR13A need engineer decisions or data | data |
 | X-1 | `schema/__pycache__` was committed (removed in 7d00263) | repo |
 | H-2 | Plots drawn with NaN / Infinity coordinates: 88 SVG console errors per baseline run (baseline check `chk.no_svg_nan` fails) | H |
+| D-34 | BR13A support-line bearing (44.029166°) only proposed; geometry provisional until the engineer accepts it | data |
+| F-4 | Dashboard model bearing nodes up to 26 mm off the straight support line; not collinear | E |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
 
 ## Baseline (P0.1)
@@ -70,6 +73,21 @@
 - `tests/standards/test_standards.py`: 28 / 28 PASS. The inventory equals the code, checked by independent Node evaluation of the code literals.
 - **Limitation:** the JavaScript dashboard still uses its own constants. Python engines must use `Standards.get()`.
 
+## P1 (geometry engine), done 2026-10-24
+
+- `pdf2bim/geometry/` (Python): `tests/geometry/test_geometry.py` 36 / 36 PASS. The 4 closed-form validation cases are within 1 mm.
+- **BR13A** (`projects/BR13A/geometry/BR13A.geometry.md`):
+  - misclosure ≤ 2.2 mm;
+  - base point 0.3 mm;
+  - deck widths equal the dashboard to 2 mm.
+- **BR13A geometry is PROVISIONAL:** it uses the proposed support bearing **D-34** (engineer acceptance needed).
+- **Findings:**
+  - the skew is chord-referenced;
+  - F-4: dashboard bearing nodes are up to 26 mm off the support line;
+  - the baseline's "chord_length" is a mesh path length.
+
+  Details in `P1_GEOMETRY_METHOD.md` §3.
+
 ## Next task
 
-**P1:** geometry engine in Python (`P1_GEOMETRY_PLAN.md`). Branch `p1-geometry` from `p0.3-standards`.
+**P2:** sections and products. Super-T properties per girder segment from the one definition, with the P1 flange widths. Branch `p2-sections` from `p1-geometry`.

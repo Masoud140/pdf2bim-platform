@@ -71,16 +71,21 @@
    "id": "P1",
    "name": "Geometry generation (Python)",
    "plain": "Bridge geometry computed from the bridge data alone, for any bridge.",
-   "status": "in_progress",
+   "status": "completed",
    "evidence": [
-    "docs/P1_GEOMETRY_PLAN.md"
-   ]
+    "docs/P1_GEOMETRY_METHOD.md",
+    "pdf2bim/geometry/bridge.py",
+    "tests/geometry/test_geometry.py",
+    "projects/BR13A/geometry/BR13A.geometry.md"
+   ],
+   "review": "awaiting owner review; BR13A geometry PROVISIONAL until D-34 accepted",
+   "branch": "p1-geometry"
   },
   {
    "id": "P2",
    "name": "Sections and products",
    "plain": "Girder and deck properties from one Super-T definition.",
-   "status": "not_started",
+   "status": "in_progress",
    "evidence": []
   },
   {
@@ -121,11 +126,18 @@
   }
  ],
  "next": {
-  "task": "P1 geometry engine in Python (from the bridge description, MGA, straight chords)",
-  "why": "Geometry is the first engine layer; every later stage (sections, model, analysis) builds on it, and it must work for any bridge, not only BR13A.",
-  "evidence": "4 synthetic validation cases to 1 mm with hand-checked coordinates; BR13A girder chords equal the baseline to 1 mm; no BR13A constants in code"
+  "task": "P2 sections and products: Super-T section properties per girder segment from the one definition, including flared flange widths from P1",
+  "why": "The analysis model needs correct stiffness per member; today the model uses fixed sections and ignores the flare, and the design section is placed by hand.",
+  "evidence": "Section properties (A, I, centroid, J) to 0.5 % / 2 % against independent calculations; flare applied from the P1 flange widths; product library file with each Super-T type tagged"
  },
  "risks": [
+  {
+   "id": "D-34",
+   "title": "BR13A support-line bearing waits for your acceptance",
+   "plain": "The geometry needs the support-line bearing (44.029166° from the skew diagram). It was only in a note, so the agent proposed it as decision D-34. Until accepted, BR13A geometry is labelled provisional.",
+   "why": "All girder positions depend on it.",
+   "severity": "medium"
+  },
   {
    "id": "D-3",
    "title": "Girder end region over-utilised in the current design run",
@@ -187,6 +199,13 @@
    "title": "Some plots draw invalid coordinates",
    "plain": "88 drawing errors per run (no calculation error).",
    "why": "A plot may show wrong or missing lines.",
+   "severity": "low"
+  },
+  {
+   "id": "F-4",
+   "title": "Dashboard model bearing nodes are off the support line by up to 26 mm",
+   "plain": "The old frozen model places bearings slightly off the printed straight support line. The new geometry engine uses the exact line.",
+   "why": "Small, but the analysis model should be rebuilt on the exact geometry (stage P3).",
    "severity": "low"
   }
  ]

@@ -1,0 +1,682 @@
+{
+ "format": "pdf2bim.geometry/0.1",
+ "coordinates": "MGA (as in the description), metres; offsets + right of increasing chainage",
+ "input_hash": "sha256:dd0a6b4588aef289836b0fe24cba0cd33f336875327162bcd49286f33b13a320",
+ "input_format": "pdf2bim.bridge/0.2",
+ "allow_proposed": true,
+ "provisional": [
+  {
+   "path": "alignment.support_lines.rows[0]",
+   "override": "OV-1",
+   "decision": "D-34",
+   "author": "AI",
+   "value": {
+    "support": "A",
+    "ch": 1895.3,
+    "skew": 34.5,
+    "skew_dms": null,
+    "bearing": 44.029166
+   },
+   "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so"
+  },
+  {
+   "path": "alignment.support_lines.rows[1]",
+   "override": "OV-1",
+   "decision": "D-34",
+   "author": "AI",
+   "value": {
+    "support": "B",
+    "ch": 1924.21,
+    "skew": 34.5,
+    "skew_dms": null,
+    "bearing": 44.029166
+   },
+   "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so"
+  }
+ ],
+ "alignment": {
+  "seed_bearing": 285.224886,
+  "seed_derivation": {
+   "formula": "bearing(TS->next point) − deflection of the chord in element 0",
+   "chord_bearing": -76.08809,
+   "chord_deflection": -1.312976
+  },
+  "misclosure": [
+   {
+    "row": 1,
+    "ch": 1897.507,
+    "dE": 0.000555,
+    "dN": -0.000138,
+    "dist": 0.000572
+   },
+   {
+    "row": 2,
+    "ch": 2036.438,
+    "dE": -0.000603,
+    "dN": -0.002114,
+    "dist": 0.002198
+   },
+   {
+    "row": 3,
+    "ch": 2091.438,
+    "dE": -0.000201,
+    "dN": -0.002081,
+    "dist": 0.00209
+   }
+  ]
+ },
+ "supports": [
+  {
+   "id": "A",
+   "ch": 1895.3,
+   "E": 300098.512693,
+   "N": 6249478.409057,
+   "RL": 130.531412,
+   "bearing": 44.029166,
+   "control_line_bearing": 281.595588,
+   "skew_input": 34.5,
+   "skew_to_chord_normal": 34.497923,
+   "skew_to_local_normal": 32.433578
+  },
+  {
+   "id": "B",
+   "ch": 1924.21,
+   "E": 300070.007984,
+   "N": 6249483.195089,
+   "RL": 129.523744,
+   "bearing": 44.029166,
+   "control_line_bearing": 277.460878,
+   "skew_input": 34.5,
+   "skew_to_chord_normal": 34.497923,
+   "skew_to_local_normal": 36.568288
+  }
+ ],
+ "girders": [
+  {
+   "id": "G1",
+   "bearing_A": {
+    "E": 300095.901806,
+    "N": 6249475.708157,
+    "ch": 1897.330442,
+    "offset": -3.1656,
+    "RL_control_line": 130.463512
+   },
+   "bearing_B": {
+    "E": 300067.262511,
+    "N": 6249480.354963,
+    "ch": 1926.582229,
+    "offset": -3.1656,
+    "RL_control_line": 129.437154
+   },
+   "chord_length_bearings": 29.013825,
+   "chord_bearing": 279.216086,
+   "unit_t": [
+    -0.987091,
+    0.160158
+   ],
+   "end_A": {
+    "E": 300096.4605,
+    "N": 6249475.617508
+   },
+   "end_B": {
+    "E": 300066.689998,
+    "N": 6249480.447855
+   },
+   "length_end_to_end": 30.159825,
+   "midchord_station": [
+    1911.956334,
+    -3.43085
+   ],
+   "flange": [
+    {
+     "t": 0,
+     "right": 1114.123542,
+     "right_to": "G2",
+     "left": 1135.160898,
+     "left_to": "deck edge left",
+     "width": 2249.28444
+    },
+    {
+     "t": 0.1,
+     "right": 1119.964154,
+     "right_to": "G2",
+     "left": 1039.376328,
+     "left_to": "deck edge left",
+     "width": 2159.340482
+    },
+    {
+     "t": 0.2,
+     "right": 1125.804766,
+     "right_to": "G2",
+     "left": 964.893191,
+     "left_to": "deck edge left",
+     "width": 2090.697957
+    },
+    {
+     "t": 0.3,
+     "right": 1131.645378,
+     "right_to": "G2",
+     "left": 911.699533,
+     "left_to": "deck edge left",
+     "width": 2043.344911
+    },
+    {
+     "t": 0.4,
+     "right": 1137.48599,
+     "right_to": "G2",
+     "left": 879.786769,
+     "left_to": "deck edge left",
+     "width": 2017.272759
+    },
+    {
+     "t": 0.5,
+     "right": 1143.326602,
+     "right_to": "G2",
+     "left": 869.149751,
+     "left_to": "deck edge left",
+     "width": 2012.476352
+    },
+    {
+     "t": 0.6,
+     "right": 1149.167214,
+     "right_to": "G2",
+     "left": 879.786761,
+     "left_to": "deck edge left",
+     "width": 2028.953975
+    },
+    {
+     "t": 0.7,
+     "right": 1155.007826,
+     "right_to": "G2",
+     "left": 911.699517,
+     "left_to": "deck edge left",
+     "width": 2066.707343
+    },
+    {
+     "t": 0.8,
+     "right": 1160.848438,
+     "right_to": "G2",
+     "left": 964.893167,
+     "left_to": "deck edge left",
+     "width": 2125.741605
+    },
+    {
+     "t": 0.9,
+     "right": 1166.68905,
+     "right_to": "G2",
+     "left": 1039.376296,
+     "left_to": "deck edge left",
+     "width": 2206.065346
+    },
+    {
+     "t": 1.0,
+     "right": 1172.529662,
+     "right_to": "G2",
+     "left": 1135.160935,
+     "left_to": "deck edge left",
+     "width": 2307.690597
+    }
+   ]
+  },
+  {
+   "id": "G2",
+   "bearing_A": {
+    "E": 300097.808163,
+    "N": 6249477.680238,
+    "ch": 1895.84478,
+    "offset": -0.8552,
+    "RL_control_line": 130.513236
+   },
+   "bearing_B": {
+    "E": 300069.267478,
+    "N": 6249482.429053,
+    "ch": 1924.846128,
+    "offset": -0.8552,
+    "RL_control_line": 129.500582
+   },
+   "chord_length_bearings": 28.93306,
+   "chord_bearing": 279.446763,
+   "unit_t": [
+    -0.986439,
+    0.164131
+   ],
+   "end_A": {
+    "E": 300098.365501,
+    "N": 6249477.587504
+   },
+   "end_B": {
+    "E": 300068.697316,
+    "N": 6249482.523921
+   },
+   "length_end_to_end": 30.07606,
+   "midchord_station": [
+    1910.345427,
+    -1.11743
+   ],
+   "flange": [
+    {
+     "t": 0,
+     "right": 1114.620521,
+     "right_to": "G3",
+     "left": 1110.980434,
+     "left_to": "G1",
+     "width": 2225.600955
+    },
+    {
+     "t": 0.1,
+     "right": 1120.353689,
+     "right_to": "G3",
+     "left": 1116.804788,
+     "left_to": "G1",
+     "width": 2237.158477
+    },
+    {
+     "t": 0.2,
+     "right": 1126.086858,
+     "right_to": "G3",
+     "left": 1122.629141,
+     "left_to": "G1",
+     "width": 2248.716
+    },
+    {
+     "t": 0.3,
+     "right": 1131.820027,
+     "right_to": "G3",
+     "left": 1128.453495,
+     "left_to": "G1",
+     "width": 2260.273522
+    },
+    {
+     "t": 0.4,
+     "right": 1137.553196,
+     "right_to": "G3",
+     "left": 1134.277849,
+     "left_to": "G1",
+     "width": 2271.831045
+    },
+    {
+     "t": 0.5,
+     "right": 1143.286364,
+     "right_to": "G3",
+     "left": 1140.102203,
+     "left_to": "G1",
+     "width": 2283.388567
+    },
+    {
+     "t": 0.6,
+     "right": 1149.019533,
+     "right_to": "G3",
+     "left": 1145.926556,
+     "left_to": "G1",
+     "width": 2294.946089
+    },
+    {
+     "t": 0.7,
+     "right": 1154.752702,
+     "right_to": "G3",
+     "left": 1151.75091,
+     "left_to": "G1",
+     "width": 2306.503612
+    },
+    {
+     "t": 0.8,
+     "right": 1160.48587,
+     "right_to": "G3",
+     "left": 1157.575264,
+     "left_to": "G1",
+     "width": 2318.061134
+    },
+    {
+     "t": 0.9,
+     "right": 1166.21904,
+     "right_to": "G3",
+     "left": 1163.399617,
+     "left_to": "G1",
+     "width": 2329.618657
+    },
+    {
+     "t": 1.0,
+     "right": 1171.952208,
+     "right_to": "G3",
+     "left": 1169.223971,
+     "left_to": "G1",
+     "width": 2341.176179
+    }
+   ]
+  },
+  {
+   "id": "G3",
+   "bearing_A": {
+    "E": 300099.710178,
+    "N": 6249479.647827,
+    "ch": 1894.379137,
+    "offset": 1.4552,
+    "RL_control_line": 130.562063
+   },
+   "bearing_B": {
+    "E": 300071.266026,
+    "N": 6249484.496503,
+    "ch": 1923.135504,
+    "offset": 1.4552,
+    "RL_control_line": 129.56277
+   },
+   "chord_length_bearings": 28.854453,
+   "chord_bearing": 279.673828,
+   "unit_t": [
+    -0.98578,
+    0.168039
+   ],
+   "end_A": {
+    "E": 300100.265172,
+    "N": 6249479.553221
+   },
+   "end_B": {
+    "E": 300070.698217,
+    "N": 6249484.593294
+   },
+   "length_end_to_end": 29.993453,
+   "midchord_station": [
+    1908.757478,
+    1.195994
+   ],
+   "flange": [
+    {
+     "t": 0,
+     "right": 1115.163783,
+     "right_to": "G4",
+     "left": 1111.551502,
+     "left_to": "G2",
+     "width": 2226.715285
+    },
+    {
+     "t": 0.1,
+     "right": 1120.785736,
+     "right_to": "G4",
+     "left": 1117.269094,
+     "left_to": "G2",
+     "width": 2238.05483
+    },
+    {
+     "t": 0.2,
+     "right": 1126.407689,
+     "right_to": "G4",
+     "left": 1122.986687,
+     "left_to": "G2",
+     "width": 2249.394376
+    },
+    {
+     "t": 0.3,
+     "right": 1132.029642,
+     "right_to": "G4",
+     "left": 1128.704279,
+     "left_to": "G2",
+     "width": 2260.733921
+    },
+    {
+     "t": 0.4,
+     "right": 1137.651595,
+     "right_to": "G4",
+     "left": 1134.421872,
+     "left_to": "G2",
+     "width": 2272.073467
+    },
+    {
+     "t": 0.5,
+     "right": 1143.273548,
+     "right_to": "G4",
+     "left": 1140.139464,
+     "left_to": "G2",
+     "width": 2283.413012
+    },
+    {
+     "t": 0.6,
+     "right": 1148.8955,
+     "right_to": "G4",
+     "left": 1145.857057,
+     "left_to": "G2",
+     "width": 2294.752557
+    },
+    {
+     "t": 0.7,
+     "right": 1154.517453,
+     "right_to": "G4",
+     "left": 1151.574649,
+     "left_to": "G2",
+     "width": 2306.092103
+    },
+    {
+     "t": 0.8,
+     "right": 1160.139406,
+     "right_to": "G4",
+     "left": 1157.292242,
+     "left_to": "G2",
+     "width": 2317.431648
+    },
+    {
+     "t": 0.9,
+     "right": 1165.761359,
+     "right_to": "G4",
+     "left": 1163.009834,
+     "left_to": "G2",
+     "width": 2328.771194
+    },
+    {
+     "t": 1.0,
+     "right": 1171.383312,
+     "right_to": "G4",
+     "left": 1168.727427,
+     "left_to": "G2",
+     "width": 2340.110739
+    }
+   ]
+  },
+  {
+   "id": "G4",
+   "bearing_A": {
+    "E": 300101.608067,
+    "N": 6249481.611148,
+    "ch": 1892.932331,
+    "offset": 3.7656,
+    "RL_control_line": 130.61004
+   },
+   "bearing_B": {
+    "E": 300073.258325,
+    "N": 6249486.557489,
+    "ch": 1921.449745,
+    "offset": 3.7656,
+    "RL_control_line": 129.623752
+   },
+   "chord_length_bearings": 28.778015,
+   "chord_bearing": 279.897095,
+   "unit_t": [
+    -0.985118,
+    0.171879
+   ],
+   "end_A": {
+    "E": 300102.161704,
+    "N": 6249481.514551
+   },
+   "end_B": {
+    "E": 300072.691882,
+    "N": 6249486.656319
+   },
+   "length_end_to_end": 29.915015,
+   "midchord_station": [
+    1907.191913,
+    3.50949
+   ],
+   "flange": [
+    {
+     "t": 0,
+     "right": 1135.101279,
+     "right_to": "deck edge right",
+     "left": 1112.169908,
+     "left_to": "G3",
+     "width": 2247.271187
+    },
+    {
+     "t": 0.1,
+     "right": 1226.593376,
+     "right_to": "deck edge right",
+     "left": 1117.776967,
+     "left_to": "G3",
+     "width": 2344.370343
+    },
+    {
+     "t": 0.2,
+     "right": 1298.240128,
+     "right_to": "deck edge right",
+     "left": 1123.384027,
+     "left_to": "G3",
+     "width": 2421.624155
+    },
+    {
+     "t": 0.3,
+     "right": 1349.455331,
+     "right_to": "deck edge right",
+     "left": 1128.991088,
+     "left_to": "G3",
+     "width": 2478.446419
+    },
+    {
+     "t": 0.4,
+     "right": 1380.210256,
+     "right_to": "deck edge right",
+     "left": 1134.598147,
+     "left_to": "G3",
+     "width": 2514.808404
+    },
+    {
+     "t": 0.5,
+     "right": 1390.509567,
+     "right_to": "deck edge right",
+     "left": 1140.205207,
+     "left_to": "G3",
+     "width": 2530.714774
+    },
+    {
+     "t": 0.6,
+     "right": 1380.354823,
+     "right_to": "deck edge right",
+     "left": 1145.812267,
+     "left_to": "G3",
+     "width": 2526.167091
+    },
+    {
+     "t": 0.7,
+     "right": 1349.744489,
+     "right_to": "deck edge right",
+     "left": 1151.419327,
+     "left_to": "G3",
+     "width": 2501.163816
+    },
+    {
+     "t": 0.8,
+     "right": 1298.673919,
+     "right_to": "deck edge right",
+     "left": 1157.026387,
+     "left_to": "G3",
+     "width": 2455.700307
+    },
+    {
+     "t": 0.9,
+     "right": 1227.135372,
+     "right_to": "deck edge right",
+     "left": 1162.633447,
+     "left_to": "G3",
+     "width": 2389.768819
+    },
+    {
+     "t": 1.0,
+     "right": 1135.117991,
+     "right_to": "deck edge right",
+     "left": 1168.240507,
+     "left_to": "G3",
+     "width": 2303.358498
+    }
+   ]
+  }
+ ],
+ "deck": {
+  "edge_left_offset": -4.3,
+  "edge_right_offset": 4.9,
+  "edges": {
+   "left": [
+    {
+     "support": "A",
+     "E": 300094.964132,
+     "N": 6249474.738156,
+     "ch": 1898.067573
+    },
+    {
+     "support": "B",
+     "E": 300066.275674,
+     "N": 6249479.334104,
+     "ch": 1927.444168
+    }
+   ],
+   "right": [
+    {
+     "support": "A",
+     "E": 300102.538478,
+     "N": 6249482.573635,
+     "ch": 1892.228507
+    },
+    {
+     "support": "B",
+     "E": 300074.234301,
+     "N": 6249487.567112,
+     "ch": 1920.630963
+    }
+   ]
+  },
+  "missing": [
+   "deck end lines (position of the deck end relative to the support line is not in the description)"
+  ]
+ },
+ "checks": [
+  {
+   "id": "alignment.misclosure.row1",
+   "what": "integrated vs tabulated start point of element 1 (ch 1897.507)",
+   "value_m": 0.000572,
+   "limit_m": 0.005,
+   "pass": true,
+   "basis": "CONTROL_LINE_RECONSTRUCTION_METHOD §5 (<5 mm)"
+  },
+  {
+   "id": "alignment.misclosure.row2",
+   "what": "integrated vs tabulated start point of element 2 (ch 2036.438)",
+   "value_m": 0.002198,
+   "limit_m": 0.005,
+   "pass": true,
+   "basis": "CONTROL_LINE_RECONSTRUCTION_METHOD §5 (<5 mm)"
+  },
+  {
+   "id": "alignment.misclosure.row3",
+   "what": "integrated vs tabulated start point of element 3 (ch 2091.438)",
+   "value_m": 0.00209,
+   "limit_m": 0.005,
+   "pass": true,
+   "basis": "CONTROL_LINE_RECONSTRUCTION_METHOD §5 (<5 mm)"
+  },
+  {
+   "id": "support.A.skew_consistency",
+   "what": "|bearing − normal to the support-to-support chord| vs the skew given",
+   "value_deg": 0.002077,
+   "limit_deg": 0.01,
+   "pass": true,
+   "basis": "independent cross-check of two drawing values",
+   "note": "skew to chord normal 34.4979°, to the local normal 32.4336°"
+  },
+  {
+   "id": "support.B.skew_consistency",
+   "what": "|bearing − normal to the support-to-support chord| vs the skew given",
+   "value_deg": 0.002077,
+   "limit_deg": 0.01,
+   "pass": true,
+   "basis": "independent cross-check of two drawing values",
+   "note": "skew to chord normal 34.4979°, to the local normal 36.5683°"
+  }
+ ],
+ "source": "projects/BR13A/BR13A.bridge.0.2.json"
+}

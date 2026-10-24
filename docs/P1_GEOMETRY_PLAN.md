@@ -1,6 +1,6 @@
 # P1 — Geometry engine in Python: implementation plan (for review)
 
-**Status:** proposed 2026-10-23. **Not started.** It starts only after the owner reviews this plan (ADR-015).
+**Status:** implemented 2026-10-24 (autonomous mode, ADR-018). The results and differences from this plan are in `P1_GEOMETRY_METHOD.md`. **Acceptance item 2** (BR13A equals the baseline to 1 mm) was replaced by an explained comparison: the dashboard model itself is up to 33 mm off the printed support line (F-4). The deck widths agree to 2 mm.
 
 ## 1. Objective and acceptance
 

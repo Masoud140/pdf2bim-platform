@@ -175,6 +175,16 @@ t("BR13A vs dashboard model: G2 (closest to the control line) bearing centres wi
 t("BR13A: straight chords sit about 0.265 m inside the girder-line curve at midspan (known gap C-2 confirmed)", all(abs(abs(g["midchord_station"][1] - g["bearing_A"]["offset"]) - 0.265) < 0.01 for g in gb["girders"]),
   str([round(g["midchord_station"][1] - g["bearing_A"]["offset"], 4) for g in gb["girders"]]))
 
+gapv = b["superstructure"]["flange_gap"]["value"]
+dw = []
+for g, wd in zip(gb["girders"], fx["widths"]):
+    for f, w in zip(g["flange"], wd):
+        p1 = f["left"] + f["right"] + (gapv / 2 if f["left_to"].startswith("G") else 0) + (gapv / 2 if f["right_to"].startswith("G") else 0)
+        dw.append(abs(p1 - w["w"]["W"]))
+t(f"BR13A vs dashboard gwWidth: deck width per girder at all {len(dw)} stations within 3 mm (independent implementation)", len(dw) == 44 and max(dw) <= 3.0, f"max {max(dw):.2f} mm")
+w0, w1 = gb["girders"][1]["flange"][0], gb["girders"][1]["flange"][-1]
+t("BR13A: inner girder flange width grows from A to B (non-parallel chords between parallel skew lines on a curve)", w1["width"] - w0["width"] > 100, f"{w0['width']:.0f} -> {w1['width']:.0f}")
+
 # ---------------- generality: no bridge-specific constants in the engine ----------------
 src = "".join(open(f).read() for f in glob.glob(os.path.join(R, "pdf2bim", "**", "*.py"), recursive=True))
 hits = [k for k in ("BR13A", "1895.3", "1924.21", "300098", "6249478", "44.029", "34.5", "3.1656") if k in src]

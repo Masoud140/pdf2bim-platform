@@ -2,6 +2,20 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P1 geometry engine (branch `p1-geometry`)
+
+- **Added:**
+  - `pdf2bim/geometry/`: alignment (clothoid, single-seed integration, vertical parabola), supports, bearing centres, straight chords, deck edges, flange edges;
+  - `tools/build_geometry.py`;
+  - 36 tests (4 closed-form cases, method known cases, BR13A checks, cross-check with the dashboard).
+- **Format:** optional `support_lines.bearing` column. BR13A D-34 proposed (support bearing 44.029166°, structured from the description's own Direct note).
+- **Added:** `schema/propose_override.py`, which adds a proposed override as a new revision and keeps history.
+- **Findings:**
+  - skew is chord-referenced;
+  - the dashboard bearing nodes are off the support line by up to 26 mm (F-4);
+  - the baseline's "chord length" is a mesh path length.
+- See `docs/P1_GEOMETRY_METHOD.md` and ADR-020.
+
 ## 2026-10-24 — P0.3 standards-data framework (branch `p0.3-standards`)
 
 - **Added:**
