@@ -18,7 +18,7 @@ If this file and the repository disagree, the repository wins: fix this file. **
 | Head | `git log -1 origin/p2-sections`; must equal the local HEAD | `git ls-remote` |
 | Tests (executed 2026-10-24) | full suite on `5e91a8f`: 136 / 136 assertions; live baseline 11 / 11. On `p2-sections`: sections 24 / 24, format 48 / 48, schema 17 / 17, geometry 36 / 36 | `baseline/BR13A/test_run.md`, §6 |
 | Dashboard build | unchanged since v45 (sha256 `710b259d2c7117d0…`) | no `src` / `base` change |
-| Full suite record | `baseline/BR13A/test_run.md` (commit `5e91a8f`). Not yet re-run on `p2-sections`: re-run at the start of P3 | — |
+| Full suite record | `baseline/BR13A/test_run.md` (commit `5ab04c7`): 24 scripts, 161 / 161 assertions PASS, 18 print-only ran | executed 2026-10-24 |
 
 **Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` → (`p3-model`).
 

@@ -104,7 +104,7 @@
 
 - Commit `5e91a8f`: 23 scripts; 136 / 136 assertions PASS; 18 print-only scripts ran.
 - Live baseline 11 / 11.
-- After that run: sections 24 / 24 and format 48 / 48 (updated) on `p2-sections`.
+- Re-run on `5ab04c7` (p2-sections): 24 scripts, 161 / 161 assertions PASS (incl. sections 24, format 48).
 
 ## Next task
 
