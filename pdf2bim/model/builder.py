@@ -60,8 +60,11 @@ def _line_line(P, d, Q, e):
     return (w[0] * e[1] - w[1] * e[0]) / den, (w[0] * d[1] - w[1] * d[0]) / den
 
 
-def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None):
-    rd = Reader(doc, allow_proposed)
+def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearings="ground", rd=None):
+    """bearings = "ground": each bearing node is supported by a zero-length link to ground (P3a, superstructure alone);
+    bearings = "none": no bearing supports are added (the caller attaches the substructure, P3b).
+    rd: an existing description Reader to share (so provisional uses are listed once)."""
+    rd = rd or Reader(doc, allow_proposed)
     al = geo["_alignment"]
     D = doc.get("deck") or {}
     SS = doc.get("superstructure") or {}
@@ -346,6 +349,9 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None):
                 raise MissingInput(f"bearings.items: no bearing for {sid}-{g['id']}")
             rl = rd.value(it.get("restraint_longitudinal"), f"bearings[{it['id']}].restraint_longitudinal")
             rt = rd.value(it.get("restraint_transverse"), f"bearings[{it['id']}].restraint_transverse")
+            if bearings == "none":
+                bear[it["id"]] = {"node": k, "ground": None, "longitudinal": rl, "transverse": rt, "support": sid, "girder": g["id"], "unit_t": tuple(g["unit_t"])}
+                continue
             kk_ = []
             for r in (rl, rt):
                 if r == "fixed":
@@ -360,7 +366,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None):
             mdl.node(gnode, nodes[k]["E"], nodes[k]["N"], nodes[k]["Z"])
             mdl.fix(gnode, "111111")
             mdl.link(len(bear) + 1, gnode, k, (kk_[0], kk_[1], KFIX, 0, 0, 0), axes=axes_, role="bearing")
-            bear[it["id"]] = {"node": k, "ground": gnode, "longitudinal": rl, "transverse": rt, "support": sid, "girder": g["id"]}
+            bear[it["id"]] = {"node": k, "ground": gnode, "longitudinal": rl, "transverse": rt, "support": sid, "girder": g["id"], "unit_t": tuple(g["unit_t"])}
 
     return {"format": "pdf2bim.model/0.1", "model": mdl, "nodes": nodes, "members": members, "bearings": bear,
             "settings": {"transverse_spacing_target": tgt, "transverse_step": step, "stations": nst + 1, "midgap": midgap, "web_offset_m": W,

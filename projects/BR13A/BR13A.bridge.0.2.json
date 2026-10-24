@@ -7474,6 +7474,31 @@
       "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
+    },
+    "seat_rl": {
+     "value": 128.39,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 112: Bearing 4 mortar pad / bearing seat RL",
+      "text": "128.390"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 128.39,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 112: Bearing 4 mortar pad / bearing seat RL",
+       "text": "128.390"
+      }
+     },
+     "current": "original"
     }
    },
    {
@@ -7700,6 +7725,31 @@
        "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
       },
       "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
+    },
+    "seat_rl": {
+     "value": 128.561,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 106: Bearing 3 mortar pad / bearing seat RL",
+      "text": "128.561"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 128.561,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 106: Bearing 3 mortar pad / bearing seat RL",
+       "text": "128.561"
+      }
      },
      "current": "original"
     }
@@ -7930,6 +7980,31 @@
       "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
+    },
+    "seat_rl": {
+     "value": 128.745,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 100: Bearing 2 mortar pad / bearing seat RL",
+      "text": "128.745"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 128.745,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 100: Bearing 2 mortar pad / bearing seat RL",
+       "text": "128.745"
+      }
+     },
+     "current": "original"
     }
    },
    {
@@ -8156,6 +8231,31 @@
        "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
       },
       "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
+    },
+    "seat_rl": {
+     "value": 128.899,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 94: Bearing 1 mortar pad / bearing seat RL",
+      "text": "128.899"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 128.899,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 94: Bearing 1 mortar pad / bearing seat RL",
+       "text": "128.899"
+      }
      },
      "current": "original"
     }
@@ -8386,6 +8486,31 @@
       "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
+    },
+    "seat_rl": {
+     "value": 127.371,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 94: Bearing 1 mortar pad / bearing seat RL",
+      "text": "127.371"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 127.371,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 94: Bearing 1 mortar pad / bearing seat RL",
+       "text": "127.371"
+      }
+     },
+     "current": "original"
     }
    },
    {
@@ -8612,6 +8737,31 @@
        "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
       },
       "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
+    },
+    "seat_rl": {
+     "value": 127.547,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 100: Bearing 2 mortar pad / bearing seat RL",
+      "text": "127.547"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 127.547,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 100: Bearing 2 mortar pad / bearing seat RL",
+       "text": "127.547"
+      }
      },
      "current": "original"
     }
@@ -8842,6 +8992,31 @@
       "replace_with": "bearing schedule / supplier data"
      },
      "current": "original"
+    },
+    "seat_rl": {
+     "value": 127.736,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 106: Bearing 3 mortar pad / bearing seat RL",
+      "text": "127.736"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 127.736,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 106: Bearing 3 mortar pad / bearing seat RL",
+       "text": "127.736"
+      }
+     },
+     "current": "original"
     }
    },
    {
@@ -9068,6 +9243,31 @@
        "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
       },
       "replace_with": "bearing schedule / supplier data"
+     },
+     "current": "original"
+    },
+    "seat_rl": {
+     "value": 127.895,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281",
+      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 112: Bearing 4 mortar pad / bearing seat RL",
+      "text": "127.895"
+     },
+     "status": "proposed",
+     "decision": "D-41",
+     "original": {
+      "value": 127.895,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T19:40:00+11:00",
+      "source": {
+       "doc": "DRG-202281",
+       "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 112: Bearing 4 mortar pad / bearing seat RL",
+       "text": "127.895"
+      }
      },
      "current": "original"
     }
@@ -30624,17 +30824,17 @@
   }
  ],
  "revision": {
-  "number": 9,
-  "parent_hash": "sha256:28905ae1ac807eb36243b8dfa865459639d3996e8b27be82fd1d5b16728a7dc0",
-  "created": "2026-10-24T15:41:00+11:00",
+  "number": 10,
+  "parent_hash": "sha256:c8137e55024af4d41ab4a5854f11710078a8312f104d03012e299410aad2aa6a",
+  "created": "2026-10-24T19:40:00+11:00",
   "author": "AI",
-  "note": "D-40 proposed: 8 new record(s)",
+  "note": "D-41 proposed: 8 new record(s)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:c8137e55024af4d41ab4a5854f11710078a8312f104d03012e299410aad2aa6a"
+  "value": "sha256:64e19d968b01fe33e683ade66aedbca03c794c665dcc43d268ae04e6a0e8670e"
  }
 }

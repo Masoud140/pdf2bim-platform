@@ -18,6 +18,10 @@ import scipy.sparse as sp
 import scipy.sparse.linalg as spl
 
 DOF = 6
+# Refusal thresholds (Model, P3b): a true mechanism gives an LU pivot ratio ~1e-16; valid BR13A models ~1e-8 with
+# 1e9 / 1e-3 stiffness contrasts. Residual check on the free dofs relative to the largest load term.
+PIVOT_RATIO_MIN = 1e-13
+RESID_REL_MAX = 1e-4
 
 
 def axes(p1, p2):
@@ -158,9 +162,15 @@ class Model:
             lu = spl.splu(Kff)
         except RuntimeError as ex:
             raise ValueError(f"stiffness matrix singular (mechanism or missing support): {ex}")
+        piv = np.abs(lu.U.diagonal())
+        if piv.size and piv.min() < PIVOT_RATIO_MIN * piv.max():
+            raise ValueError(f"stiffness matrix numerically singular (mechanism or missing support): LU pivot ratio {piv.min() / piv.max():.1e} < {PIVOT_RATIO_MIN:.0e}")
         u[free] = lu.solve(F[free])
         if not np.all(np.isfinite(u)):
             raise ValueError("solution not finite: mechanism or missing support")
+        rfree = float(np.abs((Kff @ u[free]) - F[free]).max()) if len(free) else 0.0
+        if rfree > RESID_REL_MAX * max(float(np.abs(F).max()), 1.0):
+            raise ValueError(f"solution residual {rfree:.2e} kN too large (near-mechanism or ill-conditioned model)")
         Rall = Kt @ u - F  # residual: nonzero only at fixed dofs (reactions incl. springs counted separately below)
         reac = {n: Rall[DOF * idx[n]:DOF * idx[n] + 6].copy() for n in self.fixed}
         spr = {n: -self.springs[n] * u[DOF * idx[n]:DOF * idx[n] + 6] for n in self.springs}  # force the spring exerts on the node
@@ -173,6 +183,13 @@ class Model:
         return {"u": {n: u[DOF * i:DOF * i + 6] for n, i in idx.items()}, "reactions": reac, "spring_forces": spr,
                 "applied": applied, "equilibrium_residual": resid, "free_dof_residual": free_resid,
                 "ndof": nd, "nfree": int(len(free))}
+
+    def link_force(self, lid):
+        """Bearing / link force after solve(): (local, global). local = (axial, shear y, shear z) in link axes, the force node n2
+        exerts ON the link (tension + for axial); global = the force the link exerts ON node n2 (kN, global X, Y, Z)."""
+        L, R, T, Kl, fl, dofs = self._el[("link", lid)]
+        f = (Kl @ (T @ self._u[dofs]))[6:9]
+        return f, -(R.T @ f)
 
     def end_forces(self, eid):
         """Local end forces f = K T u - f_eq (forces the nodes exert on the element), for a beam id."""

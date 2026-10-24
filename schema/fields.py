@@ -157,6 +157,7 @@ BEARINGS = {
         'restraint_longitudinal': ('enum', '', 'fixed | free | elastic', ['fixed', 'free', 'elastic']),
         'restraint_transverse': ('enum', '', 'fixed | free | elastic', ['fixed', 'free', 'elastic']),
         'height': ('num', 'mm', 'Bearing + plinth height (headstock top to girder soffit)'),
+        'seat_rl': ('num', 'm', 'Bearing seat RL (top of mortar pad / plinth, underside of the bearing)'),
         'layer_thickness': ('num', 'mm', 'Thickness of one internal elastomer layer (sets the shape factor and the compression stiffness)'),
     }, 'Every bearing'),
 }

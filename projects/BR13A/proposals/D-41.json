@@ -1,0 +1,178 @@
+{
+ "decision": {
+  "id": "D-41",
+  "by": "AI",
+  "reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+  "evidence": [
+   "custom.takeoff_abutments group 4 rows 90-112 (A and B)",
+   "DRG-202281 (202280-202282)",
+   "projects/BR13A/geometry/BR13A.geometry.json (bearing centres)"
+  ],
+  "affects": [
+   "model"
+  ]
+ },
+ "created": "2026-10-24T19:40:00+11:00",
+ "add": [
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G1"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 128.39,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 112: Bearing 4 mortar pad / bearing seat RL",
+     "text": "128.390"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G2"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 128.561,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 106: Bearing 3 mortar pad / bearing seat RL",
+     "text": "128.561"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G3"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 128.745,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 100: Bearing 2 mortar pad / bearing seat RL",
+     "text": "128.745"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "A-G4"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 128.899,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 94: Bearing 1 mortar pad / bearing seat RL",
+     "text": "128.899"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G1"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 127.371,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 94: Bearing 1 mortar pad / bearing seat RL",
+     "text": "127.371"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G2"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 127.547,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 100: Bearing 2 mortar pad / bearing seat RL",
+     "text": "127.547"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G3"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 127.736,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 106: Bearing 3 mortar pad / bearing seat RL",
+     "text": "127.736"
+    }
+   }
+  },
+  {
+   "path": [
+    "bearings",
+    "items",
+    {
+     "id": "B-G4"
+    },
+    "seat_rl"
+   ],
+   "record": {
+    "value": 127.895,
+    "unit": "m",
+    "tag": "Direct",
+    "source": {
+     "doc": "DRG-202281",
+     "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 112: Bearing 4 mortar pad / bearing seat RL",
+     "text": "127.895"
+    }
+   }
+  }
+ ]
+}
