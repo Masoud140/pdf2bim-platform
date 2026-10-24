@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **Next: P3c** (remaining load cases + AS 5100.2 combinations). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c stage 1** (traffic M1600 / S1600) done. **Next: P3c** remaining load cases + AS 5100.2 combinations. The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -54,6 +54,8 @@
 | F-5 | BR13A abutment-drawing bearing positions (DRG 202100 / 202101) differ from the GA girder setout by 50–530 mm along the line of bearings; model uses the GA (P1) positions. **Engineer to resolve** | data / C |
 | F-6 | BR13A drawn seat-to-soffit gap 100–127 mm vs Assumed bearing height 150 mm (haunch Assumed 0, D-36); model uses the drawn levels | data |
 | H-3 | Dashboard modal / earthquake RSA mass weights every member, including the deck strips and dummies already inside the composite girders: +836 kN (+9.8 % mass), periods up to ~9 % long. Dashboard engine not changed (needs a baseline re-run) | H / F |
+| H-4 | Dashboard traffic default lane layout packs the lanes at the left kerb and never sweeps: G4 max M ×1.33, G3 ×1.09, bearings A-G4 ×3.15, B-G4 ×2.49, A-G3 ×1.66 understated in its default results. **Engineer decision on the dashboard / any results already used** | H / F |
+| H-5 | Dashboard traffic load distribution: off-line bearing nodes become one-node 'lines' that collect all load at their offset: inner-bearing traffic reactions overstated (up to +44 %), girder moments understated (1–6 %) | H / F |
 | M-1 | BR13A SDL bearing split at abutment A: P3b vs frozen −11 … +25 %; the load distribution alone agrees within 8 %, so the difference is in the models. Check in the independent MIDAS model (P4) | E |
 | M-2 | BR13A horizontal modes: P3b 8 % (longitudinal) / 5 % (transverse) shorter than frozen; vertical +0.6 %. Suspected bearing-link idealisation, unconfirmed | E |
 | X-2 | MIDAS .mct: ELASTICLINK / SPRING syntax unverified; nodal loads not written (no *CONLOAD syntax). Needs an engineer import test and one native export with a nodal load, a spring and a link | E / interop |
@@ -148,6 +150,13 @@
   - BR13A P3b vs frozen: vertical +0.6 %, horizontal −5 … −8 % (M-2).
 - **Findings:** H-3, M-1, M-2, X-2 (table above). Details in `P3_MODEL_METHOD.md` §6.
 
+## P3c stage 1 (traffic), done 2026-10-24
+
+- `pdf2bim/model/traffic.py`: influence surfaces; lanes swept; vehicle with variable gap, both directions and lateral shift; patterned UDL; lane factors.
+- **Engine reproduces the dashboard to 0.01 %** with its distribution rule.
+- **BR13A, M1600 (characteristic, PROVISIONAL):** max girder M G1 3383, G2 3282, G3 3274, G4 3825 kN·m.
+- **Findings H-4, H-5** (table above). Details in `P3_MODEL_METHOD.md` §7 and `projects/BR13A/model/BR13A.traffic_vs_frozen.md`.
+
 ## Tests (latest full run)
 
 - Commit `009ce60`: 30 scripts; **277 / 277 assertions PASS**; 18 print-only scripts ran without errors (`baseline/BR13A/test_run.md`).
@@ -155,4 +164,4 @@
 
 ## Next task
 
-**P3c:** the remaining load cases (traffic M1600 / S1600 first, then braking, temperature, shrinkage / creep, wind, earth pressure, earthquake RSA) on the integrated model, then the AS 5100.2 combinations. All factors go through the standards accessor (unverified). Branch: continue `p3-model`.
+**P3c:** braking / centrifugal, temperature (uniform + gradient), shrinkage / creep, wind, earth pressure and earthquake RSA on the integrated model, then the AS 5100.2 combinations. All factors go through the standards accessor (unverified). Branch: continue `p3-model`.

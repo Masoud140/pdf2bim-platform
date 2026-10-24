@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-24 (P0.2 → P2, P3a and P3b done; P3c next).
+**Last updated:** 2026-10-24 (P0.2 → P2, P3a, P3b and P3c stage 1 traffic done; P3c remaining load cases next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -32,22 +32,22 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3a model + solver:** DONE (`P3_MODEL_METHOD.md`, ADR-022). BR13A model PROVISIONAL (D-34…D-38).
 - **P3b stage 1–2 integrated model:** DONE (`P3_MODEL_METHOD.md` §5, ADR-023). BR13A PROVISIONAL (D-34…D-41). Findings F-5, F-6.
 - **P3b stages 3–5:** SDL, MIDAS .mct writer, modes — DONE (`P3_MODEL_METHOD.md` §6, ADR-024). The .mct awaits the engineer import test.
-- **P3c:** remaining load cases + combinations — next.
+- **P3c stage 1 traffic:** DONE (`P3_MODEL_METHOD.md` §7, ADR-025). Findings H-4, H-5.
+- **P3c remaining:** braking / centrifugal, temperature, shrinkage / creep, wind, earth pressure, earthquake RSA, combinations — next.
 
 ## 3. Next actions
 
-1. **P3c**, on `p3-model`. Load cases on the integrated model with `Model.solve(gravity=(0, 0, 0), loads=...)`:
-   - traffic first: M1600 / S1600 lanes and influence-surface envelopes. The dashboard's version is in `src/` (`tr*`), cross-check via a dump tool like `tools/dump_dashboard_sdl.js`;
-   - then braking, temperature (uniform + gradient), shrinkage / creep, wind, earth pressure and earthquake RSA (use `Model.modes`);
-   - then the AS 5100.2 combinations;
-   - every factor via `standards.accessor` (all unverified), with no hard-coded coefficients.
-2. Keep the generality guard green: `python3 tests/geometry/test_geometry.py` fails if engine code contains a bridge name or constant, **including in comments / docstrings** (it caught this twice in P3b).
-3. Re-run `tools/run_suite.py` (≈ 30 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
+1. **P3c remaining**, on `p3-model`, each as a load case on the integrated model (`Model.solve(gravity=(0, 0, 0), loads=...)`, or imposed strains as equivalent end forces):
+   - braking (`loads.braking_force`, Assumed 500 kN) and centrifugal (`loads.design_speed`);
+   - uniform temperature (`loads.temperature`) and gradient (`loads.gradient_positive / negative`); shrinkage / creep (`loads.shrinkage_creep_shortening`);
+   - wind (`loads.wind`; coefficients via the accessor); earth pressure (`supports[].backfill`, `loads.traffic_surcharge`);
+   - earthquake RSA with `Model.modes` (AS 1170.4 Ch via the accessor), CQC + missing mass, as the dashboard;
+   - each cross-checked against the dashboard (dump tool + comparison, isolation where models differ);
+   - then the AS 5100.2 combinations from the load-factor register (all unverified).
+2. Keep the generality guard green: `python3 tests/geometry/test_geometry.py` (no bridge names / constants in `pdf2bim/`, comments included).
+3. Re-run `tools/run_suite.py` (≈ 35 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
 
-New in P3b stages 3–5 (for reference):
-- `pdf2bim/model/loads.py`, `pdf2bim/model/mct.py`, `Model.modes`, `Model.solve(loads=)`, `Model.link_force`;
-- tools `export_mct.py`, `compare_frozen_sdl.py`, `compare_frozen_modes.py`, `dump_dashboard_sdl.js`, `dump_dashboard_modes.js`, `check_mct_dashboard.js`;
-- tests `test_loads.py`, `test_mct.py`, `test_modes.py`.
+New in P3c stage 1 (for reference): `pdf2bim/model/traffic.py` (`Influence`, `lane_effect`, `combine_lanes`, `traffic_envelope`), `Model.stiffness()`, standards `AS5100.2:traffic:*`, `tools/dump_dashboard_traffic.js` (MODE=def | sweep), `tools/compare_frozen_traffic.py`, `tests/model/test_traffic.py`.
 
 ## 4. Do not
 
@@ -73,6 +73,11 @@ New in P3b stages 3–5 (for reference):
 - **F-6:** seat-to-soffit gap 100–127 mm vs the Assumed 150 mm bearing height.
 - **MIDAS import test** of `projects/BR13A/model/BR13A.integrated.mct` (checklist `.mct.md`); a native export with one nodal load, one point spring and one elastic link would remove the unverified syntax (X-2).
 - **H-3:** the dashboard's modal / earthquake mass double-counts the deck strips (+9.8 %): fix in the dashboard now, or leave it until P3c replaces that analysis?
+- **H-4 / H-5 (traffic, dashboard):**
+  - the default lane layout is never swept (G4 M ×1.33, outer bearings up to ×3.15);
+  - the one-node bearing "lines" overstate inner-bearing reactions (up to +44 %) and understate girder moments (1–6 %).
+
+  Were any dashboard traffic results already used outside the platform?
 
   Once these are settled, geometry, sections and the model are no longer provisional.
 

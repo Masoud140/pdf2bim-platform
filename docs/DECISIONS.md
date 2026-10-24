@@ -261,3 +261,16 @@
   4. **Modal mass = the static self weight + SDL** (deck strips, dummies and rigid members massless). The dashboard's modal mass rule (every member weighted) is **not** reproduced except to verify the solver (finding H-3).
   5. **The remaining load cases and the combinations move to a new stage P3c,** so that P3b closes with the model, bearings, SDL, export and modes.
 - **Consequence:** the BR13A SDL total is within 0.3 % of the dashboard, and the distribution alone within 8 %. Modal solver = dashboard to 4.5e-8. The .mct needs the engineer's import test. Open items: M-1 (SDL split at A between the models), M-2 (horizontal modes 5–8 % shorter), H-3.
+
+## ADR-025 P3c traffic engine (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. **Traffic by influence surfaces on the integrated model,** with the dashboard's algorithm ported and generalised.
+  2. **Load distribution by barycentric weights** on the deck triangulation (as the SDL), **not** the dashboard's line rule, which turns off-line bearing nodes into one-node "lines" (H-5). The line rule is kept only as an option, to reproduce the dashboard in tests.
+  3. **The lane group is swept across the carriageway by default** (0.1 m), not packed at the left kerb (H-4).
+  4. **Traffic constants inventoried as unverified standards data** and read through the accessor.
+  5. **Defaults kept from the dashboard and reported as Model settings:** lateral wheel shift ±0.4 m, patterned UDL, no DLA on the UDL, 0.25 m steps.
+- **Consequence:**
+  - with the dashboard's rule, the engine reproduces the dashboard's envelope to 0.01 % (moments);
+  - BR13A M1600 girder moments vs the dashboard sweep: −2 … +6 %.
+  - The dashboard's design-time traffic results are affected by H-4 (G3 / G4 and outer bearings understated) and H-5 (inner bearings overstated, moments understated by 1–6 %); the owner decides on the dashboard.

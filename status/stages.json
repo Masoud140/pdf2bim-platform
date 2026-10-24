@@ -112,9 +112,11 @@
     "pdf2bim/model/mct.py",
     "projects/BR13A/model/BR13A.integrated.mct.md",
     "projects/BR13A/model/BR13A.sdl_vs_frozen.md",
-    "projects/BR13A/model/BR13A.modes_vs_frozen.md"
+    "projects/BR13A/model/BR13A.modes_vs_frozen.md",
+    "pdf2bim/model/traffic.py",
+    "projects/BR13A/model/BR13A.traffic_vs_frozen.md"
    ],
-   "note": "P3a + P3b done: solver, superstructure, substructure + bearings, SDL load case, MIDAS .mct export (awaiting your import test), natural modes. Next P3c: traffic and the other load cases, then combinations",
+   "note": "P3a + P3b done; P3c traffic (M1600 / S1600) done and checked against the dashboard to 0.01 %. Next: braking, temperature, shrinkage, wind, earth pressure, earthquake, then combinations",
    "branch": "p3-model"
   },
   {
@@ -148,11 +150,25 @@
   }
  ],
  "next": {
-  "task": "P3c: traffic (M1600 / S1600) and the other load cases on the integrated model, then the AS 5100.2 combinations",
+  "task": "P3c: braking, temperature, shrinkage / creep, wind, earth pressure and earthquake load cases, then the AS 5100.2 combinations",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },
  "risks": [
+  {
+   "id": "H-4",
+   "title": "Dashboard traffic results understate G3 / G4 and outer bearings",
+   "plain": "By default the dashboard puts the two traffic lanes against the left kerb and never moves them. Moving them across the road, G4's traffic moment is 33 % higher and some bearing reactions 1.5-3 times higher.",
+   "why": "Any design taken from the dashboard's default traffic run for G3, G4 or the outer bearings may be unconservative.",
+   "severity": "high"
+  },
+  {
+   "id": "H-5",
+   "title": "Dashboard traffic overstates inner bearings",
+   "plain": "The dashboard's way of spreading wheel loads onto nodes sends load along whole lines straight into four bearings. Inner bearing reactions come out up to 44 % high and girder moments 1-6 % low.",
+   "why": "Bearing design from the dashboard is conservative there, girder moments slightly unconservative.",
+   "severity": "medium"
+  },
   {
    "id": "D-34",
    "title": "BR13A support-line bearing waits for your acceptance",

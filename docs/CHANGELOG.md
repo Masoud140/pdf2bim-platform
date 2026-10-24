@@ -2,6 +2,18 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P3c stage 1: traffic M1600 / S1600 (branch `p3-model`)
+
+- **Added:**
+  - `pdf2bim/model/traffic.py` (influence surfaces, lanes, vehicle, patterned UDL, lane factors, sweep);
+  - `Model.stiffness()`;
+  - traffic standards entries (`AS5100.2:traffic:*`, unverified) + test;
+  - `tools/dump_dashboard_traffic.js`, `tools/compare_frozen_traffic.py`.
+- **Tests:** traffic 20 (mutation 4 / 4); standards 29.
+- **Findings:**
+  - H-4: the dashboard's default lane layout is never swept: G4 M ×1.33, outer bearings up to ×3.15;
+  - H-5: one-node bearing "lines" in the dashboard's load distribution: inner-bearing traffic reactions up to +44 %, girder M −1 … −6 %.
+
 ## 2026-10-24 — P3b stages 3–5: SDL, MIDAS .mct, modes (branch `p3-model`)
 
 - **Added:**
