@@ -133,7 +133,10 @@ t("BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)",
 t("BR13A 0.2 file valid (schema + rules)", valid(b02, bd), str(list(S.iter_errors(b02))[:1]) + str(check(b02, bd)[:2]))
 a, b = dict(records(b01)), dict(records(b02))
 same = [p for p in a if p in b and all(canonical(a[p].get(k)) == canonical(b[p].get(k)) for k in ("value", "cells", "unit", "tag", "status"))]
-t(f"BR13A round trip: all {len(a)} records keep value / unit / tag / status", len(same) == len(a) == len(b), f"{len(same)}/{len(a)}/{len(b)}")
+t(f"BR13A round trip: all {len(a)} records of the 0.1 file keep value / unit / tag / status", len(same) == len(a), f"{len(same)}/{len(a)}")
+extra = [p for p in b if p not in a]
+t(f"BR13A: records added after migration ({len(extra)}) are all PROPOSED with a decision id (not accepted by the agent)",
+  all(b[p].get("status") == "proposed" and b[p].get("decision") for p in extra), str([p for p in extra if b[p].get("status") != "proposed"][:3]))
 recon = [p for p, r in b.items() if r["current"] != "original"]
 t("BR13A: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)",
   sorted(recon) == [f"superstructure.members[G{i}].length" for i in range(1, 5)], str(recon))

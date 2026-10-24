@@ -1,0 +1,1875 @@
+{
+ "format": "pdf2bim.sections/0.1",
+ "units": "mm, mm^2, mm^4; y from the girder soffit; x from the girder centreline (+ right)",
+ "modular_ratio_deck": 0.9425287356321839,
+ "E_girder_MPa": 34800.0,
+ "E_deck_MPa": 32800.0,
+ "deck_thickness": 200.0,
+ "torsion_h": 5.0,
+ "notes": [
+  "Composite J is computed on the actual geometry as one material (deck not transformed); n = 0.9425.",
+  "Section properties are Calculated from the description; they are not verified against an independent section program."
+ ],
+ "flags": [
+  "superstructure.supert_types[ST1].zones empty: solid end blocks not defined — open section used over the whole girder (not assumed)"
+ ],
+ "provisional": [
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[2]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "tw",
+    "name": "Web thickness",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[3]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d1",
+    "name": "Void floor fall",
+    "value": 58,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[4]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d2",
+    "name": "Bottom flange depth at CL",
+    "value": 265,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[5]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ttf",
+    "name": "Top flange thickness",
+    "value": 90,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[6]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "S",
+    "name": "Web slope (V : H)",
+    "value": 10.556,
+    "unit": ""
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[7]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fW",
+    "name": "Outer fillet — width",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[8]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fD",
+    "name": "Outer fillet — depth",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[9]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "r",
+    "name": "Top recess (open only)",
+    "value": 25,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[10]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifW",
+    "name": "Inner void fillet — width (closed)",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[11]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifD",
+    "name": "Inner void fillet — depth (closed)",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[12]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ch",
+    "name": "Bottom corner chamfer",
+    "value": 12,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].haunch",
+   "override": null,
+   "decision": "D-36",
+   "author": "AI",
+   "value": 0,
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[2]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "tw",
+    "name": "Web thickness",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[3]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d1",
+    "name": "Void floor fall",
+    "value": 58,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[4]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d2",
+    "name": "Bottom flange depth at CL",
+    "value": 265,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[5]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ttf",
+    "name": "Top flange thickness",
+    "value": 90,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[6]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "S",
+    "name": "Web slope (V : H)",
+    "value": 10.556,
+    "unit": ""
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[7]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fW",
+    "name": "Outer fillet — width",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[8]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fD",
+    "name": "Outer fillet — depth",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[9]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "r",
+    "name": "Top recess (open only)",
+    "value": 25,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[10]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifW",
+    "name": "Inner void fillet — width (closed)",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[11]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifD",
+    "name": "Inner void fillet — depth (closed)",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[12]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ch",
+    "name": "Bottom corner chamfer",
+    "value": 12,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].haunch",
+   "override": null,
+   "decision": "D-36",
+   "author": "AI",
+   "value": 0,
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[2]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "tw",
+    "name": "Web thickness",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[3]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d1",
+    "name": "Void floor fall",
+    "value": 58,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[4]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d2",
+    "name": "Bottom flange depth at CL",
+    "value": 265,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[5]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ttf",
+    "name": "Top flange thickness",
+    "value": 90,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[6]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "S",
+    "name": "Web slope (V : H)",
+    "value": 10.556,
+    "unit": ""
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[7]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fW",
+    "name": "Outer fillet — width",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[8]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fD",
+    "name": "Outer fillet — depth",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[9]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "r",
+    "name": "Top recess (open only)",
+    "value": 25,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[10]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifW",
+    "name": "Inner void fillet — width (closed)",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[11]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifD",
+    "name": "Inner void fillet — depth (closed)",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[12]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ch",
+    "name": "Bottom corner chamfer",
+    "value": 12,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].haunch",
+   "override": null,
+   "decision": "D-36",
+   "author": "AI",
+   "value": 0,
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[2]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "tw",
+    "name": "Web thickness",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[3]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d1",
+    "name": "Void floor fall",
+    "value": 58,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[4]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "d2",
+    "name": "Bottom flange depth at CL",
+    "value": 265,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[5]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ttf",
+    "name": "Top flange thickness",
+    "value": 90,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[6]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "S",
+    "name": "Web slope (V : H)",
+    "value": 10.556,
+    "unit": ""
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[7]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fW",
+    "name": "Outer fillet — width",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[8]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "fD",
+    "name": "Outer fillet — depth",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[9]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "r",
+    "name": "Top recess (open only)",
+    "value": 25,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[10]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifW",
+    "name": "Inner void fillet — width (closed)",
+    "value": 100,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[11]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ifD",
+    "name": "Inner void fillet — depth (closed)",
+    "value": 75,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[12]",
+   "override": null,
+   "decision": "D-35",
+   "author": "AI",
+   "value": {
+    "key": "ch",
+    "name": "Bottom corner chamfer",
+    "value": 12,
+    "unit": "mm"
+   },
+   "reason": "record proposed"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].haunch",
+   "override": null,
+   "decision": "D-36",
+   "author": "AI",
+   "value": 0,
+   "reason": "record proposed"
+  }
+ ],
+ "girders": {
+  "G1": {
+   "type": "T4",
+   "type_ref": "ST1",
+   "params": {
+    "D": 1515.0,
+    "bw": 757.0,
+    "tw": 100.0,
+    "d1": 58.0,
+    "d2": 265.0,
+    "ttf": 90.0,
+    "S": 10.556,
+    "fW": 100.0,
+    "fD": 75.0,
+    "r": 25.0,
+    "ifW": 100.0,
+    "ifD": 75.0,
+    "ch": 12.0
+   },
+   "param_source": {
+    "D": "project override",
+    "bw": "project override",
+    "tw": "project override",
+    "d1": "project override",
+    "d2": "project override",
+    "ttf": "project override",
+    "S": "project override",
+    "fW": "project override",
+    "fD": "project override",
+    "r": "project override",
+    "ifW": "project override",
+    "ifD": "project override",
+    "ch": "project override"
+   },
+   "haunch": 0,
+   "stations": [
+    {
+     "t": 0,
+     "w_left": 1135.160897683818,
+     "w_right": 1114.1235420010148,
+     "deck_left": 1135.160897683818,
+     "deck_right": 1129.1235420010148,
+     "girder": {
+      "A": 591364.4694075146,
+      "yc": 719.5762409331317,
+      "Ix": 179870906125.01953,
+      "Iy": 133670251663.03902,
+      "J": 6278376407.574204
+     },
+     "composite": {
+      "A_transformed": 1018195.0994170692,
+      "yc": 1094.9407338744616,
+      "xc": -3.356742752271197,
+      "Ix": 380057355414.5017,
+      "Iy": 316033154064.3877,
+      "J_geometric": 199290098201.45044
+     }
+    },
+    {
+     "t": 0.1,
+     "w_left": 1039.3763284082524,
+     "w_right": 1119.9641537933683,
+     "deck_left": 1039.3763284082524,
+     "deck_right": 1134.9641537933683,
+     "girder": {
+      "A": 583269.5132340254,
+      "yc": 709.1614201626969,
+      "Ix": 175243615897.43408,
+      "Iy": 124031220786.9999,
+      "J": 6259202910.642888
+     },
+     "composite": {
+      "A_transformed": 993145.1903386984,
+      "yc": 1083.0052497156848,
+      "xc": 27.609565560794724,
+      "Ix": 374129518103.14624,
+      "Iy": 285798253150.3971,
+      "J_geometric": 198543588160.8688
+     }
+    },
+    {
+     "t": 0.2,
+     "w_left": 964.8931908304803,
+     "w_right": 1125.8047660498487,
+     "deck_left": 964.8931908304803,
+     "deck_right": 1140.8047660498487,
+     "girder": {
+      "A": 577091.685955109,
+      "yc": 701.0165630320803,
+      "Ix": 171624970458.36438,
+      "Iy": 117666770294.75542,
+      "J": 6239997950.36163
+     },
+     "composite": {
+      "A_transformed": 974027.8525394471,
+      "yc": 1073.4834086625867,
+      "xc": 51.386231514766635,
+      "Ix": 369406564026.2412,
+      "Iy": 265229445099.5752,
+      "J_geometric": 197978822041.82047
+     }
+    },
+    {
+     "t": 0.3,
+     "w_left": 911.6995331714861,
+     "w_right": 1131.6453778422022,
+     "deck_left": 911.6995331714861,
+     "deck_right": 1146.6453778422022,
+     "girder": {
+      "A": 572829.9118271115,
+      "yc": 695.2954342137976,
+      "Ix": 169083205837.48474,
+      "Iy": 113803593131.40091,
+      "J": 6226599823.539521
+     },
+     "composite": {
+      "A_transformed": 960839.757121646,
+      "yc": 1066.6939152221166,
+      "xc": 68.48674291648949,
+      "Ix": 366042025301.7584,
+      "Iy": 252358174256.88126,
+      "J_geometric": 197538340872.0097
+     }
+    },
+    {
+     "t": 0.4,
+     "w_left": 879.7867692192085,
+     "w_right": 1137.4859900939055,
+     "deck_left": 879.7867692192085,
+     "deck_right": 1152.4859900939055,
+     "girder": {
+      "A": 570483.4181740596,
+      "yc": 692.1089448458404,
+      "Ix": 167667540986.83542,
+      "Iy": 111930273418.50153,
+      "J": 6219407186.122718
+     },
+     "composite": {
+      "A_transformed": 953578.5130330836,
+      "yc": 1062.8755167500888,
+      "xc": 79.30977757713624,
+      "Ix": 364150916364.3021,
+      "Iy": 245866485893.4978,
+      "J_geometric": 197289019443.293
+     }
+    },
+    {
+     "t": 0.5,
+     "w_left": 869.1497505060397,
+     "w_right": 1143.3266018862587,
+     "deck_left": 869.1497505060397,
+     "deck_right": 1158.3266018862587,
+     "girder": {
+      "A": 570051.7415511864,
+      "yc": 691.5198801010532,
+      "Ix": 167405838017.62778,
+      "Iy": 111759571870.34499,
+      "J": 6227047141.420211
+     },
+     "composite": {
+      "A_transformed": 952242.6861400793,
+      "yc": 1062.1667167429916,
+      "xc": 84.10695875826906,
+      "Ix": 363799959720.0929,
+      "Iy": 245016386846.93506,
+      "J_geometric": 197236897749.9664
+     }
+    },
+    {
+     "t": 0.6,
+     "w_left": 879.786761070136,
+     "w_right": 1149.1672136833893,
+     "deck_left": 879.786761070136,
+     "deck_right": 1164.1672136833893,
+     "girder": {
+      "A": 571534.7275636969,
+      "yc": 693.5398363226965,
+      "Ix": 168303242980.67694,
+      "Iy": 113205393157.3609,
+      "J": 6223074686.155508
+     },
+     "composite": {
+      "A_transformed": 956831.7986666602,
+      "yc": 1064.5934558801391,
+      "xc": 82.96202336534255,
+      "Ix": 365001650521.0072,
+      "Iy": 249607692100.3678,
+      "J_geometric": 197411740942.6123
+     }
+    },
+    {
+     "t": 0.7,
+     "w_left": 911.699516873341,
+     "w_right": 1155.0078259350928,
+     "deck_left": 911.699516873341,
+     "deck_right": 1170.0078259350928,
+     "girder": {
+      "A": 574932.5306886386,
+      "yc": 698.1286508873822,
+      "Ix": 170341932854.30786,
+      "Iy": 116375655699.56458,
+      "J": 6231489823.580638
+     },
+     "composite": {
+      "A_transformed": 967346.3286433317,
+      "yc": 1070.0667641438024,
+      "xc": 75.7846370333499,
+      "Ix": 367713125323.926,
+      "Iy": 259966864887.46442,
+      "J_geometric": 197701952436.64282
+     }
+    },
+    {
+     "t": 0.8,
+     "w_left": 964.8931669653393,
+     "w_right": 1160.848437727446,
+     "deck_left": 964.8931669653393,
+     "deck_right": 1175.848437727446,
+     "girder": {
+      "A": 580245.6142582304,
+      "yc": 705.1963768331462,
+      "Ix": 173481991832.83826,
+      "Iy": 121581482514.5629,
+      "J": 6248555450.442046
+     },
+     "composite": {
+      "A_transformed": 983787.7098554914,
+      "yc": 1078.3907733444246,
+      "xc": 62.31977451377514,
+      "Ix": 371840022621.35156,
+      "Iy": 276967733051.89716,
+      "J_geometric": 198265180886.51944
+     }
+    },
+    {
+     "t": 0.9,
+     "w_left": 1039.3762958119623,
+     "w_right": 1166.6890499839265,
+     "deck_left": 1039.3762958119623,
+     "deck_right": 1181.6890499839265,
+     "girder": {
+      "A": 587474.7509575093,
+      "yc": 714.6076237522112,
+      "Ix": 177663337702.03455,
+      "Iy": 129362283252.80875,
+      "J": 6270205410.746494
+     },
+     "composite": {
+      "A_transformed": 1006158.3333834008,
+      "yc": 1089.2797734214585,
+      "xc": 42.17101517777234,
+      "Ix": 377244700783.10986,
+      "Iy": 302083155294.7198,
+      "J_geometric": 198911760419.80515
+     }
+    },
+    {
+     "t": 1.0,
+     "w_left": 1135.1609349367209,
+     "w_right": 1172.5296617762797,
+     "deck_left": 1135.1609349367209,
+     "deck_right": 1187.5296617762797,
+     "girder": {
+      "A": 596621.0235400496,
+      "yc": 726.1878804098468,
+      "Ix": 182808527653.1297,
+      "Iy": 140525517707.37836,
+      "J": 6293046407.715824
+     },
+     "composite": {
+      "A_transformed": 1034461.5498169828,
+      "yc": 1102.3816270711116,
+      "xc": 14.833969558272118,
+      "Ix": 383757519521.18066,
+      "Iy": 337465169439.3217,
+      "J_geometric": 199780956381.10352
+     }
+    }
+   ]
+  },
+  "G2": {
+   "type": "T4",
+   "type_ref": "ST1",
+   "params": {
+    "D": 1515.0,
+    "bw": 757.0,
+    "tw": 100.0,
+    "d1": 58.0,
+    "d2": 265.0,
+    "ttf": 90.0,
+    "S": 10.556,
+    "fW": 100.0,
+    "fD": 75.0,
+    "r": 25.0,
+    "ifW": 100.0,
+    "ifD": 75.0,
+    "ch": 12.0
+   },
+   "param_source": {
+    "D": "project override",
+    "bw": "project override",
+    "tw": "project override",
+    "d1": "project override",
+    "d2": "project override",
+    "ttf": "project override",
+    "S": "project override",
+    "fW": "project override",
+    "fD": "project override",
+    "r": "project override",
+    "ifW": "project override",
+    "ifD": "project override",
+    "ch": "project override"
+   },
+   "haunch": 0,
+   "stations": [
+    {
+     "t": 0,
+     "w_left": 1110.9804343654025,
+     "w_right": 1114.6205207067123,
+     "deck_left": 1125.9804343654025,
+     "deck_right": 1129.6205207067123,
+     "girder": {
+      "A": 589232.9557923699,
+      "yc": 716.8616296001184,
+      "Ix": 178664793564.4898,
+      "Iy": 130988264863.6698,
+      "J": 6276373910.7540655
+     },
+     "composite": {
+      "A_transformed": 1014426.6990473432,
+      "yc": 1093.3134876100435,
+      "xc": 1.1222427932791603,
+      "Ix": 379305220291.1963,
+      "Iy": 311261402433.3423,
+      "J_geometric": 199147138419.15552
+     }
+    },
+    {
+     "t": 0.1,
+     "w_left": 1116.8047881419716,
+     "w_right": 1120.3536893129685,
+     "deck_left": 1131.8047881419716,
+     "deck_right": 1135.3536893129685,
+     "girder": {
+      "A": 590273.1328068239,
+      "yc": 718.1888071016053,
+      "Ix": 179254462483.6541,
+      "Iy": 132283022270.53635,
+      "J": 6275204812.004413
+     },
+     "composite": {
+      "A_transformed": 1017645.5354535024,
+      "yc": 1094.815383720565,
+      "xc": 1.0962821695284657,
+      "Ix": 380051419674.48975,
+      "Iy": 315341476246.74255,
+      "J_geometric": 199273310381.09082
+     }
+    },
+    {
+     "t": 0.2,
+     "w_left": 1122.6291414588866,
+     "w_right": 1126.086858378268,
+     "deck_left": 1137.6291414588866,
+     "deck_right": 1141.086858378268,
+     "girder": {
+      "A": 591313.3098212235,
+      "yc": 719.5113153371419,
+      "Ix": 179842059304.2329,
+      "Iy": 133591227491.14609,
+      "J": 6283830303.054446
+     },
+     "composite": {
+      "A_transformed": 1020864.3718594916,
+      "yc": 1096.3078087239494,
+      "xc": 1.0701980290117503,
+      "Ix": 380793057019.34766,
+      "Iy": 319463541728.14264,
+      "J_geometric": 199467607153.5607
+     }
+    },
+    {
+     "t": 0.3,
+     "w_left": 1128.4534952401168,
+     "w_right": 1131.8200269796337,
+     "deck_left": 1143.4534952401168,
+     "deck_right": 1146.8200269796337,
+     "girder": {
+      "A": 592353.486835657,
+      "yc": 720.8291789046361,
+      "Ix": 180427594942.1366,
+      "Iy": 134912950003.10019,
+      "J": 6279479213.730128
+     },
+     "composite": {
+      "A_transformed": 1024083.208265587,
+      "yc": 1097.790851927359,
+      "xc": 1.0439909679981398,
+      "Ix": 381530175343.2012,
+      "Iy": 323627813864.63403,
+      "J_geometric": 199415362931.6668
+     }
+    },
+    {
+     "t": 0.4,
+     "w_left": 1134.2778490166856,
+     "w_right": 1137.55319558589,
+     "deck_left": 1149.2778490166856,
+     "deck_right": 1152.55319558589,
+     "girder": {
+      "A": 593393.6638501114,
+      "yc": 722.1424222293914,
+      "Ix": 181011080236.67908,
+      "Iy": 136248259284.4778,
+      "J": 6286442139.446968
+     },
+     "composite": {
+      "A_transformed": 1027302.0446717462,
+      "yc": 1099.2646015185053,
+      "xc": 1.0176624289398033,
+      "Ix": 382262817124.2676,
+      "Iy": 327834507643.9892,
+      "J_geometric": 199525144337.4276
+     }
+    },
+    {
+     "t": 0.5,
+     "w_left": 1140.1022027932547,
+     "w_right": 1143.2863641921463,
+     "deck_left": 1155.1022027932547,
+     "deck_right": 1158.2863641921463,
+     "girder": {
+      "A": 594433.8408645658,
+      "yc": 723.4510695657393,
+      "Ix": 181592525951.3001,
+      "Iy": 137597224813.08044,
+      "J": 6287414130.164391
+     },
+     "composite": {
+      "A_transformed": 1030520.8810779057,
+      "yc": 1100.7291445832734,
+      "xc": 0.9912135472196031,
+      "Ix": 382991024310.0337,
+      "Iy": 332083838053.45654,
+      "J_geometric": 199672551180.9876
+     }
+    },
+    {
+     "t": 0.6,
+     "w_left": 1145.9265561101695,
+     "w_right": 1149.0195332574458,
+     "deck_left": 1160.9265561101695,
+     "deck_right": 1164.0195332574458,
+     "girder": {
+      "A": 595474.0178789649,
+      "yc": 724.7551449984978,
+      "Ix": 182171942774.2154,
+      "Iy": 138959916066.8132,
+      "J": 6294877624.038865
+     },
+     "composite": {
+      "A_transformed": 1033739.7174838947,
+      "yc": 1102.1845671228357,
+      "xc": 0.9646457335243109,
+      "Ix": 383714838325.5029,
+      "Iy": 336376020080.397,
+      "J_geometric": 199717254839.66968
+     }
+    },
+    {
+     "t": 0.7,
+     "w_left": 1151.750909886739,
+     "w_right": 1154.752701863702,
+     "deck_left": 1166.750909886739,
+     "deck_right": 1169.752701863702,
+     "girder": {
+      "A": 596514.194893419,
+      "yc": 726.0546724446997,
+      "Ix": 182749341319.18,
+      "Iy": 140336402523.17395,
+      "J": 6292126540.862815
+     },
+     "composite": {
+      "A_transformed": 1036958.5538900541,
+      "yc": 1103.6309540707643,
+      "xc": 0.9379595255424429,
+      "Ix": 384434300081.4402,
+      "Iy": 340711268711.7228,
+      "J_geometric": 199856876585.8541
+     }
+    },
+    {
+     "t": 0.8,
+     "w_left": 1157.5752636679688,
+     "w_right": 1160.4858704650678,
+     "deck_left": 1172.5752636679688,
+     "deck_right": 1175.4858704650678,
+     "girder": {
+      "A": 597554.3719078527,
+      "yc": 727.3496756546125,
+      "Ix": 183324732125.94507,
+      "Iy": 141726753659.9569,
+      "J": 6302718260.109395
+     },
+     "composite": {
+      "A_transformed": 1040177.3902961493,
+      "yc": 1105.068389309064,
+      "xc": 0.9111563027305789,
+      "Ix": 385149449982.08984,
+      "Iy": 345089798934.54126,
+      "J_geometric": 200019320436.43918
+     }
+    },
+    {
+     "t": 0.9,
+     "w_left": 1163.399616984884,
+     "w_right": 1166.2190395303676,
+     "deck_left": 1178.399616984884,
+     "deck_right": 1181.2190395303676,
+     "girder": {
+      "A": 598594.5489222523,
+      "yc": 728.6401782135003,
+      "Ix": 183898125661.03503,
+      "Iy": 143131038954.9787,
+      "J": 6297589135.294803
+     },
+     "composite": {
+      "A_transformed": 1043396.226702139,
+      "yc": 1106.4969556847352,
+      "xc": 0.8842374421191698,
+      "Ix": 385860327933.1548,
+      "Iy": 349511825736.1003,
+      "J_geometric": 200012873794.87347
+     }
+    },
+    {
+     "t": 1.0,
+     "w_left": 1169.2239707614526,
+     "w_right": 1171.9522081366238,
+     "deck_left": 1184.2239707614526,
+     "deck_right": 1186.9522081366238,
+     "girder": {
+      "A": 599634.7259367065,
+      "yc": 729.9262035431001,
+      "Ix": 184469532318.4074,
+      "Iy": 144549327885.61282,
+      "J": 6304759801.299323
+     },
+     "composite": {
+      "A_transformed": 1046615.0631082978,
+      "yc": 1107.9167350257428,
+      "xc": 0.8572034346091615,
+      "Ix": 386566973349.4934,
+      "Iy": 353977564103.03577,
+      "J_geometric": 200104407849.71786
+     }
+    }
+   ]
+  },
+  "G3": {
+   "type": "T4",
+   "type_ref": "ST1",
+   "params": {
+    "D": 1515.0,
+    "bw": 757.0,
+    "tw": 100.0,
+    "d1": 58.0,
+    "d2": 265.0,
+    "ttf": 90.0,
+    "S": 10.556,
+    "fW": 100.0,
+    "fD": 75.0,
+    "r": 25.0,
+    "ifW": 100.0,
+    "ifD": 75.0,
+    "ch": 12.0
+   },
+   "param_source": {
+    "D": "project override",
+    "bw": "project override",
+    "tw": "project override",
+    "d1": "project override",
+    "d2": "project override",
+    "ttf": "project override",
+    "S": "project override",
+    "fW": "project override",
+    "fD": "project override",
+    "r": "project override",
+    "ifW": "project override",
+    "ifD": "project override",
+    "ch": "project override"
+   },
+   "haunch": 0,
+   "stations": [
+    {
+     "t": 0,
+     "w_left": 1111.5515016821632,
+     "w_right": 1115.1637832724812,
+     "deck_left": 1126.5515016821632,
+     "deck_right": 1130.1637832724812,
+     "girder": {
+      "A": 589333.2454817976,
+      "yc": 716.9897948001006,
+      "Ix": 178721737636.83704,
+      "Iy": 131112511752.24623,
+      "J": 6270030942.280986
+     },
+     "composite": {
+      "A_transformed": 1014737.0463238223,
+      "yc": 1093.458709452355,
+      "xc": 1.1138823418281811,
+      "Ix": 379377365760.5227,
+      "Iy": 311652955289.024,
+      "J_geometric": 199076224578.01233
+     }
+    },
+    {
+     "t": 0.1,
+     "w_left": 1117.2690943996786,
+     "w_right": 1120.7857359603386,
+     "deck_left": 1132.2690943996786,
+     "deck_right": 1135.7857359603386,
+     "girder": {
+      "A": 590353.804568281,
+      "yc": 718.2915419916744,
+      "Ix": 179300108004.86798,
+      "Iy": 132383993349.11072,
+      "J": 6282506807.567779
+     },
+     "composite": {
+      "A_transformed": 1017895.1748890197,
+      "yc": 1094.9314675683681,
+      "xc": 1.0864817434888343,
+      "Ix": 380109100582.87476,
+      "Iy": 315659650832.03754,
+      "J_geometric": 199355780159.66284
+     }
+    },
+    {
+     "t": 0.2,
+     "w_left": 1122.986686662621,
+     "w_right": 1126.4076891019283,
+     "deck_left": 1137.986686662621,
+     "deck_right": 1141.4076891019283,
+     "girder": {
+      "A": 591374.3636546888,
+      "yc": 719.588796225708,
+      "Ix": 179876484515.39258,
+      "Iy": 133668425541.0973,
+      "J": 6280679089.120789
+     },
+     "composite": {
+      "A_transformed": 1021053.3034539833,
+      "yc": 1096.3951151717074,
+      "xc": 1.0589551113727527,
+      "Ix": 380836447057.75977,
+      "Iy": 319706785217.6837,
+      "J_geometric": 199437290323.4814
+     }
+    },
+    {
+     "t": 0.3,
+     "w_left": 1128.7042793801363,
+     "w_right": 1132.0296417897857,
+     "deck_left": 1143.7042793801363,
+     "deck_right": 1147.0296417897857,
+     "girder": {
+      "A": 592394.9227411725,
+      "yc": 720.8815807233657,
+      "Ix": 180450877473.3587,
+      "Iy": 134965873949.27177,
+      "J": 6284034131.918302
+     },
+     "composite": {
+      "A_transformed": 1024211.4320191806,
+      "yc": 1097.8497365386543,
+      "xc": 1.0313030521565696,
+      "Ix": 381559445779.345,
+      "Iy": 323794561498.04645,
+      "J_geometric": 199427259095.0694
+     }
+    },
+    {
+     "t": 0.4,
+     "w_left": 1134.4218716383023,
+     "w_right": 1137.651594936378,
+     "deck_left": 1149.4218716383023,
+     "deck_right": 1152.651594936378,
+     "girder": {
+      "A": 593415.4818276009,
+      "yc": 722.1699185457106,
+      "Ix": 181023297112.66528,
+      "Iy": 136276404195.12543,
+      "J": 6287091163.558637
+     },
+     "composite": {
+      "A_transformed": 1027369.5605842071,
+      "yc": 1099.2954149088334,
+      "xc": 1.003527285827338,
+      "Ix": 382278136842.4431,
+      "Iy": 327923182725.49097,
+      "J_geometric": 199567865232.40457
+     }
+    },
+    {
+     "t": 0.5,
+     "w_left": 1140.1394643605943,
+     "w_right": 1143.2735476192327,
+     "deck_left": 1155.1394643605943,
+     "deck_right": 1158.2735476192327,
+     "girder": {
+      "A": 594436.0409140639,
+      "yc": 723.4538325957154,
+      "Ix": 181593753597.05475,
+      "Iy": 137600081899.56924,
+      "J": 6286685056.105959
+     },
+     "composite": {
+      "A_transformed": 1030527.6891493418,
+      "yc": 1100.7322325018008,
+      "xc": 0.9756283792976448,
+      "Ix": 382992559850.54175,
+      "Iy": 332092851951.7025,
+      "J_geometric": 199655280507.98315
+     }
+    },
+    {
+     "t": 0.6,
+     "w_left": 1145.8570570781094,
+     "w_right": 1148.8955003070903,
+     "deck_left": 1160.8570570781094,
+     "deck_right": 1163.8955003070903,
+     "girder": {
+      "A": 595456.6000005476,
+      "yc": 724.7333456192055,
+      "Ix": 182162257020.53247,
+      "Iy": 138936972683.9475,
+      "J": 6296730465.009983
+     },
+     "composite": {
+      "A_transformed": 1033685.8177145394,
+      "yc": 1102.160270532176,
+      "xc": 0.9476077493989455,
+      "Ix": 383702753923.0569,
+      "Iy": 336303772228.9591,
+      "J_geometric": 199734709210.38666
+     }
+    },
+    {
+     "t": 0.7,
+     "w_left": 1151.5746493362751,
+     "w_right": 1154.5174534536823,
+     "deck_left": 1166.5746493362751,
+     "deck_right": 1169.5174534536823,
+     "girder": {
+      "A": 596477.1590869756,
+      "yc": 726.0084802062607,
+      "Ix": 182728817407.98657,
+      "Iy": 140287142169.44876,
+      "J": 6290688016.649584
+     },
+     "composite": {
+      "A_transformed": 1036843.9462795649,
+      "yc": 1103.5796092250055,
+      "xc": 0.9194667922450633,
+      "Ix": 384408757702.74805,
+      "Iy": 340556146609.13776,
+      "J_geometric": 199795411252.8388
+     }
+    },
+    {
+     "t": 0.8,
+     "w_left": 1157.2922420537905,
+     "w_right": 1160.13940614154,
+     "deck_left": 1172.2922420537905,
+     "deck_right": 1175.13940614154,
+     "girder": {
+      "A": 597497.7181734593,
+      "yc": 727.2792587928521,
+      "Ix": 183293444715.91742,
+      "Iy": 141650655976.91113,
+      "J": 6299987297.301417
+     },
+     "composite": {
+      "A_transformed": 1040002.0748447629,
+      "yc": 1104.9903278311292,
+      "xc": 0.8912060334466599,
+      "Ix": 385110609363.12646,
+      "Iy": 344850178143.8101,
+      "J_geometric": 199938673791.41687
+     }
+    },
+    {
+     "t": 0.9,
+     "w_left": 1163.0098343167326,
+     "w_right": 1165.7613592831297,
+     "deck_left": 1178.0098343167326,
+     "deck_right": 1180.7613592831297,
+     "girder": {
+      "A": 598518.2772598672,
+      "yc": 728.5457036616251,
+      "Ix": 183856148832.7813,
+      "Iy": 143027579727.53452,
+      "J": 6300426576.530175
+     },
+     "composite": {
+      "A_transformed": 1043160.2034097263,
+      "yc": 1106.3925046413394,
+      "xc": 0.8628271296410693,
+      "Ix": 385808346615.26025,
+      "Iy": 349186069884.7546,
+      "J_geometric": 200101057059.10562
+     }
+    },
+    {
+     "t": 1.0,
+     "w_left": 1168.7274270342484,
+     "w_right": 1171.383311970987,
+     "deck_left": 1183.7274270342484,
+     "deck_right": 1186.383311970987,
+     "girder": {
+      "A": 599538.8363463507,
+      "yc": 729.8078369438524,
+      "Ix": 184416939579.86127,
+      "Iy": 144417979042.15,
+      "J": 6303408278.963254
+     },
+     "composite": {
+      "A_transformed": 1046318.3319749238,
+      "yc": 1107.7862170015856,
+      "xc": 0.8343305840635123,
+      "Ix": 386502006715.1145,
+      "Iy": 353564024883.59485,
+      "J_geometric": 200091041275.4557
+     }
+    }
+   ]
+  },
+  "G4": {
+   "type": "T4",
+   "type_ref": "ST1",
+   "params": {
+    "D": 1515.0,
+    "bw": 757.0,
+    "tw": 100.0,
+    "d1": 58.0,
+    "d2": 265.0,
+    "ttf": 90.0,
+    "S": 10.556,
+    "fW": 100.0,
+    "fD": 75.0,
+    "r": 25.0,
+    "ifW": 100.0,
+    "ifD": 75.0,
+    "ch": 12.0
+   },
+   "param_source": {
+    "D": "project override",
+    "bw": "project override",
+    "tw": "project override",
+    "d1": "project override",
+    "d2": "project override",
+    "ttf": "project override",
+    "S": "project override",
+    "fW": "project override",
+    "fD": "project override",
+    "r": "project override",
+    "ifW": "project override",
+    "ifD": "project override",
+    "ch": "project override"
+   },
+   "haunch": 0,
+   "stations": [
+    {
+     "t": 0,
+     "w_left": 1112.169907569718,
+     "w_right": 1135.1012790692039,
+     "deck_left": 1127.169907569718,
+     "deck_right": 1135.1012790692039,
+     "girder": {
+      "A": 591183.2766333824,
+      "yc": 719.3462422710347,
+      "Ix": 179768716405.55762,
+      "Iy": 133444042003.67207,
+      "J": 6280269572.52142
+     },
+     "composite": {
+      "A_transformed": 1017634.3968733631,
+      "yc": 1094.6800060512269,
+      "xc": 3.9406653437222334,
+      "Ix": 379927767775.822,
+      "Iy": 315320858120.4216,
+      "J_geometric": 199313722106.98364
+     }
+    },
+    {
+     "t": 0.1,
+     "w_left": 1117.7769674367448,
+     "w_right": 1226.5933756134473,
+     "deck_left": 1132.7769674367448,
+     "deck_right": 1226.5933756134473,
+     "girder": {
+      "A": 599922.2007103969,
+      "yc": 730.2808371054165,
+      "Ix": 184627103499.9616,
+      "Iy": 145348454471.4865,
+      "J": 6306108981.417961
+     },
+     "composite": {
+      "A_transformed": 1044677.0699750306,
+      "yc": 1106.9361375213641,
+      "xc": 30.959251728410273,
+      "Ix": 386024191600.04395,
+      "Iy": 351860881601.7341,
+      "J_geometric": 200139430889.5706
+     }
+    },
+    {
+     "t": 0.2,
+     "w_left": 1123.384027303772,
+     "w_right": 1298.2401277986355,
+     "deck_left": 1138.384027303772,
+     "deck_right": 1298.2401277986355,
+     "girder": {
+      "A": 606875.0437950963,
+      "yc": 738.7556480552761,
+      "Ix": 188392696983.76056,
+      "Iy": 155882763653.61722,
+      "J": 6318537870.1827135
+     },
+     "composite": {
+      "A_transformed": 1066192.7006189981,
+      "yc": 1116.2432282148145,
+      "xc": 52.30477921103627,
+      "Ix": 390660639452.7532,
+      "Iy": 383751172117.51337,
+      "J_geometric": 200648975413.59943
+     }
+    },
+    {
+     "t": 0.3,
+     "w_left": 1128.991087629842,
+     "w_right": 1349.455330928322,
+     "deck_left": 1143.991087629842,
+     "deck_right": 1349.455330928322,
+     "girder": {
+      "A": 611989.0475061144,
+      "yc": 744.8661925899295,
+      "Ix": 191107849409.51917,
+      "Iy": 164212420667.4565,
+      "J": 6338428593.840425
+     },
+     "composite": {
+      "A_transformed": 1082018.027556159,
+      "yc": 1122.8525990897879,
+      "xc": 67.3514388312105,
+      "Ix": 393957046049.4204,
+      "Iy": 408777648946.1479,
+      "J_geometric": 201131243488.31583
+     }
+    },
+    {
+     "t": 0.4,
+     "w_left": 1134.5981474968694,
+     "w_right": 1380.210256029386,
+     "deck_left": 1149.5981474968694,
+     "deck_right": 1380.210256029386,
+     "girder": {
+      "A": 615261.6261532423,
+      "yc": 748.7231817366085,
+      "Ix": 192821689701.55017,
+      "Iy": 169747336504.03668,
+      "J": 6343400115.371199
+     },
+     "composite": {
+      "A_transformed": 1092145.049346697,
+      "yc": 1126.9815960138126,
+      "xc": 75.798153988323,
+      "Ix": 396018074648.11597,
+      "Iy": 425403700094.2954,
+      "J_geometric": 201430250494.96442
+     }
+    },
+    {
+     "t": 0.5,
+     "w_left": 1140.2052073638965,
+     "w_right": 1390.5095666996203,
+     "deck_left": 1155.2052073638965,
+     "deck_right": 1390.5095666996203,
+     "girder": {
+      "A": 616693.199501596,
+      "yc": 750.3975324034321,
+      "Ix": 193565689219.49963,
+      "Iy": 172117264659.23355,
+      "J": 6345077909.163765
+     },
+     "composite": {
+      "A_transformed": 1096575.0649572476,
+      "yc": 1128.763827869011,
+      "xc": 77.481562801634,
+      "Ix": 396908108802.1831,
+      "Iy": 432656971442.2059,
+      "J_geometric": 201552293560.53857
+     }
+    },
+    {
+     "t": 0.6,
+     "w_left": 1145.8122672358138,
+     "w_right": 1380.3548234864138,
+     "deck_left": 1160.8122672358138,
+     "deck_right": 1380.3548234864138,
+     "girder": {
+      "A": 616283.9080008799,
+      "yc": 749.9196241373589,
+      "Ix": 193353329709.66602,
+      "Iy": 171186439058.84378,
+      "J": 6352476261.218574
+     },
+     "composite": {
+      "A_transformed": 1095308.5090105874,
+      "yc": 1128.2557536204208,
+      "xc": 72.34980644103382,
+      "Ix": 396654354193.85596,
+      "Iy": 430154973978.911,
+      "J_geometric": 201503826738.02805
+     }
+    },
+    {
+     "t": 0.7,
+     "w_left": 1151.4193271028414,
+     "w_right": 1349.7444891254418,
+     "deck_left": 1166.4193271028414,
+     "deck_right": 1349.7444891254418,
+     "girder": {
+      "A": 614033.6132964251,
+      "yc": 747.2806919657362,
+      "Ix": 192180721412.14154,
+      "Iy": 167060585461.42477,
+      "J": 6340452992.854587
+     },
+     "composite": {
+      "A_transformed": 1088344.9533670438,
+      "yc": 1125.441225099646,
+      "xc": 60.4574577110617,
+      "Ix": 395249027413.22925,
+      "Iy": 418121153127.7468,
+      "J_geometric": 201346727481.81268
+     }
+    },
+    {
+     "t": 0.8,
+     "w_left": 1157.0263874289112,
+     "w_right": 1298.67391922744,
+     "deck_left": 1172.0263874289112,
+     "deck_right": 1298.67391922744,
+     "girder": {
+      "A": 609941.897434951,
+      "yc": 742.4324235183424,
+      "Ix": 190026424273.5313,
+      "Iy": 160081805856.72375,
+      "J": 6329923830.691676
+     },
+     "composite": {
+      "A_transformed": 1075683.104666723,
+      "yc": 1120.2301919306115,
+      "xc": 41.96910958988908,
+      "Ix": 392648731958.53076,
+      "Iy": 397377369437.9986,
+      "J_geometric": 200969467431.86633
+     }
+    },
+    {
+     "t": 0.9,
+     "w_left": 1162.6334472959381,
+     "w_right": 1227.1353721735068,
+     "deck_left": 1177.6334472959381,
+     "deck_right": 1227.1353721735068,
+     "girder": {
+      "A": 604008.0635881296,
+      "yc": 735.2847290231235,
+      "Ix": 186850458329.64752,
+      "Iy": 150811047159.6805,
+      "J": 6318060303.248306
+     },
+     "composite": {
+      "A_transformed": 1057320.8065685765,
+      "yc": 1112.451375182801,
+      "xc": 17.172118018299297,
+      "Ix": 388770928330.0093,
+      "Iy": 369312308865.386,
+      "J_geometric": 200523053913.16974
+     }
+    },
+    {
+     "t": 1.0,
+     "w_left": 1168.2405071629655,
+     "w_right": 1135.1179910707287,
+     "deck_left": 1183.2405071629655,
+     "deck_right": 1135.1179910707287,
+     "girder": {
+      "A": 596231.1346769121,
+      "yc": 725.7014850426336,
+      "Ix": 182592414885.6961,
+      "Iy": 139997232655.78113,
+      "J": 6291777358.701442
+     },
+     "composite": {
+      "A_transformed": 1033255.0354933783,
+      "yc": 1101.8377656767575,
+      "xc": -13.499601426847157,
+      "Ix": 383486946909.0503,
+      "Iy": 335824214176.1054,
+      "J_geometric": 199742572231.60492
+     }
+    }
+   ]
+  }
+ },
+ "geometry_provisional": [
+  {
+   "path": "alignment.support_lines.rows[0]",
+   "override": "OV-1",
+   "decision": "D-34",
+   "author": "AI",
+   "value": {
+    "support": "A",
+    "ch": 1895.3,
+    "skew": 34.5,
+    "skew_dms": null,
+    "bearing": 44.029166
+   },
+   "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so"
+  },
+  {
+   "path": "alignment.support_lines.rows[1]",
+   "override": "OV-1",
+   "decision": "D-34",
+   "author": "AI",
+   "value": {
+    "support": "B",
+    "ch": 1924.21,
+    "skew": 34.5,
+    "skew_dms": null,
+    "bearing": 44.029166
+   },
+   "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so"
+  }
+ ],
+ "source": "projects/BR13A/BR13A.bridge.0.2.json"
+}

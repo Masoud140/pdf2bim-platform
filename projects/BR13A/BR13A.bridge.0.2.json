@@ -6667,6 +6667,450 @@
       "replace_with": "construction programme"
      },
      "current": "original"
+    },
+    "shape": {
+     "rows": [
+      {
+       "cells": {
+        "key": "D",
+        "name": "Overall depth",
+        "value": 1515,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "D",
+         "name": "Overall depth",
+         "value": 1515,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "bw",
+        "name": "Soffit width",
+        "value": 757,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "bw",
+         "name": "Soffit width",
+         "value": 757,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "tw",
+        "name": "Web thickness",
+        "value": 100,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "tw",
+         "name": "Web thickness",
+         "value": 100,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "d1",
+        "name": "Void floor fall",
+        "value": 58,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "d1",
+         "name": "Void floor fall",
+         "value": 58,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "d2",
+        "name": "Bottom flange depth at CL",
+        "value": 265,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "d2",
+         "name": "Bottom flange depth at CL",
+         "value": 265,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "ttf",
+        "name": "Top flange thickness",
+        "value": 90,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "ttf",
+         "name": "Top flange thickness",
+         "value": 90,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "S",
+        "name": "Web slope (V : H)",
+        "value": 10.556,
+        "unit": ""
+       },
+       "tag": "Standard-verify",
+       "ref": "lib:supert/T4/S",
+       "source": {
+        "note": "dashboard Section designer value tagged Standard (product sheet), v45"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "S",
+         "name": "Web slope (V : H)",
+         "value": 10.556,
+         "unit": ""
+        },
+        "unit": null,
+        "tag": "Standard-verify",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "note": "dashboard Section designer value tagged Standard (product sheet), v45"
+        },
+        "ref": "lib:supert/T4/S"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "fW",
+        "name": "Outer fillet — width",
+        "value": 100,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "fW",
+         "name": "Outer fillet — width",
+         "value": 100,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "fD",
+        "name": "Outer fillet — depth",
+        "value": 75,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "fD",
+         "name": "Outer fillet — depth",
+         "value": 75,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "r",
+        "name": "Top recess (open only)",
+        "value": 25,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "r",
+         "name": "Top recess (open only)",
+         "value": 25,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "ifW",
+        "name": "Inner void fillet — width (closed)",
+        "value": 100,
+        "unit": "mm"
+       },
+       "tag": "Standard-verify",
+       "source": {
+        "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
+       },
+       "ref": "lib:supert/T4/ifW",
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "ifW",
+         "name": "Inner void fillet — width (closed)",
+         "value": 100,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Standard-verify",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
+        },
+        "ref": "lib:supert/T4/ifW"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "ifD",
+        "name": "Inner void fillet — depth (closed)",
+        "value": 75,
+        "unit": "mm"
+       },
+       "tag": "Standard-verify",
+       "source": {
+        "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
+       },
+       "ref": "lib:supert/T4/ifD",
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "ifD",
+         "name": "Inner void fillet — depth (closed)",
+         "value": 75,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Standard-verify",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
+        },
+        "ref": "lib:supert/T4/ifD"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "key": "ch",
+        "name": "Bottom corner chamfer",
+        "value": 12,
+        "unit": "mm"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202304",
+        "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+       },
+       "status": "proposed",
+       "decision": "D-35",
+       "original": {
+        "cells": {
+         "key": "ch",
+         "name": "Bottom corner chamfer",
+         "value": 12,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T15:30:00+11:00",
+        "source": {
+         "doc": "DRG-202304",
+         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
+        }
+       },
+       "current": "original"
+      }
+     ],
+     "note": "Super-T shape parameters (keys as in library/products/supert.json); one Super-T definition (ADR-004)"
+    },
+    "haunch": {
+     "value": 0,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard default 0 mm; not a drawing value"
+     },
+     "replace_with": "girder-to-deck haunch from the deck / girder drawings",
+     "status": "proposed",
+     "decision": "D-36",
+     "original": {
+      "value": 0,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T15:31:00+11:00",
+      "source": {
+       "note": "dashboard default 0 mm; not a drawing value"
+      },
+      "replace_with": "girder-to-deck haunch from the deck / girder drawings"
+     },
+     "current": "original"
     }
    }
   ],
@@ -29622,17 +30066,17 @@
   }
  ],
  "revision": {
-  "number": 3,
-  "parent_hash": "sha256:1032dd53573481974b7246c2ad97c6477b1a055abeab1057f1b57f6a1e852bd3",
-  "created": "2026-10-24T13:00:00+11:00",
+  "number": 5,
+  "parent_hash": "sha256:8c3eef8961db5c9779bc17b3eb342fbb2e60020a9e8fb668566e17f14a543123",
+  "created": "2026-10-24T15:31:00+11:00",
   "author": "AI",
-  "note": "OV-1 proposed at alignment.support_lines.rows[1] (D-34)",
+  "note": "D-36 proposed: 1 new record(s)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:dd0a6b4588aef289836b0fe24cba0cd33f336875327162bcd49286f33b13a320"
+  "value": "sha256:9d0e63d055b21fe6172f4c0f767493e2a806df744dfc4896891fb3e6691717b5"
  }
 }

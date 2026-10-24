@@ -1,6 +1,6 @@
 # Geometry — BR13A.bridge.0.2.json
 
-- Built by `tools/build_geometry.py` (P1 engine `pdf2bim/geometry`). Input hash `sha256:dd0a6b4588aef289836b0fe24cba0cd33f336875327162bcd49286f33b13a320` (pdf2bim.bridge/0.2).
+- Built by `tools/build_geometry.py` (P1 engine `pdf2bim/geometry`). Input hash `sha256:9d0e63d055b21fe6172f4c0f767493e2a806df744dfc4896891fb3e6691717b5` (pdf2bim.bridge/0.2).
 - Coordinates: MGA (as in the description), metres; offsets + right of increasing chainage.
 - **Status: PROVISIONAL — uses proposed values**. Geometry is Calculated from the description; it is not independently surveyed.
 

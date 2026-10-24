@@ -93,12 +93,16 @@ mid = {k: next(r for r in g["stations"] if r["t"] == 0.5) for k, g in S["girders
 t("BR13A: girder-alone section at G2 midspan equals the dashboard one definition within 0.5 % (W varies 2280 -> 2283)",
   rel(mid["G2"]["girder"]["A"], 594164.87) < 0.005 and rel(mid["G2"]["girder"]["Ix"], 181442369484.35) < 0.005)
 snap = {q["id"]: q["value"] for q in json.load(open(os.path.join(R, "baseline/BR13A/snapshot.json")))["quantities"]}
-for gid in ("G1", "G2", "G3", "G4"):
+for gid in ("G2", "G3"):
     cm = mid[gid]["composite"]
     A_m, I_m, J_m = snap[f"model.section.{gid}-M_composite.A"] * 1e6, snap[f"model.section.{gid}-M_composite.Iy"] * 1e12, snap[f"model.section.{gid}-M_composite.J"] * 1e12
     t(f"BR13A {gid} midspan composite vs the frozen model's {gid}-M_composite (V5): A, I within 1 %, J within 2 %",
       rel(cm["A_transformed"], A_m) < 0.01 and rel(cm["Ix"], I_m) < 0.01 and rel(cm["J_geometric"], J_m) < 0.02,
       f"A {cm['A_transformed']:.0f}/{A_m:.0f} I {cm['Ix']:.4e}/{I_m:.4e} J {cm['J_geometric']:.4e}/{J_m:.4e}")
+A_m = lambda g: snap[f"model.section.{g}-M_composite.A"] * 1e6
+t("BR13A edge girders vs the frozen model differ in the direction of the flare (model has none, gap D-2): G1 smaller, G4 larger at midspan",
+  mid["G1"]["composite"]["A_transformed"] < 0.97 * A_m("G1") and mid["G4"]["composite"]["A_transformed"] > 1.03 * A_m("G4"),
+  f"G1 {mid['G1']['composite']['A_transformed'] / A_m('G1'):.3f} G4 {mid['G4']['composite']['A_transformed'] / A_m('G4'):.3f}")
 g4 = S["girders"]["G4"]["stations"]
 t("BR13A: edge-girder flare enters the section (G4 composite area at midspan > at the ends by > 5 %)", g4[1]["composite"]["A_transformed"] > 1.05 * g4[0]["composite"]["A_transformed"])
 t("BR13A: solid end zones reported missing (not assumed)", any("zones empty" in f for f in S["flags"]))

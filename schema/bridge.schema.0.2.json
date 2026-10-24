@@ -12538,6 +12538,476 @@
          }
         ]
        },
+       "shape": {
+        "type": "object",
+        "description": "Super-T shape parameters as dimensioned on the girder drawing (keys as in library/products/supert.json: D, bw, tw, d1, d2, ttf, S, fW, fD, r, ifW, ifD, ch); they override the product type",
+        "additionalProperties": false,
+        "required": [
+         "rows"
+        ],
+        "properties": {
+         "rows": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "required": [
+            "cells",
+            "tag",
+            "status",
+            "original",
+            "current"
+           ],
+           "additionalProperties": false,
+           "properties": {
+            "cells": {
+             "type": "object",
+             "additionalProperties": false,
+             "properties": {
+              "key": {
+               "type": [
+                "string",
+                "null"
+               ],
+               "description": ""
+              },
+              "name": {
+               "type": [
+                "string",
+                "null"
+               ],
+               "description": ""
+              },
+              "value": {
+               "type": [
+                "number",
+                "null"
+               ],
+               "description": ""
+              },
+              "unit": {
+               "type": [
+                "string",
+                "null"
+               ],
+               "description": ""
+              }
+             }
+            },
+            "tag": {
+             "enum": [
+              "Direct",
+              "Calculated",
+              "Missing-Flagged",
+              "Standard-verify",
+              "Input-user",
+              "Confirmed-Engineer",
+              "Assumed",
+              "Model"
+             ],
+             "description": "Data source category"
+            },
+            "source": {
+             "$ref": "#/$defs/source"
+            },
+            "derivation": {
+             "$ref": "#/$defs/derivation"
+            },
+            "ref": {
+             "type": "string",
+             "pattern": "^(lib|std):",
+             "description": "Product library or standards key"
+            },
+            "status": {
+             "enum": [
+              "open",
+              "proposed",
+              "accepted",
+              "rejected",
+              "superseded"
+             ]
+            },
+            "decision": {
+             "type": "string",
+             "pattern": "^D-[0-9]+$",
+             "description": "Last decision-log entry that set this value"
+            },
+            "replace_with": {
+             "type": "string",
+             "description": "What the real value will come from (Assumed values)"
+            },
+            "note": {
+             "type": "string"
+            },
+            "original": {
+             "$ref": "#/$defs/original"
+            },
+            "overrides": {
+             "type": "array",
+             "items": {
+              "$ref": "#/$defs/override"
+             },
+             "description": "Append-only list of changes"
+            },
+            "current": {
+             "type": "string",
+             "pattern": "^(original|OV-[0-9]+)$",
+             "description": "Which entry is the accepted value now"
+            },
+            "significance": {
+             "$ref": "#/$defs/significance"
+            }
+           },
+           "allOf": [
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Direct"
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "source"
+              ],
+              "properties": {
+               "source": {
+                "required": [
+                 "doc"
+                ]
+               }
+              }
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Calculated"
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "derivation"
+              ]
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Missing-Flagged"
+               }
+              }
+             },
+             "then": {
+              "properties": {
+               "status": {
+                "enum": [
+                 "open"
+                ]
+               }
+              }
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Standard-verify"
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "ref"
+              ]
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Assumed"
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "source",
+               "replace_with"
+              ],
+              "properties": {
+               "source": {
+                "required": [
+                 "note"
+                ]
+               }
+              }
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "enum": [
+                 "Input-user",
+                 "Confirmed-Engineer"
+                ]
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "decision"
+              ]
+             }
+            },
+            {
+             "if": {
+              "properties": {
+               "tag": {
+                "const": "Model"
+               }
+              }
+             },
+             "then": {
+              "required": [
+               "source"
+              ],
+              "properties": {
+               "source": {
+                "required": [
+                 "note"
+                ]
+               }
+              }
+             }
+            }
+           ]
+          }
+         },
+         "note": {
+          "type": "string"
+         }
+        }
+       },
+       "haunch": {
+        "type": "object",
+        "description": "Gap between the girder top flange and the deck soffit [mm]",
+        "additionalProperties": false,
+        "required": [
+         "value",
+         "tag",
+         "status",
+         "original",
+         "current"
+        ],
+        "properties": {
+         "value": {
+          "type": [
+           "number",
+           "null"
+          ]
+         },
+         "unit": {
+          "const": "mm"
+         },
+         "tag": {
+          "enum": [
+           "Direct",
+           "Calculated",
+           "Missing-Flagged",
+           "Standard-verify",
+           "Input-user",
+           "Confirmed-Engineer",
+           "Assumed",
+           "Model"
+          ],
+          "description": "Data source category"
+         },
+         "source": {
+          "$ref": "#/$defs/source"
+         },
+         "derivation": {
+          "$ref": "#/$defs/derivation"
+         },
+         "ref": {
+          "type": "string",
+          "pattern": "^(lib|std):",
+          "description": "Product library or standards key"
+         },
+         "status": {
+          "enum": [
+           "open",
+           "proposed",
+           "accepted",
+           "rejected",
+           "superseded"
+          ]
+         },
+         "decision": {
+          "type": "string",
+          "pattern": "^D-[0-9]+$",
+          "description": "Last decision-log entry that set this value"
+         },
+         "replace_with": {
+          "type": "string",
+          "description": "What the real value will come from (Assumed values)"
+         },
+         "note": {
+          "type": "string"
+         },
+         "original": {
+          "$ref": "#/$defs/original"
+         },
+         "overrides": {
+          "type": "array",
+          "items": {
+           "$ref": "#/$defs/override"
+          },
+          "description": "Append-only list of changes"
+         },
+         "current": {
+          "type": "string",
+          "pattern": "^(original|OV-[0-9]+)$",
+          "description": "Which entry is the accepted value now"
+         },
+         "significance": {
+          "$ref": "#/$defs/significance"
+         }
+        },
+        "allOf": [
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Direct"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "doc"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Calculated"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "derivation"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Missing-Flagged"
+            }
+           }
+          },
+          "then": {
+           "properties": {
+            "status": {
+             "enum": [
+              "open"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Standard-verify"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "ref"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Assumed"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source",
+            "replace_with"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "enum": [
+              "Input-user",
+              "Confirmed-Engineer"
+             ]
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "decision"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Model"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         }
+        ]
+       },
        "concrete_transfer": {
         "type": "object",
         "description": "f'cp at transfer [MPa]",

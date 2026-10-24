@@ -1,7 +1,7 @@
 {
  "format": "pdf2bim.geometry/0.1",
  "coordinates": "MGA (as in the description), metres; offsets + right of increasing chainage",
- "input_hash": "sha256:dd0a6b4588aef289836b0fe24cba0cd33f336875327162bcd49286f33b13a320",
+ "input_hash": "sha256:9d0e63d055b21fe6172f4c0f767493e2a806df744dfc4896891fb3e6691717b5",
  "input_format": "pdf2bim.bridge/0.2",
  "allow_proposed": true,
  "provisional": [

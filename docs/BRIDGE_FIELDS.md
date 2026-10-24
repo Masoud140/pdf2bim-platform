@@ -105,6 +105,8 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.supert_types[].section` | ref |  | Product section (lib:supert/...) |
 | `superstructure.supert_types[].depth` | num | mm | Girder depth |
 | `superstructure.supert_types[].top_flange_width` | num | mm | Top flange width (if trimmed from the product) |
+| `superstructure.supert_types[].shape` | table |  | Super-T shape parameters as dimensioned on the girder drawing (keys as in library/products/supert.json: D, bw, tw, d1, d2, ttf, S, fW, fD, r, ifW, ifD, ch); they override the product type — columns: key, name, value, unit |
+| `superstructure.supert_types[].haunch` | num | mm | Gap between the girder top flange and the deck soffit |
 | `superstructure.supert_types[].concrete_transfer` | num | MPa | f'cp at transfer |
 | `superstructure.supert_types[].concrete_28d` | num | MPa | f'c girder |
 | `superstructure.supert_types[].strand_pattern` | table |  | Strands: one row per strand position — columns: y (mm), x (mm), diameter (mm), debond_left (mm), debond_right (mm), on |
