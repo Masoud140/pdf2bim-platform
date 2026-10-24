@@ -1,0 +1,25 @@
+{
+ "note": "Project-specific inputs found in code next to standards values. They are NOT standards data and belong in the bridge description.",
+ "items": [
+  {
+   "file": "src/sub4.js",
+   "item": "WD.V = 45 m/s",
+   "why": "design wind speed \u2014 site-specific (region, terrain, return period)"
+  },
+  {
+   "file": "src/sub5.js",
+   "item": "EQ.Z = 0.08, site 'Ce'",
+   "why": "hazard factor and site class \u2014 site-specific"
+  },
+  {
+   "file": "src/sub3.js",
+   "item": "TM.Tmax / Tmin / Tset",
+   "why": "shade air temperatures and set temperature \u2014 site-specific"
+  },
+  {
+   "file": "src/sub7.js",
+   "item": "TG.T0 = 32, eps = 300e-6",
+   "why": "gradient top temperature and shrinkage/creep strain \u2014 project / material inputs"
+  }
+ ]
+}

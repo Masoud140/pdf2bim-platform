@@ -1,0 +1,124 @@
+{
+ "format": "pdf2bim.standards/0.1",
+ "group": "AS1170.4",
+ "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
+ "entries": [
+  {
+   "id": "AS1170.4:probability_factor:kp_default",
+   "standard": "AS 1170.4",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "probability factor kp used as default (1/2000 annual probability)",
+   "units": "-",
+   "value": 1.7,
+   "applicability": "default only; the design return period follows the bridge importance level (AS 5100.2) — project input",
+   "context": "earthquake spectrum",
+   "implementation": {
+    "used_by": [
+     "src/sub5.js:6"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Default in code; return period and importance level not in the drawing set.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS1170.4:spectral_shape:Ch",
+   "standard": "AS 1170.4",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "spectral shape factor Ch(T) — piecewise parameters per site class",
+   "units": "-",
+   "value": {
+    "type": "piecewise",
+    "columns": [
+     "Ch(0)",
+     "slope 0-0.1 s",
+     "plateau",
+     "c (T<=1.5 s: c/T)",
+     "c2 (T>1.5 s: c2/T^2)"
+    ],
+    "rows": {
+     "Ae": [
+      0.8,
+      15.5,
+      2.35,
+      0.704,
+      1.056
+     ],
+     "Be": [
+      1.0,
+      19.4,
+      2.94,
+      0.882,
+      1.32
+     ],
+     "Ce": [
+      1.3,
+      23.8,
+      3.68,
+      1.25,
+      1.874
+     ],
+     "De": [
+      1.1,
+      25.8,
+      3.68,
+      1.98,
+      2.97
+     ],
+     "Ee": [
+      1.1,
+      25.8,
+      3.68,
+      3.08,
+      4.62
+     ]
+    }
+   },
+   "applicability": "site sub-soil classes Ae-Ee",
+   "context": "earthquake response spectrum (Loads -> Earthquake)",
+   "implementation": {
+    "used_by": [
+     "src/sub5.js:8",
+     "src/sub5.js:9 eqCh()"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed earlier from memory, not from an authorised copy (gap F-2). Clause / table number not recorded in code. Must be checked.",
+    "specialist_review": true
+   }
+  }
+ ]
+}

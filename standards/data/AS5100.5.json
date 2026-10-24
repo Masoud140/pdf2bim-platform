@@ -1,0 +1,189 @@
+{
+ "format": "pdf2bim.standards/0.1",
+ "group": "AS5100.5",
+ "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
+ "entries": [
+  {
+   "id": "AS5100.5:capacity_factor:phi_shear_torsion",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "capacity reduction factor, shear and torsion",
+   "units": "-",
+   "value": 0.7,
+   "applicability": "shear / torsion checks",
+   "context": "ULS shear and torsion",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine2.js:39"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:capacity_factor:phi_tension_point",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "capacity reduction factor at the pure-tension point of the N-M diagram",
+   "units": "-",
+   "value": 0.8,
+   "applicability": "N-M interaction",
+   "context": "ULS bending + axial",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine2.js:34"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Value as coded; how φ varies along the N-M curve not reviewed.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:concrete:thermal_expansion",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "coefficient of thermal expansion of concrete",
+   "units": "1/°C",
+   "value": 1e-05,
+   "applicability": "uniform temperature and gradient",
+   "context": "temperature (Loads -> Temperature)",
+   "implementation": {
+    "used_by": [
+     "src/sub3.js:9",
+     "src/sub7.js:10"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:strain:ecu",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "ultimate concrete compressive strain",
+   "units": "-",
+   "value": 0.003,
+   "applicability": "ULS strain compatibility",
+   "context": "ULS bending (both engines)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine.js:66",
+     "src/dsg_engine2.js:4"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:stress_block:gamma",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "rectangular stress block depth factor γ = clamp(a − b·f'c, min, max)",
+   "units": "-",
+   "value": {
+    "a": 0.97,
+    "b": 0.0025,
+    "min": 0.67,
+    "max": 0.85
+   },
+   "applicability": "f'c in MPa",
+   "context": "ULS bending (fibre engine)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine.js:26"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Form and limits as coded; engine discrepancy E-1 open.",
+    "specialist_review": false
+   }
+  }
+ ]
+}

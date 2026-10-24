@@ -1,0 +1,43 @@
+{
+ "format": "pdf2bim.standards/0.1",
+ "group": "AS1170.2",
+ "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
+ "entries": [
+  {
+   "id": "AS1170.2:air_density",
+   "standard": "AS/NZS 1170.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "air density ρ",
+   "units": "kg/m3",
+   "value": 1.2,
+   "applicability": "wind pressure q = 0.5 ρ V²",
+   "context": "wind (Loads -> Wind)",
+   "implementation": {
+    "used_by": [
+     "src/sub4.js:6",
+     "src/sub4.js:13 wdQ()"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  }
+ ]
+}

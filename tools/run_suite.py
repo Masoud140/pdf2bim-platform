@@ -13,7 +13,7 @@ import argparse, json, os, re, subprocess, sys, time, datetime
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 NODE = ["sub_t", "sl_t", "soil_t", "tm_t", "tg_t", "wd_t", "eq_t", "rx_t", "x_t", "gw_t", "dg36_t", "dgxl_t", "dgdoc_t"]
 ENGINE = ["dsg_test", "dsg_t2", "dsg_t3", "dsg_t4", "dsg_t5"]
-PY = [("schema", "tests/schema/test_schema.py"), ("format 0.2", "tests/schema/test_format_0_2.py"), ("baseline (fast)", "tests/baseline/test_baseline.py")]
+PY = [("schema", "tests/schema/test_schema.py"), ("format 0.2", "tests/schema/test_format_0_2.py"), ("standards data", "tests/standards/test_standards.py"), ("baseline (fast)", "tests/baseline/test_baseline.py")]
 NOISE = re.compile(r"agent-proxy|connect_rejected|Allowed domains|For details|^- \S+:443")
 
 
