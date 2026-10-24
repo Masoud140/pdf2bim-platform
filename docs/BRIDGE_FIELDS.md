@@ -31,7 +31,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `alignment.horizontal` | table |  | Horizontal alignment elements in order — columns: element, ch_start (m), length (m), radius (m), direction, E_start (m), N_start (m), bearing_start (DMS) |
 | `alignment.vertical` | table |  | Vertical alignment: intersection points and curves — columns: ch (m), RL (m), grade_in (%), grade_out (%), curve_length (m) |
 | `alignment.crossfall` | table |  | Crossfall / superelevation along the bridge — columns: ch (m), left (%), right (%), crown_offset (m) |
-| `alignment.support_lines` | table |  | Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs — columns: support, ch (m), skew (deg), skew_dms (DMS) |
+| `alignment.support_lines` | table |  | Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs. The support line is straight through the control line at ch. Its direction is the whole-circle bearing (preferred, as printed on the skew diagram); skew alone does not fix the direction (no sign convention on drawings) — columns: support, ch (m), skew (deg), skew_dms (DMS), bearing (deg) |
 
 ## deck
 

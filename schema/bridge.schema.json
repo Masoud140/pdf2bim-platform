@@ -3592,7 +3592,7 @@
     },
     "support_lines": {
      "type": "object",
-     "description": "Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs",
+     "description": "Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs. The support line is straight through the control line at ch. Its direction is the whole-circle bearing (preferred, as printed on the skew diagram); skew alone does not fix the direction (no sign convention on drawings)",
      "additionalProperties": false,
      "required": [
       "rows"
@@ -3640,6 +3640,13 @@
              "null"
             ],
             "description": "DMS"
+           },
+           "bearing": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "deg"
            }
           }
          },

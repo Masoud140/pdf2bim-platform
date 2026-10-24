@@ -575,7 +575,43 @@
       "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
       "recorded_at": null
      },
-     "current": "original"
+     "current": "original",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "support": "A",
+        "ch": 1895.3,
+        "skew": 34.5,
+        "skew_dms": null,
+        "bearing": 44.029166
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "support": "A",
+        "ch": 1895.3,
+        "skew": 34.5,
+        "skew_dms": null
+       },
+       "from_unit": null,
+       "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so the geometry engine can fix the support-line direction. Check: 44.029166° is 34.498° from the normal to the control-line chord A-B, consistent with the confirmed skew 34.5° (D-4). Needs engineer acceptance (ADR-005).",
+       "evidence": [
+        "DRG-202012 skew diagram (via alignment.support_lines.note)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-24T13:00:00+11:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-34",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202012",
+        "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
+       }
+      }
+     ]
     },
     {
      "cells": {
@@ -599,7 +635,43 @@
       "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
       "recorded_at": null
      },
-     "current": "original"
+     "current": "original",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "support": "B",
+        "ch": 1924.21,
+        "skew": 34.5,
+        "skew_dms": null,
+        "bearing": 44.029166
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "support": "B",
+        "ch": 1924.21,
+        "skew": 34.5,
+        "skew_dms": null
+       },
+       "from_unit": null,
+       "reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so the geometry engine can fix the support-line direction. Check: 44.029166° is 34.498° from the normal to the control-line chord A-B, consistent with the confirmed skew 34.5° (D-4). Needs engineer acceptance (ADR-005).",
+       "evidence": [
+        "DRG-202012 skew diagram (via alignment.support_lines.note)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-24T13:00:00+11:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-34",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202012",
+        "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
+       }
+      }
+     ]
     }
    ],
    "note": "Support line bearing 44.029166° (Direct, DRG 202012)"
@@ -29550,17 +29622,17 @@
   }
  ],
  "revision": {
-  "number": 1,
-  "parent_hash": null,
-  "created": "2026-10-24T11:30:00+11:00",
-  "author": "migration (Claude, P0.2)",
-  "note": "migrated from pdf2bim.bridge/0.1",
-  "decision_log_sha256": "sha256:ecd2c92b719eead47e3bd57cc79b16ec89f04d198710feb3a5d3c504be0855d2"
+  "number": 3,
+  "parent_hash": "sha256:1032dd53573481974b7246c2ad97c6477b1a055abeab1057f1b57f6a1e852bd3",
+  "created": "2026-10-24T13:00:00+11:00",
+  "author": "AI",
+  "note": "OV-1 proposed at alignment.support_lines.rows[1] (D-34)",
+  "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:55f5510b5880fc67d9686a3ed96e43d4341dcb0531dc2b312979a3ff6ae34154"
+  "value": "sha256:dd0a6b4588aef289836b0fe24cba0cd33f336875327162bcd49286f33b13a320"
  }
 }

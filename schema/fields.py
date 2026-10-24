@@ -42,8 +42,11 @@ ALIGNMENT = {
                  {'ch': ('num', 'm'), 'RL': ('num', 'm'), 'grade_in': ('num', '%'), 'grade_out': ('num', '%'), 'curve_length': ('num', 'm')}),
     'crossfall': ('table', '', 'Crossfall / superelevation along the bridge',
                   {'ch': ('num', 'm'), 'left': ('num', '%'), 'right': ('num', '%'), 'crown_offset': ('num', 'm')}),
-    'support_lines': ('table', '', 'Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs',
-                      {'support': ('str', ''), 'ch': ('num', 'm'), 'skew': ('num', 'deg'), 'skew_dms': ('str', 'DMS')}),
+    'support_lines': ('table', '', 'Support (bearing) lines: chainage and skew — the alignment & skew diagram sheet governs. '
+                      'The support line is straight through the control line at ch. Its direction is the whole-circle bearing (preferred, as printed on the skew diagram); '
+                      'skew alone does not fix the direction (no sign convention on drawings)',
+                      {'support': ('str', ''), 'ch': ('num', 'm'), 'skew': ('num', 'deg'), 'skew_dms': ('str', 'DMS'),
+                       'bearing': ('num', 'deg', 'Whole-circle bearing of the support line (either direction), as printed')}),
 }
 
 DECK = {
