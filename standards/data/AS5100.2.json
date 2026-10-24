@@ -2084,6 +2084,174 @@
    }
   },
   {
+   "id": "AS5100.2:traffic:M1600",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 7.2.4",
+    "table": null,
+    "figure": "Fig 7.2.4",
+    "authorised_source": null
+   },
+   "quantity": "M1600 load model: wheel load, wheel-line track, axle spacing in a tri-axle group, clear gaps between the four groups (middle gap variable, minimum), lane UDL, dynamic load allowance on the wheels, wheel width",
+   "units": "kN, m, -",
+   "value": {
+    "wheel_kN": 60.0,
+    "track_m": 2.0,
+    "axle_spacing_m": 1.25,
+    "gap_12_m": 3.75,
+    "gap_23_min_m": 6.25,
+    "gap_34_m": 5.0,
+    "udl_kN_per_m": 6.0,
+    "dla": 0.3,
+    "wheel_width_m": 0.4
+   },
+   "applicability": "M1600 road traffic; four tri-axle groups, UDL over the 3.2 m lane width",
+   "context": "traffic (Traffic tab; P3c traffic engine)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:6584",
+     "pdf2bim/model/traffic.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Geometry, loads and DLA as coded; the figure itself was not checked against an authorised copy. Edition not recorded.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.2:traffic:S1600",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 7.2.5",
+    "table": null,
+    "figure": "Fig 7.2.5",
+    "authorised_source": null
+   },
+   "quantity": "S1600 load model: wheel load, wheel-line track, axle spacing in a tri-axle group, clear gaps between the four groups (middle gap variable, minimum), lane UDL, dynamic load allowance on the wheels, wheel width",
+   "units": "kN, m, -",
+   "value": {
+    "wheel_kN": 40.0,
+    "track_m": 2.0,
+    "axle_spacing_m": 1.25,
+    "gap_12_m": 3.75,
+    "gap_23_min_m": 6.25,
+    "gap_34_m": 5.0,
+    "udl_kN_per_m": 24.0,
+    "dla": 0.0,
+    "wheel_width_m": 0.4
+   },
+   "applicability": "S1600 road traffic; four tri-axle groups, UDL over the 3.2 m lane width",
+   "context": "traffic (Traffic tab; P3c traffic engine)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:6585",
+     "pdf2bim/model/traffic.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Geometry, loads and DLA as coded; the figure itself was not checked against an authorised copy. Edition not recorded.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.2:traffic:accompanying_lane_factors",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "accompanying lane factors applied to the lane effects ranked from largest (lane 1, 2, 3 and more)",
+   "units": "-",
+   "value": [
+    1.0,
+    0.8,
+    0.4
+   ],
+   "applicability": "multi-lane road traffic (M1600, S1600)",
+   "context": "traffic envelope (Traffic tab; P3c traffic engine)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:6591",
+     "pdf2bim/model/traffic.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Default as coded (editable in the dashboard); clause and edition not recorded.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.2:traffic:lane_width",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Section 7",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "standard design lane width",
+   "units": "m",
+   "value": 3.2,
+   "applicability": "road traffic lanes; number of lanes = floor(carriageway width / lane width) as coded (trNcode)",
+   "context": "traffic (Traffic tab; P3c traffic engine)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:6583",
+     "pdf2bim/model/traffic.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Value and the lane-count rule as coded; not checked against an authorised copy. Edition not recorded.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.2:wind:CL_default",
    "standard": "AS 5100.2",
    "edition": null,

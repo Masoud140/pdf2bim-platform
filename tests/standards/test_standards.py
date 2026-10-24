@@ -48,6 +48,13 @@ sub5 = open(os.path.join(R, "src/sub5.js")).read()
 ch_js = re.search(r"var EQ_CH=(\{.*?\});", sub5).group(1)
 ch = json.loads(subprocess.run(["node", "-e", f"console.log(JSON.stringify({ch_js}))"], capture_output=True, text=True, check=True).stdout)
 t("AS 1170.4 Ch table equals the code (node-evaluated)", E["AS1170.4:spectral_shape:Ch"]["value"]["rows"] == ch)
+trv_js = re.search(r"var TRV=(\{.*?\n\});", html, re.S).group(1)
+trv = json.loads(subprocess.run(["node", "-e", f"console.log(JSON.stringify({trv_js}))"], capture_output=True, text=True, check=True).stdout)
+keys = (("wheel_kN", "wheel"), ("track_m", "track"), ("axle_spacing_m", "axle"), ("gap_12_m", "g12"), ("gap_23_min_m", "g23"), ("gap_34_m", "g34"),
+        ("udl_kN_per_m", "udl"), ("dla", "dla"), ("wheel_width_m", "wW"))
+t("traffic models M1600 / S1600 and lane width equal the code (node-evaluated TRV)",
+  all(E[f"AS5100.2:traffic:{mn}"]["value"][a] == trv[mn][b] for mn in ("M1600", "S1600") for a, b in keys) and E["AS5100.2:traffic:lane_width"]["value"] == trv["laneW"]["v"]
+  and E["AS5100.2:traffic:M1600"]["reference"]["clause"] == trv["M1600"]["cl"].split(",")[0])
 bad_loc = []
 for e in E.values():
     path, line = e["implementation"]["used_by"][0].split(" ")[0].rsplit(":", 1)

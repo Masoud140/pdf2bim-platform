@@ -213,20 +213,37 @@ class Model:
         f = (Kl @ (T @ self._u[dofs]))[6:9]
         return f, -(R.T @ f)
 
+    def stiffness(self):
+        """Global stiffness (beams, links, springs) as a sparse matrix, the free dof numbers and the node index map.
+        Runs solve() with no load first, so a mechanism is refused before anything else."""
+        self.solve(gravity=(0.0, 0.0, 0.0), loads={})
+        idx = self._idx; nd = DOF * len(self.nodes)
+        rk, ck, vk = [], [], []
+        for key, (L, R, T, K, fl, dofs) in self._el.items():
+            Kg = T.T @ K @ T
+            ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
+            rk += list(ii.ravel()); ck += list(jj.ravel()); vk += list(Kg.ravel())
+        for nn, k in self.springs.items():
+            for d in range(6):
+                if k[d]:
+                    rk.append(DOF * idx[nn] + d); ck.append(DOF * idx[nn] + d); vk.append(k[d])
+        Kt = sp.csr_matrix((vk, (rk, ck)), shape=(nd, nd))
+        fixed = sorted(DOF * idx[nn] + d for nn, ds in self.fixed.items() for d in ds)
+        free = np.setdiff1d(np.arange(nd), fixed)
+        return Kt, free, idx
+
     def modes(self, n=10, extra_mass=None, g=9.80665):
         """Lowest n natural modes (consistent beam mass, as the dashboard: translations Hermite with mu = w / g, axial,
         torsional inertia mu (Iy + Iz) / A; links and springs massless) + lumped translational extra_mass {node: t}.
         Generalised eigenproblem K phi = w2 M phi on the free dofs (shift-invert Lanczos). Returns periods, mass-normalised
         shapes per node and effective mass fractions in global X, Y, Z (of r^T M r, including the extra mass)."""
-        self.solve(gravity=(0.0, 0.0, 0.0), loads={})        # assembles the element matrices; refuses mechanisms
-        ids = sorted(self.nodes); idx = self._idx; nd = DOF * len(ids)
-        rk, ck, vk, rm, cm, vm = [], [], [], [], [], []
+        Kt, free, idx = self.stiffness()
+        ids = sorted(self.nodes); nd = DOF * len(ids)
+        rm, cm, vm = [], [], []
         for key, (L, R, T, K, fl, dofs) in self._el.items():
-            Kg = T.T @ K @ T
-            ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
-            rk += list(ii.ravel()); ck += list(jj.ravel()); vk += list(Kg.ravel())
             if isinstance(key, tuple):
                 continue
+            ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
             b = self.beams[key]
             mu = b["w"] / g
             if mu == 0:
@@ -234,16 +251,10 @@ class Model:
             Ip = mu * (b["Iy"] + b["Iz"]) / b["A"] if b["A"] > 0 else 0.0
             Mg = T.T @ m_local(mu, Ip, L) @ T
             rm += list(ii.ravel()); cm += list(jj.ravel()); vm += list(Mg.ravel())
-        for nn, k in self.springs.items():
-            for d in range(6):
-                if k[d]:
-                    rk.append(DOF * idx[nn] + d); ck.append(DOF * idx[nn] + d); vk.append(k[d])
         for nn, mm in (extra_mass or {}).items():
             for d in range(3):
                 rm.append(DOF * idx[nn] + d); cm.append(DOF * idx[nn] + d); vm.append(mm)
-        Kt = sp.csr_matrix((vk, (rk, ck)), shape=(nd, nd)); Mt = sp.csr_matrix((vm, (rm, cm)), shape=(nd, nd))
-        fixed = sorted(DOF * idx[nn] + d for nn, ds in self.fixed.items() for d in ds)
-        free = np.setdiff1d(np.arange(nd), fixed)
+        Mt = sp.csr_matrix((vm, (rm, cm)), shape=(nd, nd))
         Kff = Kt[free][:, free].tocsc(); Mff = Mt[free][:, free].tocsc()
         Nf = Kff.shape[0]
         if Nf <= 400 or n >= Nf - 1:

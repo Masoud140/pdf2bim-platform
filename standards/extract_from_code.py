@@ -123,6 +123,30 @@ def bearings():
     return e
 
 
+def traffic():
+    path = "base/BR13A_grillage_dashboard_v15.html"
+    line, m = find(path, r"laneW:\{v:([\d.]+),u:'m',t:'Standard',src:'([^']*)'\}")
+    e = [entry("AS5100.2:traffic:lane_width", "AS 5100.2", "Section 7", "standard design lane width", "m", float(m.group(1)),
+               "road traffic lanes; number of lanes = floor(carriageway width / lane width) as coded (trNcode)", "traffic (Traffic tab; P3c traffic engine)",
+               [f"{path}:{line}", "pdf2bim/model/traffic.py"],
+               interp="Value and the lane-count rule as coded; not checked against an authorised copy. Edition not recorded.", specialist=True)]
+    for mn, cl in (("M1600", "Cl 7.2.4"), ("S1600", "Cl 7.2.5")):
+        line, m = find(path, mn + r":\{wheel:([\d.]+),track:([\d.]+),axle:([\d.]+),g12:([\d.]+),g23:([\d.]+),g34:([\d.]+),udl:([\d.]+),dla:([\d.]+),wW:([\d.]+),cl:'([^']*)'\}")
+        v = dict(zip(("wheel_kN", "track_m", "axle_spacing_m", "gap_12_m", "gap_23_min_m", "gap_34_m", "udl_kN_per_m", "dla", "wheel_width_m"), (float(x) for x in m.groups()[:9])))
+        e.append(entry(f"AS5100.2:traffic:{mn}", "AS 5100.2", m.group(10).split(",")[0].strip() or cl,
+                       f"{mn} load model: wheel load, wheel-line track, axle spacing in a tri-axle group, clear gaps between the four groups (middle gap variable, minimum), lane UDL, dynamic load allowance on the wheels, wheel width",
+                       "kN, m, -", v, f"{mn} road traffic; four tri-axle groups, UDL over the {float(find(path, r'laneW:\{v:([\d.]+)')[1].group(1))} m lane width",
+                       "traffic (Traffic tab; P3c traffic engine)", [f"{path}:{line}", "pdf2bim/model/traffic.py"],
+                       interp="Geometry, loads and DLA as coded; the figure itself was not checked against an authorised copy. Edition not recorded.", specialist=True))
+        e[-1]["reference"]["figure"] = m.group(10).split(",")[1].strip() if "," in m.group(10) else None
+    line, m = find(path, r"function trLF\(\)\{ var s=\(\$\('cb_lf'\)&&\$\('cb_lf'\)\.value\)\|\|'([\d., ]+)'")
+    e.append(entry("AS5100.2:traffic:accompanying_lane_factors", "AS 5100.2", None,
+                   "accompanying lane factors applied to the lane effects ranked from largest (lane 1, 2, 3 and more)", "-",
+                   [float(x) for x in m.group(1).replace(",", " ").split()], "multi-lane road traffic (M1600, S1600)", "traffic envelope (Traffic tab; P3c traffic engine)",
+                   [f"{path}:{line}", "pdf2bim/model/traffic.py"], interp="Default as coded (editable in the dashboard); clause and edition not recorded.", specialist=True))
+    return e
+
+
 # project inputs found next to the standards values: NOT standards data (they belong in the bridge description)
 PROJECT_DEFAULTS = [
     ("src/sub4.js", "WD.V = 45 m/s", "design wind speed — site-specific (region, terrain, return period)"),
@@ -134,7 +158,7 @@ PROJECT_DEFAULTS = [
 
 
 def main():
-    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"],
+    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic(),
               "AS1170.4": earthquake(),
               "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"],
               "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],
