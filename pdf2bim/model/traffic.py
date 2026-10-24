@@ -254,4 +254,5 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "lanes": n, "lane_width": W,
             "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
-            "standards_status": std.result_status(), "standards_used": std.usage(), "provisional": rd.provisional}
+            "standards_status": std.result_status(), "standards_used": std.usage(),
+            "provisional": rd.provisional + list(mdl.get("provisional") or [])}   # the model's provisional inputs carry over

@@ -176,9 +176,39 @@ All of these are **proposed**, so every P3 result is PROVISIONAL.
   The suspected cause is the bearing-link idealisation (1.78 m frozen links that pass half the bearing moment into the sill vs short links at the drawn seat levels), **unconfirmed** (open item M-2).
 - **Not T7:** T7 needs an independent MIDAS eigen model (P4).
 
-## 7. Not yet done (moved to P3c)
+## 7. P3c stage 1 — traffic M1600 / S1600 (`pdf2bim/model/traffic.py`, `tests/model/test_traffic.py`)
 
-- Load cases beyond SDL: traffic (M1600 / S1600 / W80 / A160 movable loads), braking, centrifugal, temperature (uniform and gradient), shrinkage / creep, wind, earth pressure, earthquake RSA; then the AS 5100.2 combinations, through the standards accessor.
+- **Standards data:** lane width 3.2 m; the M1600 / S1600 geometry, loads and DLA; accompanying lane factors 1.0 / 0.8 / 0.4. Inventoried from the dashboard code (`standards/data/AS5100.2.json`, `AS5100.2:traffic:*`, **code-extracted-unverified**, specialist review) and read only through the accessor. The test suite checks them against a Node evaluation of the code.
+- **Method** (port of the dashboard's Traffic tab, generalised):
+  1. Influence surfaces, from one factorisation of the integrated model and a unit load at every deck-line node. Responses:
+     - girder sagging M at both ends of every girder element;
+     - bearing reactions;
+     - girder deflections.
+  2. Load positions on a 0.25 m chainage grid at any offset; barycentric weights on the deck triangulation (as the SDL).
+  3. Per lane:
+     - patterned lane UDL (8 strips);
+     - the four tri-axle groups with a variable middle gap, both directions and lateral wheel shift ±0.4 m;
+     - DLA on the wheels only (dashboard default).
+  4. Lanes: floor(b / 3.2). The lane group is **swept** across the carriageway in 0.1 m steps (default), or packed from the left kerb. Lane effects are ranked and factored 1.0 / 0.8 / 0.4.
+- **Results** are characteristic (no load factor) and carry the UNVERIFIED label and the model's provisional inputs.
+- **Checks:**
+  - **Independent brute force** (vehicle position × middle gap × direction) on a two-girder deck: equal to 1e-6. Two-group case equal too.
+  - **Lane UDL** on a deck exactly one lane wide = qL²/8 (0.5 %); DLA on the UDL only on request; patterning; lane-factor ranking.
+  - **BR13A:** the sweep envelope contains the left-packed layout everywhere; M1600 > S1600 at every bearing.
+- **Engine check against the dashboard (V5):** run with the dashboard's own distribution rule on the frozen model, the P3c engine reproduces the dashboard's envelope (girder max M within 0.01 %, bearings within 0.8 %). This confirms the vehicle, lane, DLA, patterning and lane-factor logic.
+- **Two dashboard findings** (`projects/BR13A/model/BR13A.traffic_vs_frozen.md`):
+  - **H-4:** the dashboard's default lane layout packs the lanes against the left kerb and never moves them. Swept, the M1600 envelope rises: G4 max M ×1.33, G3 ×1.09; bearings A-G4 ×3.15, B-G4 ×2.49, A-G3 ×1.66.
+  - **H-5:** the dashboard's bearing nodes lie off its mesh lines (F-4), and its rule turns each into a one-node "line" that collects all load at that offset over the whole span onto the bearing. Inner-bearing traffic reactions are overstated (B-G3 1141 vs 791 kN, A-G3 929 vs 739 kN) and girder moments understated by 1–6 %. Without the one-node lines, its rule agrees with the P3c triangulation within 1 %.
+- **BR13A, P3c on the P3b model, sweep, M1600 (characteristic, PROVISIONAL):**
+  - max girder M: G1 3383, G2 3282, G3 3274, G4 3825 kN·m;
+  - vs the dashboard (sweep): −2.2 / +1.4 / +0.5 / +5.6 %.
+
+  The dashboard's design (default layout) used G1 3455 kN·m, G4 2734 kN·m.
+
+## 8. Not yet done (P3c, remaining)
+
+- Load cases: W80 / A160 local loads, braking, centrifugal, temperature (uniform and gradient), shrinkage / creep, wind, earth pressure, earthquake RSA; then the AS 5100.2 combinations, through the standards accessor.
+- Traffic responses not yet enveloped: girder shear and torsion, pile actions, sill actions; concurrent actions (the envelopes are per response).
 - MIDAS: nodal loads, once a native export documents `*CONLOAD`; composite girders as COMPOSITE-GEN (stress recovery).
 - MAC pairing of modes on common points.
 - Per-element deck-strip tributary at the skewed ends (MEMBER_PROPERTIES Stage A); for now the end stations use a half step.
