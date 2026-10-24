@@ -81,6 +81,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.members[]` | list | | Girders or planks, ordered across the deck (fields below) |
 | `superstructure.flange_gap` | num | mm | Gap between adjacent precast top flanges |
 | `superstructure.edge_flange_setback` | num | mm | Outer flange edge of an edge member: setback from the deck edge (0 = lines up with the deck edge) |
+| `superstructure.cross_girders` | table |  | Cast-in-place cross girders / end diaphragms on the support lines (plan width normal to the skewed face, overall depth) — columns: support, width (mm), depth (mm), concrete |
 | `superstructure.supert_types[]` | list | | Super-T girder definitions (members refer to them) (fields below) |
 | `superstructure.plank_types[]` | list | | Plank definitions (fields below) |
 
@@ -113,7 +114,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.supert_types[].jacking_ratio` | num |  | Jacking stress / f_pb |
 | `superstructure.supert_types[].bars` | table |  | Longitudinal reinforcement in the girder — columns: y (mm), diameter (mm), number, from (m), to (m) |
 | `superstructure.supert_types[].fitments` | table |  | Shear / torsion fitments along the girder — columns: from (m), to (m), diameter (mm), legs, spacing (mm) |
-| `superstructure.supert_types[].zones` | table |  | Solid end blocks / open section along the girder — columns: from (m), to (m), kind |
+| `superstructure.supert_types[].zones` | table |  | Solid end blocks / open section along the girder. kind = solid_end_A / solid_end_B (from / to measured from that girder end) or solid / open (from / to measured from end A) — columns: from (m), to (m), kind |
 | `superstructure.supert_types[].deck_bars` | table |  | Deck longitudinal reinforcement acting with the girder — columns: face, diameter (mm), spacing (mm), cover (mm) |
 | `superstructure.supert_types[].transfer_supports` | num | mm | Support distance from the girder end at transfer / storage |
 | `superstructure.supert_types[].age_at_transfer` | num | days | Age at transfer |

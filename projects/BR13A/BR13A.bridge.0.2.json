@@ -6539,7 +6539,68 @@
      "note": "Not entered — Missing"
     },
     "zones": {
-     "rows": [],
+     "rows": [
+      {
+       "cells": {
+        "from": 0.0,
+        "to": 2.0,
+        "kind": "solid_end_A"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202302",
+        "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
+       },
+       "status": "proposed",
+       "decision": "D-38",
+       "original": {
+        "cells": {
+         "from": 0.0,
+         "to": 2.0,
+         "kind": "solid_end_A"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T13:31:00+11:00",
+        "source": {
+         "doc": "DRG-202302",
+         "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 0.0,
+        "to": 2.0,
+        "kind": "solid_end_B"
+       },
+       "tag": "Direct",
+       "source": {
+        "doc": "DRG-202302",
+        "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
+       },
+       "status": "proposed",
+       "decision": "D-38",
+       "original": {
+        "cells": {
+         "from": 0.0,
+         "to": 2.0,
+         "kind": "solid_end_B"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-24T13:31:00+11:00",
+        "source": {
+         "doc": "DRG-202302",
+         "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
+        }
+       },
+       "current": "original"
+      }
+     ],
      "note": "No solid end zones defined — Missing"
     },
     "deck_bars": {
@@ -7114,7 +7175,76 @@
     }
    }
   ],
-  "plank_types": []
+  "plank_types": [],
+  "cross_girders": {
+   "rows": [
+    {
+     "cells": {
+      "support": "A",
+      "width": 800,
+      "depth": 1065,
+      "concrete": "deck (40 MPa) - to confirm"
+     },
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202011",
+      "view": "cross-girder detail; engineer query response 2026-10-13"
+     },
+     "status": "proposed",
+     "decision": "D-37",
+     "original": {
+      "cells": {
+       "support": "A",
+       "width": 800,
+       "depth": 1065,
+       "concrete": "deck (40 MPa) - to confirm"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T13:30:00+11:00",
+      "source": {
+       "doc": "DRG-202011",
+       "view": "cross-girder detail; engineer query response 2026-10-13"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "support": "B",
+      "width": 800,
+      "depth": 1065,
+      "concrete": "deck (40 MPa) - to confirm"
+     },
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202011",
+      "view": "cross-girder detail; engineer query response 2026-10-13"
+     },
+     "status": "proposed",
+     "decision": "D-37",
+     "original": {
+      "cells": {
+       "support": "B",
+       "width": 800,
+       "depth": 1065,
+       "concrete": "deck (40 MPa) - to confirm"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-24T13:30:00+11:00",
+      "source": {
+       "doc": "DRG-202011",
+       "view": "cross-girder detail; engineer query response 2026-10-13"
+      }
+     },
+     "current": "original"
+    }
+   ],
+   "note": "A second dimension 420 on the same detail is not marked as a width and is not used (MEMBER_PROPERTIES_METHOD section 10)"
+  }
  },
  "bearings": {
   "items": [
@@ -30066,17 +30196,17 @@
   }
  ],
  "revision": {
-  "number": 5,
-  "parent_hash": "sha256:8c3eef8961db5c9779bc17b3eb342fbb2e60020a9e8fb668566e17f14a543123",
-  "created": "2026-10-24T15:31:00+11:00",
+  "number": 7,
+  "parent_hash": "sha256:6686b5e38ac37d80ed15bab17f525f3e2fc2ba02ed1509c50698265ffb2b3717",
+  "created": "2026-10-24T13:31:00+11:00",
   "author": "AI",
-  "note": "D-36 proposed: 1 new record(s)",
+  "note": "D-38 proposed: 1 new record(s)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:9d0e63d055b21fe6172f4c0f767493e2a806df744dfc4896891fb3e6691717b5"
+  "value": "sha256:33872c09dc4de6c2f951f606508fd3d359b27b71165669b5397c01d7ec2dc982"
  }
 }

@@ -49,8 +49,16 @@ def apply(doc, spec):
     d = spec["decision"]
     for a in spec["add"]:
         parent, key = _walk(new, a["path"])
+        if a.get("append_rows"):
+            tbl = parent.get(key)
+            if not tbl or "rows" not in tbl:
+                raise SystemExit(f"refused: {a['path']} is not an existing table")
+            for row in copy.deepcopy(a["append_rows"]):
+                _stamp_rec(row, d["id"], d["by"], spec["created"])
+                tbl["rows"].append(row)
+            continue
         if key in parent:
-            raise SystemExit(f"refused: {a['path']} already exists (use propose_override.py to change it)")
+            raise SystemExit(f"refused: {a['path']} already exists (use propose_override.py to change it, or append_rows for a table)")
         rec = copy.deepcopy(a["record"])
         if "rows" in rec:
             for row in rec["rows"]:
@@ -74,7 +82,7 @@ def main():
     if d["id"] in dec:
         raise SystemExit(f"refused: decision {d['id']} already in the log")
     entry = {"id": d["id"], "date": spec["created"], "by": d["by"], "key": " + ".join("/".join(str(x if not isinstance(x, dict) else x.get('id')) for x in s["path"]) for s in spec["add"]),
-             "from": None, "from_tag": "Missing-Flagged", "to": "new record(s), see the description", "to_tag": spec["add"][0]["record"].get("tag") or (spec["add"][0]["record"].get("rows") or [{}])[0].get("tag"),
+             "from": None, "from_tag": "Missing-Flagged", "to": "new record(s), see the description", "to_tag": (spec["add"][0].get("record") or {}).get("tag") or ((spec["add"][0].get("record") or {}).get("rows") or spec["add"][0].get("append_rows") or [{}])[0].get("tag"),
              "reason": d["reason"], "evidence": d.get("evidence", []), "status": "proposed", **({"affects": d["affects"]} if d.get("affects") else {})}
     dec[d["id"]] = entry
     errs = check(new, dec) + check_revision(doc, new)

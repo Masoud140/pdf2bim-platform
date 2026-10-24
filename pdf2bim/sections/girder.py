@@ -89,7 +89,38 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
             rows.append({"t": f["t"], "w_left": wl, "w_right": wr, "deck_left": dl, "deck_right": dr,
                          "girder": {"A": gs["A"], "yc": gs["yc"], "Ix": gs["Ix"], "Iy": gs["Iy"], "J": J_g},
                          "composite": {"A_transformed": comp["A"], "yc": comp["yc"], "xc": comp["xc"], "Ix": comp["Ix"], "Iy": comp["Iy"], "J_geometric": J_c}})
-        out[g["id"]] = {"type": tkey, "type_ref": tref, "params": p, "param_source": prov, "haunch": haunch, "stations": rows}
+        # solid end blocks (zones): positions along the girder and the solid sections at each end
+        Lg = g.get("length_end_to_end")
+        zl = []
+        for z in zones:
+            kind = z.get("kind")
+            if kind not in ("solid_end_A", "solid_end_B", "solid", "open"):
+                raise MissingInput(f"{tp}.zones: unknown kind {kind!r}")
+            if kind == "solid_end_A":
+                zl.append({"kind": "solid", "end": "A", "from_end_A": z["from"], "to_end_A": z["to"]})
+            elif kind == "solid_end_B":
+                if Lg is None:
+                    raise MissingInput(f"{tp}.zones: solid_end_B needs the girder length (bearing offsets)")
+                zl.append({"kind": "solid", "end": "B", "from_end_A": Lg - z["to"], "to_end_A": Lg - z["from"]})
+            else:
+                zl.append({"kind": kind, "end": None, "from_end_A": z["from"], "to_end_A": z["to"]})
+        solid = {}
+        for end, f in (("A", g["flange"][0]), ("B", g["flange"][-1])):
+            if not any(z["kind"] == "solid" and z["end"] == end for z in zl):
+                continue
+            wl, wr = f["left"], f["right"]
+            dl = wl + (gap / 2 if f["left_to"].startswith("G") else 0.0)
+            dr = wr + (gap / 2 if f["right_to"].startswith("G") else 0.0)
+            ss = supert_section(p, wl, wr, "solid")
+            y0 = p["D"] + haunch
+            deck = [(-dl, y0), (dr, y0), (dr, y0 + tD), (-dl, y0 + tD)]
+            comp = props([Part(ss["outline"]), Part(deck, n=n)])
+            solid[end] = {"girder": {"A": ss["A"], "yc": ss["yc"], "Ix": ss["Ix"], "Iy": ss["Iy"], "J": torsion_J([ss["outline"]], [], torsion_h)},
+                          "composite": {"A_transformed": comp["A"], "yc": comp["yc"], "xc": comp["xc"], "Ix": comp["Ix"], "Iy": comp["Iy"],
+                                        "J_geometric": torsion_J([ss["outline"], deck], [], torsion_h)},
+                          "deck_left": dl, "deck_right": dr, "w_left": wl, "w_right": wr}
+        out[g["id"]] = {"type": tkey, "type_ref": tref, "params": p, "param_source": prov, "haunch": haunch, "stations": rows,
+                        "zones": zl, "solid_end": solid, "length_end_to_end": Lg}
     return {"format": "pdf2bim.sections/0.1", "units": "mm, mm^2, mm^4; y from the girder soffit; x from the girder centreline (+ right)",
             "modular_ratio_deck": n, "E_girder_MPa": Eg, "E_deck_MPa": Ed, "deck_thickness": tD, "torsion_h": torsion_h,
             "notes": ["Composite J is computed on the actual geometry as one material (deck not transformed); n = %.4f." % n,

@@ -95,7 +95,7 @@ SUPERT = {
              {'y': ('num', 'mm'), 'diameter': ('num', 'mm'), 'number': ('int', ''), 'from': ('num', 'm'), 'to': ('num', 'm')}),
     'fitments': ('table', '', 'Shear / torsion fitments along the girder',
                  {'from': ('num', 'm'), 'to': ('num', 'm'), 'diameter': ('num', 'mm'), 'legs': ('int', ''), 'spacing': ('num', 'mm')}),
-    'zones': ('table', '', 'Solid end blocks / open section along the girder',
+    'zones': ('table', '', 'Solid end blocks / open section along the girder. kind = solid_end_A | solid_end_B (from / to measured from that girder end) or solid | open (from / to measured from end A)',
               {'from': ('num', 'm'), 'to': ('num', 'm'), 'kind': ('enum', '')}),
     'deck_bars': ('table', '', 'Deck longitudinal reinforcement acting with the girder',
                   {'face': ('enum', ''), 'diameter': ('num', 'mm'), 'spacing': ('num', 'mm'), 'cover': ('num', 'mm')}),
@@ -139,6 +139,8 @@ SUPERSTRUCTURE = {
     }, 'Girders or planks, ordered across the deck'),
     'flange_gap': ('num', 'mm', 'Gap between adjacent precast top flanges'),
     'edge_flange_setback': ('num', 'mm', 'Outer flange edge of an edge member: setback from the deck edge (0 = lines up with the deck edge)'),
+    'cross_girders': ('table', '', 'Cast-in-place cross girders / end diaphragms on the support lines (plan width normal to the skewed face, overall depth)',
+                      {'support': ('str', ''), 'width': ('num', 'mm'), 'depth': ('num', 'mm'), 'concrete': ('str', '')}),
     'supert_types': ('list', SUPERT, 'Super-T girder definitions (members refer to them)'),
     'plank_types': ('list', PLANK, 'Plank definitions'),
 }
