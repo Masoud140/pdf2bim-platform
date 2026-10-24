@@ -111,9 +111,12 @@ class Model:
         self.loads[n] = self.loads.get(n, np.zeros(6)) + np.asarray(f, float)
 
     # ------------------------------------------------------------------
-    def solve(self, gravity=(0.0, 0.0, -1.0), loads=None):
+    def solve(self, gravity=(0.0, 0.0, -1.0), loads=None, imposed=None):
         """gravity: self-weight direction (0 vector = no self weight). loads: {node: (Fx..Mz)} for this solve only
-        (a load case); None = the loads added with load()."""
+        (a load case); None = the loads added with load(). imposed: {beam id: 12 local FREE end displacements} — an
+        imposed strain / curvature (temperature, shrinkage): fixed-end forces K u0 are added to the element, so the
+        member end forces are K (T u - u0)."""
+        imposed = imposed or {}
         nodal = self.loads if loads is None else {n: np.asarray(f, float) for n, f in loads.items()}
         ids = sorted(self.nodes)
         idx = {n: i for i, n in enumerate(ids)}
@@ -130,6 +133,8 @@ class Model:
             Kg = T.T @ K @ T
             q = R @ (g * e["w"])
             fl = fef_uniform(q, L)
+            if eid in imposed:
+                fl = fl + K @ np.asarray(imposed[eid], float)
             dofs = [DOF * idx[e["n1"]] + k for k in range(6)] + [DOF * idx[e["n2"]] + k for k in range(6)]
             ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
             rows += list(ii.ravel()); cols += list(jj.ravel()); vals += list(Kg.ravel())
