@@ -1,0 +1,380 @@
+{
+ "format": "pdf2bim.bridge/0.2",
+ "documents": [
+  {
+   "id": "GA-01",
+   "title": "General arrangement — sheet 1",
+   "number": "DRG-XXXX-001",
+   "revision": "A",
+   "kind": "drawing"
+  }
+ ],
+ "library": "library/products.json",
+ "standards": "standards/AS5100-2017.json",
+ "project": {
+  "bridge_id": {
+   "value": "BR-XX",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "title block",
+    "text": "BRIDGE BR-XX"
+   },
+   "original": {
+    "value": "BR-XX",
+    "unit": null,
+    "tag": "Direct",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "doc": "GA-01",
+     "view": "title block",
+     "text": "BRIDGE BR-XX"
+    }
+   },
+   "current": "original"
+  },
+  "importance_level": {
+   "value": null,
+   "tag": "Missing-Flagged",
+   "status": "open",
+   "note": "Not on the GA; ask the client / design criteria",
+   "original": {
+    "value": null,
+    "unit": null,
+    "tag": "Missing-Flagged",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "note": "Not on the GA; ask the client / design criteria"
+   },
+   "current": "original"
+  }
+ },
+ "deck": {
+  "edge_left": {
+   "value": -4.3,
+   "unit": "m",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "4300"
+   },
+   "original": {
+    "value": -4.3,
+    "unit": "m",
+    "tag": "Direct",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "doc": "GA-01",
+     "view": "typical section",
+     "text": "4300"
+    }
+   },
+   "current": "original"
+  },
+  "edge_right": {
+   "value": 4.9,
+   "unit": "m",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "4900"
+   },
+   "original": {
+    "value": 4.9,
+    "unit": "m",
+    "tag": "Direct",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "doc": "GA-01",
+     "view": "typical section",
+     "text": "4900"
+    }
+   },
+   "current": "original"
+  },
+  "slab_thickness": {
+   "value": 200,
+   "unit": "mm",
+   "tag": "Direct",
+   "status": "proposed",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section",
+    "text": "200 SLAB"
+   },
+   "original": {
+    "value": 200,
+    "unit": "mm",
+    "tag": "Direct",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "doc": "GA-01",
+     "view": "typical section",
+     "text": "200 SLAB"
+    }
+   },
+   "current": "original",
+   "overrides": [
+    {
+     "id": "OV-1",
+     "value": 220,
+     "unit": "mm",
+     "tag": "Confirmed-Engineer",
+     "from_value": 200,
+     "from_unit": "mm",
+     "reason": "Deck slab thickened to 220 mm for the cover required by the durability assessment (example only)",
+     "evidence": [
+      "Example durability memo EX-DUR-01 (fictional)"
+     ],
+     "author": "Engineer A",
+     "timestamp": "2026-10-24T10:05:00+11:00",
+     "approval": {
+      "status": "proposed"
+     },
+     "decision": "D-2",
+     "supersedes": null
+    }
+   ],
+   "significance": {
+    "level": "high",
+    "basis": "governs deck stiffness, self weight and composite section",
+    "set_by": "Engineer A"
+   }
+  },
+  "barriers": [
+   {
+    "id": "BL",
+    "side": {
+     "value": "left",
+     "tag": "Direct",
+     "status": "accepted",
+     "source": {
+      "doc": "GA-01",
+      "view": "typical section"
+     },
+     "original": {
+      "value": "left",
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+      "recorded_at": null,
+      "source": {
+       "doc": "GA-01",
+       "view": "typical section"
+      }
+     },
+     "current": "original"
+    },
+    "weight": {
+     "value": 8,
+     "unit": "kN/m",
+     "tag": "Assumed",
+     "status": "accepted",
+     "decision": "D-1",
+     "source": {
+      "note": "barrier drawing not in the set; agreed placeholder so the model runs"
+     },
+     "replace_with": "barrier drawing / product data sheet",
+     "original": {
+      "value": 8,
+      "unit": "kN/m",
+      "tag": "Assumed",
+      "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+      "recorded_at": null,
+      "source": {
+       "note": "barrier drawing not in the set; agreed placeholder so the model runs"
+      },
+      "replace_with": "barrier drawing / product data sheet"
+     },
+     "current": "original"
+    }
+   }
+  ]
+ },
+ "superstructure": {
+  "type": {
+   "value": "plank",
+   "tag": "Direct",
+   "status": "accepted",
+   "source": {
+    "doc": "GA-01",
+    "view": "typical section"
+   },
+   "original": {
+    "value": "plank",
+    "unit": null,
+    "tag": "Direct",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "doc": "GA-01",
+     "view": "typical section"
+    }
+   },
+   "current": "original"
+  },
+  "members": [
+   {
+    "id": "P1",
+    "line_offset_A": {
+     "value": null,
+     "unit": "m",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "value": null,
+      "unit": "m",
+      "tag": "Missing-Flagged",
+      "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+      "recorded_at": null
+     },
+     "current": "original"
+    }
+   }
+  ]
+ },
+ "supports": [
+  {
+   "id": "A",
+   "kind": {
+    "value": "spill-through abutment",
+    "tag": "Direct",
+    "status": "accepted",
+    "source": {
+     "doc": "GA-01",
+     "view": "elevation"
+    },
+    "original": {
+     "value": "spill-through abutment",
+     "unit": null,
+     "tag": "Direct",
+     "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+     "recorded_at": null,
+     "source": {
+      "doc": "GA-01",
+      "view": "elevation"
+     }
+    },
+    "current": "original"
+   },
+   "soil_layers": {
+    "rows": [
+     {
+      "cells": {
+       "name": "fill",
+       "rl_top": null,
+       "kh": 10
+      },
+      "tag": "Assumed",
+      "status": "open",
+      "source": {
+       "note": "geotechnical report not received"
+      },
+      "replace_with": "geotechnical report",
+      "original": {
+       "cells": {
+        "name": "fill",
+        "rl_top": null,
+        "kh": 10
+       },
+       "unit": null,
+       "tag": "Assumed",
+       "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+       "recorded_at": null,
+       "source": {
+        "note": "geotechnical report not received"
+       },
+       "replace_with": "geotechnical report"
+      },
+      "current": "original"
+     }
+    ]
+   }
+  }
+ ],
+ "loads": {
+  "shrinkage_creep_shortening": {
+   "value": 300,
+   "unit": "1e-6",
+   "tag": "Assumed",
+   "status": "open",
+   "source": {
+    "note": "placeholder"
+   },
+   "replace_with": "time-dependent analysis",
+   "original": {
+    "value": 300,
+    "unit": "1e-6",
+    "tag": "Assumed",
+    "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+    "recorded_at": null,
+    "source": {
+     "note": "placeholder"
+    },
+    "replace_with": "time-dependent analysis"
+   },
+   "current": "original"
+  }
+ },
+ "custom": {
+  "deck_joints": {
+   "section": "deck",
+   "columns": {
+    "support": "",
+    "type": ""
+   },
+   "rows": [
+    {
+     "cells": {
+      "support": "A",
+      "type": "compression seal"
+     },
+     "tag": "Assumed",
+     "status": "open",
+     "source": {
+      "note": "joint not shown on the GA"
+     },
+     "replace_with": "joint schedule",
+     "original": {
+      "cells": {
+       "support": "A",
+       "type": "compression seal"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
+      "recorded_at": null,
+      "source": {
+       "note": "joint not shown on the GA"
+      },
+      "replace_with": "joint schedule"
+     },
+     "current": "original"
+    }
+   ]
+  }
+ },
+ "revision": {
+  "number": 2,
+  "parent_hash": "sha256:0d0a50d108d8527b71bb2102df33d74d5a3b828dceba17f9263dfbfbc7c0f5f0",
+  "created": "2026-10-24T10:05:00+11:00",
+  "author": "Engineer A",
+  "note": "OV-1 proposed (deck slab 220 mm)",
+  "decision_log_sha256": null
+ },
+ "hash": {
+  "algorithm": "sha256",
+  "covers": "document-without-hash",
+  "canonicalisation": "pdf2bim-c14n/1",
+  "value": "sha256:6c46d6fce003eb8ce100e4969153710fa451f97a9b79fb3d16f481180c6ea809"
+ }
+}

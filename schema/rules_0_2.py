@@ -78,6 +78,10 @@ def check(doc, decisions=None):
             e("R3", f"tag {r.get('tag')} differs from the current entry {entry.get('tag')}")
         if eunit is not None and r.get("unit") is not None and eunit != r.get("unit"):
             e("R3", f"unit {r.get('unit')} differs from the current entry {eunit}")
+        # provenance on the record describes the CURRENT entry (not a stale drawing source)
+        for k in ("source", "derivation", "ref"):
+            if k in r and not _same(r[k], entry.get(k)):
+                e("R3", f"record {k} does not belong to the current entry {cur}")
         # accepted overrides other than current must be superseded by a later override
         for o in ovs:
             if o["approval"]["status"] == "accepted" and o["id"] != cur and not any(x.get("supersedes") == o["id"] for x in ovs):
