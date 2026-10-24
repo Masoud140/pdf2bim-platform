@@ -13,6 +13,7 @@ Conventions (MIDAS, beta = 0, as in claude/ANALYSIS_METHOD.md): local x = n1 -> 
 local z = x x y (up). Iy = bending about local y = VERTICAL bending (pairs with Asz); Iz = horizontal (pairs with Asy).
 Vertical members: y = global Y. Asy / Asz = None or 0 -> Euler-Bernoulli in that plane.
 """
+import math
 import numpy as np
 import scipy.sparse as sp
 import scipy.sparse.linalg as spl
@@ -63,6 +64,24 @@ def fef_uniform(q, L):
     f[1] = f[7] = q[1] * L / 2; f[5] = q[1] * L * L / 12; f[11] = -q[1] * L * L / 12
     f[2] = f[8] = q[2] * L / 2; f[4] = -q[2] * L * L / 12; f[10] = q[2] * L * L / 12
     return f
+
+
+def m_local(mu, Ip, L):
+    """Consistent element mass (local axes), as the dashboard's mLocal: axial and torsion linear, bending Hermite."""
+    M = np.zeros((12, 12))
+
+    def st(i, j, v):
+        M[i, j] = v; M[j, i] = v
+    m6 = mu * L / 6
+    st(0, 0, 2 * m6); st(6, 6, 2 * m6); st(0, 6, m6)
+    t6 = Ip * L / 6
+    st(3, 3, 2 * t6); st(9, 9, 2 * t6); st(3, 9, t6)
+    k = mu * L / 420
+    st(1, 1, 156 * k); st(1, 5, 22 * L * k); st(1, 7, 54 * k); st(1, 11, -13 * L * k); st(5, 5, 4 * L * L * k); st(5, 7, 13 * L * k)
+    st(5, 11, -3 * L * L * k); st(7, 7, 156 * k); st(7, 11, -22 * L * k); st(11, 11, 4 * L * L * k)
+    st(2, 2, 156 * k); st(2, 4, -22 * L * k); st(2, 8, 54 * k); st(2, 10, 13 * L * k); st(4, 4, 4 * L * L * k); st(4, 8, -13 * L * k)
+    st(4, 10, -3 * L * L * k); st(8, 8, 156 * k); st(8, 10, 22 * L * k); st(10, 10, 4 * L * L * k)
+    return M
 
 
 class Model:
@@ -193,6 +212,72 @@ class Model:
         L, R, T, Kl, fl, dofs = self._el[("link", lid)]
         f = (Kl @ (T @ self._u[dofs]))[6:9]
         return f, -(R.T @ f)
+
+    def modes(self, n=10, extra_mass=None, g=9.80665):
+        """Lowest n natural modes (consistent beam mass, as the dashboard: translations Hermite with mu = w / g, axial,
+        torsional inertia mu (Iy + Iz) / A; links and springs massless) + lumped translational extra_mass {node: t}.
+        Generalised eigenproblem K phi = w2 M phi on the free dofs (shift-invert Lanczos). Returns periods, mass-normalised
+        shapes per node and effective mass fractions in global X, Y, Z (of r^T M r, including the extra mass)."""
+        self.solve(gravity=(0.0, 0.0, 0.0), loads={})        # assembles the element matrices; refuses mechanisms
+        ids = sorted(self.nodes); idx = self._idx; nd = DOF * len(ids)
+        rk, ck, vk, rm, cm, vm = [], [], [], [], [], []
+        for key, (L, R, T, K, fl, dofs) in self._el.items():
+            Kg = T.T @ K @ T
+            ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
+            rk += list(ii.ravel()); ck += list(jj.ravel()); vk += list(Kg.ravel())
+            if isinstance(key, tuple):
+                continue
+            b = self.beams[key]
+            mu = b["w"] / g
+            if mu == 0:
+                continue
+            Ip = mu * (b["Iy"] + b["Iz"]) / b["A"] if b["A"] > 0 else 0.0
+            Mg = T.T @ m_local(mu, Ip, L) @ T
+            rm += list(ii.ravel()); cm += list(jj.ravel()); vm += list(Mg.ravel())
+        for nn, k in self.springs.items():
+            for d in range(6):
+                if k[d]:
+                    rk.append(DOF * idx[nn] + d); ck.append(DOF * idx[nn] + d); vk.append(k[d])
+        for nn, mm in (extra_mass or {}).items():
+            for d in range(3):
+                rm.append(DOF * idx[nn] + d); cm.append(DOF * idx[nn] + d); vm.append(mm)
+        Kt = sp.csr_matrix((vk, (rk, ck)), shape=(nd, nd)); Mt = sp.csr_matrix((vm, (rm, cm)), shape=(nd, nd))
+        fixed = sorted(DOF * idx[nn] + d for nn, ds in self.fixed.items() for d in ds)
+        free = np.setdiff1d(np.arange(nd), fixed)
+        Kff = Kt[free][:, free].tocsc(); Mff = Mt[free][:, free].tocsc()
+        Nf = Kff.shape[0]
+        if Nf <= 400 or n >= Nf - 1:
+            # small model: dense, M may be singular (massless dofs). K = L L^T; L^-1 M L^-T z = (1 / w2) z
+            import scipy.linalg as sla
+            Lc = np.linalg.cholesky(Kff.toarray())
+            Ai = sla.solve_triangular(Lc, Mff.toarray(), lower=True)
+            Ac = sla.solve_triangular(Lc, Ai.T, lower=True)
+            Ac = 0.5 * (Ac + Ac.T)
+            lam, Z = np.linalg.eigh(Ac)
+            keep = np.argsort(-lam)[:n]
+            keep = [j for j in keep if lam[j] > 1e-14 * max(lam.max(), 1e-300)]
+            w2 = np.array([1 / lam[j] for j in keep])
+            V = sla.solve_triangular(Lc.T, Z[:, keep], lower=False)
+        else:
+            w2, V = spl.eigsh(Kff, k=n, M=Mff, sigma=0.0, which="LM")
+        o = np.argsort(w2); w2, V = w2[o], V[:, o]
+        out = []
+        r = {d: np.zeros(len(free)) for d in range(3)}
+        pos = {f: i for i, f in enumerate(free)}
+        for nn in ids:
+            for d in range(3):
+                f = DOF * idx[nn] + d
+                if f in pos:
+                    r[d][pos[f]] = 1.0
+        mtot = {d: float(r[d] @ (Mff @ r[d])) for d in range(3)}
+        for k in range(len(w2)):
+            phi = V[:, k] / math.sqrt(V[:, k] @ (Mff @ V[:, k]))
+            Mphi = Mff @ phi
+            eff = {"XYZ"[d]: float((phi @ (Mff @ r[d])) ** 2 / mtot[d]) if mtot[d] > 0 else 0.0 for d in range(3)}
+            full = np.zeros(nd); full[free] = phi
+            out.append({"w": math.sqrt(w2[k]), "T": 2 * math.pi / math.sqrt(w2[k]), "f": math.sqrt(w2[k]) / (2 * math.pi), "eff": eff,
+                        "shape": {nn: full[DOF * idx[nn]:DOF * idx[nn] + 6] for nn in ids}})
+        return {"modes": out, "mass_t": mtot}
 
     def end_forces(self, eid):
         """Local end forces f = K T u - f_eq (forces the nodes exert on the element), for a beam id."""
