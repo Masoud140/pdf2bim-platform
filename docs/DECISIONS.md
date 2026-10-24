@@ -237,3 +237,17 @@
 - **Consequence:**
   - the BR13A superstructure reproduces the frozen model within −1.2 % weight, 2 % deflection and ±11 % per-bearing reaction, with the differences explained (P3_MODEL_METHOD §3);
   - new proposed inputs D-37 (cross girder) and D-38 (solid end zones).
+
+## ADR-023 P3b integrated model choices (provisional)
+
+- **Decision (agent, 2026-10-24; reversible):**
+  1. The substructure is **built from the description**, not taken from the frozen .mct (the dashboard only patches its frozen sill / pile mesh): sill beam on its plan setout centroid, soffit through the pile-head RLs, piles split at rock / ground / layer levels, springs by the dashboard rule (kh · D · tributary).
+  2. **Bearings are short vertical links** from the Direct seat RL to the girder soffit (the frozen model spans 1.78 m from the sill top to the girder node line). The Assumed bearing height is checked against the drawn gap, not used for geometry (F-6).
+  3. **Bearing positions come from P1** (GA girder setout ∩ support line). The abutment drawings' bearing chain disagrees by up to 530 mm (F-5); the engineer must resolve it.
+  4. **Elastomer stiffness method as the dashboard** (Ec = 6 G S², bulk 2000 MPa). The coefficients are read from `standards/data` (unverified), so results carry the UNVERIFIED label.
+  5. **The solver refuses numerically singular systems** (LU pivot ratio < 1e-13, or free-dof residual > 1e-4 of the largest load), because a mechanism was otherwise solved silently.
+- **Alternatives considered:**
+  - keep the frozen sill / pile mesh: rejected, since the platform must build any bridge;
+  - long links to the girder node line, as frozen: rejected, because it is not the physical bearing height;
+  - take bearing positions from the abutment drawing: deferred until F-5 is resolved.
+- **Consequence:** BR13A vs the frozen integrated model: weight −0.6 %, bearing Rz within 5.6 %, pile toe within 2.4 %, midspan within 0.3 mm. New proposals D-39 (sill setout), D-40 (layer 12 mm, Assumed), D-41 (seat RLs).

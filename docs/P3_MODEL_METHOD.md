@@ -70,14 +70,67 @@
 | D-36 | Haunch 0 (Assumed) |
 | D-37 | Cross girder 800 × 1065 (engineer query answer) |
 | D-38 | Solid end zones 2.0 m (interpretation pending, Task B-1) |
+| D-39 | Sill beam plan setout, structured from the takeoff (P3b) |
+| D-40 | Elastomer layer thickness 12 mm (Assumed, P3b) |
+| D-41 | Bearing seat RLs (Direct, from the takeoff; girder assignment by order, P3b) |
 
 All of these are **proposed**, so every P3 result is PROVISIONAL.
 
-## 5. Not yet done (P3b)
+## 5. P3b stage 2 — integrated model (`pdf2bim/model/substructure.py`, `bearings.py`)
 
-- Substructure: sill beams, columns / piles and soil / rock springs from `supports[]`; bearings as elastomeric links from the bearing data.
+`build_integrated(doc, geo, S, std, allow_proposed)` = the P3a superstructure (bearings left unsupported) + per support:
+
+| Part | How it is built | Inputs (BR13A tag) |
+|---|---|---|
+| Sill beam | Straight beam line parallel to the line of bearings, at the centroid of the plan setout (front / back faces, start / end). Soffit = least-squares straight line through the pile-head RLs; centroid = soffit + d / 2. Nodes at both ends, every pile and every bearing | `headstock_setout` (D-39, Direct / Calculated, proposed); `headstock.depth` (Direct) |
+| Piles | Vertical columns rl_top → rl_toe. Nodes at the rock level, the ground at the pile and every soil-layer top (cut levels within 50 mm merged, rock level kept), then pieces of about `column_segment` | `piles[]` (Direct / Calculated); `ground_rl` (Assumed, D-12) |
+| Springs | Global X and Y at each pile node: k = kh · D · tributary length (rock below rl_rock; soil layers between ground and rock) × `soil_factor` | `rock_kh` 200, fill kh 10 MN/m³ (Assumed) |
+| Pile toe | `analysis.pile_toe`: vertical only (Z fixed) | Model |
+| Bearings | Seat node at `seat_rl` under the P1 bearing centre; top node at the girder soffit (girder line node − D); vertical link seat → top with local z along the chord: (Kv, across, along). Fixed = `bearing_fixed_stiffness` (1e7), free = 0, elastic = Ks. Rotations free | `seat_rl` (D-41, Direct, proposed); plan size / T / G (Assumed); layer 12 mm (D-40, Assumed) |
+| Bearing stiffness | Ks = G A / T; S = ab / (2(a+b)t); Ec = 6 G S²; 1/Eeff = 1/Ec + 1/2000; Kv = Eeff A / T. The 6 and the 2000 MPa come from `standards/data/AS5100.4.json` (**code-extracted-unverified**); results carry the UNVERIFIED label | — |
+| Rigid offsets | Massless, sill section × 1e3: sill → pile head, sill → seat, girder node → bearing top | Model |
+
+**Not modelled:** curtain wall, wingwalls, lateral restraint blocks, backfill / earth pressure (load-case stage), access slab.
+
+**Solver change:** `solve()` now refuses a numerically singular system. Previously a structure with no lateral support was "solved" (814 m displacement): the LU factorisation does not raise on round-off pivots. New refusals: LU pivot ratio < 1e-13 (a mechanism gives ~1e-16, the valid BR13A models ~1e-8), and a free-dof residual > 1e-4 of the largest load term. `Model.link_force(lid)` returns the link forces.
+
+### 5.1 Verification (`tests/model/test_substructure.py`, 35 / 35)
+
+- **Closed form:** Ks, Kv by the hand formula; pile discretisation rules; Hetényi formula limit (column length 0 → k / 2β).
+- **Invariants:**
+  - equilibrium residual < 1e-6 of the weight;
+  - pile-toe vertical reactions = total weight;
+  - bearing vertical forces = superstructure weight;
+  - horizontal spring and bearing forces sum to zero under gravity;
+  - sill weight = b d L γ; pile weight = πD²/4 L γ;
+  - rock and fill springs sum to kh D × length;
+  - sill centroid = pile-head RL + d / 2;
+  - link stiffness vector and axes.
+- **Hand check (V2):** pile A1 head stiffness with rock springs only is 2731 kN/m vs Hetényi 2700 kN/m (+1.1 %). βLs = 2.63 < π, so the semi-infinite hand value is slightly stiff.
+- **Refusals:**
+  - without `allow_proposed` the build is refused;
+  - with zero soil / rock stiffness the solve is refused as a mechanism.
+- **Mutation check:** 4 / 4 injected faults caught (Ks formula, sill level sign, rock-spring extent, across / along swap). Two were caught only after two tests were added.
+
+### 5.2 BR13A vs the frozen integrated model (V5, `projects/BR13A/model/BR13A.integrated_vs_frozen.md`)
+
+| Quantity | P3b vs frozen |
+|---|---|
+| Weight: superstructure / sill / piles / total | −1.2 % / −0.0 % / −0.0 % / −0.6 % (8488 vs 8538 kN) |
+| Bearing Rz | −5.6 % … +3.7 % |
+| Pile toe Rz | −2.4 % … +1.6 % |
+| Girder midspan uz | within 0.3 mm (−18.4 … −18.7 mm) |
+| Fixed-bearing (A) along forces | Self-equilibrating in both (sum ≈ 0); their split differs (e.g. A-G3 −47 vs −16 kN), since the frozen links are 1.78 m long and these are 0.10–0.13 m. Sensitive to the link idealisation; to be read with the restraint-block detail |
+
+**Findings for the engineer (not resolved by the AI):**
+- **F-5:** the abutment drawings' bearing positions along the line of bearings (A: 4977 / 2251 / −810 / −3706 mm from the SOP; B: −3708 / −812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line ∩ support line, from the GA girder setout) by **50–530 mm**. The model uses the P1 centres. Which is correct must be confirmed against DRG 202100 / 202101 and the GA.
+- **F-6:** the Direct seat RLs sit 100–127 mm below the P1 girder soffit, but the Assumed bearing height is 150 mm (−23 to −50 mm). Both the bearing height (Assumed) and the haunch (D-36, Assumed 0) feed into this. The model takes the drawn levels; the bearing height is not used for geometry.
+
+## 6. Not yet done (P3b, remaining)
+
 - Load cases beyond self weight: SDL, traffic, temperature and the others; then combinations via the standards data.
 - MIDAS .mct writer. Its syntax must be verified by import (MCT_EXPORT_METHOD §0), so it needs an engineer import test.
+- Modes (T7): no eigen-solver in the Python core yet.
 - Per-element deck-strip tributary at the skewed ends (MEMBER_PROPERTIES Stage A); for now the end stations use a half step.
 - Shear areas Asy for girders (Asy = none, so horizontal shear deformation is ignored); the girder Asz uses the webs only.
 - Run records (input hash, engine commit, settings) on analysis results.

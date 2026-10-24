@@ -2,6 +2,19 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-24 — P3b stage 2: integrated model (branch `p3-model`)
+
+- **Added:**
+  - `pdf2bim/model/substructure.py` (sill beams, piles, rock / fill springs, bearing links, pile-head hand check);
+  - `pdf2bim/model/bearings.py` (elastomer Ks / Kv via the standards accessor);
+  - `tools/compare_frozen_integrated.py`.
+- **Solver:** refuses numerically singular systems; `link_force()`. Builder: `bearings="none"` option.
+- **Format:** `bearings.items[].seat_rl`, `layer_thickness`; `supports[].headstock_setout`.
+- **BR13A:** D-39, D-40, D-41 proposed.
+- **Findings:** F-5 (bearing positions disagree between the abutment drawings and the GA, up to 530 mm); F-6 (seat-to-soffit gap 100–127 mm vs the Assumed 150 mm bearing height).
+- **Tests:** 35 substructure (4 / 4 mutations caught).
+- **Result:** vs the frozen integrated model: weight −0.6 %, bearing Rz ≤ 5.6 %, pile toe ≤ 2.4 %, midspan ≤ 0.3 mm. See `docs/P3_MODEL_METHOD.md` §5.
+
 ## 2026-10-24 — P3a model builder + solver (branch `p3-model`)
 
 - **Added:**
