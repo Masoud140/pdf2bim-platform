@@ -18,7 +18,7 @@ As the dashboard (src/sub3.js tmRun, src/sub7.js tgImposed), generalised:
   phi = M / EI (+ = strain increasing upwards, top hotter), imposed on that element. Polygons are cut into horizontal
   bands at the profile breakpoints; within a band dT is linear in y, so the polygon moments give the integrals exactly.
 Free displacements of an element (local, node 1 held): u[6] = e0 L, u[8] = -phi L^2 / 2, u[10] = phi L.
-All inputs here are description values (BR13A: Assumed placeholders); alpha from loads.temperature.
+All inputs here are description values (they may be Assumed placeholders); alpha from loads.temperature.
 """
 import math
 import numpy as np
