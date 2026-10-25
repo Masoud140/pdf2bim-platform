@@ -159,6 +159,8 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `bearings.items[].restraint_transverse` | enum |  | fixed / free / elastic — one of: fixed, free, elastic |
 | `bearings.items[].height` | num | mm | Bearing + plinth height (headstock top to girder soffit) |
 | `bearings.items[].seat_rl` | num | m | Bearing seat RL (top of mortar pad / plinth, underside of the bearing) |
+| `bearings.items[].top_rl` | num | m | Top-of-bearing RL (e.g. a bearing schedule RL X labelled top of bearing); with the bearing height it gives the seat when seat_rl is not given |
+| `bearings.items[].bearing_height` | num | mm | Bearing unit height (elastomer, shims and cover layers), top of bearing to its underside |
 | `bearings.items[].layer_thickness` | num | mm | Thickness of one internal elastomer layer (sets the shape factor and the compression stiffness) |
 
 ## supports[] — Supports (abutments A and B for a single span), id = support id used on the support lines

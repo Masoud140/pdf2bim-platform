@@ -420,14 +420,14 @@
       "ch": 1742.793,
       "RL": 134.391,
       "grade_in": null,
-      "grade_out": null,
+      "grade_out": -4.971,
       "curve_length": null
      },
      "tag": "Direct",
      "status": "accepted",
      "source": {
-      "doc": "DRG-202012",
-      "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — P1 (TP)"
+      "doc": "DRG-202012 vertical alignment diagram",
+      "note": "grades -4.971 % / -1.728 % printed"
      },
      "original": {
       "cells": {
@@ -446,21 +446,61 @@
        "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — P1 (TP)"
       }
      },
-     "current": "original"
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "ch": 1742.793,
+        "RL": 134.391,
+        "grade_in": null,
+        "grade_out": -4.971,
+        "curve_length": null
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "ch": 1742.793,
+        "RL": 134.391,
+        "grade_in": null,
+        "grade_out": null,
+        "curve_length": null
+       },
+       "from_unit": null,
+       "reason": "P5-1: grades printed on the drawing",
+       "evidence": [
+        "DRG-202012 vertical alignment diagram"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202012 vertical alignment diagram",
+        "note": "grades -4.971 % / -1.728 % printed"
+       }
+      }
+     ]
     },
     {
      "cells": {
       "ch": 1896.831,
       "RL": 131.729,
-      "grade_in": null,
-      "grade_out": null,
+      "grade_in": -4.971,
+      "grade_out": -1.728,
       "curve_length": 308.075
      },
      "tag": "Direct",
      "status": "accepted",
      "source": {
-      "doc": "DRG-202012",
-      "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — VPI, vertical curve length"
+      "doc": "DRG-202012 vertical alignment diagram",
+      "note": "grades -4.971 % / -1.728 % printed"
      },
      "original": {
       "cells": {
@@ -479,21 +519,61 @@
        "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — VPI, vertical curve length"
       }
      },
-     "current": "original"
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "ch": 1896.831,
+        "RL": 131.729,
+        "grade_in": -4.971,
+        "grade_out": -1.728,
+        "curve_length": 308.075
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "ch": 1896.831,
+        "RL": 131.729,
+        "grade_in": null,
+        "grade_out": null,
+        "curve_length": 308.075
+       },
+       "from_unit": null,
+       "reason": "P5-1: grades printed on the drawing",
+       "evidence": [
+        "DRG-202012 vertical alignment diagram"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202012 vertical alignment diagram",
+        "note": "grades -4.971 % / -1.728 % printed"
+       }
+      }
+     ]
     },
     {
      "cells": {
       "ch": 2050.869,
       "RL": 124.072,
-      "grade_in": null,
+      "grade_in": -1.728,
       "grade_out": null,
       "curve_length": null
      },
      "tag": "Direct",
      "status": "accepted",
      "source": {
-      "doc": "DRG-202012",
-      "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — P3 (TP)"
+      "doc": "DRG-202012 vertical alignment diagram",
+      "note": "grades -4.971 % / -1.728 % printed"
      },
      "original": {
       "cells": {
@@ -512,7 +592,47 @@
        "view": "Horizontal/vertical alignment and skew diagram (DRG 202012) — P3 (TP)"
       }
      },
-     "current": "original"
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "ch": 2050.869,
+        "RL": 124.072,
+        "grade_in": -1.728,
+        "grade_out": null,
+        "curve_length": null
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "ch": 2050.869,
+        "RL": 124.072,
+        "grade_in": null,
+        "grade_out": null,
+        "curve_length": null
+       },
+       "from_unit": null,
+       "reason": "P5-1: grades printed on the drawing",
+       "evidence": [
+        "DRG-202012 vertical alignment diagram"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202012 vertical alignment diagram",
+        "note": "grades -4.971 % / -1.728 % printed"
+       }
+      }
+     ]
     }
    ]
   },
@@ -558,9 +678,10 @@
       "support": "A",
       "ch": 1895.3,
       "skew": 34.5,
-      "skew_dms": null
+      "skew_dms": null,
+      "bearing": 44.029166
      },
-     "tag": "Confirmed-Engineer",
+     "tag": "Direct",
      "status": "accepted",
      "decision": "D-4",
      "original": {
@@ -575,7 +696,7 @@
       "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
       "recorded_at": null
      },
-     "current": "original",
+     "current": "OV-1",
      "overrides": [
       {
        "id": "OV-1",
@@ -602,7 +723,10 @@
        "author": "AI",
        "timestamp": "2026-10-24T13:00:00+11:00",
        "approval": {
-        "status": "proposed"
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:55:31+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
        },
        "decision": "D-34",
        "supersedes": null,
@@ -611,16 +735,21 @@
         "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
        }
       }
-     ]
+     ],
+     "source": {
+      "doc": "DRG-202012",
+      "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
+     }
     },
     {
      "cells": {
       "support": "B",
       "ch": 1924.21,
       "skew": 34.5,
-      "skew_dms": null
+      "skew_dms": null,
+      "bearing": 44.029166
      },
-     "tag": "Confirmed-Engineer",
+     "tag": "Direct",
      "status": "accepted",
      "decision": "D-4",
      "original": {
@@ -635,7 +764,7 @@
       "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
       "recorded_at": null
      },
-     "current": "original",
+     "current": "OV-1",
      "overrides": [
       {
        "id": "OV-1",
@@ -662,7 +791,10 @@
        "author": "AI",
        "timestamp": "2026-10-24T13:00:00+11:00",
        "approval": {
-        "status": "proposed"
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:55:31+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
        },
        "decision": "D-34",
        "supersedes": null,
@@ -671,7 +803,11 @@
         "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
        }
       }
-     ]
+     ],
+     "source": {
+      "doc": "DRG-202012",
+      "view": "Horizontal/vertical alignment and skew diagram — support line bearing (as recorded in alignment.support_lines.note)"
+     }
     }
    ],
    "note": "Support line bearing 44.029166° (Direct, DRG 202012)"
@@ -6535,7 +6671,110 @@
      ]
     },
     "fitments": {
-     "rows": [],
+     "rows": [
+      {
+       "cells": {
+        "from": 0.0,
+        "to": 3.0,
+        "diameter": 12,
+        "legs": 2,
+        "spacing": 100
+       },
+       "tag": "Assumed",
+       "source": {
+        "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+       },
+       "replace_with": "girder reinforcement drawings",
+       "status": "accepted",
+       "decision": "D-45",
+       "original": {
+        "cells": {
+         "from": 0.0,
+         "to": 3.0,
+         "diameter": 12,
+         "legs": 2,
+         "spacing": 100
+        },
+        "unit": null,
+        "tag": "Assumed",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-25T21:56:54+00:00",
+        "source": {
+         "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+        },
+        "replace_with": "girder reinforcement drawings"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 3.0,
+        "to": 27.0,
+        "diameter": 12,
+        "legs": 2,
+        "spacing": 200
+       },
+       "tag": "Assumed",
+       "source": {
+        "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+       },
+       "replace_with": "girder reinforcement drawings",
+       "status": "accepted",
+       "decision": "D-45",
+       "original": {
+        "cells": {
+         "from": 3.0,
+         "to": 27.0,
+         "diameter": 12,
+         "legs": 2,
+         "spacing": 200
+        },
+        "unit": null,
+        "tag": "Assumed",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-25T21:56:54+00:00",
+        "source": {
+         "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+        },
+        "replace_with": "girder reinforcement drawings"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 27.0,
+        "to": 31.0,
+        "diameter": 12,
+        "legs": 2,
+        "spacing": 100
+       },
+       "tag": "Assumed",
+       "source": {
+        "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+       },
+       "replace_with": "girder reinforcement drawings",
+       "status": "accepted",
+       "decision": "D-45",
+       "original": {
+        "cells": {
+         "from": 27.0,
+         "to": 31.0,
+         "diameter": 12,
+         "legs": 2,
+         "spacing": 100
+        },
+        "unit": null,
+        "tag": "Assumed",
+        "recorded_by": "AI",
+        "recorded_at": "2026-10-25T21:56:54+00:00",
+        "source": {
+         "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+        },
+        "replace_with": "girder reinforcement drawings"
+       },
+       "current": "original"
+      }
+     ],
      "note": "Not entered — Missing"
     },
     "zones": {
@@ -6551,7 +6790,7 @@
         "doc": "DRG-202302",
         "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-38",
        "original": {
         "cells": {
@@ -6581,7 +6820,7 @@
         "doc": "DRG-202302",
         "view": "PSC girder plan / elevation: 2000 END DIAPHRAGM (interpretation pending, Task B-1)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-38",
        "original": {
         "cells": {
@@ -6608,11 +6847,11 @@
       {
        "cells": {
         "face": "top",
-        "diameter": null,
-        "spacing": null,
-        "cover": null
+        "diameter": 16,
+        "spacing": 200,
+        "cover": 40
        },
-       "tag": "Missing-Flagged",
+       "tag": "Assumed",
        "status": "open",
        "original": {
         "cells": {
@@ -6626,16 +6865,56 @@
         "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
         "recorded_at": null
        },
-       "current": "original"
+       "current": "OV-1",
+       "overrides": [
+        {
+         "id": "OV-1",
+         "value": {
+          "face": "top",
+          "diameter": 16,
+          "spacing": 200,
+          "cover": 40
+         },
+         "unit": null,
+         "tag": "Assumed",
+         "from_value": {
+          "face": "top",
+          "diameter": null,
+          "spacing": null,
+          "cover": null
+         },
+         "from_unit": null,
+         "reason": "D-45 development value",
+         "evidence": [
+          "owner instruction 2026-10-26"
+         ],
+         "author": "AI",
+         "timestamp": "2026-10-25T21:56:54+00:00",
+         "approval": {
+          "status": "accepted",
+          "approved_by": "Masoud",
+          "approved_at": "2026-10-25T21:56:56+00:00",
+          "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+         },
+         "decision": "D-45",
+         "supersedes": null,
+         "source": {
+          "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+         }
+        }
+       ],
+       "source": {
+        "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+       }
       },
       {
        "cells": {
         "face": "bot",
-        "diameter": null,
-        "spacing": null,
-        "cover": null
+        "diameter": 16,
+        "spacing": 200,
+        "cover": 30
        },
-       "tag": "Missing-Flagged",
+       "tag": "Assumed",
        "status": "open",
        "original": {
         "cells": {
@@ -6649,7 +6928,47 @@
         "recorded_by": "migration from pdf2bim.bridge/0.1 (first recorded state)",
         "recorded_at": null
        },
-       "current": "original"
+       "current": "OV-1",
+       "overrides": [
+        {
+         "id": "OV-1",
+         "value": {
+          "face": "bot",
+          "diameter": 16,
+          "spacing": 200,
+          "cover": 30
+         },
+         "unit": null,
+         "tag": "Assumed",
+         "from_value": {
+          "face": "bot",
+          "diameter": null,
+          "spacing": null,
+          "cover": null
+         },
+         "from_unit": null,
+         "reason": "D-45 development value",
+         "evidence": [
+          "owner instruction 2026-10-26"
+         ],
+         "author": "AI",
+         "timestamp": "2026-10-25T21:56:54+00:00",
+         "approval": {
+          "status": "accepted",
+          "approved_by": "Masoud",
+          "approved_at": "2026-10-25T21:56:56+00:00",
+          "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+         },
+         "decision": "D-45",
+         "supersedes": null,
+         "source": {
+          "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+         }
+        }
+       ],
+       "source": {
+        "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
+       }
       }
      ]
     },
@@ -6743,7 +7062,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6775,7 +7094,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6807,7 +7126,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6839,7 +7158,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6871,7 +7190,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6903,7 +7222,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6935,7 +7254,7 @@
        "source": {
         "note": "dashboard Section designer value tagged Standard (product sheet), v45"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6967,7 +7286,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -6999,7 +7318,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -7031,7 +7350,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -7063,7 +7382,7 @@
         "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
        },
        "ref": "lib:supert/T4/ifW",
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -7095,7 +7414,7 @@
         "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)"
        },
        "ref": "lib:supert/T4/ifD",
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -7127,7 +7446,7 @@
         "doc": "DRG-202304",
         "view": "DRG 202304 girder section (as entered in the dashboard Section designer, v45)"
        },
-       "status": "proposed",
+       "status": "accepted",
        "decision": "D-35",
        "original": {
         "cells": {
@@ -7158,7 +7477,7 @@
       "note": "dashboard default 0 mm; not a drawing value"
      },
      "replace_with": "girder-to-deck haunch from the deck / girder drawings",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-36",
      "original": {
       "value": 0,
@@ -7190,7 +7509,7 @@
       "doc": "DRG-202011",
       "view": "cross-girder detail; engineer query response 2026-10-13"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-37",
      "original": {
       "cells": {
@@ -7222,7 +7541,7 @@
       "doc": "DRG-202011",
       "view": "cross-girder detail; engineer query response 2026-10-13"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-37",
      "original": {
       "cells": {
@@ -7460,7 +7779,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -7476,15 +7795,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 128.39,
+     "value": 128.315,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 112: Bearing 4 mortar pad / bearing seat RL",
-      "text": "128.390"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 128.390 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 128.39,
@@ -7497,6 +7815,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 112: Bearing 4 mortar pad / bearing seat RL",
        "text": "128.390"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 128.315,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.39,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.390 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 128.39,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 128.39,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -7713,7 +8103,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -7729,15 +8119,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 128.561,
+     "value": 128.486,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 106: Bearing 3 mortar pad / bearing seat RL",
-      "text": "128.561"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 128.561 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 128.561,
@@ -7750,6 +8139,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 106: Bearing 3 mortar pad / bearing seat RL",
        "text": "128.561"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 128.486,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.561,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.561 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 128.561,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 128.561,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -7966,7 +8427,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -7982,15 +8443,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 128.745,
+     "value": 128.67,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 100: Bearing 2 mortar pad / bearing seat RL",
-      "text": "128.745"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 128.745 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 128.745,
@@ -8003,6 +8463,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 100: Bearing 2 mortar pad / bearing seat RL",
        "text": "128.745"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 128.67,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.745,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.745 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 128.745,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 128.745,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -8219,7 +8751,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -8235,15 +8767,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 128.899,
+     "value": 128.824,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 94: Bearing 1 mortar pad / bearing seat RL",
-      "text": "128.899"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 128.899 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 128.899,
@@ -8256,6 +8787,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support A row 94: Bearing 1 mortar pad / bearing seat RL",
        "text": "128.899"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 128.824,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.899,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.899 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 128.899,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 128.899,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -8472,7 +9075,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -8488,15 +9091,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 127.371,
+     "value": 127.296,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 94: Bearing 1 mortar pad / bearing seat RL",
-      "text": "127.371"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 127.371 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 127.371,
@@ -8509,6 +9111,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 94: Bearing 1 mortar pad / bearing seat RL",
        "text": "127.371"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 127.296,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.371,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.371 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 127.371,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 127.371,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -8725,7 +9399,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -8741,15 +9415,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 127.547,
+     "value": 127.472,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 100: Bearing 2 mortar pad / bearing seat RL",
-      "text": "127.547"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 127.547 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 127.547,
@@ -8762,6 +9435,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 100: Bearing 2 mortar pad / bearing seat RL",
        "text": "127.547"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 127.472,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.547,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.547 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 127.547,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 127.547,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -8978,7 +9723,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -8994,15 +9739,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 127.736,
+     "value": 127.661,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 106: Bearing 3 mortar pad / bearing seat RL",
-      "text": "127.736"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 127.736 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 127.736,
@@ -9015,6 +9759,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 106: Bearing 3 mortar pad / bearing seat RL",
        "text": "127.736"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 127.661,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.736,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.736 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 127.736,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 127.736,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -9231,7 +10047,7 @@
       "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)"
      },
      "replace_with": "bearing schedule / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-40",
      "original": {
       "value": 12,
@@ -9247,15 +10063,14 @@
      "current": "original"
     },
     "seat_rl": {
-     "value": 127.895,
+     "value": 127.82,
      "unit": "m",
-     "tag": "Direct",
+     "tag": "Calculated",
      "source": {
-      "doc": "DRG-202281",
-      "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 112: Bearing 4 mortar pad / bearing seat RL",
-      "text": "127.895"
+      "doc": "DRG-202281 RL X (top of bearing)",
+      "note": "seat = top_rl 127.895 - bearing_height 0.075 m (Assumed)"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-41",
      "original": {
       "value": 127.895,
@@ -9268,6 +10083,78 @@
        "view": "202280-202282 bearing schedule / seat levels; takeoff (custom.takeoff_abutments) support B row 112: Bearing 4 mortar pad / bearing seat RL",
        "text": "127.895"
       }
+     },
+     "current": "OV-1",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": 127.82,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.895,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:56:37+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:56:55+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
+       },
+       "decision": "D-44",
+       "supersedes": null,
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.895 - bearing_height 0.075 m (Assumed)"
+       }
+      }
+     ]
+    },
+    "top_rl": {
+     "value": 127.895,
+     "unit": "m",
+     "tag": "Direct",
+     "source": {
+      "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+     },
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 127.895,
+      "unit": "m",
+      "tag": "Direct",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "doc": "DRG-202281 Table 1 BEARING DATA RL 'X'; DRG-202282 labels RL 'X' TOP OF BEARING"
+      }
+     },
+     "current": "original"
+    },
+    "bearing_height": {
+     "value": 75,
+     "unit": "mm",
+     "tag": "Assumed",
+     "source": {
+      "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+     },
+     "replace_with": "bearing schedule / supplier drawing",
+     "status": "accepted",
+     "decision": "D-44",
+     "original": {
+      "value": 75,
+      "unit": "mm",
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:56:37+00:00",
+      "source": {
+       "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)"
+      },
+      "replace_with": "bearing schedule / supplier drawing"
      },
      "current": "original"
     }
@@ -10209,7 +11096,7 @@
        "doc": "DRG-202100",
        "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -10240,7 +11127,7 @@
         "supports[A].curtain_wall.thickness"
        ]
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -10271,7 +11158,7 @@
        "doc": "DRG-202100",
        "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -10299,7 +11186,7 @@
        "doc": "DRG-202100",
        "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -11254,7 +12141,7 @@
        "doc": "DRG-202103",
        "view": "takeoff row 22: front face of abutment (sill beam) from the line of bearings; 202104 Detail A/C, 202103 Sec 3/7"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -11285,7 +12172,7 @@
         "supports[B].curtain_wall.thickness"
        ]
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -11316,7 +12203,7 @@
        "doc": "DRG-202101",
        "view": "takeoff row 27: sill front face, south end, from SOP (plan dimension chain)"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -11344,7 +12231,7 @@
        "doc": "DRG-202101",
        "view": "takeoff row 26: sill front face, north end, from SOP (plan dimension chain)"
       },
-      "status": "proposed",
+      "status": "accepted",
       "decision": "D-39",
       "original": {
        "cells": {
@@ -12811,10 +13698,10 @@
       "item": "kp",
       "value": "1.7"
      },
-     "tag": "Assumed",
+     "tag": "Direct",
      "status": "accepted",
      "source": {
-      "note": "placeholder"
+      "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…Y FACTOR kp: 1.7'"
      },
      "replace_with": "project seismic criteria / geotechnical report",
      "decision": "D-2",
@@ -12832,7 +13719,7 @@
       },
       "replace_with": "project seismic criteria / geotechnical report"
      },
-     "current": "original",
+     "current": "OV-1",
      "overrides": [
       {
        "id": "OV-1",
@@ -12854,7 +13741,10 @@
        "author": "AI",
        "timestamp": "2026-10-25T12:58:01+00:00",
        "approval": {
-        "status": "proposed"
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:55:34+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
        },
        "decision": "D-43",
        "supersedes": null,
@@ -12869,9 +13759,8 @@
       "item": "Z",
       "value": "0.08"
      },
-     "tag": "Standard-verify",
+     "tag": "Direct",
      "status": "accepted",
-     "ref": "std:AS1170.4/Z",
      "original": {
       "cells": {
        "item": "Z",
@@ -12883,7 +13772,7 @@
       "recorded_at": null,
       "ref": "std:AS1170.4/Z"
      },
-     "current": "original",
+     "current": "OV-1",
      "overrides": [
       {
        "id": "OV-1",
@@ -12905,7 +13794,10 @@
        "author": "AI",
        "timestamp": "2026-10-25T12:58:01+00:00",
        "approval": {
-        "status": "proposed"
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:55:34+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
        },
        "decision": "D-43",
        "supersedes": null,
@@ -12913,17 +13805,21 @@
         "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…ARD FACTOR Z: 0.08'"
        }
       }
-     ]
+     ],
+     "source": {
+      "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…ARD FACTOR Z: 0.08'"
+     }
     },
     {
      "cells": {
       "item": "site_class",
-      "value": "Ce"
+      "value": "Be"
      },
-     "tag": "Assumed",
+     "tag": "Direct",
      "status": "accepted",
      "source": {
-      "note": "placeholder"
+      "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…L CLASS: Be'",
+      "note": "label cut in the text layer ('…L CLASS'); the description has Ce (Assumed)"
      },
      "replace_with": "project seismic criteria / geotechnical report",
      "decision": "D-2",
@@ -12941,7 +13837,7 @@
       },
       "replace_with": "project seismic criteria / geotechnical report"
      },
-     "current": "original",
+     "current": "OV-1",
      "overrides": [
       {
        "id": "OV-1",
@@ -12963,7 +13859,10 @@
        "author": "AI",
        "timestamp": "2026-10-25T12:58:01+00:00",
        "approval": {
-        "status": "proposed"
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:55:34+00:00",
+        "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
        },
        "decision": "D-43",
        "supersedes": null,
@@ -15288,7 +16187,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. environment factor (temperate inland), cl. 3.1.7.2 / 3.1.8.3 — site environment to confirm"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15318,7 +16217,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. ageing coefficient, simplified method only (not codified)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15348,7 +16247,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. girder start of drying (age)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15378,7 +16277,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. basic relaxation at 1000 h, 20 C (supplier value to confirm)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15408,7 +16307,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation stress-ratio factor (Fig. 3.3.4.3, read at sigma_pi / fpb)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15438,7 +16337,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. average annual temperature (k8 = T / 20 >= 1)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15468,7 +16367,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. days from prestressing to transfer"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15498,7 +16397,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. non-prestressed reinforcement ratio As / Ag (simplified method only)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15528,7 +16427,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck treated as composite this many days after the pour"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15558,7 +16457,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck start of drying (days from pour)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15588,7 +16487,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck longitudinal reinforcement ratio (0 = omitted)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15618,7 +16517,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. superimposed dead load on the girder (per girder)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15648,7 +16547,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. SIDL applied (days after transfer)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15678,7 +16577,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. formwork / construction load with the wet deck"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15708,7 +16607,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. method: 1 = detailed time-step section analysis, 0 = simplified"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15738,7 +16637,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation after transfer per AS 5100.5 (1 = on)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15768,7 +16667,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation before transfer computed (1 = on)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15798,7 +16697,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. moduli from Table 3.1.2 (1)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15828,7 +16727,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing temperature"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15858,7 +16757,7 @@
       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing duration (0 = none)"
      },
      "replace_with": "project specification / construction programme / supplier data",
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15887,7 +16786,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15915,7 +16814,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15943,7 +16842,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15971,7 +16870,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -15999,7 +16898,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -16027,7 +16926,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -16055,7 +16954,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -16083,7 +16982,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -16111,7 +17010,7 @@
      "source": {
       "note": "report time (days after transfer), dashboard Hog default list"
      },
-     "status": "proposed",
+     "status": "accepted",
      "decision": "D-42",
      "original": {
       "cells": {
@@ -31771,17 +32670,17 @@
   }
  ],
  "revision": {
-  "number": 14,
-  "parent_hash": "sha256:10995d11ef4b5d6694aff4f8f6691fd2c9338b3eb4c19d9db1e69a1aee127eec",
-  "created": "2026-10-25T12:58:01+00:00",
-  "author": "AI",
-  "note": "OV-1 proposed at loads.earthquake.rows[2] (D-43)",
+  "number": 41,
+  "parent_hash": "sha256:4dd2fae73f7e2671fb5beb1c4248b90681f2903e888c260358b1fb61035bb7ea",
+  "created": "2026-10-25T21:56:56+00:00",
+  "author": "Masoud",
+  "note": "D-45 accepted by Masoud: owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:b0b13fcd9bb90e7676c0c2d7df29aa700743def63f86311f6ab18b04fda05d37"
+  "value": "sha256:3cac9f4f690f48bb03ef1b6a2f311362a3f07d35a8d68c9b779b41d54f7daea8"
  }
 }

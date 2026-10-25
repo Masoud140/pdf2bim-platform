@@ -18,7 +18,7 @@ Per support (supports[], with geometry support_lines from P1):
   the ground and rl_rock k = kh * D * tributary length (tributary = half the distance to each neighbouring node, clipped to
   the layer); times analysis.soil_factor. Same rule as the dashboard (src/sub.js S.build).
 - PILE TOE: analysis.pile_toe: "vertical only" (Z fixed; lateral by the springs) or "fixed".
-- BEARINGS: seat node at bearings.items[].seat_rl under the bearing centre (P1); bearing-top node at the girder soffit
+- BEARINGS: seat node at bearings.items[].seat_rl (or top_rl - bearing_height) under the bearing centre (P1); bearing-top node at the girder soffit
   (girder line node level - girder depth D); a vertical elastic link seat -> top, local z along the girder chord,
   y across: vertical Kv, along / across from restraint_* (fixed = analysis.bearing_fixed_stiffness, free = 0,
   elastic = Ks), rotations free. Kv / Ks: pdf2bim.model.bearings (standards coefficients, UNVERIFIED).
@@ -246,7 +246,12 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         for bid, bb in brgs:
             it = items[bid]
             n = nodes[bb["node"]]
-            seat_rl = inp.v(it.get("seat_rl"), f"bearings.items[{bid}].seat_rl")
+            top_rl = inp.v(it.get("top_rl"), f"bearings.items[{bid}].top_rl", required=False)
+            if it.get("seat_rl") is not None or top_rl is None:
+                seat_rl = inp.v(it.get("seat_rl"), f"bearings.items[{bid}].seat_rl")
+            else:                                         # seat from the top-of-bearing level and the bearing unit height
+                bh = inp.v(it.get("bearing_height"), f"bearings.items[{bid}].bearing_height (needed with top_rl when seat_rl is not given)")
+                seat_rl = top_rl - bh / 1000
             Dg = S["girders"][bb["girder"]]["params"]["D"] / 1000
             top_z = n["Z"] - Dg
             hgt = inp.v(it.get("height"), f"bearings.items[{bid}].height", required=False)
@@ -271,7 +276,10 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
                                      "k_along": kd[bb["longitudinal"]], "k_across": kd[bb["transverse"]], "beta": beta,
                                      "seat_rl": seat_rl, "soffit_rl": top_z, "gap_m": gap, "height_input_m": None if hgt is None else hgt / 1000,
                                      "u": bu[bid], "stiffness": ks}
-            if hgt is not None:
+            if top_rl is not None:
+                checks.append({"id": f"{bid}: top of bearing below the girder soffit (attachment plate + epoxy block)", "model": (top_z - top_rl) * 1000, "description": None,
+                               "diff_mm": None, "ok": top_z - top_rl >= 0})
+            if hgt is not None and top_rl is None:          # with a top-of-bearing level the seat comes from it (the old height check is superseded)
                 checks.append({"id": f"{bid}: seat RL + bearings.height vs girder soffit", "model": gap * 1000, "description": hgt,
                                "diff_mm": gap * 1000 - hgt, "ok": abs(gap * 1000 - hgt) <= 10.0})
         recs["supports"][sid] = {"sill_nodes": sill_nodes, "sill": {"b": b, "d": d, "centroid_offset": c, "start": so["start"], "end": so["end"],
