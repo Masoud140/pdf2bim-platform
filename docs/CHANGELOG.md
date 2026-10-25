@@ -2,6 +2,11 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 7: SLS free strains (branch `p4-verification`)
+
+- **Added:** deck differential shrinkage from the detailed losses method (`prestress.differential_shrinkage`, port of the dashboard's `dsh` output and dgDshEps), gradient primary strains with the governing SLS row's factors (`girder_sls.prof_at`), both applied in `checks_along`; tests prestress 13, girder SLS 11, girder checks 8.
+- **Result (BR13A, indicative):** G4 midspan soffit +1.03 MPa at Ms* (was +1.31). Shear at stations still waits for fitments and the torsion-box mapping.
+
 ## 2026-10-25 — P4.5 stage 6: staged SLS, cracking moment, minimum strength (branch `p4-verification`)
 
 - **Added:** `pdf2bim/design/girder_sls.py` (port of dgLC SLS / bending), `girder_design.checks_along`, `prestress.stage_moments_at`, `tools/girder_checks.py`; tests `test_girder_sls.py` (10), `test_girder_checks.py` (7); standards entries Table 8.6.2.1 and the uncracked tension limit (95 entries). SLS solve vectorised.

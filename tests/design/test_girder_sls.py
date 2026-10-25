@@ -121,5 +121,12 @@ t("port = dashboard: uncracked flag, uS, uST, Muo,min, phi, kuo, Nub, increments
 pc = std.get("AS5100.5:capacity_factor:phi_compression").value
 t("phi: compression load case between phi_compression and its bending phi; no axial force -> bending phi of kuo", pc <= O[3]["phi"] <= O[0]["phi"] + 1e-12 and abs(O[0]["phi"] - __import__("pdf2bim.design.flexure", fromlist=["Coefficients"]).Coefficients(std).phi(O[0]["kuo"])) < 1e-12,
   f"{O[0]['phi']:.3f} / {O[1]['phi']:.3f} / {O[3]['phi']:.3f}")
+from pdf2bim.design.girder_sls import prof_at
+PR = [[0, 32], [100, 14.5], [250, 5], [250, 3], [1200, 0]]
+ys = [-5, 0, 50, 100, 175, 250, 251, 800, 1200, 1300]
+jsp = r"""const s=require('fs').readFileSync(process.argv[1]+'/dist/BR13A_grillage_dashboard.html','utf8'); const i=s.indexOf('function dgProfAt('); const j=s.indexOf('\n',i);
+eval(s.slice(i,j).replace('function dgProfAt(','global.dgProfAt=function(')); const q=JSON.parse(require('fs').readFileSync(0,'utf8')); console.log(JSON.stringify(q.ys.map(y=>dgProfAt(q.pr,y))));"""
+dj = json.loads(subprocess.run(["node", "-e", jsp, R], input=json.dumps({"pr": PR, "ys": ys}), capture_output=True, text=True, check=True).stdout)
+t("gradient profile lookup = the dashboard's dgProfAt (linear, 0 outside, repeated depth)", all(abs(prof_at(PR, y) - v) < 1e-12 for y, v in zip(ys, dj)), str([round(v, 3) for v in dj]))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

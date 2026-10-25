@@ -421,7 +421,10 @@ def _run_det(p, M, X, st, mi, defl, P0):
             continue
         ph = p["fl"]["cr"] * k9s[mi] * M.creep(age(t), p) if k else 0.0
         res.append({"label": f"{_fmt(t)} d" if k else "Transfer", "t": t, "phi": ph, "eps": p["fl"]["sh"] * M.shG(age(t), p) if k else None,
-                    "hog": defl(kap[k]), "Pm": MS[k]["Pm"], "P_st": Pst[k]})
+                    "hog": defl(kap[k]), "Pm": MS[k]["Pm"], "P_st": Pst[k],
+                    "dsh": ({"sd": shD[k], "sg": shGa[k] - shGa[next(i for i, z in enumerate(T) if z >= tcR)],
+                             "phd": p["fl"]["cr"] * M.creep(t - p["pour"], dict(pd, tau=tcR - p["pour"])), "chi": p.get("chi") or 0.8})
+                    if (cp and t >= tcR) else None})
     return {"X": X, "st": st, "res": res, "mi": mi, "P0": P0, "tcR": tcR, "k9": k9, "sigo": sigo, "net": {"A": Ag, "y": yb, "I": Ig, "sA": sA},
             "nsub": K, "standards_status": M.status, "method": "detailed"}
 
@@ -461,3 +464,15 @@ def stage_moments_at(r, x):
     i = next(k for k in range(1, len(X)) if X[k] >= x)
     w = (x - X[i - 1]) / (X[i] - X[i - 1])
     return {k: st[i - 1][q] + w * (st[i][q] - st[i - 1][q]) for k, q in keys}
+
+
+def differential_shrinkage(r, t=None):
+    """Free strain of the deck relative to the girder for the composite SLS check (the dashboard's dgDshEps), from the
+    detailed method at time t (default the last reported time): eps = -(sd - sg) / (1 + chi phd), where sd is the deck
+    shrinkage since composite action, sg the girder shrinkage over the same period and phd the deck creep coefficient.
+    None for the simplified method or before composite action."""
+    q = r["res"][-1] if t is None else next(z for z in r["res"] if abs(z["t"] - t) < 1e-9)
+    d = q.get("dsh")
+    if not d:
+        return None
+    return dict(d, eps=-(d["sd"] - d["sg"]) / (1 + d["chi"] * d["phd"]))

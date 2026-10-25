@@ -34,7 +34,7 @@ def main():
          "Staged SLS (girder alone under prestress + Mnc, then composite), decompression Mdec, allowable moment Mal (Table 8.6.2.1 increments), "
          "cracking moment Mcr and minimum strength Muo >= 1.2 Mcr, ULS bending with the concurrent axial force. Effective prestress from the ported "
          "losses analysis (D-42 Assumed inputs); strand / bar layout an Assumed placeholder (D-1); standards values code-extracted-UNVERIFIED. "
-         "**Not design-approved.** Not checked: shear / torsion (fitments missing), strand development, temperature-gradient primary stresses, differential shrinkage.", ""]
+         "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Not checked: shear / torsion (fitments missing), strand development.", ""]
     for g in S["girders"]:
         R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
         out[g] = R

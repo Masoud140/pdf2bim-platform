@@ -58,5 +58,14 @@ t("detailed method on the concentric strand: transfer force = the elastic-shorte
   abs(rd["res"][0]["Pm"][0] - rd["P0"] / (1 + n * q["Ap"] / rd["net"]["A"])) < 1e-6 * rd["P0"])
 tt, epe = effective_prestrain(run(dict(p), std), p)
 t("effective prestrain per strand at the last time = F / (Ap Ep), positive, below the jacking strain", tt == p["times"][-1] and all(0 < e < p["ji"] * p["mbl"] * 1e3 / (p["Ap"] * p["Ep"]) for e in epe))
+from pdf2bim.design.prestress import differential_shrinkage
+rd = run(D["p"], std); md = 0.0; same_none = True
+for q, ref in zip(rd["res"], D["dsh_browser"]):
+    same_none &= (q["dsh"] is None) == (ref is None)
+    if ref:
+        md = max(md, max(abs(q["dsh"][k] - ref[k]) for k in ref))
+ref = D["dsh_browser"][-1]; e = differential_shrinkage(rd)
+t("deck differential shrinkage (detailed method) = the dashboard's per reported time (sd, sg, phd, chi; 1e-12); eps = -(sd - sg) / (1 + chi phd)",
+  same_none and md < 1e-12 and abs(e["eps"] + (ref["sd"] - ref["sg"]) / (1 + ref["chi"] * ref["phd"])) < 1e-15, f"eps {e['eps'] * 1e6:.1f}e-6")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

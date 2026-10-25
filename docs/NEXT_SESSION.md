@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–4a done on `p4-verification`; P4.5 stage 5 next; P4.4 MIDAS waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; next: P4.4 agent part (MIDAS result reader); the MIDAS run waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -36,19 +36,20 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4a benchmark + stations: DONE** (§7, ADR-033). **P4.5 stage 5: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4a benchmark + stations: DONE** (§7, ADR-033). **P4.5 stage 5 losses / inputs / ULS flexure: DONE** (§8, ADR-034, D-42). **P4.5 stage 6 staged SLS / minimum strength: DONE** (§9, ADR-035). **P4.5 stage 7 SLS free strains: DONE** (§10). Shear at stations waits for fitments.
 
 ## 3. Next actions
 
-1. **P4.5 stage 5 — effective prestress (losses)**, on `p4-verification`:
-   - read the dashboard's Hog time analysis (`history/` / `src/` Hog code: `HOG_API.snap()` / `calc()`; search "Hog" in `src/*.js`): transfer, elastic shortening, creep, shrinkage, relaxation, stage ages (transfer, erection, deck cast), strand MBL → fpb;
-   - inventory its constants (creep / shrinkage models, relaxation, MBL if hard-coded) as unverified standards entries; project inputs (ages, jacking ratio, relaxation %) come from the description (`supert_types[]`, `materials.strand`);
-   - port to `pdf2bim/design/prestress.py` returning the effective prestrain per strand per station and stage; tests: closed forms (elastic shortening of a concentric tendon), port = dashboard Hog on its own girder;
-   - then design actions per station from the combined-action schedule and the checks (flexure, SLS, shear) per station — BR13A still needs fpb (strand MBL), fitments and deck bars (owner / drawings).
-2. **Owner items:** the reference spreadsheet (E-1), P4.4 MIDAS, ADR-031, BR13A fitments / deck bars / strand MBL.
-3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 60 min.
+1. **P4.4 agent part — MIDAS result-table reader and comparison** (on `p4-verification`):
+   - read MIDAS Civil result tables exported as CSV (reactions, beam forces, eigenvalues), with a column map in the tool (no guessed MIDAS syntax: the map is data, to be confirmed with the owner's first export);
+   - map MIDAS node / element numbers to the platform ids through the .mct writer's numbering (`pdf2bim/model/mct.py`);
+   - compare per load case with the T7 / T9 / T10 tolerances; report explained / unexplained differences;
+   - test by round trip: platform results written as MIDAS-style tables and read back (exact), plus a perturbation caught.
+2. **Then:** P5 planning (extraction → description → decision workflow), autonomous parts first.
+3. **Owner items:** the reference spreadsheet (E-1), the MIDAS run (P4.4), ADR-031 / ADR-035 methods, BR13A fitments / deck bars / strand layout (D-1), D-42 values, P4-3 deck-cast age.
+4. Keep the generality guard green (local pre-commit hook). Full suite ≈ 75 min (design tests ≈ 4 min more than before).
 
-For reference (P4.5 stage 4a): `pdf2bim/design/stations.py` (`station_section`, `readiness`); tests `test_benchmark.py` (≈ 3 s), `test_stations.py` (≈ 70 s).
+For reference (P4.5 stages 5–7): `pdf2bim/design/prestress.py`, `prestress_inputs.py`, `girder_design.py` (`flexure_along`, `checks_along`), `girder_sls.py`; tools `girder_flexure.py`, `girder_checks.py` (≈ 10 min for BR13A); tests `test_prestress*.py`, `test_girder_*.py` (≈ 1 min each).
 
 ## 4. Do not
 

@@ -106,10 +106,14 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     - Ms (sagging max / hogging min) and Ns: the AS 5100.2 SLS envelope with DLc removed (DLc acts on the girder alone,
       above); Ns the concurrent axial force of the governing SLS row at the nearer element end (design option useN);
     - Mu, Nu: the ULS envelope (DLc included: total moment on the composite model) and the concurrent axial force.
-    Free strains (temperature-gradient primary stresses, differential deck shrinkage) are NOT applied (the platform's
-    thermal cases give the restraint actions only). Results INDICATIVE as flexure_along."""
-    from .girder_sls import staged, crack_limits
-    from .prestress import stage_moments_at
+    Free strains on the composite section (stage 7; the dashboard's dgFreeFor): the temperature-gradient primary
+    strain alpha (f_TGP T_P(y) + f_TGN T_N(y)) with the factors of the governing SLS row (the profiles and alpha of
+    loads.gradient_* / loads.temperature, as the thermal cases), and the deck differential shrinkage
+    eps = -(sd - sg) / (1 + chi phd) of the losses analysis (detailed method; design option dsh, default on as the
+    dashboard). The secondary (restraint) actions of the gradient are in the envelopes already. Results INDICATIVE as
+    flexure_along."""
+    from .girder_sls import staged, crack_limits, prof_at
+    from .prestress import stage_moments_at, differential_shrinkage
     from ..model.combinations import combine, concurrent_row
     H = hog_inputs(doc, geo, S, girder, std, allow_proposed)
     p = H["p"]
@@ -127,6 +131,18 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     byname = {q["name"]: q for q in rows}
     fpb_tab = p["mbl"] * 1e3 / p["Ap"]
     out, notes = [], []
+    th = CA["primitives"]["cases"]["thermal"]["inputs"]
+    alpha, prof = th["temperature"]["alpha"], th["profiles"]
+    use_dsh = _option(doc, "dsh", True)
+    dsh = differential_shrinkage(r, time) if use_dsh else None
+    eps_sh = dsh["eps"] if dsh else 0.0
+
+    def free_for(rowname):
+        row = byname.get(rowname)
+        fP = sum(f for aid, f in (row or {}).get("t", []) if aid == "TGP")
+        fN = sum(f for aid, f in (row or {}).get("t", []) if aid == "TGN")
+        T = (lambda y: alpha * (fP * prof_at(prof.get("TGP"), y) + fN * prof_at(prof.get("TGN"), y))) if (fP or fN) else None
+        return ({"T": T, "sh": eps_sh} if (T or eps_sh) else None), {"TGP": fP, "TGN": fN}
 
     def interp(E, k, lo, hi, w):
         return float((1 - w) * E[k][lo[1]] + w * E[k][hi[1]])
@@ -167,8 +183,9 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
             Ms = interp(E_s, Es_k, lo, hi, w); Mu = interp(E_u, Eu_k, lo, hi, w)
             gs = E_s["g" + Es_k][near[1]]; gu = E_u["g" + Eu_k][near[1]]
             Ns = conc_N(gs, near, which); Nu = conc_N(gu, near, which)
-            o = staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, lim["fscr"], lim["ftcr"], lim["fscrT"], why=lim["why"])
-            res[side] = {"Ms": Ms, "Ns": Ns, "row_sls": gs, "Mu": Mu, "Nu": Nu, "row_uls": gu,
+            fr, ff = free_for(gs)
+            o = staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, lim["fscr"], lim["ftcr"], lim["fscrT"], free=fr, why=lim["why"])
+            res[side] = {"Ms": Ms, "Ns": Ns, "row_sls": gs, "Mu": Mu, "Nu": Nu, "row_uls": gu, "free": {"gradient_factors": ff, "eps_dsh": eps_sh if fr else 0.0},
                          **{k: o.get(k) for k in ("Mdec", "Mal", "MdecT", "MalT", "uS", "uST", "uncracked", "okS", "Mcr", "McrH", "Muo", "Muo_min", "okMin",
                                                   "phiMu", "phi", "kuo", "uB", "face", "Nub")},
                          "soffit_sls": o["sv"]["girBot"], "deck_top_sls": o["sv"]["deckTop"], "girder_alone": {"top": o["girder_alone"]["top"], "bot": o["girder_alone"]["bot"]},
@@ -177,7 +194,10 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     if not out:
         raise MissingInput(f"girder {girder}: no open-section station")
     notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty")
-    notes.append("Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied")
+    notes.append("Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc")
+    notes.append(("deck differential shrinkage free strain %.1f x 1e-6 (losses analysis, detailed method)" % (eps_sh * 1e6)) if dsh else
+                 ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
+    notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")
     notes.append("shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked")
-    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "useN": useN,
+    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "useN": useN, "dsh": dsh,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

@@ -29,6 +29,17 @@ from .sls import solve
 from .nm import at as nm_at, mu_at_n
 
 
+def prof_at(pts, y):
+    """Temperature (or any) profile [(depth, value)] sorted by depth, at depth y: linear between points, 0 outside
+    (the dashboard's dgProfAt; a repeated depth takes the deeper point's value)."""
+    if not pts or y < pts[0][0] or y > pts[-1][0]:
+        return 0.0
+    for (d0, v0), (d1, v1) in zip(pts, pts[1:]):
+        if y <= d1:
+            return v1 if d1 == d0 else v0 + (v1 - v0) * (y - d0) / (d1 - d0)
+    return 0.0
+
+
 def crack_limits(sec, std):
     """Table 8.6.2.1 limits as the dashboard sets them (dgCCSync / dgT8621): fscr from the largest girder bar in the
     lower half of the girder, fscrT from the largest bar in the upper half (girder bars and deck bars), ftcr the tendon

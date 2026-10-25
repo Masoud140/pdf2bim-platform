@@ -120,7 +120,7 @@
     "pdf2bim/model/wind.py",
     "pdf2bim/model/earthquake.py"
    ],
-   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stages 1-6 (design modules, reference benchmark, stations, prestress losses, girder ULS flexure, staged SLS / minimum strength) done. Next: P4.5 stage 7 SLS free strains and torsion-box geometry",
+   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stages 1-7 (design modules, benchmark, stations, losses, ULS flexure, staged SLS, free strains) done. Next: P4.4 agent part (MIDAS result reader / comparison)",
    "branch": "p3-model"
   },
   {
@@ -163,9 +163,9 @@
   }
  ],
  "next": {
-  "task": "P4.5 stage 7: SLS free strains (temperature-gradient primary stresses, differential deck shrinkage) and the closed-box torsion geometry for shear",
-  "why": "The staged SLS check does not yet include the gradient primary stresses and differential shrinkage that the dashboard applies; shear needs the torsion box and the fitments.",
-  "evidence": "Port = dashboard (dgFreeFor / dgGeo) to round-off on the example girder; BR13A shear refused until fitments are given"
+  "task": "P4.4 agent part: MIDAS result-table reader and comparison tool (reactions, member actions, periods per load case)",
+  "why": "The independent MIDAS model is the main remaining verification of the analysis; the tool lets the owner compare as soon as MIDAS results exist.",
+  "evidence": "Tool reads MIDAS CSV tables, maps elements / nodes to the platform ids, compares with tolerances T7 / T9 / T10; round-trip test on platform-generated tables"
  },
  "risks": [
   {

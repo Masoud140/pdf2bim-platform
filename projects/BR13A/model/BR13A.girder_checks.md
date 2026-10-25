@@ -1,6 +1,6 @@
 # Super-T girder checks along the girders (P4.5 stage 6) — INDICATIVE
 
-Staged SLS (girder alone under prestress + Mnc, then composite), decompression Mdec, allowable moment Mal (Table 8.6.2.1 increments), cracking moment Mcr and minimum strength Muo >= 1.2 Mcr, ULS bending with the concurrent axial force. Effective prestress from the ported losses analysis (D-42 Assumed inputs); strand / bar layout an Assumed placeholder (D-1); standards values code-extracted-UNVERIFIED. **Not design-approved.** Not checked: shear / torsion (fitments missing), strand development, temperature-gradient primary stresses, differential shrinkage.
+Staged SLS (girder alone under prestress + Mnc, then composite), decompression Mdec, allowable moment Mal (Table 8.6.2.1 increments), cracking moment Mcr and minimum strength Muo >= 1.2 Mcr, ULS bending with the concurrent axial force. Effective prestress from the ported losses analysis (D-42 Assumed inputs); strand / bar layout an Assumed placeholder (D-1); standards values code-extracted-UNVERIFIED. **Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Not checked: shear / torsion (fitments missing), strand development.
 
 ## G1
 
@@ -8,26 +8,36 @@ Staged SLS (girder alone under prestress + Mnc, then composite), decompression M
 
 | t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 0.1 | 3.02 | 836 | 1498 (SLS-S-0018) | -13.07 | yes | 6590 | 9784 | **0.15** | 9078 | 18459 | 10894 | 3804 (ULS-B-0084) | 205 | 14700 | **0.26** |
-| 0.2 | 6.03 | 1659 | 2978 (SLS-S-0018) | -7.21 | yes | 5775 | 9212 | **0.32** | 9080 | 18399 | 10896 | 7356 (ULS-B-0084) | 144 | 14671 | **0.50** |
-| 0.3 | 9.05 | 2248 | 3937 (SLS-S-0148) | -3.15 | yes | 5156 | 8757 | **0.45** | 9045 | 18355 | 10854 | 9648 (ULS-B-0084) | 206 | 14616 | **0.66** |
-| 0.4 | 12.06 | 2601 | 4384 (SLS-S-0148) | -1.00 | yes | 4771 | 8466 | **0.52** | 9011 | 18327 | 10813 | 10696 (ULS-B-0084) | 249 | 14581 | **0.73** |
-| 0.5 | 15.08 | 2719 | 4442 (SLS-S-0148) | -0.52 | yes | 4641 | 8364 | **0.53** | 8997 | 18322 | 10797 | 10789 (ULS-B-0084) | 274 | 14570 | **0.74** |
-| 0.6 | 18.10 | 2601 | 4237 (SLS-S-0148) | -1.36 | yes | 4763 | 8448 | **0.50** | 9004 | 18341 | 10804 | 10177 (ULS-B-0084) | 304 | 14573 | **0.70** |
-| 0.7 | 21.11 | 2248 | 3657 (SLS-S-0148) | -3.82 | yes | 5137 | 8719 | **0.42** | 9029 | 18380 | 10834 | 8681 (ULS-B-0084) | 312 | 14600 | **0.59** |
-| 0.8 | 24.13 | 1659 | 2744 (SLS-S-0018) | -7.72 | yes | 5745 | 9155 | **0.30** | 9054 | 18434 | 10865 | 6396 (ULS-B-0084) | 291 | 14652 | **0.44** |
-| 0.9 | 27.14 | 836 | 1477 (SLS-S-0018) | -13.15 | yes | 6611 | 9794 | **0.15** | 9104 | 18505 | 10924 | 3327 (ULS-B-0084) | 106 | 14769 | **0.23** |
+| 0.1 | 3.02 | 836 | 1498 (SLS-S-0018) | -13.68 | yes | 6824 | 9844 | **0.15** | 9312 | 18459 | 11175 | 3804 (ULS-B-0084) | 205 | 14700 | **0.26** |
+| 0.2 | 6.03 | 1659 | 2978 (SLS-S-0018) | -7.81 | yes | 6007 | 9279 | **0.32** | 9312 | 18399 | 11175 | 7356 (ULS-B-0084) | 144 | 14671 | **0.50** |
+| 0.3 | 9.05 | 2248 | 3937 (SLS-S-0148) | -3.42 | yes | 5259 | 8785 | **0.45** | 9148 | 18355 | 10978 | 9648 (ULS-B-0084) | 206 | 14616 | **0.66** |
+| 0.4 | 12.06 | 2601 | 4384 (SLS-S-0148) | -1.27 | yes | 4874 | 8497 | **0.52** | 9114 | 18327 | 10936 | 10696 (ULS-B-0084) | 249 | 14581 | **0.73** |
+| 0.5 | 15.08 | 2719 | 4442 (SLS-S-0148) | -0.78 | yes | 4744 | 8395 | **0.53** | 9100 | 18322 | 10921 | 10789 (ULS-B-0084) | 274 | 14570 | **0.74** |
+| 0.6 | 18.10 | 2601 | 4237 (SLS-S-0148) | -1.63 | yes | 4866 | 8478 | **0.50** | 9107 | 18341 | 10928 | 10177 (ULS-B-0084) | 304 | 14573 | **0.70** |
+| 0.7 | 21.11 | 2248 | 3657 (SLS-S-0148) | -4.09 | yes | 5241 | 8747 | **0.42** | 9132 | 18380 | 10959 | 8681 (ULS-B-0084) | 312 | 14600 | **0.59** |
+| 0.8 | 24.13 | 1659 | 2744 (SLS-S-0018) | -8.32 | yes | 5978 | 9221 | **0.30** | 9287 | 18434 | 11145 | 6396 (ULS-B-0084) | 291 | 14652 | **0.44** |
+| 0.9 | 27.14 | 836 | 1477 (SLS-S-0018) | -13.75 | yes | 6847 | 9853 | **0.15** | 9340 | 18505 | 11207 | 3327 (ULS-B-0084) | 106 | 14769 | **0.23** |
 
 ### Hogging / top face
 
 | t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |
 |---|---|---|---|---|---|---|---|---|---|
-| 0.1 | -506 (SLS-S-0030) | -254 | -1818 | 0.16 | 4 (ULS-B-0431) | 14783 | 0.00 | 11120 | 18459 |
+| 0.1 | -506 (SLS-S-0030) | 1069 | -1745 | 0.56 | 4 (ULS-B-0431) | 14783 | 0.00 | 10586 | 18459 |
+| 0.2 | 124 (SLS-S-0639) | 1555 | -2282 | 0.37 | 1170 (ULS-H-0009) | 14725 | 0.08 | 10379 | 18399 |
+| 0.3 | 442 (SLS-S-0219) | 928 | -2772 | 0.13 | 1731 (ULS-H-0009) | 14682 | 0.12 | 10515 | 18355 |
+| 0.4 | 602 (SLS-S-0920) | 971 | -3009 | 0.09 | 2005 (ULS-H-0009) | 14659 | 0.14 | 10452 | 18327 |
+| 0.5 | 648 (SLS-S-0920) | 987 | -3088 | 0.08 | 2042 (ULS-H-0009) | 14655 | 0.14 | 10433 | 18322 |
+| 0.6 | 616 (SLS-S-0920) | 1002 | -2973 | 0.10 | 1849 (ULS-H-0013) | 14663 | 0.13 | 10441 | 18341 |
+| 0.7 | 517 (SLS-S-0920) | 1023 | -2655 | 0.14 | 1482 (ULS-H-0013) | 14703 | 0.10 | 10467 | 18380 |
+| 0.8 | 355 (SLS-S-0639) | 1704 | -2106 | 0.35 | 975 (ULS-H-0013) | 14756 | 0.07 | 10304 | 18434 |
+| 0.9 | 128 (SLS-S-0362) | 1790 | -1318 | 0.53 | 370 (ULS-H-0013) | 14811 | 0.02 | 10274 | 18505 |
 
 - crack-control limits (Table 8.6.2.1 as coded): fscr 240 MPa (db 20 mm), fscrT 330 MPa (db 12 mm), ftcr 200 MPa
 - axial force with the moments: concurrent N of the governing row (useN); losses method detailed, time 3650 d
 - fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty
-- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied
+- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc
+- deck differential shrinkage free strain -79.6 x 1e-6 (losses analysis, detailed method)
+- temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone
 - shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked
 
 ## G2
@@ -36,26 +46,36 @@ Staged SLS (girder alone under prestress + Mnc, then composite), decompression M
 
 | t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 0.1 | 3.01 | 898 | 1864 (SLS-S-0021) | -11.80 | yes | 6483 | 9650 | **0.19** | 9042 | 18549 | 10850 | 4206 (ULS-B-0102) | 381 | 14717 | **0.29** |
-| 0.2 | 6.02 | 1783 | 2843 (SLS-S-0021) | -7.25 | yes | 5682 | 9090 | **0.31** | 9127 | 18569 | 10952 | 6900 (ULS-B-0102) | 216 | 14786 | **0.47** |
-| 0.3 | 9.02 | 2415 | 3638 (SLS-S-0018) | -3.74 | yes | 5103 | 8671 | **0.42** | 9180 | 18585 | 11016 | 8999 (ULS-B-0084) | 104 | 14835 | **0.61** |
-| 0.4 | 12.03 | 2794 | 4151 (SLS-S-0148) | -1.48 | yes | 4732 | 8385 | **0.50** | 9190 | 18600 | 11028 | 10312 (ULS-B-0084) | 100 | 14848 | **0.69** |
-| 0.5 | 15.04 | 2921 | 4322 (SLS-S-0148) | -0.75 | yes | 4618 | 8298 | **0.52** | 9203 | 18612 | 11044 | 10726 (ULS-B-0084) | 82 | 14863 | **0.72** |
-| 0.6 | 18.05 | 2794 | 4224 (SLS-S-0148) | -1.35 | yes | 4754 | 8402 | **0.50** | 9214 | 18621 | 11057 | 10389 (ULS-B-0084) | 59 | 14878 | **0.70** |
-| 0.7 | 21.05 | 2415 | 3763 (SLS-S-0018) | -3.54 | yes | 5152 | 8712 | **0.43** | 9234 | 18628 | 11080 | 9141 (ULS-B-0084) | -0 | 14903 | **0.61** |
-| 0.8 | 24.06 | 1783 | 2967 (SLS-S-0018) | -7.17 | yes | 5786 | 9193 | **0.32** | 9236 | 18633 | 11083 | 7037 (ULS-B-0084) | -69 | 14910 | **0.47** |
-| 0.9 | 27.07 | 898 | 1746 (SLS-S-0018) | -12.48 | yes | 6653 | 9840 | **0.18** | 9219 | 18635 | 11063 | 3928 (ULS-B-0084) | -162 | 14917 | **0.26** |
+| 0.1 | 3.01 | 898 | 1864 (SLS-S-0021) | -12.41 | yes | 6721 | 9709 | **0.19** | 9279 | 18549 | 11135 | 4206 (ULS-B-0102) | 381 | 14717 | **0.29** |
+| 0.2 | 6.02 | 1783 | 2843 (SLS-S-0021) | -7.86 | yes | 5920 | 9157 | **0.31** | 9365 | 18569 | 11237 | 6900 (ULS-B-0102) | 216 | 14786 | **0.47** |
+| 0.3 | 9.02 | 2415 | 3638 (SLS-S-0018) | -4.34 | yes | 5341 | 8744 | **0.42** | 9418 | 18585 | 11302 | 8999 (ULS-B-0084) | 104 | 14835 | **0.61** |
+| 0.4 | 12.03 | 2794 | 4151 (SLS-S-0148) | -1.75 | yes | 4838 | 8414 | **0.49** | 9296 | 18600 | 11156 | 10312 (ULS-B-0084) | 100 | 14848 | **0.69** |
+| 0.5 | 15.04 | 2921 | 4322 (SLS-S-0148) | -1.03 | yes | 4725 | 8327 | **0.52** | 9310 | 18612 | 11172 | 10726 (ULS-B-0084) | 82 | 14863 | **0.72** |
+| 0.6 | 18.05 | 2794 | 4224 (SLS-S-0148) | -1.62 | yes | 4861 | 8431 | **0.50** | 9321 | 18621 | 11186 | 10389 (ULS-B-0084) | 59 | 14878 | **0.70** |
+| 0.7 | 21.05 | 2415 | 3763 (SLS-S-0018) | -4.15 | yes | 5392 | 8785 | **0.43** | 9473 | 18628 | 11368 | 9141 (ULS-B-0084) | -0 | 14903 | **0.61** |
+| 0.8 | 24.06 | 1783 | 2967 (SLS-S-0018) | -7.78 | yes | 6025 | 9261 | **0.32** | 9476 | 18633 | 11371 | 7037 (ULS-B-0084) | -69 | 14910 | **0.47** |
+| 0.9 | 27.07 | 898 | 1746 (SLS-S-0018) | -13.09 | yes | 6893 | 9900 | **0.18** | 9459 | 18635 | 11351 | 3928 (ULS-B-0084) | -162 | 14917 | **0.26** |
 
 ### Hogging / top face
 
 | t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |
 |---|---|---|---|---|---|---|---|---|---|
-| 0.1 | -2 (SLS-S-0027) | 26 | -1475 | 0.02 | 204 (ULS-B-0413) | 14845 | 0.01 | 10939 | 18549 |
+| 0.1 | -2 (SLS-S-0027) | 1388 | -1406 | 0.50 | 204 (ULS-B-0413) | 14845 | 0.01 | 10399 | 18549 |
+| 0.2 | 251 (SLS-S-0201) | 1106 | -2234 | 0.26 | 1029 (ULS-H-0009) | 14866 | 0.07 | 10535 | 18569 |
+| 0.3 | 429 (SLS-S-0219) | 1072 | -2857 | 0.16 | 1630 (ULS-H-0009) | 14877 | 0.11 | 10591 | 18585 |
+| 0.4 | 553 (SLS-S-0639) | 1806 | -3117 | 0.25 | 1997 (ULS-H-0009) | 14887 | 0.13 | 10387 | 18600 |
+| 0.5 | 605 (SLS-S-0639) | 1815 | -3227 | 0.24 | 2132 (ULS-H-0009) | 14896 | 0.14 | 10396 | 18612 |
+| 0.6 | 578 (SLS-S-0639) | 1826 | -3110 | 0.25 | 2027 (ULS-H-0013) | 14908 | 0.14 | 10400 | 18621 |
+| 0.7 | 474 (SLS-S-0639) | 1839 | -2765 | 0.30 | 1671 (ULS-H-0013) | 14914 | 0.11 | 10395 | 18628 |
+| 0.8 | 297 (SLS-S-0639) | 1852 | -2190 | 0.38 | 1098 (ULS-H-0013) | 14916 | 0.07 | 10374 | 18633 |
+| 0.9 | 59 (SLS-S-0645) | 1869 | -1375 | 0.56 | 325 (ULS-H-0013) | 14915 | 0.02 | 10319 | 18635 |
 
 - crack-control limits (Table 8.6.2.1 as coded): fscr 240 MPa (db 20 mm), fscrT 330 MPa (db 12 mm), ftcr 200 MPa
 - axial force with the moments: concurrent N of the governing row (useN); losses method detailed, time 3650 d
 - fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty
-- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied
+- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc
+- deck differential shrinkage free strain -79.6 x 1e-6 (losses analysis, detailed method)
+- temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone
 - shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked
 
 ## G3
@@ -64,24 +84,36 @@ Staged SLS (girder alone under prestress + Mnc, then composite), decompression M
 
 | t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 0.1 | 3.00 | 893 | 2027 (SLS-S-0021) | -11.42 | yes | 6496 | 9664 | **0.21** | 9050 | 18550 | 10860 | 4386 (ULS-B-0102) | 290 | 14747 | **0.30** |
-| 0.2 | 6.00 | 1773 | 3178 (SLS-S-0021) | -6.34 | yes | 5663 | 9059 | **0.35** | 9098 | 18569 | 10918 | 7383 (ULS-B-0102) | 294 | 14762 | **0.50** |
-| 0.3 | 9.00 | 2402 | 3919 (SLS-S-0166) | -2.96 | yes | 5077 | 8631 | **0.45** | 9142 | 18586 | 10970 | 9409 (ULS-B-0102) | 231 | 14795 | **0.64** |
-| 0.4 | 12.00 | 2779 | 4319 (SLS-S-0166) | -1.05 | yes | 4731 | 8376 | **0.52** | 9174 | 18600 | 11009 | 10561 (ULS-B-0102) | 170 | 14826 | **0.71** |
-| 0.5 | 15.00 | 2905 | 4369 (SLS-S-0148) | -0.67 | yes | 4631 | 8306 | **0.53** | 9200 | 18611 | 11040 | 10816 (ULS-B-0084) | 103 | 14857 | **0.73** |
-| 0.6 | 18.00 | 2779 | 4164 (SLS-S-0148) | -1.55 | yes | 4772 | 8417 | **0.49** | 9217 | 18621 | 11060 | 10348 (ULS-B-0084) | 63 | 14877 | **0.70** |
-| 0.7 | 21.00 | 2402 | 3611 (SLS-S-0018) | -3.94 | yes | 5160 | 8715 | **0.41** | 9228 | 18628 | 11074 | 8973 (ULS-B-0084) | 7 | 14900 | **0.60** |
-| 0.8 | 23.99 | 1773 | 2729 (SLS-S-0018) | -7.78 | yes | 5787 | 9190 | **0.30** | 9228 | 18632 | 11073 | 6721 (ULS-B-0084) | -47 | 14908 | **0.45** |
-| 0.9 | 26.99 | 893 | 1564 (SLS-S-0018) | -12.96 | yes | 6660 | 9848 | **0.16** | 9222 | 18634 | 11066 | 3687 (ULS-B-0084) | -170 | 14917 | **0.25** |
+| 0.1 | 3.00 | 893 | 2027 (SLS-S-0021) | -12.02 | yes | 6734 | 9723 | **0.21** | 9287 | 18550 | 11145 | 4386 (ULS-B-0102) | 290 | 14747 | **0.30** |
+| 0.2 | 6.00 | 1773 | 3178 (SLS-S-0021) | -6.95 | yes | 5901 | 9126 | **0.35** | 9336 | 18569 | 11203 | 7383 (ULS-B-0102) | 294 | 14762 | **0.50** |
+| 0.3 | 9.00 | 2402 | 3919 (SLS-S-0166) | -3.23 | yes | 5184 | 8658 | **0.45** | 9248 | 18586 | 11098 | 9409 (ULS-B-0102) | 231 | 14795 | **0.64** |
+| 0.4 | 12.00 | 2779 | 4319 (SLS-S-0166) | -1.32 | yes | 4838 | 8405 | **0.51** | 9281 | 18600 | 11137 | 10561 (ULS-B-0102) | 170 | 14826 | **0.71** |
+| 0.5 | 15.00 | 2905 | 4369 (SLS-S-0148) | -0.94 | yes | 4738 | 8336 | **0.52** | 9307 | 18611 | 11169 | 10816 (ULS-B-0084) | 103 | 14857 | **0.73** |
+| 0.6 | 18.00 | 2779 | 4164 (SLS-S-0148) | -1.82 | yes | 4879 | 8446 | **0.49** | 9324 | 18621 | 11189 | 10348 (ULS-B-0084) | 63 | 14877 | **0.70** |
+| 0.7 | 21.00 | 2402 | 3611 (SLS-S-0018) | -4.55 | yes | 5399 | 8788 | **0.41** | 9468 | 18628 | 11361 | 8973 (ULS-B-0084) | 7 | 14900 | **0.60** |
+| 0.8 | 23.99 | 1773 | 2729 (SLS-S-0018) | -8.39 | yes | 6027 | 9257 | **0.29** | 9467 | 18632 | 11361 | 6721 (ULS-B-0084) | -47 | 14908 | **0.45** |
+| 0.9 | 26.99 | 893 | 1564 (SLS-S-0018) | -13.57 | yes | 6901 | 9908 | **0.16** | 9462 | 18634 | 11354 | 3687 (ULS-B-0084) | -170 | 14917 | **0.25** |
 
 ### Hogging / top face
 
-No station with a hogging ULS moment or an SLS moment below the top-face decompression moment.
+| t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.1 | 153 (SLS-S-0027) | 1437 | -1333 | 0.46 | 210 (ULS-H-0009) | 14851 | 0.01 | 10363 | 18550 |
+| 0.2 | 366 (SLS-S-0201) | 1116 | -2212 | 0.23 | 992 (ULS-H-0009) | 14867 | 0.07 | 10528 | 18569 |
+| 0.3 | 524 (SLS-S-0201) | 1085 | -2827 | 0.14 | 1588 (ULS-H-0009) | 14879 | 0.11 | 10581 | 18586 |
+| 0.4 | 632 (SLS-S-0201) | 1067 | -3196 | 0.10 | 1979 (ULS-H-0009) | 14889 | 0.13 | 10614 | 18600 |
+| 0.5 | 674 (SLS-S-0219) | 1068 | -3314 | 0.09 | 2155 (ULS-H-0009) | 14897 | 0.14 | 10627 | 18611 |
+| 0.6 | 636 (SLS-S-0639) | 1785 | -3154 | 0.23 | 2111 (ULS-H-0009) | 14903 | 0.14 | 10429 | 18621 |
+| 0.7 | 514 (SLS-S-0639) | 1789 | -2822 | 0.28 | 1820 (ULS-H-0009) | 14907 | 0.12 | 10430 | 18628 |
+| 0.8 | 311 (SLS-S-0639) | 1799 | -2256 | 0.37 | 1231 (ULS-H-0013) | 14881 | 0.08 | 10411 | 18632 |
+| 0.9 | -14 (SLS-S-0038) | 1366 | -1495 | 0.48 | 340 (ULS-B-0485) | 14912 | 0.02 | 10492 | 18634 |
 
 - crack-control limits (Table 8.6.2.1 as coded): fscr 240 MPa (db 20 mm), fscrT 330 MPa (db 12 mm), ftcr 200 MPa
 - axial force with the moments: concurrent N of the governing row (useN); losses method detailed, time 3650 d
 - fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty
-- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied
+- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc
+- deck differential shrinkage free strain -79.6 x 1e-6 (losses analysis, detailed method)
+- temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone
 - shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked
 
 ## G4
@@ -90,23 +122,35 @@ No station with a hogging ULS moment or an SLS moment below the top-face decompr
 
 | t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 0.1 | 2.99 | 944 | 2072 (SLS-S-0021) | -11.08 | yes | 6428 | 9570 | **0.22** | 9041 | 18634 | 10849 | 4292 (ULS-B-0102) | 482 | 14757 | **0.29** |
-| 0.2 | 5.98 | 1874 | 3353 (SLS-S-0021) | -5.76 | yes | 5627 | 8999 | **0.37** | 9176 | 18713 | 11011 | 7522 (ULS-B-0102) | 304 | 14876 | **0.51** |
-| 0.3 | 8.97 | 2539 | 4297 (SLS-S-0166) | -1.86 | yes | 5034 | 8552 | **0.50** | 9252 | 18766 | 11102 | 9956 (ULS-B-0102) | 227 | 14942 | **0.67** |
-| 0.4 | 11.97 | 2938 | 4908 (SLS-S-0166) | 0.56 | yes | 4685 | 8288 | **0.59** | 9305 | 18798 | 11166 | 11566 (ULS-B-0102) | 130 | 14996 | **0.77** |
-| 0.5 | 14.96 | 3071 | 5113 (SLS-S-0166) | 1.31 | yes | 4594 | 8229 | **0.62** | 9347 | 18810 | 11217 | 12201 (ULS-B-0102) | -7 | 15048 | **0.81** |
-| 0.6 | 17.95 | 2938 | 4961 (SLS-S-0166) | 0.57 | yes | 4735 | 8347 | **0.59** | 9355 | 18806 | 11227 | 11920 (ULS-B-0102) | -68 | 15050 | **0.79** |
-| 0.7 | 20.94 | 2539 | 4374 (SLS-S-0166) | -1.88 | yes | 5119 | 8652 | **0.51** | 9338 | 18784 | 11206 | 10560 (ULS-B-0102) | -108 | 15036 | **0.70** |
-| 0.8 | 23.93 | 1874 | 3296 (SLS-S-0021) | -6.17 | yes | 5736 | 9128 | **0.36** | 9287 | 18742 | 11145 | 7985 (ULS-B-0102) | -122 | 15002 | **0.53** |
-| 0.9 | 26.92 | 944 | 1668 (SLS-S-0021) | -12.46 | yes | 6579 | 9754 | **0.17** | 9195 | 18675 | 11034 | 4025 (ULS-B-0102) | -42 | 14943 | **0.27** |
+| 0.1 | 2.99 | 944 | 2072 (SLS-S-0021) | -11.69 | yes | 6668 | 9629 | **0.22** | 9281 | 18634 | 11137 | 4292 (ULS-B-0102) | 482 | 14757 | **0.29** |
+| 0.2 | 5.98 | 1874 | 3353 (SLS-S-0021) | -6.38 | yes | 5869 | 9066 | **0.37** | 9418 | 18713 | 11302 | 7522 (ULS-B-0102) | 304 | 14876 | **0.51** |
+| 0.3 | 8.97 | 2539 | 4297 (SLS-S-0166) | -2.14 | yes | 5143 | 8579 | **0.50** | 9361 | 18766 | 11233 | 9956 (ULS-B-0102) | 227 | 14942 | **0.67** |
+| 0.4 | 11.97 | 2938 | 4908 (SLS-S-0166) | 0.29 | yes | 4795 | 8316 | **0.59** | 9414 | 18798 | 11297 | 11566 (ULS-B-0102) | 130 | 14996 | **0.77** |
+| 0.5 | 14.96 | 3071 | 5113 (SLS-S-0166) | 1.03 | yes | 4704 | 8258 | **0.62** | 9457 | 18810 | 11348 | 12201 (ULS-B-0102) | -7 | 15048 | **0.81** |
+| 0.6 | 17.95 | 2938 | 4961 (SLS-S-0166) | 0.29 | yes | 4845 | 8375 | **0.59** | 9465 | 18806 | 11358 | 11920 (ULS-B-0102) | -68 | 15050 | **0.79** |
+| 0.7 | 20.94 | 2539 | 4374 (SLS-S-0166) | -2.16 | yes | 5228 | 8679 | **0.50** | 9448 | 18784 | 11337 | 10560 (ULS-B-0102) | -108 | 15036 | **0.70** |
+| 0.8 | 23.93 | 1874 | 3296 (SLS-S-0021) | -6.79 | yes | 5979 | 9195 | **0.36** | 9530 | 18742 | 11437 | 7985 (ULS-B-0102) | -122 | 15002 | **0.53** |
+| 0.9 | 26.92 | 944 | 1668 (SLS-S-0021) | -13.07 | yes | 6821 | 9814 | **0.17** | 9437 | 18675 | 11324 | 4025 (ULS-B-0102) | -42 | 14943 | **0.27** |
 
 ### Hogging / top face
 
-No station with a hogging ULS moment or an SLS moment below the top-face decompression moment.
+| t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.1 | 204 (SLS-S-0347) | 1916 | -1361 | 0.52 | 128 (ULS-H-0009) | 14925 | 0.01 | 10274 | 18634 |
+| 0.2 | 446 (SLS-S-0027) | 1433 | -2354 | 0.26 | 897 (ULS-H-0009) | 14989 | 0.06 | 10548 | 18713 |
+| 0.3 | 629 (SLS-S-0201) | 1129 | -3016 | 0.12 | 1523 (ULS-H-0009) | 15035 | 0.10 | 10713 | 18766 |
+| 0.4 | 755 (SLS-S-0201) | 1143 | -3377 | 0.09 | 1973 (ULS-H-0009) | 15061 | 0.13 | 10750 | 18798 |
+| 0.5 | 811 (SLS-S-0917) | 1161 | -3482 | 0.08 | 2225 (ULS-H-0009) | 15066 | 0.15 | 10758 | 18810 |
+| 0.6 | 787 (SLS-S-0917) | 1146 | -3380 | 0.08 | 2258 (ULS-H-0009) | 15058 | 0.15 | 10759 | 18806 |
+| 0.7 | 676 (SLS-S-0549) | 1859 | -3024 | 0.24 | 2048 (ULS-H-0009) | 15035 | 0.14 | 10544 | 18784 |
+| 0.8 | 460 (SLS-S-0549) | 1820 | -2439 | 0.32 | 1545 (ULS-B-0413) | 15006 | 0.10 | 10497 | 18742 |
+| 0.9 | 50 (SLS-S-0035) | 1351 | -1603 | 0.44 | 517 (ULS-B-0467) | 14951 | 0.03 | 10528 | 18675 |
 
 - crack-control limits (Table 8.6.2.1 as coded): fscr 240 MPa (db 20 mm), fscrT 330 MPa (db 12 mm), ftcr 200 MPa
 - axial force with the moments: concurrent N of the governing row (useN); losses method detailed, time 3650 d
 - fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty
-- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied
+- Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc
+- deck differential shrinkage free strain -79.6 x 1e-6 (losses analysis, detailed method)
+- temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone
 - shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked
 

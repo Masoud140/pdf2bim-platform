@@ -20,7 +20,7 @@ function engine() {
   const b = await chromium.launch({ executablePath: process.env.CHROMIUM || '/opt/pw-browsers/chromium' });
   const pg = await b.newPage(); await pg.goto('file://' + DASH); await pg.waitForTimeout(2500);
   const P = await pg.evaluate(() => { let s = HOG_API.snap(); if (!s.p) { HOG_API.calc(); s = HOG_API.snap(); }
-    return { p: JSON.parse(JSON.stringify(s.p, (k, v) => (typeof v === 'number' && !isFinite(v)) ? 'Infinity:' + v : v)), mid_hog_browser: s.r.res.map(q => q.hog[s.r.mi]) }; });
+    return { p: JSON.parse(JSON.stringify(s.p, (k, v) => (typeof v === 'number' && !isFinite(v)) ? 'Infinity:' + v : v)), mid_hog_browser: s.r.res.map(q => q.hog[s.r.mi]), dsh_browser: s.r.res.map(q => q.dsh || null) }; });
   await b.close();
   const fix = o => JSON.parse(JSON.stringify(o), (k, v) => (typeof v === 'string' && v.startsWith('Infinity:')) ? Number(v.slice(9)) : v);
   const p = fix(P.p), E = engine();
@@ -33,5 +33,5 @@ function engine() {
   const asSet = runs.as_set.res.map(q => q.hog_mid), sameBrowser = asSet.length === P.mid_hog_browser.length && asSet.every((v, k) => Math.abs(v - P.mid_hog_browser[k]) < 1e-9);
   process.stdout.write(JSON.stringify({ note: 'Dashboard (v45) Hog engine inputs and results (engine block evaluated in Node; the as-set run is checked against the browser).',
     dashboard_sha256: crypto.createHash('sha256').update(fs.readFileSync(DASH)).digest('hex'), captured: new Date().toISOString(),
-    node_equals_browser: sameBrowser, p, runs, mat }) + '\n');
+    node_equals_browser: sameBrowser, dsh_browser: P.dsh_browser, p, runs, mat }) + '\n');
 })().catch(e => { console.error(e); process.exit(1); });

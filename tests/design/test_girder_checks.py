@@ -38,8 +38,20 @@ for td in sec.tend:
 mt = st["materials"]
 lv = {"y_deck_bot": S["deck_thickness"], "y_gir_top": st["y_girder_top"], "Dtot": st["Dtot"], "Eg": mt["E_girder"], "Ed": mt["E_deck"], "fcg": mt["fc_girder"], "fcd": mt["fc_deck"]}
 s = rec["sag"]; lim = crack_limits(sec, std)
-o = staged(sec, lv, rec["Mnc"], s["Ms"], s["Ns"], s["Mu"], s["Nu"], std, lim["fscr"], lim["ftcr"], lim["fscrT"])
-keys = ("Mdec", "Mal", "Mcr", "Muo", "Muo_min", "phiMu", "uS", "uB")
+from pdf2bim.description import Reader
+from pdf2bim.model.thermal import _profile, _temperature
+from pdf2bim.design.girder_sls import prof_at
+from pdf2bim.design.prestress import differential_shrinkage
+rd = Reader(doc, True)
+alpha = _temperature(rd, doc)["alpha"]
+PP = {k: _profile(rd, doc["loads"][f"gradient_{n}"], f"loads.gradient_{n}") for k, n in (("TGP", "positive"), ("TGN", "negative"))}
+ff = s["free"]["gradient_factors"]
+free = {"T": lambda y: alpha * (ff["TGP"] * prof_at(PP["TGP"], y) + ff["TGN"] * prof_at(PP["TGN"], y)), "sh": s["free"]["eps_dsh"]}
+o = staged(sec, lv, rec["Mnc"], s["Ms"], s["Ns"], s["Mu"], s["Nu"], std, lim["fscr"], lim["ftcr"], lim["fscrT"], free=free)
+t("free strains of the record: deck differential shrinkage = the losses analysis value; gradient factor from the governing SLS row (TGP > 0)",
+  abs(s["free"]["eps_dsh"] - differential_shrinkage(r)["eps"]) < 1e-15 and ff["TGP"] > 0, f"eps {s['free']['eps_dsh'] * 1e6:.1f}e-6, f_TGP {ff['TGP']}")
+keys = ("Mdec", "Mal", "Mcr", "Muo", "Muo_min", "phiMu", "uS", "uB", "soffit_sls")
+o["soffit_sls"] = o["sv"]["girBot"]
 d = max(abs(o[k] - s[k]) / max(1.0, abs(s[k])) for k in keys)
 t("midspan G2: the recorded staged SLS / minimum strength / ULS result is reproduced live from its recorded actions (1e-9)", d < 1e-9, f"{d:.1e}")
 w = p["rho"] * p["A"] / 1e6 + p["wd"]; a = p["a"]; L = p["L"]
