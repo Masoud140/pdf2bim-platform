@@ -78,6 +78,20 @@ def design():
     e.append(entry("AS5100.5:stress_block:gamma", "AS 5100.5", None, "rectangular stress block depth factor γ = clamp(a − b·f'c, min, max)", "-",
                    {"a": float(m.group(3)), "b": float(m.group(4)), "min": float(m.group(1)), "max": float(m.group(2))}, "f'c in MPa",
                    "ULS bending (fibre engine)", [f"src/dsg_engine.js:{line}"], interp="Form and limits as coded; engine discrepancy E-1 open.", specialist=False))
+    line, m = find("src/dsg_engine.js", r"function a2\(fc\)\{ return Math\.max\(([\d.]+), Math\.min\(([\d.]+), ([\d.]+)-([\d.]+)\*fc\)\); \}")
+    e.append(entry("AS5100.5:stress_block:alpha2", "AS 5100.5", None, "rectangular stress block intensity factor α2 = clamp(a − b·f'c, min, max)", "-",
+                   {"a": float(m.group(3)), "b": float(m.group(4)), "min": float(m.group(1)), "max": float(m.group(2))}, "f'c in MPa",
+                   "ULS bending (fibre engine; pdf2bim/design/flexure.py)", [f"src/dsg_engine.js:{line}", "pdf2bim/design/flexure.py"]))
+    line, m = find("src/dsg_engine.js", r"var phi=Math\.max\(([\d.]+),Math\.min\(([\d.]+),([\d.]+)-([\d.]+)\*kuo/([\d.]+)\)\)")
+    e.append(entry("AS5100.5:capacity_factor:phi_bending", "AS 5100.5", None, "capacity reduction factor in bending without axial force φ = clamp(a − b·kuo / c, min, max)", "-",
+                   {"a": float(m.group(3)), "b": float(m.group(4)), "c": float(m.group(5)), "min": float(m.group(1)), "max": float(m.group(2))}, "kuo = dn / d of the deepest tension steel (as coded)",
+                   "ULS bending (fibre engine; pdf2bim/design/flexure.py)", [f"src/dsg_engine.js:{line}", "pdf2bim/design/flexure.py"],
+                   interp="Form and limits as coded; d taken as the deepest bar or tendon (as coded) — the definition of d for kuo not reviewed. Not checked against an authorised copy.", specialist=True))
+    line, m = find("src/dsg_engine.js", r"var s=Math\.abs\(e\), A=([\d.]+), B=([\d.]+), C=([\d.]+);")
+    e.append(entry("AS5100.5:strand:stress_strain_mattock", "PCI (as coded; not AS 5100.5)", None, "prestressing strand stress-strain curve f = E e (A + (1 − A) / (1 + (B e)^C)^(1/C)) ≤ fpb (modified Ramberg-Osgood, low-relaxation strand)", "-",
+                   {"A": float(m.group(1)), "B": float(m.group(2)), "C": float(m.group(3))}, "low-relaxation 7-wire strand; strain e total (effective prestrain + ULS increment)",
+                   "ULS bending, strain compatibility (fibre engine; pdf2bim/design/flexure.py)", [f"src/dsg_engine.js:{line}", "pdf2bim/design/flexure.py"],
+                   interp="A material model from US practice (PCI), not a value from AS 5100.5; the strand supplier's curve or the AS 5100.5 approximate tendon stress may be required instead. Not checked.", specialist=True))
     line, m = find("src/dsg_engine.js", r"var ecu=([\d.]+)")
     e.append(entry("AS5100.5:strain:ecu", "AS 5100.5", None, "ultimate concrete compressive strain", "-", float(m.group(1)), "ULS strain compatibility",
                    "ULS bending (both engines)", [f"src/dsg_engine.js:{line}", "src/dsg_engine2.js:4"]))

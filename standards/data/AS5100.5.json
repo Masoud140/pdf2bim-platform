@@ -4,6 +4,48 @@
  "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
  "entries": [
   {
+   "id": "AS5100.5:capacity_factor:phi_bending",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "capacity reduction factor in bending without axial force φ = clamp(a − b·kuo / c, min, max)",
+   "units": "-",
+   "value": {
+    "a": 1.19,
+    "b": 13.0,
+    "c": 12.0,
+    "min": 0.6,
+    "max": 0.8
+   },
+   "applicability": "kuo = dn / d of the deepest tension steel (as coded)",
+   "context": "ULS bending (fibre engine; pdf2bim/design/flexure.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine.js:82",
+     "pdf2bim/design/flexure.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Form and limits as coded; d taken as the deepest bar or tendon (as coded) — the definition of d for kuo not reviewed. Not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:capacity_factor:phi_shear_torsion",
    "standard": "AS 5100.5",
    "edition": null,
@@ -129,6 +171,87 @@
     "used_by": [
      "src/dsg_engine.js:66",
      "src/dsg_engine2.js:4"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:strand:stress_strain_mattock",
+   "standard": "PCI (as coded; not AS 5100.5)",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "prestressing strand stress-strain curve f = E e (A + (1 − A) / (1 + (B e)^C)^(1/C)) ≤ fpb (modified Ramberg-Osgood, low-relaxation strand)",
+   "units": "-",
+   "value": {
+    "A": 0.025,
+    "B": 118.0,
+    "C": 10.0
+   },
+   "applicability": "low-relaxation 7-wire strand; strain e total (effective prestrain + ULS increment)",
+   "context": "ULS bending, strain compatibility (fibre engine; pdf2bim/design/flexure.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine.js:28",
+     "pdf2bim/design/flexure.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "A material model from US practice (PCI), not a value from AS 5100.5; the strand supplier's curve or the AS 5100.5 approximate tendon stress may be required instead. Not checked.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:stress_block:alpha2",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "rectangular stress block intensity factor α2 = clamp(a − b·f'c, min, max)",
+   "units": "-",
+   "value": {
+    "a": 0.85,
+    "b": 0.0015,
+    "min": 0.67,
+    "max": 0.85
+   },
+   "applicability": "f'c in MPa",
+   "context": "ULS bending (fibre engine; pdf2bim/design/flexure.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine.js:25",
+     "pdf2bim/design/flexure.py"
     ],
     "version": "dashboard v45 (src/, base/ at P0.3)"
    },
