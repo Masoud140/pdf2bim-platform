@@ -120,7 +120,7 @@
     "pdf2bim/model/wind.py",
     "pdf2bim/model/earthquake.py"
    ],
-   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model. Next: AS 5100.2 combinations",
+   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). Next: girder and headstock combined actions",
    "branch": "p3-model"
   },
   {
@@ -154,7 +154,7 @@
   }
  ],
  "next": {
-  "task": "P3c: the AS 5100.2 load combinations (port the dashboard's generator, inventory its factors, apply to all load cases)",
+  "task": "P3c close-out: girder and headstock responses in the combined actions, with a combined-action schedule",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },

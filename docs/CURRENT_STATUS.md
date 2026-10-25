@@ -169,10 +169,10 @@
 
 ## Tests (latest full run)
 
-- Commit `0e99431`: 35 scripts; **368 / 368 assertions PASS**; 18 print-only scripts ran without errors (`baseline/BR13A/test_run.md`).
-- Previous: `48ee031`, 298 / 298.
+- Commit `702f0fa`: 36 scripts; **396 / 396 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
+- Previous: `0e99431`, 368 / 368.
 - The run on `37e7f04` had 1 FAIL: the generality guard found "BR13A" in the .mct writer docstring. Fixed in `009ce60` and re-run.
 
 ## Next task
 
-**P3c combinations:** inventory the generator's remaining constants (23.2 factors, k1, k2, rf) as unverified standards data, port the AS 5100.2 combination generator, apply it to the P3c cases (envelopes per response), and cross-check against the dashboard's combined actions. Branch: continue `p3-model`.
+**P3c close-out:** add girder and headstock responses to the response set, envelope them through the combinations, cross-check against the dashboard's girder / headstock combined actions, and write a combined-action schedule. Branch: continue `p3-model`.
