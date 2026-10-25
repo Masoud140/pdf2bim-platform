@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stage 1 (flexural strength in Python) done. **Next: P4.5 stage 2** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–2 (flexural strength, SLS strain plane, N–M) done. **Next: P4.5 stage 3** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -177,4 +177,4 @@
 
 ## Next task
 
-**P4.5 design engine, stage 2** (`docs/P4_PLAN.md`): SLS stresses (uncracked / cracked strain plane, prestress state) and the N–M interaction (`src/dsg_engine2.js`) in `pdf2bim/design/`, with closed forms and the port-equals-engine check. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.
+**P4.5 design engine, stage 3** (`docs/P4_PLAN.md`): shear and torsion by the AS 5100.5 general method (`src/dsg_engine2.js` shear / vm): inventory its constants (θ = 29 + 7000 εx, kv, Asv,min, Vu,max, Tcr, longitudinal tension …) as unverified entries, port with closed forms and the port-equals-engine check. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.

@@ -120,7 +120,7 @@
     "pdf2bim/model/wind.py",
     "pdf2bim/model/earthquake.py"
    ],
-   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stage 1 flexure done. Next: P4.5 stage 2",
+   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stages 1-2 (flexure, SLS, N-M) done. Next: P4.5 stage 3 shear and torsion",
    "branch": "p3-model"
   },
   {
@@ -154,7 +154,7 @@
   }
  ],
  "next": {
-  "task": "P4.5 stage 2: SLS stresses and N-M interaction in Python",
+  "task": "P4.5 stage 3: shear and torsion (AS 5100.5 general method) in Python",
   "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
   "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
  },

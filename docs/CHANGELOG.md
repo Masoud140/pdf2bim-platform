@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 2: SLS strain plane and N–M interaction (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/sls.py`, `nm.py`; standards entries `AS5100.5:strain:balanced_steel`, `:capacity_factor:phi_compression` (80 entries).
+- **Tests:** SLS + N–M 13 (closed forms; port = dashboard engine; 6 / 6 mutations caught).
+- **Change vs the dashboard:** a cracked SLS solve starts from the uncracked plane (the zero start can be singular).
+
 ## 2026-10-25 — P4.5 stage 1: flexural strength in Python (branch `p4-verification`)
 
 - **Added:** `pdf2bim/design/flexure.py`; standards entries `AS5100.5:stress_block:alpha2`, `:capacity_factor:phi_bending`, `:strand:stress_strain_mattock` (78 entries).

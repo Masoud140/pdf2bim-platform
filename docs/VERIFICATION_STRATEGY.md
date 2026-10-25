@@ -75,6 +75,7 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
+- **P4.5 stage 2 SLS + N–M** (2026-10-25): `tests/design/test_sls_nm.py` 13 (closed forms; port = dashboard engine 1e-9). T11 still needs a referenced example.
 - **P4.5 stage 1 flexure** (2026-10-25): `tests/design/test_flexure.py` 13 (closed forms 1e-9; port = dashboard engine 1e-9). **T11 not met:** the only worked example has no source (E-1).
 - **P4.3 signed earthquake / pile resultants** (2026-10-25): `test_earthquake.py` 16 (covariance closed form, |c_j| ≤ R_j), `test_concurrent.py` 17 (ellipse resultant vs brute force 1e-4). The method choice (ADR-031) is for the engineer to confirm.
 - **P4.1 / P4.2 concurrent traffic actions and combinations** (2026-10-25, branch `p4-verification`): `tests/model/test_concurrent.py` 13 / 13 (P4.2: concurrent value = envelope to 1e-15, admissible, earthquake rows flagged); P4.1 part (state reproduces the envelope to 1e-15; concurrent values inside every envelope; closed form; T4). Characteristic only; standards values unverified.
