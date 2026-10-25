@@ -2,7 +2,7 @@
  "run": {
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
   "description_sha256": "0ece35ede0944a69d100a0a6e4966fc479f27f4f982acc630d9d726def63ab8b",
-  "engine_commit": "9255bed",
+  "engine_commit": "61e34bd",
   "engine_uncommitted_changes": true,
   "allow_proposed": true,
   "options": {
@@ -40,7 +40,7 @@
    "SLS": 976
   },
   "standards_status": "UNVERIFIED \u2014 standards data not approved",
-  "run_at": "2026-10-25T01:09:37+00:00"
+  "run_at": "2026-10-25T03:16:39+00:00"
  },
  "schedule": {
   "bearings": {
@@ -95,7 +95,7 @@
       "gmin": "ULS-K-0005"
      },
      "tr": {
-      "max": 565.9141216903474,
+      "max": 565.9141207756683,
       "gmax": "ULS-H-0005",
       "min": -603.5909599770392,
       "gmin": "ULS-B-0358"
@@ -217,11 +217,11 @@
      "v": {
       "max": 2123.4498661710945,
       "gmax": "ULS-B-0084",
-      "min": 115.32013448892495,
+      "min": 115.3201346482085,
       "gmin": "ULS-H-0013"
      },
      "tr": {
-      "max": 160.56159490584452,
+      "max": 160.5615948517911,
       "gmax": "ULS-H-0013",
       "min": -535.8467659832627,
       "gmin": "ULS-B-0088"
@@ -263,9 +263,9 @@
       "gmin": "ULS-B-0359"
      },
      "tr": {
-      "max": 555.363519451626,
+      "max": 555.3635191533639,
       "gmax": "ULS-H-0005",
-      "min": -476.9297407783458,
+      "min": -476.92974048008364,
       "gmin": "ULS-H-0013"
      },
      "lon": {
@@ -301,13 +301,13 @@
      "v": {
       "max": 2192.9903043040463,
       "gmax": "ULS-B-0216",
-      "min": 316.4867838733977,
+      "min": 316.4867832924717,
       "gmin": "ULS-H-0013"
      },
      "tr": {
-      "max": 585.737144693656,
+      "max": 585.7371440486237,
       "gmax": "ULS-H-0005",
-      "min": -376.5928442555662,
+      "min": -376.5928436105341,
       "gmin": "ULS-H-0013"
      },
      "lon": {
@@ -387,19 +387,19 @@
      "N": {
       "max": 4078.6573737088534,
       "gmax": "ULS-B-0088",
-      "min": -197.81119179184176,
+      "min": -197.81118991991139,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1789.3498521931645,
-      "value": 1789.3498521931645,
+      "abs": 1789.3498522809957,
+      "value": 1789.3498522809957,
       "gov": "ULS-H-0001",
       "element": 200013,
       "end": 1
      },
      "Mt": {
-      "abs": 1102.5510965633148,
-      "value": -1102.5510965633148,
+      "abs": 1102.5510958942211,
+      "value": -1102.5510958942211,
       "gov": "ULS-H-0005",
       "element": 200011,
       "end": 1
@@ -437,15 +437,15 @@
       "gmin": "ULS-B-0407"
      },
      "Ml": {
-      "abs": 1774.8843660862867,
-      "value": 1774.8843660862867,
+      "abs": 1774.884366197079,
+      "value": 1774.884366197079,
       "gov": "ULS-H-0001",
       "element": 200033,
       "end": 1
      },
      "Mt": {
-      "abs": 1068.3902690140294,
-      "value": -1068.3902690140294,
+      "abs": 1068.3902683334873,
+      "value": -1068.3902683334873,
       "gov": "ULS-H-0005",
       "element": 200030,
       "end": 1
@@ -483,15 +483,15 @@
       "gmin": "ULS-B-0359"
      },
      "Ml": {
-      "abs": 1777.0195618221474,
-      "value": 1777.0195618221474,
+      "abs": 1777.0195619253027,
+      "value": 1777.0195619253027,
       "gov": "ULS-H-0001",
       "element": 200052,
       "end": 1
      },
      "Mt": {
-      "abs": 1024.666648215574,
-      "value": 1024.666648215574,
+      "abs": 1024.6666472187098,
+      "value": 1024.6666472187098,
       "gov": "ULS-H-0005",
       "element": 200049,
       "end": 1
@@ -525,19 +525,19 @@
      "N": {
       "max": 3152.487803759248,
       "gmax": "ULS-B-0135",
-      "min": -522.0544587151647,
+      "min": -522.0544577708233,
       "gmin": "ULS-H-0005"
      },
      "Ml": {
-      "abs": 1781.6077387953287,
-      "value": 1781.6077387953287,
+      "abs": 1781.6077389023515,
+      "value": 1781.6077389023515,
       "gov": "ULS-H-0001",
       "element": 200072,
       "end": 1
      },
      "Mt": {
-      "abs": 1050.153733828698,
-      "value": 1050.153733828698,
+      "abs": 1050.1537327066758,
+      "value": 1050.1537327066758,
       "gov": "ULS-H-0005",
       "element": 200068,
       "end": 1
@@ -571,19 +571,19 @@
      "N": {
       "max": 2872.4105969632024,
       "gmax": "ULS-B-0082",
-      "min": -448.5840769941265,
+      "min": -448.58407585793776,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1478.3858627024697,
-      "value": -1478.3858627024697,
+      "abs": 1478.3858630416769,
+      "value": -1478.3858630416769,
       "gov": "ULS-H-0005",
       "element": 200107,
       "end": 1
      },
      "Mt": {
-      "abs": 924.5775362113683,
-      "value": 924.5775362113683,
+      "abs": 924.5775349941204,
+      "value": 924.5775349941204,
       "gov": "ULS-H-0005",
       "element": 200104,
       "end": 1
@@ -617,19 +617,19 @@
      "N": {
       "max": 2398.304030368496,
       "gmax": "ULS-B-0156",
-      "min": 269.4791438084402,
+      "min": 269.4791444681237,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1482.955372617482,
-      "value": -1482.955372617482,
+      "abs": 1482.9553728607848,
+      "value": -1482.9553728607848,
       "gov": "ULS-H-0005",
       "element": 200125,
       "end": 1
      },
      "Mt": {
-      "abs": 946.8106172778831,
-      "value": 946.8106172778831,
+      "abs": 946.8106156246228,
+      "value": 946.8106156246228,
       "gov": "ULS-H-0005",
       "element": 200122,
       "end": 1
@@ -663,19 +663,19 @@
      "N": {
       "max": 2685.6723441469962,
       "gmax": "ULS-B-0216",
-      "min": 343.5712062954051,
+      "min": 343.57120668034946,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1481.391797227886,
-      "value": -1481.391797227886,
+      "abs": 1481.39179735021,
+      "value": -1481.39179735021,
       "gov": "ULS-H-0005",
       "element": 200143,
       "end": 1
      },
      "Mt": {
-      "abs": 904.4658380564566,
-      "value": -904.4658380564566,
+      "abs": 904.4658366504593,
+      "value": -904.4658366504593,
       "gov": "ULS-H-0005",
       "element": 200140,
       "end": 1
@@ -709,19 +709,19 @@
      "N": {
       "max": 4570.782421925127,
       "gmax": "ULS-B-0198",
-      "min": 73.97364825988139,
+      "min": 73.97364969982334,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1479.0932554559718,
-      "value": -1479.0932554559718,
+      "abs": 1479.0932554298329,
+      "value": -1479.0932554298329,
       "gov": "ULS-H-0005",
       "element": 200161,
       "end": 1
      },
      "Mt": {
-      "abs": 922.4779254885557,
-      "value": -922.4779254885557,
+      "abs": 922.4779250067104,
+      "value": -922.4779250067104,
       "gov": "ULS-H-0005",
       "element": 200158,
       "end": 1
@@ -781,8 +781,8 @@
       "element": 4
      },
      "N": {
-      "abs": 932.8596457795582,
-      "value": 932.8596457795582,
+      "abs": 932.8596473086884,
+      "value": 932.8596473086884,
       "gov": "ULS-H-0013",
       "ch": 1908.4681976045174,
       "element": 7
@@ -997,8 +997,8 @@
       "element": 54
      },
      "N": {
-      "abs": 884.1160077387989,
-      "value": -884.1160077387989,
+      "abs": 884.1160077729303,
+      "value": -884.1160077729303,
       "gov": "ULS-H-0013",
       "ch": 1911.2651847726916,
       "element": 51
@@ -1051,7 +1051,7 @@
       "element": 200003
      },
      "My_min": {
-      "value": -2152.6881744892626,
+      "value": -2152.6881734058516,
       "gov": "ULS-H-0005",
       "s": 7.285185241438344,
       "element": 200005
@@ -1141,13 +1141,13 @@
    "B": {
     "ULS": {
      "My_max": {
-      "value": 2031.7548735591322,
+      "value": 2031.7548725056872,
       "gov": "ULS-H-0005",
       "s": 9.006231535674182,
       "element": 200100
      },
      "My_min": {
-      "value": -1160.978218700045,
+      "value": -1160.978216435109,
       "gov": "ULS-H-0013",
       "s": 1.2064299357618236,
       "element": 200096
@@ -1172,8 +1172,8 @@
       "element": 200100
      },
      "Vy": {
-      "abs": 430.6086144262992,
-      "value": 430.6086144262992,
+      "abs": 430.60861454261675,
+      "value": 430.60861454261675,
       "gov": "ULS-H-0005",
       "s": 3.6855607103805443,
       "element": 200097
@@ -1238,6 +1238,2720 @@
   "uplift": [
    "A-G4"
   ]
+ },
+ "concurrent": {
+  "limit_state": "ULS",
+  "bearings": {
+   "A-G1": {
+    "max": {
+     "value": 3001.565106521027,
+     "row": "ULS-B-0090",
+     "check": 3001.5651065210277,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": 715.7642280072739,
+     "lon": -723.9804310151077
+    },
+    "min": {
+     "value": 105.17064998501462,
+     "row": "ULS-B-0479",
+     "check": 105.1706499850145,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": 284.9063299680821,
+     "lon": -365.5819953244594
+    }
+   },
+   "A-G2": {
+    "max": {
+     "value": 2642.5173656305974,
+     "row": "ULS-B-0108",
+     "check": 2642.5173656305974,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": 10.140281147500183,
+     "lon": -11.015924308740225
+    },
+    "min": {
+     "value": 216.42926525402572,
+     "row": "ULS-K-0005",
+     "check": 216.42926525402572,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "TUW",
+       1.25,
+       "static"
+      ],
+      [
+       "TGP",
+       1.25,
+       "static"
+      ]
+     ],
+     "tr": -160.19944826235752,
+     "lon": 187.5154353476281
+    }
+   },
+   "A-G3": {
+    "max": {
+     "value": 2526.2188118195204,
+     "row": "ULS-B-0156",
+     "check": 2526.2188118195195,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": -285.6676937473334,
+     "lon": -163.36467802393057
+    },
+    "min": {
+     "value": 160.98992223304762,
+     "row": "ULS-K-0006",
+     "check": 160.98992223304762,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "TUW",
+       1.25,
+       "static"
+      ],
+      [
+       "TGN",
+       1.25,
+       "static"
+      ]
+     ],
+     "tr": 58.18324458035876,
+     "lon": 20.219753507725855
+    }
+   },
+   "A-G4": {
+    "max": {
+     "value": 2198.642746534769,
+     "row": "ULS-B-0462",
+     "check": 2198.6427465347692,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": 505.94094927979637,
+     "lon": -257.88213741152845
+    },
+    "min": {
+     "value": -162.4716031181003,
+     "row": "ULS-B-0107",
+     "check": -162.47160311810023,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": -1123.9872789817778,
+     "lon": 1145.4691387626704
+    }
+   },
+   "B-G1": {
+    "max": {
+     "value": 2123.4498661710945,
+     "row": "ULS-B-0084",
+     "check": 2123.449866171095,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": -218.73524441877015,
+     "lon": 0.0
+    },
+    "min": {
+     "value": 115.3201346482085,
+     "row": "ULS-H-0013",
+     "check": 115.3201346482085,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "tr": -413.46963706194845,
+     "lon": 0.0
+    }
+   },
+   "B-G2": {
+    "max": {
+     "value": 2100.3438107599222,
+     "row": "ULS-B-0156",
+     "check": 2100.3438107599222,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": 102.25196495351787,
+     "lon": 0.0
+    },
+    "min": {
+     "value": 244.9658996246167,
+     "row": "ULS-B-0359",
+     "check": 244.96589962461664,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "tr": 60.45175326644182,
+     "lon": 0.0
+    }
+   },
+   "B-G3": {
+    "max": {
+     "value": 2192.9903043040463,
+     "row": "ULS-B-0216",
+     "check": 2192.9903043040463,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": 463.3347664421562,
+     "lon": 0.0
+    },
+    "min": {
+     "value": 316.4867832924717,
+     "row": "ULS-H-0013",
+     "check": 316.4867832924717,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "tr": -376.5928436105341,
+     "lon": 0.0
+    }
+   },
+   "B-G4": {
+    "max": {
+     "value": 3629.193861490358,
+     "row": "ULS-B-0090",
+     "check": 3629.193861490359,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": 40.49360592704381,
+     "lon": 0.0
+    },
+    "min": {
+     "value": 361.4791003393352,
+     "row": "ULS-B-0425",
+     "check": 361.4791003393352,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "tr": -7.806542644163288,
+     "lon": 0.0
+    }
+   }
+  },
+  "girders": {
+   "G1": {
+    "M_sag": {
+     "value": 10870.933607929865,
+     "row": "ULS-B-0084",
+     "check": 10870.933607929865,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "V": -128.93313978482243,
+     "T": -1056.3550086941905,
+     "N": 274.4574761129072,
+     "element": 7,
+     "end": 2,
+     "ch": 1911.2651847726916
+    },
+    "M_hog": {
+     "value": -3062.675397346555,
+     "row": "ULS-B-0162",
+     "check": -3062.675397346556,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (max)"
+      ]
+     ],
+     "V": -1850.645668879685,
+     "T": -1688.2182725395112,
+     "N": -682.1681076416437,
+     "element": 2,
+     "end": 1,
+     "ch": 1897.3304418608227
+    }
+   },
+   "G2": {
+    "M_sag": {
+     "value": 10760.871561404248,
+     "row": "ULS-B-0084",
+     "check": 10760.871561404248,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "V": -123.6696278479219,
+     "T": -1071.883307684971,
+     "N": 81.90218112345161,
+     "element": 21,
+     "end": 2,
+     "ch": 1911.2651847726916
+    },
+    "M_hog": {
+     "value": -1473.7920692600119,
+     "row": "ULS-B-0432",
+     "check": -1473.7920692600119,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (max)"
+      ]
+     ],
+     "V": -1552.26003340485,
+     "T": -586.8768626173173,
+     "N": -289.7428677430097,
+     "element": 16,
+     "end": 1,
+     "ch": 1895.844780240428
+    }
+   },
+   "G3": {
+    "M_sag": {
+     "value": 10849.033701176773,
+     "row": "ULS-B-0084",
+     "check": 10849.033701176775,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "V": -217.91105169832647,
+     "T": -809.6008674019423,
+     "N": 102.77165553306322,
+     "element": 35,
+     "end": 2,
+     "ch": 1908.4681976045174
+    },
+    "M_hog": {
+     "value": -1249.6441279744379,
+     "row": "ULS-B-0213",
+     "check": -1249.6441279744379,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WY_35",
+       1.0,
+       "static"
+      ]
+     ],
+     "V": 1370.740640275461,
+     "T": -1098.0965268952198,
+     "N": -206.01470434703268,
+     "element": 42,
+     "end": 2,
+     "ch": 1923.1355044162972
+    }
+   },
+   "G4": {
+    "M_sag": {
+     "value": 12309.360589319263,
+     "row": "ULS-B-0102",
+     "check": 12309.360589319263,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "V": 265.24165268278875,
+     "T": -1004.1173918531221,
+     "N": -65.50069534887473,
+     "element": 51,
+     "end": 1,
+     "ch": 1908.4681976045174
+    },
+    "M_hog": {
+     "value": -1582.4886365823047,
+     "row": "ULS-B-0090",
+     "check": -1582.4886365823047,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (min)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (max)"
+      ]
+     ],
+     "V": 1934.6169597371318,
+     "T": -1684.0449795533918,
+     "N": -220.7478363110926,
+     "element": 55,
+     "end": 2,
+     "ch": 1921.4497452201965
+    }
+   }
+  },
+  "piles": {
+   "A1": {
+    "max |Ml|": {
+     "value": 1789.3498522809957,
+     "row": "ULS-H-0001",
+     "check": 1789.3498522809957,
+     "flags": [
+      "EQX: envelope used, not a concurrent state",
+      "EQY: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQX",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQY",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 1789.3498522809957,
+     "Mt": 171.61317037421531,
+     "N": 1875.1922022989245,
+     "element": 200013,
+     "end": 1,
+     "resultant": 1797.560562012838
+    },
+    "max |Mt|": {
+     "value": -1102.5510958942211,
+     "row": "ULS-H-0005",
+     "check": -1102.5510958942211,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 108.61250856209128,
+     "Mt": -1102.5510958942211,
+     "N": 32.97538086234886,
+     "element": 200011,
+     "end": 1,
+     "resultant": 1107.8878986944926
+    },
+    "N max": {
+     "value": 4078.6573737088534,
+     "row": "ULS-B-0088",
+     "check": 4078.6573737088534,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WY_35",
+       -1.0,
+       "static"
+      ]
+     ],
+     "Ml": 5.90273712677078e-14,
+     "Mt": 7.40641467629617e-15,
+     "element": 200028,
+     "end": 2
+    },
+    "bound": 2101.7592185870317
+   },
+   "A2": {
+    "max |Ml|": {
+     "value": 1774.884366197079,
+     "row": "ULS-H-0001",
+     "check": 1774.884366197079,
+     "flags": [
+      "EQX: envelope used, not a concurrent state",
+      "EQY: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQX",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQY",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 1774.884366197079,
+     "Mt": 106.68320217525617,
+     "N": 1688.3638444150818,
+     "element": 200033,
+     "end": 1,
+     "resultant": 1778.0876859697257
+    },
+    "max |Mt|": {
+     "value": -1068.3902683334873,
+     "row": "ULS-H-0005",
+     "check": -1068.3902683334873,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -2.9164110578957434,
+     "Mt": -1068.3902683334873,
+     "N": 1118.1914584663664,
+     "element": 200030,
+     "end": 1,
+     "resultant": 1068.3942488253854
+    },
+    "N max": {
+     "value": 3379.3103555974476,
+     "row": "ULS-B-0108",
+     "check": 3379.3103555974476,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "Ml": 2.442234985188571e-14,
+     "Mt": 1.3769856875950957e-15,
+     "element": 200047,
+     "end": 2
+    },
+    "bound": 2071.635170304006
+   },
+   "A3": {
+    "max |Ml|": {
+     "value": 1777.0195619253027,
+     "row": "ULS-H-0001",
+     "check": 1777.0195619253027,
+     "flags": [
+      "EQX: envelope used, not a concurrent state",
+      "EQY: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQX",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQY",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 1777.0195619253027,
+     "Mt": 154.0134394327193,
+     "N": 1483.8286455425352,
+     "element": 200052,
+     "end": 1,
+     "resultant": 1783.6812111448307
+    },
+    "max |Mt|": {
+     "value": 1024.6666472187098,
+     "row": "ULS-H-0005",
+     "check": 1024.6666472187098,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 570.3843592374593,
+     "Mt": 1024.6666472187098,
+     "N": 1468.0117757473927,
+     "element": 200049,
+     "end": 1,
+     "resultant": 1172.7233498081118
+    },
+    "N max": {
+     "value": 3010.6599155387325,
+     "row": "ULS-B-0156",
+     "check": 3010.659915538732,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "Ml": 4.9155431755351155e-15,
+     "Mt": -1.1004061756476152e-14,
+     "element": 200066,
+     "end": 2
+    },
+    "bound": 2051.277714349675
+   },
+   "A4": {
+    "max |Ml|": {
+     "value": 1781.6077389023515,
+     "row": "ULS-H-0001",
+     "check": 1781.6077389023515,
+     "flags": [
+      "EQX: envelope used, not a concurrent state",
+      "EQY: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQX",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQY",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 1781.6077389023515,
+     "Mt": 91.78690761847129,
+     "N": 1291.162351780994,
+     "element": 200072,
+     "end": 1,
+     "resultant": 1783.970563581953
+    },
+    "max |Mt|": {
+     "value": 1050.1537327066758,
+     "row": "ULS-H-0005",
+     "check": 1050.1537327066758,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 379.495747862415,
+     "Mt": 1050.1537327066758,
+     "N": 1459.1571419192655,
+     "element": 200068,
+     "end": 1,
+     "resultant": 1116.6198480071084
+    },
+    "N max": {
+     "value": 3152.487803759248,
+     "row": "ULS-B-0135",
+     "check": 3152.4878037592484,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WY_35",
+       1.0,
+       "static"
+      ]
+     ],
+     "Ml": -4.780446076486935e-16,
+     "Mt": 1.2333304722052508e-14,
+     "element": 200085,
+     "end": 2
+    },
+    "bound": 2068.0785762718288
+   },
+   "B1": {
+    "max |Ml|": {
+     "value": -1478.3858630416769,
+     "row": "ULS-H-0005",
+     "check": -1478.3858630416769,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -1478.3858630416769,
+     "Mt": -106.10813400690516,
+     "N": -87.15509254513978,
+     "element": 200107,
+     "end": 1,
+     "resultant": 1482.1888193290054
+    },
+    "max |Mt|": {
+     "value": 924.5775349941204,
+     "row": "ULS-H-0005",
+     "check": 924.5775349941204,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 50.18093432718437,
+     "Mt": 924.5775349941204,
+     "N": 1834.098150018653,
+     "element": 200104,
+     "end": 1,
+     "resultant": 925.9383048485213
+    },
+    "N max": {
+     "value": 2872.4105969632024,
+     "row": "ULS-B-0082",
+     "check": 2872.4105969632024,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WY_35",
+       -1.0,
+       "static"
+      ]
+     ],
+     "Ml": -3.0789790457165626e-14,
+     "Mt": 1.6103379334794253e-15,
+     "element": 200120,
+     "end": 2
+    },
+    "bound": 1743.6938889200958
+   },
+   "B2": {
+    "max |Ml|": {
+     "value": -1482.9553728607848,
+     "row": "ULS-H-0005",
+     "check": -1482.9553728607848,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -1482.9553728607848,
+     "Mt": -155.08458770484899,
+     "N": 626.0934606888758,
+     "element": 200125,
+     "end": 1,
+     "resultant": 1491.042543739196
+    },
+    "max |Mt|": {
+     "value": 946.8106156246228,
+     "row": "ULS-H-0005",
+     "check": 946.8106156246228,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": 94.1305220262229,
+     "Mt": 946.8106156246228,
+     "N": 996.4513994806449,
+     "element": 200122,
+     "end": 1,
+     "resultant": 951.4782693453416
+    },
+    "N max": {
+     "value": 2398.304030368496,
+     "row": "ULS-B-0156",
+     "check": 2398.304030368496,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       -1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 0 (min)"
+      ]
+     ],
+     "Ml": -2.8192964715814155e-16,
+     "Mt": 1.000606512029254e-14,
+     "element": 200138,
+     "end": 2
+    },
+    "bound": 1759.4337099635627
+   },
+   "B3": {
+    "max |Ml|": {
+     "value": -1481.39179735021,
+     "row": "ULS-H-0005",
+     "check": -1481.39179735021,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -1481.39179735021,
+     "Mt": -183.55586662943256,
+     "N": 796.6296011156894,
+     "element": 200143,
+     "end": 1,
+     "resultant": 1492.72047397715
+    },
+    "max |Mt|": {
+     "value": -904.4658366504593,
+     "row": "ULS-H-0005",
+     "check": -904.4658366504593,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -740.94591483602,
+     "Mt": -904.4658366504593,
+     "N": 721.1092805546008,
+     "element": 200140,
+     "end": 1,
+     "resultant": 1169.2131107629618
+    },
+    "N max": {
+     "value": 2685.6723441469962,
+     "row": "ULS-B-0216",
+     "check": 2685.672344146996,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUC",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "Ml": -2.056102741939368e-14,
+     "Mt": -5.22492982551618e-15,
+     "element": 200156,
+     "end": 2
+    },
+    "bound": 1735.678572467927
+   },
+   "B4": {
+    "max |Ml|": {
+     "value": -1479.0932554298329,
+     "row": "ULS-H-0005",
+     "check": -1479.0932554298329,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -1479.0932554298329,
+     "Mt": -184.22683136856975,
+     "N": 770.8976167834501,
+     "element": 200161,
+     "end": 1,
+     "resultant": 1490.522184891632
+    },
+    "max |Mt|": {
+     "value": -922.4779250067104,
+     "row": "ULS-H-0005",
+     "check": -922.4779250067104,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Ml": -756.9631152907971,
+     "Mt": -922.4779250067104,
+     "N": 695.1422703198447,
+     "element": 200158,
+     "end": 1,
+     "resultant": 1193.2973979840208
+    },
+    "N max": {
+     "value": 4570.782421925127,
+     "row": "ULS-B-0198",
+     "check": 4570.782421925129,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "CENR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGN",
+       1.0,
+       "static"
+      ],
+      [
+       "WZ_35",
+       -1.0,
+       "part 1 (min)"
+      ]
+     ],
+     "Ml": -2.962406919265744e-14,
+     "Mt": 1.0683393524764454e-15,
+     "element": 200174,
+     "end": 2
+    },
+    "bound": 1743.1816831250571
+   }
+  },
+  "sills": {
+   "A": {
+    "My_max": {
+     "value": 1666.0914220678474,
+     "row": "ULS-B-0352",
+     "check": 1666.0914220678474,
+     "flags": [],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "M1600",
+       1.8,
+       "traffic state (max)"
+      ],
+      [
+       "BRKR",
+       1.8,
+       "static"
+      ],
+      [
+       "TUW",
+       1.0,
+       "static"
+      ],
+      [
+       "TGP",
+       1.0,
+       "static"
+      ],
+      [
+       "WY_35",
+       -1.0,
+       "static"
+      ]
+     ],
+     "Vz": -572.5689537451128,
+     "Mz": 134.11658978850443,
+     "T": -233.46682358826143,
+     "element": 200003,
+     "end": 1,
+     "s": 2.0843828221667025
+    },
+    "My_min": {
+     "value": -2152.6881734058516,
+     "row": "ULS-H-0005",
+     "check": -2152.6881734058516,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Vz": -911.997639725221,
+     "Mz": -18.65850893653899,
+     "T": -1169.3054953709518,
+     "element": 200005,
+     "end": 2,
+     "s": 7.285185241438344
+    }
+   },
+   "B": {
+    "My_max": {
+     "value": 2031.7548725056872,
+     "row": "ULS-H-0005",
+     "check": 2031.7548725056872,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       1.2,
+       "static"
+      ],
+      [
+       "SDLp",
+       2.0,
+       "static"
+      ],
+      [
+       "SOo",
+       1.5,
+       "static"
+      ],
+      [
+       "SCR",
+       1.2,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope max (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope max (unsigned: not concurrent)"
+      ]
+     ],
+     "Vz": 886.8703013743096,
+     "Mz": -159.5098205256445,
+     "T": 307.6776578378038,
+     "element": 200100,
+     "end": 2,
+     "s": 9.006231535674182
+    },
+    "My_min": {
+     "value": -1160.978216435109,
+     "row": "ULS-H-0013",
+     "check": -1160.978216435109,
+     "flags": [
+      "EQY: envelope used, not a concurrent state",
+      "EQX: envelope used, not a concurrent state"
+     ],
+     "terms": [
+      [
+       "DLc",
+       0.85,
+       "static"
+      ],
+      [
+       "SDLp",
+       0.7,
+       "static"
+      ],
+      [
+       "SOo",
+       0.7,
+       "static"
+      ],
+      [
+       "EQY",
+       1.0,
+       "envelope min (unsigned: not concurrent)"
+      ],
+      [
+       "EQX",
+       0.3,
+       "envelope min (unsigned: not concurrent)"
+      ]
+     ],
+     "Vz": -738.9145262554922,
+     "Mz": -125.32886677502114,
+     "T": -301.3449509404188,
+     "element": 200096,
+     "end": 1,
+     "s": 1.2064299357618236
+    }
+   }
+  }
  },
  "governing_rows": [
   {

@@ -394,7 +394,7 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     prov.append({"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
                  "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"})
     z = np.zeros(len(RS.names))
-    P["EPT"] = {"max": np.maximum.reduce([hc["EPTA"], hc["EPTB"], z]), "min": np.minimum.reduce([hc["EPTA"], hc["EPTB"], z])}
+    P["EPT"] = {"max": np.maximum.reduce([hc["EPTA"], hc["EPTB"], z]), "min": np.minimum.reduce([hc["EPTA"], hc["EPTB"], z]), "parts": [hc["EPTA"], hc["EPTB"], z]}
     src["EPT"] = "traffic surcharge behind A or behind B (envelope with zero)"
     P["BRKR"] = {"s": hc["BRKp"]}; src["BRKR"] = "braking toward B (negative factor = toward A)"
     P["CENR"] = {"s": hc["CEN"]}; src["CENR"] = "centrifugal, outward"
@@ -408,16 +408,16 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     for sx, r in (("U", 1.0), ("35", r35), ("S", rS)):
         P["WX_" + sx] = {"s": wc["WL+"] * r}
         P["WY_" + sx] = {"s": wc["WT+"] * r + (wc["WTV+"] if sx == "35" else 0.0)}
-        P["WZ_" + sx] = {"max": np.maximum(wc["WVU+"], wc["WVU-"]) * r, "min": np.minimum(wc["WVU+"], wc["WVU-"]) * r}
+        P["WZ_" + sx] = {"max": np.maximum(wc["WVU+"], wc["WVU-"]) * r, "min": np.minimum(wc["WVU+"], wc["WVU-"]) * r, "parts": [wc["WVU+"] * r, wc["WVU-"] * r]}
     src["WX"] = "WL+ (x (V/V_uls)^2 at the with-traffic / SLS speeds)"; src["WY"] = "WT+ (+ WTV+ with traffic)"; src["WZ"] = "uplift WVU+ / WVU- envelope"
     Q = earthquake_rsa(doc, geo, mdl, std, sdl_loads=C["loads"], allow_proposed=allow_proposed, **(eq_kw or {}))
     if Q["names"] != RS.names:
         raise ValueError("earthquake responses and the response set differ")
-    P["EQX"] = {"max": Q["resp"]["L"]["R"], "min": -Q["resp"]["L"]["R"]}; P["EQY"] = {"max": Q["resp"]["T"]["R"], "min": -Q["resp"]["T"]["R"]}
+    P["EQX"] = {"max": Q["resp"]["L"]["R"], "min": -Q["resp"]["L"]["R"], "unsigned": True}; P["EQY"] = {"max": Q["resp"]["T"]["R"], "min": -Q["resp"]["T"]["R"], "unsigned": True}
     src["EQX"] = "RSA, longitudinal direction alone"; src["EQY"] = "RSA, transverse direction alone"
     Tr = traffic_envelope(doc, geo, mdl, std, allow_proposed=allow_proposed, inf=Influence(mdl, responses=RS), **(traffic_kw or {}))
     for mn, e in Tr["env"].items():
-        P[mn] = {"max": e["max"], "min": e["min"]}; src[mn] = f"{mn} moving-load envelope (DLA, lane factors)"
+        P[mn] = {"max": e["max"], "min": e["min"], "state": (Tr, mn)}; src[mn] = f"{mn} moving-load envelope (DLA, lane factors)"
     rd = Reader(doc, allow_proposed)
     Ld = doc.get("loads") or {}
     for key, aid in (("pedestrian", "PED"), ("flood", "FLH"), ("collision", "COLX")):
@@ -433,6 +433,43 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
 def available_actions(prim):
     """Register actions that have a primitive (wind ids without the speed suffix)."""
     return {k.split("_")[0] if k.split("_")[0] in ("WX", "WY", "WZ") else k for k in prim}
+
+
+def concurrent_row(prim, row, i, which="max"):
+    """Concurrent response vector of combination row `row` at the extreme `which` ("max" / "min") of response i (P4.2):
+    the same terms as combine(), with each envelope term replaced by ONE admissible state whose value at i is the one
+    combine() took: traffic -> the rebuilt vehicle / lane state (traffic.governing_state); "parts" envelopes (vertical
+    wind, surcharge) -> the part that governs at i; "unsigned" envelopes (earthquake RSA) -> sign x the envelope vector
+    itself, flagged: not a concurrent state (P4.3). Returns {"v": vector, "flags": [...], "terms": [(id, f, how)]}.
+    v[i] equals the envelope value of the row at i."""
+    from .traffic import governing_state, concurrent
+    nq = None
+    v, flags, how = None, [], []
+    for aid, f in row["t"]:
+        p = prim.get(aid)
+        if p is None:
+            how.append((aid, f, "missing")); continue
+        if "s" in p:
+            x = f * np.asarray(p["s"], float); how.append((aid, f, "static"))
+        else:
+            a, b = f * p["max"][i], f * p["min"][i]
+            hi_from_max = a > b                       # as combine(): the upper bound takes the larger
+            take_max = hi_from_max if which == "max" else not hi_from_max
+            side = "max" if take_max else "min"
+            if "state" in p:
+                T, mn = p["state"]
+                st = governing_state(T, mn, i, 1 if take_max else -1)
+                x = f * concurrent(T, st); how.append((aid, f, f"traffic state ({side})"))
+            elif "parts" in p:
+                vals = [q[i] for q in p["parts"]]
+                k = int(np.argmax(vals)) if take_max else int(np.argmin(vals))
+                x = f * np.asarray(p["parts"][k], float); how.append((aid, f, f"part {k} ({side})"))
+            else:
+                x = f * np.asarray(p[side], float)
+                how.append((aid, f, f"envelope {side}" + (" (unsigned: not concurrent)" if p.get("unsigned") else " (no state)")))
+                flags.append(f"{aid}: envelope used, not a concurrent state")
+        v = x if v is None else v + x
+    return {"v": v if v is not None else 0.0, "flags": flags, "terms": how}
 
 
 def combined_actions(doc, geo, S, mdl, std, allow_proposed=False, options=None, on=None, **kw):
@@ -511,4 +548,77 @@ def schedule(CA):
                     if a > d.get(q, {"abs": -1})["abs"]:
                         d[q] = {"abs": float(a), "value": float(v), "gov": g, "s": s_, "element": eid}
     out["uplift"] = sorted(b for b, d in out["bearings"].items() if min(d["ULS"]["v"]["min"], d["SLS"]["v"]["min"]) < 0)
+    return out
+
+
+def concurrent_schedule(CA, ls="ULS"):
+    """Concurrent actions (P4.2) at the governing extremes of the schedule, for limit state ls: bearings (v max / min ->
+    tr, lon), girders (M sag / hog -> V, T at the same section), piles (largest |Ml| and |Mt| -> the other moment, N and
+    the concurrent resultant; N max -> Ml, Mt), sills (My max / min -> Vz, Mz, T). Each item records the governing row,
+    the check value (concurrent value of the governing response = envelope value) and flags (earthquake terms are not
+    concurrent states until P4.3)."""
+    names, E = CA["names"], CA["envelopes"][ls]
+    prim = CA["primitives"]["prim"]
+    ix = {n: i for i, n in enumerate(names)}
+    rows = {r["name"]: r for r in CA["rows"]}
+    cache = {}
+
+    def conc(i, which):
+        g = E["g" + which][i]
+        key = (g, i, which)
+        if key not in cache:
+            cache[key] = concurrent_row(prim, rows[g], i, which)
+        c = cache[key]
+        return g, c["v"], c["flags"], c["terms"]
+
+    def item(i, which, others):
+        g, v, fl, terms = conc(i, which)
+        d = {"value": float(E[which][i]), "row": g, "check": float(v[i]), "flags": fl, "terms": [list(t) for t in terms]}
+        for lab, j in others.items():
+            d[lab] = float(v[j])
+        return d, v
+
+    out = {"limit_state": ls, "bearings": {}, "girders": {}, "piles": {}, "sills": {}}
+    for b in sorted({n[1] for n in names if n[0] == "BL"}):
+        i = ix[("BL", b, "v")]
+        oth = {"tr": ix[("BL", b, "tr")], "lon": ix[("BL", b, "lon")]}
+        out["bearings"][b] = {w: item(i, w, oth)[0] for w in ("max", "min")}
+    for line in sorted({n[1][0] for n in names if n[0] == "G"}):
+        G = [(n, i) for n, i in ix.items() if n[0] == "G" and n[1][0] == line and n[2][0] == "M"]
+        res = {}
+        for lab, w, pick in (("M_sag", "max", max), ("M_hog", "min", min)):
+            n, i = pick(G, key=lambda x: E[w][x[1]])
+            end = n[2][1]
+            d, _ = item(i, w, {"V": ix[n[:2] + ("V" + end,)], "T": ix[n[:2] + ("T" + end,)], "N": ix[n[:2] + ("N" + end,)]})
+            d.update({"element": n[1][1], "end": int(end), "ch": CA["primitives"]["meta"][n[:2]]["ch"][int(end) - 1]})
+            res[lab] = d
+        out["girders"][line] = res
+    for pid in sorted({n[1][0] for n in names if n[0] == "P"}):
+        rows_ = {q: [(n, i) for n, i in ix.items() if n[0] == "P" and n[1][0] == pid and n[2][:-1] == q and n[2][-1] in "12"] for q in ("Ml", "Mt", "N")}
+        res = {}
+        for q in ("Ml", "Mt"):
+            n, i = max(rows_[q], key=lambda x: max(abs(E["max"][x[1]]), abs(E["min"][x[1]])))
+            w = "max" if abs(E["max"][i]) >= abs(E["min"][i]) else "min"
+            end = n[2][-1]
+            d, v = item(i, w, {"Ml": ix[n[:2] + ("Ml" + end,)], "Mt": ix[n[:2] + ("Mt" + end,)], "N": ix[n[:2] + ("N" + end,)]})
+            d.update({"element": n[1][1], "end": int(end), "resultant": float(math.hypot(d["Ml"], d["Mt"]))})
+            res["max |" + q + "|"] = d
+        n, i = max(rows_["N"], key=lambda x: E["max"][x[1]])
+        end = n[2][-1]
+        d, _ = item(i, "max", {"Ml": ix[n[:2] + ("Ml" + end,)], "Mt": ix[n[:2] + ("Mt" + end,)]})
+        d.update({"element": n[1][1], "end": int(end)})
+        res["N max"] = d
+        amp = lambda q: max(max(abs(E["max"][j]), abs(E["min"][j])) for _, j in rows_[q])
+        res["bound"] = float(math.hypot(amp("Ml"), amp("Mt")))
+        out["piles"][pid] = res
+    for sid in sorted({n[1][0] for n in names if n[0] == "HS"}):
+        H = [(n, i) for n, i in ix.items() if n[0] == "HS" and n[1][0] == sid and n[2][:-1] == "My"]
+        res = {}
+        for lab, w, pick in (("My_max", "max", max), ("My_min", "min", min)):
+            n, i = pick(H, key=lambda x: E[w][x[1]])
+            end = n[2][-1]
+            d, _ = item(i, w, {"Vz": ix[n[:2] + ("Vz" + end,)], "Mz": ix[n[:2] + ("Mz" + end,)], "T": ix[n[:2] + ("T" + end,)]})
+            d.update({"element": n[1][1], "end": int(end), "s": CA["primitives"]["meta"][n[:2]]["s"][int(end) - 1]})
+            res[lab] = d
+        out["sills"][sid] = res
     return out

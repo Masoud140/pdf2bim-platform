@@ -7,7 +7,7 @@ Writes the schedule (.md) and the full data (.json): bearings (v, tr, lon), pile
 hogging M, |V|, |T| with chainage) and sills (My, Mz, |Vz|, |Vy|, |T| with the position along the sill), each with the
 governing combination row. Values only — no capacity check; factors and constants are unverified standards data;
 load-case inputs carry their own tags (Assumed / Standard-verify / Model)."""
-import argparse, datetime, hashlib, json, os, subprocess, sys
+import argparse, datetime, hashlib, json, math, os, subprocess, sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 
@@ -19,7 +19,7 @@ def main():
     from pdf2bim.geometry.bridge import build_geometry
     from pdf2bim.sections.girder import build_sections
     from pdf2bim.model.substructure import build_integrated
-    from pdf2bim.model.combinations import combined_actions, schedule
+    from pdf2bim.model.combinations import combined_actions, schedule, concurrent_schedule
     from standards.accessor import Standards
     std = Standards()
     raw = open(a.description, "rb").read()
@@ -29,6 +29,7 @@ def main():
     M = build_integrated(doc, geo, S, std, allow_proposed=a.allow_proposed)
     CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
     Z = schedule(CA)
+    ZC = concurrent_schedule(CA, "ULS")
     try:
         commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         dirty = bool(subprocess.run(["git", "status", "--porcelain", "pdf2bim", "standards"], cwd=ROOT, capture_output=True, text=True).stdout.strip())
@@ -69,13 +70,36 @@ def main():
     for sid in sorted(Z["sills"]):
         d = Z["sills"][sid]["ULS"]
         L.append(f"| {sid} | {f0(d['My_max']['value'])} | {d['My_max']['s']:.2f} | {f0(d['My_min']['value'])} | {d['My_min']['s']:.2f} | {f0(d['Mz_max']['value'])} | {f0(d['Mz_min']['value'])} | {f0(d['Vz']['abs'])} | {f0(d['Vy']['abs'])} | {f0(d['T']['abs'])} |")
+    fl = lambda d: " ⚠ EQ envelope" if d["flags"] else ""
+    L += ["", "## Concurrent actions at the governing ULS extremes (P4.2)", "",
+          "Each value: the governing combination row with every envelope term replaced by the one state that gives its value (traffic: the rebuilt vehicle / lane state; vertical wind, surcharge: the governing case). "
+          "**⚠ EQ envelope:** the row contains an earthquake term, which is still the unsigned RSA envelope of each response (not a concurrent state) until P4.3 — those concurrent values are not physical.", "",
+          "### Girders", "", "| Girder | M sag | V | T | row | M hog | V | T | row |", "|---|---|---|---|---|---|---|---|---|"]
+    for g, d in sorted(ZC["girders"].items()):
+        a_, b_ = d["M_sag"], d["M_hog"]
+        L.append(f"| {g} | {f0(a_['value'])} | {f0(a_['V'])} | {f0(a_['T'])} | {a_['row']}{fl(a_)} | {f0(b_['value'])} | {f0(b_['V'])} | {f0(b_['T'])} | {b_['row']}{fl(b_)} |")
+    L += ["", "### Bearings", "", "| Bearing | v max | tr | lon | row | v min | tr | lon | row |", "|---|---|---|---|---|---|---|---|---|"]
+    for bb, d in sorted(ZC["bearings"].items()):
+        a_, b_ = d["max"], d["min"]
+        L.append(f"| {bb} | {f0(a_['value'])} | {f0(a_['tr'])} | {f0(a_['lon'])} | {a_['row']}{fl(a_)} | {f0(b_['value'])} | {f0(b_['tr'])} | {f0(b_['lon'])} | {b_['row']}{fl(b_)} |")
+    L += ["", "### Piles", "", "| Pile | extreme | Ml | Mt | N | resultant | √ envelope bound | row |", "|---|---|---|---|---|---|---|---|"]
+    for pid, d in sorted(ZC["piles"].items()):
+        for k in ("max |Ml|", "max |Mt|"):
+            x = d[k]
+            L.append(f"| {pid} | {k} | {f0(x['Ml'])} | {f0(x['Mt'])} | {f0(x['N'])} | {f0(x['resultant'])} | {f0(d['bound'])} | {x['row']}{fl(x)} |")
+        x = d["N max"]
+        L.append(f"| {pid} | N max | {f0(x['Ml'])} | {f0(x['Mt'])} | {f0(x['value'])} | {f0(math.hypot(x['Ml'], x['Mt']))} | {f0(d['bound'])} | {x['row']}{fl(x)} |")
+    L += ["", "### Sills", "", "| Support | My max | Vz | Mz | T | row | My min | Vz | Mz | T | row |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for sid, d in sorted(ZC["sills"].items()):
+        a_, b_ = d["My_max"], d["My_min"]
+        L.append(f"| {sid} | {f0(a_['value'])} | {f0(a_['Vz'])} | {f0(a_['Mz'])} | {f0(a_['T'])} | {a_['row']}{fl(a_)} | {f0(b_['value'])} | {f0(b_['Vz'])} | {f0(b_['Mz'])} | {f0(b_['T'])} | {b_['row']}{fl(b_)} |")
     if Z["uplift"]:
         L += ["", f"**Bearing uplift in a combined minimum:** {', '.join(Z['uplift'])} (finding M-4: reported, not resolved)."]
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")
     rows_used = sorted({v for blk in Z.values() if isinstance(blk, dict) for e in blk.values() for ls in e.values() for q in ls.values()
                         for k_, v in q.items() if k_ in ("gov", "gmax", "gmin") and v})
-    json.dump({"run": run, "schedule": Z, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
+    json.dump({"run": run, "schedule": Z, "concurrent": ZC, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
                "provisional": CA["provisional"], "sources": CA["sources"], "standards_used": CA["standards_used"]},
               open(a.out.replace(".md", ".json"), "w"), indent=1, default=lambda x: x.tolist() if hasattr(x, "tolist") else str(x))
     print("\n".join(L))
