@@ -40,7 +40,7 @@ Characteristic values only; no load factor; inputs Assumed / Standard-verify; st
 
 `concurrent_schedule` gives, at the schedule's ULS extremes, girder M with V, T (same section), bearing v with tr, lon, pile Ml / Mt / N with the concurrent resultant against the √ envelope bound, and sill My with Vz, Mz, T. `tools/combined_actions.py` writes them to `projects/BR13A/model/BR13A.combined_actions.md` (section "Concurrent actions").
 
-**Checks:** the concurrent value of the governing response equals its envelope value (synthetic 1e-15; BR13A all 64 schedule items 1e-15, 30 random responses 3e-16); every concurrent component lies within the envelopes (8e-15); flags exactly on rows with earthquake terms; the parts rule closed form; 4 / 4 mutations caught.
+**Checks:** the concurrent value of the governing response equals its envelope value (synthetic 1e-15; BR13A all 52 schedule items 1e-15, 30 random responses 3e-16); every concurrent component lies within the envelopes (8e-15); flags exactly on rows with earthquake terms; the parts rule closed form; 4 / 4 mutations caught.
 
 **BR13A findings (ULS, indicative):**
 - girder max sagging rows are traffic rows: concurrent V is small (−218 … +265 kN), concurrent T −810 … −1072 kN·m;
