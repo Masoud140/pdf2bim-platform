@@ -44,8 +44,8 @@ m.fix(1, "011111"); m.fix(2, "111111"); m.fix(3, "111111"); m.spring(1, (2.0e4, 
 mdl = {"model": m, "nodes": {}, "members": [], "bearings": {}, "supports": {sA: {"sill_nodes": [2], "piles": []}, sB: {"sill_nodes": [3], "piles": []}}}
 Q = earthquake_rsa(doc, geo, mdl, Standards(), allow_proposed=True, extra_mass={1: 50.0}, n_modes=1)
 T1 = 2 * math.pi * math.sqrt(50.0 / 2.0e4)
-eq = {r["cells"]["item"]: float(r["cells"]["value"]) for r in doc["loads"]["earthquake"]["rows"] if r["cells"]["item"] in ("kp", "Z", "Rf")}
-Sa = eq["kp"] * eq["Z"] * ch_factor(T1, Standards().get("AS1170.4:spectral_shape:Ch").value["rows"]["Ce"]) / eq["Rf"]
+eq = Q["inputs"]                                  # effective inputs (with allow_proposed: the latest proposals, e.g. D-43 site class)
+Sa = eq["kp"] * eq["Z"] * ch_factor(T1, Standards().get("AS1170.4:spectral_shape:Ch").value["rows"][eq["site_class"]]) / eq["Rf"]
 i = Q["names"].index(("S", "springs", "X"))
 t("SDOF: period 2 pi sqrt(m / k) and spring force = m Sa(T) g (closed form, 1e-9)",
   abs(Q["periods"][0] - T1) < 1e-12 and abs(Q["resp"]["L"]["R"][i] - 50.0 * Sa * G_ACC) < 1e-9 * 50.0 * Sa * G_ACC, f"{Q['resp']['L']['R'][i]:.4f} vs {50 * Sa * G_ACC:.4f}")
@@ -75,7 +75,14 @@ i_, j_ = 0, Q2["names"].index(("S", "springs", "X"))
 w_ = [2 * math.pi / T_ for T_ in Q2["periods"]]
 ref = sum((1.0 if k == l else rho_cqc(w_[k], w_[l], Q2["inputs"]["zeta"])) * rk[k, i_] * rk[l, j_] for k in range(2) for l in range(2)) + Q2["resp"]["L"]["residual"][i_] * Q2["resp"]["L"]["residual"][j_]
 t("P4.3 covariance: cross term = sum_kl rho_kl R_ki R_lj + r_i r_j (closed form, 2 modes)", abs(covariance(Q2, "L", i_, j_) - ref) <= 1e-9 * max(abs(ref), 1e-12), f"{covariance(Q2, 'L', i_, j_):.4g} vs {ref:.4g}")
-t("unknown site class refused with the list of classes", raises(lambda: earthquake_rsa((lambda d: ([r["cells"].__setitem__("value", "Xe") for r in d["loads"]["earthquake"]["rows"] if r["cells"]["item"] == "site_class"], d)[1])(copy.deepcopy(doc)),
+def _site(d, v):
+    for r in d["loads"]["earthquake"]["rows"]:
+        if r["cells"]["item"] == "site_class":
+            r["cells"]["value"] = v
+            for o in r.get("overrides") or []:
+                o["value"] = dict(o["value"], value=v)
+    return d
+t("unknown site class refused with the list of classes", raises(lambda: earthquake_rsa(_site(copy.deepcopy(doc), "Xe"),
                                                                 geo, mdl, Standards(), allow_proposed=True, extra_mass={1: 50.0}, n_modes=1), MissingInput, "site_class"))
 d4 = copy.deepcopy(doc); d4["loads"]["earthquake"]["rows"] = [r for r in d4["loads"]["earthquake"]["rows"] if r["cells"]["item"] != "kp"]
 t("missing kp refused", raises(lambda: earthquake_rsa(d4, geo, mdl, Standards(), allow_proposed=True, extra_mass={1: 50.0}, n_modes=1), MissingInput, "kp"))

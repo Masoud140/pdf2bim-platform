@@ -1,0 +1,935 @@
+{
+ "same": [
+  {
+   "row": 2,
+   "path": "alignment.control_line",
+   "value": "M2W1",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 'CONTROL LINE M2W1'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 3,
+   "path": "alignment.horizontal.rows[0]",
+   "value": {
+    "element": "spiral",
+    "ch_start": 1842.507,
+    "length": 55.0,
+    "radius": 400,
+    "direction": "left",
+    "E_start": 300149.725,
+    "N_start": 6249465.626
+   },
+   "unit": null,
+   "source_type": "Calculated",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 horizontal alignment table",
+   "notes": "HTP1 1842.507 / 300149.725 / 6249465.626 printed; length = HTP2 - HTP1 = 1897.507 - 1842.507 = 55.000; radius printed 400000 (mm, general notes DRG-202011: dimensions in mm) = 400 m; left: bearing decreases 285°13'31.8\" (HTP1 in) -> 281°17'11.1\" (HTP2 out)",
+   "current_tag": "Direct",
+   "note": "extraction tag Calculated, description keeps Direct"
+  },
+  {
+   "row": 4,
+   "path": "alignment.horizontal.rows[1]",
+   "value": {
+    "element": "arc",
+    "ch_start": 1897.507,
+    "length": 138.931,
+    "radius": 400,
+    "direction": "left",
+    "E_start": 300096.349,
+    "N_start": 6249478.847
+   },
+   "unit": null,
+   "source_type": "Calculated",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 horizontal alignment table",
+   "notes": "HTP2 1897.507 / 300096.349 / 6249478.847 printed; length = HTP3 - HTP2 = 2036.438 - 1897.507 = 138.931; radius 400000 mm = 400 m; HCEN 300018.064 / 6249086.583",
+   "current_tag": "Direct",
+   "note": "extraction tag Calculated, description keeps Direct"
+  },
+  {
+   "row": 5,
+   "path": "alignment.horizontal.rows[2]",
+   "value": {
+    "element": "spiral",
+    "ch_start": 2036.438,
+    "length": 55.0,
+    "radius": 400,
+    "direction": "left",
+    "E_start": 299958.154,
+    "N_start": 6249482.071
+   },
+   "unit": null,
+   "source_type": "Calculated",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 horizontal alignment table",
+   "notes": "HTP3 2036.438 / 299958.154 / 6249482.071 printed; length = HTP4 - HTP3 = 2091.438 - 2036.438 = 55.000; bearing in 261°23'10.1\", out 257°26'49.4\"",
+   "current_tag": "Direct",
+   "note": "extraction tag Calculated, description keeps Direct"
+  },
+  {
+   "row": 6,
+   "path": "alignment.horizontal.rows[3]",
+   "value": {
+    "element": "tangent",
+    "ch_start": 2091.438,
+    "length": null,
+    "radius": null,
+    "direction": null,
+    "E_start": 299904.22,
+    "N_start": 6249471.352
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 horizontal alignment table (HTP4)",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 10,
+   "path": "alignment.support_lines.rows[0]",
+   "value": {
+    "support": "A",
+    "ch": 1895.3,
+    "skew": 34.5,
+    "skew_dms": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202100 'SOP CH 1895.300'; DRG-202012 skew diagram '34.50°'",
+   "notes": null,
+   "current_tag": "Confirmed-Engineer",
+   "note": "extraction tag Direct, description keeps Confirmed-Engineer"
+  },
+  {
+   "row": 11,
+   "path": "alignment.support_lines.rows[1]",
+   "value": {
+    "support": "B",
+    "ch": 1924.21,
+    "skew": 34.5,
+    "skew_dms": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202101 'SOP CH 1924.210'; DRG-202012 '34.50°'",
+   "notes": null,
+   "current_tag": "Confirmed-Engineer",
+   "note": "extraction tag Direct, description keeps Confirmed-Engineer"
+  },
+  {
+   "row": 12,
+   "path": "deck.slab_thickness",
+   "value": 200,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202400 '200 MIN THICK DECK SLAB'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 13,
+   "path": "deck.surfacing_thickness",
+   "value": 75,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202011 general notes 'THE 75 THICK ASPHALT'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 14,
+   "path": "deck.end_gap",
+   "value": 50,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation '50 E.J GAP'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 15,
+   "path": "deck.edge_right",
+   "value": 4.9,
+   "unit": "m",
+   "source_type": "Calculated",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202400 section '4500 400 9200'",
+   "notes": "4500 + 400 = 4900 mm from the control line (assumed: the 4500 + 400 chain starts at the control line — check the section)",
+   "current_tag": "Direct",
+   "note": "extraction tag Calculated, description keeps Direct"
+  },
+  {
+   "row": 16,
+   "path": "deck.edge_left",
+   "value": -4.3,
+   "unit": "m",
+   "source_type": "Calculated",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202400 section '4500 400 9200'",
+   "notes": "9200 - 4900 = 4300 mm left of the control line (same reading as edge_right)",
+   "current_tag": "Direct",
+   "note": "extraction tag Calculated, description keeps Direct"
+  },
+  {
+   "row": 17,
+   "path": "superstructure.supert_types[ST1].depth",
+   "value": 1515,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202304 section '1515'; GA DRG-202010 '1515 DEEP PSC SUPER-T GIRDERS'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 18,
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "value": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202304 '1515'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 19,
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "value": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202304 '757 = ='",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 20,
+   "path": "bearings.items[A-G1].seat_rl",
+   "value": 128.39,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' A-01 128.390",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 21,
+   "path": "bearings.items[A-G1].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 22,
+   "path": "bearings.items[A-G2].seat_rl",
+   "value": 128.561,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' A-02 128.561",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 23,
+   "path": "bearings.items[A-G2].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 24,
+   "path": "bearings.items[A-G3].seat_rl",
+   "value": 128.745,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' A-03 128.745",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 25,
+   "path": "bearings.items[A-G3].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 26,
+   "path": "bearings.items[A-G4].seat_rl",
+   "value": 128.899,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' A-04 128.899",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 27,
+   "path": "bearings.items[A-G4].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 28,
+   "path": "bearings.items[B-G1].seat_rl",
+   "value": 127.371,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' B-01 127.371",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 29,
+   "path": "bearings.items[B-G1].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 30,
+   "path": "bearings.items[B-G2].seat_rl",
+   "value": 127.547,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' B-02 127.547",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 31,
+   "path": "bearings.items[B-G2].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 32,
+   "path": "bearings.items[B-G3].seat_rl",
+   "value": 127.736,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' B-03 127.736",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 33,
+   "path": "bearings.items[B-G3].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 34,
+   "path": "bearings.items[B-G4].seat_rl",
+   "value": 127.895,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202281 TABLE 1 BEARING DATA 'RL X' B-04 127.895",
+   "notes": "DRG-202282 labels RL 'X' 'TOP OF BEARING RL X (SEE TABLE 1 ON SHEET 281)' — the description calls it seat_rl: meaning to confirm",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 35,
+   "path": "bearings.items[B-G4].type",
+   "value": "elastomeric",
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202282 'RECTANGULAR LAMINATED ELASTOMERIC BEARING'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 38,
+   "path": "supports[A].headstock_setout.rows[2]",
+   "value": {
+    "edge": "start",
+    "value": -5645
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202100 plan '5283 5645'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 39,
+   "path": "supports[A].headstock_setout.rows[3]",
+   "value": {
+    "edge": "end",
+    "value": 5283
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202100 plan '5283 5645'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 40,
+   "path": "supports[B].headstock_setout.rows[2]",
+   "value": {
+    "edge": "start",
+    "value": -4751
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202101 plan '4751 6694'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 41,
+   "path": "supports[B].headstock_setout.rows[3]",
+   "value": {
+    "edge": "end",
+    "value": 6694
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202101 plan '4751 6694'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 44,
+   "path": "supports[A].piles[A1].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 45,
+   "path": "supports[A].piles[A1].rl_toe",
+   "value": 109.77,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.770' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 47,
+   "path": "supports[A].piles[A2].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 48,
+   "path": "supports[A].piles[A2].rl_toe",
+   "value": 109.77,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.770' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 50,
+   "path": "supports[A].piles[A3].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 51,
+   "path": "supports[A].piles[A3].rl_toe",
+   "value": 109.77,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.770' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 53,
+   "path": "supports[A].piles[A4].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 54,
+   "path": "supports[A].piles[A4].rl_toe",
+   "value": 109.77,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.770' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "current_tag": "Direct"
+  },
+  {
+   "row": 56,
+   "path": "supports[B].piles[B1].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 59,
+   "path": "supports[B].piles[B2].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 62,
+   "path": "supports[B].piles[B3].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 65,
+   "path": "supports[B].piles[B4].diameter",
+   "value": 1050,
+   "unit": "mm",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 '4 No ∅1050 CAST-IN-PLACE BORED PILES'",
+   "notes": null,
+   "current_tag": "Direct"
+  }
+ ],
+ "overrides": [
+  {
+   "path": "loads.earthquake.rows[0]",
+   "value": {
+    "item": "kp",
+    "value": "1.7"
+   },
+   "unit": null,
+   "tag": "Direct",
+   "source": {
+    "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…Y FACTOR kp: 1.7'"
+   },
+   "from_tag": "Assumed",
+   "row": 68,
+   "kind": "tag upgrade"
+  },
+  {
+   "path": "loads.earthquake.rows[1]",
+   "value": {
+    "item": "Z",
+    "value": "0.08"
+   },
+   "unit": null,
+   "tag": "Direct",
+   "source": {
+    "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…ARD FACTOR Z: 0.08'"
+   },
+   "from_tag": "Standard-verify",
+   "row": 69,
+   "kind": "tag upgrade"
+  },
+  {
+   "path": "loads.earthquake.rows[2]",
+   "value": {
+    "item": "site_class",
+    "value": "Be"
+   },
+   "unit": null,
+   "tag": "Direct",
+   "source": {
+    "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…L CLASS: Be'",
+    "note": "label cut in the text layer ('…L CLASS'); the description has Ce (Assumed)"
+   },
+   "from_tag": "Assumed",
+   "row": 70,
+   "kind": "value"
+  }
+ ],
+ "queries": [
+  {
+   "row": 7,
+   "path": "alignment.vertical.rows[0]",
+   "value": {
+    "ch": 1742.793,
+    "RL": 134.391,
+    "grade_in": null,
+    "grade_out": -4.971,
+    "curve_length": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 vertical alignment diagram 'TP CH 1742.793 RL 134.391', '-4.971%'",
+   "notes": null,
+   "why": "conflict with the description's Direct value",
+   "current": {
+    "ch": 1742.793,
+    "RL": 134.391,
+    "grade_in": null,
+    "grade_out": null,
+    "curve_length": null
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 8,
+   "path": "alignment.vertical.rows[1]",
+   "value": {
+    "ch": 1896.831,
+    "RL": 131.729,
+    "grade_in": -4.971,
+    "grade_out": -1.728,
+    "curve_length": 308.075
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 vertical alignment diagram 'CH 1896.831 RL 131.729 -4.971% -1.728% LENGTH OF VERTICAL CURVE = 308.075'",
+   "notes": null,
+   "why": "conflict with the description's Direct value",
+   "current": {
+    "ch": 1896.831,
+    "RL": 131.729,
+    "grade_in": null,
+    "grade_out": null,
+    "curve_length": 308.075
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 9,
+   "path": "alignment.vertical.rows[2]",
+   "value": {
+    "ch": 2050.869,
+    "RL": 124.072,
+    "grade_in": -1.728,
+    "grade_out": null,
+    "curve_length": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202012 vertical alignment diagram 'TP CH 2050.869 RL 124.072'",
+   "notes": null,
+   "why": "conflict with the description's Direct value",
+   "current": {
+    "ch": 2050.869,
+    "RL": 124.072,
+    "grade_in": null,
+    "grade_out": null,
+    "curve_length": null
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 36,
+   "path": "supports[A].headstock.rows[0]",
+   "value": {
+    "width": 1700,
+    "depth": 1500,
+    "length": 10.928,
+    "rl_top": null,
+    "rl_soffit": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202011 section '1500 DEEP x 1700 WIDE HEADSTOCK'; DRG-202100 plan '10928'",
+   "notes": "GA section prints 1500 deep; the description has 1520 (from DRG-202103) — conflict for the engineer",
+   "why": "conflict with the description's Direct value",
+   "current": {
+    "width": 1700,
+    "depth": 1520,
+    "length": 10.928,
+    "rl_top": null,
+    "rl_soffit": null
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 37,
+   "path": "supports[B].headstock.rows[0]",
+   "value": {
+    "width": 1700,
+    "depth": 1500,
+    "length": 11.445,
+    "rl_top": null,
+    "rl_soffit": null
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202011 '1500 DEEP x 1700 WIDE HEADSTOCK'; DRG-202101 plan '11445'",
+   "notes": "as abutment A",
+   "why": "conflict with the description's Direct value",
+   "current": {
+    "width": 1700,
+    "depth": 1520,
+    "length": 11.445,
+    "rl_top": null,
+    "rl_soffit": null
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 42,
+   "path": "supports[A].headstock_setout.rows[0]",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "835 not printed in the text layer of DRG-202100 (printed near the front face: '150 TYP 810'); check the plan",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": {
+    "edge": "front",
+    "value": 835
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 43,
+   "path": "supports[B].headstock_setout.rows[0]",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "824 not printed in the text layer of DRG-202101 (printed: '150 TYP 811'); check the plan",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": {
+    "edge": "front",
+    "value": 824
+   },
+   "current_tag": "Direct"
+  },
+  {
+   "row": 46,
+   "path": "supports[A].piles[A1].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.27,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 49,
+   "path": "supports[A].piles[A2].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.27,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 52,
+   "path": "supports[A].piles[A3].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.27,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 55,
+   "path": "supports[A].piles[A4].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.27,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 57,
+   "path": "supports[B].piles[B1].rl_toe",
+   "value": 109.987,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.987' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "why": "conflict with the description's Direct value",
+   "current": 109.984,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 58,
+   "path": "supports[B].piles[B1].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.484,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 60,
+   "path": "supports[B].piles[B2].rl_toe",
+   "value": 109.987,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.987' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "why": "conflict with the description's Direct value",
+   "current": 109.984,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 61,
+   "path": "supports[B].piles[B2].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.484,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 63,
+   "path": "supports[B].piles[B3].rl_toe",
+   "value": 109.987,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.987' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "why": "conflict with the description's Direct value",
+   "current": 109.984,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 64,
+   "path": "supports[B].piles[B3].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.484,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 66,
+   "path": "supports[B].piles[B4].rl_toe",
+   "value": 109.987,
+   "unit": "m",
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202010 elevation 'RL 109.987' (pile toe level as read; pile table DRG-202050 not legible in the text layer)",
+   "notes": "elevation callout; the description cites the DRG-202050 pile table",
+   "why": "conflict with the description's Direct value",
+   "current": 109.984,
+   "current_tag": "Direct"
+  },
+  {
+   "row": 67,
+   "path": "supports[B].piles[B4].rl_rock",
+   "value": null,
+   "unit": null,
+   "source_type": "Missing — Flagged",
+   "source_ref": null,
+   "notes": "rock level not in the text layer (pile table DRG-202050 is graphic)",
+   "why": "extraction did not find the value the description holds as Direct",
+   "current": 116.484,
+   "current_tag": "Direct"
+  }
+ ],
+ "refused": [],
+ "new_paths": [
+  {
+   "row": 71,
+   "path": "loads.earthquake.rows[mu_longitudinal]",
+   "value": {
+    "item": "mu_longitudinal",
+    "value": "1.0"
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…TILITY FACTOR µ LONGITUDINAL : 1.0'",
+   "notes": null
+  },
+  {
+   "row": 72,
+   "path": "loads.earthquake.rows[mu_transverse]",
+   "value": {
+    "item": "mu_transverse",
+    "value": "1.5"
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…TILITY FACTOR µ TRANSVERSE : 1.5'",
+   "notes": null
+  },
+  {
+   "row": 73,
+   "path": "loads.earthquake.rows[bedc]",
+   "value": {
+    "item": "bedc",
+    "value": "BEDC-4"
+   },
+   "unit": null,
+   "source_type": "Direct",
+   "source_ref": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…SSIFICATION: BEDC-4'",
+   "notes": null
+  }
+ ],
+ "counts": {
+  "same": 47,
+  "overrides": 3,
+  "queries": 19,
+  "refused": 0,
+  "new_paths": 3
+ }
+}

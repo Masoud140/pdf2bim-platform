@@ -12832,7 +12832,37 @@
       },
       "replace_with": "project seismic criteria / geotechnical report"
      },
-     "current": "original"
+     "current": "original",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "item": "kp",
+        "value": "1.7"
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "item": "kp",
+        "value": "1.7"
+       },
+       "from_unit": null,
+       "reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
+       "evidence": [
+        "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…Y FACTOR kp: 1.7'"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T12:58:01+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-43",
+       "supersedes": null,
+       "source": {
+        "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…Y FACTOR kp: 1.7'"
+       }
+      }
+     ]
     },
     {
      "cells": {
@@ -12853,7 +12883,37 @@
       "recorded_at": null,
       "ref": "std:AS1170.4/Z"
      },
-     "current": "original"
+     "current": "original",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "item": "Z",
+        "value": "0.08"
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "item": "Z",
+        "value": "0.08"
+       },
+       "from_unit": null,
+       "reason": "takeoff import BR13A_P5.5_values.xlsx row 69 (tag upgrade)",
+       "evidence": [
+        "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…ARD FACTOR Z: 0.08'"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T12:58:01+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-43",
+       "supersedes": null,
+       "source": {
+        "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…ARD FACTOR Z: 0.08'"
+       }
+      }
+     ]
     },
     {
      "cells": {
@@ -12881,7 +12941,38 @@
       },
       "replace_with": "project seismic criteria / geotechnical report"
      },
-     "current": "original"
+     "current": "original",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "item": "site_class",
+        "value": "Be"
+       },
+       "unit": null,
+       "tag": "Direct",
+       "from_value": {
+        "item": "site_class",
+        "value": "Ce"
+       },
+       "from_unit": null,
+       "reason": "takeoff import BR13A_P5.5_values.xlsx row 70 (value)",
+       "evidence": [
+        "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…L CLASS: Be'"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T12:58:01+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-43",
+       "supersedes": null,
+       "source": {
+        "doc": "BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…L CLASS: Be'",
+        "note": "label cut in the text layer ('…L CLASS'); the description has Ce (Assumed)"
+       }
+      }
+     ]
     },
     {
      "cells": {
@@ -31680,17 +31771,17 @@
   }
  ],
  "revision": {
-  "number": 11,
-  "parent_hash": "sha256:64e19d968b01fe33e683ade66aedbca03c794c665dcc43d268ae04e6a0e8670e",
-  "created": "2026-10-25T23:00:00+11:00",
+  "number": 14,
+  "parent_hash": "sha256:10995d11ef4b5d6694aff4f8f6691fd2c9338b3eb4c19d9db1e69a1aee127eec",
+  "created": "2026-10-25T12:58:01+00:00",
   "author": "AI",
-  "note": "D-42 proposed: 1 new record(s)",
+  "note": "OV-1 proposed at loads.earthquake.rows[2] (D-43)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:ea1ae5a3ad15d6322dc6738d59e8097718bb4c7bcd7b45b4ff9de959770d318a"
+  "value": "sha256:b0b13fcd9bb90e7676c0c2d7df29aa700743def63f86311f6ab18b04fda05d37"
  }
 }
