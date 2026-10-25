@@ -149,7 +149,7 @@ def run(p, std, M=None):
 def _run_simple(p, M, X, st, mi, defl, P0):
     m0 = st[mi]
     Ect, Ec, Ag, yb, Ig = p["Ect"], p["Ec"], p["A"], p["yb"], p["I"]
-    res = [{"label": "Transfer", "t": 0, "phi": 0, "eps": None, "hog": defl([s["Mn"] * 1e6 / (Ect * s["s0"]["I"]) for s in st]), "Pm": None}]
+    res = [{"label": "Transfer", "t": 0, "phi": 0, "eps": None, "hog": defl([s["Mn"] * 1e6 / (Ect * s["s0"]["I"]) for s in st]), "Pm": None, "P_st": [list(s["Pr"]) for s in st]}]
     prev = [{"P": list(s["Pr"])} for s in st]
     rP = M.relax(p, 0)
     es0 = p["fl"]["sh"] * M.shrink(p["tau"], p)
@@ -241,7 +241,7 @@ def _run_simple(p, M, X, st, mi, defl, P0):
         if cp and td == tcR:
             C["ph"], C["phd"], C["es"] = ph, phd, es
             C["shd"] = p["fl"]["sh"] * M.shrink(p["dhard"], pd) / (1 + rf * (p.get("rd") or 0))
-        res.append({"label": f"{_fmt(td)} d", "t": td, "phi": ph, "eps": es, "hog": defl(kap), "Pm": list(prev[mi]["P"])})
+        res.append({"label": f"{_fmt(td)} d", "t": td, "phi": ph, "eps": es, "hog": defl(kap), "Pm": list(prev[mi]["P"]), "P_st": [list(q["P"]) for q in prev]})
         tP = td
     return {"X": X, "st": st, "res": res, "mi": mi, "P0": P0, "tcR": tcR, "k9": k9, "sigo": sigo, "standards_status": M.status, "method": "simplified"}
 
@@ -345,6 +345,8 @@ def _run_det(p, M, X, st, mi, defl, P0):
            for j, tj in enumerate(T)] for k, t in enumerate(T)] if cp else None
     kap = [[0.0] * Nst for _ in T]
     MS = {}
+    Pst = {}
+    rep = {float(x) for x in p["times"]}
     frz = p.get("frz")
     for n, s in enumerate(st):
         Sx = steel(s)
@@ -400,6 +402,13 @@ def _run_det(p, M, X, st, mi, defl, P0):
                         Pv[q["i"]] = F[i] / 1e3
                 s["Pr"] = Pv; s["T"] = sum(Pv); s["Mn"] = s["M"] - sum(v * (yb - p["sy"][i]) for i, v in enumerate(Pv)) / 1e3
             kap[k][n] = -ps
+            if k == 0 or T[k] in rep:
+                Pst.setdefault(k, [None] * Nst)
+                Ps_ = [0.0] * len(p["sy"])
+                for i, q in enumerate(Sx):
+                    if not q["bar"]:
+                        Ps_[q["i"]] = F[i] / 1e3
+                Pst[k][n] = Ps_
             if n == mi:
                 Ps = [0.0] * len(p["sy"])
                 for i, q in enumerate(Sx):
@@ -412,7 +421,7 @@ def _run_det(p, M, X, st, mi, defl, P0):
             continue
         ph = p["fl"]["cr"] * k9s[mi] * M.creep(age(t), p) if k else 0.0
         res.append({"label": f"{_fmt(t)} d" if k else "Transfer", "t": t, "phi": ph, "eps": p["fl"]["sh"] * M.shG(age(t), p) if k else None,
-                    "hog": defl(kap[k]), "Pm": MS[k]["Pm"]})
+                    "hog": defl(kap[k]), "Pm": MS[k]["Pm"], "P_st": Pst[k]})
     return {"X": X, "st": st, "res": res, "mi": mi, "P0": P0, "tcR": tcR, "k9": k9, "sigo": sigo, "net": {"A": Ag, "y": yb, "I": Ig, "sA": sA},
             "nsub": K, "standards_status": M.status, "method": "detailed"}
 
@@ -423,3 +432,17 @@ def effective_prestrain(r, p, t=None):
     res = r["res"]
     q = res[-1] if t is None else next(x for x in res if abs(x["t"] - t) < 1e-9)
     return q["t"], [F * 1e3 / (p["Ap"] * p["Ep"]) for F in q["Pm"]]
+
+
+def strand_forces_at(r, x, t=None):
+    """Strand forces (kN, per strand of p["sy"]) at distance x (mm from girder end A) and time t (default the last
+    reported time), interpolated linearly between the analysis stations."""
+    q = r["res"][-1] if t is None else next(z for z in r["res"] if abs(z["t"] - t) < 1e-9)
+    X, P = r["X"], q["P_st"]
+    if x <= X[0]:
+        return list(P[0])
+    if x >= X[-1]:
+        return list(P[-1])
+    i = next(k for k in range(1, len(X)) if X[k] >= x)
+    w = (x - X[i - 1]) / (X[i] - X[i - 1])
+    return [a + w * (b - a) for a, b in zip(P[i - 1], P[i])]

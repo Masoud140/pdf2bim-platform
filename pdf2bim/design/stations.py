@@ -87,15 +87,17 @@ def station_section(doc, geo, S, girder, t, allow_proposed=False, dz=2.0):
         for q in ("area", "Ep", "fpb"):
             if sm.get(q) is None:
                 missing.append(f"materials.strand.{q}")
+    k_on = -1
     for r in pat:
         if not r.get("on", True):
             continue
+        k_on += 1
         if x_m is not None:
             dlb, drb = (r.get("debond_left") or 0) / 1000.0, (r.get("debond_right") or 0) / 1000.0
             if x_m < dlb or x_m > Lg - drb:
                 continue
         A = float(sm["area"]) if sm and sm.get("area") is not None else math.pi / 4 * float(r["diameter"]) ** 2
-        tend.append({"y": Dtot - float(r["y"]), "x": r.get("x"), "A": A, "E": float(sm["Ep"]) if sm and sm.get("Ep") else None,
+        tend.append({"y": Dtot - float(r["y"]), "x": r.get("x"), "k_on": k_on, "A": A, "E": float(sm["Ep"]) if sm and sm.get("Ep") else None,
                      "fpb": float(sm["fpb"]) if sm and sm.get("fpb") is not None else None, "epe": None, "pre": None})
     missing.append("effective prestress (time-dependent losses are not in the platform yet)")
     # bars

@@ -188,6 +188,83 @@
    }
   },
   {
+   "id": "AS5100.5:concrete:table_3_1_2",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Table 3.1.2 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "mean in-situ compressive strength f'cmi and mean modulus Ec vs characteristic f'c (rows: f'c, f'cmi, Ec; linear interpolation, end rows held)",
+   "units": "MPa",
+   "value": [
+    [
+     20,
+     22,
+     24000
+    ],
+    [
+     25,
+     28,
+     26700
+    ],
+    [
+     32,
+     35,
+     30100
+    ],
+    [
+     40,
+     43,
+     32800
+    ],
+    [
+     50,
+     53,
+     34800
+    ],
+    [
+     65,
+     68,
+     37400
+    ],
+    [
+     80,
+     82,
+     39600
+    ],
+    [
+     100,
+     99,
+     42200
+    ]
+   ],
+   "applicability": "girder concrete at transfer and 28 days (Hog emod 1)",
+   "context": "Hog input derivation t312() (pdf2bim/design/prestress_inputs.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3794",
+     "pdf2bim/design/prestress_inputs.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
    "id": "AS5100.5:concrete:thermal_expansion",
    "standard": "AS 5100.5",
    "edition": null,
@@ -459,6 +536,42 @@
    }
   },
   {
+   "id": "AS5100.5:prestress:transmission_length",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "transmission length of 7-wire strand Lpt = k db",
+   "units": "x db",
+   "value": 60.0,
+   "applicability": "pretensioned 7-wire strand (as coded: 'clause table')",
+   "context": "Hog engine run() (pdf2bim/design/prestress_inputs.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3784",
+     "pdf2bim/design/prestress_inputs.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:relaxation:k6",
    "standard": "AS 5100.5",
    "edition": null,
@@ -561,6 +674,42 @@
    "interpretation": {
     "open": true,
     "note": "Coefficients as coded; the clause numbers, the εx denominator switch, how torsion and shear steel are shared, and the V-M interaction are interpretations of the code, not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:shrinkage:basic_drying",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.1.7.2(5) (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "basic drying shrinkage strain eps*csd.b",
+   "units": "1e-6",
+   "value": 800.0,
+   "applicability": "default; the code notes 'change only with justification' (location / aggregate dependent)",
+   "context": "Hog inputs (pdf2bim/design/prestress_inputs.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3783",
+     "pdf2bim/design/prestress_inputs.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
     "specialist_review": true
    }
   },
@@ -732,6 +881,71 @@
    "interpretation": {
     "open": true,
     "note": "A material model from US practice (PCI), not a value from AS 5100.5; the strand supplier's curve or the AS 5100.5 approximate tendon stress may be required instead. Not checked.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:strand:table_3_3_1",
+   "standard": "AS 5100.5 / AS/NZS 4672.1",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Table 3.3.1 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "prestressing strand nominal diameter -> [area mm2, minimum breaking load kN]",
+   "units": "mm2, kN",
+   "value": {
+    "9.3": [
+     52,
+     94
+    ],
+    "9.5": [
+     55,
+     102
+    ],
+    "11.1": [
+     74,
+     139
+    ],
+    "12.7": [
+     98.6,
+     184
+    ],
+    "15.2": [
+     140,
+     250
+    ],
+    "15.7": [
+     150,
+     279
+    ],
+    "17.8": [
+     189,
+     355
+    ]
+   },
+   "applicability": "7-wire strand; fpb = MBL / area",
+   "context": "Hog input derivation (pdf2bim/design/prestress_inputs.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3796",
+     "pdf2bim/design/prestress_inputs.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Values as coded; the product standard / supplier certificate governs. Not checked against an authorised copy.",
     "specialist_review": true
    }
   },

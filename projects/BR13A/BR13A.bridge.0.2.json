@@ -15183,6 +15183,862 @@
      "current": "original"
     }
    ]
+  },
+  "prestress_losses": {
+   "rows": [
+    {
+     "cells": {
+      "item": "k4",
+      "value": 0.6,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. environment factor (temperate inland), cl. 3.1.7.2 / 3.1.8.3 — site environment to confirm"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "k4",
+       "value": 0.6,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. environment factor (temperate inland), cl. 3.1.7.2 / 3.1.8.3 — site environment to confirm"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "chi",
+      "value": 0.8,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. ageing coefficient, simplified method only (not codified)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "chi",
+       "value": 0.8,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. ageing coefficient, simplified method only (not codified)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "ts",
+      "value": 1,
+      "unit": "days"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. girder start of drying (age)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "ts",
+       "value": 1,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. girder start of drying (age)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Rb",
+      "value": 2,
+      "unit": "%"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. basic relaxation at 1000 h, 20 C (supplier value to confirm)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "Rb",
+       "value": 2,
+       "unit": "%"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. basic relaxation at 1000 h, 20 C (supplier value to confirm)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "k7",
+      "value": 1,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation stress-ratio factor (Fig. 3.3.4.3, read at sigma_pi / fpb)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "k7",
+       "value": 1,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation stress-ratio factor (Fig. 3.3.4.3, read at sigma_pi / fpb)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Tav",
+      "value": 20,
+      "unit": "C"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. average annual temperature (k8 = T / 20 >= 1)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "Tav",
+       "value": 20,
+       "unit": "C"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. average annual temperature (k8 = T / 20 >= 1)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "jt",
+      "value": 8,
+      "unit": "days"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. days from prestressing to transfer"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "jt",
+       "value": 8,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. days from prestressing to transfer"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rb",
+      "value": 0.0071,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. non-prestressed reinforcement ratio As / Ag (simplified method only)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "rb",
+       "value": 0.0071,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. non-prestressed reinforcement ratio As / Ag (simplified method only)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "dhard",
+      "value": 7,
+      "unit": "days"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck treated as composite this many days after the pour"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "dhard",
+       "value": 7,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck treated as composite this many days after the pour"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "tsd",
+      "value": 7,
+      "unit": "days"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck start of drying (days from pour)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "tsd",
+       "value": 7,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck start of drying (days from pour)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rd",
+      "value": 0,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck longitudinal reinforcement ratio (0 = omitted)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "rd",
+       "value": 0,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck longitudinal reinforcement ratio (0 = omitted)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "sidl",
+      "value": 4,
+      "unit": "kN/m"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. superimposed dead load on the girder (per girder)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "sidl",
+       "value": 4,
+       "unit": "kN/m"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. superimposed dead load on the girder (per girder)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "sidlA",
+      "value": 100,
+      "unit": "days"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. SIDL applied (days after transfer)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "sidlA",
+       "value": 100,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. SIDL applied (days after transfer)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "dform",
+      "value": 1,
+      "unit": "kN/m"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. formwork / construction load with the wet deck"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "dform",
+       "value": 1,
+       "unit": "kN/m"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. formwork / construction load with the wet deck"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "meth",
+      "value": 1,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. method: 1 = detailed time-step section analysis, 0 = simplified"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "meth",
+       "value": 1,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. method: 1 = detailed time-step section analysis, 0 = simplified"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rlx",
+      "value": 1,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation after transfer per AS 5100.5 (1 = on)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "rlx",
+       "value": 1,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation after transfer per AS 5100.5 (1 = on)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "relpre",
+      "value": 1,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation before transfer computed (1 = on)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "relpre",
+       "value": 1,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation before transfer computed (1 = on)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "emod",
+      "value": 1,
+      "unit": "-"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. moduli from Table 3.1.2 (1)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "emod",
+       "value": 1,
+       "unit": "-"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. moduli from Table 3.1.2 (1)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Tcur",
+      "value": 20,
+      "unit": "C"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing temperature"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "Tcur",
+       "value": 20,
+       "unit": "C"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing temperature"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "hcur",
+      "value": 0,
+      "unit": "h"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing duration (0 = none)"
+     },
+     "replace_with": "project specification / construction programme / supplier data",
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "hcur",
+       "value": 0,
+       "unit": "h"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing duration (0 = none)"
+      },
+      "replace_with": "project specification / construction programme / supplier data"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 7,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 7,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 14,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 14,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 28,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 28,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 60,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 60,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 100,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 100,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 150,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 150,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 200,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 200,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 365,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 365,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 3650,
+      "unit": "days"
+     },
+     "tag": "Model",
+     "source": {
+      "note": "report time (days after transfer), dashboard Hog default list"
+     },
+     "status": "proposed",
+     "decision": "D-42",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 3650,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T23:00:00+11:00",
+      "source": {
+       "note": "report time (days after transfer), dashboard Hog default list"
+      }
+     },
+     "current": "original"
+    }
+   ]
   }
  },
  "custom": {
@@ -30824,17 +31680,17 @@
   }
  ],
  "revision": {
-  "number": 10,
-  "parent_hash": "sha256:c8137e55024af4d41ab4a5854f11710078a8312f104d03012e299410aad2aa6a",
-  "created": "2026-10-24T19:40:00+11:00",
+  "number": 11,
+  "parent_hash": "sha256:64e19d968b01fe33e683ade66aedbca03c794c665dcc43d268ae04e6a0e8670e",
+  "created": "2026-10-25T23:00:00+11:00",
   "author": "AI",
-  "note": "D-41 proposed: 8 new record(s)",
+  "note": "D-42 proposed: 1 new record(s)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:64e19d968b01fe33e683ade66aedbca03c794c665dcc43d268ae04e6a0e8670e"
+  "value": "sha256:ea1ae5a3ad15d6322dc6738d59e8097718bb4c7bcd7b45b4ff9de959770d318a"
  }
 }

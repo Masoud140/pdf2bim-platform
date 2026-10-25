@@ -1,0 +1,2278 @@
+{
+ "G1": {
+  "girder": "G1",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 3.0159824699221613,
+    "element": 3,
+    "end": 2,
+    "bracket_m": [
+     2.0000000000292895,
+     3.2922390589505452
+    ],
+    "dist_to_station_m": 0.2762565890283839,
+    "M_sag": 3803.5682285410785,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 3.878787302070066,
+    "row_hog": "ULS-B-0431",
+    "phiMu": 14752.265219310602,
+    "Mu": 18440.33152413825,
+    "phi": 0.8,
+    "dn": 224.05509430520567,
+    "kuo": 0.13538072163456535,
+    "n_strands": 48,
+    "sigma_pe_mean": 829.9542937423026,
+    "u_sag": 0.25782943649645323
+   },
+   {
+    "t": 0.2,
+    "x_m": 6.031964939844323,
+    "element": 4,
+    "end": 2,
+    "bracket_m": [
+     3.2922390589505452,
+     6.067152034125286
+    ],
+    "dist_to_station_m": 0.035187094280963116,
+    "M_sag": 7356.449203308551,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1170.2729034919168,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14705.319632423434,
+    "Mu": 18381.64954052929,
+    "phi": 0.8,
+    "dn": 230.59342483175504,
+    "kuo": 0.1393313745206979,
+    "n_strands": 48,
+    "sigma_pe_mean": 875.6674133174296,
+    "u_sag": 0.5002576881830217
+   },
+   {
+    "t": 0.3,
+    "x_m": 9.047947409766483,
+    "element": 5,
+    "end": 2,
+    "bracket_m": [
+     8.84118386027833,
+     11.614606120047977
+    ],
+    "dist_to_station_m": 0.20676354948815323,
+    "M_sag": 9647.875212387127,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1730.6257529753238,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14671.801558091298,
+    "Mu": 18339.75194761412,
+    "phi": 0.8,
+    "dn": 235.37036169039095,
+    "kuo": 0.14221774120265315,
+    "n_strands": 48,
+    "sigma_pe_mean": 907.4167894618658,
+    "u_sag": 0.6575794509070672
+   },
+   {
+    "t": 0.4,
+    "x_m": 12.063929879688645,
+    "element": 6,
+    "end": 2,
+    "bracket_m": [
+     11.614606120047977,
+     14.387690158108747
+    ],
+    "dist_to_station_m": 0.4493237596406683,
+    "M_sag": 10695.687027556341,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2004.5862943497286,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14649.731514942629,
+    "Mu": 18312.164393678286,
+    "phi": 0.8,
+    "dn": 239.18582352789053,
+    "kuo": 0.14452315621020576,
+    "n_strands": 48,
+    "sigma_pe_mean": 926.1192359244891,
+    "u_sag": 0.7300944059382121
+   },
+   {
+    "t": 0.5,
+    "x_m": 15.079912349610806,
+    "element": 7,
+    "end": 2,
+    "bracket_m": [
+     14.387690158108747,
+     17.1607071864743
+    ],
+    "dist_to_station_m": 0.6922221915020597,
+    "M_sag": 10788.792268489795,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2041.6647459853202,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14646.10646994011,
+    "Mu": 18307.633087425136,
+    "phi": 0.8,
+    "dn": 239.8985419160303,
+    "kuo": 0.14495380176195183,
+    "n_strands": 48,
+    "sigma_pe_mean": 932.2968771509604,
+    "u_sag": 0.7366321070130737
+   },
+   {
+    "t": 0.6,
+    "x_m": 18.095894819532965,
+    "element": 8,
+    "end": 2,
+    "bracket_m": [
+     17.1607071864743,
+     19.933928390568216
+    ],
+    "dist_to_station_m": 0.9351876330586641,
+    "M_sag": 10177.313262521577,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1849.4310042777565,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14661.1875066094,
+    "Mu": 18326.484383261748,
+    "phi": 0.8,
+    "dn": 237.433346526592,
+    "kuo": 0.14346425771999516,
+    "n_strands": 48,
+    "sigma_pe_mean": 926.1192359244891,
+    "u_sag": 0.6941670487423716
+   },
+   {
+    "t": 0.7,
+    "x_m": 21.111877289455126,
+    "element": 9,
+    "end": 2,
+    "bracket_m": [
+     19.933928390568216,
+     22.7076250366406
+    ],
+    "dist_to_station_m": 1.1779488988869105,
+    "M_sag": 8680.585014438362,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1481.912625059043,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14691.261814889313,
+    "Mu": 18364.07726861164,
+    "phi": 0.8,
+    "dn": 232.94786947000557,
+    "kuo": 0.14075399967976168,
+    "n_strands": 48,
+    "sigma_pe_mean": 907.4167894618658,
+    "u_sag": 0.5908672191547737
+   },
+   {
+    "t": 0.8,
+    "x_m": 24.12785975937729,
+    "element": 11,
+    "end": 2,
+    "bracket_m": [
+     22.7076250366406,
+     25.482068576391445
+    ],
+    "dist_to_station_m": 1.354208817014154,
+    "M_sag": 6396.3846355823225,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 974.616446015395,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14733.642986143555,
+    "Mu": 18417.053732679444,
+    "phi": 0.8,
+    "dn": 227.16659686189462,
+    "kuo": 0.13726078360235325,
+    "n_strands": 48,
+    "sigma_pe_mean": 875.6674133174296,
+    "u_sag": 0.43413462926975255
+   },
+   {
+    "t": 0.9,
+    "x_m": 27.14384222929945,
+    "element": 12,
+    "end": 2,
+    "bracket_m": [
+     25.482068576391445,
+     28.15982469926839
+    ],
+    "dist_to_station_m": 1.0159824699689395,
+    "M_sag": 3327.4680204440137,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 369.76076134707284,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14788.712801819835,
+    "Mu": 18485.89100227479,
+    "phi": 0.8,
+    "dn": 219.78314352047988,
+    "kuo": 0.13279948248971593,
+    "n_strands": 48,
+    "sigma_pe_mean": 829.9542937423026,
+    "u_sag": 0.22500051661254453
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
+   "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G2": {
+  "girder": "G2",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 3.007605977798227,
+    "element": 16,
+    "end": 2,
+    "bracket_m": [
+     1.9999999999116995,
+     4.789774151620468
+    ],
+    "dist_to_station_m": 1.0076059778865276,
+    "M_sag": 4205.874112753161,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 204.01542477879616,
+    "row_hog": "ULS-B-0413",
+    "phiMu": 14824.150066037686,
+    "Mu": 18530.187582547107,
+    "phi": 0.8,
+    "dn": 215.73237668661744,
+    "kuo": 0.13035188923662686,
+    "n_strands": 48,
+    "sigma_pe_mean": 831.2976894458633,
+    "u_sag": 0.28371772371549797
+   },
+   {
+    "t": 0.2,
+    "x_m": 6.015211955596454,
+    "element": 17,
+    "end": 2,
+    "bracket_m": [
+     4.789774151620468,
+     7.580331141469417
+    ],
+    "dist_to_station_m": 1.2254378039759866,
+    "M_sag": 6900.227690624068,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1029.0149543979605,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14841.29038962251,
+    "Mu": 18551.612987028137,
+    "phi": 0.8,
+    "dn": 214.69537904256447,
+    "kuo": 0.12972530455744077,
+    "n_strands": 48,
+    "sigma_pe_mean": 879.0051304726444,
+    "u_sag": 0.4649344840964045
+   },
+   {
+    "t": 0.3,
+    "x_m": 9.02281793339468,
+    "element": 19,
+    "end": 2,
+    "bracket_m": [
+     7.580331141469417,
+     10.370159159502014
+    ],
+    "dist_to_station_m": 1.3473412261073339,
+    "M_sag": 8999.384662200959,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1629.6024509166168,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14855.803232723312,
+    "Mu": 18569.75404090414,
+    "phi": 0.8,
+    "dn": 213.68110531998047,
+    "kuo": 0.12911245034439908,
+    "n_strands": 48,
+    "sigma_pe_mean": 912.1357603499306,
+    "u_sag": 0.6057824354039472
+   },
+   {
+    "t": 0.4,
+    "x_m": 12.030423911192909,
+    "element": 20,
+    "end": 2,
+    "bracket_m": [
+     10.370159159502014,
+     13.15953122156957
+    ],
+    "dist_to_station_m": 1.1291073103766607,
+    "M_sag": 10311.95972604326,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1996.8105629011068,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14867.867940403572,
+    "Mu": 18584.834925504463,
+    "phi": 0.8,
+    "dn": 212.69117882572493,
+    "kuo": 0.12851430744756792,
+    "n_strands": 48,
+    "sigma_pe_mean": 931.6506232749292,
+    "u_sag": 0.6935735350473764
+   },
+   {
+    "t": 0.5,
+    "x_m": 15.038029888991135,
+    "element": 21,
+    "end": 2,
+    "bracket_m": [
+     13.15953122156957,
+     15.94872016540018
+    ],
+    "dist_to_station_m": 0.9106902764090457,
+    "M_sag": 10726.290667776346,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2132.0780358073775,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14877.586128288776,
+    "Mu": 18596.98266036097,
+    "phi": 0.8,
+    "dn": 211.72581370296746,
+    "kuo": 0.1279310052585906,
+    "n_strands": 48,
+    "sigma_pe_mean": 938.0964405539436,
+    "u_sag": 0.7209698250296795
+   },
+   {
+    "t": 0.6,
+    "x_m": 18.04563586678936,
+    "element": 22,
+    "end": 2,
+    "bracket_m": [
+     15.94872016540018,
+     18.737998757143828
+    ],
+    "dist_to_station_m": 0.6923628903544667,
+    "M_sag": 10388.950967362718,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2027.4449003853551,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14884.991466028629,
+    "Mu": 18606.239332535784,
+    "phi": 0.8,
+    "dn": 210.7845791180963,
+    "kuo": 0.12736228345504308,
+    "n_strands": 48,
+    "sigma_pe_mean": 931.6506232749292,
+    "u_sag": 0.6979480633947941
+   },
+   {
+    "t": 0.7,
+    "x_m": 21.05324184458759,
+    "element": 23,
+    "end": 2,
+    "bracket_m": [
+     18.737998757143828,
+     21.52763979739992
+    ],
+    "dist_to_station_m": 0.4743979528123319,
+    "M_sag": 9141.343610422926,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1671.384804380704,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14890.052546352215,
+    "Mu": 18612.56568294027,
+    "phi": 0.8,
+    "dn": 209.86653197394475,
+    "kuo": 0.1268075721896947,
+    "n_strands": 48,
+    "sigma_pe_mean": 912.1357603499306,
+    "u_sag": 0.6139228576908135
+   },
+   {
+    "t": 0.8,
+    "x_m": 24.060847822385817,
+    "element": 24,
+    "end": 2,
+    "bracket_m": [
+     21.52763979739992,
+     24.317916229541577
+    ],
+    "dist_to_station_m": 0.25706840715576007,
+    "M_sag": 7036.96243993275,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1097.8361187901269,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14892.669284528396,
+    "Mu": 18615.836605660494,
+    "phi": 0.8,
+    "dn": 208.9698444883823,
+    "kuo": 0.12626576706246664,
+    "n_strands": 48,
+    "sigma_pe_mean": 879.0051304726444,
+    "u_sag": 0.4725118315252771
+   },
+   {
+    "t": 0.9,
+    "x_m": 27.06845380018404,
+    "element": 25,
+    "end": 2,
+    "bracket_m": [
+     24.317916229541577,
+     27.109101244996744
+    ],
+    "dist_to_station_m": 0.040647444812702105,
+    "M_sag": 3927.6801041143326,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 325.1125795723768,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14892.66192652864,
+    "Mu": 18615.8274081608,
+    "phi": 0.8,
+    "dn": 208.09071926006038,
+    "kuo": 0.12573457357103346,
+    "n_strands": 48,
+    "sigma_pe_mean": 831.2976894458633,
+    "u_sag": 0.26373257672074496
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
+   "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G3": {
+  "girder": "G3",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 2.999345275085787,
+    "element": 31,
+    "end": 2,
+    "bracket_m": [
+     1.9999999999770497,
+     3.4755192730265487
+    ],
+    "dist_to_station_m": 0.47617399794076176,
+    "M_sag": 4386.379107154153,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 210.22689209618395,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14824.7814815893,
+    "Mu": 18530.976851986623,
+    "phi": 0.8,
+    "dn": 215.6555984810313,
+    "kuo": 0.1303054975716201,
+    "n_strands": 48,
+    "sigma_pe_mean": 831.0378160290838,
+    "u_sag": 0.29588153542779294
+   },
+   {
+    "t": 0.2,
+    "x_m": 5.998690550171574,
+    "element": 32,
+    "end": 2,
+    "bracket_m": [
+     3.4755192730265487,
+     6.282662215041744
+    ],
+    "dist_to_station_m": 0.2839716648701698,
+    "M_sag": 7383.298602249199,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 991.5820088011235,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14841.710661968837,
+    "Mu": 18552.138327461045,
+    "phi": 0.8,
+    "dn": 214.63825113218627,
+    "kuo": 0.1296907861825899,
+    "n_strands": 48,
+    "sigma_pe_mean": 878.4964478689302,
+    "u_sag": 0.49746951482948276
+   },
+   {
+    "t": 0.3,
+    "x_m": 8.998035825257361,
+    "element": 33,
+    "end": 2,
+    "bracket_m": [
+     6.282662215041744,
+     9.088954497821279
+    ],
+    "dist_to_station_m": 0.09091867256391772,
+    "M_sag": 9409.480460178549,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1587.8047180724263,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14856.028377347517,
+    "Mu": 18570.035471684394,
+    "phi": 0.8,
+    "dn": 213.64313267879635,
+    "kuo": 0.12908950615033013,
+    "n_strands": 48,
+    "sigma_pe_mean": 911.4591630649405,
+    "u_sag": 0.633377927207391
+   },
+   {
+    "t": 0.4,
+    "x_m": 11.997381100343148,
+    "element": 34,
+    "end": 2,
+    "bracket_m": [
+     11.894669240695764,
+     14.700080928093213
+    ],
+    "dist_to_station_m": 0.10271185964738372,
+    "M_sag": 10561.388060555299,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1978.9342337394103,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14867.912092990278,
+    "Mu": 18584.890116237846,
+    "phi": 0.8,
+    "dn": 212.6718791540883,
+    "kuo": 0.12850264601455486,
+    "n_strands": 48,
+    "sigma_pe_mean": 930.8769646243609,
+    "u_sag": 0.7103477606337637
+   },
+   {
+    "t": 0.5,
+    "x_m": 14.996726375428935,
+    "element": 35,
+    "end": 2,
+    "bracket_m": [
+     14.700080928093213,
+     17.505463926092688
+    ],
+    "dist_to_station_m": 0.29664544733572207,
+    "M_sag": 10816.431351284897,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2155.019717102852,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14877.462370473579,
+    "Mu": 18596.82796309197,
+    "phi": 0.8,
+    "dn": 211.72472468274992,
+    "kuo": 0.12793034724033228,
+    "n_strands": 48,
+    "sigma_pe_mean": 937.2910201201908,
+    "u_sag": 0.7270346973117963
+   },
+   {
+    "t": 0.6,
+    "x_m": 17.996071650514722,
+    "element": 36,
+    "end": 2,
+    "bracket_m": [
+     17.505463926092688,
+     20.311092589599806
+    ],
+    "dist_to_station_m": 0.49060772442203415,
+    "M_sag": 10347.83693240563,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 2110.7928964060297,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14884.712508467297,
+    "Mu": 18605.89063558412,
+    "phi": 0.8,
+    "dn": 210.80125822988674,
+    "kuo": 0.12737236146820952,
+    "n_strands": 48,
+    "sigma_pe_mean": 930.8769646243609,
+    "u_sag": 0.6951989785841798
+   },
+   {
+    "t": 0.7,
+    "x_m": 20.99541692560051,
+    "element": 37,
+    "end": 2,
+    "bracket_m": [
+     20.311092589599806,
+     23.11724136909446
+    ],
+    "dist_to_station_m": 0.684324336000703,
+    "M_sag": 8972.655327802535,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1819.6382372687435,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14889.63137235987,
+    "Mu": 18612.039215449837,
+    "phi": 0.8,
+    "dn": 209.9005565976542,
+    "kuo": 0.12682813087471553,
+    "n_strands": 48,
+    "sigma_pe_mean": 911.4591630649405,
+    "u_sag": 0.6026109782985482
+   },
+   {
+    "t": 0.8,
+    "x_m": 23.994762200686296,
+    "element": 38,
+    "end": 2,
+    "bracket_m": [
+     23.11724136909446,
+     25.92418491943907
+    ],
+    "dist_to_station_m": 0.8775208315918341,
+    "M_sag": 6721.422281601981,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 1231.4465070081033,
+    "row_hog": "ULS-H-0013",
+    "phiMu": 14892.119851494697,
+    "Mu": 18615.14981436837,
+    "phi": 0.8,
+    "dn": 209.02081824294567,
+    "kuo": 0.12629656691416657,
+    "n_strands": 48,
+    "sigma_pe_mean": 878.4964478689302,
+    "u_sag": 0.45134086675560586
+   },
+   {
+    "t": 0.9,
+    "x_m": 26.994107475772083,
+    "element": 40,
+    "end": 2,
+    "bracket_m": [
+     25.92418491943907,
+     27.993452750890373
+    ],
+    "dist_to_station_m": 0.9993452751182907,
+    "M_sag": 3687.0901079154837,
+    "row_sag": "ULS-B-0084",
+    "M_hog": 339.5213228945149,
+    "row_hog": "ULS-B-0485",
+    "phiMu": 14892.000044159662,
+    "Mu": 18615.000055199576,
+    "phi": 0.8,
+    "dn": 208.15829523605265,
+    "kuo": 0.12577540497646686,
+    "n_strands": 48,
+    "sigma_pe_mean": 831.0378160290838,
+    "u_sag": 0.2475886447073632
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
+   "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G4": {
+  "girder": "G4",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 2.9915015471314788,
+    "element": 45,
+    "end": 2,
+    "bracket_m": [
+     1.9999999999895146,
+     4.9503322172927895
+    ],
+    "dist_to_station_m": 0.9915015471419641,
+    "M_sag": 4291.997255746466,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 128.3641741605084,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14892.629166793256,
+    "Mu": 18615.78645849157,
+    "phi": 0.8,
+    "dn": 208.10693234521233,
+    "kuo": 0.12574436999710714,
+    "n_strands": 48,
+    "sigma_pe_mean": 832.1362405465644,
+    "u_sag": 0.2881960738884521
+   },
+   {
+    "t": 0.2,
+    "x_m": 5.9830030942629575,
+    "element": 46,
+    "end": 2,
+    "bracket_m": [
+     4.9503322172927895,
+     7.773148117868079
+    ],
+    "dist_to_station_m": 1.032670876970168,
+    "M_sag": 7521.57306271816,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 896.5175145643672,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 14956.596080527397,
+    "Mu": 18695.745100659246,
+    "phi": 0.8,
+    "dn": 202.1327472887795,
+    "kuo": 0.12213459050681541,
+    "n_strands": 48,
+    "sigma_pe_mean": 881.293679410358,
+    "u_sag": 0.5028933737477074
+   },
+   {
+    "t": 0.3,
+    "x_m": 8.974504641394436,
+    "element": 47,
+    "end": 2,
+    "bracket_m": [
+     7.773148117868079,
+     10.595265108182042
+    ],
+    "dist_to_station_m": 1.201356523526357,
+    "M_sag": 9956.39806248422,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1523.090196077647,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 15002.233131202323,
+    "Mu": 18752.791414002902,
+    "phi": 0.8,
+    "dn": 197.97332153283799,
+    "kuo": 0.11962134231591419,
+    "n_strands": 48,
+    "sigma_pe_mean": 915.4279002462536,
+    "u_sag": 0.6636610680163644
+   },
+   {
+    "t": 0.4,
+    "x_m": 11.966006188525915,
+    "element": 48,
+    "end": 2,
+    "bracket_m": [
+     10.595265108182042,
+     13.41695509521555
+    ],
+    "dist_to_station_m": 1.3707410803438727,
+    "M_sag": 11566.064765753741,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1973.3659951213835,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 15028.30578287129,
+    "Mu": 18785.38222858911,
+    "phi": 0.8,
+    "dn": 195.38172714476462,
+    "kuo": 0.11805542425665536,
+    "n_strands": 48,
+    "sigma_pe_mean": 935.532794959398,
+    "u_sag": 0.7696186737786714
+   },
+   {
+    "t": 0.5,
+    "x_m": 14.957507735657392,
+    "element": 50,
+    "end": 2,
+    "bracket_m": [
+     13.41695509521555,
+     16.23849406690705
+    ],
+    "dist_to_station_m": 1.2809863312496592,
+    "M_sag": 12200.867407539681,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 2225.4150188409344,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 15039.096682299214,
+    "Mu": 18798.870852874017,
+    "phi": 0.8,
+    "dn": 194.2709076788426,
+    "kuo": 0.11738423424703481,
+    "n_strands": 48,
+    "sigma_pe_mean": 942.1733388295421,
+    "u_sag": 0.8112766122382812
+   },
+   {
+    "t": 0.6,
+    "x_m": 17.94900928278887,
+    "element": 51,
+    "end": 2,
+    "bracket_m": [
+     16.23849406690705,
+     19.060157951772588
+    ],
+    "dist_to_station_m": 1.1111486689837164,
+    "M_sag": 11920.1877946505,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 2258.1910880341925,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 15035.368350286364,
+    "Mu": 18794.210437857953,
+    "phi": 0.8,
+    "dn": 194.59214155487047,
+    "kuo": 0.11757833326578276,
+    "n_strands": 48,
+    "sigma_pe_mean": 935.532794959398,
+    "u_sag": 0.7928098279297205
+   },
+   {
+    "t": 0.7,
+    "x_m": 20.94051082992035,
+    "element": 52,
+    "end": 2,
+    "bracket_m": [
+     19.060157951772588,
+     21.88222272723563
+    ],
+    "dist_to_station_m": 0.9417118973152796,
+    "M_sag": 10560.395268533499,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 2048.0200777345885,
+    "row_hog": "ULS-H-0009",
+    "phiMu": 15017.024676865505,
+    "Mu": 18771.28084608188,
+    "phi": 0.8,
+    "dn": 196.3610423777754,
+    "kuo": 0.11864715551527213,
+    "n_strands": 48,
+    "sigma_pe_mean": 915.4279002462536,
+    "u_sag": 0.7032282023750236
+   },
+   {
+    "t": 0.8,
+    "x_m": 23.93201237705183,
+    "element": 53,
+    "end": 2,
+    "bracket_m": [
+     21.88222272723563,
+     24.70496452698447
+    ],
+    "dist_to_station_m": 0.7729521499326388,
+    "M_sag": 7984.682725199727,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 1544.7759780747406,
+    "row_hog": "ULS-B-0413",
+    "phiMu": 14980.45343914693,
+    "Mu": 18725.56679893366,
+    "phi": 0.8,
+    "dn": 199.62760736969068,
+    "kuo": 0.12062091079739617,
+    "n_strands": 48,
+    "sigma_pe_mean": 881.2936794103579,
+    "u_sag": 0.533006744931642
+   },
+   {
+    "t": 0.9,
+    "x_m": 26.923513924183307,
+    "element": 54,
+    "end": 2,
+    "bracket_m": [
+     24.70496452698447,
+     27.915015471310433
+    ],
+    "dist_to_station_m": 0.9915015471271253,
+    "M_sag": 4024.595536610845,
+    "row_sag": "ULS-B-0102",
+    "M_hog": 516.7872672453415,
+    "row_hog": "ULS-B-0467",
+    "phiMu": 14925.319534841317,
+    "Mu": 18656.649418551646,
+    "phi": 0.8,
+    "dn": 204.56613572124564,
+    "kuo": 0.12360491584365296,
+    "n_strands": 48,
+    "sigma_pe_mean": 832.1362405465644,
+    "u_sag": 0.2696488693066787
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
+   "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ }
+}

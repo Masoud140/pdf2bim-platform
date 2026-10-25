@@ -86,6 +86,12 @@ def main():
              "reason": d["reason"], "evidence": d.get("evidence", []), "status": "proposed", **({"affects": d["affects"]} if d.get("affects") else {})}
     dec[d["id"]] = entry
     errs = check(new, dec) + check_revision(doc, new)
+    try:                                   # the JSON schema too (rules_0_2 does not check every record shape)
+        from jsonschema import Draft202012Validator
+        sch = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "bridge.schema.0.2.json")))
+        errs += [f"schema: {e.message} at {'/'.join(map(str, e.absolute_path))}" for e in Draft202012Validator(sch).iter_errors(new)]
+    except ImportError:
+        errs.append("schema: jsonschema not installed (cannot validate)")
     if errs:
         raise SystemExit("refused, rule errors:\n  " + "\n  ".join(errs[:20]))
     hist = os.path.join(os.path.dirname(os.path.abspath(a.file)), "history")

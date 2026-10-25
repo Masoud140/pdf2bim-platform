@@ -276,6 +276,20 @@ def prestress_losses():
     l9, m9 = find(path, r"const a=s\.w\[i\]\*p\.Ep\*dsh/\(1\+([\d.]+)\*p\.rb\)/1e3")
     e.append(entry("AS5100.5:losses:simplified", "AS 5100.5", "Cl 3.4.3 (as labelled in the code)", "simplified time-dependent losses: creep loss strain factor (x sigma_ci phi / Ec) and the reinforcement restraint factor on the shrinkage loss 1 / (1 + k rho)", "-",
                    {"creep_factor": float(m8.group(1)), "restraint": float(m9.group(1))}, "Hog simplified method (meth 0)", "Hog engine run()", [f"{path}:{l8}", f"{path}:{l9}", "pdf2bim/design/prestress.py"], specialist=True))
+    l10, m10 = find(path, r"const T312=(\[\[[^;]*\]);")
+    e.append(entry("AS5100.5:concrete:table_3_1_2", "AS 5100.5", "Table 3.1.2 (as labelled in the code)", "mean in-situ compressive strength f'cmi and mean modulus Ec vs characteristic f'c (rows: f'c, f'cmi, Ec; linear interpolation, end rows held)", "MPa",
+                   json.loads(m10.group(1)), "girder concrete at transfer and 28 days (Hog emod 1)", "Hog input derivation t312() (pdf2bim/design/prestress_inputs.py)", [f"{path}:{l10}", "pdf2bim/design/prestress_inputs.py"]))
+    l11, m11 = find(path, r"const STR=(\{[^}]*\});")
+    strs = {k: v for k, v in json.loads(re.sub(r"([\d.]+):", r'"\1":', m11.group(1))).items()}
+    e.append(entry("AS5100.5:strand:table_3_3_1", "AS 5100.5 / AS/NZS 4672.1", "Table 3.3.1 (as labelled in the code)", "prestressing strand nominal diameter -> [area mm2, minimum breaking load kN]", "mm2, kN",
+                   strs, "7-wire strand; fpb = MBL / area", "Hog input derivation (pdf2bim/design/prestress_inputs.py)", [f"{path}:{l11}", "pdf2bim/design/prestress_inputs.py"], specialist=True,
+                   interp="Values as coded; the product standard / supplier certificate governs. Not checked against an authorised copy."))
+    l12, m12 = find(path, r"\['hog_eb','[^']*',([\d.]+),'")
+    e.append(entry("AS5100.5:shrinkage:basic_drying", "AS 5100.5", "Cl 3.1.7.2(5) (as labelled in the code)", "basic drying shrinkage strain eps*csd.b", "1e-6",
+                   float(m12.group(1)), "default; the code notes 'change only with justification' (location / aggregate dependent)", "Hog inputs (pdf2bim/design/prestress_inputs.py)", [f"{path}:{l12}", "pdf2bim/design/prestress_inputs.py"], specialist=True))
+    l13, m13 = find(path, r"\['hog_lt','[^']*',([\d.]+),'")
+    e.append(entry("AS5100.5:prestress:transmission_length", "AS 5100.5", None, "transmission length of 7-wire strand Lpt = k db", "x db",
+                   float(m13.group(1)), "pretensioned 7-wire strand (as coded: 'clause table')", "Hog engine run() (pdf2bim/design/prestress_inputs.py)", [f"{path}:{l13}", "pdf2bim/design/prestress_inputs.py"], specialist=True))
     return e
 
 

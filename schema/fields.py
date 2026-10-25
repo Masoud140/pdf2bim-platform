@@ -226,6 +226,8 @@ ANALYSIS = {
 DESIGN = {
     'girder_options': ('table', '', 'Super-T / plank design options', {'item': ('str', ''), 'value': ('str', '')}),
     'stations': ('table', '', 'Design stations / load-case positions', {'name': ('str', ''), 'rule': ('enum', ''), 's': ('num', 'm')}),
+    'prestress_losses': ('table', '', 'Prestress-loss / camber analysis inputs not held elsewhere (environment k4, basic drying shrinkage eb, ageing chi, transmission length, relaxation Rb / k7 / k8, strand MBL, ages, loads on the girder, ...): item = the input name of pdf2bim.design.prestress',
+                         {'item': ('str', ''), 'value': ('num', ''), 'unit': ('str', '')}),
 }
 
 # Project-specific items: every bridge is different. Anything the catalogue does not have goes here as a named
