@@ -37,5 +37,5 @@
 - **P3c stages 2–5 thermal, horizontal, wind, earthquake — DONE 2026-10-25** (ADR-026): 70 tests; `P3_MODEL_METHOD.md` §8.
 - **P3c AS 5100.2 combinations — DONE 2026-10-25** (ADR-027): 27 tests; `P3_MODEL_METHOD.md` §9. Finding M-4.
 - **P3c close-out: girder and sill responses, combined-action schedule — DONE 2026-10-25** (ADR-028): `P3_MODEL_METHOD.md` §9.1. P3 acceptance still needs the engineer's MIDAS import test (X-2).
-- **P4 plan (`docs/P4_PLAN.md`) — next,** then P4.1 concurrent traffic actions.
+- **P4 plan drafted 2026-10-25** (`docs/P4_PLAN.md`, for owner review; non-blocking). **Next: P4.1 concurrent traffic actions.**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

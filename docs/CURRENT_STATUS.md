@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done. **Next: P4 plan.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`). **Next: P4.1 concurrent traffic actions.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -175,4 +175,4 @@
 
 ## Next task
 
-**P4 plan** (`docs/P4_PLAN.md`): stages, acceptance and verification for concurrent traffic actions, signed earthquake, pile resultants, the independent MIDAS model and the design engine (E-1); then P4.1 concurrent traffic actions. Branch: continue `p3-model` until the owner reviews (a new `p4-*` branch from it).
+**P4.1 concurrent traffic actions** (`docs/P4_PLAN.md`): keep the governing vehicle / lane state for each traffic extreme and evaluate all responses at that state. Branch: new `p4-verification` from `p3-model`.

@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P2, P3a, P3b, the P3c load cases and the AS 5100.2 combinations done; P3c close-out next).
+**Last updated:** 2026-10-25 (P0.2 → P3 done incl. the combined-action schedule; P4 plan drafted; P4.1 next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -35,23 +35,19 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stage 1 traffic:** DONE (`P3_MODEL_METHOD.md` §7, ADR-025). Findings H-4, H-5.
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
-- **P3c close-out:** next.
+- **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: next.**
 
 ## 3. Next actions
 
-1. **P3c close-out: girder and headstock responses**, on `p3-model`:
-   - extend `pdf2bim/model/responses.py` with composite-girder section actions at both element ends (sagging M, V, T, N — exact with the fixed-end forces) and sill (headstock) actions (My, Vz, Mz, Vy, T at element ends, with the position along the sill);
-   - envelope them through `combinations.combined_actions` (the traffic influence and the RSA use the response set automatically);
-   - cross-check against the dashboard's `rxQdef` girder ("G") and headstock ("H") quantities: the fixture `tests/model/fixtures/br13a_dashboard_combinations.json` has only bearings and piles, so extend `tools/dump_dashboard_combinations.js` (keep it compact) — note the dashboard's GM1 = f[4] + L f[2] ignores the member load on the element (check before comparing);
-   - write a combined-action schedule (bearings, piles, girders, sills) to `projects/BR13A/model/` with the governing rows and the provisional / unverified labels.
-2. Then the P3 acceptance items: MIDAS import test (owner, X-2); P4 plan (concurrent actions, signed earthquake, independent MIDAS model).
-3. Keep the generality guard green (local pre-commit hook, see CHANGELOG 2026-10-25). Full suite ≈ 45 min (`tools/run_suite.py`); don't edit tested files while it runs.
+1. **P4.1 concurrent traffic actions** (`docs/P4_PLAN.md`), on a new branch `p4-verification` from `p3-model` (do not touch `p3-model` afterwards except to fix it):
+   - in `pdf2bim/model/traffic.py`, record for each response and each extreme the generating state (lane layout, lane ranking, vehicle model, travel direction, front-axle grid index, lateral shift, UDL strips taken) — `lane_effect` currently keeps only maxima;
+   - rebuild the state as nodal loads (via `Influence.weights`) and evaluate the whole response set (`ResponseSet.from_u` after a nodal solve, or the influence matrix directly);
+   - tests: the rebuilt state reproduces the envelope value of its response (1e-9 relative); T4 equilibrium; single-girder closed form;
+   - then P4.2: concurrent vectors per governing combination row, concurrent columns in the schedule.
+2. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 45 min.
 
-New in P3c combinations (for reference):
-- `pdf2bim/model/combinations.py` (`Register`, `generate`, `combine`, `primitives`, `combined_actions`), `pdf2bim/model/responses.py` (`ResponseSet`); earthquake RSA and `traffic.Influence(responses=...)` use the response set;
-- standards `AS5100.2:combination:*` (6 entries, unverified);
-- tools `dump_dashboard_combinations.js` (compact fixture; `RAW=1` for the full dump), `compare_frozen_combinations.py`; test `test_combinations.py` (27).
-- A BR13A combined-actions run takes ≈ 90 s (traffic sweep + RSA dominate).
+For reference (P3c close-out): `responses.py` girder ("G") and sill ("HS") rows; `combinations.schedule`; `tools/combined_actions.py` (≈ 2 min for BR13A) → `projects/BR13A/model/BR13A.combined_actions.md/.json`; `tools/compare_frozen_combinations.py` now also compares girders and sills.
 
 ## 4. Do not
 
