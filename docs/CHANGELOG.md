@@ -2,6 +2,10 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — Full suite on 6a77042
+
+- 52 scripts: 577 / 577 assertions PASS (34 asserting); 18 print-only scripts ran without JS errors.
+
 ## 2026-10-25 — P5.5 first pass: BR13A re-extraction from the text layer (branch `p4-verification`)
 
 - **Added:** `projects/BR13A/extraction/` (values sheet builder, sheet, import plan); D-43 proposals (earthquake kp / Z Direct, site class Be); revisions 12–14.
