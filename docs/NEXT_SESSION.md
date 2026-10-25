@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P2, P3a, P3b and the P3c load cases done; P3c combinations next).
+**Last updated:** 2026-10-25 (P0.2 → P2, P3a, P3b, the P3c load cases and the AS 5100.2 combinations done; P3c close-out next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -34,25 +34,24 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3b stages 3–5:** SDL, MIDAS .mct writer, modes — DONE (`P3_MODEL_METHOD.md` §6, ADR-024). The .mct awaits the engineer import test.
 - **P3c stage 1 traffic:** DONE (`P3_MODEL_METHOD.md` §7, ADR-025). Findings H-4, H-5.
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
-- **P3c combinations:** next.
+- **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
+- **P3c close-out:** next.
 
 ## 3. Next actions
 
-1. **P3c combinations**, on `p3-model`:
-   - Inventory the combination generator's constants into `standards/extract_from_code.py` (unverified, with a Node-evaluated test, as the traffic entries):
-     - A1 / A2 (23.2: 1.35 / 0.9);
-     - accompanying factors k1 0.7, k2 0.5, rf 0.25;
-     - wind speed rules (the dashboard's `cb_*` defaults).
-   - Port the generator (base dashboard, the "AS 5100.2 Combination Builder" script: `genAll`, `peSets`, `roadStates`, `windDirs`, `therm01` / `thermK`, `eqStates`) to `pdf2bim/model/combinations.py`, keeping the register ids (`AS5100.2:load_factor:*`).
-   - Apply the generated combinations to the P3c cases: traffic envelopes, SDL, self weight, thermal, horizontal, wind with (V/V_uls)², earthquake 100/30. Report per response the governing combination.
-   - Cross-check against the dashboard's combined actions (`src/sub6.js` rxPrim / RX) with a dump tool; isolate the engine on the frozen model as before.
-2. Keep the generality guard green. The local pre-commit hook (`.git/hooks/pre-commit`, not committed; re-create it in a fresh clone from CHANGELOG 2026-10-25) refuses bridge-specific text in `pdf2bim/`.
-3. Re-run `tools/run_suite.py` (≈ 40 min; don't switch branches or edit tested files while it runs), commit the record, rebuild the status page.
+1. **P3c close-out: girder and headstock responses**, on `p3-model`:
+   - extend `pdf2bim/model/responses.py` with composite-girder section actions at both element ends (sagging M, V, T, N — exact with the fixed-end forces) and sill (headstock) actions (My, Vz, Mz, Vy, T at element ends, with the position along the sill);
+   - envelope them through `combinations.combined_actions` (the traffic influence and the RSA use the response set automatically);
+   - cross-check against the dashboard's `rxQdef` girder ("G") and headstock ("H") quantities: the fixture `tests/model/fixtures/br13a_dashboard_combinations.json` has only bearings and piles, so extend `tools/dump_dashboard_combinations.js` (keep it compact) — note the dashboard's GM1 = f[4] + L f[2] ignores the member load on the element (check before comparing);
+   - write a combined-action schedule (bearings, piles, girders, sills) to `projects/BR13A/model/` with the governing rows and the provisional / unverified labels.
+2. Then the P3 acceptance items: MIDAS import test (owner, X-2); P4 plan (concurrent actions, signed earthquake, independent MIDAS model).
+3. Keep the generality guard green (local pre-commit hook, see CHANGELOG 2026-10-25). Full suite ≈ 45 min (`tools/run_suite.py`); don't edit tested files while it runs.
 
-New in P3c stages 2–5 (for reference):
-- `pdf2bim/model/{thermal,horizontal,wind,earthquake}.py`; solver `imposed=`, `modes(matrices=True)`;
-- tools `dump_dashboard_{thermal,horizontal,wind,earthquake}.js`, `compare_frozen_{thermal,horizontal,wind,earthquake}.py`;
-- tests `test_{thermal,horizontal,wind,earthquake}.py`.
+New in P3c combinations (for reference):
+- `pdf2bim/model/combinations.py` (`Register`, `generate`, `combine`, `primitives`, `combined_actions`), `pdf2bim/model/responses.py` (`ResponseSet`); earthquake RSA and `traffic.Influence(responses=...)` use the response set;
+- standards `AS5100.2:combination:*` (6 entries, unverified);
+- tools `dump_dashboard_combinations.js` (compact fixture; `RAW=1` for the full dump), `compare_frozen_combinations.py`; test `test_combinations.py` (27).
+- A BR13A combined-actions run takes ≈ 90 s (traffic sweep + RSA dominate).
 
 ## 4. Do not
 
@@ -84,6 +83,8 @@ New in P3c stages 2–5 (for reference):
 
   Were any dashboard traffic results already used outside the platform?
 - **M-3:** temperature / shrinkage restraint forces at the fixed abutment are sensitive to the bearing idealisation. The restraint-block / dowel detail would settle the bearing model.
+- **M-4:** combined minimum at bearing A-G4 is uplift on the P3b model (ULS −162 kN, SLS −37 kN), mostly from the Assumed shrinkage (300e-6) through the fixed-abutment restraint. Check in MIDAS / with the bearing detail.
+- **Earth-pressure fill category** (controlled fill SOc or other SOo): not in the description; the combinations use SOo (provisional).
 
   Once these are settled, geometry, sections and the model are no longer provisional.
 
