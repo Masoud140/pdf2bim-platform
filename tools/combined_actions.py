@@ -19,7 +19,7 @@ def main():
     from pdf2bim.geometry.bridge import build_geometry
     from pdf2bim.sections.girder import build_sections
     from pdf2bim.model.substructure import build_integrated
-    from pdf2bim.model.combinations import combined_actions, schedule, concurrent_schedule
+    from pdf2bim.model.combinations import combined_actions, schedule, concurrent_schedule, pile_eq_resultants
     from standards.accessor import Standards
     std = Standards()
     raw = open(a.description, "rb").read()
@@ -30,6 +30,7 @@ def main():
     CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
     Z = schedule(CA)
     ZC = concurrent_schedule(CA, "ULS")
+    PR = pile_eq_resultants(CA, "ULS")
     try:
         commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         dirty = bool(subprocess.run(["git", "status", "--porcelain", "pdf2bim", "standards"], cwd=ROOT, capture_output=True, text=True).stdout.strip())
@@ -70,10 +71,10 @@ def main():
     for sid in sorted(Z["sills"]):
         d = Z["sills"][sid]["ULS"]
         L.append(f"| {sid} | {f0(d['My_max']['value'])} | {d['My_max']['s']:.2f} | {f0(d['My_min']['value'])} | {d['My_min']['s']:.2f} | {f0(d['Mz_max']['value'])} | {f0(d['Mz_min']['value'])} | {f0(d['Vz']['abs'])} | {f0(d['Vy']['abs'])} | {f0(d['T']['abs'])} |")
-    fl = lambda d: " ⚠ EQ envelope" if d["flags"] else ""
+    fl = lambda d: " ⚠ envelope term" if d["flags"] else ""
     L += ["", "## Concurrent actions at the governing ULS extremes (P4.2)", "",
           "Each value: the governing combination row with every envelope term replaced by the one state that gives its value (traffic: the rebuilt vehicle / lane state; vertical wind, surcharge: the governing case). "
-          "**⚠ EQ envelope:** the row contains an earthquake term, which is still the unsigned RSA envelope of each response (not a concurrent state) until P4.3 — those concurrent values are not physical.", "",
+          "Earthquake terms use the most probable concurrent values from the CQC covariance (P4.3); ⚠ marks any term that is still an envelope without a concurrent state.", "",
           "### Girders", "", "| Girder | M sag | V | T | row | M hog | V | T | row |", "|---|---|---|---|---|---|---|---|---|"]
     for g, d in sorted(ZC["girders"].items()):
         a_, b_ = d["M_sag"], d["M_hog"]
@@ -89,6 +90,13 @@ def main():
             L.append(f"| {pid} | {k} | {f0(x['Ml'])} | {f0(x['Mt'])} | {f0(x['N'])} | {f0(x['resultant'])} | {f0(d['bound'])} | {x['row']}{fl(x)} |")
         x = d["N max"]
         L.append(f"| {pid} | N max | {f0(x['Ml'])} | {f0(x['Mt'])} | {f0(x['value'])} | {f0(math.hypot(x['Ml'], x['Mt']))} | {f0(d['bound'])} | {x['row']}{fl(x)} |")
+    L += ["", "### Pile moment resultant √(Ml² + Mt²), ULS (P4.3)", "",
+          "Earthquake rows: the largest resultant over the CQC response ellipses of (Ml, Mt) at each element end (Menun-Der; 100 / 30 terms added linearly). Other rows: √ of their separate envelopes (conservative). "
+          "Upper = the larger; compare with the √ of the full separate envelopes (the earlier approximation).", "",
+          "| Pile | earthquake ellipse | row | element / end | other rows √ bound | **upper** | √ full envelopes | upper / √ full |", "|---|---|---|---|---|---|---|---|"]
+    for pid, d in sorted(PR.items()):
+        e = d["ellipse"]
+        L.append(f"| {pid} | {f0(e['resultant'])} | {e['row']} | {e['element']} / {e['end']} | {f0(d['non_eq_bound'])} | **{f0(d['resultant_upper'])}** | {f0(d['bound'])} | {d['resultant_upper'] / d['bound']:.2f} |")
     L += ["", "### Sills", "", "| Support | My max | Vz | Mz | T | row | My min | Vz | Mz | T | row |", "|---|---|---|---|---|---|---|---|---|---|---|"]
     for sid, d in sorted(ZC["sills"].items()):
         a_, b_ = d["My_max"], d["My_min"]
@@ -99,7 +107,7 @@ def main():
     open(a.out, "w").write("\n".join(L) + "\n")
     rows_used = sorted({v for blk in Z.values() if isinstance(blk, dict) for e in blk.values() for ls in e.values() for q in ls.values()
                         for k_, v in q.items() if k_ in ("gov", "gmax", "gmin") and v})
-    json.dump({"run": run, "schedule": Z, "concurrent": ZC, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
+    json.dump({"run": run, "schedule": Z, "concurrent": ZC, "pile_resultants": PR, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
                "provisional": CA["provisional"], "sources": CA["sources"], "standards_used": CA["standards_used"]},
               open(a.out.replace(".md", ".json"), "w"), indent=1, default=lambda x: x.tolist() if hasattr(x, "tolist") else str(x))
     print("\n".join(L))

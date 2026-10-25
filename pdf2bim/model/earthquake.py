@@ -97,16 +97,13 @@ def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, ext
         mt = float(r @ Mr)
         gam[dn] = G; meff[dn] = float((G * G).sum() / mt) if mt > 0 else 0.0
         Rk = np.array([np.asarray(Rf_ @ (Sa(Tn[k]) * G_ACC * G[k] / w2[k] * Phi[:, k])).ravel() for k in range(len(w2))])
-        cqc = np.zeros(Rf_.shape[0])
-        for i in range(len(w2)):
-            for j in range(len(w2)):
-                rho = 1.0 if i == j else rho_cqc(w[i], w[j], zeta)
-                if rho < 1e-4:
-                    continue
-                cqc += rho * Rk[i] * Rk[j]
+        nm_ = len(w2)
+        RHO = np.array([[1.0 if i == j else rho_cqc(w[i], w[j], zeta) for j in range(nm_)] for i in range(nm_)])
+        RHO[RHO < 1e-4] = 0.0                              # as the dashboard: negligible cross terms dropped
+        cqc = np.einsum("ki,kl,li->i", Rk, RHO, Rk)
         us = lu.solve(Mr) - Phi @ (G / w2)                 # missing-mass shape
         Rres = np.asarray(Rf_ @ (Sa(0.0) * G_ACC * us)).ravel()
-        resp[dn] = {"R": np.sqrt(np.maximum(cqc, 0) + Rres ** 2), "modal": np.sqrt(np.maximum(cqc, 0)), "residual": Rres,
+        resp[dn] = {"R": np.sqrt(np.maximum(cqc, 0) + Rres ** 2), "modal": np.sqrt(np.maximum(cqc, 0)), "residual": Rres, "Rk": Rk, "rho": RHO,
                     "mass_t": mt, "effective_mass_fraction": meff[dn]}
     combos = [("EQ-L", {"L": 1.0, "T": 0.3, "V": 0.3}), ("EQ-T", {"L": 0.3, "T": 1.0, "V": 0.3})] + ([("EQ-V", {"L": 0.3, "T": 0.3, "V": 1.0})] if vert else [])
     comb = {cid: sum(wts[dn] * resp[dn]["R"] for dn in dirs) for cid, wts in combos}
@@ -132,3 +129,24 @@ def summary(Q, R):
     piles = {pid: {"M": max(max(math.hypot(e["My1"], e["Mz1"]), math.hypot(e["My2"], e["Mz2"])) for e in els.values()),
                    "V": max(math.hypot(e["Vy"], e["Vz"]) for e in els.values())} for pid, els in pm.items()}
     return {"bearings": br, "piles": piles, "springs": (R[ix[("S", "springs", "X")]], R[ix[("S", "springs", "Y")]])}
+
+
+def covariance(Q, d, i, j=None):
+    """CQC covariance of responses i and j (j None: every response) in direction d: sum_kl rho_kl Rk_ki Rk_lj +
+    r_i r_j (missing-mass term, fully correlated with itself, uncorrelated with the modes). covariance(Q, d, i, i) =
+    R_i^2."""
+    r = Q["resp"][d]
+    Rk, RHO, Rr = r["Rk"], r["rho"], r["residual"]
+    a = RHO @ Rk[:, i]
+    if j is None:
+        return Rk.T @ a + Rr * Rr[i]
+    return float(a @ Rk[:, j] + Rr[i] * Rr[j])
+
+
+def concurrent(Q, d, i, sign=1.0):
+    """Most probable concurrent responses (P4.3) when response i is at its peak sign x R_i in direction d:
+    c_j = sign x C_ij / R_i (|c_j| <= R_j; c_i = sign x R_i). Zero vector when R_i = 0."""
+    Ri = Q["resp"][d]["R"][i]
+    if Ri <= 0:
+        return np.zeros(len(Q["names"]))
+    return sign * covariance(Q, d, i) / Ri

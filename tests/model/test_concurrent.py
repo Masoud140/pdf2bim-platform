@@ -98,6 +98,31 @@ k = 0 if -w1[0] >= -w2[0] else 1
 t("P4.2 concurrent row: a 'parts' term uses the whole governing part (negative factor picks the smaller part for the max)",
   np.allclose(c["v"] - 1.2 * A_ - 1.8 * concurrent(T, governing_state(T, "X", 0, 1)), -1.0 * [w1, w2][k]))
 
+# ---------- P4.3 earthquake: concurrent row with a CQC state; response-ellipse resultant ----------
+from pdf2bim.model.combinations import eq_resultant
+Rk_ = np.array([[3.0, 0.0, 1.0], [0.0, 4.0, 1.0]]); rho_ = np.eye(2); rr_ = np.zeros(3)
+Qs = {"names": [0, 1, 2], "resp": {"L": {"Rk": Rk_, "rho": rho_, "residual": rr_, "R": np.sqrt(np.einsum("ki,kl,li->i", Rk_, rho_, Rk_))},
+                                  "T": {"Rk": 0.5 * Rk_[::-1], "rho": rho_, "residual": rr_, "R": 0.5 * np.sqrt(np.einsum("ki,kl,li->i", Rk_[::-1], rho_, Rk_[::-1]))}}}
+pe = {"D": {"s": np.array([10.0, 0.0, 2.0])}, "EQX": {"max": Qs["resp"]["L"]["R"], "min": -Qs["resp"]["L"]["R"], "eq": (Qs, "L")},
+      "EQY": {"max": Qs["resp"]["T"]["R"], "min": -Qs["resp"]["T"]["R"], "eq": (Qs, "T")}}
+rw = {"name": "H1", "ls": "ULS", "t": [("D", 1.2), ("EQX", -1.0), ("EQY", 0.3)]}
+Ce = combine([rw], pe)
+ok = True
+for i in range(3):
+    for w in ("max", "min"):
+        c = concurrent_row(pe, rw, i, w)
+        ok &= abs(c["v"][i] - Ce["ULS"][w][i]) < 1e-12 and not c["flags"] and np.all(c["v"] <= Ce["ULS"]["max"] + 1e-12) and np.all(c["v"] >= Ce["ULS"]["min"] - 1e-12)
+t("P4.3 concurrent row with earthquake terms: value = envelope, admissible, no flag (most probable concurrent values)", ok)
+z = eq_resultant(pe, rw, 0, 1, n_theta=7200)
+tt = np.linspace(0, 2 * np.pi, 20001)
+EL = np.stack([3 * np.cos(tt), 4 * np.sin(tt)], 1); ET = np.stack([1.5 * np.cos(tt), 2 * np.sin(tt)], 1)      # L: semi-axes 3, 4; T: 1.5, 2 (0.5 x the modes swapped)
+s0 = np.array([12.0, 0.0])
+from scipy.spatial import ConvexHull
+pts = (s0 + EL[:, None, :] + 0.3 * ET[None, ::40, :]).reshape(-1, 2)
+bf = float(np.max(np.hypot(pts[:, 0], pts[:, 1])))
+t("P4.3 ellipse resultant: max |s0 + x| over the Minkowski sum of the direction ellipses = brute force (1e-4)", abs(z["resultant"] / bf - 1) < 1e-4, f"{z['resultant']:.5f} vs {bf:.5f}")
+t("P4.3 ellipse resultant: refused (None) for a row with a non-earthquake envelope term", eq_resultant({**pe, "X": {"max": mx, "min": mn, "state": (T, "X")}}, {"name": "B", "ls": "ULS", "t": [("D", 1.0), ("X", 1.8)]}, 0, 1) is None)
+
 # ---------- BR13A on the full response set ----------
 from pdf2bim.geometry.bridge import build_geometry
 from pdf2bim.sections.girder import build_sections
@@ -141,5 +166,10 @@ def walk(d):
 walk(ca)
 t("record (tools/combined_actions.py): every concurrent item reproduces its envelope value (1e-9); earthquake-governed items flagged",
   chk and max(x for x, _ in chk) < 1e-9 and all(bool(d["flags"]) == any("unsigned" in tt[2] for tt in d["terms"]) for _, d in chk), f"{len(chk)} items")
+pr = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.combined_actions.json")))
+okp = all(not d[k]["flags"] for d in pr["concurrent"]["piles"].values() for k in ("max |Ml|", "max |Mt|", "N max"))
+okp &= all(v["ellipse"]["resultant"] <= v["bound"] + 1e-6 and v["resultant_upper"] >= v["ellipse"]["resultant"] - 1e-9 for v in pr["pile_resultants"].values())
+okp &= all(pr["pile_resultants"][p]["ellipse"]["resultant"] >= d[k]["resultant"] * (1 - 1e-5) for p, d in pr["concurrent"]["piles"].items() for k in ("max |Ml|", "max |Mt|") if d[k]["row"].startswith("ULS-H"))
+t("record: pile concurrent items no longer flagged; ellipse resultant <= sqrt bound and >= every earthquake-row concurrent resultant (1e-5: angle grid)", okp)
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

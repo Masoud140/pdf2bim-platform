@@ -2,7 +2,7 @@
  "run": {
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
   "description_sha256": "0ece35ede0944a69d100a0a6e4966fc479f27f4f982acc630d9d726def63ab8b",
-  "engine_commit": "61e34bd",
+  "engine_commit": "64f2912",
   "engine_uncommitted_changes": true,
   "allow_proposed": true,
   "options": {
@@ -40,7 +40,7 @@
    "SLS": 976
   },
   "standards_status": "UNVERIFIED \u2014 standards data not approved",
-  "run_at": "2026-10-25T03:16:39+00:00"
+  "run_at": "2026-10-25T07:21:17+00:00"
  },
  "schedule": {
   "bearings": {
@@ -95,7 +95,7 @@
       "gmin": "ULS-K-0005"
      },
      "tr": {
-      "max": 565.9141207756683,
+      "max": 565.9141208070703,
       "gmax": "ULS-H-0005",
       "min": -603.5909599770392,
       "gmin": "ULS-B-0358"
@@ -217,11 +217,11 @@
      "v": {
       "max": 2123.4498661710945,
       "gmax": "ULS-B-0084",
-      "min": 115.3201346482085,
+      "min": 115.32013475625324,
       "gmin": "ULS-H-0013"
      },
      "tr": {
-      "max": 160.5615948517911,
+      "max": 160.56159515716385,
       "gmax": "ULS-H-0013",
       "min": -535.8467659832627,
       "gmin": "ULS-B-0088"
@@ -263,9 +263,9 @@
       "gmin": "ULS-B-0359"
      },
      "tr": {
-      "max": 555.3635191533639,
+      "max": 555.363519714418,
       "gmax": "ULS-H-0005",
-      "min": -476.92974048008364,
+      "min": -476.9297410411378,
       "gmin": "ULS-H-0013"
      },
      "lon": {
@@ -301,13 +301,13 @@
      "v": {
       "max": 2192.9903043040463,
       "gmax": "ULS-B-0216",
-      "min": 316.4867832924717,
+      "min": 316.4867833147698,
       "gmin": "ULS-H-0013"
      },
      "tr": {
-      "max": 585.7371440486237,
+      "max": 585.7371442225401,
       "gmax": "ULS-H-0005",
-      "min": -376.5928436105341,
+      "min": -376.5928437844505,
       "gmin": "ULS-H-0013"
      },
      "lon": {
@@ -387,19 +387,19 @@
      "N": {
       "max": 4078.6573737088534,
       "gmax": "ULS-B-0088",
-      "min": -197.81118991991139,
+      "min": -197.81119014569003,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1789.3498522809957,
-      "value": 1789.3498522809957,
+      "abs": 1789.349852343872,
+      "value": 1789.349852343872,
       "gov": "ULS-H-0001",
       "element": 200013,
       "end": 1
      },
      "Mt": {
-      "abs": 1102.5510958942211,
-      "value": -1102.5510958942211,
+      "abs": 1102.5510955822654,
+      "value": -1102.5510955822654,
       "gov": "ULS-H-0005",
       "element": 200011,
       "end": 1
@@ -437,15 +437,15 @@
       "gmin": "ULS-B-0407"
      },
      "Ml": {
-      "abs": 1774.884366197079,
-      "value": 1774.884366197079,
+      "abs": 1774.8843661871847,
+      "value": 1774.8843661871847,
       "gov": "ULS-H-0001",
       "element": 200033,
       "end": 1
      },
      "Mt": {
-      "abs": 1068.3902683334873,
-      "value": -1068.3902683334873,
+      "abs": 1068.3902679984235,
+      "value": -1068.3902679984235,
       "gov": "ULS-H-0005",
       "element": 200030,
       "end": 1
@@ -483,15 +483,15 @@
       "gmin": "ULS-B-0359"
      },
      "Ml": {
-      "abs": 1777.0195619253027,
-      "value": 1777.0195619253027,
+      "abs": 1777.0195619483584,
+      "value": 1777.0195619483584,
       "gov": "ULS-H-0001",
       "element": 200052,
       "end": 1
      },
      "Mt": {
-      "abs": 1024.6666472187098,
-      "value": 1024.6666472187098,
+      "abs": 1024.6666468976862,
+      "value": 1024.6666468976862,
       "gov": "ULS-H-0005",
       "element": 200049,
       "end": 1
@@ -525,19 +525,19 @@
      "N": {
       "max": 3152.487803759248,
       "gmax": "ULS-B-0135",
-      "min": -522.0544577708233,
+      "min": -522.0544575226927,
       "gmin": "ULS-H-0005"
      },
      "Ml": {
-      "abs": 1781.6077389023515,
-      "value": 1781.6077389023515,
+      "abs": 1781.6077389723805,
+      "value": 1781.6077389723805,
       "gov": "ULS-H-0001",
       "element": 200072,
       "end": 1
      },
      "Mt": {
-      "abs": 1050.1537327066758,
-      "value": 1050.1537327066758,
+      "abs": 1050.1537327428437,
+      "value": 1050.1537327428437,
       "gov": "ULS-H-0005",
       "element": 200068,
       "end": 1
@@ -571,19 +571,19 @@
      "N": {
       "max": 2872.4105969632024,
       "gmax": "ULS-B-0082",
-      "min": -448.58407585793776,
+      "min": -448.58407677701325,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1478.3858630416769,
-      "value": -1478.3858630416769,
+      "abs": 1478.3858626912422,
+      "value": -1478.3858626912422,
       "gov": "ULS-H-0005",
       "element": 200107,
       "end": 1
      },
      "Mt": {
-      "abs": 924.5775349941204,
-      "value": 924.5775349941204,
+      "abs": 924.5775358545287,
+      "value": 924.5775358545287,
       "gov": "ULS-H-0005",
       "element": 200104,
       "end": 1
@@ -617,19 +617,19 @@
      "N": {
       "max": 2398.304030368496,
       "gmax": "ULS-B-0156",
-      "min": 269.4791444681237,
+      "min": 269.4791442578692,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1482.9553728607848,
-      "value": -1482.9553728607848,
+      "abs": 1482.9553726023728,
+      "value": -1482.9553726023728,
       "gov": "ULS-H-0005",
       "element": 200125,
       "end": 1
      },
      "Mt": {
-      "abs": 946.8106156246228,
-      "value": 946.8106156246228,
+      "abs": 946.8106167892851,
+      "value": 946.8106167892851,
       "gov": "ULS-H-0005",
       "element": 200122,
       "end": 1
@@ -663,19 +663,19 @@
      "N": {
       "max": 2685.6723441469962,
       "gmax": "ULS-B-0216",
-      "min": 343.57120668034946,
+      "min": 343.5712056044649,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1481.39179735021,
-      "value": -1481.39179735021,
+      "abs": 1481.391797121852,
+      "value": -1481.391797121852,
       "gov": "ULS-H-0005",
       "element": 200143,
       "end": 1
      },
      "Mt": {
-      "abs": 904.4658366504593,
-      "value": -904.4658366504593,
+      "abs": 904.4658381226751,
+      "value": -904.4658381226751,
       "gov": "ULS-H-0005",
       "element": 200140,
       "end": 1
@@ -709,19 +709,19 @@
      "N": {
       "max": 4570.782421925127,
       "gmax": "ULS-B-0198",
-      "min": 73.97364969982334,
+      "min": 73.97364712351701,
       "gmin": "ULS-H-0013"
      },
      "Ml": {
-      "abs": 1479.0932554298329,
-      "value": -1479.0932554298329,
+      "abs": 1479.093255496556,
+      "value": -1479.093255496556,
       "gov": "ULS-H-0005",
       "element": 200161,
       "end": 1
      },
      "Mt": {
-      "abs": 922.4779250067104,
-      "value": -922.4779250067104,
+      "abs": 922.477925754138,
+      "value": -922.477925754138,
       "gov": "ULS-H-0005",
       "element": 200158,
       "end": 1
@@ -781,8 +781,8 @@
       "element": 4
      },
      "N": {
-      "abs": 932.8596473086884,
-      "value": 932.8596473086884,
+      "abs": 932.859646382028,
+      "value": 932.859646382028,
       "gov": "ULS-H-0013",
       "ch": 1908.4681976045174,
       "element": 7
@@ -997,8 +997,8 @@
       "element": 54
      },
      "N": {
-      "abs": 884.1160077729303,
-      "value": -884.1160077729303,
+      "abs": 884.1160071547083,
+      "value": -884.1160071547083,
       "gov": "ULS-H-0013",
       "ch": 1911.2651847726916,
       "element": 51
@@ -1051,7 +1051,7 @@
       "element": 200003
      },
      "My_min": {
-      "value": -2152.6881734058516,
+      "value": -2152.6881729294823,
       "gov": "ULS-H-0005",
       "s": 7.285185241438344,
       "element": 200005
@@ -1141,13 +1141,13 @@
    "B": {
     "ULS": {
      "My_max": {
-      "value": 2031.7548725056872,
+      "value": 2031.7548746749776,
       "gov": "ULS-H-0005",
       "s": 9.006231535674182,
       "element": 200100
      },
      "My_min": {
-      "value": -1160.978216435109,
+      "value": -1160.9782182325864,
       "gov": "ULS-H-0013",
       "s": 1.2064299357618236,
       "element": 200096
@@ -1172,8 +1172,8 @@
       "element": 200100
      },
      "Vy": {
-      "abs": 430.60861454261675,
-      "value": 430.60861454261675,
+      "abs": 430.60861482878005,
+      "value": 430.60861482878005,
       "gov": "ULS-H-0005",
       "s": 3.6855607103805443,
       "element": 200097
@@ -1697,13 +1697,10 @@
      "lon": 0.0
     },
     "min": {
-     "value": 115.3201346482085,
+     "value": 115.32013475625324,
      "row": "ULS-H-0013",
-     "check": 115.3201346482085,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 115.32013475625433,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -1723,15 +1720,15 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "tr": -413.46963706194845,
+     "tr": 145.98531528592014,
      "lon": 0.0
     }
    },
@@ -1899,13 +1896,10 @@
      "lon": 0.0
     },
     "min": {
-     "value": 316.4867832924717,
+     "value": 316.4867833147698,
      "row": "ULS-H-0013",
-     "check": 316.4867832924717,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 316.48678331476987,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -1925,15 +1919,15 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "tr": -376.5928436105341,
+     "tr": -343.43116300389954,
      "lon": 0.0
     }
    },
@@ -2525,13 +2519,10 @@
   "piles": {
    "A1": {
     "max |Ml|": {
-     "value": 1789.3498522809957,
+     "value": 1789.349852343872,
      "row": "ULS-H-0001",
-     "check": 1789.3498522809957,
-     "flags": [
-      "EQX: envelope used, not a concurrent state",
-      "EQY: envelope used, not a concurrent state"
-     ],
+     "check": 1789.349852343875,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2556,29 +2547,26 @@
       [
        "EQX",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQY",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 1789.3498522809957,
-     "Mt": 171.61317037421531,
-     "N": 1875.1922022989245,
+     "Ml": 1789.349852343875,
+     "Mt": -219.5640256152522,
+     "N": 1370.1445359120466,
      "element": 200013,
      "end": 1,
-     "resultant": 1797.560562012838
+     "resultant": 1802.770438915455
     },
     "max |Mt|": {
-     "value": -1102.5510958942211,
+     "value": -1102.5510955822654,
      "row": "ULS-H-0005",
-     "check": -1102.5510958942211,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1102.5510955822656,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2603,20 +2591,20 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": 108.61250856209128,
-     "Mt": -1102.5510958942211,
-     "N": 32.97538086234886,
+     "Ml": 815.2527318226266,
+     "Mt": -1102.5510955822656,
+     "N": 2140.0050389239377,
      "element": 200011,
      "end": 1,
-     "resultant": 1107.8878986944926
+     "resultant": 1371.2242468370773
     },
     "N max": {
      "value": 4078.6573737088534,
@@ -2675,17 +2663,14 @@
      "element": 200028,
      "end": 2
     },
-    "bound": 2101.7592185870317
+    "bound": 2101.7592184769146
    },
    "A2": {
     "max |Ml|": {
-     "value": 1774.884366197079,
+     "value": 1774.8843661871847,
      "row": "ULS-H-0001",
-     "check": 1774.884366197079,
-     "flags": [
-      "EQX: envelope used, not a concurrent state",
-      "EQY: envelope used, not a concurrent state"
-     ],
+     "check": 1774.8843661871847,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2710,29 +2695,26 @@
       [
        "EQX",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQY",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 1774.884366197079,
-     "Mt": 106.68320217525617,
-     "N": 1688.3638444150818,
+     "Ml": 1774.8843661871847,
+     "Mt": -73.78616530598951,
+     "N": 1531.5789259776805,
      "element": 200033,
      "end": 1,
-     "resultant": 1778.0876859697257
+     "resultant": 1776.417437295144
     },
     "max |Mt|": {
-     "value": -1068.3902683334873,
+     "value": -1068.3902679984235,
      "row": "ULS-H-0005",
-     "check": -1068.3902683334873,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1068.390267998422,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2757,20 +2739,20 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -2.9164110578957434,
-     "Mt": -1068.3902683334873,
-     "N": 1118.1914584663664,
+     "Ml": 537.5800947151836,
+     "Mt": -1068.390267998422,
+     "N": 1706.7546617628436,
      "element": 200030,
      "end": 1,
-     "resultant": 1068.3942488253854
+     "resultant": 1196.0142653780204
     },
     "N max": {
      "value": 3379.3103555974476,
@@ -2829,17 +2811,14 @@
      "element": 200047,
      "end": 2
     },
-    "bound": 2071.635170304006
+    "bound": 2071.6351701227286
    },
    "A3": {
     "max |Ml|": {
-     "value": 1777.0195619253027,
+     "value": 1777.0195619483584,
      "row": "ULS-H-0001",
-     "check": 1777.0195619253027,
-     "flags": [
-      "EQX: envelope used, not a concurrent state",
-      "EQY: envelope used, not a concurrent state"
-     ],
+     "check": 1777.0195619483584,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2864,29 +2843,26 @@
       [
        "EQX",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQY",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 1777.0195619253027,
-     "Mt": 154.0134394327193,
-     "N": 1483.8286455425352,
+     "Ml": 1777.0195619483584,
+     "Mt": -15.927531014273722,
+     "N": 1237.5382222740334,
      "element": 200052,
      "end": 1,
-     "resultant": 1783.6812111448307
+     "resultant": 1777.0909402141879
     },
     "max |Mt|": {
-     "value": 1024.6666472187098,
+     "value": 1024.6666468976862,
      "row": "ULS-H-0005",
-     "check": 1024.6666472187098,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 1024.6666468976887,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -2911,20 +2887,20 @@
       [
        "EQY",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQX",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 570.3843592374593,
-     "Mt": 1024.6666472187098,
-     "N": 1468.0117757473927,
+     "Ml": 134.1774345965938,
+     "Mt": 1024.6666468976887,
+     "N": 1462.911809311955,
      "element": 200049,
      "end": 1,
-     "resultant": 1172.7233498081118
+     "resultant": 1033.4143995607358
     },
     "N max": {
      "value": 3010.6599155387325,
@@ -2983,17 +2959,14 @@
      "element": 200066,
      "end": 2
     },
-    "bound": 2051.277714349675
+    "bound": 2051.277714209288
    },
    "A4": {
     "max |Ml|": {
-     "value": 1781.6077389023515,
+     "value": 1781.6077389723805,
      "row": "ULS-H-0001",
-     "check": 1781.6077389023515,
-     "flags": [
-      "EQX: envelope used, not a concurrent state",
-      "EQY: envelope used, not a concurrent state"
-     ],
+     "check": 1781.6077389723807,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3018,29 +2991,26 @@
       [
        "EQX",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQY",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 1781.6077389023515,
-     "Mt": 91.78690761847129,
-     "N": 1291.162351780994,
+     "Ml": 1781.6077389723807,
+     "Mt": 74.39584101296036,
+     "N": 343.0951839539658,
      "element": 200072,
      "end": 1,
-     "resultant": 1783.970563581953
+     "resultant": 1783.1603620331807
     },
     "max |Mt|": {
-     "value": 1050.1537327066758,
+     "value": 1050.1537327428437,
      "row": "ULS-H-0005",
-     "check": 1050.1537327066758,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 1050.1537327428452,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3065,20 +3035,20 @@
       [
        "EQY",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQX",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 379.495747862415,
-     "Mt": 1050.1537327066758,
-     "N": 1459.1571419192655,
+     "Ml": 6.274658854878666,
+     "Mt": 1050.1537327428452,
+     "N": 1451.5882606604841,
      "element": 200068,
      "end": 1,
-     "resultant": 1116.6198480071084
+     "resultant": 1050.1724780898976
     },
     "N max": {
      "value": 3152.487803759248,
@@ -3137,17 +3107,14 @@
      "element": 200085,
      "end": 2
     },
-    "bound": 2068.0785762718288
+    "bound": 2068.078576350523
    },
    "B1": {
     "max |Ml|": {
-     "value": -1478.3858630416769,
+     "value": -1478.3858626912422,
      "row": "ULS-H-0005",
-     "check": -1478.3858630416769,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1478.3858626912458,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3172,29 +3139,26 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -1478.3858630416769,
-     "Mt": -106.10813400690516,
-     "N": -87.15509254513978,
+     "Ml": -1478.3858626912458,
+     "Mt": -73.26863449458719,
+     "N": 1832.1735324463164,
      "element": 200107,
      "end": 1,
-     "resultant": 1482.1888193290054
+     "resultant": 1480.200341780139
     },
     "max |Mt|": {
-     "value": 924.5775349941204,
+     "value": 924.5775358545287,
      "row": "ULS-H-0005",
-     "check": 924.5775349941204,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 924.5775358545279,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3219,20 +3183,20 @@
       [
        "EQY",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQX",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 50.18093432718437,
-     "Mt": 924.5775349941204,
-     "N": 1834.098150018653,
+     "Ml": -5.333903896122568,
+     "Mt": 924.5775358545279,
+     "N": -146.53015138820862,
      "element": 200104,
      "end": 1,
-     "resultant": 925.9383048485213
+     "resultant": 924.5929214187204
     },
     "N max": {
      "value": 2872.4105969632024,
@@ -3291,17 +3255,14 @@
      "element": 200120,
      "end": 2
     },
-    "bound": 1743.6938889200958
+    "bound": 1743.6938890792044
    },
    "B2": {
     "max |Ml|": {
-     "value": -1482.9553728607848,
+     "value": -1482.9553726023728,
      "row": "ULS-H-0005",
-     "check": -1482.9553728607848,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1482.9553726023723,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3326,29 +3287,26 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -1482.9553728607848,
-     "Mt": -155.08458770484899,
-     "N": 626.0934606888758,
+     "Ml": -1482.9553726023723,
+     "Mt": -122.22142434594062,
+     "N": 1041.1134882702952,
      "element": 200125,
      "end": 1,
-     "resultant": 1491.042543739196
+     "resultant": 1487.9834386509117
     },
     "max |Mt|": {
-     "value": 946.8106156246228,
+     "value": 946.8106167892851,
      "row": "ULS-H-0005",
-     "check": 946.8106156246228,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 946.8106167892871,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3373,20 +3331,20 @@
       [
        "EQY",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQX",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Ml": 94.1305220262229,
-     "Mt": 946.8106156246228,
-     "N": 996.4513994806449,
+     "Ml": 61.84643839233917,
+     "Mt": 946.8106167892871,
+     "N": 560.4524003613453,
      "element": 200122,
      "end": 1,
-     "resultant": 951.4782693453416
+     "resultant": 948.8283965010363
     },
     "N max": {
      "value": 2398.304030368496,
@@ -3445,17 +3403,14 @@
      "element": 200138,
      "end": 2
     },
-    "bound": 1759.4337099635627
+    "bound": 1759.4337103725018
    },
    "B3": {
     "max |Ml|": {
-     "value": -1481.39179735021,
+     "value": -1481.391797121852,
      "row": "ULS-H-0005",
-     "check": -1481.39179735021,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1481.3917971218505,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3480,29 +3435,26 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -1481.39179735021,
-     "Mt": -183.55586662943256,
-     "N": 796.6296011156894,
+     "Ml": -1481.3917971218505,
+     "Mt": -153.77957463957145,
+     "N": 816.2373541379629,
      "element": 200143,
      "end": 1,
-     "resultant": 1492.72047397715
+     "resultant": 1489.352145785621
     },
     "max |Mt|": {
-     "value": -904.4658366504593,
+     "value": -904.4658381226751,
      "row": "ULS-H-0005",
-     "check": -904.4658366504593,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -904.4658381226743,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3527,20 +3479,20 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -740.94591483602,
-     "Mt": -904.4658366504593,
-     "N": 721.1092805546008,
+     "Ml": -715.1142449580507,
+     "Mt": -904.4658381226743,
+     "N": 730.1688666515961,
      "element": 200140,
      "end": 1,
-     "resultant": 1169.2131107629618
+     "resultant": 1153.0164073736655
     },
     "N max": {
      "value": 2685.6723441469962,
@@ -3599,17 +3551,14 @@
      "element": 200156,
      "end": 2
     },
-    "bound": 1735.678572467927
+    "bound": 1735.6785730401996
    },
    "B4": {
     "max |Ml|": {
-     "value": -1479.0932554298329,
+     "value": -1479.093255496556,
      "row": "ULS-H-0005",
-     "check": -1479.0932554298329,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1479.0932554965545,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3634,29 +3583,26 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -1479.0932554298329,
-     "Mt": -184.22683136856975,
-     "N": 770.8976167834501,
+     "Ml": -1479.0932554965545,
+     "Mt": -159.94817913870233,
+     "N": 870.270336657286,
      "element": 200161,
      "end": 1,
-     "resultant": 1490.522184891632
+     "resultant": 1487.7164644061659
     },
     "max |Mt|": {
-     "value": -922.4779250067104,
+     "value": -922.477925754138,
      "row": "ULS-H-0005",
-     "check": -922.4779250067104,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -922.4779257541378,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3681,20 +3627,20 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Ml": -756.9631152907971,
-     "Mt": -922.4779250067104,
-     "N": 695.1422703198447,
+     "Ml": -720.5820162181097,
+     "Mt": -922.4779257541378,
+     "N": 719.1933021130073,
      "element": 200158,
      "end": 1,
-     "resultant": 1193.2973979840208
+     "resultant": 1170.5571176156304
     },
     "N max": {
      "value": 4570.782421925127,
@@ -3753,7 +3699,7 @@
      "element": 200174,
      "end": 2
     },
-    "bound": 1743.1816831250571
+    "bound": 1743.1816835772045
    }
   },
   "sills": {
@@ -3813,13 +3759,10 @@
      "s": 2.0843828221667025
     },
     "My_min": {
-     "value": -2152.6881734058516,
+     "value": -2152.6881729294823,
      "row": "ULS-H-0005",
-     "check": -2152.6881734058516,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -2152.688172929483,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3844,17 +3787,17 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Vz": -911.997639725221,
-     "Mz": -18.65850893653899,
-     "T": -1169.3054953709518,
+     "Vz": -911.9452507912647,
+     "Mz": 64.41105692198231,
+     "T": -1014.1736185749064,
      "element": 200005,
      "end": 2,
      "s": 7.285185241438344
@@ -3862,13 +3805,10 @@
    },
    "B": {
     "My_max": {
-     "value": 2031.7548725056872,
+     "value": 2031.7548746749776,
      "row": "ULS-H-0005",
-     "check": 2031.7548725056872,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": 2031.7548746749799,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3893,29 +3833,26 @@
       [
        "EQY",
        1.0,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ],
       [
        "EQX",
        0.3,
-       "envelope max (unsigned: not concurrent)"
+       "earthquake most probable concurrent (max)"
       ]
      ],
-     "Vz": 886.8703013743096,
-     "Mz": -159.5098205256445,
-     "T": 307.6776578378038,
+     "Vz": 885.109492952477,
+     "Mz": -198.46482982247778,
+     "T": 219.83093361734964,
      "element": 200100,
      "end": 2,
      "s": 9.006231535674182
     },
     "My_min": {
-     "value": -1160.978216435109,
+     "value": -1160.9782182325864,
      "row": "ULS-H-0013",
-     "check": -1160.978216435109,
-     "flags": [
-      "EQY: envelope used, not a concurrent state",
-      "EQX: envelope used, not a concurrent state"
-     ],
+     "check": -1160.978218232584,
+     "flags": [],
      "terms": [
       [
        "DLc",
@@ -3935,22 +3872,176 @@
       [
        "EQY",
        1.0,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ],
       [
        "EQX",
        0.3,
-       "envelope min (unsigned: not concurrent)"
+       "earthquake most probable concurrent (min)"
       ]
      ],
-     "Vz": -738.9145262554922,
-     "Mz": -125.32886677502114,
-     "T": -301.3449509404188,
+     "Vz": 633.137772262923,
+     "Mz": 20.650772176258652,
+     "T": -107.21274637817105,
      "element": 200096,
      "end": 1,
      "s": 1.2064299357618236
     }
    }
+  }
+ },
+ "pile_resultants": {
+  "A1": {
+   "ellipse": {
+    "resultant": 1803.470679851483,
+    "direction": [
+     0.992004949679715,
+     -0.12619896913583012
+    ],
+    "static": [
+     663.4351845817284,
+     -96.43242846263628
+    ],
+    "row": "ULS-H-0001",
+    "element": 200013,
+    "end": 1
+   },
+   "bound": 2101.7592184769146,
+   "non_eq_bound": 1441.0223425095592,
+   "resultant_upper": 1803.470679851483
+  },
+  "A2": {
+   "ellipse": {
+    "resultant": 1776.4313922340739,
+    "direction": [
+     0.9990482215818578,
+     -0.043619387365336194
+    ],
+    "static": [
+     629.5131267630359,
+     -19.20065602026942
+    ],
+    "row": "ULS-H-0001",
+    "element": 200033,
+    "end": 1
+   },
+   "bound": 2071.6351701227286,
+   "non_eq_bound": 1317.5958945998434,
+   "resultant_upper": 1776.4313922340739
+  },
+  "A3": {
+   "ellipse": {
+    "resultant": 1777.0915261188238,
+    "direction": [
+     0.9999619230641713,
+     -0.008726535498373636
+    ],
+    "static": [
+     632.181884115649,
+     35.186160410330245
+    ],
+    "row": "ULS-H-0001",
+    "element": 200052,
+    "end": 1
+   },
+   "bound": 2051.277714209288,
+   "non_eq_bound": 1308.0777955111544,
+   "resultant_upper": 1777.0915261188238
+  },
+  "A4": {
+   "ellipse": {
+    "resultant": 1783.1584744968925,
+    "direction": [
+     0.9990482215818578,
+     0.043619387365336
+    ],
+    "static": [
+     660.4335216970254,
+     60.16642245008846
+    ],
+    "row": "ULS-H-0001",
+    "element": 200072,
+    "end": 1
+   },
+   "bound": 2068.078576350523,
+   "non_eq_bound": 1373.4978008702158,
+   "resultant_upper": 1783.1584744968925
+  },
+  "B1": {
+   "ellipse": {
+    "resultant": 1480.2099202563825,
+    "direction": [
+     -0.9988483864849507,
+     -0.04797812852134395
+    ],
+    "static": [
+     -662.975345898856,
+     31.380667278713982
+    ],
+    "row": "ULS-H-0005",
+    "element": 200107,
+    "end": 1
+   },
+   "bound": 1743.6938890792044,
+   "non_eq_bound": 773.4500944275065,
+   "resultant_upper": 1480.2099202563825
+  },
+  "B2": {
+   "ellipse": {
+    "resultant": 1488.0216723321512,
+    "direction": [
+     -0.9965655024977614,
+     -0.08280820751220438
+    ],
+    "static": [
+     -658.2238361389485,
+     7.6287699524986765
+    ],
+    "row": "ULS-H-0005",
+    "element": 200125,
+    "end": 1
+   },
+   "bound": 1759.4337103725018,
+   "non_eq_bound": 725.5649833155289,
+   "resultant_upper": 1488.0216723321512
+  },
+  "B3": {
+   "ellipse": {
+    "resultant": 1489.4044308545065,
+    "direction": [
+     -0.9945218953682733,
+     -0.1045284632676535
+    ],
+    "static": [
+     -655.4238756568784,
+     -26.556903007628694
+    ],
+    "row": "ULS-H-0005",
+    "element": 200143,
+    "end": 1
+   },
+   "bound": 1735.6785730401996,
+   "non_eq_bound": 712.5967759352551,
+   "resultant_upper": 1489.4044308545065
+  },
+  "B4": {
+   "ellipse": {
+    "resultant": 1487.7528620824162,
+    "direction": [
+     -0.9940563382223196,
+     -0.10886687485196432
+    ],
+    "static": [
+     -654.1628424989891,
+     -63.18575656429394
+    ],
+    "row": "ULS-H-0005",
+    "element": 200161,
+    "end": 1
+   },
+   "bound": 1743.1816835772045,
+   "non_eq_bound": 780.1821400661623,
+   "resultant_upper": 1487.7528620824162
   }
  },
  "governing_rows": [

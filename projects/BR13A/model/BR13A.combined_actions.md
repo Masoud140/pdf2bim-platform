@@ -2,7 +2,7 @@
 
 **INDICATIVE. Not design-approved.** Load factors and combination constants: code-extracted-UNVERIFIED standards entries. Load-case inputs: Assumed / Standard-verify / Model values of the description; model PROVISIONAL (proposed decisions used). Values only: no capacity check. Units kN, kN·m, m.
 
-Run: `projects/BR13A/BR13A.bridge.0.2.json` sha256 0ece35ede0944a69…, engine `61e34bd` (+ uncommitted changes), 602 ULS + 976 SLS rows; actions BRKR, CENR, DLc, EPT, EQX, EQY, M1600, S1600, SCR, SDLp, SOo, TGN, TGP, TUC, TUW, WX, WY, WZ.
+Run: `projects/BR13A/BR13A.bridge.0.2.json` sha256 0ece35ede0944a69…, engine `64f2912` (+ uncommitted changes), 602 ULS + 976 SLS rows; actions BRKR, CENR, DLc, EPT, EQX, EQY, M1600, S1600, SCR, SDLp, SOo, TGN, TGP, TUC, TUW, WX, WY, WZ.
 
 Not combined (no analysed case): PED — loads.pedestrian: Missing-Flagged — not analysed, not combined; FLH — loads.flood: Missing-Flagged — not analysed, not combined; COLX — loads.collision: Missing-Flagged — not analysed, not combined.
 
@@ -52,7 +52,7 @@ Provisional inputs used: 27 (listed in the .json). Governing row names refer to 
 
 ## Concurrent actions at the governing ULS extremes (P4.2)
 
-Each value: the governing combination row with every envelope term replaced by the one state that gives its value (traffic: the rebuilt vehicle / lane state; vertical wind, surcharge: the governing case). **⚠ EQ envelope:** the row contains an earthquake term, which is still the unsigned RSA envelope of each response (not a concurrent state) until P4.3 — those concurrent values are not physical.
+Each value: the governing combination row with every envelope term replaced by the one state that gives its value (traffic: the rebuilt vehicle / lane state; vertical wind, surcharge: the governing case). Earthquake terms use the most probable concurrent values from the CQC covariance (P4.3); ⚠ marks any term that is still an envelope without a concurrent state.
 
 ### Girders
 
@@ -71,45 +71,60 @@ Each value: the governing combination row with every envelope term replaced by t
 | A-G2 | 2643 | 10 | -11 | ULS-B-0108 | 216 | -160 | 188 | ULS-K-0005 |
 | A-G3 | 2526 | -286 | -163 | ULS-B-0156 | 161 | 58 | 20 | ULS-K-0006 |
 | A-G4 | 2199 | 506 | -258 | ULS-B-0462 | -162 | -1124 | 1145 | ULS-B-0107 |
-| B-G1 | 2123 | -219 | 0 | ULS-B-0084 | 115 | -413 | 0 | ULS-H-0013 ⚠ EQ envelope |
+| B-G1 | 2123 | -219 | 0 | ULS-B-0084 | 115 | 146 | 0 | ULS-H-0013 |
 | B-G2 | 2100 | 102 | 0 | ULS-B-0156 | 245 | 60 | 0 | ULS-B-0359 |
-| B-G3 | 2193 | 463 | 0 | ULS-B-0216 | 316 | -377 | 0 | ULS-H-0013 ⚠ EQ envelope |
+| B-G3 | 2193 | 463 | 0 | ULS-B-0216 | 316 | -343 | 0 | ULS-H-0013 |
 | B-G4 | 3629 | 40 | 0 | ULS-B-0090 | 361 | -8 | 0 | ULS-B-0425 |
 
 ### Piles
 
 | Pile | extreme | Ml | Mt | N | resultant | √ envelope bound | row |
 |---|---|---|---|---|---|---|---|
-| A1 | max |Ml| | 1789 | 172 | 1875 | 1798 | 2102 | ULS-H-0001 ⚠ EQ envelope |
-| A1 | max |Mt| | 109 | -1103 | 33 | 1108 | 2102 | ULS-H-0005 ⚠ EQ envelope |
+| A1 | max |Ml| | 1789 | -220 | 1370 | 1803 | 2102 | ULS-H-0001 |
+| A1 | max |Mt| | 815 | -1103 | 2140 | 1371 | 2102 | ULS-H-0005 |
 | A1 | N max | 0 | 0 | 4079 | 0 | 2102 | ULS-B-0088 |
-| A2 | max |Ml| | 1775 | 107 | 1688 | 1778 | 2072 | ULS-H-0001 ⚠ EQ envelope |
-| A2 | max |Mt| | -3 | -1068 | 1118 | 1068 | 2072 | ULS-H-0005 ⚠ EQ envelope |
+| A2 | max |Ml| | 1775 | -74 | 1532 | 1776 | 2072 | ULS-H-0001 |
+| A2 | max |Mt| | 538 | -1068 | 1707 | 1196 | 2072 | ULS-H-0005 |
 | A2 | N max | 0 | 0 | 3379 | 0 | 2072 | ULS-B-0108 |
-| A3 | max |Ml| | 1777 | 154 | 1484 | 1784 | 2051 | ULS-H-0001 ⚠ EQ envelope |
-| A3 | max |Mt| | 570 | 1025 | 1468 | 1173 | 2051 | ULS-H-0005 ⚠ EQ envelope |
+| A3 | max |Ml| | 1777 | -16 | 1238 | 1777 | 2051 | ULS-H-0001 |
+| A3 | max |Mt| | 134 | 1025 | 1463 | 1033 | 2051 | ULS-H-0005 |
 | A3 | N max | 0 | -0 | 3011 | 0 | 2051 | ULS-B-0156 |
-| A4 | max |Ml| | 1782 | 92 | 1291 | 1784 | 2068 | ULS-H-0001 ⚠ EQ envelope |
-| A4 | max |Mt| | 379 | 1050 | 1459 | 1117 | 2068 | ULS-H-0005 ⚠ EQ envelope |
+| A4 | max |Ml| | 1782 | 74 | 343 | 1783 | 2068 | ULS-H-0001 |
+| A4 | max |Mt| | 6 | 1050 | 1452 | 1050 | 2068 | ULS-H-0005 |
 | A4 | N max | -0 | 0 | 3152 | 0 | 2068 | ULS-B-0135 |
-| B1 | max |Ml| | -1478 | -106 | -87 | 1482 | 1744 | ULS-H-0005 ⚠ EQ envelope |
-| B1 | max |Mt| | 50 | 925 | 1834 | 926 | 1744 | ULS-H-0005 ⚠ EQ envelope |
+| B1 | max |Ml| | -1478 | -73 | 1832 | 1480 | 1744 | ULS-H-0005 |
+| B1 | max |Mt| | -5 | 925 | -147 | 925 | 1744 | ULS-H-0005 |
 | B1 | N max | -0 | 0 | 2872 | 0 | 1744 | ULS-B-0082 |
-| B2 | max |Ml| | -1483 | -155 | 626 | 1491 | 1759 | ULS-H-0005 ⚠ EQ envelope |
-| B2 | max |Mt| | 94 | 947 | 996 | 951 | 1759 | ULS-H-0005 ⚠ EQ envelope |
+| B2 | max |Ml| | -1483 | -122 | 1041 | 1488 | 1759 | ULS-H-0005 |
+| B2 | max |Mt| | 62 | 947 | 560 | 949 | 1759 | ULS-H-0005 |
 | B2 | N max | -0 | 0 | 2398 | 0 | 1759 | ULS-B-0156 |
-| B3 | max |Ml| | -1481 | -184 | 797 | 1493 | 1736 | ULS-H-0005 ⚠ EQ envelope |
-| B3 | max |Mt| | -741 | -904 | 721 | 1169 | 1736 | ULS-H-0005 ⚠ EQ envelope |
+| B3 | max |Ml| | -1481 | -154 | 816 | 1489 | 1736 | ULS-H-0005 |
+| B3 | max |Mt| | -715 | -904 | 730 | 1153 | 1736 | ULS-H-0005 |
 | B3 | N max | -0 | -0 | 2686 | 0 | 1736 | ULS-B-0216 |
-| B4 | max |Ml| | -1479 | -184 | 771 | 1491 | 1743 | ULS-H-0005 ⚠ EQ envelope |
-| B4 | max |Mt| | -757 | -922 | 695 | 1193 | 1743 | ULS-H-0005 ⚠ EQ envelope |
+| B4 | max |Ml| | -1479 | -160 | 870 | 1488 | 1743 | ULS-H-0005 |
+| B4 | max |Mt| | -721 | -922 | 719 | 1171 | 1743 | ULS-H-0005 |
 | B4 | N max | -0 | 0 | 4571 | 0 | 1743 | ULS-B-0198 |
+
+### Pile moment resultant √(Ml² + Mt²), ULS (P4.3)
+
+Earthquake rows: the largest resultant over the CQC response ellipses of (Ml, Mt) at each element end (Menun-Der; 100 / 30 terms added linearly). Other rows: √ of their separate envelopes (conservative). Upper = the larger; compare with the √ of the full separate envelopes (the earlier approximation).
+
+| Pile | earthquake ellipse | row | element / end | other rows √ bound | **upper** | √ full envelopes | upper / √ full |
+|---|---|---|---|---|---|---|---|
+| A1 | 1803 | ULS-H-0001 | 200013 / 1 | 1441 | **1803** | 2102 | 0.86 |
+| A2 | 1776 | ULS-H-0001 | 200033 / 1 | 1318 | **1776** | 2072 | 0.86 |
+| A3 | 1777 | ULS-H-0001 | 200052 / 1 | 1308 | **1777** | 2051 | 0.87 |
+| A4 | 1783 | ULS-H-0001 | 200072 / 1 | 1373 | **1783** | 2068 | 0.86 |
+| B1 | 1480 | ULS-H-0005 | 200107 / 1 | 773 | **1480** | 1744 | 0.85 |
+| B2 | 1488 | ULS-H-0005 | 200125 / 1 | 726 | **1488** | 1759 | 0.85 |
+| B3 | 1489 | ULS-H-0005 | 200143 / 1 | 713 | **1489** | 1736 | 0.86 |
+| B4 | 1488 | ULS-H-0005 | 200161 / 1 | 780 | **1488** | 1743 | 0.85 |
 
 ### Sills
 
 | Support | My max | Vz | Mz | T | row | My min | Vz | Mz | T | row |
 |---|---|---|---|---|---|---|---|---|---|---|
-| A | 1666 | -573 | 134 | -233 | ULS-B-0352 | -2153 | -912 | -19 | -1169 | ULS-H-0005 ⚠ EQ envelope |
-| B | 2032 | 887 | -160 | 308 | ULS-H-0005 ⚠ EQ envelope | -1161 | -739 | -125 | -301 | ULS-H-0013 ⚠ EQ envelope |
+| A | 1666 | -573 | 134 | -233 | ULS-B-0352 | -2153 | -912 | 64 | -1014 | ULS-H-0005 |
+| B | 2032 | 885 | -198 | 220 | ULS-H-0005 | -1161 | 633 | 21 | -107 | ULS-H-0013 |
 
 **Bearing uplift in a combined minimum:** A-G4 (finding M-4: reported, not resolved).

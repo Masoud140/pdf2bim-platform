@@ -60,6 +60,21 @@ mdl2 = {"model": m2, "nodes": {}, "members": [], "bearings": {}, "supports": {sA
 Q1 = earthquake_rsa(doc, geo, mdl2, Standards(), allow_proposed=True, extra_mass={1: 30.0, 4: 20.0}, n_modes=1)
 t("2-dof, one mode kept: the missing-mass term restores the static response at Sa(0) of the remaining mass (residual non-zero, mode + residual mass = 1)",
   abs(Q1["resp"]["L"]["residual"][Q1["names"].index(("S", "springs", "X"))]) > 1e-6 and Q1["resp"]["L"]["effective_mass_fraction"] < 1)
+from pdf2bim.model.earthquake import covariance, concurrent as eq_conc
+Q2 = earthquake_rsa(doc, geo, mdl2, Standards(), allow_proposed=True, extra_mass={1: 30.0, 4: 20.0}, n_modes=2)
+okc = True
+for QQ in (Q1, Q2):
+    Rr = QQ["resp"]["L"]["R"]
+    for i in range(len(Rr)):
+        okc &= abs(covariance(QQ, "L", i, i) - Rr[i] ** 2) <= 1e-9 * max(Rr[i] ** 2, 1e-12)
+        c = eq_conc(QQ, "L", i, -1.0)
+        okc &= abs(c[i] + Rr[i]) <= 1e-9 * max(Rr[i], 1e-12) and all(abs(c[j]) <= Rr[j] * (1 + 1e-9) + 1e-12 for j in range(len(Rr)))
+t("P4.3 covariance: C_ii = R_i^2 (modes + missing mass); concurrent c_i = sign R_i and |c_j| <= R_j (Cauchy-Schwarz), 1- and 2-mode cases", okc)
+rk, rh = Q2["resp"]["L"]["Rk"], Q2["resp"]["L"]["rho"]
+i_, j_ = 0, Q2["names"].index(("S", "springs", "X"))
+w_ = [2 * math.pi / T_ for T_ in Q2["periods"]]
+ref = sum((1.0 if k == l else rho_cqc(w_[k], w_[l], Q2["inputs"]["zeta"])) * rk[k, i_] * rk[l, j_] for k in range(2) for l in range(2)) + Q2["resp"]["L"]["residual"][i_] * Q2["resp"]["L"]["residual"][j_]
+t("P4.3 covariance: cross term = sum_kl rho_kl R_ki R_lj + r_i r_j (closed form, 2 modes)", abs(covariance(Q2, "L", i_, j_) - ref) <= 1e-9 * max(abs(ref), 1e-12), f"{covariance(Q2, 'L', i_, j_):.4g} vs {ref:.4g}")
 t("unknown site class refused with the list of classes", raises(lambda: earthquake_rsa((lambda d: ([r["cells"].__setitem__("value", "Xe") for r in d["loads"]["earthquake"]["rows"] if r["cells"]["item"] == "site_class"], d)[1])(copy.deepcopy(doc)),
                                                                 geo, mdl, Standards(), allow_proposed=True, extra_mass={1: 50.0}, n_modes=1), MissingInput, "site_class"))
 d4 = copy.deepcopy(doc); d4["loads"]["earthquake"]["rows"] = [r for r in d4["loads"]["earthquake"]["rows"] if r["cells"]["item"] != "kp"]

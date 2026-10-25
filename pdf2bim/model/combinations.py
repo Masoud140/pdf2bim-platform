@@ -413,7 +413,7 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     Q = earthquake_rsa(doc, geo, mdl, std, sdl_loads=C["loads"], allow_proposed=allow_proposed, **(eq_kw or {}))
     if Q["names"] != RS.names:
         raise ValueError("earthquake responses and the response set differ")
-    P["EQX"] = {"max": Q["resp"]["L"]["R"], "min": -Q["resp"]["L"]["R"], "unsigned": True}; P["EQY"] = {"max": Q["resp"]["T"]["R"], "min": -Q["resp"]["T"]["R"], "unsigned": True}
+    P["EQX"] = {"max": Q["resp"]["L"]["R"], "min": -Q["resp"]["L"]["R"], "eq": (Q, "L")}; P["EQY"] = {"max": Q["resp"]["T"]["R"], "min": -Q["resp"]["T"]["R"], "eq": (Q, "T")}
     src["EQX"] = "RSA, longitudinal direction alone"; src["EQY"] = "RSA, transverse direction alone"
     Tr = traffic_envelope(doc, geo, mdl, std, allow_proposed=allow_proposed, inf=Influence(mdl, responses=RS), **(traffic_kw or {}))
     for mn, e in Tr["env"].items():
@@ -439,8 +439,9 @@ def concurrent_row(prim, row, i, which="max"):
     """Concurrent response vector of combination row `row` at the extreme `which` ("max" / "min") of response i (P4.2):
     the same terms as combine(), with each envelope term replaced by ONE admissible state whose value at i is the one
     combine() took: traffic -> the rebuilt vehicle / lane state (traffic.governing_state); "parts" envelopes (vertical
-    wind, surcharge) -> the part that governs at i; "unsigned" envelopes (earthquake RSA) -> sign x the envelope vector
-    itself, flagged: not a concurrent state (P4.3). Returns {"v": vector, "flags": [...], "terms": [(id, f, how)]}.
+    wind, surcharge) -> the part that governs at i; earthquake ("eq") -> the most probable concurrent responses from the
+    CQC covariance (P4.3, earthquake.concurrent); any other envelope ("unsigned") -> sign x the envelope vector itself,
+    flagged: not a concurrent state. Returns {"v": vector, "flags": [...], "terms": [(id, f, how)]}.
     v[i] equals the envelope value of the row at i."""
     from .traffic import governing_state, concurrent
     nq = None
@@ -460,6 +461,10 @@ def concurrent_row(prim, row, i, which="max"):
                 T, mn = p["state"]
                 st = governing_state(T, mn, i, 1 if take_max else -1)
                 x = f * concurrent(T, st); how.append((aid, f, f"traffic state ({side})"))
+            elif "eq" in p:
+                from .earthquake import concurrent as eq_concurrent
+                Q_, d_ = p["eq"]
+                x = f * eq_concurrent(Q_, d_, i, 1.0 if take_max else -1.0); how.append((aid, f, f"earthquake most probable concurrent ({side})"))
             elif "parts" in p:
                 vals = [q[i] for q in p["parts"]]
                 k = int(np.argmax(vals)) if take_max else int(np.argmin(vals))
@@ -621,4 +626,61 @@ def concurrent_schedule(CA, ls="ULS"):
             d.update({"element": n[1][1], "end": int(end), "s": CA["primitives"]["meta"][n[:2]]["s"][int(end) - 1]})
             res[lab] = d
         out["sills"][sid] = res
+    return out
+
+
+def eq_resultant(prim, row, i1, i2, n_theta=1440):
+    """Largest resultant sqrt(a^2 + b^2) of the response pair (i1, i2) over combination row `row` when its earthquake
+    terms range over their CQC response ellipses (Menun-Der): max over unit u of u.s0 + sum_d |f_d| sqrt(u' S_d u),
+    s0 = the static terms of the row, S_d = the 2 x 2 CQC covariance of the pair in direction d. Returns None if the row
+    has an envelope term other than earthquake (no ellipse defined). Exact up to the angle grid (n_theta)."""
+    from .earthquake import covariance
+    s0 = np.zeros(2)
+    ell = []
+    for aid, f in row["t"]:
+        p = prim.get(aid)
+        if p is None:
+            continue
+        if "s" in p:
+            s0 += f * np.array([p["s"][i1], p["s"][i2]])
+        elif "eq" in p:
+            Q_, d_ = p["eq"]
+            c11, c22, c12 = covariance(Q_, d_, i1, i1), covariance(Q_, d_, i2, i2), covariance(Q_, d_, i1, i2)
+            ell.append((abs(f), np.array([[c11, c12], [c12, c22]])))
+        else:
+            return None
+    th = np.linspace(0, 2 * np.pi, n_theta, endpoint=False)
+    U = np.stack([np.cos(th), np.sin(th)], 1)
+    h = U @ s0
+    for af, Sg in ell:
+        h = h + af * np.sqrt(np.maximum(np.einsum("ni,ij,nj->n", U, Sg, U), 0))
+    k = int(np.argmax(h))
+    return {"resultant": float(h[k]), "direction": U[k].tolist(), "static": s0.tolist()}
+
+
+def pile_eq_resultants(CA, ls="ULS"):
+    """Per pile: the largest earthquake-ellipse resultant of (Ml, Mt) over every row with earthquake terms and every
+    element end (row, element end); the sqrt bound of the separate envelopes of the rows WITHOUT earthquake
+    (non_eq_bound); resultant_upper = the larger of the two — an upper bound of the pile moment resultant over all rows
+    (exact for the earthquake rows, conservative for the others); and the sqrt bound of the full envelopes ("bound")."""
+    names, E = CA["names"], CA["envelopes"][ls]
+    prim = CA["primitives"]["prim"]
+    ix = {n: i for i, n in enumerate(names)}
+    eqrows = [r for r in CA["rows"] if r["ls"] == ls and any(a in prim and "eq" in prim[a] for a, _ in r["t"])]
+    other = [r for r in CA["rows"] if r["ls"] == ls and r not in eqrows]
+    En = combine(other, prim)[ls] if other else None      # envelopes of the rows without earthquake
+    out = {}
+    for pid in sorted({n[1][0] for n in names if n[0] == "P"}):
+        ends = [(n[:2], n[2][-1]) for n in names if n[0] == "P" and n[1][0] == pid and n[2][:2] == "Ml"]
+        best = None
+        for key, end in ends:
+            i1, i2 = ix[key + ("Ml" + end,)], ix[key + ("Mt" + end,)]
+            for r in eqrows:
+                z = eq_resultant(prim, r, i1, i2)
+                if z and (best is None or z["resultant"] > best["resultant"]):
+                    best = dict(z, row=r["name"], element=key[1][1], end=int(end))
+        amp = lambda q, EE: max(max(abs(EE["max"][ix[n]]), abs(EE["min"][ix[n]])) for n in names if n[0] == "P" and n[1][0] == pid and n[2][:-1] == q and n[2][-1] in "12")
+        ne = math.hypot(amp("Ml", En), amp("Mt", En)) if En else 0.0
+        out[pid] = {"ellipse": best, "bound": float(math.hypot(amp("Ml", E), amp("Mt", E))), "non_eq_bound": float(ne),
+                    "resultant_upper": float(max(best["resultant"] if best else 0.0, ne))}
     return out
