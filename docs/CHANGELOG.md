@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P5.5 first pass: BR13A re-extraction from the text layer (branch `p4-verification`)
+
+- **Added:** `projects/BR13A/extraction/` (values sheet builder, sheet, import plan); D-43 proposals (earthquake kp / Z Direct, site class Be); revisions 12–14.
+- **Findings:** P5-1 … P5-5 (grades missing, headstock depth, pile toe B, bearing RL meaning, site class). With D-43 (provisional) pile resultants −16 … −19 %.
+- **Changed:** `tests/model/test_earthquake.py` uses the effective earthquake inputs (proposals included) instead of a hard-coded site class.
+
 ## 2026-10-25 — P5.1–P5.4: run records, Query Register, takeoff import, decisions (branch `p4-verification`)
 
 - **Added:** `pdf2bim/runrecord.py`, `register.py`, `takeoff.py`; `schema/accept_decision.py`; tools `stale.py`, `query_register.py`, `import_takeoff.py`, `decision_review.py`; run records in the tool outputs; `projects/BR13A/QUERY_REGISTER.*`, `DECISION_REVIEW.*`. Tests runrecord 12, register 8, takeoff 10, accept 11. ADR-037 / 038. Docs `P5_PLAN.md`, `P5_METHOD.md`.

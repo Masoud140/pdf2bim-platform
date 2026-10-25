@@ -30,3 +30,16 @@ Plan: `P5_PLAN.md`. Decisions: ADR-037, ADR-038.
 - `tools/decision_review.py FILE` → `DECISION_REVIEW.{md,html}`: every proposed decision with reason, evidence, values, layers, the recorded outputs it makes stale, and the accept / reject commands.
 - Tests `tests/schema/test_accept.py` 11 (on a copy: AI refused; D-42 accepted → read without allow_proposed, girder-check record stale, register updated; D-34 override accepted; D-39 rejected; review page).
 - `schema/propose_record.py` now validates the decision entry against the decision schema (found by the full suite: D-42 `affects: design`, fixed).
+
+## 5. P5.5 BR13A re-extraction regression (first pass, 2026-10-25)
+
+- **What was done:** the agent re-read the BR13A drawing set (`BR13A_GA_Rev02.pdf`, claude.ai project file, not in the repository) from its **text layer** and wrote 72 values into the interchange sheet (`projects/BR13A/extraction/build_p55_values.py` → `BR13A_P5.5_values.xlsx`), each with the drawing number and the printed text; arithmetic shown where used (alignment element lengths, mm → m radius, deck edges). Import plan: `projects/BR13A/extraction/BR13A_P5.5_import_plan.md`.
+- **Result:** 47 same; 3 override proposals applied as **D-43** (proposed, affects loads): earthquake kp 1.7 and Z 0.08 now Direct from the cover sheet, **site class Be** (the description had Ce, Assumed); 19 queries; 3 new paths (µ longitudinal 1.0, µ transverse 1.5, BEDC-4 — no catalogue field yet).
+- **Queries (engineer):**
+  - **P5-1** vertical alignment grades −4.971 % / −1.728 % are printed (DRG-202012); the description rows have them empty;
+  - **P5-2** headstock depth: GA section DRG-202011 prints "1500 DEEP x 1700 WIDE HEADSTOCK"; the description has 1520 (DRG-202103);
+  - **P5-3** abutment B pile toe: GA elevation DRG-202010 prints RL 109.987; the description has 109.984 (pile table DRG-202050);
+  - **P5-4** bearing RL 'X' (DRG-202281 Table 1) is labelled "TOP OF BEARING RL 'X'" on DRG-202282; the description stores it as `seat_rl` (values equal) — this changes the reading of F-6 (seat-to-soffit gap) and the bearing levels in the model;
+  - not re-found in the text layer: headstock front setouts 835 / 824 (810 / 811 printed nearby), pile rock levels (the pile table is graphic).
+- **Effect of D-43 (provisional, allow_proposed):** BR13A pile moment resultants (ULS, earthquake-governed) fall 16–19 % with site class Be (A 1803 → 1471 kN·m, B 1489 → 1252 kN·m); the A-G4 uplift minimum remains.
+- **Limits of this pass:** text layer only (page images were not available to the session, so no visual confirmation; the cover-sheet label for the site class is cut to "…L CLASS: Be"); rows that mix drawing values with non-drawing cells (cross girders, concrete rows, crossfall) and differently formatted strings were not compared; only part of the description's 377 Direct values was re-read.

@@ -7556,7 +7556,8 @@
   {
    "path": "loads.earthquake.rows[0]",
    "categories": [
-    "assumed"
+    "assumed",
+    "proposed"
    ],
    "tag": "Assumed",
    "status": "accepted",
@@ -7565,12 +7566,15 @@
     "value": "1.7"
    },
    "unit": null,
-   "proposed_value": null,
+   "proposed_value": {
+    "item": "kp",
+    "value": "1.7"
+   },
    "note": "placeholder",
    "replace_with": "project seismic criteria / geotechnical report",
-   "decision": "D-2",
-   "decision_status": "accepted",
-   "decision_reason": "Engineer instruction 2026-10-23: assume a value when there is no information, but state it in the input area.",
+   "decision": "D-43",
+   "decision_status": "proposed",
+   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
    "affects": [
     "loads"
    ],
@@ -7585,7 +7589,8 @@
   {
    "path": "loads.earthquake.rows[1]",
    "categories": [
-    "standard"
+    "standard",
+    "proposed"
    ],
    "tag": "Standard-verify",
    "status": "accepted",
@@ -7594,12 +7599,15 @@
     "value": "0.08"
    },
    "unit": null,
-   "proposed_value": null,
+   "proposed_value": {
+    "item": "Z",
+    "value": "0.08"
+   },
    "note": null,
    "replace_with": null,
-   "decision": null,
-   "decision_status": null,
-   "decision_reason": null,
+   "decision": "D-43",
+   "decision_status": "proposed",
+   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
    "affects": [
     "loads"
    ],
@@ -7614,7 +7622,8 @@
   {
    "path": "loads.earthquake.rows[2]",
    "categories": [
-    "assumed"
+    "assumed",
+    "proposed"
    ],
    "tag": "Assumed",
    "status": "accepted",
@@ -7623,12 +7632,15 @@
     "value": "Ce"
    },
    "unit": null,
-   "proposed_value": null,
+   "proposed_value": {
+    "item": "site_class",
+    "value": "Be"
+   },
    "note": "placeholder",
    "replace_with": "project seismic criteria / geotechnical report",
-   "decision": "D-2",
-   "decision_status": "accepted",
-   "decision_reason": "Engineer instruction 2026-10-23: assume a value when there is no information, but state it in the input area.",
+   "decision": "D-43",
+   "decision_status": "proposed",
+   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
    "affects": [
     "loads"
    ],
@@ -12032,7 +12044,7 @@
   "missing": 53,
   "assumed": 206,
   "standard": 65,
-  "proposed": 73
+  "proposed": 76
  },
  "tag_counts": {
   "Direct": 377,
@@ -12054,7 +12066,8 @@
   "D-39",
   "D-40",
   "D-41",
-  "D-42"
+  "D-42",
+  "D-43"
  ],
  "run_record": {
   "format": "pdf2bim.run/1",
@@ -12063,8 +12076,8 @@
    "extraction"
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
-  "revision": 11,
-  "description_hash": "sha256:ea1ae5a3ad15d6322dc6738d59e8097718bb4c7bcd7b45b4ff9de959770d318a",
+  "revision": 14,
+  "description_hash": "sha256:b0b13fcd9bb90e7676c0c2d7df29aa700743def63f86311f6ab18b04fda05d37",
   "decisions": [
    "D-1",
    "D-2",
@@ -12107,15 +12120,16 @@
    "D-39",
    "D-40",
    "D-41",
-   "D-42"
+   "D-42",
+   "D-43"
   ],
   "proposed_used": [],
   "allow_proposed": false,
-  "engine_commit": "e4fe0ab7fd19bc265c9e1a7b1772041d4fda76a3",
-  "engine_dirty": true,
+  "engine_commit": "931c8e374c3f20fa1c7d149805f4ed85f3958c3d",
+  "engine_dirty": false,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-25T12:43:46+00:00"
+  "run_at": "2026-10-25T13:16:08+00:00"
  }
 }

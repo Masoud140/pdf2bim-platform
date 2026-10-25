@@ -145,14 +145,15 @@
    "name": "PDF extraction and decision workflow",
    "plain": "Read the drawings into the bridge data; engineer approves decisions in the app.",
    "status": "in_progress",
-   "note": "P5.1-P5.4 done (run records / stale, Query Register, takeoff import, decision tool + review page). Next: P5.5 BR13A re-extraction regression.",
+   "note": "P5.1-P5.4 done; P5.5 first pass (text layer): 47 values re-found, 19 queries, D-43 proposed (site class Be). Next: visual second pass; extractor workbook reader.",
    "evidence": [
     "docs/P5_PLAN.md",
     "docs/P5_METHOD.md",
     "pdf2bim/runrecord.py",
     "pdf2bim/register.py",
     "pdf2bim/takeoff.py",
-    "schema/accept_decision.py"
+    "schema/accept_decision.py",
+    "projects/BR13A/extraction/BR13A_P5.5_import_plan.md"
    ],
    "branch": "p4-verification"
   },
@@ -172,11 +173,25 @@
   }
  ],
  "next": {
-  "task": "P5.5 BR13A re-extraction regression",
-  "why": "Proves the extraction path into the description: every Direct value re-found from the PDF or explained.",
-  "evidence": "Interchange sheet built from the BR13A GA PDF; import plan with 0 unexplained conflicts"
+  "task": "Owner decisions: D-34...D-43 and the P5-1...P5-5 queries (DECISION_REVIEW.html, QUERY_REGISTER.html); then P5.5 visual pass / P6 second bridge",
+  "why": "The remaining autonomous work needs page images or a second bridge; the open decisions change the BR13A model and results.",
+  "evidence": "Decisions recorded with schema/accept_decision.py; outputs re-run (tools/stale.py shows them current)"
  },
  "risks": [
+  {
+   "id": "P5-4",
+   "title": "Bearing level meaning",
+   "plain": "The bearing table level RL 'X' is labelled 'top of bearing' on the bearing detail sheet, but the description treats it as the seat level.",
+   "why": "Changes the bearing height / seat-to-soffit reading (F-6) and the modelled bearing levels.",
+   "severity": "medium"
+  },
+  {
+   "id": "P5-5",
+   "title": "Earthquake site class on the drawings differs from the model",
+   "plain": "The cover sheet prints site class Be; the model used Ce (an assumption). With Be, pile earthquake moments fall about 16-19 %.",
+   "why": "Pile and substructure design values depend on it; proposal D-43 waits for the engineer.",
+   "severity": "high"
+  },
   {
    "id": "H-4",
    "title": "Dashboard traffic results understate G3 / G4 and outer bearings",

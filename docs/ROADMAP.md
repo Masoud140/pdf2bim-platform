@@ -49,5 +49,6 @@
 - **P4.5 stage 6 staged SLS, cracking moment, minimum strength — DONE 2026-10-25** (ADR-035): §9. 
 - **P4.5 stage 7 SLS free strains — DONE 2026-10-25:** §10. Shear at stations waits for fitments (owner) and the torsion-box mapping. 
 - **P4.4 agent part — DONE 2026-10-25** (ADR-036): `P4_VERIFICATION_METHOD.md` §11; the MIDAS run and first export are the owner's. 
-- **P5 plan — 2026-10-25** (`P5_PLAN.md`). **P5.1 run records / stale, P5.2 Query Register, P5.3 takeoff import (interchange sheet), P5.4 decision tool + review page — DONE 2026-10-25** (`P5_METHOD.md`, ADR-037 / 038). **Next: P5.5 BR13A re-extraction regression (extractor tabs → interchange map; re-find every Direct value).**
+- **P5 plan — 2026-10-25** (`P5_PLAN.md`). **P5.1 run records / stale, P5.2 Query Register, P5.3 takeoff import (interchange sheet), P5.4 decision tool + review page — DONE 2026-10-25** (`P5_METHOD.md`, ADR-037 / 038). 
+- **P5.5 first pass — 2026-10-25** (`P5_METHOD.md` §5): text layer, 47 re-found, 19 queries, D-43 proposed. Second pass (visual) and P6 (second bridge) need the owner's material.
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

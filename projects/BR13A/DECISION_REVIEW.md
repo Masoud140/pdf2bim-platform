@@ -1,6 +1,6 @@
-# Decisions waiting for the engineer — BR13A.bridge.0.2.json revision 11
+# Decisions waiting for the engineer — BR13A.bridge.0.2.json revision 14
 
-9 proposed decision(s). Generated; do not edit.
+10 proposed decision(s). Generated; do not edit.
 
 ## D-34 — `alignment.support_lines.rows[0]`
 
@@ -9,7 +9,7 @@ Structure the support-line bearing that the description already records as Direc
 - proposed by AI on 2026-10-24T13:00:00+11:00; affects geometry, model
 - evidence: DRG-202012 skew diagram (via alignment.support_lines.note)
 - values (2): `alignment.support_lines.rows[0]`, `alignment.support_lines.rows[1]`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-34 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-34 --by "<your name>" --reject --note "<why>"`
 
@@ -20,7 +20,7 @@ Complete the Super-T shape definition in the catalogue field supert_types[ST1].s
 - proposed by AI on 2026-10-24T15:30:00+11:00; affects design.supert, model
 - evidence: projects/BR13A/source/dashboard_v45_state.json (secGeo, STAG); DRG-202304 girder section
 - values (13): `superstructure.supert_types[ST1].shape.rows[0]`, `superstructure.supert_types[ST1].shape.rows[1]`, `superstructure.supert_types[ST1].shape.rows[2]`, `superstructure.supert_types[ST1].shape.rows[3]`, `superstructure.supert_types[ST1].shape.rows[4]`, `superstructure.supert_types[ST1].shape.rows[5]`, `superstructure.supert_types[ST1].shape.rows[6]`, `superstructure.supert_types[ST1].shape.rows[7]` …
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-35 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-35 --by "<your name>" --reject --note "<why>"`
 
@@ -31,7 +31,7 @@ The girder-to-deck haunch (gap between the Super-T top flange and the deck soffi
 - proposed by AI on 2026-10-24T15:31:00+11:00; affects design.supert, model
 - evidence: claude/MEMBER_PROPERTIES_METHOD.md §12 (haunch gap assumed 0, dashboard default)
 - values (1): `superstructure.supert_types[ST1].haunch`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-36 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-36 --by "<your name>" --reject --note "<why>"`
 
@@ -42,7 +42,7 @@ Record the support-line cross girders in the new catalogue table superstructure.
 - proposed by AI on 2026-10-24T13:30:00+11:00; affects loads, model
 - evidence: claude/MEMBER_PROPERTIES_METHOD.md section 10 (engineer query response 2026-10-13); DRG-202011 cross-girder detail
 - values (2): `superstructure.cross_girders.rows[0]`, `superstructure.cross_girders.rows[1]`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-37 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-37 --by "<your name>" --reject --note "<why>"`
 
@@ -53,7 +53,7 @@ Solid end blocks: '2000 END DIAPHRAGM' is printed on the PSC girder plan / eleva
 - proposed by AI on 2026-10-24T13:31:00+11:00; affects design.supert, model
 - evidence: DRG-202302 sheet C / DRG-202303 sheet D: 2000 END DIAPHRAGM callout; claude/MEMBER_PROPERTIES_METHOD.md section 2.2 (Task B-1 pending)
 - values (2): `superstructure.supert_types[ST1].zones.rows[0]`, `superstructure.supert_types[ST1].zones.rows[1]`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-38 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-38 --by "<your name>" --reject --note "<why>"`
 
@@ -64,7 +64,7 @@ Structure the headstock (sill beam) plan setout already in the description's abu
 - proposed by AI on 2026-10-24T15:40:00+11:00; affects model
 - evidence: custom.takeoff_abutments rows 17, 21-27; DRG-202100 / 202101 plan dimension chains; DRG-202103 Sec 3/7
 - values (8): `supports[A].headstock_setout.rows[0]`, `supports[A].headstock_setout.rows[1]`, `supports[A].headstock_setout.rows[2]`, `supports[A].headstock_setout.rows[3]`, `supports[B].headstock_setout.rows[0]`, `supports[B].headstock_setout.rows[1]`, `supports[B].headstock_setout.rows[2]`, `supports[B].headstock_setout.rows[3]`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-39 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-39 --by "<your name>" --reject --note "<why>"`
 
@@ -75,7 +75,7 @@ Internal elastomer layer thickness is not in the drawing set (bearing schedule m
 - proposed by AI on 2026-10-24T15:41:00+11:00; affects model
 - evidence: src/sub.js line 22 (S.brg); bearings.items[*].elastomer_thickness (Assumed 60 mm)
 - values (8): `bearings.items[A-G1].layer_thickness`, `bearings.items[A-G2].layer_thickness`, `bearings.items[A-G3].layer_thickness`, `bearings.items[A-G4].layer_thickness`, `bearings.items[B-G1].layer_thickness`, `bearings.items[B-G2].layer_thickness`, `bearings.items[B-G3].layer_thickness`, `bearings.items[B-G4].layer_thickness`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-40 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-40 --by "<your name>" --reject --note "<why>"`
 
@@ -86,7 +86,7 @@ Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_a
 - proposed by AI on 2026-10-24T19:40:00+11:00; affects model
 - evidence: custom.takeoff_abutments group 4 rows 90-112 (A and B); DRG-202281 (202280-202282); projects/BR13A/geometry/BR13A.geometry.json (bearing centres)
 - values (8): `bearings.items[A-G1].seat_rl`, `bearings.items[A-G2].seat_rl`, `bearings.items[A-G3].seat_rl`, `bearings.items[A-G4].seat_rl`, `bearings.items[B-G1].seat_rl`, `bearings.items[B-G2].seat_rl`, `bearings.items[B-G3].seat_rl`, `bearings.items[B-G4].seat_rl`
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-41 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-41 --by "<your name>" --reject --note "<why>"`
 
@@ -97,7 +97,18 @@ Record the prestress-loss / camber inputs that the dashboard's Hog Calculator us
 - proposed by AI on 2026-10-25T23:00:00+11:00; affects design.supert
 - evidence: tests/design/fixtures/br13a_dashboard_hog.json (dashboard Hog inputs p); base/BR13A_grillage_dashboard_v15.html Hog input table (demo defaults)
 - values (29): `design.prestress_losses.rows[0]`, `design.prestress_losses.rows[1]`, `design.prestress_losses.rows[2]`, `design.prestress_losses.rows[3]`, `design.prestress_losses.rows[4]`, `design.prestress_losses.rows[5]`, `design.prestress_losses.rows[6]`, `design.prestress_losses.rows[7]` …
-- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.integrated.mct.json, projects/BR13A/model/BR13A.traffic_concurrent.json
 - accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-42 --by "<your name>"`
 - reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-42 --by "<your name>" --reject --note "<why>"`
+
+## D-43 — `loads.earthquake.rows[0]`
+
+takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)
+
+- proposed by AI on 2026-10-25T12:58:01+00:00; affects loads
+- evidence: BR13A_GA_Rev02.pdf DRG-202001 cover sheet, earthquake loading notes (text layer, line starts cut) '…Y FACTOR kp: 1.7'
+- values (3): `loads.earthquake.rows[0]`, `loads.earthquake.rows[1]`, `loads.earthquake.rows[2]`
+- recorded outputs that become stale: projects/BR13A/model/BR13A.combined_actions.json, projects/BR13A/model/BR13A.girder_checks.json, projects/BR13A/model/BR13A.girder_flexure.json, projects/BR13A/model/BR13A.traffic_concurrent.json
+- accept: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-43 --by "<your name>"`
+- reject: `python3 schema/accept_decision.py projects/BR13A/BR13A.bridge.0.2.json --decision D-43 --by "<your name>" --reject --note "<why>"`
 

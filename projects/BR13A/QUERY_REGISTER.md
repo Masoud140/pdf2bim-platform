@@ -1,6 +1,6 @@
-# Query Register — BR13A.bridge.0.2.json revision 11
+# Query Register — BR13A.bridge.0.2.json revision 14
 
-999 tagged values; open items: missing 53, assumed 206, standard 65, proposed 73. Decisions waiting: D-34, D-35, D-36, D-37, D-38, D-39, D-40, D-41, D-42.
+999 tagged values; open items: missing 53, assumed 206, standard 65, proposed 76. Decisions waiting: D-34, D-35, D-36, D-37, D-38, D-39, D-40, D-41, D-42, D-43.
 
 Generated from the bridge description (`tools/query_register.py`); do not edit by hand.
 
@@ -62,7 +62,7 @@ Generated from the bridge description (`tools/query_register.py`); do not edit b
 | `custom.takeoff_piles.rows[70]` | {"row": 47, "group": "5", "item": "Column top level", "sy... | Column top is the sill soffit at that pile position; the soffit RLs are on the Abutments tab but the soffit RL at each PILE position has not | — | extraction | combined_actions, concurrent_traffic, export_mct, geometry, girder_checks, girder_flexure, midas_compare, sections |
 | `custom.takeoff_piles.rows[71]` | {"row": 47, "group": "5", "item": "Column top level", "sy... | As for Abutment A | — | extraction | combined_actions, concurrent_traffic, export_mct, geometry, girder_checks, girder_flexure, midas_compare, sections |
 
-## Proposed (waiting for the engineer) (73)
+## Proposed (waiting for the engineer) (76)
 
 | Path | Value | Note / replace with | Decision | Affects | Outputs |
 |---|---|---|---|---|---|
@@ -110,6 +110,9 @@ Generated from the bridge description (`tools/query_register.py`); do not edit b
 | `supports[B].headstock_setout.rows[1]` | {"edge": "back", "value": -876} |  | D-39 | model | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `supports[B].headstock_setout.rows[2]` | {"edge": "start", "value": -4751} |  | D-39 | model | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `supports[B].headstock_setout.rows[3]` | {"edge": "end", "value": 6694} |  | D-39 | model | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
+| `loads.earthquake.rows[0]` | {"item": "kp", "value": "1.7"} | project seismic criteria / geotechnical report | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
+| `loads.earthquake.rows[1]` | {"item": "Z", "value": "0.08"} |  | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
+| `loads.earthquake.rows[2]` | {"item": "site_class", "value": "Ce"} | project seismic criteria / geotechnical report | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `design.prestress_losses.rows[0]` | {"item": "k4", "value": 0.6, "unit": "-"} | project specification / construction programme / supplier data | D-42 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `design.prestress_losses.rows[1]` | {"item": "chi", "value": 0.8, "unit": "-"} | project specification / construction programme / supplier data | D-42 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `design.prestress_losses.rows[2]` | {"item": "ts", "value": 1, "unit": "days"} | project specification / construction programme / supplier data | D-42 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
@@ -326,8 +329,8 @@ Generated from the bridge description (`tools/query_register.py`); do not edit b
 | `loads.gradient_negative.rows[11]` | {"depth": 1100.0, "dT": -0.0} | AS 5100.2 Cl 18.3 profile | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.gradient_negative.rows[12]` | {"depth": 1200.0, "dT": 0.0} | AS 5100.2 Cl 18.3 profile | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.shrinkage_creep_shortening` | 300 1e-6 | Hog time analysis + creep | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
-| `loads.earthquake.rows[0]` | {"item": "kp", "value": "1.7"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
-| `loads.earthquake.rows[2]` | {"item": "site_class", "value": "Ce"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
+| `loads.earthquake.rows[0]` | {"item": "kp", "value": "1.7"} | project seismic criteria / geotechnical report | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
+| `loads.earthquake.rows[2]` | {"item": "site_class", "value": "Ce"} | project seismic criteria / geotechnical report | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.earthquake.rows[3]` | {"item": "Rf", "value": "1"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.earthquake.rows[5]` | {"item": "vertical", "value": "False"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `design.prestress_losses.rows[0]` | {"item": "k4", "value": 0.6, "unit": "-"} | project specification / construction programme / supplier data | D-42 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
@@ -365,7 +368,7 @@ Generated from the bridge description (`tools/query_register.py`); do not edit b
 | `loads.traffic_models.rows[1]` | {"model": "S1600", "on": true} |  | — | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.wind.rows[2]` | {"item": "V_with_traffic", "value": 35, "unit": "m/s"} | site / project data | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.wind.rows[3]` | {"item": "air_density", "value": 1.2, "unit": "kg/m3"} | site / project data | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
-| `loads.earthquake.rows[1]` | {"item": "Z", "value": "0.08"} |  | — | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
+| `loads.earthquake.rows[1]` | {"item": "Z", "value": "0.08"} |  | D-43 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.earthquake.rows[4]` | {"item": "zeta", "value": "0.05"} |  | — | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `combinations.standard` | "std:AS5100.2-2017/combinations" |  | — | combinations | combined_actions, girder_checks, girder_flexure |
 | `combinations.register.rows[0]` | {"case": "DLc", "on": true, "uls": 1.2, "beneficial": 0.8... |  | — | combinations | combined_actions, girder_checks, girder_flexure |

@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; P4.4 agent part, P5.1–P5.4 done; next: P5.5; the MIDAS run waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; P4.4 agent part, P5.1–P5.4, P5.5 first pass done; the MIDAS run waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -42,7 +42,8 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 1. **P4.4 agent part: DONE** (§11, ADR-036). Owner: MIDAS run on `projects/BR13A/model/BR13A.integrated.mct`, export reactions / beam forces / modes / mode shapes as CSV, then `python3 tools/midas_compare.py projects/BR13A/BR13A.bridge.0.2.json --allow-proposed --midas <folder>`; confirm the header map.
 2. **P5.1–P5.4: DONE** (`P5_METHOD.md`). Owner: review `projects/BR13A/DECISION_REVIEW.html` and record decisions with `schema/accept_decision.py --by "<name>"`; `projects/BR13A/QUERY_REGISTER.html` lists every open item.
-   **Next: P5.5** — BR13A re-extraction regression: read the BR13A GA PDF (project files `BR13A_GA_Rev02.pdf`), build the interchange sheet (label → path map for the extractor's tabs), import with `tools/import_takeoff.py` (plan only), explain every Direct value not re-found.
+   **P5.5 first pass: DONE** (text layer; `P5_METHOD.md` §5, `projects/BR13A/extraction/`); D-43 proposed (site class Be). Owner: decide D-43 and the P5-1 … P5-4 queries.
+   **Next autonomous:** P5.5 second pass when page images can be read (visual confirmation, remaining Direct values); a reader for the extractor's own multi-tab workbook (label → path map); then P6 needs a second bridge's PDFs (owner).
 3. **Owner items:** the reference spreadsheet (E-1), the MIDAS run (P4.4), ADR-031 / ADR-035 methods, BR13A fitments / deck bars / strand layout (D-1), D-42 values, P4-3 deck-cast age.
 4. Keep the generality guard green (local pre-commit hook). Full suite ≈ 75 min (design tests ≈ 4 min more than before).
 
