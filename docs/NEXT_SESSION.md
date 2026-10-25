@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1 concurrent traffic actions done on `p4-verification`; P4.2 next).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations done on `p4-verification`; P4.3 next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -36,18 +36,18 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (`P4_VERIFICATION_METHOD.md` §1, ADR-029). **P4.2: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3: next.**
 
 ## 3. Next actions
 
-1. **P4.2 concurrent combinations** (`docs/P4_PLAN.md`), on `p4-verification`:
-   - in `combinations.combine`, keep for each response and limit state the governing row and, for envelope primitives, which end (max / min) was taken;
-   - concurrent vector of a governing row = Σ f · static primitives + for each envelope term the concurrent vector of its state: traffic via `traffic.governing_state` / `concurrent` (P4.1) for the governing response and sign; vertical wind and EPT via the case actually taken (WVU+ / WVU−; EPTA / EPTB / none); earthquake stays ± (P4.3) — report it as such;
-   - test: the concurrent vector reproduces the governing envelope value of its own response exactly; concurrent values within every envelope; then concurrent columns in `combinations.schedule` / `tools/combined_actions.py` (girder M with V, T; bearing v with tr, lon; pile N with Ml, Mt).
-2. Then P4.3 (earthquake signs from the modal covariance; pile resultants).
-3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 50 min.
+1. **P4.3 signed earthquake and pile resultants** (`docs/P4_PLAN.md`), on `p4-verification`:
+   - in `pdf2bim/model/earthquake.py`, keep the modal response matrix Rk (modes x responses) and the CQC correlation so that, for a governing response i, the concurrent value of response j is the CQC covariance Σ ρkl Rk[k,i] Rk[l,j] / R_i (the "most probable concurrent value"; same for the missing-mass term, fully correlated with itself), per direction, then the 100 / 30 combination with the same signs as the governing extreme; record the method in an ADR (alternatives: Gupta / Menun-Der response ellipse for the pile Ml–Mt interaction);
+   - add a "concurrent" hook to the EQX / EQY primitives (like the traffic "state") so `concurrent_row` stops flagging them; keep the envelope value of the governing response exact;
+   - pile resultant: the largest √(Ml² + Mt²) over the earthquake response ellipse (Menun-Der) vs the √ envelope bound; tests on a 2-dof closed form;
+   - re-run `tools/combined_actions.py` and `tools/concurrent_traffic.py` and update the records.
+2. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 50 min.
 
-For reference (P4.1): `traffic.governing_state(T, model, r, sign)`, `traffic.concurrent(T, state)`; `traffic_envelope` now returns `vehicles`, `lane_width`, `grid`; `tools/concurrent_traffic.py` (≈ 1.5 min); test `test_concurrent.py` (≈ 1.5 min).
+For reference (P4.2): `combinations.concurrent_row(prim, row, i, which)`, `concurrent_schedule(CA, ls)`; primitives now carry `state` (traffic), `parts` (WZ, EPT) and `unsigned` (EQ).
 
 ## 4. Do not
 

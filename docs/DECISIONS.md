@@ -309,3 +309,8 @@
 - **Decision (agent, 2026-10-25; reversible):** concurrent traffic actions come from rebuilding, per governing response, the exact load state of the envelope search (layout, lane ranking and factors, patterned UDL, vehicle position) as explicit point loads, then evaluating every response under it. The envelope algorithm itself is unchanged.
 - **Alternatives:** storing the argmax state for every response during the envelope (memory × responses, more intrusive); a separate optimisation per interaction (later, P4.3 if needed).
 - **Consequence:** each extreme has its concurrent actions, exactly consistent with the envelope (1e-15); concurrent values are admissible (inside every envelope). The concurrent pile resultant is a lower bound and the √ of separate envelopes an upper bound of the true largest resultant.
+
+## ADR-030 P4.2 concurrent combination rows (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** a concurrent vector is built for the governing row of each extreme by replacing each envelope term with the single state that gives the value `combine` took (traffic state, governing wind / surcharge part). Earthquake terms keep the unsigned envelope and are flagged until P4.3; flagged values are not used as concurrent design actions.
+- **Consequence:** girder, bearing and sill concurrent actions are admissible and exactly consistent with the envelopes; pile actions wait for P4.3.

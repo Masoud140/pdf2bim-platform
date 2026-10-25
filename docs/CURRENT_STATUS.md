@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions done** (branch `p4-verification`). **Next: P4.2 concurrent combinations.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions and P4.2 concurrent combinations done** (branch `p4-verification`). **Next: P4.3 signed earthquake and pile resultants.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -17,7 +17,7 @@
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
 | `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
 | `p2-sections` | e476e99 | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
-| `p4-verification` | see `git log` (from `p3-model` @ c378d73) | P4.1 concurrent traffic actions; P4 plan | working branch |
+| `p4-verification` | see `git log` (from `p3-model` @ c378d73) | P4 plan; P4.1 concurrent traffic actions; P4.2 concurrent combinations | working branch |
 | `p3-model` | c378d73 (from e476e99) | P3a solver + superstructure builder; P3b integrated model, SDL, .mct, modes; P3c load cases and AS 5100.2 combinations; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
 
 ## What works today (BR13A)
@@ -64,6 +64,7 @@
 | H-6 | Dashboard wind lever arms measured from the deck top while its nodes are at the girder top (0.2 m low) | H (minor) |
 | H-7 | Dashboard vertical-wind distribution measured from the deck centre, ignores line lengths: total ±0.9 % | H (minor) |
 | M-4 | BR13A combined minimum bearing force at A-G4 on the P3b model: ULS −162 kN (uplift), SLS −37 kN (dashboard +64 / +265). Largest relief: shrinkage / creep (Assumed 300e-6) through the fixed-abutment restraint (M-3). **Engineer to check** (MIDAS, bearing / restraint detail) | E / F |
+| P4-1 | BR13A pile moment extremes (ULS) are all earthquake-governed; concurrent pile actions wait for P4.3 (signed earthquake). Bearing A-G4 at its uplift minimum carries concurrent tr −1124 / lon +1145 kN | F |
 | H-8 | Dashboard combinations keep the pedestrian action selected with no load case (BR13A pedestrian Missing-Flagged): 1142 terms silently zero. The platform lists unanalysed actions instead | H (minor) |
 | D-39…41 | BR13A sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs — proposed; integrated model provisional | data |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
@@ -176,4 +177,4 @@
 
 ## Next task
 
-**P4.2 concurrent combinations** (`docs/P4_PLAN.md`): for each governing combination row, the full concurrent response vector (static primitives + the traffic state of P4.1 + the chosen wind / surcharge state), concurrent columns in the schedule. Branch `p4-verification`.
+**P4.3 signed earthquake and pile resultants** (`docs/P4_PLAN.md`): concurrent earthquake actions from the modal covariance (CQC correlation of response pairs), so earthquake-governed rows (all BR13A pile moment extremes) get physical concurrent actions; pile resultant from concurrent Ml, Mt. Branch `p4-verification`.

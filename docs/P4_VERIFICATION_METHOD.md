@@ -29,3 +29,20 @@ Plan: `P4_PLAN.md`. Branch `p4-verification` (from `p3-model` @ c378d73).
 - pile moment resultant: the concurrent resultant at the max-|Ml| state is 0.45–0.98 of the separate-envelope bound √(Ml_env² + Mt_env²). The true largest resultant lies between the concurrent value (lower bound) and the √ bound (upper bound) — P4.3 refines it.
 
 Characteristic values only; no load factor; inputs Assumed / Standard-verify; standards values unverified.
+
+## 2. P4.2 Concurrent combinations (`combinations.concurrent_row`, `concurrent_schedule`, `tests/model/test_concurrent.py` 13)
+
+**Method:** for the governing row of an extreme (response i, ULS / SLS, max / min), every term is evaluated as one state, chosen exactly as `combine` chose its bound at i:
+- static primitives: f · v;
+- traffic: the rebuilt vehicle / lane state of P4.1 for response i and the side taken (sign of f included);
+- "parts" envelopes (vertical wind WVU+ / WVU−, traffic surcharge EPTA / EPTB / none): the whole governing part;
+- earthquake (RSA): still the unsigned envelope of each response — **flagged** "not a concurrent state" until P4.3.
+
+`concurrent_schedule` gives, at the schedule's ULS extremes, girder M with V, T (same section), bearing v with tr, lon, pile Ml / Mt / N with the concurrent resultant against the √ envelope bound, and sill My with Vz, Mz, T. `tools/combined_actions.py` writes them to `projects/BR13A/model/BR13A.combined_actions.md` (section "Concurrent actions").
+
+**Checks:** the concurrent value of the governing response equals its envelope value (synthetic 1e-15; BR13A all 64 schedule items 1e-15, 30 random responses 3e-16); every concurrent component lies within the envelopes (8e-15); flags exactly on rows with earthquake terms; the parts rule closed form; 4 / 4 mutations caught.
+
+**BR13A findings (ULS, indicative):**
+- girder max sagging rows are traffic rows: concurrent V is small (−218 … +265 kN), concurrent T −810 … −1072 kN·m;
+- **bearing A-G4 at its uplift minimum (−162 kN) carries concurrent tr −1124 kN and lon +1145 kN** (row ULS-B-0107: shrinkage, temperature and traffic): relevant to M-4 and the bearing / restraint design;
+- **every pile moment extreme is governed by an earthquake row (ULS-H-…)**, so the pile concurrent values are flagged and not yet physical — P4.3 (signed earthquake) is needed before pile interaction checks.

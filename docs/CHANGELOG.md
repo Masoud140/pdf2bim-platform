@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.2 concurrent combinations (branch `p4-verification`)
+
+- **Added:** `combinations.concurrent_row()`, `concurrent_schedule()`; concurrent tables in `tools/combined_actions.py` / `BR13A.combined_actions.md`.
+- **Tests:** concurrent 13 (4 / 4 new mutations caught).
+- **Findings:** A-G4 uplift minimum comes with large concurrent horizontal forces (tr −1124, lon +1145 kN); pile moment extremes are earthquake-governed (P4.3 needed).
+
 ## 2026-10-25 — P4.1 concurrent traffic actions (branch `p4-verification`)
 
 - **Added:** `traffic.governing_state()` / `traffic.concurrent()`; `tools/concurrent_traffic.py` → `projects/BR13A/model/BR13A.traffic_concurrent.md`; `docs/P4_PLAN.md`, `docs/P4_VERIFICATION_METHOD.md`.
