@@ -4,6 +4,258 @@
  "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
  "entries": [
   {
+   "id": "AS5100.2:combination:earthquake_orthogonal",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Section 15 (as coded)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "companion factor on the orthogonal earthquake direction in the ULS earthquake combination (EQX +/- f EQY, EQY +/- f EQX)",
+   "units": "-",
+   "value": 0.3,
+   "applicability": "ULS (h) when both horizontal earthquake directions are in the register",
+   "context": "combination generator (eqStates)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3530",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "As coded: the EQX / EQY primitives are the single-direction RSA responses (sign either way), so this factor makes the 100 / 30 orthogonal combination. Not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.2:combination:min_strength_stability",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 23.2",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "permanent-action factors of the minimum strength and stability combination: adverse set (max) and relieving set (min) per action id",
+   "units": "-",
+   "value": {
+    "max": {
+     "DLc": 1.35,
+     "DLs": 1.35,
+     "DLt": 1.35,
+     "SDLp": 1.35,
+     "SDLr": 1.35,
+     "SDLs": 1.35,
+     "SOc": 1.35,
+     "SOo": 1.35,
+     "BAL": 1.35,
+     "TRN": 1.35,
+     "GW": 1.0
+    },
+    "min": {
+     "DLc": 0.9,
+     "DLs": 0.9,
+     "DLt": 0.9,
+     "SDLp": 0.9,
+     "SDLs": 0.9,
+     "SOc": 0.9,
+     "SOo": 0.9,
+     "BAL": 0.9,
+     "TRN": 0.9,
+     "GW": 1.0
+    }
+   },
+   "applicability": "combination (a); only the actions listed take part (others are not in the combination)",
+   "context": "combination generator (Combos tab genAll; pdf2bim/model/combinations.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3494",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.2:combination:pedestrian_with_road_traffic",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 23.3 (b)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "pedestrian load factor in the ULS road-traffic combination (when pedestrians are taken with traffic)",
+   "units": "-",
+   "value": 1.5,
+   "applicability": "ULS (b) road traffic; the dashboard option 'pedestrians with traffic' (pw)",
+   "context": "combination generator",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3554",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.2:combination:rail_with_wind",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Table D3 Note 8 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "rail traffic factor in combination with wind",
+   "units": "-",
+   "value": 0.25,
+   "applicability": "rail traffic with wind (ULS (j), SLS lead wind)",
+   "context": "combination generator",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:411",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Default as coded; the reference is the code's label. Not used for road-only bridges. Not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.2:combination:sls_companion",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 23.4",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "SLS companion factors on the other transient actions: one other action (k1), two or more (k2)",
+   "units": "-",
+   "value": {
+    "k1": 0.7,
+    "k2": 0.5
+   },
+   "applicability": "SLS: one lead transient action group with every subset of the others",
+   "context": "combination generator (SLS rows)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:409",
+     "base/BR13A_grillage_dashboard_v15.html:410",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Defaults as coded (editable in the dashboard). Edition not recorded; not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.2:combination:transfer",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 19.2",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "dead-load factors (max, min) at transfer of prestress, with prestress secondary effects x 1",
+   "units": "-",
+   "value": {
+    "DLc": [
+     1.15,
+     0.9
+    ],
+    "PS": 1.0
+   },
+   "applicability": "only when DLc and PS are both in the register",
+   "context": "combination generator (transfer rows)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3579",
+     "pdf2bim/model/combinations.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
    "id": "AS5100.2:load_factor:A160",
    "standard": "AS 5100.2",
    "edition": null,

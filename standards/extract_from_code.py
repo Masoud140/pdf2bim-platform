@@ -147,6 +147,39 @@ def traffic():
     return e
 
 
+def combinations():
+    """Constants of the AS 5100.2 combination generator (Combos tab genAll) other than the per-action load factors."""
+    path = "base/BR13A_grillage_dashboard_v15.html"
+    e = []
+    line, m = find(path, r"const A1=\{([^}]*)\},A2=\{([^}]*)\};")
+    pf = lambda t: {k: float(v) for k, v in (x.split(":") for x in t.split(","))}
+    e.append(entry("AS5100.2:combination:min_strength_stability", "AS 5100.2", "Cl 23.2",
+                   "permanent-action factors of the minimum strength and stability combination: adverse set (max) and relieving set (min) per action id", "-",
+                   {"max": pf(m.group(1)), "min": pf(m.group(2))}, "combination (a); only the actions listed take part (others are not in the combination)",
+                   "combination generator (Combos tab genAll; pdf2bim/model/combinations.py)", [f"{path}:{line}", "pdf2bim/model/combinations.py"]))
+    line, m = find(path, r"push\('ULS','t','','.',\[\['DLc',([\d.]+)\],\['PS',1\]\]\);push\('ULS','t','','.',\[\['DLc',([\d.]+)\],\['PS',1\]\]\)")
+    e.append(entry("AS5100.2:combination:transfer", "AS 5100.2", "Cl 19.2", "dead-load factors (max, min) at transfer of prestress, with prestress secondary effects x 1", "-",
+                   {"DLc": [float(m.group(1)), float(m.group(2))], "PS": 1.0}, "only when DLc and PS are both in the register", "combination generator (transfer rows)",
+                   [f"{path}:{line}", "pdf2bim/model/combinations.py"]))
+    line, m = find(path, r"ped=on\('PED'\)&&o\.pw\?\[st\(\[\['PED',([\d.]+)\]\]\)\]")
+    e.append(entry("AS5100.2:combination:pedestrian_with_road_traffic", "AS 5100.2", "Cl 23.3 (b)", "pedestrian load factor in the ULS road-traffic combination (when pedestrians are taken with traffic)", "-",
+                   float(m.group(1)), "ULS (b) road traffic; the dashboard option 'pedestrians with traffic' (pw)", "combination generator", [f"{path}:{line}", "pdf2bim/model/combinations.py"]))
+    l1, m1 = find(path, r'id="cb_k1" value="([\d.]+)"'); l2, m2 = find(path, r'id="cb_k2" value="([\d.]+)"')
+    e.append(entry("AS5100.2:combination:sls_companion", "AS 5100.2", "Cl 23.4", "SLS companion factors on the other transient actions: one other action (k1), two or more (k2)", "-",
+                   {"k1": float(m1.group(1)), "k2": float(m2.group(1))}, "SLS: one lead transient action group with every subset of the others", "combination generator (SLS rows)",
+                   [f"{path}:{l1}", f"{path}:{l2}", "pdf2bim/model/combinations.py"], interp="Defaults as coded (editable in the dashboard). Edition not recorded; not checked against an authorised copy.", specialist=True))
+    line, m = find(path, r'id="cb_rf" value="([\d.]+)"')
+    e.append(entry("AS5100.2:combination:rail_with_wind", "AS 5100.2", "Table D3 Note 8 (as labelled in the code)", "rail traffic factor in combination with wind", "-",
+                   float(m.group(1)), "rail traffic with wind (ULS (j), SLS lead wind)", "combination generator", [f"{path}:{line}", "pdf2bim/model/combinations.py"],
+                   interp="Default as coded; the reference is the code's label. Not used for road-only bridges. Not checked against an authorised copy."))
+    line, m = find(path, r"o\.push\(st\(\[\[a,s1\],\[b,([\d.]+)\*s2\]\]\)\)")
+    e.append(entry("AS5100.2:combination:earthquake_orthogonal", "AS 5100.2", "Section 15 (as coded)", "companion factor on the orthogonal earthquake direction in the ULS earthquake combination (EQX +/- f EQY, EQY +/- f EQX)", "-",
+                   float(m.group(1)), "ULS (h) when both horizontal earthquake directions are in the register", "combination generator (eqStates)",
+                   [f"{path}:{line}", "pdf2bim/model/combinations.py"], specialist=True,
+                   interp="As coded: the EQX / EQY primitives are the single-direction RSA responses (sign either way), so this factor makes the 100 / 30 orthogonal combination. Not checked against an authorised copy."))
+    return e
+
+
 # project inputs found next to the standards values: NOT standards data (they belong in the bridge description)
 PROJECT_DEFAULTS = [
     ("src/sub4.js", "WD.V = 45 m/s", "design wind speed — site-specific (region, terrain, return period)"),
@@ -158,7 +191,7 @@ PROJECT_DEFAULTS = [
 
 
 def main():
-    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic(),
+    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic() + combinations(),
               "AS1170.4": earthquake(),
               "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"],
               "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],

@@ -73,13 +73,20 @@ class Influence:
     rule is kept to REPRODUCE the dashboard (cross-implementation check): with min_line_nodes=1 a node off every line
     (e.g. a bearing node) forms its own one-node "line" that collects all load at that offset (finding H-5)."""
 
-    def __init__(self, mdl, dist="triangles", ends=None, min_line_nodes=1):
+    def __init__(self, mdl, dist="triangles", ends=None, min_line_nodes=1, responses=None):
+        """responses: None (girder moments, bearing reactions, girder deflections) or a ResponseSet
+        (pdf2bim.model.responses) whose quantities are then enveloped (self.R = its names)."""
         from scipy.spatial import Delaunay
         m = mdl["model"]
         Kt, free, idx = m.stiffness()
         nd = DOF * len(m.nodes)
-        self.R = _responses(mdl)
-        Rm = _response_matrix(m, self.R, idx, nd)
+        if responses is None:
+            self.R = _responses(mdl)
+            Rm = _response_matrix(m, self.R, idx, nd)
+        else:
+            if responses.idx != idx:
+                raise ValueError("response set and stiffness use different node numbering")
+            self.R, Rm = list(responses.names), responses.matrix
         self.deck = [k for k, v in mdl["nodes"].items() if v.get("role") in LOAD_LINE_ROLES and "ch" in v]
         X = np.array([[mdl["nodes"][k]["ch"], mdl["nodes"][k]["o"]] for k in self.deck])
         self.tri = Delaunay(X)

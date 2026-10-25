@@ -55,6 +55,18 @@ keys = (("wheel_kN", "wheel"), ("track_m", "track"), ("axle_spacing_m", "axle"),
 t("traffic models M1600 / S1600 and lane width equal the code (node-evaluated TRV)",
   all(E[f"AS5100.2:traffic:{mn}"]["value"][a] == trv[mn][b] for mn in ("M1600", "S1600") for a, b in keys) and E["AS5100.2:traffic:lane_width"]["value"] == trv["laneW"]["v"]
   and E["AS5100.2:traffic:M1600"]["reference"]["clause"] == trv["M1600"]["cl"].split(",")[0])
+a12 = re.search(r"const (A1=\{[^}]*\},A2=\{[^}]*\});", html).group(1)
+a12 = json.loads(subprocess.run(["node", "-e", f"const {a12}; console.log(JSON.stringify({{A1,A2}}))"], capture_output=True, text=True, check=True).stdout)
+gi = html.index("function genAll"); gsrc = html[gi:html.index("// ---------- model load case list", gi)]
+# the transfer, pedestrian and earthquake companion numbers are read from the generator source by an independent pattern
+tr_ = [float(x) for x in re.findall(r"\['DLc',([\d.]+)\],\['PS',1\]", gsrc)]
+pw_ = float(re.search(r"o\.pw\?\[st\(\[\['PED',([\d.]+)", gsrc).group(1))
+eqc = float(re.search(r"\[b,([\d.]+)\*s2\]", html).group(1))
+cv = {k.split(":")[-1]: v["value"] for k, v in E.items() if ":combination:" in k}
+t("combination constants equal the code (A1 / A2 node-evaluated; transfer, pedestrian, earthquake companion, k1 / k2 / rf defaults)",
+  cv["min_strength_stability"] == {"max": a12["A1"], "min": a12["A2"]} and cv["transfer"]["DLc"] == tr_ and cv["pedestrian_with_road_traffic"] == pw_
+  and cv["earthquake_orthogonal"] == eqc and cv["sls_companion"] == {"k1": 0.7, "k2": 0.5} and cv["rail_with_wind"] == 0.25
+  and f'id="cb_k1" value="{cv["sls_companion"]["k1"]}"' in html and f'id="cb_rf" value="{cv["rail_with_wind"]}"' in html, str(sorted(cv)))
 bad_loc = []
 for e in E.values():
     path, line = e["implementation"]["used_by"][0].split(" ")[0].rsplit(":", 1)

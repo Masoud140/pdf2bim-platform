@@ -17,13 +17,14 @@ Method (as the dashboard, src/sub5.js eqRun, generalised):
   MASS: the static response to the rigid-body acceleration of the mass not in the modes, at Sa(0), added by SRSS.
 - DIRECTIONAL COMBINATIONS: EQ-L = 1.0 L + 0.3 T (+ 0.3 V), EQ-T = 0.3 L + 1.0 T (+ 0.3 V) (+ EQ-V), of the absolute
   directional responses (as the dashboard).
-RESPONSES (each combined separately — not concurrent, as the dashboard): bearing forces (global X, Y, Z on the bearing
-top; and in link axes: v vertical, tr, lon), pile element end actions (local My, Mz at both ends, Vy, Vz), pile-head displacement X, Y, total spring force X, Y.
+RESPONSES (each combined separately — not concurrent, as the dashboard): the response set of pdf2bim.model.responses
+(bearing forces, pile element end actions, pile-head displacements, total spring forces).
 """
 import math
 import numpy as np
 import scipy.sparse.linalg as spl
 from ..description import Reader, MissingInput
+from .responses import ResponseSet
 
 G_ACC = 9.80665
 DOF = 6
@@ -45,46 +46,6 @@ def ch_factor(T, row):
 def rho_cqc(wi, wj, z):
     r = wj / wi
     return 8 * z * z * (1 + r) * r ** 1.5 / ((1 - r * r) ** 2 + 4 * z * z * r * (1 + r) ** 2)
-
-
-def _response_rows(mdl, idx, nd):
-    """Linear response functionals (rows over all dofs): bearing global forces, pile element end actions, pile-head
-    displacements, spring force totals."""
-    m = mdl["model"]
-    names, rows = [], []
-    for bid, b in sorted(mdl["bearings"].items()):
-        L, Rm, T, Kl, fl, dofs = m._el[("link", b["link"])]
-        KT = (Kl @ T)[6:9]
-        G = -(Rm.T @ KT)
-        for c, lab in enumerate("XYZ"):
-            names.append(("B", bid, "F" + lab)); rows.append((dofs, G[c]))
-        KT1 = (Kl @ T)[0:3]                                 # link-local end-1 forces: v = f0 (compression +), tr = -f1, lon = -f2
-        for c, lab, sg in ((0, "v", 1.0), (1, "tr", -1.0), (2, "lon", -1.0)):
-            names.append(("BL", bid, lab)); rows.append((dofs, sg * KT1[c]))
-    piles = []
-    for sid, s in mdl["supports"].items():
-        for p in s["piles"]:
-            ch = set(p["chain"])
-            for eid, bm in m.beams.items():
-                if bm["n1"] in ch and bm["n2"] in ch:
-                    L, Rm, T, K, fl, dofs = m._el[eid]
-                    KT = K @ T
-                    for j, lab in ((4, "My1"), (5, "Mz1"), (10, "My2"), (11, "Mz2"), (1, "Vy"), (2, "Vz")):
-                        names.append(("P", (p["id"], eid), lab)); rows.append((dofs, KT[j]))
-            for c, lab in ((0, "ux"), (1, "uy")):
-                names.append(("H", p["id"], lab)); rows.append(([DOF * idx[p["head"]] + c], np.array([1.0])))
-            piles.append(p)
-    for c, lab in ((0, "X"), (1, "Y")):
-        dofs, vals = [], []
-        for n, k in m.springs.items():
-            if k[c]:
-                dofs.append(DOF * idx[n] + c); vals.append(-k[c])      # force the springs exert on the structure
-        names.append(("S", "springs", lab)); rows.append((dofs, np.array(vals)))
-    import scipy.sparse as sp
-    r_, c_, v_ = [], [], []
-    for i, (dofs, row) in enumerate(rows):
-        r_ += [i] * len(dofs); c_ += list(dofs); v_ += list(row)
-    return names, sp.csr_matrix((v_, (r_, c_)), shape=(len(rows), nd)), piles
 
 
 def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, extra_mass=None, n_modes=None):
@@ -109,7 +70,10 @@ def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, ext
     K, Mm, free, idx, Phi, w2 = MD["K"], MD["M"], MD["free"], MD["idx"], MD["Phi"], MD["w2"]
     nd = DOF * len(m.nodes)
     pos = -np.ones(nd, int); pos[free] = np.arange(len(free))
-    names, Rm, piles = _response_rows(mdl, idx, nd)
+    RS = ResponseSet(mdl)
+    if RS.idx != idx:
+        raise ValueError("response set and modal analysis use different node numbering")
+    names, Rm = RS.names, RS.matrix
     Rf_ = Rm[:, free]                                      # responses from free-dof displacements
     # directions
     cA = np.mean([m.nodes[k][:2] for k in mdl["supports"][geo["supports"][0]["id"]]["sill_nodes"]], axis=0)
