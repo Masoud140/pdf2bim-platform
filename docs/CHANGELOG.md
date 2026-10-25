@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P3c combinations: AS 5100.2 (branch `p3-model`)
+
+- **Added:** `pdf2bim/model/combinations.py` (generator, evaluation, platform primitives, combined actions) and `responses.py` (shared response set; earthquake and traffic use it); combination constants in the standards inventory (75 entries); `tools/dump_dashboard_combinations.js`, `tools/compare_frozen_combinations.py`; `projects/BR13A/model/BR13A.combinations_vs_frozen.md`.
+- **Tests:** combinations 27 (mutation 7 / 7); standards 30.
+- **Findings:** M-4 (A-G4 bearing uplift in the combined minimum on the P3b model); H-8 (dashboard combines a pedestrian action that has no load case).
+
 ## 2026-10-25 — P3c stages 2–5: imposed strains, horizontal loads, wind, earthquake (branch `p3-model`)
 
 - **Added:** `pdf2bim/model/thermal.py`, `horizontal.py`, `wind.py`, `earthquake.py`; solver `imposed=` (free deformations), `Model.modes(matrices=True)`; dashboard dump tools for each, plus comparisons (`projects/BR13A/model/BR13A.{thermal,horizontal,wind,earthquake}_vs_frozen.md`).

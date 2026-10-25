@@ -288,3 +288,13 @@
   3. **Centrifugal force uses the smallest alignment radius under the deck** (Model, conservative); wind at the ULS speed with (V/V_uls)² scale factors.
   4. **The combinations are a separate next stage,** after their remaining constants are inventoried.
 - **Consequence:** every P3c case reproduces the dashboard on the dashboard's own model, to round-off or to its documented differences. On the P3b model the differences come from the documented model and input differences (M-2, M-3, H-3, retained height).
+
+## ADR-027 P3c AS 5100.2 combinations (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):**
+  1. **The dashboard's combination generator and evaluation are ported unchanged in logic** (`genAll`, `rxCombine`), with the traffic modelled as one moving-load case per vehicle model (lane factors inside the traffic envelope). The per-lane mode is not ported.
+  2. **Every factor is read from the standards data** (`AS5100.2:load_factor:*`, new `AS5100.2:combination:*`), all code-extracted-unverified; none is approved.
+  3. **One shared response set** (bearings, pile element ends, pile heads, springs) for the static cases, the traffic influence and the earthquake RSA, with fixed-end forces included in static values.
+  4. **Only actions with an analysed case take part by default;** Missing-Flagged description items (pedestrian, flood, collision) are listed as not combined, not silently zero (the dashboard keeps them selected with zero effect: H-8).
+  5. **Earth pressure is carried by SOo** (other fills) because the fill category is not in the description; recorded as a provisional input (larger adverse and smaller relieving factor).
+- **Consequence:** the generated rows equal the dashboard's for 9 register / option sets, and the evaluation of the dashboard's primitives is exact. Combined bearing and pile actions on the P3b model differ from the dashboard's only through the load cases (H-4, H-5, M-1, M-3). Finding M-4 (A-G4 bearing uplift in the combined minimum) goes to the engineer. Girder and headstock responses are not yet in the response set.

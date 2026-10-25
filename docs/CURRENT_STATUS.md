@@ -1,8 +1,8 @@
-# Current status — 2026-10-24
+# Current status — 2026-10-25
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) done. **Next: P3c combinations** (AS 5100.2). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). **Next: P3c close-out** (girder and headstock responses in the combined actions). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -17,7 +17,7 @@
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
 | `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
 | `p2-sections` | e476e99 | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
-| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder; P3b integrated model (sill, piles, springs, bearings); 63 model tests; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
+| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder; P3b integrated model, SDL, .mct, modes; P3c load cases and AS 5100.2 combinations; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
 
 ## What works today (BR13A)
 
@@ -40,7 +40,7 @@
 | E-1 | Design engine: neutral-axis depth 8 % off the worked example, although Mu agrees (VERIFICATION §5) | F |
 | E-2 | No model builder: a frozen BR13A MIDAS .mct is patched; members are found by BR13A names and file order | E |
 | F-1 | Approximations: separate traffic M/V/T envelopes; unsigned earthquake; pile √(Ml²+Mt²); pedestrian 0; stage roll restraint (ARCHITECTURE §4) | F |
-| F-2 | Standards values are constants in the JS code. They are now inventoried in `standards/` (63 entries, unverified), but the dashboard does not read them from there; traffic / DLA / crack-control constants are not inventoried yet | F |
+| F-2 | Standards values are constants in the JS code. They are now inventoried in `standards/` (75 entries incl. traffic and combination constants, unverified), but the dashboard does not read them from there; traffic / DLA / crack-control constants are not inventoried yet | F |
 | F-3 | Node-line / section-offset level question (MEMBER_PROPERTIES_METHOD §12) unresolved | E |
 | G-1 | Tests print instead of asserting; no regression snapshot; no independent MIDAS model of the integrated structure | G |
 | A-1 | Extraction (agent spec, Excel takeoff) is not connected to the bridge description | A |
@@ -62,6 +62,8 @@
 | M-3 | BR13A temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (P3b vs frozen: H −30 %, vertical couples +35 … +80 %). Check in MIDAS (P4) and with the restraint-block detail | E |
 | H-6 | Dashboard wind lever arms measured from the deck top while its nodes are at the girder top (0.2 m low) | H (minor) |
 | H-7 | Dashboard vertical-wind distribution measured from the deck centre, ignores line lengths: total ±0.9 % | H (minor) |
+| M-4 | BR13A combined minimum bearing force at A-G4 on the P3b model: ULS −162 kN (uplift), SLS −37 kN (dashboard +64 / +265). Largest relief: shrinkage / creep (Assumed 300e-6) through the fixed-abutment restraint (M-3). **Engineer to check** (MIDAS, bearing / restraint detail) | E / F |
+| H-8 | Dashboard combinations keep the pedestrian action selected with no load case (BR13A pedestrian Missing-Flagged): 1142 terms silently zero. The platform lists unanalysed actions instead | H (minor) |
 | D-39…41 | BR13A sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs — proposed; integrated model provisional | data |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
 

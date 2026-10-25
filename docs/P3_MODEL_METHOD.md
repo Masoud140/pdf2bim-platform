@@ -229,11 +229,41 @@ Each module's mutation check caught every injected fault (after one test was add
 - **M-3:** temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (link length, lever, sill / pile stiffness). Check them in the independent MIDAS model (P4) and with the bearing / restraint-block detail.
 - **H-6, H-7:** dashboard wind (minor).
 
-## 9. Not yet done (P3c, remaining)
+## 9. P3c combinations — AS 5100.2 (`pdf2bim/model/combinations.py`, `responses.py`, `tests/model/test_combinations.py` 27)
 
-- **AS 5100.2 combinations** (port of the dashboard's generator: 23.2 / 23.3 (b)–(k) / 23.4; PE max / min / mixed; lane placements; accompanying factors), after inventorying its remaining constants (23.2 factors 1.35 / 0.9, k1 0.7, k2 0.5, rf 0.25) as unverified standards data.
+**Response set** (`responses.py`, shared by the earthquake RSA, the traffic influence and the combinations): bearing force on the girder node (global FX, FY, FZ; link axes v, tr, lon); every pile element (My, Mz at both ends, Vy, Vz, N at both ends (compression +), Ml / Mt = the section moment at each end in global axes projected on the support's sill axis / its horizontal normal); pile-head displacements; total spring forces. Each is a linear functional of the displacements; `static()` adds the member fixed-end forces, so self weight and imposed strains are exact.
+
+**Generator** (`generate`, port of the dashboard's `genAll`, traffic as one moving-load case per vehicle model):
+- ULS 23.2 (a) A1 / A2; 23.3 (b) traffic with companions (pedestrians, thermal 0/1, wind at the with-traffic speed); (c)–(k); transfer 19.2; SLS 23.4 lead group + every subset of the others at k1 / k2.
+- Options: PE sets "2" / "m" (mixed); wind directions "s" / "v" / "a"; pedestrians with traffic; two-direction flood drag; row cap.
+- Factors: `AS5100.2:load_factor:*` (register) and `AS5100.2:combination:*` (A1 / A2, transfer, pedestrian with traffic, k1 / k2, rail with wind, earthquake orthogonal 0.3) — all **code-extracted-UNVERIFIED**.
+- Refusals: unknown action ids; an (a) action with no relieving factor (the dashboard would produce NaN).
+
+**Evaluation** (`combine`, port of `rxCombine`): static primitives f·v; envelope primitives (traffic, earthquake, vertical wind, surcharge) f·max / f·min sorted into the row's bounds; ULS / SLS max / min per response with the governing row; terms without a primitive counted as missing.
+
+**Platform primitives** (`primitives`, as the dashboard's `rxPrim`): DLc self weight; SDLp SDL case; SOo earth pressure (fill category not in the description → **provisional**, SOo has the larger factors); EPT = envelope(behind A, behind B, 0); BRKR, CENR; TUW / TUC / TGP / TGN / SCR; WX / WY / WZ at the ULS, with-traffic (+ wind on vehicles) and SLS speeds via (V/V_uls)²; EQX / EQY = ± the single-direction RSA response; M1600 / S1600 = traffic envelopes on the response set. By default only actions with a primitive take part; description items that are Missing-Flagged (pedestrian, flood, collision) are reported as not combined.
+
+**Checks** (`tools/compare_frozen_combinations.py` → `projects/BR13A/model/BR13A.combinations_vs_frozen.md`):
+
+| Check | Result |
+|---|---|
+| Generator vs dashboard `genAll`, 9 sets (defaults, 5 option variants, 3 other register selections covering rail, flood, collision, barriers, minimum restraint, the cap) | rows identical (SHA-256 of the row text), counts and cap equal |
+| Evaluation of the dashboard's own primitives vs its `rxCombine` (151 responses: bearings + 2 piles) | 0 difference, same governing rows |
+| Closed forms: small registers, SLS subset count, earthquake states, option variants, bounds with negative factors, missing terms | pass |
+| Response set vs the solver (end forces incl. fixed-end forces, link forces, Ml / Mt projection) | 1e-6 |
+| P3b model vs dashboard combined actions (same rows) | pile ULS |Ml| −7 … −5 %, |Mt| −15 … +0.2 %; bearing ULS max v ×0.78 … ×1.59 (traffic H-4 / H-5, SDL M-1, restraint M-3) |
+
+Mutation check: 7 / 7 injected faults caught.
+
+**Finding M-4:** on the P3b model the A-G4 bearing has a combined **ULS minimum v = −162 kN (uplift)** and SLS minimum −37 kN (dashboard: +64 / +265). The governing ULS row is PE max + M1600 (its minimum) + braking + TUC + TGN + vertical wind, with shrinkage / creep (1.2 × −235 kN) the largest single relief. It rests on Assumed inputs (shrinkage strain 300e-6, temperatures) and on the bearing restraint idealisation (M-3). Reported, not resolved: the engineer should check it in the independent MIDAS model and with the bearing / restraint detail.
+
+**Dashboard note H-8:** the dashboard selects the pedestrian action with no load case (BR13A pedestrian load: Missing-Flagged); its 1142 terms add nothing, silently. The platform leaves unanalysed actions out and lists them.
+
+## 10. Not yet done (P3c, remaining)
+
+- Girder (M, V, T) and headstock responses in the response set, so that the combined actions cover the superstructure and the sills (the dashboard's `rxQdef` has them).
 - W80 / A160 local wheel loads; pedestrian (BR13A: Missing).
-- Traffic responses not yet enveloped: girder shear and torsion, pile actions, sill actions; concurrent actions (the envelopes are per response).
+- Traffic responses not yet enveloped: girder shear and torsion, sill actions; concurrent actions (the envelopes are per response).
 - MIDAS: nodal loads, once a native export documents `*CONLOAD`; composite girders as COMPOSITE-GEN (stress recovery).
 - MAC pairing of modes on common points.
 - Per-element deck-strip tributary at the skewed ends (MEMBER_PROPERTIES Stage A); for now the end stations use a half step.

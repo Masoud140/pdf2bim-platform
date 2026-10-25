@@ -35,5 +35,6 @@
 - **P3b stages 3–5 SDL, MIDAS .mct writer, modes — DONE 2026-10-24** (ADR-024): 51 tests; `P3_MODEL_METHOD.md` §6. The .mct awaits the engineer import test.
 - **P3c stage 1 traffic M1600 / S1600 — DONE 2026-10-24** (ADR-025): 20 tests; `P3_MODEL_METHOD.md` §7.
 - **P3c stages 2–5 thermal, horizontal, wind, earthquake — DONE 2026-10-25** (ADR-026): 70 tests; `P3_MODEL_METHOD.md` §8.
-- **P3c remaining: AS 5100.2 combinations (port + inventory of their constants) — next.**
+- **P3c AS 5100.2 combinations — DONE 2026-10-25** (ADR-027): 27 tests; `P3_MODEL_METHOD.md` §9. Finding M-4.
+- **P3c close-out: girder and headstock responses in the combined actions — next;** then the P3 acceptance items (MIDAS import test, owner) and the P4 plan.
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.
