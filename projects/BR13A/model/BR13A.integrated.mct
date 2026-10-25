@@ -1472,157 +1472,157 @@
    7, 456, 457, GEN, 170.3262, NO, NO, NO, NO, NO, NO, 1.0048e+06, 1.0000e+07, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, YES, 0.5, 0.5, bearing
    8, 458, 459, GEN, 170.1029, NO, NO, NO, NO, NO, NO, 1.0048e+06, 1.0000e+07, 0.0000e+00, 0.0000e+00, 0.0000e+00, 0.0000e+00, YES, 0.5, 0.5, bearing
 
-; UNVERIFIED SYNTAX (dashboard export format, marked 'VERIFY the field order' by its author): point springs, kN/m, global axes.
+; UNVERIFIED SYNTAX (field order from a MIDAS import error report, 2026-10-26; re-import to confirm): point springs, kN/m, global axes.
 *SPRING    ; Point Spring Supports
-; NODE_LIST, Type, SDx, SDy, SDz, SRx, SRy, SRz, bLIMIT, ..., GROUP
-   286, LINEAR, 4.9966e+03, 4.9966e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   287, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   288, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   289, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   290, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   291, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   292, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   293, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   294, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   295, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   296, LINEAR, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   297, LINEAR, 1.0250e+05, 1.0250e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   298, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   299, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   300, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   301, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   302, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   303, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   304, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   305, LINEAR, 5.0696e+03, 5.0696e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   306, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   307, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   308, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   309, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   310, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   311, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   312, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   313, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   314, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   315, LINEAR, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   316, LINEAR, 1.0257e+05, 1.0257e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   317, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   318, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   319, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   320, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   321, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   322, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   323, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   324, LINEAR, 5.1426e+03, 5.1426e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   325, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   326, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   327, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   328, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   329, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   330, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   331, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   332, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   333, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   334, LINEAR, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   335, LINEAR, 1.0264e+05, 1.0264e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   336, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   337, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   338, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   339, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   340, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   341, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   342, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   343, LINEAR, 5.2161e+03, 5.2161e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   344, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   345, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   346, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   347, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   348, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   349, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   350, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   351, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   352, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   353, LINEAR, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   354, LINEAR, 1.0272e+05, 1.0272e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   355, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   356, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   357, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   358, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   359, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   360, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   361, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   380, LINEAR, 4.8505e+03, 4.8505e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   381, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   382, LINEAR, 9.7009e+03, 9.7009e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   383, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   384, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   385, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   386, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   387, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   388, LINEAR, 9.7009e+03, 9.7009e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   389, LINEAR, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   390, LINEAR, 1.0235e+05, 1.0235e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   391, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   392, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   393, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   394, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   395, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   396, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   397, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   398, LINEAR, 4.9329e+03, 4.9329e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   399, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   400, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   401, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   402, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   403, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   404, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   405, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   406, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   407, LINEAR, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   408, LINEAR, 1.0243e+05, 1.0243e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   409, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   410, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   411, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   412, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   413, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   414, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   415, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   416, LINEAR, 5.0153e+03, 5.0153e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   417, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   418, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   419, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   420, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   421, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   422, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   423, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   424, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   425, LINEAR, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   426, LINEAR, 1.0252e+05, 1.0252e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   427, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   428, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   429, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   430, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   431, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   432, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   433, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   434, LINEAR, 5.0978e+03, 5.0978e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   435, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   436, LINEAR, 1.0195e+04, 1.0195e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   437, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   438, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   439, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   440, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   441, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   442, LINEAR, 1.0195e+04, 1.0195e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   443, LINEAR, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   444, LINEAR, 1.0260e+05, 1.0260e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   445, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   446, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   447, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   448, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   449, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   450, LINEAR, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
-   451, LINEAR, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, Springs
+; NODE_LIST, Type, F_SDx, F_SDy, F_SDz, F_SRx, F_SRy, F_SRz, SDx, SDy, SDz, SRx, SRy, SRz, DAMPING, Cx, Cy, Cz, CRx, CRy, CRz, GROUP
+   286, LINEAR, NO, NO, NO, NO, NO, NO, 4.9966e+03, 4.9966e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   287, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   288, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   289, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   290, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   291, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   292, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   293, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   294, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   295, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   296, LINEAR, NO, NO, NO, NO, NO, NO, 9.9931e+03, 9.9931e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   297, LINEAR, NO, NO, NO, NO, NO, NO, 1.0250e+05, 1.0250e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   298, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   299, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   300, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   301, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   302, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   303, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   304, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   305, LINEAR, NO, NO, NO, NO, NO, NO, 5.0696e+03, 5.0696e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   306, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   307, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   308, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   309, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   310, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   311, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   312, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   313, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   314, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   315, LINEAR, NO, NO, NO, NO, NO, NO, 1.0139e+04, 1.0139e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   316, LINEAR, NO, NO, NO, NO, NO, NO, 1.0257e+05, 1.0257e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   317, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   318, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   319, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   320, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   321, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   322, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   323, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   324, LINEAR, NO, NO, NO, NO, NO, NO, 5.1426e+03, 5.1426e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   325, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   326, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   327, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   328, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   329, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   330, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   331, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   332, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   333, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   334, LINEAR, NO, NO, NO, NO, NO, NO, 1.0285e+04, 1.0285e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   335, LINEAR, NO, NO, NO, NO, NO, NO, 1.0264e+05, 1.0264e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   336, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   337, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   338, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   339, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   340, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   341, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   342, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   343, LINEAR, NO, NO, NO, NO, NO, NO, 5.2161e+03, 5.2161e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   344, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   345, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   346, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   347, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   348, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   349, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   350, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   351, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   352, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   353, LINEAR, NO, NO, NO, NO, NO, NO, 1.0432e+04, 1.0432e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   354, LINEAR, NO, NO, NO, NO, NO, NO, 1.0272e+05, 1.0272e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   355, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   356, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   357, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   358, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   359, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   360, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   361, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   380, LINEAR, NO, NO, NO, NO, NO, NO, 4.8505e+03, 4.8505e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   381, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   382, LINEAR, NO, NO, NO, NO, NO, NO, 9.7009e+03, 9.7009e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   383, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   384, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   385, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   386, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   387, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   388, LINEAR, NO, NO, NO, NO, NO, NO, 9.7009e+03, 9.7009e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   389, LINEAR, NO, NO, NO, NO, NO, NO, 9.7010e+03, 9.7010e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   390, LINEAR, NO, NO, NO, NO, NO, NO, 1.0235e+05, 1.0235e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   391, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   392, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   393, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   394, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   395, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   396, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   397, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   398, LINEAR, NO, NO, NO, NO, NO, NO, 4.9329e+03, 4.9329e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   399, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   400, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   401, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   402, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   403, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   404, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   405, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   406, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   407, LINEAR, NO, NO, NO, NO, NO, NO, 9.8658e+03, 9.8658e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   408, LINEAR, NO, NO, NO, NO, NO, NO, 1.0243e+05, 1.0243e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   409, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   410, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   411, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   412, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   413, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   414, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   415, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   416, LINEAR, NO, NO, NO, NO, NO, NO, 5.0153e+03, 5.0153e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   417, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   418, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   419, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   420, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   421, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   422, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   423, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   424, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   425, LINEAR, NO, NO, NO, NO, NO, NO, 1.0031e+04, 1.0031e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   426, LINEAR, NO, NO, NO, NO, NO, NO, 1.0252e+05, 1.0252e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   427, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   428, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   429, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   430, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   431, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   432, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   433, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   434, LINEAR, NO, NO, NO, NO, NO, NO, 5.0978e+03, 5.0978e+03, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   435, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   436, LINEAR, NO, NO, NO, NO, NO, NO, 1.0195e+04, 1.0195e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   437, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   438, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   439, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   440, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   441, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   442, LINEAR, NO, NO, NO, NO, NO, NO, 1.0195e+04, 1.0195e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   443, LINEAR, NO, NO, NO, NO, NO, NO, 1.0196e+04, 1.0196e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   444, LINEAR, NO, NO, NO, NO, NO, NO, 1.0260e+05, 1.0260e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   445, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   446, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   447, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   448, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   449, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   450, LINEAR, NO, NO, NO, NO, NO, NO, 1.9500e+05, 1.9500e+05, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
+   451, LINEAR, NO, NO, NO, NO, NO, NO, 9.7500e+04, 9.7500e+04, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, Springs
 
 *USE-STLD, SW
 

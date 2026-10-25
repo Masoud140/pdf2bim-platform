@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-26 — MIDAS import feedback
+- `*SPRING` field order corrected from the engineer's MIDAS Civil import of BR13A revision 44 (1184 errors, all in the spring block: 6 YES/NO + 2 real-number errors per line). Lines now carry six YES/NO flags before the stiffnesses and DAMPING + six coefficients before GROUP. No errors were reported for `*ELASTICLINK`, nodes, elements, materials, sections, supports or self weight. Springs stay UNVERIFIED until a clean re-import.
+
 ## 2026-10-26 — Development values accepted; shear / torsion at stations (branch `p4-verification`)
 
 - **Owner instruction (ADR-040):** BR13A is for software development; reasonable code / practice values may be assumed, changeable. D-34 … D-43 accepted; D-44 (top-of-bearing RL X with 75 mm bearing height, seat = top − height; vertical grades), D-45 (fitments, deck bars), D-46 (fitment covers, aggregate, tie legs) proposed and accepted. No proposed decisions remain; tools run without allow_proposed.

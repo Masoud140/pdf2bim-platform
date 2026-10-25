@@ -14,7 +14,7 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 | *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; first-case v8 file |
 | *STLDCASE, *CONSTRAINT, *USE-STLD, *SELFWEIGHT | from the engineer's native model, import of a generated file not yet confirmed | §1b |
 | *ELASTICLINK (GEN, angle, SDx..SRz, bSHEAR, DRy, DRz, group) | UNVERIFIED | dashboard export (src/sub.js) / first-case v8 header |
-| *SPRING (LINEAR) | UNVERIFIED | dashboard export (src/sub.js), marked "VERIFY the field order" by its author |
+| *SPRING (LINEAR) | UNVERIFIED | field order corrected from the engineer's MIDAS import error report (2026-10-26: the dashboard order failed, 8 errors per line); awaits a clean re-import |
 | nodal loads (*CONLOAD) | NOT WRITTEN | no documented syntax: ask for a native export |
 
 Content rules:
@@ -130,10 +130,14 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     if m.springs:
         if include_unverified:
             unverified.append("*SPRING")
-            L += ["", "; UNVERIFIED SYNTAX (dashboard export format, marked 'VERIFY the field order' by its author): point springs, kN/m, global axes.",
-                  "*SPRING    ; Point Spring Supports", "; NODE_LIST, Type, SDx, SDy, SDz, SRx, SRy, SRz, bLIMIT, ..., GROUP"]
+            # Field order from the engineer's MIDAS Civil import of revision 44 (2026-10-26): the dashboard order (stiffness
+            # straight after Type) gave 6 x "YES or No must be entered" + 2 x "The Real Number is invalid" per line, i.e.
+            # MIDAS expects six YES/NO flags (F_SDx ... F_SRz; NO written, meaning not yet confirmed) before the six stiffnesses,
+            # then DAMPING (YES/NO) and six damping coefficients before GROUP. Still UNVERIFIED until a clean re-import.
+            L += ["", "; UNVERIFIED SYNTAX (field order from a MIDAS import error report, 2026-10-26; re-import to confirm): point springs, kN/m, global axes.",
+                  "*SPRING    ; Point Spring Supports", "; NODE_LIST, Type, F_SDx, F_SDy, F_SDz, F_SRx, F_SRy, F_SRz, SDx, SDy, SDz, SRx, SRy, SRz, DAMPING, Cx, Cy, Cz, CRx, CRy, CRz, GROUP"]
             for n, k in sorted(m.springs.items()):
-                L.append(f"   {nmap[n]}, LINEAR, " + ", ".join(f"{v:.4e}" if v else "0" for v in k) + ", NO, 0, 0, 0, 0, Springs")
+                L.append(f"   {nmap[n]}, LINEAR, NO, NO, NO, NO, NO, NO, " + ", ".join(f"{v:.4e}" if v else "0" for v in k) + ", NO, 0, 0, 0, 0, 0, 0, Springs")
         else:
             L.append("; point springs NOT written (unverified syntax); the model is incomplete without them")
     if m.loads:
@@ -188,7 +192,8 @@ def read_mct(text):
     for l in blocks.get("*ELASTICLINK", []):
         p = sp(l); out["links"].append({"n1": int(p[1]), "n2": int(p[2]), "beta": float(p[4]), "k": [float(x) for x in p[11:17]], "dry": float(p[18]), "drz": float(p[19])})
     for l in blocks.get("*SPRING", []):
-        p = sp(l); out["springs"].append((int(p[0]), [float(x) for x in p[2:8]]))
+        p = sp(l); o = 8 if p[2].upper() in ("YES", "NO") else 2   # F_ flags before the stiffnesses (current) or the older order
+        out["springs"].append((int(p[0]), [float(x) for x in p[o:o + 6]]))
     sw = blocks.get("*SELFWEIGHT", [])
     if sw:
         out["selfweight"] = tuple(float(x) for x in sp(sw[0])[:3])
