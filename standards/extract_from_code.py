@@ -238,6 +238,47 @@ def combinations():
     return e
 
 
+def prestress_losses():
+    """Constants of the dashboard's Hog engine (time-dependent prestress losses / camber): shrinkage, creep, relaxation,
+    non-linear creep, the simplified loss method. Each read from the engine text by its own pattern."""
+    path = "base/BR13A_grillage_dashboard_v15.html"
+    e = []
+    F = lambda m: [float(x) for x in m.groups()]
+    l1, m1 = find(path, r"const fse=\(p\.fc<=([\d.]+)\?([\d.]+)\*p\.fc-([\d.]+):([\d.]+)\*p\.fc-([\d.]+)\)\*([\d.e-]+),ecse=fse\*\(1-Math\.exp\(-([\d.]+)\*tAuto\)\)")
+    l2, m2 = find(path, r"const a1=([\d.]+)\+([\d.]+)\*Math\.exp\(-([\d.]+)\*th\),k1=a1\*Math\.pow\(tDry,([\d.]+)\)/\(Math\.pow\(tDry,[\d.]+\)\+([\d.]+)\*th\),ecsdb=\(([\d.]+)-([\d.]+)\*p\.fc\)\*p\.eb\*1e-6")
+    a, b = F(m1), F(m2)
+    e.append(entry("AS5100.5:shrinkage:model", "AS 5100.5", "Cl 3.1.7.2 (as labelled in the code)",
+                   "design shrinkage strain: autogenous (f'c split, scale, rate) + drying (alpha1, k1 with hypothetical thickness th = 2A/ue, basic drying strain (a - b f'c) eb)", "-",
+                   {"fc_split": a[0], "auto_lo": [a[1], a[2]], "auto_hi": [a[3], a[4]], "auto_scale": a[5], "auto_rate": a[6],
+                    "alpha1": [b[0], b[1], b[2]], "k1_exp": b[3], "k1_th": b[4], "basic": [b[5], b[6]]},
+                   "girder and deck concrete; eb (basic drying shrinkage, 1e-6) and k4 (environment) are project inputs", "Hog engine shrink() (pdf2bim/design/prestress.py)",
+                   [f"{path}:{l1}", "pdf2bim/design/prestress.py"], specialist=True,
+                   interp="Coefficients as coded (the code notes 'verified against supplied clause'); not checked against an authorised copy by the platform's reviewers."))
+    l3, m3 = find(path, r"a2=([\d.]+)\+([\d.]+)\*Math\.exp\(-([\d.]+)\*th\),k2=a2\*Math\.pow\(t,([\d.]+)\)/\(Math\.pow\(t,[\d.]+\)\+([\d.]+)\*th\)")
+    l4, m4 = find(path, r"const k3=([\d.]+)/\(1\+Math\.log10\(p\.tau\+\(p\.k3s\|\|0\)\)\),a3=([\d.]+)/\(p\.k4\*a2\),k5=p\.fc<=([\d.]+)\?1:\(([\d.]+)-a3\)-([\d.]+)\*\(1-a3\)\*p\.fc")
+    c, d = F(m3), F(m4)
+    e.append(entry("AS5100.5:creep:model", "AS 5100.5", "Cl 3.1.8.3 (as labelled in the code)", "creep coefficient phi = k2 k3 k4 k5 phi_cc.b: alpha2, k2 (time, th), k3 (age at loading), alpha3, k5 (f'c split)", "-",
+                   {"alpha2": [c[0], c[1], c[2]], "k2_exp": c[3], "k2_th": c[4], "k3": d[0], "alpha3": d[1], "fc_split": d[2], "k5": [d[3], d[4]]},
+                   "girder and deck concrete; k4 (environment) is a project input", "Hog engine creep() (pdf2bim/design/prestress.py)", [f"{path}:{l3}", "pdf2bim/design/prestress.py"], specialist=True,
+                   interp="Coefficients as coded; k9 handled separately. Not checked against an authorised copy."))
+    l5, m5 = find(path, r"const CCB=(\[\[[^;]*\]);")
+    e.append(entry("AS5100.5:creep:basic_coefficient", "AS 5100.5", "Table 3.1.8.2 (as labelled in the code)", "basic creep coefficient phi_cc.b vs f'c (linear interpolation, end values held)", "-",
+                   json.loads(m5.group(1)), "f'c in MPa", "Hog engine creep()", [f"{path}:{l5}", "pdf2bim/design/prestress.py"]))
+    l6, m6 = find(path, r"const k9f=\(so,fcmi\)=>so>([\d.]+)\*fcmi\?Math\.exp\(([\d.]+)\*\(so/fcmi-([\d.]+)\)\):1;")
+    g = F(m6)
+    e.append(entry("AS5100.5:creep:nonlinear_k9", "AS 5100.5", "Cl 3.1.8.3 (as labelled in the code)", "non-linear creep factor k9 = exp(a (sigma_o / f'cmi - lim)) when sigma_o > lim f'cmi, else 1", "-",
+                   {"lim": g[0], "a": g[1]}, "creep of the transfer increment", "Hog engine run() / runDet()", [f"{path}:{l6}", "pdf2bim/design/prestress.py"]))
+    l7, m7 = find(path, r"k6=Math\.log10\(([\d.]+)\*Math\.pow\(j,1/([\d.]+)\)\)")
+    h = F(m7)
+    e.append(entry("AS5100.5:relaxation:k6", "AS 5100.5", "Cl 3.3.4.3 (as labelled in the code)", "relaxation time factor k6 = log10(a j^(1/b)), j = days after prestressing; R = k6 k7 k8 Rb", "-",
+                   {"a": h[0], "b": h[1]}, "strand relaxation; k7, k8, Rb are project / product inputs", "Hog engine relaxD()", [f"{path}:{l7}", "pdf2bim/design/prestress.py"]))
+    l8, m8 = find(path, r"const ecc=([\d.]+)\*\(sc0\*ph\+scd\*phd\+scs\*phs\)/p\.Ec")
+    l9, m9 = find(path, r"const a=s\.w\[i\]\*p\.Ep\*dsh/\(1\+([\d.]+)\*p\.rb\)/1e3")
+    e.append(entry("AS5100.5:losses:simplified", "AS 5100.5", "Cl 3.4.3 (as labelled in the code)", "simplified time-dependent losses: creep loss strain factor (x sigma_ci phi / Ec) and the reinforcement restraint factor on the shrinkage loss 1 / (1 + k rho)", "-",
+                   {"creep_factor": float(m8.group(1)), "restraint": float(m9.group(1))}, "Hog simplified method (meth 0)", "Hog engine run()", [f"{path}:{l8}", f"{path}:{l9}", "pdf2bim/design/prestress.py"], specialist=True))
+    return e
+
+
 # project inputs found next to the standards values: NOT standards data (they belong in the bridge description)
 PROJECT_DEFAULTS = [
     ("src/sub4.js", "WD.V = 45 m/s", "design wind speed — site-specific (region, terrain, return period)"),
@@ -251,7 +292,7 @@ PROJECT_DEFAULTS = [
 def main():
     groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic() + combinations(),
               "AS1170.4": earthquake(),
-              "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"],
+              "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"] + prestress_losses(),
               "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],
               "AS5100.4": bearings()}
     os.makedirs(OUT, exist_ok=True)

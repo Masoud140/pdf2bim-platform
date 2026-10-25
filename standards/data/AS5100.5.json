@@ -224,6 +224,165 @@
    }
   },
   {
+   "id": "AS5100.5:creep:basic_coefficient",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Table 3.1.8.2 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "basic creep coefficient phi_cc.b vs f'c (linear interpolation, end values held)",
+   "units": "-",
+   "value": [
+    [
+     20,
+     5.2
+    ],
+    [
+     25,
+     4.2
+    ],
+    [
+     32,
+     3.4
+    ],
+    [
+     40,
+     2.8
+    ],
+    [
+     50,
+     2.4
+    ],
+    [
+     65,
+     2
+    ],
+    [
+     80,
+     1.7
+    ],
+    [
+     100,
+     1.5
+    ]
+   ],
+   "applicability": "f'c in MPa",
+   "context": "Hog engine creep()",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3798",
+     "pdf2bim/design/prestress.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:creep:model",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.1.8.3 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "creep coefficient phi = k2 k3 k4 k5 phi_cc.b: alpha2, k2 (time, th), k3 (age at loading), alpha3, k5 (f'c split)",
+   "units": "-",
+   "value": {
+    "alpha2": [
+     1.0,
+     1.12,
+     0.008
+    ],
+    "k2_exp": 0.8,
+    "k2_th": 0.15,
+    "k3": 2.7,
+    "alpha3": 0.7,
+    "fc_split": 50.0,
+    "k5": [
+     2.0,
+     0.02
+    ]
+   },
+   "applicability": "girder and deck concrete; k4 (environment) is a project input",
+   "context": "Hog engine creep() (pdf2bim/design/prestress.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3937",
+     "pdf2bim/design/prestress.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Coefficients as coded; k9 handled separately. Not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:creep:nonlinear_k9",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.1.8.3 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "non-linear creep factor k9 = exp(a (sigma_o / f'cmi - lim)) when sigma_o > lim f'cmi, else 1",
+   "units": "-",
+   "value": {
+    "lim": 0.45,
+    "a": 1.5
+   },
+   "applicability": "creep of the transfer increment",
+   "context": "Hog engine run() / runDet()",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3943",
+     "pdf2bim/design/prestress.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
    "id": "AS5100.5:flexure:minimum_strength_factor",
    "standard": "AS 5100.5",
    "edition": null,
@@ -243,6 +402,85 @@
     "used_by": [
      "src/dsg2_ui.js:296",
      "tests/design/test_benchmark.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:losses:simplified",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.4.3 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "simplified time-dependent losses: creep loss strain factor (x sigma_ci phi / Ec) and the reinforcement restraint factor on the shrinkage loss 1 / (1 + k rho)",
+   "units": "-",
+   "value": {
+    "creep_factor": 0.8,
+    "restraint": 15.0
+   },
+   "applicability": "Hog simplified method (meth 0)",
+   "context": "Hog engine run()",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3979",
+     "base/BR13A_grillage_dashboard_v15.html:3980",
+     "pdf2bim/design/prestress.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:relaxation:k6",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.3.4.3 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "relaxation time factor k6 = log10(a j^(1/b)), j = days after prestressing; R = k6 k7 k8 Rb",
+   "units": "-",
+   "value": {
+    "a": 5.4,
+    "b": 6.0
+   },
+   "applicability": "strand relaxation; k7, k8, Rb are project / product inputs",
+   "context": "Hog engine relaxD()",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3935",
+     "pdf2bim/design/prestress.py"
     ],
     "version": "dashboard v45 (src/, base/ at P0.3)"
    },
@@ -323,6 +561,65 @@
    "interpretation": {
     "open": true,
     "note": "Coefficients as coded; the clause numbers, the εx denominator switch, how torsion and shear steel are shared, and the V-M interaction are interpretations of the code, not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:shrinkage:model",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 3.1.7.2 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "design shrinkage strain: autogenous (f'c split, scale, rate) + drying (alpha1, k1 with hypothetical thickness th = 2A/ue, basic drying strain (a - b f'c) eb)",
+   "units": "-",
+   "value": {
+    "fc_split": 50.0,
+    "auto_lo": [
+     0.07,
+     0.5
+    ],
+    "auto_hi": [
+     0.08,
+     1.0
+    ],
+    "auto_scale": 5e-05,
+    "auto_rate": 0.07,
+    "alpha1": [
+     0.8,
+     1.2,
+     0.005
+    ],
+    "k1_exp": 0.8,
+    "k1_th": 0.15,
+    "basic": [
+     0.9,
+     0.005
+    ]
+   },
+   "applicability": "girder and deck concrete; eb (basic drying shrinkage, 1e-6) and k4 (environment) are project inputs",
+   "context": "Hog engine shrink() (pdf2bim/design/prestress.py)",
+   "implementation": {
+    "used_by": [
+     "base/BR13A_grillage_dashboard_v15.html:3932",
+     "pdf2bim/design/prestress.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Coefficients as coded (the code notes 'verified against supplied clause'); not checked against an authorised copy by the platform's reviewers.",
     "specialist_review": true
    }
   },
