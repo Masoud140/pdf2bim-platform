@@ -188,6 +188,73 @@
    }
   },
   {
+   "id": "AS5100.5:shear:general_method",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Section 8.2 general method (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "shear and torsion, general method: sqrt(f'c) cap; torsion as equivalent wall shear; ex = (M/dv + Veff + a N - Apt spo) / (2 (Es Ast + Ep Apt [+ Ec Act])) clamped; theta = a + b ex (deg); kv = a / (1 + b ex) x (min. steel ? 1 : c / (d + kdg dv)); kdg = max(min, a / (b + dg)); Asv,min = k sqrt(f'c) bv / fsy.f; Vu,max = k f'c bv dv cot / (1 + cot^2); Asw,min = k y1 / fsy.f; Tcr = k sqrt(f'c) Acp^2 / uc; longitudinal tension M / (lever dv) + axial N / phi + cot sqrt((V/phi - Pv - vus Vus)^2 + (torsion uh T / (2 Ao phi))^2)",
+   "units": "-",
+   "value": {
+    "sqrt_fc_max": 8.0,
+    "torsion_equivalent_shear": 0.9,
+    "axial_in_ex": 0.5,
+    "ex_min": -0.0002,
+    "ex_max": 0.003,
+    "theta_deg": {
+     "a": 29.0,
+     "b": 7000.0
+    },
+    "asv_min": 0.08,
+    "kdg": {
+     "min": 0.8,
+     "a": 32.0,
+     "b": 16.0
+    },
+    "kv": {
+     "a": 0.4,
+     "b": 1500.0,
+     "c": 1300.0,
+     "d": 1000.0
+    },
+    "vu_max": 0.55,
+    "asw_min": 0.2,
+    "tcr": 0.33,
+    "long_tension": {
+     "lever": 0.8,
+     "axial": 0.5,
+     "vus": 0.5,
+     "torsion": 0.45
+    }
+   },
+   "applicability": "Super-T shear / torsion checks per station",
+   "context": "ULS shear and torsion (src/dsg_engine2.js; pdf2bim/design/shear.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine2.js:40",
+     "pdf2bim/design/shear.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Coefficients as coded; the clause numbers, the εx denominator switch, how torsion and shear steel are shared, and the V-M interaction are interpretations of the code, not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:strain:balanced_steel",
    "standard": "AS 5100.5",
    "edition": null,

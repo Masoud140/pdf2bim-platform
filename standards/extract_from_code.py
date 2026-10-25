@@ -103,6 +103,36 @@ def design():
     e.append(entry("AS5100.5:capacity_factor:phi_compression", "AS 5100.5", "Table 2.3.2 (as labelled in the code)", "capacity reduction factor for compression at and above the balanced load; linear to the bending value between the balanced load and N = 0", "-",
                    float(m.group(1)), "N-M interaction, compression side", "N-M interaction (src/dsg_engine2.js; pdf2bim/design/nm.py)",
                    [f"src/dsg_engine2.js:{line}", "pdf2bim/design/nm.py"], interp="Value and the linear transition as coded; not checked against an authorised copy.", specialist=True))
+    # shear and torsion, general method (src/dsg_engine2.js shear()): one entry, each coefficient read by its own pattern
+    pats = {"sqrt_fc_max": r"var sf=Math\.min\(Math\.sqrt\(Q\.fc\),([\d.]+)\)",
+            "torsion_equivalent_shear": r"o\.Teq=Q\.Ao>0\?([\d.]+)\*T\*Q\.uh/\(2\*Q\.Ao\)",
+            "axial_in_ex": r"o\.num=M/Q\.dv\+o\.Veff\+([\d.]+)\*N-Q\.Apt\*Q\.spo",
+            "ex_min": r"o\.ex=Math\.max\((-[\d.e-]+),Math\.min\(([\d.e-]+),o\.ex\)\)",
+            "theta_a": r"o\.th=([\d.]+)\+([\d.]+)\*o\.ex",
+            "asv_min": r"o\.AsvMin=([\d.]+)\*Math\.sqrt\(Q\.fc\)\*Q\.bv/Q\.fsyf",
+            "kdg": r"o\.kdg=Math\.max\(([\d.]+),([\d.]+)/\(([\d.]+)\+Q\.dg\)\)",
+            "kv": r"o\.kv=([\d.]+)/\(1\+([\d.]+)\*o\.ex\)\*\(o\.minV\?1:([\d.]+)/\(([\d.]+)\+o\.kdg\*Q\.dv\)\)",
+            "vu_max": r"o\.Vumax=([\d.]+)\*Q\.fc\*Q\.bv\*Q\.dv\*ct/\(1\+ct\*ct\)",
+            "asw_min": r"o\.AswMin=([\d.]+)\*Q\.y1/Q\.fsyf",
+            "tcr": r"o\.Tcr=([\d.]+)\*Math\.sqrt\(Q\.fc\)\*Q\.Acp\*Q\.Acp/Q\.uc",
+            "long_tension": r"o\.Ftd=M/\(([\d.]+)\*Q\.dv\)\+([\d.]+)\*N/phi\+ct\*Math\.sqrt\(Math\.pow\(Math\.max\(V/phi-Q\.Pv-([\d.]+)\*o\.Vus,0\),2\)\+Math\.pow\(([\d.]+)\*Q\.uh\*T/\(2\*Q\.Ao\*phi\),2\)\)"}
+    g = {}
+    lines = []
+    for k, pat in pats.items():
+        line, m = find("src/dsg_engine2.js", pat)
+        lines.append(line)
+        v = [float(x) for x in m.groups()]
+        g[k] = v[0] if len(v) == 1 else v
+    val = {"sqrt_fc_max": g["sqrt_fc_max"], "torsion_equivalent_shear": g["torsion_equivalent_shear"], "axial_in_ex": g["axial_in_ex"],
+           "ex_min": g["ex_min"][0], "ex_max": g["ex_min"][1], "theta_deg": {"a": g["theta_a"][0], "b": g["theta_a"][1]}, "asv_min": g["asv_min"],
+           "kdg": {"min": g["kdg"][0], "a": g["kdg"][1], "b": g["kdg"][2]}, "kv": {"a": g["kv"][0], "b": g["kv"][1], "c": g["kv"][2], "d": g["kv"][3]},
+           "vu_max": g["vu_max"], "asw_min": g["asw_min"], "tcr": g["tcr"],
+           "long_tension": {"lever": g["long_tension"][0], "axial": g["long_tension"][1], "vus": g["long_tension"][2], "torsion": g["long_tension"][3]}}
+    e.append(entry("AS5100.5:shear:general_method", "AS 5100.5", "Section 8.2 general method (as labelled in the code)",
+                   "shear and torsion, general method: sqrt(f'c) cap; torsion as equivalent wall shear; ex = (M/dv + Veff + a N - Apt spo) / (2 (Es Ast + Ep Apt [+ Ec Act])) clamped; theta = a + b ex (deg); kv = a / (1 + b ex) x (min. steel ? 1 : c / (d + kdg dv)); kdg = max(min, a / (b + dg)); Asv,min = k sqrt(f'c) bv / fsy.f; Vu,max = k f'c bv dv cot / (1 + cot^2); Asw,min = k y1 / fsy.f; Tcr = k sqrt(f'c) Acp^2 / uc; longitudinal tension M / (lever dv) + axial N / phi + cot sqrt((V/phi - Pv - vus Vus)^2 + (torsion uh T / (2 Ao phi))^2)", "-",
+                   val, "Super-T shear / torsion checks per station", "ULS shear and torsion (src/dsg_engine2.js; pdf2bim/design/shear.py)",
+                   [f"src/dsg_engine2.js:{min(lines)}", "pdf2bim/design/shear.py"], specialist=True,
+                   interp="Coefficients as coded; the clause numbers, the εx denominator switch, how torsion and shear steel are shared, and the V-M interaction are interpretations of the code, not checked against an authorised copy."))
     line, m = find("src/dsg_engine2.js", r"phi:([\d.]+), dn:0")
     e.append(entry("AS5100.5:capacity_factor:phi_tension_point", "AS 5100.5", None, "capacity reduction factor at the pure-tension point of the N-M diagram", "-",
                    float(m.group(1)), "N-M interaction", "ULS bending + axial", [f"src/dsg_engine2.js:{line}"],
