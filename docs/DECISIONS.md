@@ -359,3 +359,14 @@
 
 - **Decision (agent, 2026-10-25; reversible):** extracted values enter the description only as proposals (never overwriting Direct / Confirmed values: conflicts become queries; no unit conversion by the importer); the engineer's decision is recorded by `schema/accept_decision.py` naming a person — the AI cannot accept or reject.
 - **Consequence:** the interchange sheet is the extraction contract; the extractor's own multi-tab workbook needs a label → path map (P5.5). Supersession of accepted overrides is a later addition.
+
+## ADR-039 P4.5 stage 8 shear / torsion at the girder stations (provisional)
+
+- **Decision (agent, 2026-10-26; reversible):** the dashboard's closed-box torsion geometry (dgGeo, open section) is ported unchanged; its box parameters are mapped from the P2 Super-T parameters (n = S, Bb = bw, twT = twB = tw, sd = ttf + ifD, tb = d2 - d1, tt = 0). Actions per station: the ULS row that governs |V*| at the nearer girder element end, with the concurrent T*, M*, N* of that row (P4.2). Fitments act as the shear legs and, per design option torsion_tie_legs, as the closed torsion tie legs.
+- **Alternatives:** the dashboard's own 12-point outline (a second section definition — rejected, one definition rule); enveloped V, T separately (not concurrent).
+- **Consequence:** stations inside the 2 m solid end blocks are not checked (solid-block geometry not mapped yet); strand development not checked.
+
+## ADR-040 BR13A development values (owner instruction 2026-10-26)
+
+- **Decision (owner, Masoud, 2026-10-26):** BR13A is used to develop the software. Reasonable values based on the code and actual practice may be assumed where the drawings are silent or ambiguous, as long as they remain changeable. On that basis D-34 … D-43 were accepted (approver recorded: Masoud, with the instruction as the note), and D-44 (top-of-bearing levels and vertical grades from the drawings, 75 mm bearing unit height assumed), D-45 (fitments N12 2 legs @ 100 / 200, deck bars N16 @ 200) and D-46 (fitment covers 40 / 45, aggregate 20 mm, one tie leg per web) were proposed and accepted the same way.
+- **Consequence:** the BR13A description has no proposed decisions; the tools run from accepted values (no allow_proposed). Every assumed value stays tagged Assumed with what replaces it, listed in the Query Register, and can be overridden through the normal proposal / acceptance tools. **BR13A results remain development results, not design results.**

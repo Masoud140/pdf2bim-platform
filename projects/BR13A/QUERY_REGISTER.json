@@ -61,90 +61,6 @@
    "needed_from": "drawings / project documents (not in the set)"
   },
   {
-   "path": "alignment.support_lines.rows[0]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Confirmed-Engineer",
-   "status": "accepted",
-   "value": {
-    "support": "A",
-    "ch": 1895.3,
-    "skew": 34.5,
-    "skew_dms": null
-   },
-   "unit": null,
-   "proposed_value": {
-    "support": "A",
-    "ch": 1895.3,
-    "skew": 34.5,
-    "skew_dms": null,
-    "bearing": 44.029166
-   },
-   "note": null,
-   "replace_with": null,
-   "decision": "D-34",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so the geometry engine can fix the support-line direction. Check: 44.029166° is 34.498° from the normal to the control-line chord A-B, consistent with the confirmed skew 34.5° (D-4). Needs engineer acceptance (ADR-005).",
-   "affects": [
-    "geometry",
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "geometry",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "alignment.support_lines.rows[1]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Confirmed-Engineer",
-   "status": "accepted",
-   "value": {
-    "support": "B",
-    "ch": 1924.21,
-    "skew": 34.5,
-    "skew_dms": null
-   },
-   "unit": null,
-   "proposed_value": {
-    "support": "B",
-    "ch": 1924.21,
-    "skew": 34.5,
-    "skew_dms": null,
-    "bearing": 44.029166
-   },
-   "note": null,
-   "replace_with": null,
-   "decision": "D-34",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the support-line bearing that the description already records as Direct (alignment.support_lines.note: 'Support line bearing 44.029166° (Direct, DRG 202012)') into the new bearing column, so the geometry engine can fix the support-line direction. Check: 44.029166° is 34.498° from the normal to the control-line chord A-B, consistent with the confirmed skew 34.5° (D-4). Needs engineer acceptance (ADR-005).",
-   "affects": [
-    "geometry",
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "geometry",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
    "path": "deck.surfacing_density",
    "categories": [
     "standard"
@@ -2910,26 +2826,27 @@
    "needed_from": "girder drawings"
   },
   {
-   "path": "superstructure.supert_types[ST1].zones.rows[0]",
+   "path": "superstructure.supert_types[ST1].fitments.rows[0]",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
+   "tag": "Assumed",
+   "status": "accepted",
    "value": {
     "from": 0.0,
-    "to": 2.0,
-    "kind": "solid_end_A"
+    "to": 3.0,
+    "diameter": 12,
+    "legs": 2,
+    "spacing": 100
    },
    "unit": null,
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-38",
-   "decision_status": "proposed",
-   "decision_reason": "Solid end blocks: '2000 END DIAPHRAGM' is printed on the PSC girder plan / elevation (DRG 202302 sheet C, 202303 sheet D), read as the along-girder length of the solid end block from each girder end (claude/MEMBER_PROPERTIES_METHOD.md section 2.2). The interpretation is NOT yet confirmed on the elevation view (Task B-1); the frozen dashboard model uses solid end sections. Proposed so the model builder can represent them; must be confirmed before use in design.",
+   "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings",
+   "replace_with": "girder reinforcement drawings",
+   "decision": "D-45",
+   "decision_status": "accepted",
+   "decision_reason": "Development values (owner instruction 2026-10-26: assume reasonable code / practice values, changeable): Super-T shear fitments N12 2 legs at 100 mm within 3 m of each end and 200 mm elsewhere; deck longitudinal bars N16 at 200 mm top (cover 40) and bottom (cover 30). They let the shear / torsion and deck-bar checks run; replace with the BR13A reinforcement drawings.",
    "affects": [
-    "model",
     "design.supert"
    ],
    "outputs": [
@@ -2941,29 +2858,30 @@
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "girder reinforcement drawings"
   },
   {
-   "path": "superstructure.supert_types[ST1].zones.rows[1]",
+   "path": "superstructure.supert_types[ST1].fitments.rows[1]",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
+   "tag": "Assumed",
+   "status": "accepted",
    "value": {
-    "from": 0.0,
-    "to": 2.0,
-    "kind": "solid_end_B"
+    "from": 3.0,
+    "to": 27.0,
+    "diameter": 12,
+    "legs": 2,
+    "spacing": 200
    },
    "unit": null,
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-38",
-   "decision_status": "proposed",
-   "decision_reason": "Solid end blocks: '2000 END DIAPHRAGM' is printed on the PSC girder plan / elevation (DRG 202302 sheet C, 202303 sheet D), read as the along-girder length of the solid end block from each girder end (claude/MEMBER_PROPERTIES_METHOD.md section 2.2). The interpretation is NOT yet confirmed on the elevation view (Task B-1); the frozen dashboard model uses solid end sections. Proposed so the model builder can represent them; must be confirmed before use in design.",
+   "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings",
+   "replace_with": "girder reinforcement drawings",
+   "decision": "D-45",
+   "decision_status": "accepted",
+   "decision_reason": "Development values (owner instruction 2026-10-26: assume reasonable code / practice values, changeable): Super-T shear fitments N12 2 legs at 100 mm within 3 m of each end and 200 mm elsewhere; deck longitudinal bars N16 at 200 mm top (cover 40) and bottom (cover 30). They let the shear / torsion and deck-bar checks run; replace with the BR13A reinforcement drawings.",
    "affects": [
-    "model",
     "design.supert"
    ],
    "outputs": [
@@ -2975,25 +2893,60 @@
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "girder reinforcement drawings"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[2]",
+   "categories": [
+    "assumed"
+   ],
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": {
+    "from": 27.0,
+    "to": 31.0,
+    "diameter": 12,
+    "legs": 2,
+    "spacing": 100
+   },
+   "unit": null,
+   "proposed_value": null,
+   "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings",
+   "replace_with": "girder reinforcement drawings",
+   "decision": "D-45",
+   "decision_status": "accepted",
+   "decision_reason": "Development values (owner instruction 2026-10-26: assume reasonable code / practice values, changeable): Super-T shear fitments N12 2 legs at 100 mm within 3 m of each end and 200 mm elsewhere; deck longitudinal bars N16 at 200 mm top (cover 40) and bottom (cover 30). They let the shear / torsion and deck-bar checks run; replace with the BR13A reinforcement drawings.",
+   "affects": [
+    "design.supert"
+   ],
+   "outputs": [
+    "combined_actions",
+    "concurrent_traffic",
+    "export_mct",
+    "girder_checks",
+    "girder_flexure",
+    "midas_compare",
+    "sections"
+   ],
+   "needed_from": "girder reinforcement drawings"
   },
   {
    "path": "superstructure.supert_types[ST1].deck_bars.rows[0]",
    "categories": [
-    "missing"
+    "assumed"
    ],
-   "tag": "Missing-Flagged",
+   "tag": "Assumed",
    "status": "open",
    "value": {
     "face": "top",
-    "diameter": null,
-    "spacing": null,
-    "cover": null
+    "diameter": 16,
+    "spacing": 200,
+    "cover": 40
    },
    "unit": null,
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
+   "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings",
+   "replace_with": "girder / deck reinforcement drawings",
    "decision": null,
    "decision_status": null,
    "decision_reason": null,
@@ -3010,25 +2963,25 @@
     "midas_compare",
     "sections"
    ],
-   "needed_from": "drawings / project documents (not in the set)"
+   "needed_from": "girder / deck reinforcement drawings"
   },
   {
    "path": "superstructure.supert_types[ST1].deck_bars.rows[1]",
    "categories": [
-    "missing"
+    "assumed"
    ],
-   "tag": "Missing-Flagged",
+   "tag": "Assumed",
    "status": "open",
    "value": {
     "face": "bot",
-    "diameter": null,
-    "spacing": null,
-    "cover": null
+    "diameter": 16,
+    "spacing": 200,
+    "cover": 30
    },
    "unit": null,
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
+   "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings",
+   "replace_with": "girder / deck reinforcement drawings",
    "decision": null,
    "decision_status": null,
    "decision_reason": null,
@@ -3045,7 +2998,7 @@
     "midas_compare",
     "sections"
    ],
-   "needed_from": "drawings / project documents (not in the set)"
+   "needed_from": "girder / deck reinforcement drawings"
   },
   {
    "path": "superstructure.supert_types[ST1].transfer_supports",
@@ -3168,223 +3121,12 @@
    "needed_from": "construction programme"
   },
   {
-   "path": "superstructure.supert_types[ST1].shape.rows[0]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "D",
-    "name": "Overall depth",
-    "value": 1515,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[1]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "bw",
-    "name": "Soffit width",
-    "value": 757,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[2]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "tw",
-    "name": "Web thickness",
-    "value": 100,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[3]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "d1",
-    "name": "Void floor fall",
-    "value": 58,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[4]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "d2",
-    "name": "Bottom flange depth at CL",
-    "value": 265,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[5]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "ttf",
-    "name": "Top flange thickness",
-    "value": 90,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
    "path": "superstructure.supert_types[ST1].shape.rows[6]",
    "categories": [
-    "standard",
-    "proposed"
+    "standard"
    ],
    "tag": "Standard-verify",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "key": "S",
     "name": "Web slope (V : H)",
@@ -3396,7 +3138,7 @@
    "note": "dashboard Section designer value tagged Standard (product sheet), v45",
    "replace_with": null,
    "decision": "D-35",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
    "affects": [
     "model",
@@ -3414,118 +3156,12 @@
    "needed_from": "standards reviewer with an authorised copy"
   },
   {
-   "path": "superstructure.supert_types[ST1].shape.rows[7]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "fW",
-    "name": "Outer fillet — width",
-    "value": 100,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[8]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "fD",
-    "name": "Outer fillet — depth",
-    "value": 75,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.supert_types[ST1].shape.rows[9]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "r",
-    "name": "Top recess (open only)",
-    "value": 25,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
    "path": "superstructure.supert_types[ST1].shape.rows[10]",
    "categories": [
-    "standard",
-    "proposed"
+    "standard"
    ],
    "tag": "Standard-verify",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "key": "ifW",
     "name": "Inner void fillet — width (closed)",
@@ -3537,7 +3173,7 @@
    "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)",
    "replace_with": null,
    "decision": "D-35",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
    "affects": [
     "model",
@@ -3557,11 +3193,10 @@
   {
    "path": "superstructure.supert_types[ST1].shape.rows[11]",
    "categories": [
-    "standard",
-    "proposed"
+    "standard"
    ],
    "tag": "Standard-verify",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "key": "ifD",
     "name": "Inner void fillet — depth (closed)",
@@ -3573,7 +3208,7 @@
    "note": "not in the dashboard state dump; product library default (closed-flange void only; unused for the open section)",
    "replace_with": null,
    "decision": "D-35",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
    "affects": [
     "model",
@@ -3591,55 +3226,19 @@
    "needed_from": "standards reviewer with an authorised copy"
   },
   {
-   "path": "superstructure.supert_types[ST1].shape.rows[12]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "key": "ch",
-    "name": "Bottom corner chamfer",
-    "value": 12,
-    "unit": "mm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-35",
-   "decision_status": "proposed",
-   "decision_reason": "Complete the Super-T shape definition in the catalogue field supert_types[ST1].shape. The B2 importer read only the 5 main Section-designer rows (SROWS) and skipped the 8 detail rows (SDET), so the drawing value ttf = 90 mm (top flange thickness, tagged Direct in the dashboard, DRG 202304) was missing; without it the sections would silently use the product default 75 mm. Values and tags are copied from the dashboard v45 state (projects/BR13A/source/dashboard_v45_state.json: secGeo, STAG). Needs engineer acceptance.",
-   "affects": [
-    "model",
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
    "path": "superstructure.supert_types[ST1].haunch",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 0,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default 0 mm; not a drawing value",
    "replace_with": "girder-to-deck haunch from the deck / girder drawings",
    "decision": "D-36",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "The girder-to-deck haunch (gap between the Super-T top flange and the deck soffit) is not in the drawing set read so far. The dashboard uses 0 mm as a default ('replace with project value', MEMBER_PROPERTIES_METHOD §12). Proposed as an Assumed 0 mm so the composite section can be computed; it changes the composite stiffness and must be replaced with the drawing value.",
    "affects": [
     "model",
@@ -3655,76 +3254,6 @@
     "sections"
    ],
    "needed_from": "girder-to-deck haunch from the deck / girder drawings"
-  },
-  {
-   "path": "superstructure.cross_girders.rows[0]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "support": "A",
-    "width": 800,
-    "depth": 1065,
-    "concrete": "deck (40 MPa) - to confirm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-37",
-   "decision_status": "proposed",
-   "decision_reason": "Record the support-line cross girders in the new catalogue table superstructure.cross_girders: 800 mm wide (plan width normal to the skewed face) x 1065 mm deep, as answered by the engineer in the design query of 2026-10-13 (BR13A_Design_Query_Perimeter_Members.docx, recorded in claude/MEMBER_PROPERTIES_METHOD.md section 10), read from the cross-girder detail on DRG 202011. Concrete taken as the deck grade (40 MPa) as in the dashboard - to confirm. Needed by the model builder (P3).",
-   "affects": [
-    "model",
-    "loads"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "superstructure.cross_girders.rows[1]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "support": "B",
-    "width": 800,
-    "depth": 1065,
-    "concrete": "deck (40 MPa) - to confirm"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-37",
-   "decision_status": "proposed",
-   "decision_reason": "Record the support-line cross girders in the new catalogue table superstructure.cross_girders: 800 mm wide (plan width normal to the skewed face) x 1065 mm deep, as answered by the engineer in the design query of 2026-10-13 (BR13A_Design_Query_Perimeter_Members.docx, recorded in claude/MEMBER_PROPERTIES_METHOD.md section 10), read from the cross-girder detail on DRG 202011. Concrete taken as the deck grade (40 MPa) as in the dashboard - to confirm. Needed by the model builder (P3).",
-   "affects": [
-    "model",
-    "loads"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
   },
   {
    "path": "bearings.items[A-G1].plan_a",
@@ -3879,18 +3408,17 @@
   {
    "path": "bearings.items[A-G1].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -3907,33 +3435,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[A-G1].seat_rl",
+   "path": "bearings.items[A-G1].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 128.39,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[A-G2].plan_a",
@@ -4088,18 +3619,17 @@
   {
    "path": "bearings.items[A-G2].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -4116,33 +3646,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[A-G2].seat_rl",
+   "path": "bearings.items[A-G2].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 128.561,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[A-G3].plan_a",
@@ -4297,18 +3830,17 @@
   {
    "path": "bearings.items[A-G3].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -4325,33 +3857,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[A-G3].seat_rl",
+   "path": "bearings.items[A-G3].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 128.745,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[A-G4].plan_a",
@@ -4506,18 +4041,17 @@
   {
    "path": "bearings.items[A-G4].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -4534,33 +4068,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[A-G4].seat_rl",
+   "path": "bearings.items[A-G4].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 128.899,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[B-G1].plan_a",
@@ -4715,18 +4252,17 @@
   {
    "path": "bearings.items[B-G1].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -4743,33 +4279,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[B-G1].seat_rl",
+   "path": "bearings.items[B-G1].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 127.371,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[B-G2].plan_a",
@@ -4924,18 +4463,17 @@
   {
    "path": "bearings.items[B-G2].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -4952,33 +4490,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[B-G2].seat_rl",
+   "path": "bearings.items[B-G2].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 127.547,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[B-G3].plan_a",
@@ -5133,18 +4674,17 @@
   {
    "path": "bearings.items[B-G3].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -5161,33 +4701,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[B-G3].seat_rl",
+   "path": "bearings.items[B-G3].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 127.736,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "bearings.items[B-G4].plan_a",
@@ -5342,18 +4885,17 @@
   {
    "path": "bearings.items[B-G4].layer_thickness",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": 12,
    "unit": "mm",
    "proposed_value": null,
    "note": "dashboard default: total elastomer thickness in layers of about 12 mm (src/sub.js S.brg)",
    "replace_with": "bearing schedule / supplier data",
    "decision": "D-40",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Internal elastomer layer thickness is not in the drawing set (bearing schedule missing). The dashboard divides the Assumed 60 mm total into layers of about 12 mm (src/sub.js S.brg: n = round(T/12), t = T/n = 12 mm) to get the shape factor for the compression stiffness Kv. Recorded as an explicit Assumed placeholder so the vertical bearing stiffness can be computed and is visibly provisional. Replace with the bearing schedule / supplier data.",
    "affects": [
     "model"
@@ -5370,33 +4912,36 @@
    "needed_from": "bearing schedule / supplier data"
   },
   {
-   "path": "bearings.items[B-G4].seat_rl",
+   "path": "bearings.items[B-G4].bearing_height",
    "categories": [
-    "proposed"
+    "assumed"
    ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": 127.895,
-   "unit": "m",
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": 75,
+   "unit": "mm",
    "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-41",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the bearing seat RLs already in the abutment takeoff (custom.takeoff_abutments group 4, Direct from DRG 202280-202282) into the new catalogue field bearings.items[*].seat_rl, so the substructure builder can place the bearing seats. The takeoff does not say which girder each drawing bearing serves (Missing-Flagged); the AI assigns them BY ORDER along the line of bearings (A: drawing bearing 4 = G1 ... 1 = G4; B: 1 = G1 ... 4 = G4), which the RLs confirm (seat RL rises with the deck crossfall in the same order as the girder soffits). No new values. NOTE F-5: the takeoff bearing POSITIONS along the line of bearings (A: 4977 / 2251 / -810 / -3706; B: -3708 / -812 / 2249 / 4976 mm) differ from the P1 bearing centres (girder line x support line) by 50-530 mm; the positions are NOT used. Engineer to resolve which is correct.",
+   "note": "typical laminated elastomeric bearing unit height for 60 mm elastomer (development value, owner instruction 2026-10-26)",
+   "replace_with": "bearing schedule / supplier drawing",
+   "decision": "D-44",
+   "decision_status": "accepted",
+   "decision_reason": "P5-4: DRG-202282 labels the bearing-table level RL 'X' (DRG-202281 Table 1) as TOP OF BEARING. Record it as bearings.items[].top_rl (Direct) with an assumed bearing unit height of 75 mm (elastomer 60 mm + shims / covers, typical laminated elastomeric bearing; Assumed, development value per the owner's instruction 2026-10-26), and move the seat to top_rl - bearing_height (Calculated). P5-1: vertical-alignment grades printed on DRG-202012 added to the alignment rows.",
    "affects": [
-    "model"
+    "geometry",
+    "model",
+    "substructure"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
     "export_mct",
+    "geometry",
     "girder_checks",
     "girder_flexure",
     "midas_compare",
     "sections"
    ],
-   "needed_from": "engineer decision (accept / change / reject)"
+   "needed_from": "bearing schedule / supplier drawing"
   },
   {
    "path": "supports[A].piles[A1].ground_rl",
@@ -5632,134 +5177,6 @@
    "needed_from": "geotechnical report"
   },
   {
-   "path": "supports[A].headstock_setout.rows[0]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "front",
-    "value": 835
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[A].headstock_setout.rows[1]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Calculated",
-   "status": "proposed",
-   "value": {
-    "edge": "back",
-    "value": -865
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[A].headstock_setout.rows[2]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "start",
-    "value": -5645
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[A].headstock_setout.rows[3]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "end",
-    "value": 5283
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
    "path": "supports[B].piles[B1].ground_rl",
    "categories": [
     "assumed"
@@ -5991,134 +5408,6 @@
     "sections"
    ],
    "needed_from": "geotechnical report"
-  },
-  {
-   "path": "supports[B].headstock_setout.rows[0]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "front",
-    "value": 824
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[B].headstock_setout.rows[1]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Calculated",
-   "status": "proposed",
-   "value": {
-    "edge": "back",
-    "value": -876
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[B].headstock_setout.rows[2]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "start",
-    "value": -4751
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "supports[B].headstock_setout.rows[3]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Direct",
-   "status": "proposed",
-   "value": {
-    "edge": "end",
-    "value": 6694
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": null,
-   "replace_with": null,
-   "decision": "D-39",
-   "decision_status": "proposed",
-   "decision_reason": "Structure the headstock (sill beam) plan setout already in the description's abutment takeoff (custom.takeoff_abutments rows 21-27, Direct / Calculated) into the new catalogue table supports[].headstock_setout, so the substructure model builder can place the sill beam. Sign convention read from the takeoff: front face positive = toward the span; start = south end (negative), end = north end (positive) along the printed bearing-line direction 044 deg 01'45\" (toward the northern side, takeoff row 17). The sill end positions are the FRONT-FACE ends; the model uses them for the centroid line (sill end faces assumed square to the line of bearings, not confirmed). No new values: structuring only.",
-   "affects": [
-    "model"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
   },
   {
    "path": "materials.strand.rows[0]",
@@ -7552,105 +6841,6 @@
     "girder_flexure"
    ],
    "needed_from": "Hog time analysis + creep"
-  },
-  {
-   "path": "loads.earthquake.rows[0]",
-   "categories": [
-    "assumed",
-    "proposed"
-   ],
-   "tag": "Assumed",
-   "status": "accepted",
-   "value": {
-    "item": "kp",
-    "value": "1.7"
-   },
-   "unit": null,
-   "proposed_value": {
-    "item": "kp",
-    "value": "1.7"
-   },
-   "note": "placeholder",
-   "replace_with": "project seismic criteria / geotechnical report",
-   "decision": "D-43",
-   "decision_status": "proposed",
-   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
-   "affects": [
-    "loads"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "girder_checks",
-    "girder_flexure"
-   ],
-   "needed_from": "project seismic criteria / geotechnical report"
-  },
-  {
-   "path": "loads.earthquake.rows[1]",
-   "categories": [
-    "standard",
-    "proposed"
-   ],
-   "tag": "Standard-verify",
-   "status": "accepted",
-   "value": {
-    "item": "Z",
-    "value": "0.08"
-   },
-   "unit": null,
-   "proposed_value": {
-    "item": "Z",
-    "value": "0.08"
-   },
-   "note": null,
-   "replace_with": null,
-   "decision": "D-43",
-   "decision_status": "proposed",
-   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
-   "affects": [
-    "loads"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "girder_checks",
-    "girder_flexure"
-   ],
-   "needed_from": "standards reviewer with an authorised copy"
-  },
-  {
-   "path": "loads.earthquake.rows[2]",
-   "categories": [
-    "assumed",
-    "proposed"
-   ],
-   "tag": "Assumed",
-   "status": "accepted",
-   "value": {
-    "item": "site_class",
-    "value": "Ce"
-   },
-   "unit": null,
-   "proposed_value": {
-    "item": "site_class",
-    "value": "Be"
-   },
-   "note": "placeholder",
-   "replace_with": "project seismic criteria / geotechnical report",
-   "decision": "D-43",
-   "decision_status": "proposed",
-   "decision_reason": "takeoff import BR13A_P5.5_values.xlsx row 68 (tag upgrade)",
-   "affects": [
-    "loads"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "girder_checks",
-    "girder_flexure"
-   ],
-   "needed_from": "project seismic criteria / geotechnical report"
   },
   {
    "path": "loads.earthquake.rows[3]",
@@ -9429,13 +8619,140 @@
    "needed_from": "standards reviewer with an authorised copy"
   },
   {
-   "path": "design.prestress_losses.rows[0]",
+   "path": "design.girder_options.rows[5]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
+   "value": {
+    "item": "fitment_cover_side",
+    "value": "40"
+   },
+   "unit": null,
+   "proposed_value": null,
+   "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the fitments at the soffit and webs, mm",
+   "replace_with": "girder reinforcement drawings / specification",
+   "decision": "D-46",
+   "decision_status": "accepted",
+   "decision_reason": "Inputs the shear / torsion check needs that the description does not hold: fitment covers, aggregate size and how the fitments act as closed ties. Assumed practice values (owner instruction 2026-10-26), changeable.",
+   "affects": [
+    "design.supert"
+   ],
+   "outputs": [
+    "combined_actions",
+    "concurrent_traffic",
+    "export_mct",
+    "girder_checks",
+    "girder_flexure",
+    "midas_compare",
+    "sections"
+   ],
+   "needed_from": "girder reinforcement drawings / specification"
+  },
+  {
+   "path": "design.girder_options.rows[6]",
+   "categories": [
+    "assumed"
+   ],
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": {
+    "item": "fitment_cover_top",
+    "value": "45"
+   },
+   "unit": null,
+   "proposed_value": null,
+   "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the closed-tie top from the deck top, mm",
+   "replace_with": "girder reinforcement drawings / specification",
+   "decision": "D-46",
+   "decision_status": "accepted",
+   "decision_reason": "Inputs the shear / torsion check needs that the description does not hold: fitment covers, aggregate size and how the fitments act as closed ties. Assumed practice values (owner instruction 2026-10-26), changeable.",
+   "affects": [
+    "design.supert"
+   ],
+   "outputs": [
+    "combined_actions",
+    "concurrent_traffic",
+    "export_mct",
+    "girder_checks",
+    "girder_flexure",
+    "midas_compare",
+    "sections"
+   ],
+   "needed_from": "girder reinforcement drawings / specification"
+  },
+  {
+   "path": "design.girder_options.rows[7]",
+   "categories": [
+    "assumed"
+   ],
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": {
+    "item": "aggregate_size",
+    "value": "20"
+   },
+   "unit": null,
+   "proposed_value": null,
+   "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; maximum aggregate size dg, mm",
+   "replace_with": "girder reinforcement drawings / specification",
+   "decision": "D-46",
+   "decision_status": "accepted",
+   "decision_reason": "Inputs the shear / torsion check needs that the description does not hold: fitment covers, aggregate size and how the fitments act as closed ties. Assumed practice values (owner instruction 2026-10-26), changeable.",
+   "affects": [
+    "design.supert"
+   ],
+   "outputs": [
+    "combined_actions",
+    "concurrent_traffic",
+    "export_mct",
+    "girder_checks",
+    "girder_flexure",
+    "midas_compare",
+    "sections"
+   ],
+   "needed_from": "girder reinforcement drawings / specification"
+  },
+  {
+   "path": "design.girder_options.rows[8]",
+   "categories": [
+    "assumed"
+   ],
+   "tag": "Assumed",
+   "status": "accepted",
+   "value": {
+    "item": "torsion_tie_legs",
+    "value": "1"
+   },
+   "unit": null,
+   "proposed_value": null,
+   "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; fitment legs per web acting as the closed torsion tie",
+   "replace_with": "girder reinforcement drawings / specification",
+   "decision": "D-46",
+   "decision_status": "accepted",
+   "decision_reason": "Inputs the shear / torsion check needs that the description does not hold: fitment covers, aggregate size and how the fitments act as closed ties. Assumed practice values (owner instruction 2026-10-26), changeable.",
+   "affects": [
+    "design.supert"
+   ],
+   "outputs": [
+    "combined_actions",
+    "concurrent_traffic",
+    "export_mct",
+    "girder_checks",
+    "girder_flexure",
+    "midas_compare",
+    "sections"
+   ],
+   "needed_from": "girder reinforcement drawings / specification"
+  },
+  {
+   "path": "design.prestress_losses.rows[0]",
+   "categories": [
+    "assumed"
+   ],
+   "tag": "Assumed",
+   "status": "accepted",
    "value": {
     "item": "k4",
     "value": 0.6,
@@ -9446,7 +8763,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. environment factor (temperate inland), cl. 3.1.7.2 / 3.1.8.3 — site environment to confirm",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9465,11 +8782,10 @@
   {
    "path": "design.prestress_losses.rows[1]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "chi",
     "value": 0.8,
@@ -9480,7 +8796,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. ageing coefficient, simplified method only (not codified)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9499,11 +8815,10 @@
   {
    "path": "design.prestress_losses.rows[2]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "ts",
     "value": 1,
@@ -9514,7 +8829,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. girder start of drying (age)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9533,11 +8848,10 @@
   {
    "path": "design.prestress_losses.rows[3]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "Rb",
     "value": 2,
@@ -9548,7 +8862,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. basic relaxation at 1000 h, 20 C (supplier value to confirm)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9567,11 +8881,10 @@
   {
    "path": "design.prestress_losses.rows[4]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "k7",
     "value": 1,
@@ -9582,7 +8895,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation stress-ratio factor (Fig. 3.3.4.3, read at sigma_pi / fpb)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9601,11 +8914,10 @@
   {
    "path": "design.prestress_losses.rows[5]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "Tav",
     "value": 20,
@@ -9616,7 +8928,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. average annual temperature (k8 = T / 20 >= 1)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9635,11 +8947,10 @@
   {
    "path": "design.prestress_losses.rows[6]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "jt",
     "value": 8,
@@ -9650,7 +8961,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. days from prestressing to transfer",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9669,11 +8980,10 @@
   {
    "path": "design.prestress_losses.rows[7]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "rb",
     "value": 0.0071,
@@ -9684,7 +8994,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. non-prestressed reinforcement ratio As / Ag (simplified method only)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9703,11 +9013,10 @@
   {
    "path": "design.prestress_losses.rows[8]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "dhard",
     "value": 7,
@@ -9718,7 +9027,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck treated as composite this many days after the pour",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9737,11 +9046,10 @@
   {
    "path": "design.prestress_losses.rows[9]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "tsd",
     "value": 7,
@@ -9752,7 +9060,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck start of drying (days from pour)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9771,11 +9079,10 @@
   {
    "path": "design.prestress_losses.rows[10]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "rd",
     "value": 0,
@@ -9786,7 +9093,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. deck longitudinal reinforcement ratio (0 = omitted)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9805,11 +9112,10 @@
   {
    "path": "design.prestress_losses.rows[11]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "sidl",
     "value": 4,
@@ -9820,7 +9126,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. superimposed dead load on the girder (per girder)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9839,11 +9145,10 @@
   {
    "path": "design.prestress_losses.rows[12]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "sidlA",
     "value": 100,
@@ -9854,7 +9159,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. SIDL applied (days after transfer)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9873,11 +9178,10 @@
   {
    "path": "design.prestress_losses.rows[13]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "dform",
     "value": 1,
@@ -9888,7 +9192,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. formwork / construction load with the wet deck",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9907,11 +9211,10 @@
   {
    "path": "design.prestress_losses.rows[14]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "meth",
     "value": 1,
@@ -9922,7 +9225,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. method: 1 = detailed time-step section analysis, 0 = simplified",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9941,11 +9244,10 @@
   {
    "path": "design.prestress_losses.rows[15]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "rlx",
     "value": 1,
@@ -9956,7 +9258,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation after transfer per AS 5100.5 (1 = on)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -9975,11 +9277,10 @@
   {
    "path": "design.prestress_losses.rows[16]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "relpre",
     "value": 1,
@@ -9990,7 +9291,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. relaxation before transfer computed (1 = on)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -10009,11 +9310,10 @@
   {
    "path": "design.prestress_losses.rows[17]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "emod",
     "value": 1,
@@ -10024,7 +9324,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. moduli from Table 3.1.2 (1)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -10043,11 +9343,10 @@
   {
    "path": "design.prestress_losses.rows[18]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "Tcur",
     "value": 20,
@@ -10058,7 +9357,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing temperature",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -10077,11 +9376,10 @@
   {
    "path": "design.prestress_losses.rows[19]",
    "categories": [
-    "assumed",
-    "proposed"
+    "assumed"
    ],
    "tag": "Assumed",
-   "status": "proposed",
+   "status": "accepted",
    "value": {
     "item": "hcur",
     "value": 0,
@@ -10092,7 +9390,7 @@
    "note": "dashboard Hog Calculator inputs for BR13A (demo / template defaults shown in the Hog tab), captured by tools/dump_dashboard_hog.js — placeholders so the losses analysis can run. accelerated-curing duration (0 = none)",
    "replace_with": "project specification / construction programme / supplier data",
    "decision": "D-42",
-   "decision_status": "proposed",
+   "decision_status": "accepted",
    "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
    "affects": [
     "design.supert"
@@ -10107,303 +9405,6 @@
     "sections"
    ],
    "needed_from": "project specification / construction programme / supplier data"
-  },
-  {
-   "path": "design.prestress_losses.rows[20]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 7,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[21]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 14,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[22]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 28,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[23]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 60,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[24]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 100,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[25]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 150,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[26]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 200,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[27]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 365,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
-  },
-  {
-   "path": "design.prestress_losses.rows[28]",
-   "categories": [
-    "proposed"
-   ],
-   "tag": "Model",
-   "status": "proposed",
-   "value": {
-    "item": "time",
-    "value": 3650,
-    "unit": "days"
-   },
-   "unit": null,
-   "proposed_value": null,
-   "note": "report time (days after transfer), dashboard Hog default list",
-   "replace_with": null,
-   "decision": "D-42",
-   "decision_status": "proposed",
-   "decision_reason": "Record the prestress-loss / camber inputs that the dashboard's Hog Calculator uses for BR13A and that the description does not hold (environment, relaxation data, stage times, loads on the girder, method switches), as Assumed placeholders in the new field design.prestress_losses, so the ported losses analysis (pdf2bim/design/prestress.py) can run from the description. Geometry, section, strands, bars, concrete and ages are NOT duplicated: they come from the description / P1 / P2. Standards values (Table 3.1.2, Table 3.3.1, basic drying shrinkage, transmission length) are standards entries, not project data. Every value is a placeholder to replace.",
-   "affects": [
-    "design.supert"
-   ],
-   "outputs": [
-    "combined_actions",
-    "concurrent_traffic",
-    "export_mct",
-    "girder_checks",
-    "girder_flexure",
-    "midas_compare",
-    "sections"
-   ],
-   "needed_from": "engineer decision (accept / change / reject)"
   },
   {
    "path": "custom.takeoff_abutments.rows[42]",
@@ -12041,34 +11042,23 @@
   }
  ],
  "counts": {
-  "missing": 53,
-  "assumed": 206,
-  "standard": 65,
-  "proposed": 76
+  "missing": 51,
+  "assumed": 221,
+  "standard": 64,
+  "proposed": 0
  },
  "tag_counts": {
-  "Direct": 377,
+  "Direct": 382,
   "Model": 64,
-  "Missing-Flagged": 53,
-  "Confirmed-Engineer": 22,
-  "Standard-verify": 65,
-  "Assumed": 206,
-  "Calculated": 188,
-  "Input-user": 24
+  "Missing-Flagged": 51,
+  "Standard-verify": 64,
+  "Assumed": 221,
+  "Calculated": 196,
+  "Input-user": 24,
+  "Confirmed-Engineer": 20
  },
- "values": 999,
- "proposed_decisions": [
-  "D-34",
-  "D-35",
-  "D-36",
-  "D-37",
-  "D-38",
-  "D-39",
-  "D-40",
-  "D-41",
-  "D-42",
-  "D-43"
- ],
+ "values": 1022,
+ "proposed_decisions": [],
  "run_record": {
   "format": "pdf2bim.run/1",
   "tool": "query_register",
@@ -12076,8 +11066,8 @@
    "extraction"
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
-  "revision": 14,
-  "description_hash": "sha256:b0b13fcd9bb90e7676c0c2d7df29aa700743def63f86311f6ab18b04fda05d37",
+  "revision": 44,
+  "description_hash": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d",
   "decisions": [
    "D-1",
    "D-2",
@@ -12121,15 +11111,18 @@
    "D-40",
    "D-41",
    "D-42",
-   "D-43"
+   "D-43",
+   "D-44",
+   "D-45",
+   "D-46"
   ],
   "proposed_used": [],
   "allow_proposed": false,
-  "engine_commit": "6a770425d936ea1ada73135456a1367803a4b911",
+  "engine_commit": "e3b4f8de12e8f489780a130e6a2ea5e80cc70623",
   "engine_dirty": false,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-25T13:47:47+00:00"
+  "run_at": "2026-10-25T22:12:17+00:00"
  }
 }

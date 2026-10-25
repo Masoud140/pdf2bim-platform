@@ -12,9 +12,9 @@
      3.2922390589505452
     ],
     "dist_to_station_m": 0.2762565890283839,
-    "M_sag": 3803.5682285410785,
+    "M_sag": 3806.9701576773355,
     "row_sag": "ULS-B-0084",
-    "M_hog": 3.878787302070066,
+    "M_hog": -12.36528567482236,
     "row_hog": "ULS-B-0431",
     "phiMu": 14752.265219310602,
     "Mu": 18440.33152413825,
@@ -23,7 +23,7 @@
     "kuo": 0.13538072163456535,
     "n_strands": 48,
     "sigma_pe_mean": 829.9542937423026,
-    "u_sag": 0.25782943649645323
+    "u_sag": 0.25806004034512886
    },
    {
     "t": 0.2,
@@ -35,9 +35,9 @@
      6.067152034125286
     ],
     "dist_to_station_m": 0.035187094280963116,
-    "M_sag": 7356.449203308551,
+    "M_sag": 7355.217823392109,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1183.8681651521758,
+    "M_hog": 1175.364452849392,
     "row_hog": "ULS-B-0431",
     "phiMu": 14705.319632423434,
     "Mu": 18381.64954052929,
@@ -46,7 +46,7 @@
     "kuo": 0.1393313745206979,
     "n_strands": 48,
     "sigma_pe_mean": 875.6674133174296,
-    "u_sag": 0.5002576881830217
+    "u_sag": 0.5001739511445064
    },
    {
     "t": 0.3,
@@ -58,9 +58,9 @@
      11.614606120047977
     ],
     "dist_to_station_m": 0.20676354948815323,
-    "M_sag": 9647.875212387127,
+    "M_sag": 9648.260816359056,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1788.267954687167,
+    "M_hog": 1781.7094534048724,
     "row_hog": "ULS-B-0431",
     "phiMu": 14671.801558091298,
     "Mu": 18339.75194761412,
@@ -69,7 +69,7 @@
     "kuo": 0.14221774120265315,
     "n_strands": 48,
     "sigma_pe_mean": 907.4167894618658,
-    "u_sag": 0.6575794509070672
+    "u_sag": 0.6576057328854868
    },
    {
     "t": 0.4,
@@ -81,9 +81,9 @@
      14.387690158108747
     ],
     "dist_to_station_m": 0.4493237596406683,
-    "M_sag": 10695.687027556341,
+    "M_sag": 10696.715672626708,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2089.997875697213,
+    "M_hog": 2084.9232196034463,
     "row_hog": "ULS-B-0431",
     "phiMu": 14649.731514942629,
     "Mu": 18312.164393678286,
@@ -92,7 +92,7 @@
     "kuo": 0.14452315621020576,
     "n_strands": 48,
     "sigma_pe_mean": 926.1192359244891,
-    "u_sag": 0.7300944059382121
+    "u_sag": 0.7301646219056048
    },
    {
     "t": 0.5,
@@ -104,9 +104,9 @@
      17.1607071864743
     ],
     "dist_to_station_m": 0.6922221915020597,
-    "M_sag": 10788.792268489795,
+    "M_sag": 10789.936880158775,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2142.459853564737,
+    "M_hog": 2138.5700783043267,
     "row_hog": "ULS-B-0431",
     "phiMu": 14646.10646994011,
     "Mu": 18307.633087425136,
@@ -115,7 +115,7 @@
     "kuo": 0.14495380176195183,
     "n_strands": 48,
     "sigma_pe_mean": 932.2968771509604,
-    "u_sag": 0.7366321070130737
+    "u_sag": 0.7367102582726819
    },
    {
     "t": 0.6,
@@ -127,9 +127,9 @@
      19.933928390568216
     ],
     "dist_to_station_m": 0.9351876330586641,
-    "M_sag": 10177.313262521577,
+    "M_sag": 10178.320907753765,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1972.8620161574877,
+    "M_hog": 1966.992299307461,
     "row_hog": "ULS-B-0431",
     "phiMu": 14661.1875066094,
     "Mu": 18326.484383261748,
@@ -138,7 +138,7 @@
     "kuo": 0.14346425771999516,
     "n_strands": 48,
     "sigma_pe_mean": 926.1192359244891,
-    "u_sag": 0.6941670487423716
+    "u_sag": 0.6942357775020123
    },
    {
     "t": 0.7,
@@ -150,9 +150,9 @@
      22.7076250366406
     ],
     "dist_to_station_m": 1.1779488988869105,
-    "M_sag": 8680.585014438362,
+    "M_sag": 8681.555981193165,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1608.2446613722486,
+    "M_hog": 1597.7020291994113,
     "row_hog": "ULS-H-0013",
     "phiMu": 14691.261814889313,
     "Mu": 18364.07726861164,
@@ -161,7 +161,7 @@
     "kuo": 0.14075399967976168,
     "n_strands": 48,
     "sigma_pe_mean": 907.4167894618658,
-    "u_sag": 0.5908672191547737
+    "u_sag": 0.5909333106019916
    },
    {
     "t": 0.8,
@@ -173,10 +173,10 @@
      25.482068576391445
     ],
     "dist_to_station_m": 1.354208817014154,
-    "M_sag": 6396.3846355823225,
+    "M_sag": 6397.609386498193,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1089.2435729590204,
-    "row_hog": "ULS-B-0431",
+    "M_hog": 1082.1345058617235,
+    "row_hog": "ULS-H-0013",
     "phiMu": 14733.642986143555,
     "Mu": 18417.053732679444,
     "phi": 0.8,
@@ -184,7 +184,7 @@
     "kuo": 0.13726078360235325,
     "n_strands": 48,
     "sigma_pe_mean": 875.6674133174296,
-    "u_sag": 0.43413462926975255
+    "u_sag": 0.43421775541289465
    },
    {
     "t": 0.9,
@@ -196,9 +196,9 @@
      28.15982469926839
     ],
     "dist_to_station_m": 1.0159824699689395,
-    "M_sag": 3327.4680204440137,
+    "M_sag": 3329.1445068261382,
     "row_sag": "ULS-B-0084",
-    "M_hog": 434.70577503249586,
+    "M_hog": 433.2071028217743,
     "row_hog": "ULS-B-0431",
     "phiMu": 14788.712801819835,
     "Mu": 18485.89100227479,
@@ -207,7 +207,7 @@
     "kuo": 0.13279948248971593,
     "n_strands": 48,
     "sigma_pe_mean": 829.9542937423026,
-    "u_sag": 0.22500051661254453
+    "u_sag": 0.22511387917523615
    }
   ],
   "time_days": 3650.0,
@@ -216,356 +216,7 @@
    "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
    "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
   ],
-  "provisional": [
-   {
-    "path": "design.prestress_losses.rows[0]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k4",
-     "value": 0.6,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[1]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "chi",
-     "value": 0.8,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[2]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "ts",
-     "value": 1,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[3]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Rb",
-     "value": 2,
-     "unit": "%"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[4]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k7",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[5]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tav",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[6]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "jt",
-     "value": 8,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[7]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rb",
-     "value": 0.0071,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[8]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dhard",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[9]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "tsd",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[10]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rd",
-     "value": 0,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[11]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidl",
-     "value": 4,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[12]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidlA",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[13]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dform",
-     "value": 1,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[14]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "meth",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[15]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rlx",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[16]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "relpre",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[17]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "emod",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[18]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tcur",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[19]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "hcur",
-     "value": 0,
-     "unit": "h"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[20]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[21]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 14,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[22]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 28,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[23]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 60,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[24]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[25]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 150,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[26]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 200,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[27]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 365,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[28]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 3650,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   }
-  ],
+  "provisional": [],
   "standards_status": "UNVERIFIED \u2014 standards data not approved"
  },
  "G2": {
@@ -581,9 +232,9 @@
      4.789774151620468
     ],
     "dist_to_station_m": 1.0076059778865276,
-    "M_sag": 4205.874112753161,
+    "M_sag": 4212.717173645655,
     "row_sag": "ULS-B-0102",
-    "M_hog": 231.69705117668582,
+    "M_hog": 226.66164731056801,
     "row_hog": "ULS-B-0413",
     "phiMu": 14824.150066037686,
     "Mu": 18530.187582547107,
@@ -592,7 +243,7 @@
     "kuo": 0.13035188923662686,
     "n_strands": 48,
     "sigma_pe_mean": 831.2976894458633,
-    "u_sag": 0.28371772371549797
+    "u_sag": 0.2841793394480701
    },
    {
     "t": 0.2,
@@ -604,9 +255,9 @@
      7.580331141469417
     ],
     "dist_to_station_m": 1.2254378039759866,
-    "M_sag": 6900.227690624068,
+    "M_sag": 6905.08026276194,
     "row_sag": "ULS-B-0102",
-    "M_hog": 1110.6589890902842,
+    "M_hog": 1104.3543132792522,
     "row_hog": "ULS-B-0413",
     "phiMu": 14841.29038962251,
     "Mu": 18551.612987028137,
@@ -615,7 +266,7 @@
     "kuo": 0.12972530455744077,
     "n_strands": 48,
     "sigma_pe_mean": 879.0051304726444,
-    "u_sag": 0.4649344840964045
+    "u_sag": 0.46526144839738365
    },
    {
     "t": 0.3,
@@ -627,9 +278,9 @@
      10.370159159502014
     ],
     "dist_to_station_m": 1.3473412261073339,
-    "M_sag": 8999.384662200959,
+    "M_sag": 9002.529775189776,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1716.4025548035697,
+    "M_hog": 1710.362104529568,
     "row_hog": "ULS-B-0431",
     "phiMu": 14855.803232723312,
     "Mu": 18569.75404090414,
@@ -638,7 +289,7 @@
     "kuo": 0.12911245034439908,
     "n_strands": 48,
     "sigma_pe_mean": 912.1357603499306,
-    "u_sag": 0.6057824354039472
+    "u_sag": 0.6059941447904776
    },
    {
     "t": 0.4,
@@ -650,9 +301,9 @@
      13.15953122156957
     ],
     "dist_to_station_m": 1.1291073103766607,
-    "M_sag": 10311.95972604326,
+    "M_sag": 10314.606864958201,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2080.9769203510905,
+    "M_hog": 2075.7201470969394,
     "row_hog": "ULS-B-0431",
     "phiMu": 14867.867940403572,
     "Mu": 18584.834925504463,
@@ -661,7 +312,7 @@
     "kuo": 0.12851430744756792,
     "n_strands": 48,
     "sigma_pe_mean": 931.6506232749292,
-    "u_sag": 0.6935735350473764
+    "u_sag": 0.693751579332243
    },
    {
     "t": 0.5,
@@ -673,9 +324,9 @@
      15.94872016540018
     ],
     "dist_to_station_m": 0.9106902764090457,
-    "M_sag": 10726.290667776346,
+    "M_sag": 10728.169407059624,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2209.973035614329,
+    "M_hog": 2205.6448126079636,
     "row_hog": "ULS-B-0431",
     "phiMu": 14877.586128288776,
     "Mu": 18596.98266036097,
@@ -684,7 +335,7 @@
     "kuo": 0.1279310052585906,
     "n_strands": 48,
     "sigma_pe_mean": 938.0964405539436,
-    "u_sag": 0.7209698250296795
+    "u_sag": 0.7210961048755549
    },
    {
     "t": 0.6,
@@ -696,9 +347,9 @@
      18.737998757143828
     ],
     "dist_to_station_m": 0.6923628903544667,
-    "M_sag": 10388.950967362718,
+    "M_sag": 10390.15811909374,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2105.358216071621,
+    "M_hog": 2101.9886169675456,
     "row_hog": "ULS-B-0431",
     "phiMu": 14884.991466028629,
     "Mu": 18606.239332535784,
@@ -707,7 +358,7 @@
     "kuo": 0.12736228345504308,
     "n_strands": 48,
     "sigma_pe_mean": 931.6506232749292,
-    "u_sag": 0.6979480633947941
+    "u_sag": 0.6980291619788125
    },
    {
     "t": 0.7,
@@ -719,9 +370,9 @@
      21.52763979739992
     ],
     "dist_to_station_m": 0.4743979528123319,
-    "M_sag": 9141.343610422926,
+    "M_sag": 9141.81570413353,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1772.8047529404748,
+    "M_hog": 1770.319284256003,
     "row_hog": "ULS-B-0431",
     "phiMu": 14890.052546352215,
     "Mu": 18612.56568294027,
@@ -730,7 +381,7 @@
     "kuo": 0.1268075721896947,
     "n_strands": 48,
     "sigma_pe_mean": 912.1357603499306,
-    "u_sag": 0.6139228576908135
+    "u_sag": 0.6139545629993834
    },
    {
     "t": 0.8,
@@ -742,9 +393,9 @@
      24.317916229541577
     ],
     "dist_to_station_m": 0.25706840715576007,
-    "M_sag": 7036.96243993275,
+    "M_sag": 7036.849983314131,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1217.1493328261422,
+    "M_hog": 1207.9376008975432,
     "row_hog": "ULS-H-0013",
     "phiMu": 14892.669284528396,
     "Mu": 18615.836605660494,
@@ -753,7 +404,7 @@
     "kuo": 0.12626576706246664,
     "n_strands": 48,
     "sigma_pe_mean": 879.0051304726444,
-    "u_sag": 0.4725118315252771
+    "u_sag": 0.47250428038609105
    },
    {
     "t": 0.9,
@@ -765,9 +416,9 @@
      27.109101244996744
     ],
     "dist_to_station_m": 0.040647444812702105,
-    "M_sag": 3927.6801041143326,
+    "M_sag": 3927.1879417635273,
     "row_sag": "ULS-B-0084",
-    "M_hog": 447.3639190283994,
+    "M_hog": 438.8579543878359,
     "row_hog": "ULS-H-0013",
     "phiMu": 14892.66192652864,
     "Mu": 18615.8274081608,
@@ -776,7 +427,7 @@
     "kuo": 0.12573457357103346,
     "n_strands": 48,
     "sigma_pe_mean": 831.2976894458633,
-    "u_sag": 0.26373257672074496
+    "u_sag": 0.26369952941508307
    }
   ],
   "time_days": 3650.0,
@@ -785,356 +436,7 @@
    "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
    "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
   ],
-  "provisional": [
-   {
-    "path": "design.prestress_losses.rows[0]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k4",
-     "value": 0.6,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[1]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "chi",
-     "value": 0.8,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[2]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "ts",
-     "value": 1,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[3]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Rb",
-     "value": 2,
-     "unit": "%"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[4]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k7",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[5]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tav",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[6]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "jt",
-     "value": 8,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[7]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rb",
-     "value": 0.0071,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[8]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dhard",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[9]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "tsd",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[10]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rd",
-     "value": 0,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[11]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidl",
-     "value": 4,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[12]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidlA",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[13]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dform",
-     "value": 1,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[14]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "meth",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[15]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rlx",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[16]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "relpre",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[17]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "emod",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[18]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tcur",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[19]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "hcur",
-     "value": 0,
-     "unit": "h"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[20]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[21]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 14,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[22]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 28,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[23]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 60,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[24]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[25]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 150,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[26]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 200,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[27]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 365,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[28]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 3650,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   }
-  ],
+  "provisional": [],
   "standards_status": "UNVERIFIED \u2014 standards data not approved"
  },
  "G3": {
@@ -1150,9 +452,9 @@
      3.4755192730265487
     ],
     "dist_to_station_m": 0.47617399794076176,
-    "M_sag": 4386.379107154153,
+    "M_sag": 4392.989129960395,
     "row_sag": "ULS-B-0102",
-    "M_hog": 274.3407198172308,
+    "M_hog": 270.020971515142,
     "row_hog": "ULS-B-0413",
     "phiMu": 14824.7814815893,
     "Mu": 18530.976851986623,
@@ -1161,7 +463,7 @@
     "kuo": 0.1303054975716201,
     "n_strands": 48,
     "sigma_pe_mean": 831.0378160290838,
-    "u_sag": 0.29588153542779294
+    "u_sag": 0.2963274120037446
    },
    {
     "t": 0.2,
@@ -1173,9 +475,9 @@
      6.282662215041744
     ],
     "dist_to_station_m": 0.2839716648701698,
-    "M_sag": 7383.298602249199,
+    "M_sag": 7389.775599949802,
     "row_sag": "ULS-B-0102",
-    "M_hog": 1058.6487227415078,
+    "M_hog": 1053.4875112710615,
     "row_hog": "ULS-B-0413",
     "phiMu": 14841.710661968837,
     "Mu": 18552.138327461045,
@@ -1184,7 +486,7 @@
     "kuo": 0.1296907861825899,
     "n_strands": 48,
     "sigma_pe_mean": 878.4964478689302,
-    "u_sag": 0.49746951482948276
+    "u_sag": 0.4979059198941092
    },
    {
     "t": 0.3,
@@ -1196,9 +498,9 @@
      9.088954497821279
     ],
     "dist_to_station_m": 0.09091867256391772,
-    "M_sag": 9409.480460178549,
+    "M_sag": 9415.132027022757,
     "row_sag": "ULS-B-0102",
-    "M_hog": 1676.9445268284776,
+    "M_hog": 1671.6244259561197,
     "row_hog": "ULS-B-0413",
     "phiMu": 14856.028377347517,
     "Mu": 18570.035471684394,
@@ -1207,7 +509,7 @@
     "kuo": 0.12908950615033013,
     "n_strands": 48,
     "sigma_pe_mean": 911.4591630649405,
-    "u_sag": 0.633377927207391
+    "u_sag": 0.6337583496662511
    },
    {
     "t": 0.4,
@@ -1219,9 +521,9 @@
      14.700080928093213
     ],
     "dist_to_station_m": 0.10271185964738372,
-    "M_sag": 10561.388060555299,
+    "M_sag": 10565.871458126889,
     "row_sag": "ULS-B-0102",
-    "M_hog": 2085.2573116450203,
+    "M_hog": 2080.266526267498,
     "row_hog": "ULS-B-0413",
     "phiMu": 14867.912092990278,
     "Mu": 18584.890116237846,
@@ -1230,7 +532,7 @@
     "kuo": 0.12850264601455486,
     "n_strands": 48,
     "sigma_pe_mean": 930.8769646243609,
-    "u_sag": 0.7103477606337637
+    "u_sag": 0.7106493091997996
    },
    {
     "t": 0.5,
@@ -1242,9 +544,9 @@
      17.505463926092688
     ],
     "dist_to_station_m": 0.29664544733572207,
-    "M_sag": 10816.431351284897,
+    "M_sag": 10819.774783277517,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2260.6385289053787,
+    "M_hog": 2256.3212541520516,
     "row_hog": "ULS-B-0431",
     "phiMu": 14877.462370473579,
     "Mu": 18596.82796309197,
@@ -1253,7 +555,7 @@
     "kuo": 0.12793034724033228,
     "n_strands": 48,
     "sigma_pe_mean": 937.2910201201908,
-    "u_sag": 0.7270346973117963
+    "u_sag": 0.7272594286476493
    },
    {
     "t": 0.6,
@@ -1265,9 +567,9 @@
      20.311092589599806
     ],
     "dist_to_station_m": 0.49060772442203415,
-    "M_sag": 10347.83693240563,
+    "M_sag": 10350.023865608955,
     "row_sag": "ULS-B-0084",
-    "M_hog": 2195.1816810792343,
+    "M_hog": 2191.547901870914,
     "row_hog": "ULS-B-0431",
     "phiMu": 14884.712508467297,
     "Mu": 18605.89063558412,
@@ -1276,7 +578,7 @@
     "kuo": 0.12737236146820952,
     "n_strands": 48,
     "sigma_pe_mean": 930.8769646243609,
-    "u_sag": 0.6951989785841798
+    "u_sag": 0.6953459033704047
    },
    {
     "t": 0.7,
@@ -1288,9 +590,9 @@
      23.11724136909446
     ],
     "dist_to_station_m": 0.684324336000703,
-    "M_sag": 8972.655327802535,
+    "M_sag": 8973.295667397737,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1884.1689441658068,
+    "M_hog": 1881.2695144058375,
     "row_hog": "ULS-B-0431",
     "phiMu": 14889.63137235987,
     "Mu": 18612.039215449837,
@@ -1299,7 +601,7 @@
     "kuo": 0.12682813087471553,
     "n_strands": 48,
     "sigma_pe_mean": 911.4591630649405,
-    "u_sag": 0.6026109782985482
+    "u_sag": 0.6026539840371852
    },
    {
     "t": 0.8,
@@ -1311,9 +613,9 @@
      25.92418491943907
     ],
     "dist_to_station_m": 0.8775208315918341,
-    "M_sag": 6721.422281601981,
+    "M_sag": 6720.499503618119,
     "row_sag": "ULS-B-0084",
-    "M_hog": 1312.157099808618,
+    "M_hog": 1308.2697889269093,
     "row_hog": "ULS-B-0431",
     "phiMu": 14892.119851494697,
     "Mu": 18615.14981436837,
@@ -1322,7 +624,7 @@
     "kuo": 0.12629656691416657,
     "n_strands": 48,
     "sigma_pe_mean": 878.4964478689302,
-    "u_sag": 0.45134086675560586
+    "u_sag": 0.4512789025763578
    },
    {
     "t": 0.9,
@@ -1334,9 +636,9 @@
      27.993452750890373
     ],
     "dist_to_station_m": 0.9993452751182907,
-    "M_sag": 3687.0901079154837,
+    "M_sag": 3684.9523339790176,
     "row_sag": "ULS-B-0084",
-    "M_hog": 385.5341307755433,
+    "M_hog": 380.74911324834807,
     "row_hog": "ULS-B-0485",
     "phiMu": 14892.000044159662,
     "Mu": 18615.000055199576,
@@ -1345,7 +647,7 @@
     "kuo": 0.12577540497646686,
     "n_strands": 48,
     "sigma_pe_mean": 831.0378160290838,
-    "u_sag": 0.2475886447073632
+    "u_sag": 0.24744509287214114
    }
   ],
   "time_days": 3650.0,
@@ -1354,356 +656,7 @@
    "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
    "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
   ],
-  "provisional": [
-   {
-    "path": "design.prestress_losses.rows[0]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k4",
-     "value": 0.6,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[1]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "chi",
-     "value": 0.8,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[2]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "ts",
-     "value": 1,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[3]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Rb",
-     "value": 2,
-     "unit": "%"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[4]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k7",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[5]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tav",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[6]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "jt",
-     "value": 8,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[7]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rb",
-     "value": 0.0071,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[8]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dhard",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[9]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "tsd",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[10]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rd",
-     "value": 0,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[11]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidl",
-     "value": 4,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[12]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidlA",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[13]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dform",
-     "value": 1,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[14]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "meth",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[15]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rlx",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[16]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "relpre",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[17]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "emod",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[18]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tcur",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[19]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "hcur",
-     "value": 0,
-     "unit": "h"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[20]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[21]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 14,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[22]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 28,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[23]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 60,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[24]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[25]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 150,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[26]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 200,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[27]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 365,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[28]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 3650,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   }
-  ],
+  "provisional": [],
   "standards_status": "UNVERIFIED \u2014 standards data not approved"
  },
  "G4": {
@@ -1719,9 +672,9 @@
      4.9503322172927895
     ],
     "dist_to_station_m": 0.9915015471419641,
-    "M_sag": 4291.997255746466,
+    "M_sag": 4302.597488469944,
     "row_sag": "ULS-B-0102",
-    "M_hog": 146.5202325003408,
+    "M_hog": 141.48985644932216,
     "row_hog": "ULS-B-0413",
     "phiMu": 14892.629166793256,
     "Mu": 18615.78645849157,
@@ -1730,7 +683,7 @@
     "kuo": 0.12574436999710714,
     "n_strands": 48,
     "sigma_pe_mean": 832.1362405465644,
-    "u_sag": 0.2881960738884521
+    "u_sag": 0.2889078510101919
    },
    {
     "t": 0.2,
@@ -1742,9 +695,9 @@
      7.773148117868079
     ],
     "dist_to_station_m": 1.032670876970168,
-    "M_sag": 7521.57306271816,
+    "M_sag": 7529.682037291261,
     "row_sag": "ULS-B-0102",
-    "M_hog": 955.6308890929784,
+    "M_hog": 950.5906286624063,
     "row_hog": "ULS-B-0413",
     "phiMu": 14956.596080527397,
     "Mu": 18695.745100659246,
@@ -1753,7 +706,7 @@
     "kuo": 0.12213459050681541,
     "n_strands": 48,
     "sigma_pe_mean": 881.293679410358,
-    "u_sag": 0.5028933737477074
+    "u_sag": 0.5034355408644391
    },
    {
     "t": 0.3,
@@ -1765,9 +718,9 @@
      10.595265108182042
     ],
     "dist_to_station_m": 1.201356523526357,
-    "M_sag": 9956.39806248422,
+    "M_sag": 9962.815585096676,
     "row_sag": "ULS-B-0102",
-    "M_hog": 1601.5702748764186,
+    "M_hog": 1596.5755564835608,
     "row_hog": "ULS-B-0413",
     "phiMu": 15002.233131202323,
     "Mu": 18752.791414002902,
@@ -1776,7 +729,7 @@
     "kuo": 0.11962134231591419,
     "n_strands": 48,
     "sigma_pe_mean": 915.4279002462536,
-    "u_sag": 0.6636610680163644
+    "u_sag": 0.664088839172587
    },
    {
     "t": 0.4,
@@ -1788,9 +741,9 @@
      13.41695509521555
     ],
     "dist_to_station_m": 1.3707410803438727,
-    "M_sag": 11566.064765753741,
+    "M_sag": 11571.09692331932,
     "row_sag": "ULS-B-0102",
-    "M_hog": 2064.888209324685,
+    "M_hog": 2060.094511598938,
     "row_hog": "ULS-B-0413",
     "phiMu": 15028.30578287129,
     "Mu": 18785.38222858911,
@@ -1799,7 +752,7 @@
     "kuo": 0.11805542425665536,
     "n_strands": 48,
     "sigma_pe_mean": 935.532794959398,
-    "u_sag": 0.7696186737786714
+    "u_sag": 0.7699535190791519
    },
    {
     "t": 0.5,
@@ -1811,9 +764,9 @@
      16.23849406690705
     ],
     "dist_to_station_m": 1.2809863312496592,
-    "M_sag": 12200.867407539681,
+    "M_sag": 12204.689509958638,
     "row_sag": "ULS-B-0102",
-    "M_hog": 2318.5857823115207,
+    "M_hog": 2314.1535302963084,
     "row_hog": "ULS-B-0413",
     "phiMu": 15039.096682299214,
     "Mu": 18798.870852874017,
@@ -1822,7 +775,7 @@
     "kuo": 0.11738423424703481,
     "n_strands": 48,
     "sigma_pe_mean": 942.1733388295421,
-    "u_sag": 0.8112766122382812
+    "u_sag": 0.81153075665265
    },
    {
     "t": 0.6,
@@ -1834,9 +787,9 @@
      19.060157951772588
     ],
     "dist_to_station_m": 1.1111486689837164,
-    "M_sag": 11920.1877946505,
+    "M_sag": 11922.900362256349,
     "row_sag": "ULS-B-0102",
-    "M_hog": 2335.806977090904,
+    "M_hog": 2331.8870965473297,
     "row_hog": "ULS-B-0413",
     "phiMu": 15035.368350286364,
     "Mu": 18794.210437857953,
@@ -1845,7 +798,7 @@
     "kuo": 0.11757833326578276,
     "n_strands": 48,
     "sigma_pe_mean": 935.532794959398,
-    "u_sag": 0.7928098279297205
+    "u_sag": 0.7929902403774008
    },
    {
     "t": 0.7,
@@ -1857,9 +810,9 @@
      21.88222272723563
     ],
     "dist_to_station_m": 0.9417118973152796,
-    "M_sag": 10560.395268533499,
+    "M_sag": 10561.99799972383,
     "row_sag": "ULS-B-0102",
-    "M_hog": 2091.3392898279917,
+    "M_hog": 2088.0213330199235,
     "row_hog": "ULS-B-0413",
     "phiMu": 15017.024676865505,
     "Mu": 18771.28084608188,
@@ -1868,7 +821,7 @@
     "kuo": 0.11864715551527213,
     "n_strands": 48,
     "sigma_pe_mean": 915.4279002462536,
-    "u_sag": 0.7032282023750236
+    "u_sag": 0.7033349299875047
    },
    {
     "t": 0.8,
@@ -1880,9 +833,9 @@
      24.70496452698447
     ],
     "dist_to_station_m": 0.7729521499326388,
-    "M_sag": 7984.682725199727,
+    "M_sag": 7985.064248658693,
     "row_sag": "ULS-B-0102",
-    "M_hog": 1553.1255422452855,
+    "M_hog": 1550.5368028806329,
     "row_hog": "ULS-B-0413",
     "phiMu": 14980.45343914693,
     "Mu": 18725.56679893366,
@@ -1891,7 +844,7 @@
     "kuo": 0.12062091079739617,
     "n_strands": 48,
     "sigma_pe_mean": 881.2936794103579,
-    "u_sag": 0.533006744931642
+    "u_sag": 0.5330322130164711
    },
    {
     "t": 0.9,
@@ -1903,9 +856,9 @@
      27.915015471310433
     ],
     "dist_to_station_m": 0.9915015471271253,
-    "M_sag": 4024.595536610845,
+    "M_sag": 4023.6636048717987,
     "row_sag": "ULS-B-0102",
-    "M_hog": 516.7872672453415,
+    "M_hog": 514.7802410623297,
     "row_hog": "ULS-B-0467",
     "phiMu": 14925.319534841317,
     "Mu": 18656.649418551646,
@@ -1914,7 +867,7 @@
     "kuo": 0.12360491584365296,
     "n_strands": 48,
     "sigma_pe_mean": 832.1362405465644,
-    "u_sag": 0.2696488693066787
+    "u_sag": 0.2695864296559315
    }
   ],
   "time_days": 3650.0,
@@ -1923,356 +876,7 @@
    "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)",
    "sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"
   ],
-  "provisional": [
-   {
-    "path": "design.prestress_losses.rows[0]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k4",
-     "value": 0.6,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[1]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "chi",
-     "value": 0.8,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[2]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "ts",
-     "value": 1,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[3]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Rb",
-     "value": 2,
-     "unit": "%"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[4]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "k7",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[5]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tav",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[6]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "jt",
-     "value": 8,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[7]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rb",
-     "value": 0.0071,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[8]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dhard",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[9]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "tsd",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[10]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rd",
-     "value": 0,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[11]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidl",
-     "value": 4,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[12]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "sidlA",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[13]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "dform",
-     "value": 1,
-     "unit": "kN/m"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[14]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "meth",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[15]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "rlx",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[16]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "relpre",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[17]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "emod",
-     "value": 1,
-     "unit": "-"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[18]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "Tcur",
-     "value": 20,
-     "unit": "C"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[19]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "hcur",
-     "value": 0,
-     "unit": "h"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[20]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 7,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[21]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 14,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[22]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 28,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[23]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 60,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[24]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 100,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[25]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 150,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[26]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 200,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[27]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 365,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   },
-   {
-    "path": "design.prestress_losses.rows[28]",
-    "override": null,
-    "decision": "D-42",
-    "author": "AI",
-    "value": {
-     "item": "time",
-     "value": 3650,
-     "unit": "days"
-    },
-    "reason": "record proposed"
-   }
-  ],
+  "provisional": [],
   "standards_status": "UNVERIFIED \u2014 standards data not approved"
  },
  "run_record": {
@@ -2292,8 +896,8 @@
    "design.supert"
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
-  "revision": 14,
-  "description_hash": "sha256:b0b13fcd9bb90e7676c0c2d7df29aa700743def63f86311f6ab18b04fda05d37",
+  "revision": 44,
+  "description_hash": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d",
   "decisions": [
    "D-1",
    "D-2",
@@ -2337,26 +941,18 @@
    "D-40",
    "D-41",
    "D-42",
-   "D-43"
+   "D-43",
+   "D-44",
+   "D-45",
+   "D-46"
   ],
-  "proposed_used": [
-   "D-34",
-   "D-35",
-   "D-36",
-   "D-37",
-   "D-38",
-   "D-39",
-   "D-40",
-   "D-41",
-   "D-42",
-   "D-43"
-  ],
-  "allow_proposed": true,
-  "engine_commit": "931c8e374c3f20fa1c7d149805f4ed85f3958c3d",
+  "proposed_used": [],
+  "allow_proposed": false,
+  "engine_commit": "e3b4f8de12e8f489780a130e6a2ea5e80cc70623",
   "engine_dirty": false,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-25T13:08:05+00:00"
+  "run_at": "2026-10-25T22:07:17+00:00"
  }
 }

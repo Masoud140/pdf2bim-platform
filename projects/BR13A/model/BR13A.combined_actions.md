@@ -2,7 +2,7 @@
 
 **INDICATIVE. Not design-approved.** Load factors and combination constants: code-extracted-UNVERIFIED standards entries. Load-case inputs: Assumed / Standard-verify / Model values of the description; model from accepted values. Values only: no capacity check. Units kN, kN·m, m.
 
-Run: `projects/BR13A/BR13A.bridge.0.2.json` sha256 0217dacc6291ef21…, engine `ab355fa` (+ uncommitted changes), 602 ULS + 976 SLS rows; actions BRKR, CENR, DLc, EPT, EQX, EQY, M1600, S1600, SCR, SDLp, SOo, TGN, TGP, TUC, TUW, WX, WY, WZ.
+Run: `projects/BR13A/BR13A.bridge.0.2.json` sha256 412b4905d305e93d…, engine `e3b4f8d`, 602 ULS + 976 SLS rows; actions BRKR, CENR, DLc, EPT, EQX, EQY, M1600, S1600, SCR, SDLp, SOo, TGN, TGP, TUC, TUW, WX, WY, WZ.
 
 Not combined (no analysed case): PED — loads.pedestrian: Missing-Flagged — not analysed, not combined; FLH — loads.flood: Missing-Flagged — not analysed, not combined; COLX — loads.collision: Missing-Flagged — not analysed, not combined.
 
