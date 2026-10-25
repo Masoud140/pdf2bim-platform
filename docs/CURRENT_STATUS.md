@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`). **Next: P4.1 concurrent traffic actions.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions done** (branch `p4-verification`). **Next: P4.2 concurrent combinations.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -17,7 +17,8 @@
 | `p0.3-standards` | ff93af7 | P0.3 standards framework: 63 entries (unverified), accessor, review register, 28 tests | awaiting review |
 | `p1-geometry` | 5e91a8f | P1 geometry engine (Python), 36 tests, BR13A geometry (provisional, D-34) | awaiting review |
 | `p2-sections` | e476e99 | P2 sections (Python), product library, 24 tests, BR13A section table (provisional, D-35/D-36); test records | awaiting review |
-| `p3-model` | see `git log` (from e476e99) | P3a solver + superstructure builder; P3b integrated model, SDL, .mct, modes; P3c load cases and AS 5100.2 combinations; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
+| `p4-verification` | see `git log` (from `p3-model` @ c378d73) | P4.1 concurrent traffic actions; P4 plan | working branch |
+| `p3-model` | c378d73 (from e476e99) | P3a solver + superstructure builder; P3b integrated model, SDL, .mct, modes; P3c load cases and AS 5100.2 combinations; BR13A comparisons with the frozen model (provisional, D-34…D-41) | awaiting review |
 
 ## What works today (BR13A)
 
@@ -175,4 +176,4 @@
 
 ## Next task
 
-**P4.1 concurrent traffic actions** (`docs/P4_PLAN.md`): keep the governing vehicle / lane state for each traffic extreme and evaluate all responses at that state. Branch: new `p4-verification` from `p3-model`.
+**P4.2 concurrent combinations** (`docs/P4_PLAN.md`): for each governing combination row, the full concurrent response vector (static primitives + the traffic state of P4.1 + the chosen wind / surcharge state), concurrent columns in the schedule. Branch `p4-verification`.

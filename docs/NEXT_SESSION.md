@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done incl. the combined-action schedule; P4 plan drafted; P4.1 next).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1 concurrent traffic actions done on `p4-verification`; P4.2 next).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -14,13 +14,13 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 | Item | Value | Verified by |
 |---|---|---|
-| Working branch | `p3-model` (from `p2-sections` @ `e476e99`); P3b continues on it | `git branch -vv` |
-| Head | `git log -1 origin/p3-model`; must equal the local HEAD | `git ls-remote` |
+| Working branch | `p4-verification` (from `p3-model` @ `c378d73`); `p3-model` is closed (fixes only) | `git branch -vv` |
+| Head | `git log -1 origin/p4-verification`; must equal the local HEAD | `git ls-remote` |
 | Tests (executed 2026-10-25) | full suite on `b7d2dda`: 36 scripts, 404 / 404 assertions PASS; 18 print-only ran |  `baseline/BR13A/test_run.md` |
 | Dashboard build | unchanged since v45 (sha256 `710b259d2c7117d0…`) | no `src` / `base` change |
 | Full suite record | `baseline/BR13A/test_run.md` (commit `b7d2dda`) | executed 2026-10-25 |
 
-**Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` e476e99 → `p3-model`.
+**Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` e476e99 → `p3-model` c378d73 → `p4-verification`.
 
 ## 2. Stage status
 
@@ -36,18 +36,18 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (`P4_VERIFICATION_METHOD.md` §1, ADR-029). **P4.2: next.**
 
 ## 3. Next actions
 
-1. **P4.1 concurrent traffic actions** (`docs/P4_PLAN.md`), on a new branch `p4-verification` from `p3-model` (do not touch `p3-model` afterwards except to fix it):
-   - in `pdf2bim/model/traffic.py`, record for each response and each extreme the generating state (lane layout, lane ranking, vehicle model, travel direction, front-axle grid index, lateral shift, UDL strips taken) — `lane_effect` currently keeps only maxima;
-   - rebuild the state as nodal loads (via `Influence.weights`) and evaluate the whole response set (`ResponseSet.from_u` after a nodal solve, or the influence matrix directly);
-   - tests: the rebuilt state reproduces the envelope value of its response (1e-9 relative); T4 equilibrium; single-girder closed form;
-   - then P4.2: concurrent vectors per governing combination row, concurrent columns in the schedule.
-2. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 45 min.
+1. **P4.2 concurrent combinations** (`docs/P4_PLAN.md`), on `p4-verification`:
+   - in `combinations.combine`, keep for each response and limit state the governing row and, for envelope primitives, which end (max / min) was taken;
+   - concurrent vector of a governing row = Σ f · static primitives + for each envelope term the concurrent vector of its state: traffic via `traffic.governing_state` / `concurrent` (P4.1) for the governing response and sign; vertical wind and EPT via the case actually taken (WVU+ / WVU−; EPTA / EPTB / none); earthquake stays ± (P4.3) — report it as such;
+   - test: the concurrent vector reproduces the governing envelope value of its own response exactly; concurrent values within every envelope; then concurrent columns in `combinations.schedule` / `tools/combined_actions.py` (girder M with V, T; bearing v with tr, lon; pile N with Ml, Mt).
+2. Then P4.3 (earthquake signs from the modal covariance; pile resultants).
+3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 50 min.
 
-For reference (P3c close-out): `responses.py` girder ("G") and sill ("HS") rows; `combinations.schedule`; `tools/combined_actions.py` (≈ 2 min for BR13A) → `projects/BR13A/model/BR13A.combined_actions.md/.json`; `tools/compare_frozen_combinations.py` now also compares girders and sills.
+For reference (P4.1): `traffic.governing_state(T, model, r, sign)`, `traffic.concurrent(T, state)`; `traffic_envelope` now returns `vehicles`, `lane_width`, `grid`; `tools/concurrent_traffic.py` (≈ 1.5 min); test `test_concurrent.py` (≈ 1.5 min).
 
 ## 4. Do not
 

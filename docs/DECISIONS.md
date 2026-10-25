@@ -303,3 +303,9 @@
 
 - **Decision (agent, 2026-10-25; reversible):** section actions are reported on the +x face of each member end in member axes (girder M sagging +, N tension +; pile N compression +, pile moments projected on the sill axis / its normal); every extreme carries its governing row and position; the schedule is values only (no capacity check) and records the input hash and engine commit.
 - **Consequence:** the schedule can feed P4 design checks without re-deriving signs; the P3 combination stage is closed. Concurrent actions (M with V, T) are not yet available (P4).
+
+## ADR-029 P4.1 concurrent traffic actions by state reconstruction (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** concurrent traffic actions come from rebuilding, per governing response, the exact load state of the envelope search (layout, lane ranking and factors, patterned UDL, vehicle position) as explicit point loads, then evaluating every response under it. The envelope algorithm itself is unchanged.
+- **Alternatives:** storing the argmax state for every response during the envelope (memory × responses, more intrusive); a separate optimisation per interaction (later, P4.3 if needed).
+- **Consequence:** each extreme has its concurrent actions, exactly consistent with the envelope (1e-15); concurrent values are admissible (inside every envelope). The concurrent pile resultant is a lower bound and the √ of separate envelopes an upper bound of the true largest resultant.

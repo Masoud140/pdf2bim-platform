@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.1 concurrent traffic actions (branch `p4-verification`)
+
+- **Added:** `traffic.governing_state()` / `traffic.concurrent()`; `tools/concurrent_traffic.py` → `projects/BR13A/model/BR13A.traffic_concurrent.md`; `docs/P4_PLAN.md`, `docs/P4_VERIFICATION_METHOD.md`.
+- **Tests:** concurrent 8 (5 / 5 mutations caught).
+- **Result:** BR13A concurrent girder shear at max sagging 33–49 % of the shear envelope; concurrent pile resultant 0.45–0.98 of the √ envelope bound.
+
 ## 2026-10-25 — P3c close-out: girders, sills, combined-action schedule (branch `p3-model`)
 
 - **Added:** girder and sill responses in `pdf2bim/model/responses.py`; `combinations.schedule()`; `tools/combined_actions.py` → `projects/BR13A/model/BR13A.combined_actions.md/.json`; dashboard fixture with its girder / headstock combined actions.
