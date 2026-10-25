@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–2 done on `p4-verification`; P4.5 stage 3 next; P4.4 MIDAS waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–3 done on `p4-verification`; P4.5 stage 4 next; P4.4 MIDAS waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -36,18 +36,19 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4: next.**
 
 ## 3. Next actions
 
-1. **P4.5 stage 3 — shear and torsion (AS 5100.5 general method)**, on `p4-verification`:
-   - inventory the constants of `src/dsg_engine2.js` `shear()` / `vm()` (φ 0.7 is already in; add θ = 29 + 7000 εx, εx limits −0.2e-3 / 3e-3, kv = 0.4 / (1 + 1500 εx) × size factor 1300 / (1000 + kdg dv), kdg = max(0.8, 32 / (16 + dg)), √f'c ≤ 8, Asv,min 0.08 √f'c bv / fsy.f, Vu,max 0.55 f'c bv dv cotθ / (1 + cot²θ), torsion 0.9 T uh / (2 Ao), Tcr 0.33 √f'c Acp² / uc, Asw,min 0.2 y1 / fsy.f, longitudinal tension 0.8 dv, 0.45 uh) as unverified entries with a Node-evaluated test;
-   - port `shear` / `vm` to `pdf2bim/design/shear.py`; closed forms (εx, θ, kv, Vuc, Vus, the utilisations) and port = engine on a grid of V, T, M, N;
-   - then stage 4: stations along the girder from the P2 sections and the design actions from the combined-action schedule (concurrent M, V, T from P4.2 / P4.3).
+1. **P4.5 stage 4 — design stations along the girder**, on `p4-verification`:
+   - read how the dashboard builds its design sections and stations (`src/dsg2_ui.js` … `dsg12.js`: layers from the Super-T shape, open / solid end zones, composite deck width, strand / bar layout, `dgFac`, shear data bv, dv, Ao, uh, Acp, uc, y1, Pv, spo, transmission Fpt) and list every input with its source (description field, standards entry, or Assumed);
+   - build the same from the P2 sections (`pdf2bim/sections`) and the description in `pdf2bim/design/stations.py`; strands / bars for BR13A are placeholders (D-1) — keep them flagged;
+   - design actions per station from the combined-action schedule's girder rows (concurrent M, V, T at ULS; SLS M for stresses), then run flexure, SLS, shear per station; compare with the dashboard's design results (V5) and report utilisations as INDICATIVE;
+   - tests: station geometry vs P2 properties; actions = schedule values; port-equals-dashboard on the dashboard's own section data where possible.
 2. **Owner items** that block T11 (E-1 source), P4.4 (MIDAS) and the method confirmations (ADR-031).
 3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 55 min.
 
-For reference (P4.5 stage 2): `pdf2bim/design/sls.py` (`response`, `solve`, `prestress_state`, `stress`), `pdf2bim/design/nm.py` (`at`, `mu_at_n`, `nm_curve`); test `tests/design/test_sls_nm.py` (≈ 3 s, uses Node).
+For reference (P4.5 stage 3): `pdf2bim/design/shear.py` (`shear`, `vm`); test `tests/design/test_shear.py` (≈ 2 s, uses Node).
 
 ## 4. Do not
 

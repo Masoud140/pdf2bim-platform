@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 3: shear and torsion (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/shear.py`; standards entry `AS5100.5:shear:general_method` (81 entries).
+- **Tests:** shear 11 (hand chain; port = dashboard engine on 180 cases; 5 / 5 mutations caught).
+- **Finding H-9 (minor):** the dashboard gives NaN shear / torsion utilisations for a section without a torsion cell when T = 0.
+
 ## 2026-10-25 — P4.5 stage 2: SLS strain plane and N–M interaction (branch `p4-verification`)
 
 - **Added:** `pdf2bim/design/sls.py`, `nm.py`; standards entries `AS5100.5:strain:balanced_steel`, `:capacity_factor:phi_compression` (80 entries).

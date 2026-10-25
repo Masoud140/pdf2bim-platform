@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–2 (flexural strength, SLS strain plane, N–M) done. **Next: P4.5 stage 3** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–3 (flexural strength, SLS strain plane, N–M, shear / torsion) done. **Next: P4.5 stage 4** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -65,6 +65,7 @@
 | H-7 | Dashboard vertical-wind distribution measured from the deck centre, ignores line lengths: total ±0.9 % | H (minor) |
 | M-4 | BR13A combined minimum bearing force at A-G4 on the P3b model: ULS −162 kN (uplift), SLS −37 kN (dashboard +64 / +265). Largest relief: shrinkage / creep (Assumed 300e-6) through the fixed-abutment restraint (M-3). **Engineer to check** (MIDAS, bearing / restraint detail) | E / F |
 | P4-1 | BR13A pile moment extremes (ULS) are all earthquake-governed; P4.3 gives concurrent pile actions (CQC most probable) and the response-ellipse resultant (0.85–0.87 of the earlier √ approximation): **method (ADR-031) for the engineer to confirm**. Bearing A-G4 at its uplift minimum carries concurrent tr −1124 / lon +1145 kN | F |
+| H-9 | Dashboard shear / torsion: a section without a closed torsion cell (Ao = 0) gives NaN utilisations when T = 0 (0 / 0). Not relevant to Super-T; the port returns finite values | H (minor) |
 | H-8 | Dashboard combinations keep the pedestrian action selected with no load case (BR13A pedestrian Missing-Flagged): 1142 terms silently zero. The platform lists unanalysed actions instead | H (minor) |
 | D-39…41 | BR13A sill setout, elastomer layer 12 mm (Assumed), bearing seat RLs — proposed; integrated model provisional | data |
 | D-3 | Design end region: max uB 1.171 and uL 3.966 at x = 0.75 m; no solid-end zones defined in the design section (`zones` empty). Indicative (placeholder strands); **engineer review needed** | D / F |
@@ -177,4 +178,4 @@
 
 ## Next task
 
-**P4.5 design engine, stage 3** (`docs/P4_PLAN.md`): shear and torsion by the AS 5100.5 general method (`src/dsg_engine2.js` shear / vm): inventory its constants (θ = 29 + 7000 εx, kv, Asv,min, Vu,max, Tcr, longitudinal tension …) as unverified entries, port with closed forms and the port-equals-engine check. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.
+**P4.5 design engine, stage 4** (`docs/P4_PLAN.md`): design stations along each girder — section strips from the P2 sections (open / solid zones, composite deck), strands and bars from the description (BR13A: placeholders, D-1), shear / torsion section data (bv, dv, Ao, uh …), and the design actions from the combined-action schedule (concurrent M, V, T from P4.2 / P4.3) — then the checks per station. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.
