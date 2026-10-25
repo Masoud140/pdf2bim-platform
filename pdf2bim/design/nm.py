@@ -13,7 +13,7 @@ compression face. gamma from the strip nearest the compression face; bars in the
 every bar at fsy and every tendon at fpb (phi_tension_point). Bending phi from kuo (dmax = deepest steel from the
 compression face); compression side: phi_compression at and above the balanced load Nub (dn_b = ecu / (ecu + e_b)
 dmax), linear to the bending phi at N = 0."""
-from .flexure import Coefficients
+from .flexure import Coefficients, check_tendons
 
 
 def depth(S):
@@ -22,6 +22,7 @@ def depth(S):
 
 def at(S, std, dn, face="top", yr=0.0, K=None):
     K = K or Coefficients(std)
+    check_tendons(S)
     D = depth(S)
     z = (lambda y: y) if face == "top" else (lambda y: D - y)
     if face not in ("top", "bot"):

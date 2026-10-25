@@ -119,10 +119,20 @@ def elastic(S, Eref):
     return {"A": A, "yc": yc, "I": I - A * yc * yc, "Eref": Eref}
 
 
+def check_tendons(S):
+    """Refuse tendons without effective prestrain (epe) or breaking stress (fpb): the checks never assume them."""
+    for i, t in enumerate(S.tend):
+        if t.get("epe") is None:
+            raise ValueError(f"tendon {i} at y = {t['y']:.0f}: effective prestrain (epe) not available — effective prestress needs the losses analysis")
+        if t.get("fpb") is None or t.get("E") is None:
+            raise ValueError(f"tendon {i} at y = {t['y']:.0f}: fpb / E not available (strand material)")
+
+
 def uls_bend(S, std, gamma=None, no_comp_bars=False, iterations=100):
     """Sagging ultimate moment by strain compatibility. Returns dn, kuo, Mu (kN m), phi, phiMu, gamma, C (N), steel."""
     K = Coefficients(std)
     ecu = K.ecu
+    check_tendons(S)
     top = min(c["y"] - c["h"] / 2 for c in S.conc)
     fc_top = next(c for c in S.conc if c["y"] - c["h"] / 2 <= top + 1e-6)["fc"]
     g = gamma if gamma is not None else K.gamma(fc_top)

@@ -133,6 +133,12 @@ def design():
                    val, "Super-T shear / torsion checks per station", "ULS shear and torsion (src/dsg_engine2.js; pdf2bim/design/shear.py)",
                    [f"src/dsg_engine2.js:{min(lines)}", "pdf2bim/design/shear.py"], specialist=True,
                    interp="Coefficients as coded; the clause numbers, the εx denominator switch, how torsion and shear steel are shared, and the V-M interaction are interpretations of the code, not checked against an authorised copy."))
+    line, m = find("src/dsg2_ui.js", r"fctfg:([\d.]+)\*Math\.sqrt\(I\.fcg\)")
+    e.append(entry("AS5100.5:concrete:flexural_tensile_strength", "AS 5100.5", None, "characteristic flexural tensile strength f'ct.f = k sqrt(f'c)", "MPa (k in sqrt MPa)",
+                   float(m.group(1)), "cracking moment for the minimum strength check", "Super-T design (src/dsg2_ui.js; pdf2bim/design)", [f"src/dsg2_ui.js:{line}", "tests/design/test_benchmark.py"]))
+    line, m = find("src/dsg2_ui.js", r"o\.Muomin=face==='top'\?([\d.]+)\*o\.Mcr")
+    e.append(entry("AS5100.5:flexure:minimum_strength_factor", "AS 5100.5", None, "minimum ultimate strength in bending Muo,min = k Mcr", "-",
+                   float(m.group(1)), "girder bending, both faces", "Super-T design (src/dsg2_ui.js; pdf2bim/design)", [f"src/dsg2_ui.js:{line}", "tests/design/test_benchmark.py"]))
     line, m = find("src/dsg_engine2.js", r"phi:([\d.]+), dn:0")
     e.append(entry("AS5100.5:capacity_factor:phi_tension_point", "AS 5100.5", None, "capacity reduction factor at the pure-tension point of the N-M diagram", "-",
                    float(m.group(1)), "N-M interaction", "ULS bending + axial", [f"src/dsg_engine2.js:{line}"],

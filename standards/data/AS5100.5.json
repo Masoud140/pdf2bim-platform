@@ -152,6 +152,42 @@
    }
   },
   {
+   "id": "AS5100.5:concrete:flexural_tensile_strength",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "characteristic flexural tensile strength f'ct.f = k sqrt(f'c)",
+   "units": "MPa (k in sqrt MPa)",
+   "value": 0.6,
+   "applicability": "cracking moment for the minimum strength check",
+   "context": "Super-T design (src/dsg2_ui.js; pdf2bim/design)",
+   "implementation": {
+    "used_by": [
+     "src/dsg2_ui.js:141",
+     "tests/design/test_benchmark.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
    "id": "AS5100.5:concrete:thermal_expansion",
    "standard": "AS 5100.5",
    "edition": null,
@@ -171,6 +207,42 @@
     "used_by": [
      "src/sub3.js:9",
      "src/sub7.js:10"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:flexure:minimum_strength_factor",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "minimum ultimate strength in bending Muo,min = k Mcr",
+   "units": "-",
+   "value": 1.2,
+   "applicability": "girder bending, both faces",
+   "context": "Super-T design (src/dsg2_ui.js; pdf2bim/design)",
+   "implementation": {
+    "used_by": [
+     "src/dsg2_ui.js:296",
+     "tests/design/test_benchmark.py"
     ],
     "version": "dashboard v45 (src/, base/ at P0.3)"
    },
