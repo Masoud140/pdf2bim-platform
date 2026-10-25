@@ -16,7 +16,7 @@ from c14n import stamp
 from rules_0_2 import check, check_revision, records
 
 
-def propose(doc, path, value, tag, reason, evidence, author, decision, source=None, unit=None, created=None):
+def propose(doc, path, value, tag, reason, evidence, author, decision, source=None, unit=None, created=None, derivation=None, replace_with=None):
     new = copy.deepcopy(doc)
     rec = dict(records(new)).get(path)
     if rec is None:
@@ -30,6 +30,10 @@ def propose(doc, path, value, tag, reason, evidence, author, decision, source=No
           "timestamp": created, "approval": {"status": "proposed"}, "decision": decision, "supersedes": None}
     if source:
         ov["source"] = source
+    if derivation:
+        ov["derivation"] = derivation
+    if replace_with:
+        rec["replace_with"] = replace_with          # record-level: what replaces an Assumed value
     rec.setdefault("overrides", []).append(ov)
     new["revision"] = {"number": doc["revision"]["number"] + 1, "parent_hash": doc["hash"]["value"], "created": created,
                        "author": author, "note": f"{ov['id']} proposed at {path} ({decision})", "decision_log_sha256": None}
@@ -43,11 +47,14 @@ def main():
     ap.add_argument("--tag", required=True); ap.add_argument("--reason", required=True); ap.add_argument("--evidence", action="append", default=[])
     ap.add_argument("--author", required=True); ap.add_argument("--decision", required=True); ap.add_argument("--source"); ap.add_argument("--unit")
     ap.add_argument("--affects", action="append", default=[]); ap.add_argument("--created")
+    ap.add_argument("--derivation", help='JSON {"formula": "...", "inputs": [paths]} (required by the schema for a Calculated value)')
+    ap.add_argument("--replace-with", help="what replaces an Assumed value (required by the schema for Assumed)")
     a = ap.parse_args()
     doc = json.load(open(a.file))
     created = a.created or datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     new, ov = propose(doc, a.path, json.loads(a.value), a.tag, a.reason, a.evidence, a.author, a.decision,
-                      json.loads(a.source) if a.source else None, a.unit, created)
+                      json.loads(a.source) if a.source else None, a.unit, created,
+                      json.loads(a.derivation) if a.derivation else None, a.replace_with)
     logf = a.file.replace(".bridge.0.2.json", ".decisions.jsonl")
     dec = {}
     if os.path.exists(logf):
@@ -60,6 +67,12 @@ def main():
             entry["affects"] = a.affects
         dec[a.decision] = entry
     errs = check(new, dec) + check_revision(doc, new)
+    try:                                   # the JSON schema too (it requires derivation for Calculated, replace_with for Assumed, ...)
+        from jsonschema import Draft202012Validator
+        sch = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "bridge.schema.0.2.json")))
+        errs += [f"schema: {e.message} at {'/'.join(map(str, e.absolute_path))}" for e in Draft202012Validator(sch).iter_errors(new)]
+    except ImportError:
+        errs.append("schema: jsonschema not installed (cannot validate)")
     if errs:
         raise SystemExit("refused, rule errors:\n  " + "\n  ".join(errs[:20]))
     hist = os.path.join(os.path.dirname(os.path.abspath(a.file)), "history")

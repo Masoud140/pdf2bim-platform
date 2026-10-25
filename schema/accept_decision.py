@@ -80,6 +80,8 @@ def main():
         from jsonschema import Draft202012Validator
         dsch = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "decision.schema.json")))
         errs += [f"decision schema: {e.message}" for e in Draft202012Validator(dsch).iter_errors(nd[a.decision])]
+        bsch = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "bridge.schema.0.2.json")))
+        errs += [f"schema: {e.message} at {'/'.join(map(str, e.absolute_path))}" for e in Draft202012Validator(bsch).iter_errors(new)]
     except ImportError:
         errs.append("jsonschema not installed (cannot validate the decision entry)")
     if errs:

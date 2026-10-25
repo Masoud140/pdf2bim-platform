@@ -181,5 +181,6 @@ def staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, fscr, ftcr, fscrT=None, free=None,
         o["Muo"] = r0["M"] / 1e6; o["kuo0"] = r0["kuo"]
     o["Muo_min"] = k_min * (o["Mcr"] if face == "top" else o["McrH"])
     o["okMin"] = None if "Muo" not in o else (o["Muo"] >= o["Muo_min"] if face == "top" else o["Muo"] <= o["Muo_min"])
+    o["tend_pre0"] = [t["pre0"] for t in Sg.tend]          # decompression prestrain per strand (shear: spo)
     o["standards_status"] = K.status
     return o

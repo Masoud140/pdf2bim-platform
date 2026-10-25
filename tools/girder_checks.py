@@ -34,7 +34,7 @@ def main():
          "Staged SLS (girder alone under prestress + Mnc, then composite), decompression Mdec, allowable moment Mal (Table 8.6.2.1 increments), "
          "cracking moment Mcr and minimum strength Muo >= 1.2 Mcr, ULS bending with the concurrent axial force. Effective prestress from the ported "
          "losses analysis (D-42 Assumed inputs); strand / bar layout an Assumed placeholder (D-1); standards values code-extracted-UNVERIFIED. "
-         "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Not checked: shear / torsion (fitments missing), strand development.", ""]
+         "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Shear / torsion by the general method with Assumed fitments (D-45 / D-46). Not checked: solid end blocks, strand development.", ""]
     for g in S["girders"]:
         R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
         out[g] = R
@@ -45,6 +45,15 @@ def main():
             s = r["sag"]
             L.append(f"| {r['t']:.1f} | {r['x_m']:.2f} | {f0(r['Mnc'])} | {f0(s['Ms'])} ({s['row_sls']}) | {s['soffit_sls']:.2f} | {'yes' if s['uncracked'] else 'no'} | {f0(s['Mdec'])} | {f0(s['Mal'])} | "
                      f"**{s['uS']:.2f}** | {f0(s['Mcr'])} | {f0(s['Muo'])} | {f0(s['Muo_min'])}{'' if s['okMin'] else ' **FAIL**'} | {f0(s['Mu'])} ({s['row_uls']}) | {f0(s['Nu'])} | {f0(s['phiMu'])} | **{s['uB']:.2f}** |")
+        L += ["", "### Shear and torsion (general method, governing |V*| with concurrent T*, M*, N*)", ""]
+        shr = [r for r in R["rows"] if "u" in r.get("shear", {})]
+        if shr:
+            L += ["| t | V* | T* | M* | N* | row | fitments | dv | θ (deg) | kv | uCr | uV | uT | uL | **u** |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+            for r in shr:
+                q = r["shear"]
+                L.append(f"| {r['t']:.1f} | {f0(q['V'])} | {f0(q['T'])} | {f0(q['M'])} | {f0(q['N'])} | {q['row']} | {q['fitments']} | {f0(q['dv'])} | {q['th']:.1f} | {q['kv']:.3f} | {q['uCr']:.2f} | {q['uV']:.2f} | {q['uT']:.2f} | {q['uL']:.2f} | **{q['u']:.2f}**{' FAIL' if q['u'] > 1 else ''} |")
+        else:
+            L.append("Not checked: " + "; ".join(sorted({r.get('shear', {}).get('why', '') for r in R['rows']})))
         hog = [r for r in R["rows"] if r["hog"]["Ms"] < r["hog"]["MdecT"] or r["hog"]["Mu"] < 0]
         L += ["", "### Hogging / top face", ""]
         if hog:

@@ -114,6 +114,8 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     flexure_along."""
     from .girder_sls import staged, crack_limits, prof_at
     from .prestress import stage_moments_at, differential_shrinkage
+    from .girder_shear import box_params, box_geometry, shear_inputs
+    from .shear import shear as shear_check
     from ..model.combinations import combine, concurrent_row
     H = hog_inputs(doc, geo, S, girder, std, allow_proposed)
     p = H["p"]
@@ -143,6 +145,27 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         fN = sum(f for aid, f in (row or {}).get("t", []) if aid == "TGN")
         T = (lambda y: alpha * (fP * prof_at(prof.get("TGP"), y) + fN * prof_at(prof.get("TGN"), y))) if (fP or fN) else None
         return ({"T": T, "sh": eps_sh} if (T or eps_sh) else None), {"TGP": fP, "TGN": fN}
+
+    # shear / torsion inputs (P4.5 stage 8): fitments along the girder, covers, aggregate, closed-tie legs, steel properties
+    sup = doc.get("superstructure") or {}
+    rd_ = __import__("pdf2bim.description", fromlist=["Reader"]).Reader(doc, allow_proposed)
+    mem = next(x for x in sup.get("members") or [] if x["id"] == girder)
+    T_ = next(x for x in sup.get("supert_types") or [] if x["id"] == rd_.value(mem.get("type_ref"), "type_ref"))
+    fits = rd_.rows(T_.get("fitments"), "fitments", required=False)
+    opts = {}
+    for r_ in rd_.rows((doc.get("design") or {}).get("girder_options"), "design.girder_options", required=False):
+        opts[r_.get("item")] = r_.get("value")
+    bm = rd_.rows((doc.get("materials") or {}).get("reinforcement"), "materials.reinforcement", required=False)
+    sm = rd_.rows((doc.get("materials") or {}).get("strand"), "materials.strand", required=False)
+    need = [k for k in ("fitment_cover_side", "fitment_cover_top", "aggregate_size") if opts.get(k) in (None, "")]
+    shear_why = None
+    if not fits:
+        shear_why = "fitments missing"
+    elif need:
+        shear_why = "design.girder_options missing: " + ", ".join(need)
+    elif not bm or not sm:
+        shear_why = "materials.reinforcement / materials.strand missing"
+    Pbox = box_params(S["girders"][girder]["params"]) if shear_why is None else None
 
     def interp(E, k, lo, hi, w):
         return float((1 - w) * E[k][lo[1]] + w * E[k][hi[1]])
@@ -189,7 +212,34 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
                          **{k: o.get(k) for k in ("Mdec", "Mal", "MdecT", "MalT", "uS", "uST", "uncracked", "okS", "Mcr", "McrH", "Muo", "Muo_min", "okMin",
                                                   "phiMu", "phi", "kuo", "uB", "face", "Nub")},
                          "soffit_sls": o["sv"]["girBot"], "deck_top_sls": o["sv"]["deckTop"], "girder_alone": {"top": o["girder_alone"]["top"], "bot": o["girder_alone"]["bot"]},
-                         "dsb_at_Ms": o["inc"]["b"], "dsp_at_Ms": o["inc"]["t"]}
+                         "dsb_at_Ms": o["inc"]["b"], "dsp_at_Ms": o["inc"]["t"], "_pre0": o["tend_pre0"]}
+        # shear and torsion at the station: the governing |V*| row at the nearer element end, concurrent T*, M*, N*
+        if shear_why is None:
+            fr_ = [f for f in fits if f.get("from") is not None and f["from"] - 1e-9 <= x0 <= f["to"] + 1e-9]
+            if not fr_:
+                res["shear"] = {"why": f"no fitment row covers x = {x0:.2f} m"}
+            else:
+                fr0 = fr_[0]
+                tl = int(float(opts.get("torsion_tie_legs") or 0))
+                fit = {"d": float(fr0["diameter"]), "legs": int(fr0["legs"]), "s": float(fr0["spacing"]), "tie_d": float(fr0["diameter"]), "tie_legs": tl,
+                       "tie_s": float(fr0["spacing"]), "fsyf": float(bm[0]["fsy"]), "dg": float(opts["aggregate_size"])}
+                g_ = box_geometry(Pbox, S["deck_thickness"], st["y_girder_top"] - S["deck_thickness"], float(opts["fitment_cover_side"]), float(opts["fitment_cover_top"]), fit["tie_d"])
+                pre0 = res["sag"].pop("_pre0")
+                Q = shear_inputs(sec, g_, lv, fit, {"fsy": float(bm[0]["fsy"]), "Es": float(bm[0]["Es"]), "Ep": float(sm[0]["Ep"])}, pre0)
+                iV = ix[("G", near[2], f"V{near[3]}")]
+                vmax, vmin = E_u["max"][iV], E_u["min"][iV]
+                which = "max" if abs(vmax) >= abs(vmin) else "min"
+                rowV = E_u["g" + which][iV]
+                cv = np.asarray(concurrent_row(prim, byname[rowV], iV, which)["v"])
+                Vs = float(cv[iV]); Ts = float(cv[ix[("G", near[2], f"T{near[3]}")]]); Ms_ = float(cv[ix[("G", near[2], f"M{near[3]}")]])
+                Ns_ = float(cv[ix[("G", near[2], f"N{near[3]}")]]) if useN else 0.0
+                sh = shear_check(Q, {"V": Vs, "T": Ts, "M": Ms_, "N": Ns_}, std)
+                res["shear"] = {"row": rowV, "V": Vs, "T": Ts, "M": Ms_, "N": Ns_, "fitments": f"N{fit['d']:g} x {fit['legs']} legs @ {fit['s']:g}",
+                                "dv": Q["dv"], "bv": Q["bv"], "Ao": Q["Ao"], **{k: sh.get(k) for k in ("ex", "th", "kv", "Vuc", "Vus", "Vumax", "Tcr", "uCr", "uV", "uT", "uL", "u", "phiVu", "minV")}}
+        else:
+            res["shear"] = {"why": shear_why}
+        for k_ in ("sag", "hog"):
+            res[k_].pop("_pre0", None)
         out.append(res)
     if not out:
         raise MissingInput(f"girder {girder}: no open-section station")
@@ -198,6 +248,6 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     notes.append(("deck differential shrinkage free strain %.1f x 1e-6 (losses analysis, detailed method)" % (eps_sh * 1e6)) if dsh else
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
     notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")
-    notes.append("shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked")
+    notes.append("shear / torsion: general method at each open station, governing |V*| row with concurrent T*, M*, N*; closed-box geometry mapped from the P2 parameters (ADR-039, provisional); stations inside the solid end blocks and strand development are not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
     return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "useN": useN, "dsh": dsh,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

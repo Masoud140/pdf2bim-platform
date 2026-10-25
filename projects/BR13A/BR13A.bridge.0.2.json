@@ -6905,7 +6905,8 @@
        ],
        "source": {
         "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
-       }
+       },
+       "replace_with": "girder / deck reinforcement drawings"
       },
       {
        "cells": {
@@ -6968,7 +6969,8 @@
        ],
        "source": {
         "note": "typical Super-T practice value, development use (owner instruction 2026-10-26); not from the BR13A drawings"
-       }
+       },
+       "replace_with": "girder / deck reinforcement drawings"
       }
      ]
     },
@@ -7816,7 +7818,7 @@
        "text": "128.390"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -7832,7 +7834,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -7843,8 +7845,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 128.390 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 128.315,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.39,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.390 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[A-G1].top_rl",
+         "bearings.items[A-G1].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[A-G1].top_rl",
+       "bearings.items[A-G1].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 128.39,
@@ -8140,7 +8182,7 @@
        "text": "128.561"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -8156,7 +8198,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -8167,8 +8209,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 128.561 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 128.486,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.561,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.561 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[A-G2].top_rl",
+         "bearings.items[A-G2].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[A-G2].top_rl",
+       "bearings.items[A-G2].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 128.561,
@@ -8464,7 +8546,7 @@
        "text": "128.745"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -8480,7 +8562,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -8491,8 +8573,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 128.745 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 128.67,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.745,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.745 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[A-G3].top_rl",
+         "bearings.items[A-G3].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[A-G3].top_rl",
+       "bearings.items[A-G3].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 128.745,
@@ -8788,7 +8910,7 @@
        "text": "128.899"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -8804,7 +8926,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -8815,8 +8937,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 128.899 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 128.824,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 128.899,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 128.899 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[A-G4].top_rl",
+         "bearings.items[A-G4].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[A-G4].top_rl",
+       "bearings.items[A-G4].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 128.899,
@@ -9112,7 +9274,7 @@
        "text": "127.371"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -9128,7 +9290,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -9139,8 +9301,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 127.371 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 127.296,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.371,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.371 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[B-G1].top_rl",
+         "bearings.items[B-G1].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[B-G1].top_rl",
+       "bearings.items[B-G1].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 127.371,
@@ -9436,7 +9638,7 @@
        "text": "127.547"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -9452,7 +9654,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -9463,8 +9665,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 127.547 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 127.472,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.547,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.547 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[B-G2].top_rl",
+         "bearings.items[B-G2].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[B-G2].top_rl",
+       "bearings.items[B-G2].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 127.547,
@@ -9760,7 +10002,7 @@
        "text": "127.736"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -9776,7 +10018,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -9787,8 +10029,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 127.736 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 127.661,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.736,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.736 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[B-G3].top_rl",
+         "bearings.items[B-G3].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[B-G3].top_rl",
+       "bearings.items[B-G3].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 127.736,
@@ -10084,7 +10366,7 @@
        "text": "127.895"
       }
      },
-     "current": "OV-1",
+     "current": "OV-2",
      "overrides": [
       {
        "id": "OV-1",
@@ -10100,7 +10382,7 @@
        "author": "AI",
        "timestamp": "2026-10-25T21:56:37+00:00",
        "approval": {
-        "status": "accepted",
+        "status": "superseded",
         "approved_by": "Masoud",
         "approved_at": "2026-10-25T21:56:55+00:00",
         "note": "owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later"
@@ -10111,8 +10393,48 @@
         "doc": "DRG-202281 RL X (top of bearing)",
         "note": "seat = top_rl 127.895 - bearing_height 0.075 m (Assumed)"
        }
+      },
+      {
+       "id": "OV-2",
+       "value": 127.82,
+       "unit": "m",
+       "tag": "Calculated",
+       "from_value": 127.895,
+       "from_unit": "m",
+       "reason": "P5-4: seat below the top of bearing by the bearing unit height (re-recorded with its derivation)",
+       "evidence": [
+        "DRG-202281 RL X (top of bearing)"
+       ],
+       "author": "AI",
+       "timestamp": "2026-10-25T21:59:47+00:00",
+       "approval": {
+        "status": "accepted",
+        "approved_by": "Masoud",
+        "approved_at": "2026-10-25T21:59:47+00:00",
+        "note": "owner instruction 2026-10-26: development use"
+       },
+       "decision": "D-44",
+       "supersedes": "OV-1",
+       "source": {
+        "doc": "DRG-202281 RL X (top of bearing)",
+        "note": "seat = top_rl 127.895 - bearing_height 0.075 m (Assumed)"
+       },
+       "derivation": {
+        "formula": "seat_rl = top_rl - bearing_height / 1000",
+        "inputs": [
+         "bearings.items[B-G4].top_rl",
+         "bearings.items[B-G4].bearing_height"
+        ]
+       }
       }
-     ]
+     ],
+     "derivation": {
+      "formula": "seat_rl = top_rl - bearing_height / 1000",
+      "inputs": [
+       "bearings.items[B-G4].top_rl",
+       "bearings.items[B-G4].bearing_height"
+      ]
+     }
     },
     "top_rl": {
      "value": 127.895,
@@ -16057,6 +16379,118 @@
       "source": {
        "note": "design option"
       }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "fitment_cover_side",
+      "value": "40"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the fitments at the soffit and webs, mm"
+     },
+     "replace_with": "girder reinforcement drawings / specification",
+     "status": "accepted",
+     "decision": "D-46",
+     "original": {
+      "cells": {
+       "item": "fitment_cover_side",
+       "value": "40"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:59:10+00:00",
+      "source": {
+       "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the fitments at the soffit and webs, mm"
+      },
+      "replace_with": "girder reinforcement drawings / specification"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "fitment_cover_top",
+      "value": "45"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the closed-tie top from the deck top, mm"
+     },
+     "replace_with": "girder reinforcement drawings / specification",
+     "status": "accepted",
+     "decision": "D-46",
+     "original": {
+      "cells": {
+       "item": "fitment_cover_top",
+       "value": "45"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:59:10+00:00",
+      "source": {
+       "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; cover to the closed-tie top from the deck top, mm"
+      },
+      "replace_with": "girder reinforcement drawings / specification"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "aggregate_size",
+      "value": "20"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; maximum aggregate size dg, mm"
+     },
+     "replace_with": "girder reinforcement drawings / specification",
+     "status": "accepted",
+     "decision": "D-46",
+     "original": {
+      "cells": {
+       "item": "aggregate_size",
+       "value": "20"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:59:10+00:00",
+      "source": {
+       "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; maximum aggregate size dg, mm"
+      },
+      "replace_with": "girder reinforcement drawings / specification"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "torsion_tie_legs",
+      "value": "1"
+     },
+     "tag": "Assumed",
+     "source": {
+      "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; fitment legs per web acting as the closed torsion tie"
+     },
+     "replace_with": "girder reinforcement drawings / specification",
+     "status": "accepted",
+     "decision": "D-46",
+     "original": {
+      "cells": {
+       "item": "torsion_tie_legs",
+       "value": "1"
+      },
+      "unit": null,
+      "tag": "Assumed",
+      "recorded_by": "AI",
+      "recorded_at": "2026-10-25T21:59:10+00:00",
+      "source": {
+       "note": "practice value for a precast Super-T (exposure B1 / B2), development use (owner instruction 2026-10-26); not from the BR13A drawings; fitment legs per web acting as the closed torsion tie"
+      },
+      "replace_with": "girder reinforcement drawings / specification"
      },
      "current": "original"
     }
@@ -32670,17 +33104,17 @@
   }
  ],
  "revision": {
-  "number": 41,
-  "parent_hash": "sha256:4dd2fae73f7e2671fb5beb1c4248b90681f2903e888c260358b1fb61035bb7ea",
-  "created": "2026-10-25T21:56:56+00:00",
+  "number": 44,
+  "parent_hash": "sha256:5611fe77d62648bfb31974fd5d97bf9ca9cd00f733d8b0c9f010bd721ff65da6",
+  "created": "2026-10-25T22:00:02+00:00",
   "author": "Masoud",
-  "note": "D-45 accepted by Masoud: owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later",
+  "note": "D-46 accepted by Masoud: owner instruction 2026-10-26: development use; reasonable assumed values accepted, changeable later",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:3cac9f4f690f48bb03ef1b6a2f311362a3f07d35a8d68c9b779b41d54f7daea8"
+  "value": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d"
  }
 }
