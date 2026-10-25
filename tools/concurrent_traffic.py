@@ -85,6 +85,8 @@ def main():
           "- The pile resultant from one state is a lower bound of the true largest resultant over all states; the √ of separate envelopes is an upper bound. The true value lies between them (P4.3 refines it).", ""]
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")
+    from pdf2bim.runrecord import make as run_record
+    out["run_record"] = run_record(a.description, doc, "concurrent_traffic", allow_proposed=a.allow_proposed)
     json.dump(out, open(a.out.replace(".md", ".json"), "w"), indent=1, default=lambda x: x.tolist() if hasattr(x, "tolist") else str(x))
     print("\n".join(L))
 

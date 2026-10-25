@@ -73,6 +73,8 @@ def main():
                 L.append(f"- unpaired: platform {c.get('unpaired_platform')}, MIDAS {c.get('unpaired_midas')} — explain")
         out = a.out or os.path.join(a.midas, "comparison.md")
         open(out, "w").write("\n".join(L) + "\n")
+        from pdf2bim.runrecord import make as run_record
+        C["run_record"] = run_record(a.description, doc, "midas_compare", allow_proposed=a.allow_proposed)
         json.dump(C, open(out.replace(".md", ".json"), "w"), indent=1, default=str)
         print("\n".join(L))
 

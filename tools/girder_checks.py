@@ -60,6 +60,8 @@ def main():
         L += [f"- {n}" for n in R["notes"]] + [""]
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")
+    from pdf2bim.runrecord import make as run_record
+    out["run_record"] = run_record(a.description, doc, "girder_checks", allow_proposed=a.allow_proposed)
     json.dump(out, open(a.out.replace(".md", ".json"), "w"), indent=1, default=str)
     print("\n".join(L))
 

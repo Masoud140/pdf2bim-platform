@@ -26,6 +26,7 @@ doc = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
 geo = build_geometry(doc, allow_proposed=True)
 S = build_sections(doc, geo, allow_proposed=True)
 Z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.girder_flexure.json")))
+Z.pop("run_record", None)          # P5.1 run record, not a girder
 g = "G2"
 H = hog_inputs(doc, geo, S, g, std, allow_proposed=True)
 p = H["p"]; r = run(p, std)

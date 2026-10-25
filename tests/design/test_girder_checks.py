@@ -24,6 +24,7 @@ def t(name, ok, info=""):
 std = Standards()
 doc = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
 Z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.girder_checks.json")))
+Z.pop("run_record", None)          # P5.1 run record, not a girder
 geo = build_geometry(doc, allow_proposed=True)
 S = build_sections(doc, geo, allow_proposed=True)
 g = "G2"

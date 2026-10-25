@@ -34,6 +34,8 @@ def main():
     side = {k: v for k, v in rep.items()}
     side.update({"description": os.path.relpath(a.description, ROOT), "revision": doc["revision"]["number"], "description_hash": doc.get("hash", {}).get("value"),
                  "provisional": prov, "standards_status": M["standards_status"]})
+    from pdf2bim.runrecord import make as run_record
+    side["run_record"] = run_record(a.description, doc, "export_mct", allow_proposed=a.allow_proposed)
     json.dump(side, open(a.out + ".json", "w"), indent=1, default=str)
     L = [f"# MIDAS import checklist — `{os.path.basename(a.out)}`", "",
          f"**Status: {rep['status']}.** Generated from revision {doc['revision']['number']} of `{side['description']}`"

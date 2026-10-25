@@ -107,7 +107,8 @@ def main():
     open(a.out, "w").write("\n".join(L) + "\n")
     rows_used = sorted({v for blk in Z.values() if isinstance(blk, dict) for e in blk.values() for ls in e.values() for q in ls.values()
                         for k_, v in q.items() if k_ in ("gov", "gmax", "gmin") and v})
-    json.dump({"run": run, "schedule": Z, "concurrent": ZC, "pile_resultants": PR, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
+    from pdf2bim.runrecord import make as run_record
+    json.dump({"run_record": run_record(a.description, doc, "combined_actions", allow_proposed=a.allow_proposed), "run": run, "schedule": Z, "concurrent": ZC, "pile_resultants": PR, "governing_rows": [r for r in CA["rows"] if r["name"] in set(rows_used)], "not_combined": CA["not_combined"],
                "provisional": CA["provisional"], "sources": CA["sources"], "standards_used": CA["standards_used"]},
               open(a.out.replace(".md", ".json"), "w"), indent=1, default=lambda x: x.tolist() if hasattr(x, "tolist") else str(x))
     print("\n".join(L))
