@@ -46,6 +46,42 @@
    }
   },
   {
+   "id": "AS5100.5:capacity_factor:phi_compression",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Table 2.3.2 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "capacity reduction factor for compression at and above the balanced load; linear to the bending value between the balanced load and N = 0",
+   "units": "-",
+   "value": 0.6,
+   "applicability": "N-M interaction, compression side",
+   "context": "N-M interaction (src/dsg_engine2.js; pdf2bim/design/nm.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine2.js:31",
+     "pdf2bim/design/nm.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Value and the linear transition as coded; not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:capacity_factor:phi_shear_torsion",
    "standard": "AS 5100.5",
    "edition": null,
@@ -149,6 +185,42 @@
     "open": true,
     "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
     "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:strain:balanced_steel",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": null,
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "steel strain at the balanced point of the N-M diagram (dn_b = ecu / (ecu + e) d)",
+   "units": "-",
+   "value": 0.0025,
+   "applicability": "N-M interaction (balanced load Nub for the φ transition)",
+   "context": "N-M interaction (src/dsg_engine2.js; pdf2bim/design/nm.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg_engine2.js:29",
+     "pdf2bim/design/nm.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Value as coded (≈ fsy / Es for 500 MPa bars); not checked against an authorised copy.",
+    "specialist_review": true
    }
   },
   {

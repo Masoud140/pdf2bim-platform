@@ -95,6 +95,14 @@ def design():
     line, m = find("src/dsg_engine.js", r"var ecu=([\d.]+)")
     e.append(entry("AS5100.5:strain:ecu", "AS 5100.5", None, "ultimate concrete compressive strain", "-", float(m.group(1)), "ULS strain compatibility",
                    "ULS bending (both engines)", [f"src/dsg_engine.js:{line}", "src/dsg_engine2.js:4"]))
+    line, m = find("src/dsg_engine2.js", r"var dnb=ecu/\(ecu\+([\d.]+)\)\*dmax")
+    e.append(entry("AS5100.5:strain:balanced_steel", "AS 5100.5", None, "steel strain at the balanced point of the N-M diagram (dn_b = ecu / (ecu + e) d)", "-",
+                   float(m.group(1)), "N-M interaction (balanced load Nub for the φ transition)", "N-M interaction (src/dsg_engine2.js; pdf2bim/design/nm.py)",
+                   [f"src/dsg_engine2.js:{line}", "pdf2bim/design/nm.py"], interp="Value as coded (≈ fsy / Es for 500 MPa bars); not checked against an authorised copy.", specialist=True))
+    line, m = find("src/dsg_engine2.js", r"ph=\(r\.N<=Nub\)\?([\d.]+):([\d.]+)\+\(phiB\(r\.kuo\)-([\d.]+)\)\*\(1-r\.N/Nub\)")
+    e.append(entry("AS5100.5:capacity_factor:phi_compression", "AS 5100.5", "Table 2.3.2 (as labelled in the code)", "capacity reduction factor for compression at and above the balanced load; linear to the bending value between the balanced load and N = 0", "-",
+                   float(m.group(1)), "N-M interaction, compression side", "N-M interaction (src/dsg_engine2.js; pdf2bim/design/nm.py)",
+                   [f"src/dsg_engine2.js:{line}", "pdf2bim/design/nm.py"], interp="Value and the linear transition as coded; not checked against an authorised copy.", specialist=True))
     line, m = find("src/dsg_engine2.js", r"phi:([\d.]+), dn:0")
     e.append(entry("AS5100.5:capacity_factor:phi_tension_point", "AS 5100.5", None, "capacity reduction factor at the pure-tension point of the N-M diagram", "-",
                    float(m.group(1)), "N-M interaction", "ULS bending + axial", [f"src/dsg_engine2.js:{line}"],
