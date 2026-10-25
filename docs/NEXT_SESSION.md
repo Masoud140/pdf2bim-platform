@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 done on `p4-verification`; P4.5 design engine next; P4.4 MIDAS waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stage 1 done on `p4-verification`; P4.5 stage 2 next; P4.4 MIDAS waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -36,19 +36,18 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2: next.**
 
 ## 3. Next actions
 
-1. **P4.5 design engine, stage 1 — Super-T flexural strength** (`docs/P4_PLAN.md`), on `p4-verification`:
-   - read the dashboard's AS 5100.5 engine (the `dsg` scripts in `src/`, "Super-T AS 5100.5 checks") and its worked example (`dsg_test`, finding E-1: Mu 68971 vs 68979 but dn 221.0 vs 240.9, kuo 0.0935 vs 0.1019);
-   - inventory its standards constants (stress block α2 / γ, εcu, φ, strand / bar properties) as code-extracted-unverified entries with a Node-evaluated test;
-   - port the strain-compatibility flexural strength to `pdf2bim/design/flexure.py` on the P2 section geometry; tests against closed forms (rectangular section, single layer) and the worked example including dn, ku and the strains (T11), then explain or fix E-1;
-   - inputs: strands and bars are placeholders for BR13A (D-1) — results stay indicative.
-2. P4.4 (owner): MIDAS import / independent model; the comparison tool can be written once a MIDAS result export sample exists.
-3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 50 min.
+1. **P4.5 stage 2 — SLS stresses and N–M interaction**, on `p4-verification`:
+   - port `respSLS` / `solveSLS` (strain plane for given N, M; uncracked / cracked; prestress state by iterating the tendon prestrain as `tests/engine/dsg_test.js` does) to `pdf2bim/design/`; closed forms (uncracked rectangle: σ = N/A ± M y / I; cracked rectangle neutral axis from the transformed quadratic); port = engine (Node) to 1e-9;
+   - then the N–M interaction (`src/dsg_engine2.js`), inventorying its constants (φ along the curve) as unverified standards entries;
+   - later stages: shear and torsion (AS 5100.5), stations along the girder from the P2 sections, design actions from the combined-action schedule (P4.2 / P4.3).
+2. **Owner items** that block T11 (E-1 source), P4.4 (MIDAS) and the method confirmations (ADR-031).
+3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 55 min.
 
-For reference (P4.3): `earthquake.covariance(Q, d, i, j)`, `earthquake.concurrent(Q, d, i, sign)`; `combinations.eq_resultant`, `pile_eq_resultants`; the schedule now has a pile-resultant table.
+For reference (P4.5 stage 1): `pdf2bim/design/flexure.py` (`Section`, `strips_from_layers`, `strips_from_polygon`, `elastic`, `uls_bend`, `Coefficients`); test `tests/design/test_flexure.py` (≈ 2 s; uses Node for the engine comparison).
 
 ## 4. Do not
 
@@ -82,6 +81,7 @@ For reference (P4.3): `earthquake.covariance(Q, d, i, j)`, `earthquake.concurren
 - **M-3:** temperature / shrinkage restraint forces at the fixed abutment are sensitive to the bearing idealisation. The restraint-block / dowel detail would settle the bearing model.
 - **M-4:** combined minimum at bearing A-G4 is uplift on the P3b model (ULS −162 kN, SLS −37 kN), mostly from the Assumed shrinkage (300e-6) through the fixed-abutment restraint. Check in MIDAS / with the bearing detail.
 - **Earth-pressure fill category** (controlled fill SOc or other SOo): not in the description; the combinations use SOo (provisional).
+- **E-1:** source of the Super-T worked-example targets (Mu 68 979, dn 240.9, I 2.634e13) — or another referenced worked example for T11.
 - **ADR-031:** earthquake concurrency (CQC most probable values) and the pile response-ellipse resultant with linear 100 / 30 — confirm the method before design use.
 
   Once these are settled, geometry, sections and the model are no longer provisional.

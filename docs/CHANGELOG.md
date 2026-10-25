@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 1: flexural strength in Python (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/flexure.py`; standards entries `AS5100.5:stress_block:alpha2`, `:capacity_factor:phi_bending`, `:strand:stress_strain_mattock` (78 entries).
+- **Tests:** flexure 13 (closed forms; port = dashboard engine 1e-9; 5 / 5 mutations caught).
+- **E-1:** investigated; the worked-example targets have no source and inconsistent section properties — owner item.
+
 ## 2026-10-25 — P4.3 signed earthquake and pile resultants (branch `p4-verification`)
 
 - **Added:** `earthquake.covariance()` / `concurrent()`; earthquake primitives with their RSA; `combinations.eq_resultant()`, `pile_eq_resultants()`; pile resultant table in `BR13A.combined_actions.md`.

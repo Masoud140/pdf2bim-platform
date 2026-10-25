@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). **Next: P4.5 design engine, stage 1** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stage 1 (flexural strength in Python) done. **Next: P4.5 stage 2** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -38,7 +38,7 @@
 | C-2 | The mesh puts girders on offset curves, not straight chords (up to 265 mm at BR13A midspan) | C / E |
 | D-1 | Strands and bars are placeholders (TfNSW T4 standard layout); BR13A strand drawings are not in the set | D |
 | D-2 | Flared flange widths are not applied to model stiffness or design | D / E |
-| E-1 | Design engine: neutral-axis depth 8 % off the worked example, although Mu agrees (VERIFICATION §5) | F |
+| E-1 | Design engine: neutral-axis depth 8 % off the worked-example targets, Mu agrees. Investigated (P4.5): the targets have no recorded source and their section properties do not match the section (I ×12.6); the engine is exact against closed forms. **Owner: source of the worked example, or another referenced example** | F / data |
 | E-2 | No model builder: a frozen BR13A MIDAS .mct is patched; members are found by BR13A names and file order | E |
 | F-1 | Approximations: separate traffic M/V/T envelopes; unsigned earthquake; pile √(Ml²+Mt²); pedestrian 0; stage roll restraint (ARCHITECTURE §4) | F |
 | F-2 | Standards values are constants in the JS code. They are now inventoried in `standards/` (75 entries incl. traffic and combination constants, unverified), but the dashboard does not read them from there; traffic / DLA / crack-control constants are not inventoried yet | F |
@@ -177,4 +177,4 @@
 
 ## Next task
 
-**P4.5 design engine, stage 1** (`docs/P4_PLAN.md`): port the Super-T AS 5100.5 flexural strength (strain compatibility) from the dashboard to Python with worked-example tests (T11, intermediate quantities dn, ku, strains) and resolve E-1 (neutral-axis depth 8 % off the worked example). Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.
+**P4.5 design engine, stage 2** (`docs/P4_PLAN.md`): SLS stresses (uncracked / cracked strain plane, prestress state) and the N–M interaction (`src/dsg_engine2.js`) in `pdf2bim/design/`, with closed forms and the port-equals-engine check. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.

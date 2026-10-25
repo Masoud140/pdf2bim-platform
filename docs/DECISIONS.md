@@ -320,3 +320,8 @@
 - **Decision (agent, 2026-10-25; reversible):** concurrent earthquake actions are the most probable values from the CQC covariance (c_j = C_ij / R_i); pile moment resultants in earthquake rows use the response ellipse (Menun-Der) with the 100 / 30 directional terms added linearly; other rows use √ of their separate envelopes. The √ of the full separate envelopes is no longer the reported pile resultant.
 - **Alternatives:** time-history (not available), SRSS of directions inside the ellipse (less conservative than the 100 / 30 rule used by the combinations), dominant-mode signs (cruder).
 - **Consequence:** BR13A pile resultants fall to 0.85–0.87 of the earlier √ approximation. Method choice affects design values: **engineer to confirm** before it is used for design (listed in the owner items).
+
+## ADR-032 P4.5 design engine port, stage 1 (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** the Super-T flexural strength is ported unchanged in method from the dashboard to `pdf2bim/design/flexure.py`, with every coefficient read from the standards data; the strand curve stays the PCI form already used, flagged as not from AS 5100.5. The dashboard's worked-example targets are reported but not used as a pass / fail benchmark (no source; internally inconsistent section properties).
+- **Consequence:** E-1 is reclassified as a reference-data question (owner: source of the worked example, or another referenced example for T11). Next stages: SLS stresses (cracked / uncracked), N–M interaction, shear and torsion.

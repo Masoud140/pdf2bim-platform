@@ -40,5 +40,6 @@
 - **P4 plan drafted 2026-10-25** (`docs/P4_PLAN.md`, for owner review; non-blocking). 
 - **P4.1 concurrent traffic actions — DONE 2026-10-25** (branch `p4-verification`, ADR-029): `P4_VERIFICATION_METHOD.md` §1. 
 - **P4.2 concurrent combinations — DONE 2026-10-25** (ADR-030): `P4_VERIFICATION_METHOD.md` §2. 
-- **P4.3 signed earthquake and pile resultants — DONE 2026-10-25** (ADR-031, method for the engineer to confirm): `P4_VERIFICATION_METHOD.md` §3. **P4.4 (independent MIDAS model) waits for the owner; next autonomous: P4.5 design engine, stage 1 (flexural strength, E-1).**
+- **P4.3 signed earthquake and pile resultants — DONE 2026-10-25** (ADR-031, method for the engineer to confirm): `P4_VERIFICATION_METHOD.md` §3. **P4.4 (independent MIDAS model) waits for the owner; next autonomous: P4.5 design engine.**
+- **P4.5 stage 1 flexural strength — DONE 2026-10-25** (ADR-032): `P4_VERIFICATION_METHOD.md` §4; E-1 needs the worked example's source. **Next: P4.5 stage 2 (SLS stresses, N–M interaction).**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

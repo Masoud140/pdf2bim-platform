@@ -56,3 +56,23 @@ Characteristic values only; no load factor; inputs Assumed / Standard-verify; st
 **Checks:** C_ii = R_i² and |c_j| ≤ R_j on 1- and 2-mode models; the cross term against the closed form; concurrent rows with a CQC state reproduce the envelope, are admissible and not flagged; the ellipse resultant against a brute force over the Minkowski sum of two ellipses with a static offset (1e-4); refusal for rows with non-earthquake envelopes; BR13A record: ellipse ≤ √ bound and ≥ every earthquake-row concurrent resultant; 4 / 4 mutations caught.
 
 **BR13A (ULS, indicative):** every pile's resultant comes from an earthquake row; **upper bound 0.85–0.87 of the √ of the full separate envelopes** (A1 1803 vs 2102 kN·m; B1 1480 vs 1744). The concurrent pile actions in the schedule are now physical (most probable values), e.g. A1 at max |Ml| 1789: Mt −220, N 1370 kN.
+
+## 4. P4.5 stage 1 — flexural strength (`pdf2bim/design/flexure.py`, `tests/design/test_flexure.py` 13)
+
+**Port:** the dashboard's section engine (`src/dsg_engine.js`: strips from trapezoid layers / polygons, transformed elastic properties, ULS bending by strain compatibility with the rectangular stress block, partial strips integrated exactly, displaced concrete at compression bars, strand curve, bisection on N = 0, φ from kuo). Every coefficient comes from the standards data (`AS5100.5:stress_block:alpha2` / `:gamma`, `:strain:ecu`, `:capacity_factor:phi_bending`, `:strand:stress_strain_mattock` — the last is a PCI-form material model, flagged as **not** from AS 5100.5). All unverified.
+
+**Checks:**
+
+| Check | Result |
+|---|---|
+| Rectangular, tension controlled: dn = As fsy / (α2 f'c b γ), Mu = As fsy (d − γ dn / 2) | 1e-9 |
+| Rectangular, compression controlled (steel elastic): quadratic closed form | 1e-9 |
+| T section, block in the flange (γ from the top strip, α2 per strip) | 1e-9 |
+| Port = dashboard engine on its worked-example section: dn, kuo, Mu, φ, every steel stress, options, elastic properties, strand curve (Node-evaluated) | 1e-9 (elastic 1e-12) |
+| Mutations (γ source, displaced concrete, α2 per strip, strand cap, bar yield) | 5 / 5 caught |
+
+**E-1 (neutral-axis depth vs the worked-example targets) — investigated, not resolved:** the targets are hard-coded in the dashboard (`src/dsg2_ui.js` / `dsg3_ui.js` / `dsg5_ui.js`: Mu 68 979, φMu 55 183, dn 240.9, kuo 0.1019) with **no recorded source**. The port reproduces Mu to −0.01 % but dn −8.3 %. Hypotheses tested on the same section (none reproduces dn and Mu together):
+- γ = α2 = 0.775 (a swapped factor): dn 238.0, Mu 68 610 (−0.5 %);
+- AS 5100.5 approximate tendon stress σpu = fpb(1 − k1 k2 / γ), k1 0.4 / 0.28, f'c 50 / 65: dn 220.5 … 223.9;
+- compression bars ignored: dn 247.3, Mu 67 941.
+The same targets also list I = 2.634e13 mm⁴ and yc 961.6 mm, against 2.09e12 mm⁴ and 990.3 mm for this section (A agrees exactly), so the targets probably come from a different version of the section or contain errors. **The worked example cannot serve as a T11 benchmark until its source is known (owner item).** The engine itself is exact against the closed forms.
