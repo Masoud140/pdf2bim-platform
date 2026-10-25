@@ -1,6 +1,6 @@
 # MIDAS import checklist — `BR13A.integrated.mct`
 
-**Status: NEEDS ENGINEER IMPORT TEST — contains UNVERIFIED syntax: *ELASTICLINK, *SPRING.** Generated from revision 10 of `projects/BR13A/BR13A.bridge.0.2.json`; PROVISIONAL inputs D-34, D-35, D-36, D-37, D-38, D-39, D-40, D-41.
+**Status: NEEDS ENGINEER IMPORT TEST — contains UNVERIFIED syntax: *ELASTICLINK, *SPRING.** Generated from revision 11 of `projects/BR13A/BR13A.bridge.0.2.json`; PROVISIONAL inputs D-34, D-35, D-36, D-37, D-38, D-39, D-40, D-41.
 
 Contents: 459 nodes, 696 beam elements, 49 materials, 60 sections, 8 elastic links, 148 point springs, 8 supported nodes. Base point E 300098.513, N 6249478.409.
 

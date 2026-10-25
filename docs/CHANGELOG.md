@@ -2,6 +2,11 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P5.1–P5.4: run records, Query Register, takeoff import, decisions (branch `p4-verification`)
+
+- **Added:** `pdf2bim/runrecord.py`, `register.py`, `takeoff.py`; `schema/accept_decision.py`; tools `stale.py`, `query_register.py`, `import_takeoff.py`, `decision_review.py`; run records in the tool outputs; `projects/BR13A/QUERY_REGISTER.*`, `DECISION_REVIEW.*`. Tests runrecord 12, register 8, takeoff 10, accept 11. ADR-037 / 038. Docs `P5_PLAN.md`, `P5_METHOD.md`.
+- **Changed:** the description reader treats rejected records as missing; the proposer validates the decision schema.
+
 ## 2026-10-25 — P4.4 agent part: MIDAS result reader and comparison (branch `p4-verification`)
 
 - **Added:** `pdf2bim/model/midas_compare.py`, `tools/midas_compare.py`, BR13A platform tables `projects/BR13A/model/midas/`; test `test_midas_compare.py` (10). ADR-036.

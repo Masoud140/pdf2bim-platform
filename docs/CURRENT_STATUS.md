@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–7 (flexural strength, SLS, N–M, shear / torsion method, reference benchmark, design stations, prestress losses, girder ULS flexure, staged SLS / minimum strength, SLS free strains) done; shear at stations waits for fitments. P4.4 agent part (MIDAS result reader / comparison) done; the MIDAS run is the owner's. **Next: P5 plan.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–7 (flexural strength, SLS, N–M, shear / torsion method, reference benchmark, design stations, prestress losses, girder ULS flexure, staged SLS / minimum strength, SLS free strains) done; shear at stations waits for fitments. P4.4 agent part (MIDAS result reader / comparison) done; the MIDAS run is the owner's. **P5.1–P5.4** (run records / stale marking, Query Register, takeoff import, decision tool + review page) done (`P5_METHOD.md`). **Next: P5.5** BR13A re-extraction regression. The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -33,7 +33,7 @@
 | Id | Issue | Layer |
 |---|---|---|
 | B-1 | The dashboard does not read or write the bridge description; it reads its own embedded data | B / H |
-| B-2 | No revision / hash in the description; no run records; no "significance"; original value kept only in the log (ADR-008) | B |
+| B-2 | Revision / hash (P0.2) and run records with stale marking (P5.1) exist; no "significance" values recorded yet | B |
 | C-1 | No geometry engine on the description; geometry is spread across dashboard JavaScript | C |
 | C-2 | The mesh puts girders on offset curves, not straight chords (up to 265 mm at BR13A midspan) | C / E |
 | D-1 | Strands and bars are placeholders (TfNSW T4 standard layout); BR13A strand drawings are not in the set | D |
@@ -45,7 +45,7 @@
 | F-3 | Node-line / section-offset level question (MEMBER_PROPERTIES_METHOD §12) unresolved | E |
 | G-1 | Tests print instead of asserting; no regression snapshot; no independent MIDAS model of the integrated structure | G |
 | A-1 | Extraction (agent spec, Excel takeoff) is not connected to the bridge description | A |
-| H-1 | No decision UI; decisions are written by hand / script | H |
+| H-1 | Decision review page + acceptance tool exist (P5.4, generated HTML + CLI); no interactive UI | H |
 | R-1 | 177 Assumed values in BR13A need engineer decisions or data | data |
 | X-1 | `schema/__pycache__` was committed (removed in 7d00263) | repo |
 | H-2 | Plots drawn with NaN / Infinity coordinates: 88 SVG console errors per baseline run (baseline check `chk.no_svg_nan` fails) | H |

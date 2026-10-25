@@ -4,7 +4,8 @@ Effective value of a record:
 - normally its current value (0.2) / its value (0.1);
 - with allow_proposed=True: the latest PROPOSED override if there is one, and a record whose own status is
   'proposed' is usable; every such use is listed in `provisional`;
-- with allow_proposed=False: a record whose status is 'proposed' counts as missing.
+- with allow_proposed=False: a record whose status is 'proposed' counts as missing;
+- a record whose status is 'rejected' always counts as missing.
 Missing values raise MissingInput naming the path. Nothing is defaulted.
 """
 
@@ -20,6 +21,8 @@ class Reader:
     def rec(self, rec, path):
         if rec is None:
             raise MissingInput(f"{path}: missing")
+        if rec.get("status") == "rejected":
+            raise MissingInput(f"{path}: rejected by the engineer")
         if rec.get("status") == "proposed" and not rec.get("overrides"):
             if not self.allow:
                 raise MissingInput(f"{path}: only proposed (not accepted); run with allow_proposed to use it provisionally")

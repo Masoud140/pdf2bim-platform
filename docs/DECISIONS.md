@@ -348,3 +348,14 @@
 - **Decision (agent, 2026-10-25; reversible):** MIDAS results are compared through CSV result tables with an explicit header map and sign conventions held as data in `pdf2bim/model/midas_compare.py`, marked UNCONFIRMED until the owner's first export; modes are paired by MAC, never by order.
 - **Alternatives:** reading MIDAS binary / API results (not available here); comparing by mode order (rejected by T7).
 - **Consequence:** the comparison runs as soon as tables exist; the first real export may need the map corrected (one place), which must be recorded with the export as evidence.
+
+## ADR-037 P5.1 run records and the stale rule (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** every tool output carries a run record (description revision and content hash, decisions, engine commit, standards / library hashes, layers). An output is stale unless every description revision since it was made is explained by a decision whose `affects` misses the output's layers; standards / library changes always make it stale; engine changes are reported separately.
+- **Alternatives:** path-level dependency tracking (exact, but needs every engine to declare the paths it reads — later); always stale on any change (simple, but every unrelated proposal would invalidate every result).
+- **Consequence:** the `affects` field of a decision must be filled correctly (now validated by the proposer); revision notes must name their decision (the proposal and acceptance tools do).
+
+## ADR-038 P5.3 / P5.4 import and acceptance rules (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** extracted values enter the description only as proposals (never overwriting Direct / Confirmed values: conflicts become queries; no unit conversion by the importer); the engineer's decision is recorded by `schema/accept_decision.py` naming a person — the AI cannot accept or reject.
+- **Consequence:** the interchange sheet is the extraction contract; the extractor's own multi-tab workbook needs a label → path map (P5.5). Supersession of accepted overrides is a later addition.

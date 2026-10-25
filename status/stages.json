@@ -144,9 +144,17 @@
    "id": "P5",
    "name": "PDF extraction and decision workflow",
    "plain": "Read the drawings into the bridge data; engineer approves decisions in the app.",
-   "status": "not_started",
-   "note": "an earlier extraction prototype exists but is not connected",
-   "evidence": []
+   "status": "in_progress",
+   "note": "P5.1-P5.4 done (run records / stale, Query Register, takeoff import, decision tool + review page). Next: P5.5 BR13A re-extraction regression.",
+   "evidence": [
+    "docs/P5_PLAN.md",
+    "docs/P5_METHOD.md",
+    "pdf2bim/runrecord.py",
+    "pdf2bim/register.py",
+    "pdf2bim/takeoff.py",
+    "schema/accept_decision.py"
+   ],
+   "branch": "p4-verification"
   },
   {
    "id": "P6",
@@ -164,9 +172,9 @@
   }
  ],
  "next": {
-  "task": "P5 plan: extraction -> bridge description -> decision workflow",
-  "why": "P4 autonomous work is done; the remaining P4 items need the owner (MIDAS run, standards review, fitments). P5 connects the PDF extraction to the description.",
-  "evidence": "docs/P5_PLAN.md with sub-stages, acceptance and owner items"
+  "task": "P5.5 BR13A re-extraction regression",
+  "why": "Proves the extraction path into the description: every Direct value re-found from the PDF or explained.",
+  "evidence": "Interchange sheet built from the BR13A GA PDF; import plan with 0 unexplained conflicts"
  },
  "risks": [
   {
