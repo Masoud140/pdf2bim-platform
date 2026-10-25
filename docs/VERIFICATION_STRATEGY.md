@@ -75,6 +75,7 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
+- **P4.4 agent part** (2026-10-25): `test_midas_compare.py` 10 (round trip, perturbations caught, MAC pairing). **T7 / T10 not met yet**: no MIDAS results; the table format is unconfirmed.
 - **P4.5 stage 7 SLS free strains** (2026-10-25): differential shrinkage port = dashboard browser run (1e-12); profile lookup = dgProfAt; record reproduced with its free strains.
 - **P4.5 stage 6 staged SLS / minimum strength** (2026-10-25): `test_girder_sls.py` 10 (closed forms; port = dashboard dgLC on 4 load cases, moments ≤ 0.02 kN·m, stresses ≤ 2e-8 MPa), `test_girder_checks.py` 7 (BR13A record). T11 for SLS: the reference-spreadsheet agreement of stage 4a covers the same quantities (decompression, Ms,allow, 1.2 Mcr).
 - **P4.5 stage 5 losses / inputs / ULS flexure** (2026-10-25): `test_prestress.py` 12 (port = dashboard Hog 1e-12; closed forms), `test_prestress_inputs.py` 12 (V5 sources; dashboard run reproduced with its inputs), `test_girder_flexure.py` 8. **No independent losses benchmark** (only the dashboard): engineer review of the losses method needed.

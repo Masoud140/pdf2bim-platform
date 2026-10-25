@@ -134,9 +134,10 @@
     "pdf2bim/design/girder_sls.py",
     "pdf2bim/design/prestress.py",
     "tests/design/test_girder_sls.py",
-    "projects/BR13A/model/BR13A.girder_checks.md"
+    "projects/BR13A/model/BR13A.girder_checks.md",
+    "pdf2bim/model/midas_compare.py"
    ],
-   "note": "P4.1-P4.3 concurrent actions done; P4.5 design engine ported (flexure, SLS, N-M, shear method, losses, staged SLS) and run on BR13A (indicative). P4.4 independent MIDAS model waits for the owner; P4.6 standards review owner-dependent.",
+   "note": "P4.1-P4.3 concurrent actions done; P4.5 design engine ported (flexure, SLS, N-M, shear method, losses, staged SLS) and run on BR13A (indicative). P4.4 comparison tool done, the MIDAS run waits for the owner; P4.6 standards review owner-dependent.",
    "branch": "p4-verification"
   },
   {
@@ -163,9 +164,9 @@
   }
  ],
  "next": {
-  "task": "P4.4 agent part: MIDAS result-table reader and comparison tool (reactions, member actions, periods per load case)",
-  "why": "The independent MIDAS model is the main remaining verification of the analysis; the tool lets the owner compare as soon as MIDAS results exist.",
-  "evidence": "Tool reads MIDAS CSV tables, maps elements / nodes to the platform ids, compares with tolerances T7 / T9 / T10; round-trip test on platform-generated tables"
+  "task": "P5 plan: extraction -> bridge description -> decision workflow",
+  "why": "P4 autonomous work is done; the remaining P4 items need the owner (MIDAS run, standards review, fitments). P5 connects the PDF extraction to the description.",
+  "evidence": "docs/P5_PLAN.md with sub-stages, acceptance and owner items"
  },
  "risks": [
   {

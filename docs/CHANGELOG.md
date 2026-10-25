@@ -2,6 +2,11 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.4 agent part: MIDAS result reader and comparison (branch `p4-verification`)
+
+- **Added:** `pdf2bim/model/midas_compare.py`, `tools/midas_compare.py`, BR13A platform tables `projects/BR13A/model/midas/`; test `test_midas_compare.py` (10). ADR-036.
+- **Waiting:** the owner's MIDAS run and first export to confirm the table headers and sign conventions.
+
 ## 2026-10-25 — Full suite on ba6fd8d; D-42 decision-log fix
 
 - 525 / 526 assertions PASS; the failure was D-42's `affects: design` (not an allowed value). Fixed to `design.supert`; `schema/propose_record.py` now validates the decision entry against the decision schema. Schema test re-run 17 / 17.

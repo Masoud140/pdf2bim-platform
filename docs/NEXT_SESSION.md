@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; next: P4.4 agent part (MIDAS result reader); the MIDAS run waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; P4.4 agent part done; next: P5 plan; the MIDAS run waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -40,12 +40,8 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 ## 3. Next actions
 
-1. **P4.4 agent part — MIDAS result-table reader and comparison** (on `p4-verification`):
-   - read MIDAS Civil result tables exported as CSV (reactions, beam forces, eigenvalues), with a column map in the tool (no guessed MIDAS syntax: the map is data, to be confirmed with the owner's first export);
-   - map MIDAS node / element numbers to the platform ids through the .mct writer's numbering (`pdf2bim/model/mct.py`);
-   - compare per load case with the T7 / T9 / T10 tolerances; report explained / unexplained differences;
-   - test by round trip: platform results written as MIDAS-style tables and read back (exact), plus a perturbation caught.
-2. **Then:** P5 planning (extraction → description → decision workflow), autonomous parts first.
+1. **P4.4 agent part: DONE** (§11, ADR-036). Owner: MIDAS run on `projects/BR13A/model/BR13A.integrated.mct`, export reactions / beam forces / modes / mode shapes as CSV, then `python3 tools/midas_compare.py projects/BR13A/BR13A.bridge.0.2.json --allow-proposed --midas <folder>`; confirm the header map.
+2. **Next:** P5 plan (`docs/P5_PLAN.md`): extraction → description → decision workflow, autonomous parts first (read `pdf-ga-extractor.md`, `DATA_SOURCE_CATEGORIZATION_STANDARD.md`, `ARCHITECTURE.md` §P5).
 3. **Owner items:** the reference spreadsheet (E-1), the MIDAS run (P4.4), ADR-031 / ADR-035 methods, BR13A fitments / deck bars / strand layout (D-1), D-42 values, P4-3 deck-cast age.
 4. Keep the generality guard green (local pre-commit hook). Full suite ≈ 75 min (design tests ≈ 4 min more than before).
 

@@ -47,5 +47,6 @@
 - **P4.5 stage 4a reference benchmark + design stations — DONE 2026-10-25** (ADR-033): `P4_VERIFICATION_METHOD.md` §7; BR13A design blocked by fpb, effective prestress, fitments, deck bars. 
 - **P4.5 stage 5 losses, inputs, girder ULS flexure — DONE 2026-10-25** (ADR-034): `P4_VERIFICATION_METHOD.md` §8; D-42 Assumed inputs.
 - **P4.5 stage 6 staged SLS, cracking moment, minimum strength — DONE 2026-10-25** (ADR-035): §9. 
-- **P4.5 stage 7 SLS free strains — DONE 2026-10-25:** §10. Shear at stations waits for fitments (owner) and the torsion-box mapping. **Next: P4.4 agent part — MIDAS result-table reader and comparison tool (the MIDAS run itself is the owner's).**
+- **P4.5 stage 7 SLS free strains — DONE 2026-10-25:** §10. Shear at stations waits for fitments (owner) and the torsion-box mapping. 
+- **P4.4 agent part — DONE 2026-10-25** (ADR-036): `P4_VERIFICATION_METHOD.md` §11; the MIDAS run and first export are the owner's. **Next: P5 plan (extraction → description → decisions), autonomous parts first.**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

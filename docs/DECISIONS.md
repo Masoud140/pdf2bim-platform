@@ -342,3 +342,9 @@
 - **Decision (agent, 2026-10-25; reversible):** the staged SLS check (port of dgLC) takes the non-composite moment Mnc as the simple-span moment of girder self weight + wet deck on the bearings (the losses analysis loads), and the composite SLS moment from the AS 5100.2 SLS envelope with the self-weight action DLc removed; ULS uses the full envelope. Axial forces are the concurrent values of the governing rows. Temperature-gradient primary strains (with the governing SLS row's factors) and deck differential shrinkage (losses analysis) are applied as free strains (stage 7, 2026-10-25).
 - **Alternatives:** a staged-construction analysis (not in the platform); the composite-model DLc as Mnc (wrong stage: girder self weight would act on the composite section).
 - **Consequence:** diaphragm / cross-girder self weight on the girder alone is not in Mnc (it is in neither stage of the SLS check); the governing SLS row is chosen by the moment, not the fibre stress. Both are listed for the engineer (P4-5) and for a later stage.
+
+## ADR-036 P4.4 MIDAS comparison format (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** MIDAS results are compared through CSV result tables with an explicit header map and sign conventions held as data in `pdf2bim/model/midas_compare.py`, marked UNCONFIRMED until the owner's first export; modes are paired by MAC, never by order.
+- **Alternatives:** reading MIDAS binary / API results (not available here); comparing by mode order (rejected by T7).
+- **Consequence:** the comparison runs as soon as tables exist; the first real export may need the map corrected (one place), which must be recorded with the export as evidence.
