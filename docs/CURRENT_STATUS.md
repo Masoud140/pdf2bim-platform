@@ -171,8 +171,8 @@
 
 ## Tests (latest full run)
 
-- Commit `3b8ec69` (branch `p4-verification`): 37 scripts; **412 / 412 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
-- Previous: `b7d2dda`, 404 / 404.
+- Commit `9931562` (branch `p4-verification`): 37 scripts; **417 / 417 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
+- Previous: `3b8ec69`, 412 / 412.
 - The run on `37e7f04` had 1 FAIL: the generality guard found "BR13A" in the .mct writer docstring. Fixed in `009ce60` and re-run.
 
 ## Next task
