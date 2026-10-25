@@ -173,23 +173,16 @@
   }
  ],
  "next": {
-  "task": "Owner decisions: D-34...D-43 and the P5-1...P5-5 queries (DECISION_REVIEW.html, QUERY_REGISTER.html); then P5.5 visual pass / P6 second bridge",
-  "why": "The remaining autonomous work needs page images or a second bridge; the open decisions change the BR13A model and results.",
-  "evidence": "Decisions recorded with schema/accept_decision.py; outputs re-run (tools/stale.py shows them current)"
+  "task": "Grillage torsion approach (P4-6), then solid end-block shear",
+  "why": "Shear / torsion now runs but is governed by grillage girder torsion.",
+  "evidence": "u by station for full and reduced torsion stiffness; chosen default recorded"
  },
  "risks": [
   {
-   "id": "P5-4",
-   "title": "Bearing level meaning",
-   "plain": "The bearing table level RL 'X' is labelled 'top of bearing' on the bearing detail sheet, but the description treats it as the seat level.",
-   "why": "Changes the bearing height / seat-to-soffit reading (F-6) and the modelled bearing levels.",
-   "severity": "medium"
-  },
-  {
-   "id": "P5-5",
-   "title": "Earthquake site class on the drawings differs from the model",
-   "plain": "The cover sheet prints site class Be; the model used Ce (an assumption). With Be, pile earthquake moments fall about 16-19 %.",
-   "why": "Pile and substructure design values depend on it; proposal D-43 waits for the engineer.",
+   "id": "P4-6",
+   "title": "Girder shear / torsion governed by grillage torsion",
+   "plain": "With the assumed fitments the combined shear and torsion check reaches 2.8 at some stations, because the grillage gives the girders large torsion (up to about 1.7 MN·m) at the skewed corners.",
+   "why": "The torsion stiffness used for the Super-T in the grillage is an engineering choice; it must be settled before shear results are used.",
    "severity": "high"
   },
   {

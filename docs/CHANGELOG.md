@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-26 — Development values accepted; shear / torsion at stations (branch `p4-verification`)
+
+- **Owner instruction (ADR-040):** BR13A is for software development; reasonable code / practice values may be assumed, changeable. D-34 … D-43 accepted; D-44 (top-of-bearing RL X with 75 mm bearing height, seat = top − height; vertical grades), D-45 (fitments, deck bars), D-46 (fitment covers, aggregate, tie legs) proposed and accepted. No proposed decisions remain; tools run without allow_proposed.
+- **Added:** schema fields `bearings.items[].top_rl`, `bearing_height` (model uses them); `pdf2bim/design/girder_shear.py` (dgGeo port, section data); shear / torsion in `checks_along` and the girder checks report; test `test_girder_shear.py` (5). Proposal / acceptance tools now validate the JSON schema too (found: Calculated values need a derivation, Assumed a replace_with).
+- **Results:** F-6 resolved (top of bearing 100–127 mm below the soffit = attachment plate + epoxy block). Shear / torsion u up to 2.8, governed by grillage girder torsion (finding P4-6).
+
 ## 2026-10-25 — Full suite on 6a77042
 
 - 52 scripts: 577 / 577 assertions PASS (34 asserting); 18 print-only scripts ran without JS errors.

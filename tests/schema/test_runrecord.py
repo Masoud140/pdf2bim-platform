@@ -14,12 +14,11 @@ def t(name, ok, info=""):
     print(("PASS " if ok else "FAIL ") + name + (f"  [{info}]" if info else ""))
 
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from proposed_state import make as proposed_state   # revision 14, D-34 ... D-43 still proposed (ADR-040)
 d = tempfile.mkdtemp()
 src = os.path.join(R, "projects/BR13A")
-for f in ("BR13A.bridge.0.2.json", "BR13A.decisions.jsonl"):
-    shutil.copy(os.path.join(src, f), d)
-shutil.copytree(os.path.join(src, "history"), os.path.join(d, "history"))
-P = os.path.join(d, "BR13A.bridge.0.2.json")
+P = proposed_state(d)
 doc = json.load(open(P))
 rc = make(P, doc, "girder_checks", allow_proposed=True)
 rg = make(P, doc, "geometry", allow_proposed=True)

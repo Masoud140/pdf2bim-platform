@@ -25,7 +25,12 @@ t("counts equal the description's: missing = Missing-Flagged, assumed = Assumed,
 enum = set(json.load(open(os.path.join(R, "schema/decision.schema.json")))["properties"]["affects"]["items"]["enum"])
 t("every item has a path, a 'needed from', affects from the decision schema and outputs from the run-record layers",
   all(q["path"] and q["needed_from"] and set(q["affects"]) <= enum and set(q["outputs"]) <= set(LAYERS) for q in Q["items"]))
-d42 = [q for q in Q["items"] if q["decision"] == "D-42"]
+import tempfile
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from proposed_state import make as proposed_state   # revision 14, D-34 ... D-43 still proposed (ADR-040)
+fp = proposed_state(tempfile.mkdtemp())
+Qp = build(json.load(open(fp)), decision_log(fp))
+d42 = [q for q in Qp["items"] if q["decision"] == "D-42"]
 t("a proposed record (D-42 loss inputs) carries its decision, reason, affects and the outputs it touches (girder checks, not geometry)",
   d42 and all("proposed" in q["categories"] and q["affects"] == ["design.supert"] and "girder_checks" in q["outputs"] and "geometry" not in q["outputs"] and q["decision_reason"] for q in d42), f"{len(d42)} rows")
 t("no item without an open category (Direct / Calculated accepted values are not listed)", all(q["categories"] for q in Q["items"]) and not any(q["tag"] in ("Direct", "Calculated") and q["status"] != "proposed" for q in Q["items"]))

@@ -143,7 +143,7 @@ d2 = copy.deepcopy(doc); d2["loads"]["temperature"]["rows"] = [x for x in d2["lo
 t("missing T_max is refused with the item name", raises(lambda: thermal_cases(d2, geo, S, M, allow_proposed=True), MissingInput, "T_max"))
 d3 = copy.deepcopy(doc); d3["loads"]["gradient_positive"]["rows"] = d3["loads"]["gradient_positive"]["rows"][:1]
 t("a gradient profile with one point is refused", raises(lambda: thermal_cases(d3, geo, S, M, allow_proposed=True), MissingInput, "two"))
-t("results carry the model's provisional inputs", {"D-39", "D-41"} <= {p.get("decision") for p in C["provisional"]})
+t("results carry the model's provisional list (empty: decisions accepted, ADR-040)", isinstance(C["provisional"], list) and not [p for p in C["provisional"] if p.get("decision")])
 
 # dashboard reproduced on its own model (recorded comparison)
 z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.thermal_vs_frozen.json")))

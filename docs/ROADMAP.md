@@ -51,4 +51,5 @@
 - **P4.4 agent part — DONE 2026-10-25** (ADR-036): `P4_VERIFICATION_METHOD.md` §11; the MIDAS run and first export are the owner's. 
 - **P5 plan — 2026-10-25** (`P5_PLAN.md`). **P5.1 run records / stale, P5.2 Query Register, P5.3 takeoff import (interchange sheet), P5.4 decision tool + review page — DONE 2026-10-25** (`P5_METHOD.md`, ADR-037 / 038). 
 - **P5.5 first pass — 2026-10-25** (`P5_METHOD.md` §5): text layer, 47 re-found, 19 queries, D-43 proposed. Second pass (visual) and P6 (second bridge) need the owner's material.
+- **2026-10-26 — development values accepted (ADR-040); P4.5 stage 8 shear / torsion at stations DONE** (§12, ADR-039). Next: grillage torsion approach (P4-6), solid end blocks, then P6.
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

@@ -81,13 +81,15 @@ from pdf2bim.geometry.bridge import build_geometry
 from pdf2bim.sections.girder import build_sections
 b = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
 geo = build_geometry(b, allow_proposed=True)
+bp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))   # revision 14: D-35 / D-36 / D-38 still proposed (accepted 2026-10-26, ADR-040)
 try:
-    build_sections(b, geo, allow_proposed=False, stations=(0.5,)); ok = False
+    build_sections(bp, geo, allow_proposed=False, stations=(0.5,)); ok = False
 except MissingInput:
     ok = True
-t("BR13A: sections refuse without proposed values (shape / haunch only proposed)", ok)
-S = build_sections(b, geo, allow_proposed=True, stations=(0.0, 0.5, 1.0))
-t("BR13A: provisional inputs listed (D-35 shape rows, D-36 haunch, D-38 zones)", {p["decision"] for p in S["provisional"]} >= {"D-35", "D-36", "D-38"}, str({p["decision"] for p in S["provisional"]}))
+t("BR13A r14: sections refuse without proposed values (shape / haunch only proposed)", ok)
+Sp = build_sections(bp, geo, allow_proposed=True, stations=(0.5,))
+t("BR13A r14: provisional inputs listed (D-35 shape rows, D-36 haunch, D-38 zones)", {p["decision"] for p in Sp["provisional"]} >= {"D-35", "D-36", "D-38"}, str({p["decision"] for p in Sp["provisional"]}))
+S = build_sections(b, geo, allow_proposed=False, stations=(0.0, 0.5, 1.0))
 t("BR13A: one definition used — ttf 90 from the drawing, not the library 75", all(g["params"]["ttf"] == 90 for g in S["girders"].values()))
 mid = {k: next(r for r in g["stations"] if r["t"] == 0.5) for k, g in S["girders"].items()}
 t("BR13A: girder-alone section at G2 midspan equals the dashboard one definition within 0.5 % (W varies 2280 -> 2283)",
@@ -106,8 +108,8 @@ t("BR13A edge girders vs the frozen model differ in the direction of the flare (
 g4 = S["girders"]["G4"]["stations"]
 t("BR13A: edge-girder flare enters the section (G4 composite area at midspan > at the ends by > 5 %)", g4[1]["composite"]["A_transformed"] > 1.05 * g4[0]["composite"]["A_transformed"])
 g2 = S["girders"]["G2"]
-t("BR13A: solid end zones from D-38 (proposed) placed at 0–2.0 m from each girder end", len(g2["zones"]) == 2 and abs(g2["zones"][1]["to_end_A"] - g2["length_end_to_end"]) < 1e-9
-  and abs(g2["zones"][0]["to_end_A"] - 2.0) < 1e-9 and "D-38" in {p["decision"] for p in S["provisional"]})
+t("BR13A: solid end zones from D-38 (accepted) placed at 0–2.0 m from each girder end", len(g2["zones"]) == 2 and abs(g2["zones"][1]["to_end_A"] - g2["length_end_to_end"]) < 1e-9
+  and abs(g2["zones"][0]["to_end_A"] - 2.0) < 1e-9)
 se = g2["solid_end"]["A"]
 t("BR13A: solid end block — girder A > open girder, J much larger (solid St-Venant, not thin-walled)", se["girder"]["A"] > 2 * mid["G2"]["girder"]["A"] and se["girder"]["J"] > 20 * mid["G2"]["girder"]["J"])
 t("BR13A: solid end composite vs the frozen model's G2-E_composite (V5): A, I within 2 %, J within 5 %",

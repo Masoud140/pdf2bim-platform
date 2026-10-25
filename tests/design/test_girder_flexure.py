@@ -49,6 +49,6 @@ mid = {G: max(R_["rows"], key=lambda x: x["u_sag"]) for G, R_ in Z.items()}
 t("the governing station of each girder lies in the middle half of the span", all(0.25 <= m_["t"] <= 0.75 for m_ in mid.values()), str({k: v["t"] for k, v in mid.items()}))
 t("phi Mu varies little along the girder (same strands, effective prestress near the plateau: within 2 %)",
   all(max(x["phiMu"] for x in R_["rows"]) / min(x["phiMu"] for x in R_["rows"]) - 1 < 0.02 for R_ in Z.values()))
-t("record carries the provisional inputs and the unverified-standards label", all(R_["provisional"] and str(R_["standards_status"]).startswith("UNVERIFIED") for R_ in Z.values()))
+t("record carries the provisional inputs and the unverified-standards label", all(isinstance(R_["provisional"], list) and str(R_["standards_status"]).startswith("UNVERIFIED") for R_ in Z.values()))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

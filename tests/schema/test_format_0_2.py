@@ -131,14 +131,16 @@ t("BR13A 0.1 file still valid under the 0.1 schema", list(S01.iter_errors(b01)) 
 t("BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)",
   subprocess.run(["git", "diff", "--quiet", "0d36579", "--", "projects/BR13A/BR13A.bridge.json"], cwd=R).returncode == 0)
 t("BR13A 0.2 file valid (schema + rules)", valid(b02, bd), str(list(S.iter_errors(b02))[:1]) + str(check(b02, bd)[:2]))
-a, b = dict(records(b01)), dict(records(b02))
+b1 = ld("projects/BR13A/history/BR13A.bridge.0.2.r1.json")          # the migration result (revision 1)
+a, b = dict(records(b01)), dict(records(b1))
+bnow = dict(records(b02))
 same = [p for p in a if p in b and all(canonical(a[p].get(k)) == canonical(b[p].get(k)) for k in ("value", "cells", "unit", "tag", "status"))]
 t(f"BR13A round trip: all {len(a)} records of the 0.1 file keep value / unit / tag / status", len(same) == len(a), f"{len(same)}/{len(a)}")
-extra = [p for p in b if p not in a]
-t(f"BR13A: records added after migration ({len(extra)}) are all PROPOSED with a decision id (not accepted by the agent)",
-  all(b[p].get("status") == "proposed" and b[p].get("decision") for p in extra), str([p for p in extra if b[p].get("status") != "proposed"][:3]))
+extra = [p for p in bnow if p not in a]
+t(f"BR13A: records added after migration ({len(extra)}) all carry a decision id, and none was accepted by the agent (proposed, or accepted by a named person)",
+  all(bnow[p].get("decision") and (bnow[p].get("status") == "proposed" or bd.get(bnow[p]["decision"], {}).get("approved_by") not in (None, "AI")) for p in extra), str([p for p in extra if not bnow[p].get("decision")][:3]))
 recon = [p for p, r in b.items() if r["current"] != "original"]
-t("BR13A: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)",
+t("BR13A migration: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)",
   sorted(recon) == [f"superstructure.members[G{i}].length" for i in range(1, 5)], str(recon))
 t("BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)", all(b[p]["original"]["unit"] is None for p in recon))
 t("BR13A: no significance invented", not any("significance" in r for r in b.values()))

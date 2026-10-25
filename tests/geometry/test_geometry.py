@@ -155,9 +155,11 @@ t("refuses: element chainages that do not chain (ch_start + length ≠ next)", r
 
 # ---------------- BR13A ----------------
 b = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
-t("BR13A: without proposed values the engine refuses (support bearing only proposed, D-34)", raises(lambda: build_geometry(b), GeometryInputError, "bearing missing"))
-gb = build_geometry(b, allow_proposed=True)
-t("BR13A: provisional inputs listed (D-34, both supports)", [p["decision"] for p in gb["provisional"]] == ["D-34", "D-34"])
+bp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))   # revision 14: D-34 ... D-43 still proposed (accepted 2026-10-26, ADR-040)
+t("BR13A r14 (D-34 proposed): without proposed values the engine refuses (support bearing only proposed)", raises(lambda: build_geometry(bp), GeometryInputError, "bearing missing"))
+t("BR13A r14: with allow_proposed the provisional inputs are listed (D-34, both supports)", [p["decision"] for p in build_geometry(bp, allow_proposed=True)["provisional"]] == ["D-34", "D-34"])
+gb = build_geometry(b)
+t("BR13A current: builds from accepted values only, nothing provisional", gb["provisional"] == [])
 t("BR13A: alignment misclosure at SC, CS, ST < 5 mm (method §5)", all(c["pass"] for c in gb["checks"] if "misclosure" in c["id"]) and len([c for c in gb["checks"] if "misclosure" in c["id"]]) == 3)
 cl = next(s for s in gb["supports"] if s["id"] == "A")
 bp = next(r["cells"] for r in b["project"]["base_point"]["rows"])

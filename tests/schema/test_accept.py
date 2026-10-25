@@ -17,11 +17,13 @@ def t(name, ok, info=""):
     print(("PASS " if ok else "FAIL ") + name + (f"  [{info}]" if info else ""))
 
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from proposed_state import make as proposed_state   # revision 14, D-34 ... D-43 still proposed (ADR-040)
 d = tempfile.mkdtemp()
-for f in ("BR13A.bridge.0.2.json", "BR13A.decisions.jsonl"):
-    shutil.copy(os.path.join(R, "projects/BR13A", f), d)
-shutil.copytree(os.path.join(R, "projects/BR13A/history"), os.path.join(d, "history"))
-P = os.path.join(d, "BR13A.bridge.0.2.json")
+P = proposed_state(d)
+sys.path.insert(0, os.path.join(R, "tools"))
+from decision_review import review
+_, it0 = review(P)
 run = lambda *a: subprocess.run([sys.executable, os.path.join(R, "schema/accept_decision.py"), P, *a], capture_output=True, text=True)
 doc0 = json.load(open(P)); rc = make(P, doc0, "girder_checks", allow_proposed=True); rg = make(P, doc0, "geometry", allow_proposed=True)
 Q0 = build(doc0, decision_log(P))
@@ -60,9 +62,7 @@ t("reject D-39: approval rejected, current value unchanged, log entry rejected",
 Q3 = build(doc3, dec3)
 t("register after the decisions: no item proposed under D-34 / D-39 / D-42", not [q for q in Q3["items"] if q["decision"] in ("D-34", "D-39", "D-42") and "proposed" in q["categories"]])
 t("history keeps every previous revision", all(os.path.exists(os.path.join(d, "history", f"BR13A.bridge.0.2.r{n}.json")) for n in range(doc0["revision"]["number"], doc3["revision"]["number"])))
-sys.path.insert(0, os.path.join(R, "tools"))
-from decision_review import review
-_, it0 = review(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")); _, it3 = review(P)
+_, it3 = review(P)
 t("decision review page: lists the proposed decisions with their values and accept / reject commands; decided ones drop out",
   {x["id"] for x in it0} - {x["id"] for x in it3} == {"D-34", "D-39", "D-42"} and all(x["values"] and "--decision " + x["id"] in x["accept"] for x in it0), f"{len(it0)} -> {len(it3)}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")

@@ -84,7 +84,8 @@ d2 = copy.deepcopy(doc); d2["supports"][0]["backfill"]["rows"][0]["cells"]["K"] 
 t("unknown earth-pressure coefficient kind refused", raises(lambda: horizontal_cases(d2, geo, M, Standards(), allow_proposed=True), MissingInput, "K0 / Ka"))
 d3 = copy.deepcopy(doc); d3["deck"]["carriageway_left"]["value"] = 20.0; d3["deck"]["carriageway_right"]["value"] = 21.0
 t("no deck nodes inside the carriageway: refused", raises(lambda: horizontal_cases(d3, geo, M, Standards(), allow_proposed=True), MissingInput, "carriageway"))
-t("results carry the model's provisional inputs and the UNVERIFIED label (M1600 weight)", {"D-39"} <= {p.get("decision") for p in H["provisional"]} and H["standards_status"].startswith("UNVERIFIED"))
+t("results carry the model's provisional list (empty: D-34 ... D-46 accepted, ADR-040) and the UNVERIFIED label (M1600 weight)",
+  isinstance(H["provisional"], list) and not [p for p in H["provisional"] if p.get("decision")] and H["standards_status"].startswith("UNVERIFIED"))
 z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.horizontal_vs_frozen.json")))
 t("vs dashboard: with the dashboard's retained height every load total equals the dashboard's (0.3 kN)",
   all(abs(a_ - b_) <= 0.3 for v in z["totals"].values() for a_, b_ in zip(v[1], v[2])))

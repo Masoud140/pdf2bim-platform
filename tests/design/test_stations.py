@@ -65,12 +65,15 @@ a1 = station_section(d2, geo, S2, "G2", 0.0, allow_proposed=True); a2 = station_
 t("debonding: a strand debonded 3 m from end A is absent at the end A station, present at midspan; an 'off' strand is absent everywhere",
   a1["n_strands"] == len(on) - 2 and a2["n_strands"] == len(on) - 1)
 miss = st["missing"]
-t("BR13A missing inputs reported: strand fpb, effective prestress (no losses analysis yet), fitments, deck bars",
-  any("strand.fpb" in m for m in miss) and any("effective prestress" in m for m in miss) and any("fitments" in m for m in miss) and any("deck_bars" in m for m in miss))
+t("BR13A missing inputs reported: strand fpb, effective prestress (fitments, deck bars supplied by D-43 / D-44)",
+  any("strand.fpb" in m for m in miss) and any("effective prestress" in m for m in miss) and not any("fitments" in m or "deck_bars" in m for m in miss), str(miss))
 t("design checks refuse a station without effective prestress / fpb (no guessed values)", raises(lambda: uls_bend(st["section"], Standards()), ValueError, "effective prestrain"))
 t("station not built in P2 refused with the nearest station", raises(lambda: station_section(doc, geo, S, "G2", 0.55, allow_proposed=True), MissingInput, "nearest"))
 rdy = readiness(doc, geo, S, allow_proposed=True)
 t("readiness: one entry per girder with strands, bars and the missing list", set(rdy) == set(S["girders"]) and all("missing" in v for v in rdy.values()))
-t("provisional inputs carried (proposed decisions used)", len(st["provisional"]) > 0)
+dp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))   # revision 14: decisions still proposed
+gp = build_geometry(dp, allow_proposed=True); Sp = build_sections(dp, gp, allow_proposed=True)
+t("r14: provisional inputs carried (proposed decisions used)", len(station_section(dp, gp, Sp, "G2", 0.5, allow_proposed=True)["provisional"]) > 0)
+t("current revision: no proposed decision used", not st["provisional"])
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

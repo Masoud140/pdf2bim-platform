@@ -153,8 +153,8 @@ t("BR13A: results carry the UNVERIFIED standards label and list the traffic entr
 Rb = [i for i, r in enumerate(Ts["responses"]) if r["t"] == "B"]
 t("BR13A: bearing traffic reactions are compressive maxima (max > 0) and M1600 > S1600 at every bearing",
   all(Ts["env"]["M1600"]["max"][i] > Ts["env"]["S1600"]["max"][i] > 0 for i in Rb))
-t("BR13A: the result carries the model's provisional inputs (D-39 ... D-41 etc.), so it is labelled provisional",
-  {"D-39", "D-40", "D-41"} <= {p.get("decision") for p in Ts["provisional"]})
+t("BR13A: the result carries the model's provisional list (empty: D-39 ... D-41 accepted, ADR-040)",
+  isinstance(Ts["provisional"], list) and not [p for p in Ts["provisional"] if p.get("decision")])
 d2 = copy.deepcopy(doc)
 for r in d2["loads"]["traffic_models"]["rows"]:
     r["cells"]["on"] = False

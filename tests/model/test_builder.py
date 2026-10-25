@@ -21,11 +21,12 @@ def t(name, ok, info=""):
 d = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
 geo = build_geometry(d, allow_proposed=True)
 S = build_sections(d, geo, allow_proposed=True)
+dp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))   # revision 14: D-37 still proposed (accepted 2026-10-26, ADR-040)
 try:
-    build_superstructure(d, geo, S, allow_proposed=False); ok = False
+    build_superstructure(dp, geo, S, allow_proposed=False); ok = False
 except MissingInput:
     ok = True
-t("refuses without proposed values (cross girder D-37 only proposed)", ok)
+t("r14: refuses without proposed values (cross girder D-37 only proposed)", ok)
 M = build_superstructure(d, geo, S, allow_proposed=True)
 N, E = M["nodes"], M["members"]
 used = {m["n1"] for m in E} | {m["n2"] for m in E}

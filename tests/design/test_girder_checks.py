@@ -70,6 +70,6 @@ t("Mnc symmetric about midspan and largest there (simple span)", all(max(R_["row
 gov = {G: max(R_["rows"], key=lambda q: q["sag"]["uB"])["t"] for G, R_ in Z.items()}
 t("the governing ULS station of each girder lies in the middle half", all(0.25 <= v <= 0.75 for v in gov.values()), str(gov))
 t("record carries the provisional inputs, the unverified-standards label and the not-checked notes",
-  all(R_["provisional"] and str(R_["standards_status"]).startswith("UNVERIFIED") and any("shear" in n for n in R_["notes"]) for R_ in Z.values()))
+  all(isinstance(R_["provisional"], list) and str(R_["standards_status"]).startswith("UNVERIFIED") and any("shear" in n for n in R_["notes"]) for R_ in Z.values()))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

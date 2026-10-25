@@ -60,10 +60,15 @@ M = build_integrated(doc, geo, S, Standards(), allow_proposed=True)
 m = M["model"]
 r = m.solve()
 W = -r["applied"][2]
-t("BR13A integrated: refused without allow_proposed (proposed inputs D-34 ... D-41)",
-  raises(lambda: build_integrated(doc, geo, S, Standards(), allow_proposed=False), MissingInput, "proposed"))
-dec = {p.get("decision") for p in M["provisional"]}
-t("BR13A integrated: provisional list names the substructure proposals D-39, D-40, D-41", {"D-39", "D-40", "D-41"} <= dec, str(sorted(d for d in dec if d)))
+# revision 14 keeps D-34 ... D-43 proposed (accepted 2026-10-26 on the owner's instruction, ADR-040): refusal / provisional checks run on it
+dp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))
+gp = build_geometry(dp, allow_proposed=True); Sp = build_sections(dp, gp, allow_proposed=True)
+Mp = build_integrated(dp, gp, Sp, Standards(), allow_proposed=True)
+t("r14 integrated: refused without allow_proposed (proposed inputs D-34 ... D-41)",
+  raises(lambda: build_integrated(dp, gp, Sp, Standards(), allow_proposed=False), MissingInput, "proposed"))
+dec = {p.get("decision") for p in Mp["provisional"]}
+t("r14 integrated: provisional list names the substructure proposals D-39, D-40, D-41", {"D-39", "D-40", "D-41"} <= dec, str(sorted(d for d in dec if d)))
+t("current revision: every substructure decision accepted -> no proposed value used", not [p for p in M["provisional"] if p.get("decision") in ("D-39", "D-40", "D-41")])
 t("BR13A integrated: equilibrium residual < 1e-6 of the weight", np.abs(r["equilibrium_residual"]).max() < 1e-6 * W, f"{np.abs(r['equilibrium_residual']).max():.1e}")
 toes = [p["toe"] for s in M["supports"].values() for p in s["piles"]]
 t("BR13A integrated: pile-toe vertical reactions sum to the total weight (springs act horizontally only)",
@@ -123,8 +128,11 @@ for bid, b in M["bearings"].items():
 t("bearing links: local x vertical (seat -> bearing top), local z along the girder chord A -> B", ax_ok)
 t("bearing links: seat at the seat RL, top at the girder soffit (girder line node - D)",
   all(abs(m.nodes[b["seat"]][2] - b["seat_rl"]) < 1e-12 and abs(m.nodes[b["top"]][2] - (m.nodes[b["girder_node"]][2] - S["girders"][b["girder"]]["params"]["D"] / 1000)) < 1e-12 for b in M["bearings"].values()))
-t("geometry check flags the seat-to-soffit gap that disagrees with the Assumed bearing height (F-6)",
-  sum(1 for c in M["checks"] if "bearings.height" in c["id"] and not c["ok"]) == 8)
+t("r14: geometry check flags the seat-to-soffit gap that disagrees with the Assumed bearing height (F-6)",
+  sum(1 for c in Mp["checks"] if "bearings.height" in c["id"] and not c["ok"]) == 8)
+tb = [c for c in M["checks"] if "top of bearing below the girder soffit" in c["id"]]
+t("current revision (F-6 resolved, RL X = top of bearing): 8 top-of-bearing checks, all below the soffit",
+  len(tb) == 8 and all(c["ok"] for c in tb), str([round(c["model"]) for c in tb]))
 tags = {x["tag"] for x in M["inputs"] if x["path"].endswith("rock_kh") or ".plan_a" in x["path"]}
 t("inputs record keeps the tags (rock_kh and bearing plan size are Assumed)", tags == {"Assumed"}, str(tags))
 

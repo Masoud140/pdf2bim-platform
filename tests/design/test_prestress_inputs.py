@@ -49,8 +49,10 @@ t("strand levels and debonding from the strand pattern; bars from the bar table"
 rows = {r["cells"]["item"]: r["cells"]["value"] for r in doc["design"]["prestress_losses"]["rows"] if r["cells"]["item"] != "time"}
 t("environment / stage / relaxation inputs from design.prestress_losses (D-42)", all(p[k] == float(rows[k]) for k in LOSS_ITEMS if k != "meth") and p["meth"] == int(rows["meth"]))
 t("wet deck load = tD beff gamma + dform; composite properties from the deck width", abs(p["wd"] - (p["dth"] * p["beff"] * p["dgam"] / 1e6 + p["dform"])) < 1e-12 and p["Ac"] > p["A"])
-t("without accepting the proposals the builder refuses, naming the missing design.prestress_losses items",
-  raises(lambda: hog_inputs(doc, geo, S, "G2", std, allow_proposed=False), MissingInput, "design.prestress_losses"))
+dp = json.load(open(os.path.join(R, "projects/BR13A/history/BR13A.bridge.0.2.r14.json")))   # revision 14: D-42 still proposed
+gp = build_geometry(dp, allow_proposed=True); Sp = build_sections(dp, gp, allow_proposed=True)
+t("r14: without accepting the proposals the builder refuses, naming the missing design.prestress_losses items",
+  raises(lambda: hog_inputs(dp, gp, Sp, "G2", std, allow_proposed=False), MissingInput, "design.prestress_losses"))
 D = json.load(open(os.path.join(R, "tests/design/fixtures/br13a_dashboard_hog.json")))
 P = D["p"]
 same = [k for k in p if k in P and not isinstance(p[k], (list, dict)) and isinstance(P[k], (int, float)) and abs(p[k] - P[k]) <= 1e-9 * max(1, abs(P[k]))]
