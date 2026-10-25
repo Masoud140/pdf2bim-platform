@@ -55,6 +55,22 @@ Rows: 1315 (512 ULS, 803 SLS). Pedestrian (PED) is selected in the dashboard but
 | B3 | 1481 | 1589 | 904 | 917 | 2671 | 2774 | 344 | 443 |
 | B4 | 1479 | 1581 | 922 | 953 | 4543 | 3595 | 74 | 244 |
 
+### Girders (largest over the girder line), kN·m / kN
+
+| Girder | ULS M sag P3c | dash | ULS M hog P3c | dash | ULS |V| P3c | dash | ULS |T| P3c | dash | SLS M sag P3c | dash |
+|---|---|---|---|---|---|---|---|---|---|---|
+| G1 | 10871 | 11935 | -3063 | -2280 | 2125 | 2213 | 1776 | 1785 | 6940 | 7807 |
+| G2 | 10761 | 11450 | -1474 | -1279 | 1952 | 2061 | 1789 | 1783 | 6905 | 7540 |
+| G3 | 10849 | 11181 | -1234 | -1006 | 1824 | 1950 | 1867 | 1557 | 6983 | 7430 |
+| G4 | 12309 | 10954 | -1582 | -758 | 2256 | 1780 | 1814 | 1269 | 7866 | 7338 |
+
+### Sills / headstocks, ULS largest |value| over the sill (member axes)
+
+| Support | |My| P3c | dash | |Vz| P3c | dash | |Mz| P3c | dash | |Vy| P3c | dash | |T| P3c | dash |
+|---|---|---|---|---|---|---|---|---|---|---|
+| A | 2153 | 4254 | 3230 | 3485 | 680 | 461 | 670 | 520 | 1562 | 1563 |
+| B | 2032 | 2174 | 3817 | 2670 | 802 | 802 | 431 | 423 | 949 | 981 |
+
 ## 4. Platform default selection (only actions with an analysed case)
 
 Actions: BRKR, CENR, DLc, EPT, EQX, EQY, M1600, S1600, SCR, SDLp, SOo, TGN, TGP, TUC, TUW, WX, WY, WZ. Rows: 1578. Not combined (flagged): PED (loads.pedestrian: Missing-Flagged — not analysed, not combined); FLH (loads.flood: Missing-Flagged — not analysed, not combined); COLX (loads.collision: Missing-Flagged — not analysed, not combined).

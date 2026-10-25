@@ -128,6 +128,39 @@ uax, nax = _sill_axes(M)[sid]
 t("response set: Ml / Mt = section moment at the end in global axes projected on the sill axis / its normal",
   abs(v1[RS.index[ux]] - g[:2] @ uax) < 1e-6 and abs(v1[RS.index[ux[:2] + ("Mt1",)]] - g[:2] @ nax) < 1e-6)
 
+ge = next(x for x in M["members"] if x["role"] == "girder")
+fg = m.end_forces(ge["id"]); key = ("G", (ge["line"], ge["id"]))
+v = RS.static(gravity=(0.0, 0.0, -1.0))
+fg = m.end_forces(ge["id"])
+t("girder rows: +x face actions incl. member loads (M1 = f4, M2 = -f10 sagging +; V1 = -f2, V2 = f8; N2 = f6)",
+  abs(v[RS.index[key + ("M1",)]] - fg[4]) < 1e-6 and abs(v[RS.index[key + ("M2",)]] + fg[10]) < 1e-6 and abs(v[RS.index[key + ("V1",)]] + fg[2]) < 1e-6
+  and abs(v[RS.index[key + ("V2",)]] - fg[8]) < 1e-6 and abs(v[RS.index[key + ("N2",)]] - fg[6]) < 1e-6)
+gm = [(RS.meta[("G", n[1])]["ch"][0], v[i]) for n, i in RS.index.items() if n[0] == "G" and n[1][0] == ge["line"] and n[2] == "M1"]
+gm.sort()
+t("girder self-weight moment: sagging (> 0) at midspan, near zero at the girder ends (< 2 % of the midspan value)",
+  max(x for _, x in gm) > 0 and abs(gm[0][1]) < 0.02 * max(x for _, x in gm), f"midspan {max(x for _, x in gm):.0f} kN·m, end {gm[0][1]:.1f}")
+sl = [n for n in RS.names if n[0] == "HS"]
+se = max((x for x in M["members"] if x["role"] == "sill"), key=lambda x: abs(m.end_forces(x["id"])[4]))     # an element with a non-zero end moment
+fs = m.end_forces(se["id"]); skey = next(n[:2] for n in sl if n[1][1] == se["id"])
+t("sill rows for every support (both ends: My, Vz, Mz, Vy, T); My1 = -f4, My2 = f10; position s along the sill in [0, sill length]",
+  {n[1][0] for n in sl} == set(M["supports"]) and abs(v[RS.index[skey + ("My1",)]] + fs[4]) < 1e-6 and abs(v[RS.index[skey + ("My2",)]] - fs[10]) < 1e-6
+  and all(-1e-9 <= x <= 30 for n in sl for x in RS.meta[n[:2]]["s"]))
+
+# --- schedule (closed form on a hand-built result) -----------------------------------------------------------
+from pdf2bim.model.combinations import schedule
+nm = [("BL", "X1", "v"), ("BL", "X1", "tr"), ("BL", "X1", "lon"), ("G", ("L1", 1), "M1"), ("G", ("L1", 1), "M2"), ("G", ("L1", 1), "V1"),
+      ("G", ("L1", 1), "V2"), ("G", ("L1", 1), "T1"), ("G", ("L1", 1), "T2"), ("P", ("Q1", 5), "Ml1"), ("P", ("Q1", 5), "N1"), ("HS", ("S", 7), "My1"), ("HS", ("S", 7), "Vz1")]
+mx = np.array([100., 5, 3, 50, 80, 9, 2, 1, 4, 7, 300, 11, 6]); mn = np.array([-10., -6, -1, -20, -5, -12, -1, -3, 0, -9, -40, -2, -8])
+env = {ls: {"max": mx * f, "min": mn * f, "gmax": [f"{ls}-MAX-{i}" for i in range(len(nm))], "gmin": [f"{ls}-MIN-{i}" for i in range(len(nm))]} for ls, f in (("ULS", 1.0), ("SLS", 0.5))}
+Z = schedule({"names": nm, "envelopes": env, "primitives": {"meta": {("G", ("L1", 1)): {"ch": (10.0, 12.0)}, ("HS", ("S", 7)): {"s": (0.0, 1.5)}}}})
+gz = Z["girders"]["L1"]["ULS"]
+t("schedule: girder sagging max / hogging min with the chainage of the governing end; |V|, |T| the larger of max / min",
+  gz["M_sag"] == {"value": 80.0, "gov": "ULS-MAX-4", "ch": 12.0, "element": 1} and gz["M_hog"]["value"] == -20.0 and gz["M_hog"]["ch"] == 10.0
+  and gz["V"]["abs"] == 12.0 and gz["V"]["value"] == -12.0 and gz["V"]["gov"] == "ULS-MIN-5" and gz["T"]["abs"] == 4.0)
+t("schedule: bearing extremes, pile |Ml| and N, sill My / |Vz| with positions; uplift when a minimum v < 0",
+  Z["bearings"]["X1"]["ULS"]["v"]["min"] == -10.0 and Z["piles"]["Q1"]["ULS"]["Ml"]["abs"] == 9.0 and Z["piles"]["Q1"]["ULS"]["N"]["max"] == 300.0
+  and Z["sills"]["S"]["ULS"]["My_min"]["value"] == -2.0 and Z["sills"]["S"]["ULS"]["Vz"]["abs"] == 8.0 and Z["sills"]["S"]["ULS"]["Vz"]["s"] == 0.0 and Z["uplift"] == ["X1"])
+
 # --- recorded comparison (tools/compare_frozen_combinations.py) ---------------------------------------------------
 z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.combinations_vs_frozen.json")))
 t("engine check: generated rows equal the dashboard's genAll rows for all 9 recorded sets (SHA-256, count, cap)",
@@ -140,5 +173,15 @@ t("P3c vs dashboard bearings (V5, recorded): every bearing matched within 0.1 m;
   all(b["dist"] < 0.1 and 1 / 1.7 < b["p3c"][0] / b["dash"][0] < 1.7 for b in z["bearings"].values()))
 t("P3c vs dashboard piles (V5, recorded): ULS |Ml| within 10 %, |Mt| within 20 %",
   all(abs(p["p3c"]["Ml"] / p["dash"]["Ml"] - 1) < 0.1 and abs(p["p3c"]["Mt"] / p["dash"]["Mt"] - 1) < 0.2 for p in z["piles"].values()))
+t("P3c vs dashboard girders (V5, recorded): ULS sagging M within 15 % (G4 above: traffic sweep H-4)",
+  len(z["girders"]) == 4 and all(abs(g["p3c"]["sag"] / g["dash"]["sag"] - 1) < 0.15 for g in z["girders"].values()))
+t("P3c vs dashboard sills (V5, recorded): shears |Vz| within 45 %; fixed-abutment |My| lower in P3c (restraint couple, M-3)",
+  all(abs(h["p3c"]["Vz"] / h["dash"]["Vz"] - 1) < 0.45 for h in z["sills"].values()) and z["sills"]["A"]["p3c"]["My"] < z["sills"]["A"]["dash"]["My"])
+ca = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.combined_actions.json")))
+gov = {r["name"] for r in ca["governing_rows"]}
+t("schedule record: every governing row of the bearings is listed; uplift list matches the bearing minima; run record carries the input hash",
+  all(ca["schedule"]["bearings"][b]["ULS"]["v"][k] in gov for b in ca["schedule"]["bearings"] for k in ("gmax", "gmin"))
+  and ca["schedule"]["uplift"] == sorted(b for b, d in ca["schedule"]["bearings"].items() if min(d["ULS"]["v"]["min"], d["SLS"]["v"]["min"]) < 0)
+  and len(ca["run"]["description_sha256"]) == 64)
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

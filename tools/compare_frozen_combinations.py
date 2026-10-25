@@ -8,7 +8,7 @@
 2. Engine check, evaluation: the P3c combination of the dashboard's own primitives (rxPrim, bearings + two piles)
    reproduces the dashboard's rxCombine envelopes and governing rows.
 3. Platform result on the P3b model (the dashboard's register selection, so the rows are the same): bearing vertical
-   force and pile actions vs the dashboard's combined actions. The differences come from the load cases (findings
+   force, pile, girder and sill actions vs the dashboard's combined actions. The differences come from the load cases (findings
    H-3 ... H-7, M-1 ... M-3), not from the combination step (checks 1 and 2).
 4. Platform default: only actions with an analysed case take part (pedestrian load: Missing-Flagged, not combined).
 """
@@ -94,7 +94,7 @@ def main():
             P = np.array(q["n2"][:2]) + base
             bid = min(bpos, key=lambda k: np.linalg.norm(bpos[k] - P))
             brg[bid] = {"dist": float(np.linalg.norm(bpos[bid] - P)), "i": i}
-    out = {"generator": gen, "evaluation": ev, "bearings": {}, "piles": {}, "platform_default": {}}
+    out = {"generator": gen, "evaluation": ev, "bearings": {}, "piles": {}, "girders": {}, "sills": {}, "platform_default": {}}
     L = ["# BR13A AS 5100.2 combinations and combined actions: P3c vs the dashboard", "",
          "All load factors and combination constants are code-extracted-UNVERIFIED standards entries (AS5100.2:load_factor:*, AS5100.2:combination:*). "
          "Load-case inputs are Assumed / Standard-verify. **V5 comparison, not verification; nothing here is design-approved.**", "",
@@ -152,6 +152,65 @@ def main():
             L.append(f"| {pid} | — | {b_['Ml']:.0f} | — | {b_['Mt']:.0f} | — | {b_['Nmax']:.0f} | — | {b_['Nmin']:.0f} |"); continue
         out["piles"][pid] = {"p3c": a_, "dash": b_}
         L.append(f"| {pid} | {a_['Ml']:.0f} | {b_['Ml']:.0f} | {a_['Mt']:.0f} | {b_['Mt']:.0f} | {a_['Nmax']:.0f} | {b_['Nmax']:.0f} | {a_['Nmin']:.0f} | {b_['Nmin']:.0f} |")
+    # girders: per girder line, extremes over the elements (dashboard: GM0 / GM1 at both ends, GV / GT at end 0;
+    # its GM1 = f[4] + L f[2] omits the member-load term; P3c: exact at both ends)
+    gl = lambda q: (q.get("sec") or "").split("-")[0]
+    def g_dash(ls):
+        r = {}
+        for j, q in enumerate(Q):
+            if q["k"] != "G":
+                continue
+            d = r.setdefault(gl(q), {"sag": -np.inf, "hog": np.inf, "V": 0.0, "T": 0.0})
+            if q["t"] in ("GM0", "GM1"):
+                d["sag"] = max(d["sag"], dash[ls]["max"][j]); d["hog"] = min(d["hog"], dash[ls]["min"][j])
+            elif q["t"] in ("GV", "GT"):
+                k_ = q["t"][1]
+                d[k_] = max(d[k_], abs(dash[ls]["max"][j]), abs(dash[ls]["min"][j]))
+        return r
+    def g_p3c(C, ls):
+        r = {}
+        for n, i in ix.items():
+            if n[0] != "G":
+                continue
+            d = r.setdefault(n[1][0], {"sag": -np.inf, "hog": np.inf, "V": 0.0, "T": 0.0})
+            if n[2][0] == "M":
+                d["sag"] = max(d["sag"], C[ls]["max"][i]); d["hog"] = min(d["hog"], C[ls]["min"][i])
+            elif n[2][0] in "VT":
+                d[n[2][0]] = max(d[n[2][0]], abs(C[ls]["max"][i]), abs(C[ls]["min"][i]))
+        return r
+    gd, gp, gds, gps = g_dash("ULS"), g_p3c(Cd, "ULS"), g_dash("SLS"), g_p3c(Cd, "SLS")
+    L += ["", "### Girders (largest over the girder line), kN·m / kN", "",
+          "| Girder | ULS M sag P3c | dash | ULS M hog P3c | dash | ULS |V| P3c | dash | ULS |T| P3c | dash | SLS M sag P3c | dash |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for g in sorted(gd):
+        a_, b_ = gp.get(g), gd[g]
+        if a_ is None:
+            continue
+        out["girders"][g] = {"p3c": {**a_, "sls_sag": gps[g]["sag"]}, "dash": {**b_, "sls_sag": gds[g]["sag"]}}
+        L.append(f"| {g} | {a_['sag']:.0f} | {b_['sag']:.0f} | {a_['hog']:.0f} | {b_['hog']:.0f} | {a_['V']:.0f} | {b_['V']:.0f} | {a_['T']:.0f} | {b_['T']:.0f} | {gps[g]['sag']:.0f} | {gds[g]['sag']:.0f} |")
+    # sills: per support, largest |value| over the elements (member-axis orientation may differ between the models)
+    def h_dash(ls):
+        r = {}
+        for j, q in enumerate(Q):
+            if q["k"] == "H":
+                d = r.setdefault(q["ab"], {})
+                d[q["t"]] = max(d.get(q["t"], 0.0), abs(dash[ls]["max"][j]), abs(dash[ls]["min"][j]))
+        return r
+    def h_p3c(C, ls):
+        r = {}
+        for n, i in ix.items():
+            if n[0] == "HS":
+                d = r.setdefault(n[1][0], {}); q = n[2][:-1]
+                d[q] = max(d.get(q, 0.0), abs(C[ls]["max"][i]), abs(C[ls]["min"][i]))
+        return r
+    hd, hp = h_dash("ULS"), h_p3c(Cd, "ULS")
+    L += ["", "### Sills / headstocks, ULS largest |value| over the sill (member axes)", "",
+          "| Support | |My| P3c | dash | |Vz| P3c | dash | |Mz| P3c | dash | |Vy| P3c | dash | |T| P3c | dash |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for sid in sorted(hd):
+        a_, b_ = hp.get(sid), hd[sid]
+        if a_ is None:
+            continue
+        out["sills"][sid] = {"p3c": a_, "dash": b_}
+        L.append(f"| {sid} | " + " | ".join(f"{a_[q]:.0f} | {b_[q]:.0f}" for q in ("My", "Vz", "Mz", "Vy", "T")) + " |")
     # platform default selection
     up = {bid: (Cp["ULS"]["max"][ix[("BL", bid, "v")]], Cp["ULS"]["min"][ix[("BL", bid, "v")]], Cp["SLS"]["min"][ix[("BL", bid, "v")]]) for bid in M["bearings"]}
     out["platform_default"] = {"on": sorted(on_pf), "rows": len(Gp["rows"]), "missing": Cp["missing"], "not_combined": Pr["not_combined"], "bearing_v": up}

@@ -424,7 +424,7 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
         rec = Ld.get(key)
         if rec is None or (isinstance(rec, dict) and rec.get("value") is None and "rows" not in rec):
             notc.append((aid, f"loads.{key}: {(rec or {}).get('tag', 'absent')} — not analysed, not combined"))
-    return {"prim": P, "names": RS.names, "sources": src, "not_combined": notc,
+    return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc,
             "provisional": rd.provisional + prov + list(H.get("provisional") or []) + list(W.get("provisional") or []) + list(Q.get("provisional") or [])
                            + list(Tr.get("provisional") or []) + list(T.get("provisional") or []) + list(C.get("provisional") or []),
             "cases": {"horizontal": H, "thermal": T, "wind": W, "earthquake": Q, "traffic": Tr, "sdl": C}}
@@ -451,3 +451,64 @@ def combined_actions(doc, geo, S, mdl, std, allow_proposed=False, options=None, 
             "rows": G["rows"], "capped": G["capped"], "on": sorted(on), "options": G["options"], "sources": Pr["sources"],
             "not_combined": Pr["not_combined"], "missing_terms": Cb["missing"], "standards_status": std.result_status(), "standards_used": std.usage(),
             "provisional": dedup, "primitives": Pr}
+
+
+def _abs_gov(E, i):
+    """(|value|, signed value, governing row) of the larger of max / min at response i."""
+    a, b = E["max"][i], E["min"][i]
+    return (abs(a), a, E["gmax"][i]) if abs(a) >= abs(b) else (abs(b), b, E["gmin"][i])
+
+
+def schedule(CA):
+    """Combined-action schedule from combined_actions(): per bearing, pile, girder line and sill, the ULS / SLS extremes
+    with the governing rows (and positions). Values only — no capacity check, nothing design-approved."""
+    names, Env = CA["names"], CA["envelopes"]
+    meta = CA["primitives"]["meta"]
+    ix = {n: i for i, n in enumerate(names)}
+    out = {"bearings": {}, "piles": {}, "girders": {}, "sills": {}}
+    for ls in ("ULS", "SLS"):
+        E = Env[ls]
+        for n, i in ix.items():
+            if n[0] == "BL":
+                d = out["bearings"].setdefault(n[1], {}).setdefault(ls, {})
+                d[n[2]] = {"max": float(E["max"][i]), "gmax": E["gmax"][i], "min": float(E["min"][i]), "gmin": E["gmin"][i]}
+            elif n[0] == "P" and n[2][:-1] in ("Ml", "Mt", "N") and n[2][-1] in "12":
+                d = out["piles"].setdefault(n[1][0], {}).setdefault(ls, {})
+                q = n[2][:-1]
+                if q == "N":
+                    cur = d.setdefault("N", {"max": -np.inf, "gmax": None, "min": np.inf, "gmin": None})
+                    if E["max"][i] > cur["max"]:
+                        cur["max"], cur["gmax"] = float(E["max"][i]), E["gmax"][i]
+                    if E["min"][i] < cur["min"]:
+                        cur["min"], cur["gmin"] = float(E["min"][i]), E["gmin"][i]
+                else:
+                    a, v, g = _abs_gov(E, i)
+                    if a > d.get(q, {"abs": -1})["abs"]:
+                        d[q] = {"abs": float(a), "value": float(v), "gov": g, "element": n[1][1], "end": int(n[2][-1])}
+            elif n[0] == "G":
+                line, eid = n[1]; q = n[2][0]; end = int(n[2][1])
+                ch = meta[("G", n[1])]["ch"][end - 1]
+                d = out["girders"].setdefault(line, {}).setdefault(ls, {})
+                if q == "M":
+                    for k, val, g, better in (("M_sag", E["max"][i], E["gmax"][i], lambda x, y: x > y), ("M_hog", E["min"][i], E["gmin"][i], lambda x, y: x < y)):
+                        if k not in d or better(val, d[k]["value"]):
+                            d[k] = {"value": float(val), "gov": g, "ch": ch, "element": eid}
+                else:
+                    a, v, g = _abs_gov(E, i)
+                    k = {"V": "V", "T": "T", "N": "N"}[q]
+                    if a > d.get(k, {"abs": -1})["abs"]:
+                        d[k] = {"abs": float(a), "value": float(v), "gov": g, "ch": ch, "element": eid}
+            elif n[0] == "HS":
+                sid, eid = n[1]; q = n[2][:-1]; end = int(n[2][-1])
+                s_ = meta[("HS", n[1])]["s"][end - 1]
+                d = out["sills"].setdefault(sid, {}).setdefault(ls, {})
+                if q in ("My", "Mz"):
+                    for k, val, g, better in ((q + "_max", E["max"][i], E["gmax"][i], lambda x, y: x > y), (q + "_min", E["min"][i], E["gmin"][i], lambda x, y: x < y)):
+                        if k not in d or better(val, d[k]["value"]):
+                            d[k] = {"value": float(val), "gov": g, "s": s_, "element": eid}
+                else:
+                    a, v, g = _abs_gov(E, i)
+                    if a > d.get(q, {"abs": -1})["abs"]:
+                        d[q] = {"abs": float(a), "value": float(v), "gov": g, "s": s_, "element": eid}
+    out["uplift"] = sorted(b for b, d in out["bearings"].items() if min(d["ULS"]["v"]["min"], d["SLS"]["v"]["min"]) < 0)
+    return out

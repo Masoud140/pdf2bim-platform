@@ -36,7 +36,8 @@ const DASH = process.env.DASH || path.join(ROOT, 'dist/BR13A_grillage_dashboard.
       const C = {}; ['ULS', 'SLS'].forEach(ls => { const O = R.C.out[ls]; C[ls] = { max: a(O.max), min: a(O.min), gmax: O.gmax, gmin: O.gmin, n: O.n }; });
       const M = AN.parseMCT(document.getElementById('an_mct_src').textContent);
       const q = Q.map(x => x.k === 'B' ? { k: 'B', t: x.t, id: x.id, ab: x.ab, n2: M.nodes[x.lk.n2], n1: M.nodes[x.lk.n1] }
-        : x.k === 'P' ? { k: 'P', t: x.t, id: x.id, end: x.end, pile: x.pile, ab: x.ab, z: x.z, u: x.u, n: x.n } : { k: x.k, t: x.t, id: x.id, end: x.end });
+        : x.k === 'P' ? { k: 'P', t: x.t, id: x.id, end: x.end, pile: x.pile, ab: x.ab, z: x.z, u: x.u, n: x.n }
+        : (() => { const e = M.els.find(q => q.id === x.id) || {}; return { k: x.k, t: x.t, id: x.id, end: x.end, ab: x.ab, s: x.s, sec: e.sec !== undefined ? (M.secs[e.sec] || {}).name : null, n1: M.nodes[e.n1], n2: M.nodes[e.n2] }; })());
       res({ Pm, C, Q: q, tr: R.tr, trErr: R.trErr, miss: R.C.miss, byLs: R.C.byLs, secs: R.secs, V: WD.V, V35: RX.V35, Vs: RX.Vs });
     }); } catch (e) { rej(e); }
   }));
@@ -49,9 +50,9 @@ const DASH = process.env.DASH || path.join(ROOT, 'dist/BR13A_grillage_dashboard.
     v.rows.forEach(r => { c[r[1] + ' ' + r[2]] = (c[r[1] + ' ' + r[2]] || 0) + 1; });
     sets[k] = { opt: v.opt, on: v.on || null, capped: v.capped, n: v.rows.length, counts: c, sha256: crypto.createHash('sha256').update(canon(v.rows)).digest('hex'),
                 head: v.rows.slice(0, 3), tail: v.rows.slice(-2) }; });
-  // response subset: every bearing quantity and every pile quantity for the envelopes; primitives for the bearings and
+  // response subset: every bearing, pile, girder (G) and headstock (H) quantity for the envelopes; primitives for the bearings and
   // two piles only (enough for the arithmetic check of the combination step)
-  const keepC = rx.Q.map((q, i) => (q.k === 'B' || q.k === 'P') ? i : -1).filter(i => i >= 0);
+  const keepC = rx.Q.map((q, i) => (q.k === 'B' || q.k === 'P' || q.k === 'G' || q.k === 'H') ? i : -1).filter(i => i >= 0);
   const keepP = rx.Q.map((q, i) => (q.k === 'B' || (q.k === 'P' && (q.pile === 'A1' || q.pile === 'B4'))) ? i : -1).filter(i => i >= 0);
   const pick = (v, ix) => ix.map(i => v[i]);
   const Pm = {}; Object.keys(rx.Pm).forEach(k => { const e = rx.Pm[k]; Pm[k] = e.s ? { s: pick(e.s, keepP) } : { max: pick(e.max, keepP), min: pick(e.min, keepP) }; });

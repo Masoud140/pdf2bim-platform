@@ -12,6 +12,10 @@ Names (tuples):
                                         Vy, Vz (local shear, end 1), N1 / N2 (axial force at the end, COMPRESSION +),
                                         Ml1 / Ml2, Mt1 / Mt2 (section moment at the end, global, about the support's
                                         sill axis (l) and about its horizontal normal (t))
+  ("G",  (line, element), q)            girder element section actions at both ends (+x face): M1 / M2 sagging +,
+                                        V1 / V2, T1 / T2, N1 / N2 (tension +); meta: chainage of each end
+  ("HS", (support, element), q)         sill (headstock) element section actions at both ends (+x face): My, Vz, Mz,
+                                        Vy, T + end number; meta: position s along the sill axis
   ("H",  pile, "ux" | "uy")             pile-head displacement
   ("S",  "springs", "X" | "Y")          total force of all springs on the structure
 Member-end quantities include the member's fixed-end forces (self weight, imposed strain) in `static`, so they are
@@ -64,6 +68,38 @@ class ResponseSet:
                 c12 = np.zeros(12); c12[c] = sg
                 el_row(("BL", bid, lab), key, c12)
         axes = _sill_axes(mdl)
+        self.meta = {}
+        # girders: section actions at both element ends, on the +x face (end 1: -f, end 2: +f); M sagging + (= -My on
+        # the +x face), so M1 = f[4], M2 = -f[10]; V, T, N (tension +) as the +x face actions
+        for x in mdl["members"]:
+            if x["role"] != "girder" or x["id"] not in m.beams:
+                continue
+            key = ("G", (x["line"], x["id"]))
+            for lab, j, sg in (("M1", 4, 1.0), ("M2", 10, -1.0), ("V1", 2, -1.0), ("V2", 8, 1.0), ("T1", 3, -1.0), ("T2", 9, 1.0), ("N1", 0, -1.0), ("N2", 6, 1.0)):
+                c12 = np.zeros(12); c12[j] = sg
+                el_row(key + (lab,), x["id"], c12)
+            self.meta[key] = {"ch": (mdl["nodes"].get(x["n1"], {}).get("ch"), mdl["nodes"].get(x["n2"], {}).get("ch"))}
+        # sills (headstocks): +x face actions at both element ends (My, Vz, Mz, Vy, T in member axes), with the
+        # position s of each end along the support's sill axis from the support's first sill node
+        sill_of = {}
+        for sid, sp_ in mdl["supports"].items():
+            for k in sp_["sill_nodes"]:
+                sill_of[k] = sid
+        for x in mdl["members"]:
+            if x["role"] != "sill" or x["id"] not in m.beams:
+                continue
+            sid = sill_of.get(x["n1"])
+            if sid is None or sill_of.get(x["n2"]) != sid:
+                continue
+            u = axes[sid][0]
+            o0 = m.nodes[mdl["supports"][sid]["sill_nodes"][0]][:2]
+            key = ("HS", (sid, x["id"]))
+            for end in (0, 1):
+                sg = -1.0 if end == 0 else 1.0
+                for lab, j in (("My", 4), ("Vz", 2), ("Mz", 5), ("Vy", 1), ("T", 3)):
+                    c12 = np.zeros(12); c12[6 * end + j] = sg
+                    el_row(key + (f"{lab}{end + 1}",), x["id"], c12)
+            self.meta[key] = {"s": tuple(float((m.nodes[n][:2] - o0) @ u) for n in (x["n1"], x["n2"]))}
         for sid, s in mdl["supports"].items():
             u, n = axes[sid]
             for p in s["piles"]:
