@@ -1,0 +1,161 @@
+<div class="wrap">
+  <header>
+    <h1>BR13A Model Viewer</h1>
+    <span class="meta" id="meta">B12639 · M7–M12 southbound exit ramp · single-span Super-T</span>
+    <span class="flag">Indicative · proposed decisions used · not design-approved</span>
+  </header>
+  <nav role="tablist">
+    <button role="tab" id="tab-model" aria-selected="true" aria-controls="p-model">3D model and analysis</button>
+    <button role="tab" id="tab-design" aria-selected="false" aria-controls="p-design">Design checks</button>
+    <button role="tab" id="tab-traffic" aria-selected="false" aria-controls="p-traffic">Moving loads</button>
+    <button role="tab" id="tab-hog" aria-selected="false" aria-controls="p-hog">Prestress and camber</button>
+    <button role="tab" id="tab-section" aria-selected="false" aria-controls="p-section">Section</button>
+    <button role="tab" id="tab-sub" aria-selected="false" aria-controls="p-sub">Bearings and piles</button>
+    <button role="tab" id="tab-loads" aria-selected="false" aria-controls="p-loads">Loads and combinations</button>
+  </nav>
+
+  <section id="p-model" role="tabpanel" aria-labelledby="tab-model">
+    <div class="work">
+      <div class="stage" id="stage"><div class="hud" id="hud">drag to rotate · scroll to zoom · right-drag to pan</div></div>
+      <aside class="rail">
+        <div>
+          <h2>Show result</h2>
+          <select id="res" aria-label="Result to show">
+            <option value="none">Undeformed model</option>
+            <option value="sw">Self weight, deflected</option>
+            <option value="sdl">Surfacing and barriers, deflected</option>
+          </select>
+        </div>
+        <div>
+          <h2>Deflection scale <span id="scv" style="text-transform:none;letter-spacing:0;font-family:var(--font-data)"></span></h2>
+          <input type="range" id="sc" min="0" max="3" step="0.01" value="2.3" aria-label="Deflection scale">
+        </div>
+        <dl class="kv" id="rkv"></dl>
+        <div>
+          <h2>Members</h2>
+          <div class="roles" id="roles"></div>
+        </div>
+        <div class="btns"><button id="v-iso">3D</button><button id="v-plan">Plan</button><button id="v-elev">Elevation</button><button id="v-sec">Section</button></div>
+        <p class="note">Integrated grillage from the platform's model builder: girders on straight chords, deck slab and edge members, end cross girders, elastomeric bearings, sill beams and piles on soil springs. Coordinates in MGA relative to the model centre.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="p-design" role="tabpanel" aria-labelledby="tab-design" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h3>Bending use along the girder</h3>
+        <p class="note">Solid: ULS M* / φMu. Dashed: SLS Ms* / Ms,allow (crack control, Table 8.6.2.1). Dotted line: 1.0.</p>
+        <div class="gsel" id="gsel"></div>
+        <div class="svgbox" id="gchart"></div>
+      </div>
+      <div class="card">
+        <h3>Station results, <span id="gname">G1</span></h3>
+        <p class="note">kN·m and MPa. Mnc girder alone, Ms* composite SLS, Mdec decompression, Mal allowable, Mcr cracking, Muo and 1.2 Mcr minimum strength.</p>
+        <div class="tw"><table id="gtab"><thead><tr><th>Station</th><th>x (m)</th><th>Mnc</th><th>Ms*</th><th>Soffit</th><th>Mdec</th><th>Mal</th><th>SLS use</th><th>Mcr</th><th>Muo ≥ 1.2Mcr</th><th>M*</th><th>φMu</th><th>ULS use</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">Effective prestress from the ported losses analysis (detailed time-step method, 10 years) with the D-42 assumed inputs; strand and bar layout are placeholders (D-1); standards values are unverified code extracts. Shear and torsion are not checked yet because fitments are not on the drawings.</p>
+  </section>
+
+  <section id="p-sub" role="tabpanel" aria-labelledby="tab-sub" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h3>Bearing reactions, ULS envelope</h3>
+        <p class="note">Vertical, kN, compression positive. A negative minimum is uplift.</p>
+        <div class="tw"><table id="btab"><thead><tr><th>Bearing</th><th></th><th>Max</th><th>Min</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card">
+        <h3>Pile moment resultants, ULS</h3>
+        <p class="note">kN·m, earthquake-governed, response-ellipse method (ADR-031). Uses the proposed site class Be (D-43).</p>
+        <div class="svgbox" id="pchart"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-traffic" role="tabpanel" aria-labelledby="tab-traffic" hidden>
+    <div class="grid2">
+      <div class="card" style="grid-column:1/-1">
+        <h3>Governing traffic position</h3>
+        <p class="note">Plan of the deck with the lane layout, lane factors and load positions that give the selected extreme. Wheel loads include the dynamic load allowance; lane UDL shown as small dots where the patterned load is applied.</p>
+        <div class="gsel"><select id="tcase" aria-label="Traffic case" style="max-width:420px"></select></div>
+        <div class="svgbox" id="tplan"></div>
+        <dl class="kv" id="tkv" style="max-width:520px;margin-top:10px"></dl>
+      </div>
+      <div class="card">
+        <h3>Design vehicles</h3>
+        <p class="note">AS 5100.2 moving loads as coded in the platform (standards values unverified).</p>
+        <div class="tw"><table id="vtab"><thead><tr><th>Item</th><th></th><th>M1600</th><th>S1600</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card">
+        <h3>How the search works</h3>
+        <p class="note" id="tnote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-hog" role="tabpanel" aria-labelledby="tab-hog" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h3>Midspan hog over time</h3>
+        <p class="note">Camber of each girder from transfer to 10 years (detailed time-step method). The drop near 53 days is the deck pour.</p>
+        <div class="svgbox" id="hchart"></div>
+      </div>
+      <div class="card">
+        <h3>Prestress force along the girder</h3>
+        <p class="note">Total strand force, kN, at transfer and at 10 years. The ramps at the ends are the transmission length and debonding.</p>
+        <div class="gsel" id="hsel"></div>
+        <div class="svgbox" id="pchart2"></div>
+      </div>
+      <div class="card">
+        <h3>Losses analysis inputs, <span id="hname">G1</span></h3>
+        <p class="note">Ages in days; k4 environment, chi ageing coefficient, wd wet deck kN/m, sidl kN/m. Most are assumed placeholders (D-42).</p>
+        <dl class="kv" id="hkv"></dl>
+      </div>
+      <div class="card">
+        <h3>Hog table</h3>
+        <div class="tw"><table id="htab"><thead><tr><th>Time</th><th></th><th>G1</th><th>G2</th><th>G3</th><th>G4</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-section" role="tabpanel" aria-labelledby="tab-section" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h3>Composite section, G2 midspan</h3>
+        <p class="note">Super-T outline from the section engine with the deck slab over its tributary width; strands as dots (placeholder layout D-1), bar layers as dashed lines. mm.</p>
+        <div class="svgbox" id="schart"></div>
+      </div>
+      <div class="card">
+        <h3>N–M interaction, sagging</h3>
+        <p class="note">Ultimate axial force and moment capacity (unfactored line, φ-factored shaded), with the G2 midspan design action.</p>
+        <div class="svgbox" id="nmchart"></div>
+      </div>
+      <div class="card">
+        <h3>Section data</h3>
+        <dl class="kv" id="skv"></dl>
+      </div>
+      <div class="card">
+        <h3>Reinforcement and strands</h3>
+        <div class="tw"><table id="stab"><thead><tr><th>Layer</th><th>Height above soffit (mm)</th><th>Count</th><th>Size</th></tr></thead><tbody></tbody></table></div>
+        <p class="note" id="smiss" style="margin-top:8px"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-loads" role="tabpanel" aria-labelledby="tab-loads" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h3>Load cases in the combinations</h3>
+        <p class="note">Each AS 5100.2 action and where the platform takes it from.</p>
+        <div class="tw"><table id="ltab"><thead><tr><th>Action</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card">
+        <h3>Combinations</h3>
+        <dl class="kv" id="ckv"></dl>
+        <h3 style="margin-top:14px">Not combined</h3>
+        <div class="tw"><table id="ntab"><thead><tr><th>Action</th><th>Why</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </section>
+</div>
