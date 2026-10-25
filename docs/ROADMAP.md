@@ -39,5 +39,6 @@
 - **P3c close-out: girder and sill responses, combined-action schedule — DONE 2026-10-25** (ADR-028): `P3_MODEL_METHOD.md` §9.1. P3 acceptance still needs the engineer's MIDAS import test (X-2).
 - **P4 plan drafted 2026-10-25** (`docs/P4_PLAN.md`, for owner review; non-blocking). 
 - **P4.1 concurrent traffic actions — DONE 2026-10-25** (branch `p4-verification`, ADR-029): `P4_VERIFICATION_METHOD.md` §1. 
-- **P4.2 concurrent combinations — DONE 2026-10-25** (ADR-030): `P4_VERIFICATION_METHOD.md` §2. **Next: P4.3 signed earthquake and pile resultants.**
+- **P4.2 concurrent combinations — DONE 2026-10-25** (ADR-030): `P4_VERIFICATION_METHOD.md` §2. 
+- **P4.3 signed earthquake and pile resultants — DONE 2026-10-25** (ADR-031, method for the engineer to confirm): `P4_VERIFICATION_METHOD.md` §3. **P4.4 (independent MIDAS model) waits for the owner; next autonomous: P4.5 design engine, stage 1 (flexural strength, E-1).**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

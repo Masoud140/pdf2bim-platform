@@ -46,3 +46,13 @@ Characteristic values only; no load factor; inputs Assumed / Standard-verify; st
 - girder max sagging rows are traffic rows: concurrent V is small (−218 … +265 kN), concurrent T −810 … −1072 kN·m;
 - **bearing A-G4 at its uplift minimum (−162 kN) carries concurrent tr −1124 kN and lon +1145 kN** (row ULS-B-0107: shrinkage, temperature and traffic): relevant to M-4 and the bearing / restraint design;
 - **every pile moment extreme is governed by an earthquake row (ULS-H-…)**, so the pile concurrent values are flagged and not yet physical — P4.3 (signed earthquake) is needed before pile interaction checks.
+
+## 3. P4.3 Signed earthquake and pile resultants (`earthquake.covariance` / `concurrent`, `combinations.eq_resultant`, `pile_eq_resultants`)
+
+**Concurrent earthquake actions:** per direction, the RSA keeps the modal response matrix R (modes × responses), the CQC correlation ρ (cross terms below 1e-4 dropped, as before) and the missing-mass vector r. Covariance C_ij = Σ_kl ρ_kl R_ki R_lj + r_i r_j (C_ii = R_i²). When response i is at ± R_i, the most probable concurrent value of j is c_j = ± C_ij / R_i (|c_j| ≤ R_j). In `concurrent_row` each earthquake term f · EQX / EQY now uses this vector with the side `combine` took; the row's value at i is unchanged and no flag is raised.
+
+**Pile moment resultant:** for a row with earthquake terms, the largest √(Ml² + Mt²) at an element end is max over unit u of u · s0 + Σ_d |f_d| √(uᵀ S_d u) (s0 = the row's static terms, S_d = the 2 × 2 CQC covariance of (Ml, Mt) in direction d): the response-ellipse method (Menun & Der Kiureghian), with the 100 / 30 terms added linearly (conservative against SRSS of directions). Rows without earthquake: √ of their separate envelopes (conservative). The larger is an upper bound over all rows.
+
+**Checks:** C_ii = R_i² and |c_j| ≤ R_j on 1- and 2-mode models; the cross term against the closed form; concurrent rows with a CQC state reproduce the envelope, are admissible and not flagged; the ellipse resultant against a brute force over the Minkowski sum of two ellipses with a static offset (1e-4); refusal for rows with non-earthquake envelopes; BR13A record: ellipse ≤ √ bound and ≥ every earthquake-row concurrent resultant; 4 / 4 mutations caught.
+
+**BR13A (ULS, indicative):** every pile's resultant comes from an earthquake row; **upper bound 0.85–0.87 of the √ of the full separate envelopes** (A1 1803 vs 2102 kN·m; B1 1480 vs 1744). The concurrent pile actions in the schedule are now physical (most probable values), e.g. A1 at max |Ml| 1789: Mt −220, N 1370 kN.

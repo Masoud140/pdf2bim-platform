@@ -314,3 +314,9 @@
 
 - **Decision (agent, 2026-10-25; reversible):** a concurrent vector is built for the governing row of each extreme by replacing each envelope term with the single state that gives the value `combine` took (traffic state, governing wind / surcharge part). Earthquake terms keep the unsigned envelope and are flagged until P4.3; flagged values are not used as concurrent design actions.
 - **Consequence:** girder, bearing and sill concurrent actions are admissible and exactly consistent with the envelopes; pile actions wait for P4.3.
+
+## ADR-031 P4.3 earthquake concurrency and pile resultants (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** concurrent earthquake actions are the most probable values from the CQC covariance (c_j = C_ij / R_i); pile moment resultants in earthquake rows use the response ellipse (Menun-Der) with the 100 / 30 directional terms added linearly; other rows use √ of their separate envelopes. The √ of the full separate envelopes is no longer the reported pile resultant.
+- **Alternatives:** time-history (not available), SRSS of directions inside the ellipse (less conservative than the 100 / 30 rule used by the combinations), dominant-mode signs (cruder).
+- **Consequence:** BR13A pile resultants fall to 0.85–0.87 of the earlier √ approximation. Method choice affects design values: **engineer to confirm** before it is used for design (listed in the owner items).

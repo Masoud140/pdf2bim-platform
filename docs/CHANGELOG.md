@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.3 signed earthquake and pile resultants (branch `p4-verification`)
+
+- **Added:** `earthquake.covariance()` / `concurrent()`; earthquake primitives with their RSA; `combinations.eq_resultant()`, `pile_eq_resultants()`; pile resultant table in `BR13A.combined_actions.md`.
+- **Tests:** earthquake 16, concurrent 17 (4 / 4 new mutations caught).
+- **Result:** BR13A pile resultant upper bound 0.85–0.87 of the earlier √ of separate envelopes; pile concurrent actions no longer flagged.
+
 ## 2026-10-25 — P4.2 concurrent combinations (branch `p4-verification`)
 
 - **Added:** `combinations.concurrent_row()`, `concurrent_schedule()`; concurrent tables in `tools/combined_actions.py` / `BR13A.combined_actions.md`.
