@@ -1455,6 +1455,16 @@
 ; LCNAME, LCTYPE, DESC
    SW   , D , Self weight
 
+*BNDR-GROUP    ; Boundary Group
+; NAME, AUTOTYPE
+   Support_0010000, 0
+   bearing, 0
+   Springs, 0
+
+*LOAD-GROUP    ; Load Group
+; NAME
+   SelfWeight
+
 *CONSTRAINT    ; Supports
 ; NODE_LIST, CONST(Dx,Dy,Dz,Rx,Ry,Rz,Rw), GROUP
    304 323 342 361 397 415 433 451, 0010000, Support_0010000

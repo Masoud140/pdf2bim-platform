@@ -12,6 +12,7 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 | *UNIT, *NODE, *ELEMENT BEAM, *MATERIAL USER (name <= 16 chars) | verified | MCT_EXPORT_METHOD §1 |
 | *SECTION DBUSER SB rectangle (H, B) | verified | §1 |
 | *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; first-case v8 file |
+| *BNDR-GROUP, *LOAD-GROUP | UNVERIFIED | added 2026-10-26 after the engineer's import gave a run error on the first *CONSTRAINT line (group not declared); awaits re-import |
 | *STLDCASE, *CONSTRAINT, *USE-STLD, *SELFWEIGHT | from the engineer's native model, import of a generated file not yet confirmed | §1b |
 | *ELASTICLINK (GEN, angle, SDx..SRz, bSHEAR, DRy, DRz, group) | UNVERIFIED | dashboard export (src/sub.js) / first-case v8 header |
 | *SPRING (LINEAR) | UNVERIFIED | field order corrected from the engineer's MIDAS import error report (2026-10-26: the dashboard order failed, 8 errors per line); awaits a clean re-import |
@@ -108,6 +109,12 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for n, ds in m.fixed.items():
         f = "".join("1" if d in ds else "0" for d in range(6)) + "0"
         groups.setdefault(f, []).append(nmap[n])
+    # Boundary / load groups declared before use: the engineer's second MIDAS import (2026-10-26) gave
+    # "Run Error : command in line ..." on the first *CONSTRAINT line, whose group was not defined (provisional fix).
+    bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else [])
+    L += ["*BNDR-GROUP    ; Boundary Group", "; NAME, AUTOTYPE"] + [f"   {g}, 0" for g in bg] + [""]
+    if gravity:
+        L += ["*LOAD-GROUP    ; Load Group", "; NAME", "   SelfWeight", ""]
     L += ["*CONSTRAINT    ; Supports", "; NODE_LIST, CONST(Dx,Dy,Dz,Rx,Ry,Rz,Rw), GROUP"]
     for f, ids in groups.items():
         L.append(f"   {_node_list(sorted(ids))}, {f}, Support_{f}")
