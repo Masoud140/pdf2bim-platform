@@ -180,7 +180,8 @@
 
 ## Tests (latest full run)
 
-- Commit `cdfe3db` (branch `p4-verification`): 42 scripts; **474 / 474 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
+- 2026-10-26, tree = `fd8c85a` (branch `p4-verification`): 53 scripts; **586 / 586 assertions PASS** (35 asserting scripts); 18 print-only scripts ran (`baseline/BR13A/test_run.md`). `test_mct.py` rerun on `0147d4b` (spring fix): 16 / 16.
+- Earlier: commit `cdfe3db`: 42 scripts; **474 / 474 assertions PASS**; 18 print-only scripts ran (`baseline/BR13A/test_run.md`).
 - Previous: `ea37a13`, 460 / 460.
 - The run on `37e7f04` had 1 FAIL: the generality guard found "BR13A" in the .mct writer docstring. Fixed in `009ce60` and re-run.
 

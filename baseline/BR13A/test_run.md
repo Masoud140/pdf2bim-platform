@@ -1,6 +1,7 @@
-# Test run record — 2026-10-25T22:31:22+00:00
+# Test run record — 2026-10-25T23:14:06+00:00
 
 - Commit: `58de36f0045ed91abff24b2b6c79113e296fb6c3`
+- Note: the run started on `58de36f` with the test edits uncommitted; those edits were committed unchanged as `fd8c85a` during the run, so the tested tree equals `fd8c85a`. `pdf2bim/model/mct.py` changed (`0147d4b`, spring field order) after the MIDAS test had run; `tests/model/test_mct.py` was rerun on `0147d4b`: 16 PASS / 0 FAIL.
 - Dashboard: `dist/BR13A_grillage_dashboard.html`
 - Command: `python3 tools/run_suite.py`
 
@@ -8,57 +9,57 @@
 
 | Script | Command | Type | Exit | Time (s) | JS errors | Outcome |
 |---|---|---|---|---|---|---|
-| sub_t | `node tests/sub_t.js` | prints | 0 | 14 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| sub_t | `node tests/sub_t.js` | prints | 0 | 13 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
 | sl_t | `node tests/sl_t.js` | prints | 0 | 12 | 0 | ran, no JS errors |
-| soil_t | `node tests/soil_t.js` | prints | 0 | 17 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tm_t | `node tests/tm_t.js` | prints | 0 | 46 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tg_t | `node tests/tg_t.js` | prints | 0 | 71 | 0 | ran, no JS errors |
+| soil_t | `node tests/soil_t.js` | prints | 0 | 20 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| tm_t | `node tests/tm_t.js` | prints | 0 | 47 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| tg_t | `node tests/tg_t.js` | prints | 0 | 68 | 0 | ran, no JS errors |
 | wd_t | `node tests/wd_t.js` | prints | 0 | 17 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| eq_t | `node tests/eq_t.js` | prints | 0 | 38 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| eq_t | `node tests/eq_t.js` | prints | 0 | 37 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
 | rx_t | `node tests/rx_t.js` | prints | 0 | 40 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| x_t | `node tests/x_t.js` | prints | 0 | 62 | 0 | ran, no JS errors |
+| x_t | `node tests/x_t.js` | prints | 0 | 66 | 0 | ran, no JS errors |
 | gw_t | `node tests/gw_t.js` | prints | 0 | 40 | 0 | ran, no JS errors |
-| dg36_t | `node tests/dg36_t.js` | prints | 0 | 62 | 0 | ran, no JS errors |
-| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 47 | 0 | ran, no JS errors |
-| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 43 | 0 | ran, no JS errors |
+| dg36_t | `node tests/dg36_t.js` | prints | 0 | 64 | 0 | ran, no JS errors |
+| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 46 | 0 | ran, no JS errors |
+| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 44 | 0 | ran, no JS errors |
 | dsg_test | `node tests/engine/dsg_test.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t2 | `node tests/engine/dsg_t2.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t3 | `node tests/engine/dsg_t3.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t4 | `node tests/engine/dsg_t4.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t5 | `node tests/engine/dsg_t5.js` | prints | 0 | 0 | - | ran, no JS errors |
 | schema | `python3 tests/schema/test_schema.py` | asserts | 0 | 0 | - | 17 PASS / 0 FAIL |
-| format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 1 | 1 | - | 44 PASS / 4 FAIL (exit 1) |
+| format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 0 | 1 | - | 48 PASS / 0 FAIL |
 | standards data | `python3 tests/standards/test_standards.py` | asserts | 0 | 1 | - | 30 PASS / 0 FAIL |
-| geometry P1 | `python3 tests/geometry/test_geometry.py` | asserts | 1 | 0 | - | 34 PASS / 2 FAIL (exit 1) |
-| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 1 | 21 | - | 23 PASS / 3 FAIL (exit 1) |
+| geometry P1 | `python3 tests/geometry/test_geometry.py` | asserts | 0 | 0 | - | 37 PASS / 0 FAIL |
+| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 22 | - | 26 PASS / 0 FAIL |
 | solver P3 | `python3 tests/model/test_solver.py` | asserts | 0 | 0 | - | 11 PASS / 0 FAIL |
-| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 1 | 54 | - | 16 PASS / 1 FAIL (exit 1) |
-| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 1 | 28 | - | 32 PASS / 3 FAIL (exit 1) |
-| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 41 | - | 25 PASS / 0 FAIL |
+| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 53 | - | 17 PASS / 0 FAIL |
+| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 0 | 55 | - | 37 PASS / 0 FAIL |
+| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 43 | - | 25 PASS / 0 FAIL |
 | mct writer P3b | `python3 tests/model/test_mct.py` | asserts | 0 | 33 | - | 16 PASS / 0 FAIL |
 | modes P3b | `python3 tests/model/test_modes.py` | asserts | 0 | 1 | - | 10 PASS / 0 FAIL |
-| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 1 | 30 | - | 19 PASS / 1 FAIL (exit 1) |
-| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 1 | 28 | - | 19 PASS / 1 FAIL (exit 1) |
-| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 1 | 29 | - | 21 PASS / 1 FAIL (exit 1) |
-| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 27 | - | 14 PASS / 0 FAIL |
-| earthquake P3c | `python3 tests/model/test_earthquake.py` | asserts | 0 | 0 | - | 16 PASS / 0 FAIL |
+| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 0 | 30 | - | 20 PASS / 0 FAIL |
+| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 0 | 27 | - | 20 PASS / 0 FAIL |
+| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 0 | 28 | - | 22 PASS / 0 FAIL |
+| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 28 | - | 14 PASS / 0 FAIL |
+| earthquake P3c | `python3 tests/model/test_earthquake.py` | asserts | 0 | 1 | - | 16 PASS / 0 FAIL |
 | combinations P3c | `python3 tests/model/test_combinations.py` | asserts | 0 | 28 | - | 35 PASS / 0 FAIL |
-| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 64 | - | 17 PASS / 0 FAIL |
-| MIDAS compare P4.4 | `python3 tests/model/test_midas_compare.py` | asserts | 0 | 28 | - | 10 PASS / 0 FAIL |
-| run records P5.1 | `python3 tests/schema/test_runrecord.py` | asserts | 1 | 3 | - | 11 PASS / 1 FAIL (exit 1) |
-| query register P5.2 | `python3 tests/schema/test_register.py` | asserts | 1 | 0 | - | 7 PASS / 1 FAIL (exit 1) |
+| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 69 | - | 17 PASS / 0 FAIL |
+| MIDAS compare P4.4 | `python3 tests/model/test_midas_compare.py` | asserts | 0 | 27 | - | 10 PASS / 0 FAIL |
+| run records P5.1 | `python3 tests/schema/test_runrecord.py` | asserts | 0 | 2 | - | 12 PASS / 0 FAIL |
+| query register P5.2 | `python3 tests/schema/test_register.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
 | takeoff import P5.3 | `python3 tests/schema/test_takeoff.py` | asserts | 0 | 1 | - | 10 PASS / 0 FAIL |
-| decisions P5.4 | `python3 tests/schema/test_accept.py` | asserts | 1 | 1 | - | 3 PASS / 3 FAIL (exit 1) |
+| decisions P5.4 | `python3 tests/schema/test_accept.py` | asserts | 0 | 3 | - | 11 PASS / 0 FAIL |
 | flexure P4.5 | `python3 tests/design/test_flexure.py` | asserts | 0 | 0 | - | 13 PASS / 0 FAIL |
-| SLS + N-M P4.5 | `python3 tests/design/test_sls_nm.py` | asserts | 0 | 0 | - | 13 PASS / 0 FAIL |
+| SLS + N-M P4.5 | `python3 tests/design/test_sls_nm.py` | asserts | 0 | 1 | - | 13 PASS / 0 FAIL |
 | shear P4.5 | `python3 tests/design/test_shear.py` | asserts | 0 | 0 | - | 11 PASS / 0 FAIL |
 | design benchmark P4.5 | `python3 tests/design/test_benchmark.py` | asserts | 0 | 1 | - | 4 PASS / 0 FAIL |
-| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 1 | 54 | - | 8 PASS / 2 FAIL (exit 1) |
+| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 0 | 76 | - | 11 PASS / 0 FAIL |
 | prestress losses P4.5 | `python3 tests/design/test_prestress.py` | asserts | 0 | 2 | - | 13 PASS / 0 FAIL |
-| prestress inputs P4.5 | `python3 tests/design/test_prestress_inputs.py` | asserts | 1 | 28 | - | 11 PASS / 1 FAIL (exit 1) |
-| girder flexure P4.5 | `python3 tests/design/test_girder_flexure.py` | asserts | 1 | 28 | - | 7 PASS / 1 FAIL (exit 1) |
-| girder SLS P4.5 | `python3 tests/design/test_girder_sls.py` | asserts | 0 | 41 | - | 11 PASS / 0 FAIL |
-| girder checks P4.5 | `python3 tests/design/test_girder_checks.py` | asserts | 1 | 30 | - | 7 PASS / 1 FAIL (exit 1) |
+| prestress inputs P4.5 | `python3 tests/design/test_prestress_inputs.py` | asserts | 0 | 50 | - | 12 PASS / 0 FAIL |
+| girder flexure P4.5 | `python3 tests/design/test_girder_flexure.py` | asserts | 0 | 24 | - | 8 PASS / 0 FAIL |
+| girder SLS P4.5 | `python3 tests/design/test_girder_sls.py` | asserts | 0 | 38 | - | 11 PASS / 0 FAIL |
+| girder checks P4.5 | `python3 tests/design/test_girder_checks.py` | asserts | 0 | 27 | - | 8 PASS / 0 FAIL |
 | girder shear P4.5 | `python3 tests/design/test_girder_shear.py` | asserts | 0 | 0 | - | 5 PASS / 0 FAIL |
 | baseline (fast) | `python3 tests/baseline/test_baseline.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
 
@@ -95,7 +96,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ### tm_t
 
 ```
-5394ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
+5481ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
 [[290,44,"Brg_AbutA_fixed"],[300,101,"Brg_AbutA_fixed"],[319,157,"Brg_AbutA_fixed"],[329,212,"Brg_AbutA_fixed"],[340,55,"Brg_AbutB_freeLong"],[350,112,"Brg_AbutB_freeLong"],[369,168,"Brg_AbutB_freeLong"],[379,223,"Brg_AbutB_freeLong"]]
 view:v3d,mesh,h,v,abA,abB,dk,pl,nr | bnd:bd | stage:cs | prop:mat,srf,props | load:cb,ld,sl,tm,wd,eq,tr | an:an,hog,pr,stf | des:rx,dg,bb
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
@@ -105,9 +106,9 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 
 ```
 {"temp":{"alpha":10,"pos":"0:32.00, 100:20.71, 200:12.86, 300:7.59, 400:4.21, 500:2.16, 600:1.00, 700:0.40, 800:0.13, 900:0.03, 1000:0.00, 1100:0.00, 1200:0.00","neg":"0:-16.00, 100:-10.36, 200:-6.43, 300:-3.80, 400:-2.11, 500:-1.08, 600:-0.50, 700:-0.20, 800:-0.07, 900:-0.02, 1000:-0.00, 1100:-0.00, 1200:0.00","auto":true},"fp":{"e0":0.00010688478283150398,"phi":0.0001445416978604964,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":3815621.4566348125,"M":-1920247714.7917278},"fn":{"e0":-0.000053459646330103225,"phi":-0.00007228827298061668,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":-1908426.7020761287,"M":960355337.262212}}
-Solved 22:14:30 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
+Solved 22:56:03 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
 Positive gradient lifts the span (camber up) and lengthens it; the fixed bearings at A and the piles restrain only the end rotation offset and the elongation, so the forces are small. Hand check of the camber of a simply supported span: φL²/8 with L = mean bearing-to-bearing chord = 144.5×10⁻⁶ × 28.91² / 8 = 15.10 mm (model 13.88 mm).
-Done in 34 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
+Done in 31 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
 B L5 SLS -33.1 to -3.4 TGP 0.23 SCR 10.40
 B L6 SLS -34.2 to -5.6 TGP 0.25 SCR 9.14
 B L7 SLS -35.4 to -7.8 TGP 0.32 SCR 7.86
@@ -146,7 +147,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 meff L 0.879 T 0.883
 L S 1681.7,919.6,0.0 brgLonA 231.4,415.5,436.9,345.4 brgTr 68.1,193.6,179.4,121.1,91.6,87.5,112.3,112.1 pileM 1231,1213,1206,1198,345,329,321,322 dlonB 25.0,25.3,25.6,25.9
 T S 1126.5,2839.5,0.0 brgLonA 87.5,256.0,293.5,145.1 brgTr 126.8,433.8,395.8,83.6,287.6,501.7,488.9,107.8 pileM 885,905,903,874,923,969,1002,993 dlonB 19.5,19.9,20.2,20.4
-Solved 22:16:25 in 16.1 s on the integrated model
+Solved 22:57:54 in 17.4 s on the integrated model
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ```
 
@@ -203,7 +204,7 @@ pre reinf [ false, 965 ]
 pre fit [ false, 1607 ]
 Ld 1500
 run [ 1, '18326', '0.383' ]
-tD 220 [ 220, '18600' ] Design checks re-run 22:19:29.
+tD 220 [ 220, '18600' ] Design checks re-run 23:01:04.
 errors []
 ```
 
@@ -323,14 +324,14 @@ PASS accepts: superseding OV-1 by OV-2 (append) and marking OV-1 superseded
 PASS BR13A 0.1 file still valid under the 0.1 schema
 PASS BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)
 PASS BR13A 0.2 file valid (schema + rules)
-FAIL BR13A round trip: all 928 records of the 0.1 file keep value / unit / tag / status  [918/928]
-FAIL BR13A: records added after migration (94) are all PROPOSED with a decision id (not accepted by the agent)  [['superstructure.supert_types[ST1].fitments.rows[0]', 'superstructure.supert_types[ST1].fitments.rows[1]', 'superstructure.supert_types[ST1].fitments.rows[2]']]
-FAIL BR13A: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)  [['alignment.vertical.rows[0]', 'alignment.vertical.rows[1]', 'alignment.vertical.rows[2]', 'alignment.support_lines.rows[0]', 'alignment.support_lines.rows[1]', 'superstructure.members[G1].length', 'superstructure.members[G2].length', 'superstructure.members[G3].length', 'superstructure.members[G4].length', 'superstructure.supert_types[ST1].deck_bars.rows[0]', 'superstructure.supert_types[ST1].deck_bars.rows[1]', 'bearings.items[A-G1].seat_rl', 'bearings.items[A-G2].seat_rl', 'bearings.items[A-G3].seat_rl', 'bearings.items[A-G4].seat_rl', 'bearings.items[B-G1].seat_rl', 'bearings.items[B-G2].seat_rl', 'bearings.items[B-G3].seat_rl', 'bearings.items[B-G4].seat_rl', 'loads.earthquake.rows[0]', 'loads.earthquake.rows[1]', 'loads.earthquake.rows[2]']]
-FAIL BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)
+PASS BR13A round trip: all 928 records of the 0.1 file keep value / unit / tag / status
+PASS BR13A: records added after migration (94) all carry a decision id, and none was accepted by the agent (proposed, or accepted by a named person)
+PASS BR13A migration: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)
+PASS BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)
 PASS BR13A: no significance invented
 PASS migration refuses a non-0.1 input
 
-44 passed, 4 failed
+48 passed, 0 failed
 ```
 
 ### standards data
@@ -364,7 +365,7 @@ PASS BR13A vs dashboard gwWidth: deck width per girder at all 44 stations within
 PASS BR13A: inner girder flange width grows from A to B (non-parallel chords between parallel skew lines on a curve)
 PASS engine code contains no BR13A constants
 
-34 passed, 2 failed
+37 passed, 0 failed
 ```
 
 ### sections P2
@@ -376,12 +377,12 @@ PASS BR13A G2 midspan composite vs the frozen model's G2-M_composite (V5): A, I 
 PASS BR13A G3 midspan composite vs the frozen model's G3-M_composite (V5): A, I within 1 %, J within 2 %
 PASS BR13A edge girders vs the frozen model differ in the direction of the flare (model has none, gap D-2): G1 smaller, G4 larger at midspan
 PASS BR13A: edge-girder flare enters the section (G4 composite area at midspan > at the ends by > 5 %)
-FAIL BR13A: solid end zones from D-38 (proposed) placed at 0–2.0 m from each girder end
+PASS BR13A: solid end zones from D-38 (accepted) placed at 0–2.0 m from each girder end
 PASS BR13A: solid end block — girder A > open girder, J much larger (solid St-Venant, not thin-walled)
 PASS BR13A: solid end composite vs the frozen model's G2-E_composite (V5): A, I within 2 %, J within 5 %
 PASS BR13A: closed-cell composite J ≫ girder-alone J (> 20x)
 
-23 passed, 3 failed
+26 passed, 0 failed
 ```
 
 ### solver P3
@@ -415,24 +416,24 @@ PASS vs frozen: every bearing reaction within 15 % (explained model differences)
 PASS vs frozen: midspan deflection of every girder within 5 %
 PASS both models carry the most load at the obtuse corners (A-G1, B-G4): skew behaviour reproduced
 
-16 passed, 1 failed
+17 passed, 0 failed
 ```
 
 ### substructure P3b
 
 ```
-PASS bearing links: stiffness vector = (Kv, across, along) in link axes x, y, z
 PASS sill centroid line = pile-head (soffit) RL + depth / 2 at every pile (within 1 mm)
 PASS bearing links: local x vertical (seat -> bearing top), local z along the girder chord A -> B
 PASS bearing links: seat at the seat RL, top at the girder soffit (girder line node - D)
-FAIL geometry check flags the seat-to-soffit gap that disagrees with the Assumed bearing height (F-6)
+PASS r14: geometry check flags the seat-to-soffit gap that disagrees with the Assumed bearing height (F-6)
+PASS current revision (F-6 resolved, RL X = top of bearing): 8 top-of-bearing checks, all below the soffit  [[125, 119, 100, 109, 118, 121, 110, 127]]
 PASS inputs record keeps the tags (rock_kh and bearing plan size are Assumed)  [{'Assumed'}]
 PASS pile head lateral stiffness (rock springs only) within 3 % of the Hetenyi hand value (provisional tolerance)  [2731 vs 2700]
 PASS Hetenyi hand formula: column length 0 gives k / (2 beta) (closed form)
 PASS no rock / soil stiffness: the model is refused as a mechanism (not solved)
 PASS vs frozen integrated model: bearing Rz within 10 %, pile toe Rz within 5 %, midspan uz within 1 mm (recorded run)
 
-32 passed, 3 failed
+37 passed, 0 failed
 ```
 
 ### loads P3b
@@ -494,13 +495,13 @@ PASS BR13A: 2 lanes of 3.2 m on the 8.4 m carriageway; sweep has 21 positions (0
 PASS BR13A: the sweep envelope contains the left-packed layout (every response, both signs)
 PASS BR13A: results carry the UNVERIFIED standards label and list the traffic entries used
 PASS BR13A: bearing traffic reactions are compressive maxima (max > 0) and M1600 > S1600 at every bearing
-FAIL BR13A: the result carries the model's provisional inputs (D-39 ... D-41 etc.), so it is labelled provisional
+PASS BR13A: the result carries the model's provisional list (empty: D-39 ... D-41 accepted, ADR-040)
 PASS no traffic model switched on: refused with the field name
 PASS engine check: with the dashboard's distribution rule the P3c engine reproduces the dashboard (girder M 0.1 %, bearings 1 %)
 PASS H-5: without the one-node bearing lines the dashboard rule agrees with the P3c triangulation (bearings within 1 %)
 PASS P3c on the P3b model vs the dashboard (sweep): girder max M within 10 % (recorded run)  [G1 -2.2 %, G2 +1.4 %, G3 +0.5 %, G4 +5.6 %]
 
-19 passed, 1 failed
+20 passed, 0 failed
 ```
 
 ### thermal P3c
@@ -513,11 +514,11 @@ PASS TGP (top hotter): every girder cambers UPWARD at midspan, peak within 10 % 
 PASS TGP imposition is pure bending + axial on every girder element: K u0 has no end shear (|V| L / |M| < 1e-9)  [3.3e-16]
 PASS missing T_max is refused with the item name
 PASS a gradient profile with one point is refused
-FAIL results carry the model's provisional inputs
+PASS results carry the model's provisional list (empty: decisions accepted, ADR-040)
 PASS isolation: P3c imposition on the dashboard's frozen model reproduces all five dashboard cases (bearing forces to 1e-5 kN)  [3.4e-07]
 PASS gradient: P3c free strain / curvature of G1 within 10 % of the dashboard's design section (different deck width)
 
-19 passed, 1 failed
+20 passed, 0 failed
 ```
 
 ### horizontal P3c
@@ -530,11 +531,11 @@ PASS centrifugal outward: on this left-hand curve every force points to the righ
 PASS every horizontal case in equilibrium on the integrated model (residual < 1e-6 of the load)
 PASS unknown earth-pressure coefficient kind refused
 PASS no deck nodes inside the carriageway: refused
-FAIL results carry the model's provisional inputs and the UNVERIFIED label (M1600 weight)
+PASS results carry the model's provisional list (empty: D-34 ... D-46 accepted, ADR-040) and the UNVERIFIED label (M1600 weight)
 PASS vs dashboard: with the dashboard's retained height every load total equals the dashboard's (0.3 kN)
 PASS vs dashboard: retained height calculated from the levels within 5 % of the dashboard's built-up height
 
-21 passed, 1 failed
+22 passed, 0 failed
 ```
 
 ### wind P3c
@@ -626,9 +627,9 @@ PASS numbering guard: a sidecar whose node / element sets differ from the model 
 
 ```
 ]
-PASS a decision affecting the output's layers makes it stale, naming the decision  [r45 D-99 affects ['design.supert']]
+PASS a decision affecting the output's layers makes it stale, naming the decision  [r15 D-99 affects ['design.supert']]
 PASS an output whose layers the decision does not affect stays current (reason recorded)
-PASS a revision not explained by a decision makes every later-revision output stale  [revision r45: no history copy, change unknown; revision r46: not explained by a decision ('hand edit')]
+PASS a revision not explained by a decision makes every later-revision output stale  [revision r15: no history copy, change unknown; revision r16: not explained by a decision ('hand edit')]
 PASS a changed description without a later revision number is stale
 PASS changed standards data makes the output stale
 PASS an output without a run record is 'unknown'
@@ -636,7 +637,7 @@ PASS an older engine commit is reported as engine changed (state unaffected)
 PASS every tool layer set uses decision 'affects' values of the decision schema
 PASS tools/stale.py lists the example project's outputs with a state each  [5 current, 0 stale, 13 without a run record.]
 
-11 passed, 1 failed
+12 passed, 0 failed
 ```
 
 ### query register P5.2
@@ -644,14 +645,14 @@ PASS tools/stale.py lists the example project's outputs with a state each  [5 cu
 ```
 PASS counts equal the description's: missing = Missing-Flagged, assumed = Assumed, standard = Standard-verify, proposed = values with status proposed  [{'missing': 51, 'assumed': 221, 'standard': 64, 'proposed': 0}]
 PASS every item has a path, a 'needed from', affects from the decision schema and outputs from the run-record layers
-FAIL a proposed record (D-42 loss inputs) carries its decision, reason, affects and the outputs it touches (girder checks, not geometry)  [20 rows]
+PASS a proposed record (D-42 loss inputs) carries its decision, reason, affects and the outputs it touches (girder checks, not geometry)  [29 rows]
 PASS no item without an open category (Direct / Calculated accepted values are not listed)
 PASS deterministic: built twice, identical
 PASS HTML is standalone (no external script or stylesheet) and holds every item
 PASS Markdown lists every item once per category
 PASS tools/query_register.py writes the register equal to build() (JSON items)
 
-7 passed, 1 failed
+8 passed, 0 failed
 ```
 
 ### takeoff import P5.3
@@ -674,18 +675,18 @@ Applied: 1 proposal(s) under D-98 (status proposed).
 ### decisions P5.4
 
 ```
-PASS the AI cannot accept a decision
-FAIL accept D-42 (record proposals): next revision, every row accepted, log entry accepted with the approver; rule checks pass  [refused: decision D-42 is accepted, not proposed
-]
-PASS after acceptance the rows are read without allow_proposed
-FAIL the girder-check record (layers incl. design.supert) is now stale, the geometry record is not
-FAIL the Query Register drops the accepted proposals (D-42 rows no longer 'proposed')
+PASS the girder-check record (layers incl. design.supert) is now stale, the geometry record is not  [r15 D-42 affects ['design.supert']]
+PASS the Query Register drops the accepted proposals (D-42 rows no longer 'proposed')
 PASS a decision already accepted cannot be decided again
-Traceback (most recent call last):
-  File "/home/claude/pdf2bim-platform/tests/schema/test_accept.py", line 50, in <module>
-    p0, rec0 = ov[0]
-               ~~^^^
-IndexError: list index out of range
+PASS accept D-34 (override proposal): the override becomes current (value, tag), approval recorded, rules pass  [/tmp/tmp5is3d74p/BR13A.bridge.0.2.json: revision 16: D-34 accepted by Test Engineer (2 override(s), 0 record(s)); previous kept at ../../../tmp/tmp5is3d74p/history/BR13A.bridge.0.2.r15.json
+]
+PASS reject D-39: approval rejected, current value unchanged, log entry rejected  [/tmp/tmp5is3d74p/BR13A.bridge.0.2.json: revision 17: D-39 rejected by Test Engineer (0 override(s), 8 record(s)); previous kept at ../../../tmp/tmp5is3d74p/history/BR13A.bridge.0.2.r16.json
+]
+PASS register after the decisions: no item proposed under D-34 / D-39 / D-42
+PASS history keeps every previous revision
+PASS decision review page: lists the proposed decisions with their values and accept / reject commands; decided ones drop out  [10 -> 7]
+
+11 passed, 0 failed
 ```
 
 ### flexure P4.5
@@ -759,18 +760,18 @@ INFO differs from the spreadsheet (documented in the dashboard): uL 0.057308 vs 
 ### design stations P4.5
 
 ```
-PASS open stations, every girder: strip A, centroid and I (deck transformed by E) = the P2 composite properties (2 mm strips: 2e-4)  [1.2e-04]
 PASS solid-end station (inside the end-A zone): solid outline; strip properties = the P2 solid composite (2e-4)
 PASS strands: every 'on' strand at depth Dtot - y (y from the soffit), area from the strand material
 PASS bars: area = number x pi d^2 / 4 at depth Dtot - y; fsy, Es from the reinforcement material
 PASS debonding: a strand debonded 3 m from end A is absent at the end A station, present at midspan; an 'off' strand is absent everywhere
-FAIL BR13A missing inputs reported: strand fpb, effective prestress (no losses analysis yet), fitments, deck bars
+PASS BR13A missing inputs reported: strand fpb, effective prestress (fitments, deck bars supplied by D-43 / D-44)  [['materials.strand.fpb', 'effective prestress (time-dependent losses are not in the platform yet)']]
 PASS design checks refuse a station without effective prestress / fpb (no guessed values)
 PASS station not built in P2 refused with the nearest station
 PASS readiness: one entry per girder with strands, bars and the missing list
-FAIL provisional inputs carried (proposed decisions used)
+PASS r14: provisional inputs carried (proposed decisions used)
+PASS current revision: no proposed decision used
 
-8 passed, 2 failed
+11 passed, 0 failed
 ```
 
 ### prestress losses P4.5
@@ -798,13 +799,13 @@ PASS strand area and MBL from Table 3.3.1 by diameter; jacking ratio, ages from 
 PASS strand levels and debonding from the strand pattern; bars from the bar table
 PASS environment / stage / relaxation inputs from design.prestress_losses (D-42)
 PASS wet deck load = tD beff gamma + dform; composite properties from the deck width
-FAIL without accepting the proposals the builder refuses, naming the missing design.prestress_losses items
+PASS r14: without accepting the proposals the builder refuses, naming the missing design.prestress_losses items
 PASS V5 vs the dashboard's Hog inputs: every scalar equal except the documented geometry / density / age differences  [46 equal; differ: ['A', 'Ac', 'I', 'Ic', 'L', 'a', 'beff', 'dbw', 'dgam', 'pour', 'rho', 'ue', 'ueC', 'ued', 'wd', 'yb', 'yc']]
 PASS documented differences are small where they are the same quantity: section A, I, yb, ue within 0.3 %; ueC within 0.1 %; L, a within 0.3 % / 1 %  [A +0.05%; Ac -6.58%; I +0.08%; Ic -4.54%; L -0.28%; a +0.97%; beff -14.32%; dbw -14.32%; dgam +2.00%; pour -11.67%; rho -1.92%; ue +0.07%; ueC +0.06%; ued -14.32%; wd -11.74%; yb +0.05%; yc -2.99%]
 PASS with the dashboard's values substituted for the differing inputs, the run equals the dashboard's Hog run (hog, strand forces; 1e-9)  [7.1e-14 mm, 5.7e-14 kN]
 PASS BR13A run from the description: effective prestrain at the last time for every strand, below the jacking strain  [mean sigma_pe 938 MPa at 3650 d]
 
-11 passed, 1 failed
+12 passed, 0 failed
 ```
 
 ### girder flexure P4.5
@@ -817,9 +818,9 @@ PASS action mapping: M* interpolated between the two girder element ends bracket
 PASS every station has M* > 0 (sagging), phi Mu > 0 and u = M* / phi Mu
 PASS the governing station of each girder lies in the middle half of the span  [{'G1': 0.5, 'G2': 0.5, 'G3': 0.5, 'G4': 0.5}]
 PASS phi Mu varies little along the girder (same strands, effective prestress near the plateau: within 2 %)
-FAIL record carries the provisional inputs and the unverified-standards label
+PASS record carries the provisional inputs and the unverified-standards label
 
-7 passed, 1 failed
+8 passed, 0 failed
 ```
 
 ### girder SLS P4.5
@@ -849,9 +850,9 @@ PASS every station: uS = Ms / Mal, uB = M* / phi Mu, Muo,min = k Mcr, uncracked 
 PASS every station: 0 < Mdec < Mal and Mdec < Mcr - Mnc (decompression before cracking)
 PASS Mnc symmetric about midspan and largest there (simple span)
 PASS the governing ULS station of each girder lies in the middle half  [{'G1': 0.5, 'G2': 0.5, 'G3': 0.5, 'G4': 0.5}]
-FAIL record carries the provisional inputs, the unverified-standards label and the not-checked notes
+PASS record carries the provisional inputs, the unverified-standards label and the not-checked notes
 
-7 passed, 1 failed
+8 passed, 0 failed
 ```
 
 ### girder shear P4.5

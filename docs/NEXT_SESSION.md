@@ -16,9 +16,9 @@ If this file and the repository disagree, the repository wins: fix this file. **
 |---|---|---|
 | Working branch | `p4-verification` (from `p3-model` @ `c378d73`); `p3-model` is closed (fixes only) | `git branch -vv` |
 | Head | `git log -1 origin/p4-verification`; must equal the local HEAD | `git ls-remote` |
-| Tests (executed 2026-10-25) | full suite on `6a77042`: 52 scripts, 577 / 577 assertions PASS (34 asserting scripts); 18 print-only ran | `baseline/BR13A/test_run.md` |
+| Tests (executed 2026-10-26) | full suite, tree = `fd8c85a`: 53 scripts, 586 / 586 assertions PASS (35 asserting scripts); 18 print-only ran; test_mct rerun on `0147d4b` 16 / 16 | `baseline/BR13A/test_run.md` |
 | Dashboard build | unchanged since v45 (sha256 `710b259d2c7117d0…`) | no `src` / `base` change |
-| Full suite record | `baseline/BR13A/test_run.md` (commit `6a77042`) | executed 2026-10-25 |
+| Full suite record | `baseline/BR13A/test_run.md` (tree `fd8c85a`) | executed 2026-10-26 |
 
 **Branch stack (none merged; the owner controls `main`):** `main` 8a60b74 → `step-b2-br13a` 42dcec7 → `docs/p0-architecture` 7d00263 → `p0.1-baseline` 0d36579 → `p0.2-format` f1fdc7a → `p0.3-standards` ff93af7 → `p1-geometry` 5e91a8f → `p2-sections` e476e99 → `p3-model` c378d73 → `p4-verification`.
 
