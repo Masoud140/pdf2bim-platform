@@ -8,7 +8,7 @@
    "base/BR13A_grillage_dashboard_v15.html Hog input table (demo defaults)"
   ],
   "affects": [
-   "design"
+   "design.supert"
   ]
  },
  "created": "2026-10-25T23:00:00+11:00",

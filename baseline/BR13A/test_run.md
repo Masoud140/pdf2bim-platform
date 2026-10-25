@@ -1,6 +1,6 @@
-# Test run record — 2026-10-25T10:02:48+00:00
+# Test run record — 2026-10-25T12:29:59+00:00
 
-- Commit: `cdfe3dbe05ad4a6c5ee813d314f67340bc7243d0`
+- Commit: `ba6fd8d6ca3b2bccba92b2b1bd63160896f79970`
 - Dashboard: `dist/BR13A_grillage_dashboard.html`
 - Command: `python3 tools/run_suite.py`
 
@@ -8,47 +8,52 @@
 
 | Script | Command | Type | Exit | Time (s) | JS errors | Outcome |
 |---|---|---|---|---|---|---|
-| sub_t | `node tests/sub_t.js` | prints | 0 | 21 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| sub_t | `node tests/sub_t.js` | prints | 0 | 24 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
 | sl_t | `node tests/sl_t.js` | prints | 0 | 17 | 0 | ran, no JS errors |
-| soil_t | `node tests/soil_t.js` | prints | 0 | 24 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tm_t | `node tests/tm_t.js` | prints | 0 | 54 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tg_t | `node tests/tg_t.js` | prints | 0 | 116 | 0 | ran, no JS errors |
-| wd_t | `node tests/wd_t.js` | prints | 0 | 26 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| eq_t | `node tests/eq_t.js` | prints | 0 | 68 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| rx_t | `node tests/rx_t.js` | prints | 0 | 68 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| x_t | `node tests/x_t.js` | prints | 0 | 108 | 0 | ran, no JS errors |
-| gw_t | `node tests/gw_t.js` | prints | 0 | 66 | 0 | ran, no JS errors |
-| dg36_t | `node tests/dg36_t.js` | prints | 0 | 90 | 0 | ran, no JS errors |
-| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 68 | 0 | ran, no JS errors |
-| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 62 | 0 | ran, no JS errors |
+| soil_t | `node tests/soil_t.js` | prints | 0 | 27 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| tm_t | `node tests/tm_t.js` | prints | 0 | 56 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| tg_t | `node tests/tg_t.js` | prints | 0 | 117 | 0 | ran, no JS errors |
+| wd_t | `node tests/wd_t.js` | prints | 0 | 27 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| eq_t | `node tests/eq_t.js` | prints | 0 | 75 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| rx_t | `node tests/rx_t.js` | prints | 0 | 76 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
+| x_t | `node tests/x_t.js` | prints | 0 | 111 | 0 | ran, no JS errors |
+| gw_t | `node tests/gw_t.js` | prints | 0 | 62 | 0 | ran, no JS errors |
+| dg36_t | `node tests/dg36_t.js` | prints | 0 | 88 | 0 | ran, no JS errors |
+| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 67 | 0 | ran, no JS errors |
+| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 66 | 0 | ran, no JS errors |
 | dsg_test | `node tests/engine/dsg_test.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t2 | `node tests/engine/dsg_t2.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t3 | `node tests/engine/dsg_t3.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t4 | `node tests/engine/dsg_t4.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t5 | `node tests/engine/dsg_t5.js` | prints | 0 | 0 | - | ran, no JS errors |
-| schema | `python3 tests/schema/test_schema.py` | asserts | 0 | 0 | - | 17 PASS / 0 FAIL |
+| schema | `python3 tests/schema/test_schema.py` | asserts | 1 | 0 | - | 16 PASS / 1 FAIL (exit 1) |
 | format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 0 | 1 | - | 48 PASS / 0 FAIL |
 | standards data | `python3 tests/standards/test_standards.py` | asserts | 0 | 1 | - | 30 PASS / 0 FAIL |
 | geometry P1 | `python3 tests/geometry/test_geometry.py` | asserts | 0 | 0 | - | 36 PASS / 0 FAIL |
-| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 18 | - | 26 PASS / 0 FAIL |
+| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 17 | - | 26 PASS / 0 FAIL |
 | solver P3 | `python3 tests/model/test_solver.py` | asserts | 0 | 1 | - | 11 PASS / 0 FAIL |
-| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 73 | - | 17 PASS / 0 FAIL |
-| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 0 | 38 | - | 35 PASS / 0 FAIL |
-| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 56 | - | 25 PASS / 0 FAIL |
-| mct writer P3b | `python3 tests/model/test_mct.py` | asserts | 0 | 43 | - | 16 PASS / 0 FAIL |
+| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 76 | - | 17 PASS / 0 FAIL |
+| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 0 | 40 | - | 35 PASS / 0 FAIL |
+| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 57 | - | 25 PASS / 0 FAIL |
+| mct writer P3b | `python3 tests/model/test_mct.py` | asserts | 0 | 44 | - | 16 PASS / 0 FAIL |
 | modes P3b | `python3 tests/model/test_modes.py` | asserts | 0 | 1 | - | 10 PASS / 0 FAIL |
-| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 0 | 43 | - | 20 PASS / 0 FAIL |
-| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 0 | 39 | - | 20 PASS / 0 FAIL |
-| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 0 | 37 | - | 22 PASS / 0 FAIL |
-| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 36 | - | 14 PASS / 0 FAIL |
+| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 0 | 41 | - | 20 PASS / 0 FAIL |
+| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 0 | 41 | - | 20 PASS / 0 FAIL |
+| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 0 | 39 | - | 22 PASS / 0 FAIL |
+| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 37 | - | 14 PASS / 0 FAIL |
 | earthquake P3c | `python3 tests/model/test_earthquake.py` | asserts | 0 | 1 | - | 16 PASS / 0 FAIL |
-| combinations P3c | `python3 tests/model/test_combinations.py` | asserts | 0 | 36 | - | 35 PASS / 0 FAIL |
-| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 101 | - | 17 PASS / 0 FAIL |
+| combinations P3c | `python3 tests/model/test_combinations.py` | asserts | 0 | 39 | - | 35 PASS / 0 FAIL |
+| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 118 | - | 17 PASS / 0 FAIL |
 | flexure P4.5 | `python3 tests/design/test_flexure.py` | asserts | 0 | 0 | - | 13 PASS / 0 FAIL |
 | SLS + N-M P4.5 | `python3 tests/design/test_sls_nm.py` | asserts | 0 | 1 | - | 13 PASS / 0 FAIL |
 | shear P4.5 | `python3 tests/design/test_shear.py` | asserts | 0 | 0 | - | 11 PASS / 0 FAIL |
-| design benchmark P4.5 | `python3 tests/design/test_benchmark.py` | asserts | 0 | 3 | - | 4 PASS / 0 FAIL |
-| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 0 | 72 | - | 10 PASS / 0 FAIL |
+| design benchmark P4.5 | `python3 tests/design/test_benchmark.py` | asserts | 0 | 1 | - | 4 PASS / 0 FAIL |
+| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 0 | 78 | - | 10 PASS / 0 FAIL |
+| prestress losses P4.5 | `python3 tests/design/test_prestress.py` | asserts | 0 | 2 | - | 13 PASS / 0 FAIL |
+| prestress inputs P4.5 | `python3 tests/design/test_prestress_inputs.py` | asserts | 0 | 39 | - | 12 PASS / 0 FAIL |
+| girder flexure P4.5 | `python3 tests/design/test_girder_flexure.py` | asserts | 0 | 41 | - | 8 PASS / 0 FAIL |
+| girder SLS P4.5 | `python3 tests/design/test_girder_sls.py` | asserts | 0 | 61 | - | 11 PASS / 0 FAIL |
+| girder checks P4.5 | `python3 tests/design/test_girder_checks.py` | asserts | 0 | 44 | - | 8 PASS / 0 FAIL |
 | baseline (fast) | `python3 tests/baseline/test_baseline.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
 
 ## Last output lines
@@ -84,7 +89,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ### tm_t
 
 ```
-8177ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
+8791ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
 [[290,44,"Brg_AbutA_fixed"],[300,101,"Brg_AbutA_fixed"],[319,157,"Brg_AbutA_fixed"],[329,212,"Brg_AbutA_fixed"],[340,55,"Brg_AbutB_freeLong"],[350,112,"Brg_AbutB_freeLong"],[369,168,"Brg_AbutB_freeLong"],[379,223,"Brg_AbutB_freeLong"]]
 view:v3d,mesh,h,v,abA,abB,dk,pl,nr | bnd:bd | stage:cs | prop:mat,srf,props | load:cb,ld,sl,tm,wd,eq,tr | an:an,hog,pr,stf | des:rx,dg,bb
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
@@ -94,9 +99,9 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 
 ```
 {"temp":{"alpha":10,"pos":"0:32.00, 100:20.71, 200:12.86, 300:7.59, 400:4.21, 500:2.16, 600:1.00, 700:0.40, 800:0.13, 900:0.03, 1000:0.00, 1100:0.00, 1200:0.00","neg":"0:-16.00, 100:-10.36, 200:-6.43, 300:-3.80, 400:-2.11, 500:-1.08, 600:-0.50, 700:-0.20, 800:-0.07, 900:-0.02, 1000:-0.00, 1100:-0.00, 1200:0.00","auto":true},"fp":{"e0":0.00010688478283150398,"phi":0.0001445416978604964,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":3815621.4566348125,"M":-1920247714.7917278},"fn":{"e0":-0.000053459646330103225,"phi":-0.00007228827298061668,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":-1908426.7020761287,"M":960355337.262212}}
-Solved 09:41:50 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
+Solved 12:05:03 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
 Positive gradient lifts the span (camber up) and lengthens it; the fixed bearings at A and the piles restrain only the end rotation offset and the elongation, so the forces are small. Hand check of the camber of a simply supported span: φL²/8 with L = mean bearing-to-bearing chord = 144.5×10⁻⁶ × 28.91² / 8 = 15.10 mm (model 13.88 mm).
-Done in 64 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
+Done in 63 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
 B L5 SLS -33.1 to -3.4 TGP 0.23 SCR 10.40
 B L6 SLS -34.2 to -5.6 TGP 0.25 SCR 9.14
 B L7 SLS -35.4 to -7.8 TGP 0.32 SCR 7.86
@@ -135,7 +140,7 @@ errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 meff L 0.879 T 0.883
 L S 1681.7,919.6,0.0 brgLonA 231.4,415.5,436.9,345.4 brgTr 68.1,193.6,179.4,121.1,91.6,87.5,112.3,112.1 pileM 1231,1213,1206,1198,345,329,321,322 dlonB 25.0,25.3,25.6,25.9
 T S 1126.5,2839.5,0.0 brgLonA 87.5,256.0,293.5,145.1 brgTr 126.8,433.8,395.8,83.6,287.6,501.7,488.9,107.8 pileM 885,905,903,874,923,969,1002,993 dlonB 19.5,19.9,20.2,20.4
-Solved 09:45:04 in 29.5 s on the integrated model
+Solved 12:08:26 in 33.5 s on the integrated model
 errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
 ```
 
@@ -192,7 +197,7 @@ pre reinf [ false, 965 ]
 pre fit [ false, 1607 ]
 Ld 1500
 run [ 1, '18326', '0.383' ]
-tD 220 [ 220, '18600' ] Design checks re-run 09:50:12.
+tD 220 [ 220, '18600' ] Design checks re-run 12:13:38.
 errors []
 ```
 
@@ -300,7 +305,7 @@ PASS rejects: enum outside the list
 PASS rejects: custom item without a source (Direct)
 PASS rejects: table row without a tag
 PASS project file valid: projects/BR13A/BR13A.bridge.json
-PASS project decision log valid: projects/BR13A/BR13A.decisions.jsonl
+FAIL project decision log valid: projects/BR13A/BR13A.decisions.jsonl — 'design' is not one of ['extraction', 'geometry', 'model', 'analysis.static', 'analysis.modal', 'traffic', 'loads', 'com
 PASS rejects: overruling a Direct value without evidence
 PASS rejects: accepted decision without approver
 ```
@@ -313,7 +318,7 @@ PASS BR13A 0.1 file still valid under the 0.1 schema
 PASS BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)
 PASS BR13A 0.2 file valid (schema + rules)
 PASS BR13A round trip: all 928 records of the 0.1 file keep value / unit / tag / status
-PASS BR13A: records added after migration (42) are all PROPOSED with a decision id (not accepted by the agent)
+PASS BR13A: records added after migration (71) are all PROPOSED with a decision id (not accepted by the agent)
 PASS BR13A: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)
 PASS BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)
 PASS BR13A: no significance invented
@@ -679,6 +684,87 @@ PASS provisional inputs carried (proposed decisions used)
 10 passed, 0 failed
 ```
 
+### prestress losses P4.5
+
+```
+PASS port = dashboard Hog engine, simple_nodeck: stations, labels, midspan hog and strand forces at every time, transfer forces (1e-9)  [hog 8.5e-14 mm, P 2.8e-14 kN]
+PASS port = dashboard Hog engine, detailed: stations, labels, midspan hog and strand forces at every time, transfer forces (1e-9)  [hog 7.1e-14 mm, P 5.7e-14 kN]
+PASS elastic shortening, concentric strand: Pr = P0 / (1 + n Ap / A) at midspan (1e-9)  [183.9248 vs 183.9248 kN]
+PASS transmission: strand force zero at the girder end, full beyond the transmission length lt db
+PASS no shrinkage, creep or relaxation: no time-dependent loss (simplified)
+PASS each of shrinkage, creep, relaxation alone reduces the force  [{'sh': 11.67, 'cr': 0.59, 'rl': 1.63}]
+PASS relaxation alone: loss = P (R(t) - R(0)) / 100 (simplified, 1e-9)  [1.6309 vs 1.6309]
+PASS detailed method on the concentric strand: transfer force = the elastic-shortening closed form with the net section (1e-6)
+PASS effective prestrain per strand at the last time = F / (Ap Ep), positive, below the jacking strain
+PASS deck differential shrinkage (detailed method) = the dashboard's per reported time (sd, sg, phd, chi; 1e-12); eps = -(sd - sg) / (1 + chi phd)  [eps -82.6e-6]
+
+13 passed, 0 failed
+```
+
+### prestress inputs P4.5
+
+```
+PASS moduli and mean strength from Table 3.1.2 (standards entry) at f'cp and f'c
+PASS strand area and MBL from Table 3.3.1 by diameter; jacking ratio, ages from the description
+PASS strand levels and debonding from the strand pattern; bars from the bar table
+PASS environment / stage / relaxation inputs from design.prestress_losses (D-42)
+PASS wet deck load = tD beff gamma + dform; composite properties from the deck width
+PASS without accepting the proposals the builder refuses, naming the missing design.prestress_losses items
+PASS V5 vs the dashboard's Hog inputs: every scalar equal except the documented geometry / density / age differences  [46 equal; differ: ['A', 'Ac', 'I', 'Ic', 'L', 'a', 'beff', 'dbw', 'dgam', 'pour', 'rho', 'ue', 'ueC', 'ued', 'wd', 'yb', 'yc']]
+PASS documented differences are small where they are the same quantity: section A, I, yb, ue within 0.3 %; ueC within 0.1 %; L, a within 0.3 % / 1 %  [A +0.05%; Ac -6.58%; I +0.08%; Ic -4.54%; L -0.28%; a +0.97%; beff -14.32%; dbw -14.32%; dgam +2.00%; pour -11.67%; rho -1.92%; ue +0.07%; ueC +0.06%; ued -14.32%; wd -11.74%; yb +0.05%; yc -2.99%]
+PASS with the dashboard's values substituted for the differing inputs, the run equals the dashboard's Hog run (hog, strand forces; 1e-9)  [7.1e-14 mm, 5.7e-14 kN]
+PASS BR13A run from the description: effective prestrain at the last time for every strand, below the jacking strain  [mean sigma_pe 938 MPa at 3650 d]
+
+12 passed, 0 failed
+```
+
+### girder flexure P4.5
+
+```
+PASS midspan G2: the recorded phi Mu is reproduced live (effective prestrain from the losses run, fpb = MBL / area; 1e-9)  [14877.6 kN m]
+PASS effective prestress at midspan within the jacking stress and above the long-term range lower bound (0.4 fpb)
+PASS each tendon's prestrain comes from its own strand of the losses analysis (pattern order)
+PASS action mapping: M* interpolated between the two girder element ends bracketing each station (bracket contains the station, nearer end within 1.6 m)  [max 1.37 m]
+PASS every station has M* > 0 (sagging), phi Mu > 0 and u = M* / phi Mu
+PASS the governing station of each girder lies in the middle half of the span  [{'G1': 0.5, 'G2': 0.5, 'G3': 0.5, 'G4': 0.5}]
+PASS phi Mu varies little along the girder (same strands, effective prestress near the plateau: within 2 %)
+PASS record carries the provisional inputs and the unverified-standards label
+
+8 passed, 0 failed
+```
+
+### girder SLS P4.5
+
+```
+PASS stage 1: each strand carries its effective prestress (losses analysis) under prestress + Mnc, girder alone (1e-3 MPa)  [Mnc 2921 kN m]
+PASS soffit stress is 0 at the decompression moment and f'ct.f at the cracking moment (1e-6 MPa)
+PASS uncracked composite increment: soffit stress changes by dM (D - yc) / I (transformed, girder modulus; 1e-3)  [1.2744 vs 1.2744 MPa]
+PASS Muo,min = k Mcr (sagging) / k McrH (hogging); Mcr > Mdec > Mnc-free decompression ordering (Mdec < Mcr - Mnc)  [Mdec 4637, Mcr 9222, McrH 322 kN m]
+PASS allowable moment above decompression; increments at Mal at the limit (one of fscr / ftcr reached within 0.5 MPa)  [Mal 8322; dsb 200.0, dsp 200.0]
+PASS port = dashboard dgLC: Mdec, Mal, MdecT, MalT, Mcr, McrH, phi Mu, Muo on 4 load cases (sagging, axial + free strains, hogging, compression; 0.05 kN m)  [max diff 2.07e-02 kN m (LC4 Mal)]
+PASS port = dashboard: stage-1 girder stresses, uncracked and cracked composite fibre stresses at Ms (1e-4 MPa)  [2.0e-09 / 5.5e-09 / 1.6e-08 MPa]
+PASS port = dashboard: uncracked flag, uS, uST, Muo,min, phi, kuo, Nub, increments at Ms
+PASS phi: compression load case between phi_compression and its bending phi; no axial force -> bending phi of kuo  [0.800 / 0.800 / 0.771]
+PASS gradient profile lookup = the dashboard's dgProfAt (linear, 0 outside, repeated depth)  [[0, 32, 23.25, 14.5, 9.75, 5, 2.997, 1.263, 0, 0]]
+
+11 passed, 0 failed
+```
+
+### girder checks P4.5
+
+```
+PASS free strains of the record: deck differential shrinkage = the losses analysis value; gradient factor from the governing SLS row (TGP > 0)  [eps -79.6e-6, f_TGP 0.5]
+PASS midspan G2: the recorded staged SLS / minimum strength / ULS result is reproduced live from its recorded actions (1e-9)  [0.0e+00]
+PASS Mnc at midspan = SLS factor x simple-span moment of (rho A + wd) on the bearings (closed form, 1e-9)  [2920.8 kN m]
+PASS every station: uS = Ms / Mal, uB = M* / phi Mu, Muo,min = k Mcr, uncracked flag = soffit <= k sqrt(f'c)
+PASS every station: 0 < Mdec < Mal and Mdec < Mcr - Mnc (decompression before cracking)
+PASS Mnc symmetric about midspan and largest there (simple span)
+PASS the governing ULS station of each girder lies in the middle half  [{'G1': 0.5, 'G2': 0.5, 'G3': 0.5, 'G4': 0.5}]
+PASS record carries the provisional inputs, the unverified-standards label and the not-checked notes
+
+8 passed, 0 failed
+```
+
 ### baseline (fast)
 
 ```
@@ -694,3 +780,8 @@ PASS a change in a consistency check's pass/fail is detected
 8 passed, 0 failed
 ```
 
+
+## Follow-up (2026-10-25, after this run)
+
+- The one failure: `projects/BR13A/BR13A.decisions.jsonl` entry D-42 had `affects: ["design"]`, not an allowed value (introduced in d6a40c3; the proposer validated the description schema but not the decision schema). Fixed to `design.supert` (log and proposal file); `schema/propose_record.py` now also validates the decision entry (a deliberately bad `affects` is refused).
+- Re-run after the fix: `python3 tests/schema/test_schema.py` → 17 PASS / 0 FAIL. Other scripts unaffected (no code change).

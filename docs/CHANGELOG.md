@@ -2,6 +2,10 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — Full suite on ba6fd8d; D-42 decision-log fix
+
+- 525 / 526 assertions PASS; the failure was D-42's `affects: design` (not an allowed value). Fixed to `design.supert`; `schema/propose_record.py` now validates the decision entry against the decision schema. Schema test re-run 17 / 17.
+
 ## 2026-10-25 — P4.5 stage 7: SLS free strains (branch `p4-verification`)
 
 - **Added:** deck differential shrinkage from the detailed losses method (`prestress.differential_shrinkage`, port of the dashboard's `dsh` output and dgDshEps), gradient primary strains with the governing SLS row's factors (`girder_sls.prof_at`), both applied in `checks_along`; tests prestress 13, girder SLS 11, girder checks 8.
