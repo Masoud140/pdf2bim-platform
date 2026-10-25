@@ -258,8 +258,104 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             p, q = combine_lanes(eff, lf)
             mx = np.maximum(mx, p); mi = np.minimum(mi, q)
         env[mn] = {"max": mx, "min": mi}
-    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "lanes": n, "lane_width": W,
-            "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf,
+    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "lanes": n,
+            "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf, "vehicles": veh,
+            "lane_width": W, "grid": grid,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
             "standards_status": std.result_status(), "standards_used": std.usage(),
             "provisional": rd.provisional + list(mdl.get("provisional") or [])}   # the model's provisional inputs carry over
+
+
+# ----------------------------------------------------------------------------------------------------------------
+# P4.1 concurrent actions: the load state that produces one envelope value, rebuilt as explicit point loads
+
+def _lane_state(inf, grid, dc, veh, a, W, r, sign, pattern=True, lateral=True, dla_on_udl=False):
+    """The lane's contribution to response r (sign +1: max, -1: min) as in lane_effect, with the state that gives it:
+    (value, [(ch, o, P) point loads, downward kN])."""
+    N = len(grid)
+    ns = 8
+    fu = (1 + veh["dla"] if dla_on_udl else 1.0) * veh["udl_kN_per_m"] * dc / ns
+    offs = [a + (s_ + 0.5) * W / ns for s_ in range(ns)]
+    f = sum(inf.line(o, grid)[:, r] for o in offs) * fu
+    loads = []
+    if pattern:
+        on = sign * f > 0
+        udl = float(f[on].sum())
+        for o in offs:
+            loads += [(float(grid[g]), o, fu) for g in np.nonzero(on)[0]]
+    else:
+        tot = float(f.sum())
+        udl = tot if sign * tot > 0 else 0.0
+        if udl:
+            for o in offs:
+                loads += [(float(c), o, fu) for c in grid]
+    sa = round(veh["axle_spacing_m"] / dc)
+    s12 = round((2 * veh["axle_spacing_m"] + veh["gap_12_m"]) / dc)
+    s34 = round((2 * veh["axle_spacing_m"] + veh["gap_34_m"]) / dc)
+    sg = round((2 * veh["axle_spacing_m"] + veh["gap_23_min_m"]) / dc)
+    lat = [round(-0.4 + 0.1 * i, 10) for i in range(9)] if lateral else [0.0]
+    PAD = s12 + s34 + sg + 2 * sa + 4
+    ln = N + 2 * PAD
+    oc = a + W / 2
+    amp = veh["wheel_kN"] * (1 + veh["dla"])
+    best, bstate = 0.0, None
+    for dv in lat:
+        Lw = inf.line(oc + dv - veh["track_m"] / 2, grid)[:, r]; Rw = inf.line(oc + dv + veh["track_m"] / 2, grid)[:, r]
+        A = np.zeros(ln); A[PAD:PAD + N] = amp * (Lw + Rw)
+        sh = lambda X, k: X if k <= 0 else np.concatenate([X[k:], np.zeros(k)])
+        Gg = A + sh(A, sa) + sh(A, 2 * sa)
+        for f1, f2 in ((s12, s34), (s34, s12)):
+            need = f1 + sg
+            P1 = sign * (Gg + sh(Gg, f1)); P2 = sign * (Gg + sh(Gg, f2))
+            SM = np.zeros(ln + 1); SM[:ln] = np.maximum(np.maximum.accumulate(P2[::-1])[::-1], 0)   # optional second pair
+            j = np.minimum(np.arange(ln) + need, ln)
+            tot = P1 + SM[j]
+            i = int(np.argmax(tot))
+            if tot[i] > best:
+                jb = None
+                if j[i] < ln and SM[j[i]] > 0:
+                    jb = int(j[i] + np.argmax(P2[j[i]:]))
+                best, bstate = float(tot[i]), (dv, f1, f2, i, jb)
+    if bstate is not None:
+        dv, f1, f2, i, jb = bstate
+        groups = [i, i + f1] + ([jb, jb + f2] if jb is not None else [])
+        for g0 in groups:
+            for ax in (g0, g0 + sa, g0 + 2 * sa):
+                k = ax - PAD
+                if 0 <= k < N:
+                    for side in (-1, 1):
+                        loads.append((float(grid[k]), oc + dv + side * veh["track_m"] / 2, amp))
+    return udl + sign * best, loads
+
+
+def governing_state(T, model, r, sign=1):
+    """Rebuild the load state of traffic envelope value T["env"][model]["max" | "min"][r] (sign +1 / -1): lane layout,
+    lanes ranked with the accompanying factors, per lane the patterned UDL and the vehicle position. Returns
+    {"value": envelope value from the state, "loads": [(ch, o, P)], "layout": offsets, "factors": [...]}."""
+    inf, grid, st = T["influence"], T["grid"], T["settings"]
+    veh, W, lf = T["vehicles"][model], T["lane_width"], T["lane_factors"]
+    best = None
+    for Lay in T["layouts"]:
+        eff = [_lane_state(inf, grid, st["dc_m"], veh, a, W, r, sign, st["pattern_udl"], st["lateral_shift"], st["dla_on_udl"]) for a in Lay]
+        order = sorted(range(len(eff)), key=lambda k: -sign * eff[k][0])
+        val, loads, fac = 0.0, [], []
+        for rank, k in enumerate(order):
+            fk = lf[min(rank, len(lf) - 1)]
+            if sign * eff[k][0] > 0:
+                val += fk * eff[k][0]
+                loads += [(c, o, P * fk) for c, o, P in eff[k][1]]
+                fac.append((Lay[k], fk))
+        if best is None or sign * val > sign * best["value"]:
+            best = {"value": val, "loads": loads, "layout": Lay, "factors": fac}
+    return best
+
+
+def concurrent(T, state):
+    """All responses of the influence's response set under an explicit state (downward point loads)."""
+    inf = T["influence"]
+    if not state["loads"]:
+        return np.zeros(len(inf.R))
+    P = np.array([(c, o) for c, o, _ in state["loads"]])
+    w = np.array([p for _, _, p in state["loads"]])
+    Wm = inf.weights(P)
+    return np.asarray((Wm.T @ w) @ inf.IM.T).ravel()
