@@ -107,7 +107,7 @@ def station_section(doc, geo, S, girder, t, allow_proposed=False, dz=2.0):
         if x_m is not None and r.get("from") is not None and r.get("to") is not None and not (r["from"] - 1e-9 <= x_m <= r["to"] + 1e-9):
             continue
         n = int(r.get("number") or 1)
-        bars.append({"y": Dtot - float(r["y"]), "A": n * math.pi / 4 * float(r["diameter"]) ** 2, "E": float(bm["Es"]), "fsy": float(bm["fsy"])})
+        bars.append({"y": Dtot - float(r["y"]), "A": n * math.pi / 4 * float(r["diameter"]) ** 2, "E": float(bm["Es"]), "fsy": float(bm["fsy"]), "grp": "girder", "d": float(r["diameter"]), "n": n})
     if bm is None and bars:
         raise MissingInput("materials.reinforcement missing")
     if not rd.rows(T.get("fitments"), tp + ".fitments", required=False):

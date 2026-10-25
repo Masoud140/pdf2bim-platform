@@ -330,3 +330,15 @@
 
 - **Decision (agent, 2026-10-25; reversible):** the dashboard's dgBench reference-spreadsheet outputs are used as the V4 benchmark for the design modules, asserting only the quantities the dashboard itself reports as agreeing (with its tolerances) and reporting the rest. BR13A station design is not run until fpb, effective prestress, fitments and deck bars exist; nothing is assumed to fill them.
 - **Consequence:** E-1 is explained (method differences in dn and dv; Mu agrees 0.13 %); the owner can confirm by supplying the spreadsheet. The next autonomous stage is the prestress-loss (Hog) port that produces the effective prestress.
+
+## ADR-034 P4.5 prestress losses: port and inputs (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** the dashboard's Hog time analysis is ported unchanged in method (`pdf2bim/design/prestress.py`); its constants are standards entries (unverified). Inputs come from the description, P1 / P2 and the standards tables; the inputs the description did not hold are recorded as Assumed rows of the new field `design.prestress_losses` (D-42, the dashboard's Hog-tab values), refused unless the proposals are accepted. Where the dashboard's interpretation is ambiguous the dashboard's choice is kept and flagged (ueC half-trough rule, P4-4); `age_deck_cast` is read as an age (P4-3, owner to confirm).
+- **Alternatives:** a new losses model (no benchmark); the dashboard's inputs copied as constants (breaks the description-only rule).
+- **Consequence:** effective prestress per strand and station is available to the design checks; port = dashboard to 1e-12; BR13A results stay indicative until D-42 and D-1 are replaced by project data.
+
+## ADR-035 P4.5 staged SLS actions (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** the staged SLS check (port of dgLC) takes the non-composite moment Mnc as the simple-span moment of girder self weight + wet deck on the bearings (the losses analysis loads), and the composite SLS moment from the AS 5100.2 SLS envelope with the self-weight action DLc removed; ULS uses the full envelope. Axial forces are the concurrent values of the governing rows. Temperature-gradient primary stresses and differential deck shrinkage are not applied yet.
+- **Alternatives:** a staged-construction analysis (not in the platform); the composite-model DLc as Mnc (wrong stage: girder self weight would act on the composite section).
+- **Consequence:** diaphragm / cross-girder self weight on the girder alone is not in Mnc (it is in neither stage of the SLS check); the SLS gradient effect is missing. Both are listed for the engineer (P4-5) and for a later stage.

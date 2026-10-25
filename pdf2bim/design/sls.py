@@ -46,24 +46,54 @@ def response(S, e0, k, cracked=False):
     return N, M
 
 
+def _compile(S):
+    """Arrays of a section for the strain-plane solve (the section is not changed during one solve)."""
+    import numpy as np
+    C = S.conc
+    cy = np.array([c["y"] for c in C]); cE = np.array([c["E"] for c in C]); ce0 = np.array([c.get("e0", 0.0) for c in C])
+    cA = np.array([c["b"] * c["h"] for c in C])
+    st = [(b["y"], b["E"], b["A"], -b.get("e0", 0.0)) for b in S.bars] + [(t["y"], t["E"], t["A"], t.get("pre", 0.0)) for t in S.tend]
+    js = [_strip_index(S, y) for y, *_ in st]
+    a = lambda i: np.array([x[i] for x in st], float)
+    return {"cy": cy, "cE": cE, "ce0": ce0, "cA": cA, "y": a(0), "E": a(1), "A": a(2), "off": a(3),
+            "has": np.array([j >= 0 for j in js], bool), "jE": np.array([C[j]["E"] if j >= 0 else 0.0 for j in js]),
+            "je0": np.array([C[j].get("e0", 0.0) if j >= 0 else 0.0 for j in js])}
+
+
+def _resp(K, e0, k, cracked):
+    """response() on compiled arrays (same terms; summation order differs at round-off level)."""
+    import numpy as np
+    s = K["cE"] * (e0 + k * K["cy"] - K["ce0"])
+    if cracked:
+        s = np.where(s > 0, 0.0, s)
+    f = s * K["cA"]
+    sc = K["jE"] * (e0 + k * K["y"] - K["je0"])
+    if cracked:
+        sc = np.where(sc > 0, 0.0, sc)
+    sc = np.where(K["has"], sc, 0.0)
+    g = K["E"] * (e0 + k * K["y"] + K["off"]) * K["A"] - sc * K["A"]
+    return float(f.sum() + g.sum()), float((f * K["cy"]).sum() + (g * K["y"]).sum())
+
+
 def solve(S, N, M, yr, cracked=False, iterations=200):
     """Strain plane (e0, k) for axial force N (tension +) and moment M about depth yr (sagging +). A cracked solve
     starts from the uncracked plane (the dashboard starts from zero, where a cracked section with one steel layer has a
     singular Jacobian and stops unconverged; the converged plane is the same)."""
+    K = _compile(S)
     e0 = k = 0.0
     if cracked:
         p0 = solve(S, N, M, yr, False, iterations)
         e0, k = p0["e0"], p0["k"]
     conv = False
     for _ in range(iterations):
-        n_, m_ = response(S, e0, k, cracked)
+        n_, m_ = _resp(K, e0, k, cracked)
         Mr = m_ - n_ * yr
         R1, R2 = N - n_, M - Mr
         if abs(R1) < 1e-3 * (1 + abs(N)) and abs(R2) < 1e-1 * (1 + abs(M)):
             conv = True
             break
         h1, h2 = 1e-9, 1e-12
-        a = response(S, e0 + h1, k, cracked); b = response(S, e0, k + h2, cracked)
+        a = _resp(K, e0 + h1, k, cracked); b = _resp(K, e0, k + h2, cracked)
         J11, J12 = (a[0] - n_) / h1, (b[0] - n_) / h2
         J21, J22 = ((a[1] - a[0] * yr) - Mr) / h1, ((b[1] - b[0] * yr) - Mr) / h2
         D = J11 * J22 - J12 * J21

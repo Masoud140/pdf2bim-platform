@@ -139,6 +139,15 @@ def design():
     line, m = find("src/dsg2_ui.js", r"o\.Muomin=face==='top'\?([\d.]+)\*o\.Mcr")
     e.append(entry("AS5100.5:flexure:minimum_strength_factor", "AS 5100.5", None, "minimum ultimate strength in bending Muo,min = k Mcr", "-",
                    float(m.group(1)), "girder bending, both faces", "Super-T design (src/dsg2_ui.js; pdf2bim/design)", [f"src/dsg2_ui.js:{line}", "tests/design/test_benchmark.py"]))
+    line, m = find("src/dsg8.js", r"function dgT8621\(db\)\{ if\(!\(db>0\)\) return \{v:([\d.]+),.*?var r=(\[\[[^;]*\]);.*?return \{v:([\d.]+),why:'d_\{b\} = '\+db\+' mm \(")
+    l2, m2 = find("src/dsg8.js", r"lc\.fscr=t\.v; lc\.ftcr=([\d.]+);")
+    e.append(entry("AS5100.5:crack_control:table_8_6_2_1", "AS 5100.5", "Cl 8.6.2", "maximum steel stress increment above decompression for crack control: bars by diameter (next listed diameter up), larger bars, no bar near the tension face (bonded tendons value), tendons", "MPa",
+                   {"bars": json.loads(m.group(2)), "larger_bars": float(m.group(3)), "no_bar": float(m.group(1)), "tendons": float(m2.group(1))}, "partially prestressed girder, cracked section SLS", "Super-T SLS allowable moment (src/dsg8.js; pdf2bim/design/girder_sls.py)",
+                   [f"src/dsg8.js:{line}", f"src/dsg8.js:{l2}", "pdf2bim/design/girder_sls.py"], table="Table 8.6.2.1", specialist=True,
+                   interp="Values and the diameter rounding as coded; the table's other columns (bar spacing) and its applicability are not represented. Not checked against an authorised copy."))
+    line, m = find("src/dsg2_ui.js", r"fct25:([\d.]+)\*Math\.sqrt\(I\.fcg\)")
+    e.append(entry("AS5100.5:crack_control:uncracked_tension_limit", "AS 5100.5", "Cl 8.6.2 (as labelled in the code)", "concrete tensile stress k sqrt(f'c) below which crack control is deemed satisfied (Super-T soffit, SLS)", "MPa (k in sqrt MPa)",
+                   float(m.group(1)), "girder soffit, uncracked SLS check", "Super-T SLS (src/dsg2_ui.js; pdf2bim/design/girder_sls.py)", [f"src/dsg2_ui.js:{line}", "pdf2bim/design/girder_sls.py"]))
     line, m = find("src/dsg_engine2.js", r"phi:([\d.]+), dn:0")
     e.append(entry("AS5100.5:capacity_factor:phi_tension_point", "AS 5100.5", None, "capacity reduction factor at the pure-tension point of the N-M diagram", "-",
                    float(m.group(1)), "N-M interaction", "ULS bending + axial", [f"src/dsg_engine2.js:{line}"],

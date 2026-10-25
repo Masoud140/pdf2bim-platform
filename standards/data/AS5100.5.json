@@ -301,6 +301,101 @@
    }
   },
   {
+   "id": "AS5100.5:crack_control:table_8_6_2_1",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 8.6.2",
+    "table": "Table 8.6.2.1",
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "maximum steel stress increment above decompression for crack control: bars by diameter (next listed diameter up), larger bars, no bar near the tension face (bonded tendons value), tendons",
+   "units": "MPa",
+   "value": {
+    "bars": [
+     [
+      12,
+      330
+     ],
+     [
+      16,
+      280
+     ],
+     [
+      20,
+      240
+     ],
+     [
+      24,
+      210
+     ]
+    ],
+    "larger_bars": 200.0,
+    "no_bar": 200.0,
+    "tendons": 200.0
+   },
+   "applicability": "partially prestressed girder, cracked section SLS",
+   "context": "Super-T SLS allowable moment (src/dsg8.js; pdf2bim/design/girder_sls.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg8.js:7",
+     "src/dsg8.js:45",
+     "pdf2bim/design/girder_sls.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Values and the diameter rounding as coded; the table's other columns (bar spacing) and its applicability are not represented. Not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:crack_control:uncracked_tension_limit",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 8.6.2 (as labelled in the code)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "concrete tensile stress k sqrt(f'c) below which crack control is deemed satisfied (Super-T soffit, SLS)",
+   "units": "MPa (k in sqrt MPa)",
+   "value": 0.25,
+   "applicability": "girder soffit, uncracked SLS check",
+   "context": "Super-T SLS (src/dsg2_ui.js; pdf2bim/design/girder_sls.py)",
+   "implementation": {
+    "used_by": [
+     "src/dsg2_ui.js:141",
+     "pdf2bim/design/girder_sls.py"
+    ],
+    "version": "dashboard v45 (src/, base/ at P0.3)"
+   },
+   "status": "code-extracted-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": false
+   }
+  },
+  {
    "id": "AS5100.5:creep:basic_coefficient",
    "standard": "AS 5100.5",
    "edition": null,

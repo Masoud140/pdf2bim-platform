@@ -30,7 +30,7 @@ def main():
          "Effective prestress at the last reported time from the ported losses analysis (inputs: description + D-42 Assumed placeholders); "
          "strand / bar layout an Assumed placeholder (D-1); ULS sagging M* from the AS 5100.2 combined actions at the nearest girder element end; "
          "phi Mu by strain compatibility. Standards values code-extracted-UNVERIFIED. **Not design-approved.** "
-         "Not yet checked: hogging, SLS staged stresses, minimum strength, shear / torsion, strand development.", ""]
+         "Not yet checked: hogging, SLS staged stresses, minimum strength, shear / torsion, strand development. Superseded by BR13A.girder_checks.md (stage 6: strand prestrain includes the concrete strain at the strand; concurrent N*).", ""]
     for g in S["girders"]:
         R = flexure_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
         out[g] = R

@@ -446,3 +446,18 @@ def strand_forces_at(r, x, t=None):
     i = next(k for k in range(1, len(X)) if X[k] >= x)
     w = (x - X[i - 1]) / (X[i] - X[i - 1])
     return [a + w * (b - a) for a, b in zip(P[i - 1], P[i])]
+
+
+def stage_moments_at(r, x):
+    """Girder moments (kN m, sagging +) of the losses analysis at distance x (mm from end A), interpolated linearly
+    between its stations: self weight on the bearings (Msw), wet deck (Mwet), superimposed dead load (Msdl) — the
+    simple-span moments of the loads the losses analysis uses (w = rho A, wd, sidl)."""
+    X, st = r["X"], r["st"]
+    keys = (("Msw", "M"), ("Mwet", "Md"), ("Msdl", "Ms"))
+    if x <= X[0]:
+        return {k: st[0][q] for k, q in keys}
+    if x >= X[-1]:
+        return {k: st[-1][q] for k, q in keys}
+    i = next(k for k in range(1, len(X)) if X[k] >= x)
+    w = (x - X[i - 1]) / (X[i] - X[i - 1])
+    return {k: st[i - 1][q] + w * (st[i][q] - st[i - 1][q]) for k, q in keys}

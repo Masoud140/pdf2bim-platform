@@ -120,15 +120,24 @@
     "pdf2bim/model/wind.py",
     "pdf2bim/model/earthquake.py"
    ],
-   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stages 1-4a (design modules, reference benchmark, stations) done. Next: P4.5 stage 5 effective prestress",
+   "note": "P3a + P3b done; P3c load cases done (traffic, temperature, shrinkage, earth pressure, braking, centrifugal, wind, earthquake), each reproducing the dashboard on its own model; AS 5100.2 combinations done (rows identical to the dashboard; factors unverified). girder / sill responses and the combined-action schedule done; P4 plan drafted; P4.1 concurrent traffic actions and P4.2 concurrent combinations and P4.3 signed earthquake and P4.5 stages 1-6 (design modules, reference benchmark, stations, prestress losses, girder ULS flexure, staged SLS / minimum strength) done. Next: P4.5 stage 7 SLS free strains and torsion-box geometry",
    "branch": "p3-model"
   },
   {
    "id": "P4",
    "name": "Independent structural verification",
    "plain": "Check results against an independent MIDAS model and textbook cases.",
-   "status": "not_started",
-   "evidence": []
+   "status": "in_progress",
+   "evidence": [
+    "docs/P4_PLAN.md",
+    "docs/P4_VERIFICATION_METHOD.md",
+    "pdf2bim/design/girder_sls.py",
+    "pdf2bim/design/prestress.py",
+    "tests/design/test_girder_sls.py",
+    "projects/BR13A/model/BR13A.girder_checks.md"
+   ],
+   "note": "P4.1-P4.3 concurrent actions done; P4.5 design engine ported (flexure, SLS, N-M, shear method, losses, staged SLS) and run on BR13A (indicative). P4.4 independent MIDAS model waits for the owner; P4.6 standards review owner-dependent.",
+   "branch": "p4-verification"
   },
   {
    "id": "P5",
@@ -154,9 +163,9 @@
   }
  ],
  "next": {
-  "task": "P4.5 stage 5: effective prestress (port of the Hog losses analysis)",
-  "why": "The superstructure model now builds from data; the remaining piece of the analysis model (abutments, piles, bearings) still comes from the fixed BR13A file.",
-  "evidence": "Integrated model built from the description reproduces the frozen integrated model (reactions, pile head stiffness, modes) within tolerance with differences explained; .mct imports in MIDAS (engineer test)"
+  "task": "P4.5 stage 7: SLS free strains (temperature-gradient primary stresses, differential deck shrinkage) and the closed-box torsion geometry for shear",
+  "why": "The staged SLS check does not yet include the gradient primary stresses and differential shrinkage that the dashboard applies; shear needs the torsion box and the fitments.",
+  "evidence": "Port = dashboard (dgFreeFor / dgGeo) to round-off on the example girder; BR13A shear refused until fitments are given"
  },
  "risks": [
   {

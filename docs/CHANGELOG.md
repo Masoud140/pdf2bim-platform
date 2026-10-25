@@ -2,6 +2,17 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 6: staged SLS, cracking moment, minimum strength (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/girder_sls.py` (port of dgLC SLS / bending), `girder_design.checks_along`, `prestress.stage_moments_at`, `tools/girder_checks.py`; tests `test_girder_sls.py` (10), `test_girder_checks.py` (7); standards entries Table 8.6.2.1 and the uncracked tension limit (95 entries). SLS solve vectorised.
+- **Result (BR13A, indicative):** uncracked at SLS everywhere, Ms*/Mal ≤ 0.62, Muo ≥ 1.2 Mcr, M*/φMu ≤ 0.81. Not applied: gradient primary stresses, differential shrinkage; shear / torsion still needs fitments.
+
+## 2026-10-25 — P4.5 stage 5: prestress losses, inputs, girder ULS flexure (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/prestress.py` (Hog port), `prestress_inputs.py`, `girder_design.flexure_along`, `tools/girder_flexure.py`, `tools/dump_dashboard_hog.js`; field `design.prestress_losses`; BR13A D-42 (revision 11, Assumed); 10 standards entries (93).
+- **Tests:** prestress 12 (port = dashboard 1e-12), inputs 12, girder flexure 8.
+- **Findings:** P4-3 (deck-cast age reading), P4-4 / H-10 (ueC half-trough rule).
+
 ## 2026-10-25 — P4.5 stage 4a: reference benchmark and design stations (branch `p4-verification`)
 
 - **Added:** `pdf2bim/design/stations.py`; `tests/design/test_benchmark.py` (reference spreadsheet via the dashboard's dgBench), `tests/design/test_stations.py`; standards entries flexural tensile strength and minimum strength factor (83 entries).

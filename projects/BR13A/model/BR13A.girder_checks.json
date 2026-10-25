@@ -1,0 +1,4590 @@
+{
+ "G1": {
+  "girder": "G1",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 3.0159824699221613,
+    "element": 3,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 835.5993450087833,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1498.141521492855,
+     "Ns": 72.3652740325048,
+     "row_sls": "SLS-S-0018",
+     "Mu": 3803.5682285410785,
+     "Nu": 205.35560302169955,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 6589.983097233323,
+     "Mal": 9784.400884331211,
+     "MdecT": 42.58683484680348,
+     "MalT": -1393.8709456014428,
+     "uS": 0.15311530457546832,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9077.992171129146,
+     "McrH": -1588.1892718793863,
+     "Muo": 18459.164941363953,
+     "Muo_min": 10893.590605354975,
+     "okMin": true,
+     "phiMu": 14700.328918275845,
+     "phi": 0.8,
+     "kuo": 0.13361686387271077,
+     "uB": 0.2587403485790294,
+     "face": "top",
+     "Nub": -12974.717375392265,
+     "soffit_sls": -13.073545782227047,
+     "deck_top_sls": -2.2394975098359677,
+     "girder_alone": {
+      "top": -0.8772111824553155,
+      "bot": -16.989919771944976
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": -505.6062682218642,
+     "Ns": -431.7391832469071,
+     "row_sls": "SLS-S-0030",
+     "Mu": 3.878787302070066,
+     "Nu": -401.40457873855325,
+     "row_uls": "ULS-B-0431",
+     "Mdec": 6778.708482736595,
+     "Mal": 10036.060888026412,
+     "MdecT": -254.25244776838454,
+     "MalT": -1817.935544593732,
+     "uS": -0.05037895583366588,
+     "uST": 0.16074473207761109,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9266.717556632422,
+     "McrH": -1885.0285544945748,
+     "Muo": 18459.164941363953,
+     "Muo_min": 11120.061067958906,
+     "okMin": true,
+     "phiMu": 14782.728509330267,
+     "phi": 0.7938125114077652,
+     "kuo": 0.13931332304242347,
+     "uB": 0.00026238642613384466,
+     "face": "top",
+     "Nub": -12974.717375392265,
+     "soffit_sls": -18.702825092306288,
+     "deck_top_sls": 0.3867297190258072,
+     "girder_alone": {
+      "top": -0.8772111824553155,
+      "bot": -16.989919771944976
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.2,
+    "x_m": 6.031964939844323,
+    "element": 4,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1659.415577802222,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2978.3386223307234,
+     "Ns": 58.76357817274404,
+     "row_sls": "SLS-S-0018",
+     "Mu": 7356.449203308551,
+     "Nu": 144.46920013184965,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5774.925075188561,
+     "Mal": 9211.864589958004,
+     "MdecT": 34.26801663945446,
+     "MalT": -2151.9451250073835,
+     "uS": 0.3233155017907511,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9080.189551835194,
+     "McrH": -705.0995936595407,
+     "Muo": 18398.752200339455,
+     "Muo_min": 10896.227462202232,
+     "okMin": true,
+     "phiMu": 14671.154976380087,
+     "phi": 0.8,
+     "kuo": 0.13812960195618104,
+     "uB": 0.5014226361286559,
+     "face": "top",
+     "Nub": -12075.42368062378,
+     "soffit_sls": -7.208991954408394,
+     "deck_top_sls": -4.657345650503061,
+     "girder_alone": {
+      "top": -4.397974696969365,
+      "bot": -14.944217319808619
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 124.02003429052073,
+     "Ns": -218.88267276355577,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1170.2729044958212,
+     "Nu": -235.01278959548063,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5880.394603225785,
+     "Mal": 9350.807694482704,
+     "MdecT": -127.71804408088256,
+     "MalT": -2381.058813203792,
+     "uS": 0.013263029071135404,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9185.659079872417,
+     "McrH": -867.0856543798775,
+     "Muo": 18398.752200339455,
+     "Muo_min": 11022.7908958469,
+     "okMin": true,
+     "phiMu": 14724.694666015539,
+     "phi": 0.7961075851943384,
+     "kuo": 0.14181306313868092,
+     "uB": 0.07947688770734244,
+     "face": "top",
+     "Nub": -12075.42368062378,
+     "soffit_sls": -14.838682319872092,
+     "deck_top_sls": -0.39823475772034533,
+     "girder_alone": {
+      "top": -4.397974696969365,
+      "bot": -14.944217319808619
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.3,
+    "x_m": 9.047947409766483,
+    "element": 5,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2247.855744083249,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3937.2136656727425,
+     "Ns": 94.82605337382321,
+     "row_sls": "SLS-S-0148",
+     "Mu": 9647.875212387127,
+     "Nu": 205.8015344747383,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5155.683001108241,
+     "Mal": 8756.53952523895,
+     "MdecT": 54.94138965248635,
+     "MalT": -2650.9212631430746,
+     "uS": 0.4496312332428264,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9044.653527575398,
+     "McrH": -49.05406188823645,
+     "Muo": 18354.963156083024,
+     "Muo_min": 10853.584233090476,
+     "okMin": true,
+     "phiMu": 14615.62344970373,
+     "phi": 0.8,
+     "kuo": 0.14039284131626592,
+     "uB": 0.660106990686237,
+     "face": "top",
+     "Nub": -11461.089141862049,
+     "soffit_sls": -3.150009758011261,
+     "deck_top_sls": -6.264081458211165,
+     "girder_alone": {
+      "top": -7.0514401748909545,
+      "bot": -13.422743385877606
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 441.5313849990491,
+     "Ns": -142.4744516861873,
+     "row_sls": "SLS-S-0219",
+     "Mu": 1730.6257544453485,
+     "Nu": -189.6069486787393,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5246.742798716119,
+     "Mal": 8875.470305331579,
+     "MdecT": -82.57269095246168,
+     "MalT": -2843.8654824092,
+     "uS": 0.04974737899058904,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9135.713325183275,
+     "McrH": -186.5681424931845,
+     "Muo": 18354.963156083024,
+     "Muo_min": 10962.855990219929,
+     "okMin": true,
+     "phiMu": 14682.469297730977,
+     "phi": 0.7966912926628205,
+     "kuo": 0.14517713028774154,
+     "uB": 0.11787021102184758,
+     "face": "top",
+     "Nub": -11461.089141862049,
+     "soffit_sls": -12.422522588232301,
+     "deck_top_sls": -0.8456466705385773,
+     "girder_alone": {
+      "top": -7.0514401748909545,
+      "bot": -13.422743385877606
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.4,
+    "x_m": 12.063929879688645,
+    "element": 6,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2600.919843851866,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4384.333066457247,
+     "Ns": 132.95854811388668,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10695.687027556341,
+     "Nu": 249.2075288263574,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4771.204434641076,
+     "Mal": 8466.311473652666,
+     "MdecT": 76.74557288483744,
+     "MalT": -2935.1309836367586,
+     "uS": 0.5178563392217946,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9010.555587227056,
+     "McrH": 351.761205837764,
+     "Muo": 18326.518978214393,
+     "Muo_min": 10812.666704672467,
+     "okMin": true,
+     "phiMu": 14581.349865699995,
+     "phi": 0.8,
+     "kuo": 0.1415859000875804,
+     "uB": 0.7335183042768916,
+     "face": "top",
+     "Nub": -11119.993582390922,
+     "soffit_sls": -1.0017851823195316,
+     "deck_top_sls": -7.027866910243928,
+     "girder_alone": {
+      "top": -8.69287807032079,
+      "bot": -12.487727308787294
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 602.0547449955591,
+     "Ns": -51.74883298028229,
+     "row_sls": "SLS-S-0920",
+     "Mu": 2004.586295968913,
+     "Nu": -161.63760996669046,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4842.4799864281185,
+     "Mal": 8558.947591082411,
+     "MdecT": -29.878134989565066,
+     "MalT": -3084.0142086516607,
+     "uS": 0.07034214646002056,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9081.831139014093,
+     "McrH": 245.13749796336106,
+     "Muo": 18326.518978214393,
+     "Muo_min": 10898.197366816912,
+     "okMin": true,
+     "phiMu": 14658.681718752172,
+     "phi": 0.7970928470638212,
+     "kuo": 0.14717996601446853,
+     "uB": 0.13675078935676313,
+     "face": "top",
+     "Nub": -11119.993582390922,
+     "soffit_sls": -10.980381395353911,
+     "deck_top_sls": -1.0310040558362366,
+     "girder_alone": {
+      "top": -8.69287807032079,
+      "bot": -12.487727308787294
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.5,
+    "x_m": 15.079912349610806,
+    "element": 7,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2718.607877108071,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4441.58666866977,
+     "Ns": 155.59396097662207,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10788.792268489795,
+     "Nu": 274.4574761129072,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4640.902676786795,
+     "Mal": 8364.49955341251,
+     "MdecT": 89.74844861041106,
+     "MalT": -3021.75193329005,
+     "uS": 0.5310044719719916,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 8997.442047031316,
+     "McrH": 487.2337822605,
+     "Muo": 18321.70757724481,
+     "Muo_min": 10796.93045643758,
+     "okMin": true,
+     "phiMu": 14569.556465628159,
+     "phi": 0.8,
+     "kuo": 0.141634077074077,
+     "uB": 0.7405024507054987,
+     "face": "top",
+     "Nub": -11045.18734237638,
+     "soffit_sls": -0.5162769072912867,
+     "deck_top_sls": -7.114688962587166,
+     "girder_alone": {
+      "top": -9.231544711440439,
+      "bot": -12.176795882277489
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 648.0234499858971,
+     "Ns": -21.279287953658,
+     "row_sls": "SLS-S-0920",
+     "Mu": 2041.664747696163,
+     "Nu": -148.24162329487075,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4709.225521990988,
+     "Mal": 8453.140526858084,
+     "MdecT": -12.279201914956273,
+     "MalT": -3164.0024341624326,
+     "uS": 0.07666067397400271,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9065.764892235513,
+     "McrH": 385.2061317351331,
+     "Muo": 18321.70757724481,
+     "Muo_min": 10878.917870682615,
+     "okMin": true,
+     "phiMu": 14654.776668747452,
+     "phi": 0.7973157246011371,
+     "kuo": 0.14743867399562455,
+     "uB": 0.13931735664387063,
+     "face": "top",
+     "Nub": -11045.18734237638,
+     "soffit_sls": -10.519500492849087,
+     "deck_top_sls": -1.0795088769136172,
+     "girder_alone": {
+      "top": -9.231544711440439,
+      "bot": -12.176795882277489
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.6,
+    "x_m": 18.095894819532965,
+    "element": 8,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2600.919843851866,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4236.847453905637,
+     "Ns": 177.24127482816814,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10177.313262521577,
+     "Nu": 303.8189870704937,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4762.95332225999,
+     "Mal": 8448.33830480602,
+     "MdecT": 102.48667584035981,
+     "MalT": -2899.8342090590577,
+     "uS": 0.501500685820715,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9003.513692885253,
+     "McrH": 365.8677721848817,
+     "Muo": 18340.869757412584,
+     "Muo_min": 10804.216431462304,
+     "okMin": true,
+     "phiMu": 14573.067140591964,
+     "phi": 0.8,
+     "kuo": 0.14030617258747255,
+     "uB": 0.6983645353676845,
+     "face": "top",
+     "Nub": -11234.390282058705,
+     "soffit_sls": -1.3613216594522997,
+     "deck_top_sls": -6.711673160409645,
+     "girder_alone": {
+      "top": -8.64262252054366,
+      "bot": -12.500941468257292
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 616.0050959603517,
+     "Ns": -5.273966054558578,
+     "row_sls": "SLS-S-0920",
+     "Mu": 1849.4310063038583,
+     "Nu": -560.2674194602015,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 4833.206613771123,
+     "Mal": 8539.660785333304,
+     "MdecT": -3.055600626396199,
+     "MalT": -3047.3505116588817,
+     "uS": 0.0721346094938956,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9073.766984396387,
+     "McrH": 260.3254957181257,
+     "Muo": 18340.869757412584,
+     "Muo_min": 10888.520381275664,
+     "okMin": true,
+     "phiMu": 14663.477764218374,
+     "phi": 0.7900258508847615,
+     "kuo": 0.15174207466356607,
+     "uB": 0.12612499135892685,
+     "face": "top",
+     "Nub": -11234.390282058705,
+     "soffit_sls": -10.912191088893413,
+     "deck_top_sls": -1.0049759285618332,
+     "girder_alone": {
+      "top": -8.64262252054366,
+      "bot": -12.500941468257292
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.7,
+    "x_m": 21.111877289455126,
+    "element": 9,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2247.8557440832496,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3656.6684432412617,
+     "Ns": 184.6813492946294,
+     "row_sls": "SLS-S-0148",
+     "Mu": 8680.585014438362,
+     "Nu": 312.0002443762375,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5137.280586022013,
+     "Mal": 8718.94246578656,
+     "MdecT": 107.37383312809493,
+     "MalT": -2578.251829311715,
+     "uS": 0.4193935741163746,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9028.60882424506,
+     "McrH": -19.807451458733794,
+     "Muo": 18379.92426519157,
+     "Muo_min": 10834.330589094072,
+     "okMin": true,
+     "phiMu": 14599.976795257451,
+     "phi": 0.8,
+     "kuo": 0.13792314345704543,
+     "uB": 0.5945615624031745,
+     "face": "top",
+     "Nub": -11689.929558358848,
+     "soffit_sls": -3.822215060613096,
+     "deck_top_sls": -5.670912033502971,
+     "girder_alone": {
+      "top": -6.970249437773923,
+      "bot": -13.4440824938635
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 516.87907661243,
+     "Ns": 4.724423733248017,
+     "row_sls": "SLS-S-0920",
+     "Mu": 1481.912626544493,
+     "Nu": -536.1326994075893,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 5205.991609502406,
+     "Mal": 8808.741220159405,
+     "MdecT": 2.737148915311309,
+     "MalT": -2725.396372176637,
+     "uS": 0.058677972674406303,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9097.31984772545,
+     "McrH": -124.44413567151696,
+     "Muo": 18379.92426519157,
+     "Muo_min": 10916.78381727054,
+     "okMin": true,
+     "phiMu": 14703.146129164257,
+     "phi": 0.7908274434549655,
+     "kuo": 0.14785261156822757,
+     "uB": 0.10078881169555012,
+     "face": "top",
+     "Nub": -11689.929558358848,
+     "soffit_sls": -12.10499091981017,
+     "deck_top_sls": -0.8214741138699218,
+     "girder_alone": {
+      "top": -6.970249437773923,
+      "bot": -13.4440824938635
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.8,
+    "x_m": 24.12785975937729,
+    "element": 11,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1659.4155778022218,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2743.991697061313,
+     "Ns": 190.81358794386006,
+     "row_sls": "SLS-S-0018",
+     "Mu": 6396.3846355823225,
+     "Nu": 291.1520091871863,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5745.11672757704,
+     "Mal": 9154.620857081667,
+     "MdecT": 111.84479769751067,
+     "MalT": -2042.8003201767733,
+     "uS": 0.29973843154177876,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9053.773787470887,
+     "McrH": -662.0950123799271,
+     "Muo": 18434.19926212795,
+     "Muo_min": 10864.528544965064,
+     "okMin": true,
+     "phiMu": 14651.616836794667,
+     "phi": 0.8,
+     "kuo": 0.1346843742409338,
+     "uB": 0.43656510450908426,
+     "face": "top",
+     "Nub": -12418.802805744715,
+     "soffit_sls": -7.72033404438149,
+     "deck_top_sls": -4.1047416483093295,
+     "girder_alone": {
+      "top": -4.320882003285355,
+      "bot": -14.964453023730258
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 355.00875952483125,
+     "Ns": -0.19228260416771784,
+     "row_sls": "SLS-S-0639",
+     "Mu": 974.6164468433226,
+     "Nu": -314.590957812326,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 5817.13557937843,
+     "Mal": 9249.590204858392,
+     "MdecT": -0.12917619109146014,
+     "MalT": -2201.6809419641036,
+     "uS": 0.03838102571704865,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9125.792639272277,
+     "McrH": -774.0689862685299,
+     "Muo": 18434.19926212795,
+     "Muo_min": 10950.951167126732,
+     "okMin": true,
+     "phiMu": 14756.475946660668,
+     "phi": 0.7949336347032292,
+     "kuo": 0.14045871897005843,
+     "uB": 0.0660466936934136,
+     "face": "top",
+     "Nub": -12418.802805744715,
+     "soffit_sls": -14.051211866637335,
+     "deck_top_sls": -0.5538252731943236,
+     "girder_alone": {
+      "top": -4.320882003285355,
+      "bot": -14.964453023730258
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.9,
+    "x_m": 27.14384222929945,
+    "element": 12,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 835.5993450087833,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1477.084489647103,
+     "Ns": 69.39932647810276,
+     "row_sls": "SLS-S-0018",
+     "Mu": 3327.4680204440137,
+     "Nu": 106.31982777499788,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 6611.353377807644,
+     "Mal": 9793.750963639031,
+     "MdecT": 41.08340642190098,
+     "MalT": -1396.270919912678,
+     "uS": 0.1508190779131541,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9103.637205358122,
+     "McrH": -1635.407679351474,
+     "Muo": 18504.761086747483,
+     "Muo_min": 10924.364646429745,
+     "okMin": true,
+     "phiMu": 14769.490894575723,
+     "phi": 0.8,
+     "kuo": 0.13198066122328841,
+     "uB": 0.22529334587057886,
+     "face": "top",
+     "Nub": -13432.77615122961,
+     "soffit_sls": -13.148465089804725,
+     "deck_top_sls": -2.169205737094471,
+     "girder_alone": {
+      "top": -0.848775848608248,
+      "bot": -16.997313930111453
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 128.44328213113755,
+     "Ns": 60.38021502325189,
+     "row_sls": "SLS-S-0362",
+     "Mu": 369.7607616976503,
+     "Nu": -164.04982060548093,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 6614.696852186132,
+     "Mal": 9798.212233328113,
+     "MdecT": 35.74092438573468,
+     "MalT": -1403.9340033243539,
+     "uS": 0.013108848744288713,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9106.980679736605,
+     "McrH": -1640.7501613876404,
+     "Muo": 18504.761086747483,
+     "Muo_min": 10928.376815683927,
+     "okMin": true,
+     "phiMu": 14811.346840837396,
+     "phi": 0.7975574695988593,
+     "kuo": 0.13445996504738114,
+     "uB": 0.024964695356276254,
+     "face": "top",
+     "Nub": -13432.77615122961,
+     "soffit_sls": -16.610793179560993,
+     "deck_top_sls": -0.140035051931765,
+     "girder_alone": {
+      "top": -0.848775848608248,
+      "bot": -16.997313930111453
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "useN": true,
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty",
+   "Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied",
+   "shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G2": {
+  "girder": "G2",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 3.007605977798227,
+    "element": 16,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 897.7170197539289,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1864.1679790690578,
+     "Ns": 247.1552770773905,
+     "row_sls": "SLS-S-0021",
+     "Mu": 4205.874112753161,
+     "Nu": 381.0197106950863,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 6483.309021975153,
+     "Mal": 9649.607037701358,
+     "MdecT": 147.18808140898935,
+     "MalT": -1301.7248267673997,
+     "uS": 0.19318589573499595,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9041.689047951737,
+     "McrH": -1508.630205240922,
+     "Muo": 18548.907102780948,
+     "Muo_min": 10850.026857542083,
+     "okMin": true,
+     "phiMu": 14717.144786008908,
+     "phi": 0.8,
+     "kuo": 0.12709610830262477,
+     "uB": 0.2857805759138514,
+     "face": "top",
+     "Nub": -13829.349167772001,
+     "soffit_sls": -11.80092267651112,
+     "deck_top_sls": -2.5515529750673926,
+     "girder_alone": {
+      "top": -1.0897343876285368,
+      "bot": -16.795841189847316
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": -1.8177984289016678,
+     "Ns": 44.33057347624849,
+     "row_sls": "SLS-S-0027",
+     "Mu": 204.01542502115916,
+     "Nu": -123.65037136046348,
+     "row_uls": "ULS-B-0413",
+     "Mdec": 6557.865777859938,
+     "Mal": 9749.03039020574,
+     "MdecT": 26.379728075120003,
+     "MalT": -1475.3033179732404,
+     "uS": -0.00018645940736095146,
+     "uST": 0.018777282315481102,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9116.245803836518,
+     "McrH": -1629.4385585747918,
+     "Muo": 18548.907102780948,
+     "Muo_min": 10939.494964603822,
+     "okMin": true,
+     "phiMu": 14845.392280514003,
+     "phi": 0.7982117687555592,
+     "kuo": 0.13161445484844142,
+     "uB": 0.01374267659393204,
+     "face": "top",
+     "Nub": -13829.349167772001,
+     "soffit_sls": -16.758596013223798,
+     "deck_top_sls": 0.04190350902705943,
+     "girder_alone": {
+      "top": -1.0897343876285368,
+      "bot": -16.795841189847316
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.2,
+    "x_m": 6.015211955596454,
+    "element": 17,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1782.812878332038,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2843.4017202720825,
+     "Ns": 130.4371661266925,
+     "row_sls": "SLS-S-0021",
+     "Mu": 6900.227690624068,
+     "Nu": 216.4947227765065,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5682.431926569766,
+     "Mal": 9089.806216649022,
+     "MdecT": 77.78254731565234,
+     "MalT": -2209.9543479644603,
+     "uS": 0.31281213840005373,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9126.910129567368,
+     "McrH": -704.1607611873023,
+     "Muo": 18568.55040522664,
+     "Muo_min": 10952.292155480842,
+     "okMin": true,
+     "phiMu": 14785.745033075566,
+     "phi": 0.8,
+     "kuo": 0.12797743010607354,
+     "uB": 0.4666810955544226,
+     "face": "top",
+     "Nub": -13708.37236613284,
+     "soffit_sls": -7.248743105127654,
+     "deck_top_sls": -4.091923796296258,
+     "girder_alone": {
+      "top": -4.5866069255085495,
+      "bot": -14.630939455903482
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 250.59435158569687,
+     "Ns": 25.77478349217578,
+     "row_sls": "SLS-S-0201",
+     "Mu": 1029.0149552369924,
+     "Nu": -241.68244873916046,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5720.8122171371215,
+     "Mal": 9140.27114926038,
+     "MdecT": 15.357282458510667,
+     "MalT": -2298.8837972641163,
+     "uS": 0.027416511774486545,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9165.290420134723,
+     "McrH": -766.5860260444438,
+     "Muo": 18568.55040522664,
+     "Muo_min": 10998.348504161668,
+     "okMin": true,
+     "phiMu": 14866.049365374442,
+     "phi": 0.7964739439185903,
+     "kuo": 0.13206312330527908,
+     "uB": 0.06921912674619145,
+     "face": "top",
+     "Nub": -13708.37236613284,
+     "soffit_sls": -13.966813015410478,
+     "deck_top_sls": -0.3480494242826417,
+     "girder_alone": {
+      "top": -4.5866069255085495,
+      "bot": -14.630939455903482
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.3,
+    "x_m": 9.02281793339468,
+    "element": 19,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2415.0242058878293,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3638.210866680604,
+     "Ns": 49.035962344286546,
+     "row_sls": "SLS-S-0018",
+     "Mu": 8999.384662200959,
+     "Nu": 103.97074012251777,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5102.583562086893,
+     "Mal": 8671.136140847124,
+     "MdecT": 29.277209457674193,
+     "MalT": -2853.4671825605137,
+     "uS": 0.4195771819960343,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9180.267077028622,
+     "McrH": -131.661302493299,
+     "Muo": 18585.403831208354,
+     "Muo_min": 11016.320492434346,
+     "okMin": true,
+     "phiMu": 14835.237698754794,
+     "phi": 0.8,
+     "kuo": 0.12839022445609743,
+     "uB": 0.6066222088882558,
+     "face": "top",
+     "Nub": -13666.091852835141,
+     "soffit_sls": -3.7366688080990595,
+     "deck_top_sls": -5.31643577085963,
+     "girder_alone": {
+      "top": -7.060000923048616,
+      "bot": -13.066235957182508
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 429.0143864828203,
+     "Ns": -37.96182041264066,
+     "row_sls": "SLS-S-0219",
+     "Mu": 1629.6024521880336,
+     "Nu": -193.3870533599199,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5134.409332247819,
+     "Mal": 8712.568633171937,
+     "MdecT": -22.68227495724591,
+     "MalT": -2926.986115980893,
+     "uS": 0.04924086162712171,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9212.092847189548,
+     "McrH": -183.62078690821954,
+     "Muo": 18585.403831208354,
+     "Muo_min": 11054.511416627456,
+     "okMin": true,
+     "phiMu": 14876.988246922701,
+     "phi": 0.7971698265247676,
+     "kuo": 0.13102805233822826,
+     "uB": 0.10953846471748852,
+     "face": "top",
+     "Nub": -13666.091852835141,
+     "soffit_sls": -12.006849471301305,
+     "deck_top_sls": -0.66540882059487,
+     "girder_alone": {
+      "top": -7.060000923048616,
+      "bot": -13.066235957182508
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.4,
+    "x_m": 12.030423911192909,
+    "element": 20,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2794.3510024213047,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4151.219638821177,
+     "Ns": 62.5720914198347,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10311.95972604326,
+     "Nu": 100.24880621510958,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4731.589538704503,
+     "Mal": 8384.781234676948,
+     "MdecT": 37.41543057693775,
+     "MalT": -3185.6434809728476,
+     "uS": 0.49508979693506777,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9189.585610682727,
+     "McrH": 244.61150616586747,
+     "Muo": 18599.711251196317,
+     "Muo_min": 11027.502732819272,
+     "okMin": true,
+     "phiMu": 14847.951485038298,
+     "phi": 0.8,
+     "kuo": 0.12784074314036614,
+     "uB": 0.6945038671788644,
+     "face": "top",
+     "Nub": -13690.692966449866,
+     "soffit_sls": -1.4800638645117632,
+     "deck_top_sls": -6.033960012730365,
+     "girder_alone": {
+      "top": -8.517705395350108,
+      "bot": -12.124830517325892
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 553.0738181652601,
+     "Ns": 14.112366624696106,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1996.810564476839,
+     "Nu": -165.4595331855165,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4749.274592891251,
+     "Mal": 8407.680740201948,
+     "MdecT": 8.434137399067597,
+     "MalT": -3226.5071712947733,
+     "uS": 0.0657819718963277,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9207.270664869473,
+     "McrH": 215.6302129879973,
+     "Muo": 18599.711251196317,
+     "Muo_min": 11048.724797843368,
+     "okMin": true,
+     "phiMu": 14887.126081309485,
+     "phi": 0.7975828903096288,
+     "kuo": 0.13018450669942405,
+     "uB": 0.13413002305285762,
+     "face": "top",
+     "Nub": -13690.692966449866,
+     "soffit_sls": -10.7011840830421,
+     "deck_top_sls": -0.7988552417014603,
+     "girder_alone": {
+      "top": -8.517705395350108,
+      "bot": -12.124830517325892
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.5,
+    "x_m": 15.038029888991135,
+    "element": 21,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2920.793267932463,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4322.03558988152,
+     "Ns": 52.21715242824544,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10726.290667776346,
+     "Nu": 81.90218112345161,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4617.912935480954,
+     "Mal": 8297.603815089486,
+     "MdecT": 31.265138393483312,
+     "MalT": -3309.1225483202425,
+     "uS": 0.5208775552794827,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9203.328918095343,
+     "McrH": 353.72556202146734,
+     "Muo": 18611.610389278274,
+     "Muo_min": 11043.994701714411,
+     "okMin": true,
+     "phiMu": 14863.362639485953,
+     "phi": 0.8,
+     "kuo": 0.12742521593243034,
+     "uB": 0.721659756809063,
+     "face": "top",
+     "Nub": -13775.133905644672,
+     "soffit_sls": -0.7541055722508757,
+     "deck_top_sls": -6.266452386218399,
+     "girder_alone": {
+      "top": -8.970375727141166,
+      "bot": -11.818220327212169
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 604.7928029780526,
+     "Ns": 17.136493011661166,
+     "row_sls": "SLS-S-0639",
+     "Mu": 2132.078037557028,
+     "Nu": -142.1794811808638,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4630.684659911019,
+     "Mal": 8314.112466773495,
+     "MdecT": 10.257457475551975,
+     "MalT": -3338.717860651318,
+     "uS": 0.07274291818820657,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9216.100642525407,
+     "McrH": 332.71788110353555,
+     "Muo": 18611.610389278274,
+     "Muo_min": 11059.320771030489,
+     "okMin": true,
+     "phiMu": 14895.729909897702,
+     "phi": 0.797935708180338,
+     "kuo": 0.12939108736902566,
+     "uB": 0.14313350540414507,
+     "face": "top",
+     "Nub": -13775.133905644672,
+     "soffit_sls": -10.260831144208998,
+     "deck_top_sls": -0.8682886853626202,
+     "girder_alone": {
+      "top": -8.970375727141166,
+      "bot": -11.818220327212169
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.6,
+    "x_m": 18.04563586678936,
+    "element": 22,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2794.3510024213047,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4223.973321066136,
+     "Ns": 40.17733073918433,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10388.950967362718,
+     "Nu": 59.23663313228152,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4754.331544779855,
+     "Mal": 8401.79477490932,
+     "MdecT": 24.08525073917076,
+     "MalT": -3205.720863573168,
+     "uS": 0.5027465481161703,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9214.274898027958,
+     "McrH": 208.93975369330883,
+     "Muo": 18621.14497374262,
+     "Muo_min": 11057.129877633548,
+     "okMin": true,
+     "phiMu": 14878.21470841748,
+     "phi": 0.8,
+     "kuo": 0.12705183248473292,
+     "uB": 0.698265966109837,
+     "face": "top",
+     "Nub": -13917.101330282849,
+     "soffit_sls": -1.3509424305167994,
+     "deck_top_sls": -6.107482676162793,
+     "girder_alone": {
+      "top": -8.431135669044389,
+      "bot": -12.147589037037212
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 577.9184752956185,
+     "Ns": 24.739174538680203,
+     "row_sls": "SLS-S-0639",
+     "Mu": 2027.4449027288765,
+     "Nu": -244.38639154956235,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 4759.938604686358,
+     "Mal": 8409.055440890143,
+     "MdecT": 14.828196603566768,
+     "MalT": -3218.7855125299784,
+     "uS": 0.06872573017956495,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9219.881957934462,
+     "McrH": 199.68269955770484,
+     "Muo": 18621.14497374262,
+     "Muo_min": 11063.858349521353,
+     "okMin": true,
+     "phiMu": 14908.267101101255,
+     "phi": 0.7964879699335409,
+     "kuo": 0.12970353748513727,
+     "uB": 0.13599467255178918,
+     "face": "top",
+     "Nub": -13917.101330282849,
+     "soffit_sls": -10.652551776247954,
+     "deck_top_sls": -0.8188466132050155,
+     "girder_alone": {
+      "top": -8.431135669044389,
+      "bot": -12.147589037037212
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.7,
+    "x_m": 21.05324184458759,
+    "element": 23,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2415.02420588783,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3762.8431114719792,
+     "Ns": -12.873680826267943,
+     "row_sls": "SLS-S-0018",
+     "Mu": 9141.343610422926,
+     "Nu": -0.4268405525437852,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5152.104647088508,
+     "Mal": 8711.963701156144,
+     "MdecT": -7.739239284219138,
+     "MalT": -2907.9591891757286,
+     "uS": 0.43191675729464085,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9233.682935520452,
+     "McrH": -213.3609531946763,
+     "Muo": 18628.26848329845,
+     "Muo_min": 11080.419522624541,
+     "okMin": true,
+     "phiMu": 14902.636539502862,
+     "phi": 0.7999939536607951,
+     "kuo": 0.12700352983321442,
+     "uB": 0.6134044527081965,
+     "face": "top",
+     "Nub": -14118.974740644326,
+     "soffit_sls": -3.5367214168403556,
+     "deck_top_sls": -5.4598577748523605,
+     "girder_alone": {
+      "top": -6.915417207156288,
+      "bot": -13.104230099976684
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 473.5819856140331,
+     "Ns": 33.98214259800787,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1671.3848063778032,
+     "Nu": -228.35971591137877,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 5135.127568587232,
+     "Mal": 8689.859374137895,
+     "MdecT": 20.39281830960067,
+     "MalT": -2868.079877468904,
+     "uS": 0.05449823354143936,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9216.705857019177,
+     "McrH": -185.22889560085696,
+     "Muo": 18628.26848329845,
+     "Muo_min": 11060.047028423012,
+     "okMin": true,
+     "phiMu": 14913.917348904874,
+     "phi": 0.7967652082377625,
+     "kuo": 0.12898444980689983,
+     "uB": 0.11206879904698766,
+     "face": "top",
+     "Nub": -14118.974740644326,
+     "soffit_sls": -11.867159405347259,
+     "deck_top_sls": -0.6562244683741583,
+     "girder_alone": {
+      "top": -6.915417207156288,
+      "bot": -13.104230099976684
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.8,
+    "x_m": 24.060847822385817,
+    "element": 24,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1782.8128783320374,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2967.4553254688703,
+     "Ns": -56.03508410631999,
+     "row_sls": "SLS-S-0018",
+     "Mu": 7036.96243993275,
+     "Nu": -68.51928025645131,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5785.68402442676,
+     "Mal": 9193.369030015914,
+     "MdecT": -33.702655347150426,
+     "MalT": -2370.797727904695,
+     "uS": 0.32278213958128615,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9236.004915800835,
+     "McrH": -882.6709132708786,
+     "Muo": 18632.839931485018,
+     "Muo_min": 11083.205898961001,
+     "okMin": true,
+     "phiMu": 14910.012839396393,
+     "phi": 0.799047541724628,
+     "kuo": 0.12702906191111216,
+     "uB": 0.47196219853943666,
+     "face": "top",
+     "Nub": -14387.88071418345,
+     "soffit_sls": -7.170419362479288,
+     "deck_top_sls": -4.327333169143086,
+     "girder_alone": {
+      "top": -4.441019442373633,
+      "bot": -14.66915021967722
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 297.06072508410546,
+     "Ns": 43.749211258122024,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1097.8361199547182,
+     "Nu": -188.66141092309135,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 5749.6159593552875,
+     "Mal": 9146.002980236939,
+     "MdecT": 26.28395070733939,
+     "MalT": -2285.174666871636,
+     "uS": 0.032479841273396315,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9199.936850729362,
+     "McrH": -822.6843072163877,
+     "Muo": 18632.839931485018,
+     "Muo_min": 11039.924220875235,
+     "okMin": true,
+     "phiMu": 14916.42946770559,
+     "phi": 0.7973774954814977,
+     "kuo": 0.1280681307028313,
+     "uB": 0.07359912252000779,
+     "face": "top",
+     "Nub": -14387.88071418345,
+     "soffit_sls": -13.87293644453447,
+     "deck_top_sls": -0.39042973568340933,
+     "girder_alone": {
+      "top": -4.441019442373633,
+      "bot": -14.66915021967722
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.9,
+    "x_m": 27.06845380018404,
+    "element": 25,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 897.7170197539299,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1745.851241490272,
+     "Ns": -115.31450712581179,
+     "row_sls": "SLS-S-0018",
+     "Mu": 3927.6801041143326,
+     "Nu": -161.66862937756707,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 6652.866879777412,
+     "Mal": 9839.795905651155,
+     "MdecT": -69.43573660892973,
+     "MalT": -1613.8217341015725,
+     "uS": 0.17742758673354203,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9219.038141688823,
+     "McrH": -1814.6208917122053,
+     "Muo": 18634.610962417366,
+     "Muo_min": 11062.845770026588,
+     "okMin": true,
+     "phiMu": 14917.280175137497,
+     "phi": 0.7978057631041025,
+     "kuo": 0.12727030704481065,
+     "uB": 0.2632973342325877,
+     "face": "top",
+     "Nub": -14735.749788896728,
+     "soffit_sls": -12.47783947158594,
+     "deck_top_sls": -2.606426304650262,
+     "girder_alone": {
+      "top": -1.0283916076346682,
+      "bot": -16.811810681158438
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 58.88684762958645,
+     "Ns": 61.228754523742495,
+     "row_sls": "SLS-S-0645",
+     "Mu": 325.11257982134777,
+     "Nu": -126.6283911018467,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 6589.205694531495,
+     "Mal": 9755.10319008458,
+     "MdecT": 36.82947573277949,
+     "MalT": -1460.863610388934,
+     "uS": 0.006036517142067862,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9155.376956442906,
+     "McrH": -1708.355679370496,
+     "Muo": 18634.610962417366,
+     "Muo_min": 10986.452347731487,
+     "okMin": true,
+     "phiMu": 14915.228511840141,
+     "phi": 0.7982813444457743,
+     "kuo": 0.12696866297265172,
+     "uB": 0.0217973582880922,
+     "face": "top",
+     "Nub": -14735.749788896728,
+     "soffit_sls": -16.60566753326211,
+     "deck_top_sls": -0.03167042733016795,
+     "girder_alone": {
+      "top": -1.0283916076346682,
+      "bot": -16.811810681158438
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "useN": true,
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty",
+   "Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied",
+   "shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G3": {
+  "girder": "G3",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 2.999345275085787,
+    "element": 31,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 892.9786311958196,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2027.1536180909707,
+     "Ns": 224.8686157989119,
+     "row_sls": "SLS-S-0021",
+     "Mu": 4386.379107154153,
+     "Nu": 290.0791353392682,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 6496.389304781239,
+     "Mal": 9663.92622495871,
+     "MdecT": 133.92771331780628,
+     "MalT": -1316.4502448777264,
+     "uS": 0.20976501381555526,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9050.10897844843,
+     "McrH": -1527.4997200812068,
+     "Muo": 18549.70653119268,
+     "Muo_min": 10860.130774138115,
+     "okMin": true,
+     "phiMu": 14746.940131180705,
+     "phi": 0.8,
+     "kuo": 0.12786262259052483,
+     "uB": 0.29744333862722205,
+     "face": "top",
+     "Nub": -13839.443375858367,
+     "soffit_sls": -11.417409866899497,
+     "deck_top_sls": -2.8125078783505897,
+     "girder_alone": {
+      "top": -1.0703015405491354,
+      "bot": -16.807499843159654
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 153.32518732128898,
+     "Ns": 125.09968791971136,
+     "row_sls": "SLS-S-0027",
+     "Mu": 210.22689246813496,
+     "Nu": -232.6959153786193,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 6533.056701939459,
+     "Mal": 9712.840680865072,
+     "MdecT": 74.49607439552035,
+     "MalT": -1401.8784162271024,
+     "uS": 0.01578582336096067,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9086.776375606652,
+     "McrH": -1586.931359003493,
+     "Muo": 18549.70653119268,
+     "Muo_min": 10904.131650727983,
+     "okMin": true,
+     "phiMu": 14851.411331928099,
+     "phi": 0.7966372070168005,
+     "kuo": 0.13254699841381373,
+     "uB": 0.014155347782751234,
+     "face": "top",
+     "Nub": -13839.443375858367,
+     "soffit_sls": -16.298090915208256,
+     "deck_top_sls": -0.11710567692325982,
+     "girder_alone": {
+      "top": -1.0703015405491354,
+      "bot": -16.807499843159654
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.2,
+    "x_m": 5.998690550171574,
+    "element": 32,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1773.2248428708772,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3178.337553104824,
+     "Ns": 208.95056609857627,
+     "row_sls": "SLS-S-0021",
+     "Mu": 7383.298602249199,
+     "Nu": 293.7790114978316,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5663.286119683587,
+     "Mal": 9058.949794450258,
+     "MdecT": 124.62123942376196,
+     "MalT": -2134.4489416643355,
+     "uS": 0.3508505538966508,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9098.234858574113,
+     "McrH": -667.5682746590355,
+     "Muo": 18569.096009688965,
+     "Muo_min": 10917.881830288936,
+     "okMin": true,
+     "phiMu": 14761.510468589535,
+     "phi": 0.8,
+     "kuo": 0.12725653031127943,
+     "uB": 0.500172297269974,
+     "face": "top",
+     "Nub": -13717.455568631578,
+     "soffit_sls": -6.344461868315779,
+     "deck_top_sls": -4.517024169481435,
+     "girder_alone": {
+      "top": -4.547125499022736,
+      "bot": -14.655023580803764
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 365.5859615404067,
+     "Ns": 42.51037863106956,
+     "row_sls": "SLS-S-0201",
+     "Mu": 991.5820096353324,
+     "Nu": -248.24829873207176,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5724.312040917393,
+     "Mal": 9139.229209521625,
+     "MdecT": 25.341047913895753,
+     "MalT": -2275.9577101121185,
+     "uS": 0.04000183748094688,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9159.26077980792,
+     "McrH": -766.8484661689022,
+     "Muo": 18569.096009688965,
+     "Muo_min": 10991.112935769504,
+     "okMin": true,
+     "phiMu": 14866.810069371479,
+     "phi": 0.7963805488927589,
+     "kuo": 0.13208622982775275,
+     "uB": 0.06669769809450814,
+     "face": "top",
+     "Nub": -13717.455568631578,
+     "soffit_sls": -13.68166477592928,
+     "deck_top_sls": -0.5032865991868917,
+     "girder_alone": {
+      "top": -4.547125499022736,
+      "bot": -14.655023580803764
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.3,
+    "x_m": 8.998035825257361,
+    "element": 33,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2401.97213692449,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3918.5260616160954,
+     "Ns": 154.5860316050071,
+     "row_sls": "SLS-S-0166",
+     "Mu": 9409.480460178549,
+     "Nu": 230.87220477256915,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5077.041005212438,
+     "Mal": 8630.595297847654,
+     "MdecT": 92.32186276905237,
+     "MalT": -2752.355893336033,
+     "uS": 0.4540273209883123,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9141.711875442352,
+     "McrH": -82.11483756459666,
+     "Muo": 18585.712809930417,
+     "Muo_min": 10970.054250530822,
+     "okMin": true,
+     "phiMu": 14795.084497657206,
+     "phi": 0.8,
+     "kuo": 0.12724453741821862,
+     "uB": 0.6359869361792787,
+     "face": "top",
+     "Nub": -13673.715522843822,
+     "soffit_sls": -2.9561354308403645,
+     "deck_top_sls": -5.63552797348715,
+     "girder_alone": {
+      "top": -7.006912874115008,
+      "bot": -13.099264057784081
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 524.0314597718198,
+     "Ns": -16.487976333199047,
+     "row_sls": "SLS-S-0201",
+     "Mu": 1587.8047193828427,
+     "Nu": -233.8290846950229,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5139.617768678283,
+     "Mal": 8712.110914493418,
+     "MdecT": -9.857671281212559,
+     "MalT": -2897.050601220899,
+     "uS": 0.060149769087540425,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9204.288638908196,
+     "McrH": -184.29437161486157,
+     "Muo": 18585.712809930417,
+     "Muo_min": 11045.146366689834,
+     "okMin": true,
+     "phiMu": 14879.009515881564,
+     "phi": 0.7965798749534554,
+     "kuo": 0.13136368384866917,
+     "uB": 0.10671440983272784,
+     "face": "top",
+     "Nub": -13673.715522843822,
+     "soffit_sls": -11.77740373335583,
+     "deck_top_sls": -0.7863529954038369,
+     "girder_alone": {
+      "top": -7.006912874115008,
+      "bot": -13.099264057784081
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.4,
+    "x_m": 11.997381100343148,
+    "element": 34,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2779.220513356657,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4319.38536450299,
+     "Ns": 105.50810696682277,
+     "row_sls": "SLS-S-0166",
+     "Mu": 10561.388060555299,
+     "Nu": 170.38546065581124,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 4731.001630606557,
+     "Mal": 8375.921783673586,
+     "MdecT": 63.09487549018945,
+     "MalT": -3135.7401068183294,
+     "uS": 0.5156907473661432,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9173.88780322415,
+     "McrH": 254.92585505759962,
+     "Muo": 18599.798268507224,
+     "Muo_min": 11008.66536386898,
+     "okMin": true,
+     "phiMu": 14825.75348605653,
+     "phi": 0.8,
+     "kuo": 0.12721137365143298,
+     "uB": 0.7123677100451034,
+     "face": "top",
+     "Nub": -13696.537046247087,
+     "soffit_sls": -1.0496940345735781,
+     "deck_top_sls": -6.242387001796687,
+     "girder_alone": {
+      "top": -8.45715375088631,
+      "bot": -12.163137112853313
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 631.7597196442423,
+     "Ns": -53.699501265757625,
+     "row_sls": "SLS-S-0201",
+     "Mu": 1978.9342354913642,
+     "Nu": -206.5676239826075,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4789.100457278424,
+     "Mal": 8451.185494560183,
+     "MdecT": -32.12173839190814,
+     "MalT": -3270.0434053725508,
+     "uS": 0.07475397623811361,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9231.986629896013,
+     "McrH": 159.70924117550157,
+     "Muo": 18599.798268507224,
+     "Muo_min": 11078.383955875215,
+     "okMin": true,
+     "phiMu": 14888.986073832177,
+     "phi": 0.7969836518050495,
+     "kuo": 0.13053541397286528,
+     "uB": 0.13291262586170313,
+     "face": "top",
+     "Nub": -13696.537046247087,
+     "soffit_sls": -10.60195169956253,
+     "deck_top_sls": -0.9736659175581556,
+     "girder_alone": {
+      "top": -8.45715375088631,
+      "bot": -12.163137112853313
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.5,
+    "x_m": 14.996726375428935,
+    "element": 35,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2904.9699721673796,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4368.537016733702,
+     "Ns": 59.961812115521674,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10816.431351284897,
+     "Nu": 102.77165553306322,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4630.737612656712,
+     "Mal": 8305.912454283185,
+     "MdecT": 35.90288299263443,
+     "MalT": -3288.300969291526,
+     "uS": 0.5259551001504885,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9200.332358645002,
+     "McrH": 342.5163839491256,
+     "Muo": 18611.488715206357,
+     "Muo_min": 11040.398830374003,
+     "okMin": true,
+     "phiMu": 14856.657556902413,
+     "phi": 0.8,
+     "kuo": 0.12724123742738755,
+     "uB": 0.7280528146965045,
+     "face": "top",
+     "Nub": -13778.95373581507,
+     "soffit_sls": -0.6682724743405528,
+     "deck_top_sls": -6.3275346316561745,
+     "girder_alone": {
+      "top": -8.908180727701547,
+      "bot": -11.858079719564103
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 673.9405733707995,
+     "Ns": -59.60861590972531,
+     "row_sls": "SLS-S-0219",
+     "Mu": 2155.019718866904,
+     "Nu": -173.08396608069654,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4674.269086296132,
+     "Mal": 8362.206381349144,
+     "MdecT": -35.700798837704724,
+     "MalT": -3389.1873711347057,
+     "uS": 0.08059363075203928,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9243.86383228442,
+     "McrH": 270.9127021187869,
+     "Muo": 18611.488715206357,
+     "Muo_min": 11092.636598741303,
+     "okMin": true,
+     "phiMu": 14897.009925218816,
+     "phi": 0.7974877052438197,
+     "kuo": 0.12966145692890238,
+     "uB": 0.14466122595640613,
+     "face": "top",
+     "Nub": -13778.95373581507,
+     "soffit_sls": -10.195664979696103,
+     "deck_top_sls": -1.0363857690490308,
+     "girder_alone": {
+      "top": -8.908180727701547,
+      "bot": -11.858079719564103
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.6,
+    "x_m": 17.996071650514722,
+    "element": 36,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2779.2205133566576,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4164.258487834467,
+     "Ns": 31.93320978790735,
+     "row_sls": "SLS-S-0148",
+     "Mu": 10347.83693240563,
+     "Nu": 62.936297846680716,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 4772.0902543147295,
+     "Mal": 8416.978028614598,
+     "MdecT": 19.141327082779984,
+     "MalT": -3199.008818090373,
+     "uS": 0.49474508234161185,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9216.886947167222,
+     "McrH": 189.05216059488112,
+     "Muo": 18620.82743790616,
+     "Muo_min": 11060.264336600667,
+     "okMin": true,
+     "phiMu": 14876.79161531202,
+     "phi": 0.8,
+     "kuo": 0.1270291510479289,
+     "uB": 0.6955691253855476,
+     "face": "top",
+     "Nub": -13918.676551814337,
+     "soffit_sls": -1.548300110880154,
+     "deck_top_sls": -6.028266325370709,
+     "girder_alone": {
+      "top": -8.372777804730362,
+      "bot": -12.185318594024453
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 635.9788748960232,
+     "Ns": -44.257891274051794,
+     "row_sls": "SLS-S-0639",
+     "Mu": 2110.79289807807,
+     "Nu": -137.64177392387793,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4799.763586126539,
+     "Mal": 8452.819776006574,
+     "MdecT": -26.54352060171118,
+     "MalT": -3263.496544202785,
+     "uS": 0.07523866493655247,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9244.560278979032,
+     "McrH": 143.3673129103904,
+     "Muo": 18620.82743790616,
+     "Muo_min": 11093.472334774839,
+     "okMin": true,
+     "phiMu": 14903.158830271945,
+     "phi": 0.7980222002657871,
+     "kuo": 0.12877985243628287,
+     "uB": 0.1416339262110349,
+     "face": "top",
+     "Nub": -13918.676551814337,
+     "soffit_sls": -10.606205015263289,
+     "deck_top_sls": -0.9635099061611733,
+     "girder_alone": {
+      "top": -8.372777804730362,
+      "bot": -12.185318594024453
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.7,
+    "x_m": 20.99541692560051,
+    "element": 37,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2401.97213692449,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3610.529348682951,
+     "Ns": -0.06541588960590516,
+     "row_sls": "SLS-S-0018",
+     "Mu": 8972.655327802535,
+     "Nu": 6.96589000164604,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5159.949972281178,
+     "Mal": 8715.43110983576,
+     "MdecT": -0.049333425781924234,
+     "MalT": -2885.2047842278284,
+     "uS": 0.41426858903265323,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9228.442083704826,
+     "McrH": -218.3263827173164,
+     "Muo": 18627.768373480725,
+     "Muo_min": 11074.13050044579,
+     "okMin": true,
+     "phiMu": 14900.02130891056,
+     "phi": 0.8,
+     "kuo": 0.12695957165932664,
+     "uB": 0.6021907715284056,
+     "face": "top",
+     "Nub": -14118.059301629397,
+     "soffit_sls": -3.9445281663156564,
+     "deck_top_sls": -5.228961749184407,
+     "girder_alone": {
+      "top": -6.866023217549684,
+      "bot": -13.13628682295734
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 514.3643527255862,
+     "Ns": -48.16229741438381,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1819.6382388986863,
+     "Nu": -101.25085720804455,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5177.37820362332,
+     "Mal": 8738.121228440335,
+     "MdecT": -28.925197827609505,
+     "MalT": -2926.144627882846,
+     "uS": 0.0588644102408951,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9245.870315046968,
+     "McrH": -247.20224711914352,
+     "Muo": 18627.768373480725,
+     "Muo_min": 11095.044378056362,
+     "okMin": true,
+     "phiMu": 14907.311176208132,
+     "phi": 0.7985656547398642,
+     "kuo": 0.12789944824334232,
+     "uB": 0.12206347726897956,
+     "face": "top",
+     "Nub": -14118.059301629397,
+     "soffit_sls": -11.871140215025076,
+     "deck_top_sls": -0.7868102397688435,
+     "girder_alone": {
+      "top": -6.866023217549684,
+      "bot": -13.13628682295734
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.8,
+    "x_m": 23.994762200686296,
+    "element": 38,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1773.2248428708772,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2729.15861207238,
+     "Ns": -35.01593337800702,
+     "row_sls": "SLS-S-0018",
+     "Mu": 6721.422281601981,
+     "Nu": -46.57517802653012,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 5786.980968791283,
+     "Mal": 9190.11140601743,
+     "MdecT": -21.065361163694547,
+     "MalT": -2344.01025872391,
+     "uS": 0.2969668692248282,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9227.662067563082,
+     "McrH": -879.0155351499911,
+     "Muo": 18632.171959686824,
+     "Muo_min": 11073.194481075698,
+     "okMin": true,
+     "phiMu": 14908.286164817693,
+     "phi": 0.7993524097815847,
+     "kuo": 0.1268701476952389,
+     "uB": 0.4508514397492567,
+     "face": "top",
+     "Nub": -14384.151181436033,
+     "soffit_sls": -7.78025900151077,
+     "deck_top_sls": -3.966427976233425,
+     "girder_alone": {
+      "top": -4.40534783388302,
+      "bot": -14.692233374834494
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 311.3891785353139,
+     "Ns": -43.76408732355783,
+     "row_sls": "SLS-S-0639",
+     "Mu": 1231.4465086287992,
+     "Nu": 78.21298443667122,
+     "row_uls": "ULS-H-0013",
+     "Mdec": 5790.143491109562,
+     "Mal": 9194.262881171582,
+     "MdecT": -26.324062337427335,
+     "MalT": -2351.525617578656,
+     "uS": 0.03386776977771545,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9230.82458988136,
+     "McrH": -884.2742363237239,
+     "Muo": 18632.171959686824,
+     "Muo_min": 11076.989507857632,
+     "okMin": true,
+     "phiMu": 14881.168070901713,
+     "phi": 0.8,
+     "kuo": 0.1257925448895406,
+     "uB": 0.0827520059421102,
+     "face": "top",
+     "Nub": -14384.151181436033,
+     "soffit_sls": -13.940027439399827,
+     "deck_top_sls": -0.48705678503920063,
+     "girder_alone": {
+      "top": -4.40534783388302,
+      "bot": -14.692233374834494
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.9,
+    "x_m": 26.994107475772083,
+    "element": 40,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 892.9786311958194,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1563.5789203502081,
+     "Ns": -124.91292277234137,
+     "row_sls": "SLS-S-0018",
+     "Mu": 3687.0901079154837,
+     "Nu": -170.18462102753335,
+     "row_uls": "ULS-B-0084",
+     "Mdec": 6660.455713550783,
+     "Mal": 9847.502616225944,
+     "MdecT": -75.20635530166015,
+     "MalT": -1617.7711340542785,
+     "uS": 0.15877923381039424,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9221.819463480762,
+     "McrH": -1824.3149227089896,
+     "Muo": 18633.792437954307,
+     "Muo_min": 11066.183356176914,
+     "okMin": true,
+     "phiMu": 14917.113110023658,
+     "phi": 0.7976890828334737,
+     "kuo": 0.1273849733081037,
+     "uB": 0.24717182746559171,
+     "face": "top",
+     "Nub": -14728.751293439975,
+     "soffit_sls": -12.961166230296728,
+     "deck_top_sls": -2.3537273424192597,
+     "girder_alone": {
+      "top": -1.0108142262978057,
+      "bot": -16.822984125825954
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": -14.132285343483744,
+     "Ns": -64.30427907509055,
+     "row_sls": "SLS-S-0038",
+     "Mu": 339.5213233576736,
+     "Nu": -80.44598847567207,
+     "row_uls": "ULS-B-0485",
+     "Mdec": 6638.596520407858,
+     "Mal": 9818.435632666462,
+     "MdecT": -38.72805677831314,
+     "MalT": -1565.3013393562755,
+     "uS": -0.0014393622234956528,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9199.96027033784,
+     "McrH": -1787.8366241856427,
+     "Muo": 18633.792437954307,
+     "Muo_min": 11039.952324405409,
+     "okMin": true,
+     "phiMu": 14911.842568487398,
+     "phi": 0.7989076332830537,
+     "kuo": 0.12661233937360378,
+     "uB": 0.02276856946405607,
+     "face": "top",
+     "Nub": -14728.751293439975,
+     "soffit_sls": -16.917639455491017,
+     "deck_top_sls": -0.03532600676499508,
+     "girder_alone": {
+      "top": -1.0108142262978057,
+      "bot": -16.822984125825954
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "useN": true,
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty",
+   "Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied",
+   "shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ },
+ "G4": {
+  "girder": "G4",
+  "rows": [
+   {
+    "t": 0.1,
+    "x_m": 2.9915015471314788,
+    "element": 45,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 943.7757028841249,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 2072.1566089226444,
+     "Ns": 341.2686588162578,
+     "row_sls": "SLS-S-0021",
+     "Mu": 4291.997255746466,
+     "Nu": 481.85742729149536,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 6428.386444032266,
+     "Mal": 9570.155083838326,
+     "MdecT": 205.39380188067562,
+     "MalT": -1260.8517050251764,
+     "uS": 0.21652278262679514,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9040.67800693334,
+     "McrH": -1496.8570600281098,
+     "Muo": 18634.43090467104,
+     "Muo_min": 10848.813608320008,
+     "okMin": true,
+     "phiMu": 14756.649603248126,
+     "phi": 0.8,
+     "kuo": 0.12176212967850146,
+     "uB": 0.29085174285101567,
+     "face": "top",
+     "Nub": -14784.358141970326,
+     "soffit_sls": -11.076860810116175,
+     "deck_top_sls": -2.6771714540231204,
+     "girder_alone": {
+      "top": -1.2045341666464895,
+      "bot": -16.658676918174827
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 204.1372689146585,
+     "Ns": 128.31932612856718,
+     "row_sls": "SLS-S-0347",
+     "Mu": 128.36417449650344,
+     "Nu": -303.65367208308123,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 6505.088406996575,
+     "Mal": 9672.3063781075,
+     "MdecT": 77.21389675969039,
+     "MalT": -1445.8811134182442,
+     "uS": 0.021105335266954225,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9117.379969897645,
+     "McrH": -1625.0369651490948,
+     "Muo": 18634.43090467104,
+     "Muo_min": 10940.855963877175,
+     "okMin": true,
+     "phiMu": 14925.435085864752,
+     "phi": 0.7958922305700773,
+     "kuo": 0.1285048633142902,
+     "uB": 0.008600363993279615,
+     "face": "top",
+     "Nub": -14784.358141970326,
+     "soffit_sls": -16.021826526542796,
+     "deck_top_sls": -0.1820239976390287,
+     "girder_alone": {
+      "top": -1.2045341666464895,
+      "bot": -16.658676918174827
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.2,
+    "x_m": 5.9830030942629575,
+    "element": 46,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1874.3090442379819,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3352.6787770154247,
+     "Ns": 190.79439665810867,
+     "row_sls": "SLS-S-0021",
+     "Mu": 7521.57306271816,
+     "Nu": 304.0514909079623,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5626.720911173978,
+     "Mal": 8999.374056924798,
+     "MdecT": 115.75601007127297,
+     "MalT": -2246.017005554751,
+     "uS": 0.3725457743847885,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9175.670553259815,
+     "McrH": -729.8908834937163,
+     "Muo": 18712.560746692263,
+     "Muo_min": 11010.804663911778,
+     "okMin": true,
+     "phiMu": 14875.984176981146,
+     "phi": 0.8,
+     "kuo": 0.11977496780675292,
+     "uB": 0.5056185172848543,
+     "face": "top",
+     "Nub": -15301.473862426568,
+     "soffit_sls": -5.761202549970168,
+     "deck_top_sls": -4.515976929478946,
+     "girder_alone": {
+      "top": -4.598898203623643,
+      "bot": -14.426620097228763
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 445.54309075893065,
+     "Ns": -21.52125123716939,
+     "row_sls": "SLS-S-0027",
+     "Mu": 896.5175153434359,
+     "Nu": -312.8294163958112,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5701.992390126086,
+     "Mal": 9098.118541829306,
+     "MdecT": -13.074969448883053,
+     "MalT": -2430.765416785478,
+     "uS": 0.048970904117209696,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9250.942032211926,
+     "McrH": -858.721863013872,
+     "Muo": 18712.560746692263,
+     "Muo_min": 11101.13043865431,
+     "okMin": true,
+     "phiMu": 14989.168771624036,
+     "phi": 0.7959111204684148,
+     "kuo": 0.12489920244037091,
+     "uB": 0.059811022812728036,
+     "face": "top",
+     "Nub": -15301.473862426568,
+     "soffit_sls": -13.317021990231737,
+     "deck_top_sls": -0.6398387383509069,
+     "girder_alone": {
+      "top": -4.598898203623643,
+      "bot": -14.426620097228763
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.3,
+    "x_m": 8.974504641394436,
+    "element": 47,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2538.975716633594,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4297.308849845005,
+     "Ns": 134.05098467408567,
+     "row_sls": "SLS-S-0166",
+     "Mu": 9956.39806248422,
+     "Nu": 226.64639123267915,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5033.687609221067,
+     "Mal": 8552.055903588496,
+     "MdecT": 81.78285091724071,
+     "MalT": -2904.6565739852495,
+     "uS": 0.5024883955730256,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9251.608825235897,
+     "McrH": -153.17632653777628,
+     "Muo": 18766.316997467275,
+     "Muo_min": 11101.930590283077,
+     "okMin": true,
+     "phiMu": 14941.763695421298,
+     "phi": 0.8,
+     "kuo": 0.11793344809651651,
+     "uB": 0.6663469096044682,
+     "face": "top",
+     "Nub": -15698.902796443826,
+     "soffit_sls": -1.8608051820685656,
+     "deck_top_sls": -5.766824760311376,
+     "girder_alone": {
+      "top": -6.901993197477106,
+      "bot": -12.838776876861536
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 628.5259919559562,
+     "Ns": -74.03651442613497,
+     "row_sls": "SLS-S-0201",
+     "Mu": 1523.090197334155,
+     "Nu": -320.41117768881173,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5106.613396006481,
+     "Mal": 8646.806750037142,
+     "MdecT": -45.184013703035134,
+     "MalT": -3085.973366483935,
+     "uS": 0.07268879831890038,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9324.534612021309,
+     "McrH": -280.14319115805256,
+     "Muo": 18766.316997467275,
+     "Muo_min": 11189.44153442557,
+     "okMin": true,
+     "phiMu": 15034.742484739483,
+     "phi": 0.7959180436767672,
+     "kuo": 0.12239394458978538,
+     "uB": 0.10130470800415219,
+     "face": "top",
+     "Nub": -15698.902796443826,
+     "soffit_sls": -11.315981267946482,
+     "deck_top_sls": -0.921632921465078,
+     "girder_alone": {
+      "top": -6.901993197477106,
+      "bot": -12.838776876861536
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.4,
+    "x_m": 11.966006188525915,
+    "element": 48,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2937.775720070961,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4907.700356705871,
+     "Ns": 78.99532618709836,
+     "row_sls": "SLS-S-0166",
+     "Mu": 11566.064765753741,
+     "Nu": 130.01670044264782,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 4685.2753548054025,
+     "Mal": 8287.909567524643,
+     "MdecT": 48.35728096257458,
+     "MalT": -3317.822618157511,
+     "uS": 0.592151774427681,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9304.667746363266,
+     "McrH": 177.8309370400034,
+     "Muo": 18797.713604192788,
+     "Muo_min": 11165.601295635919,
+     "okMin": true,
+     "phiMu": 14996.129137033271,
+     "phi": 0.8,
+     "kuo": 0.11716444791358152,
+     "uB": 0.7712700164198433,
+     "face": "top",
+     "Nub": -15964.388140728917,
+     "soffit_sls": 0.561167939695257,
+     "deck_top_sls": -6.566213335184435,
+     "girder_alone": {
+      "top": -8.231261282199899,
+      "bot": -11.890127884933099
+     },
+     "dsb_at_Ms": 3.3646106097605766,
+     "dsp_at_Ms": 3.3646106097604616
+    },
+    "hog": {
+     "Ms": 754.7650862338907,
+     "Ns": -72.71168302290943,
+     "row_sls": "SLS-S-0201",
+     "Mu": 1973.3659968575485,
+     "Nu": -306.71883493844604,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4738.053537155084,
+     "Mal": 8356.11795450173,
+     "MdecT": -44.52242903321416,
+     "MalT": -3450.1548570029977,
+     "uS": 0.09032484825411932,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9357.445928712948,
+     "McrH": 84.95122704421419,
+     "Muo": 18797.713604192788,
+     "Muo_min": 11228.935114455538,
+     "okMin": true,
+     "phiMu": 15061.072795520178,
+     "phi": 0.7961574620682652,
+     "kuo": 0.12069308699493456,
+     "uB": 0.13102426524653102,
+     "face": "top",
+     "Nub": -15964.388140728917,
+     "soffit_sls": -10.049651586450903,
+     "deck_top_sls": -1.0800415322786205,
+     "girder_alone": {
+      "top": -8.231261282199899,
+      "bot": -11.890127884933099
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.5,
+    "x_m": 14.957507735657392,
+    "element": 50,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 3070.7090545500832,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 5112.789343531762,
+     "Ns": -5.45050090017938,
+     "row_sls": "SLS-S-0166",
+     "Mu": 12200.867407539681,
+     "Nu": -6.679872659650685,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 4593.98663987875,
+     "Mal": 8229.403827646078,
+     "MdecT": -3.346672373669435,
+     "MalT": -3513.364715394217,
+     "uS": 0.6212830784115517,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9347.461114190583,
+     "McrH": 244.0693150231955,
+     "Muo": 18809.751899608436,
+     "Muo_min": 11216.953337028699,
+     "okMin": true,
+     "phiMu": 15048.421804717655,
+     "phi": 0.7999169725960122,
+     "kuo": 0.11759780451505036,
+     "uB": 0.8107738848544722,
+     "face": "top",
+     "Nub": -16090.76603343336,
+     "soffit_sls": 1.3080215657256582,
+     "deck_top_sls": -6.876498717489719,
+     "girder_alone": {
+      "top": -8.653575835014847,
+      "bot": -11.577784807835355
+     },
+     "dsb_at_Ms": 9.08253295033287,
+     "dsp_at_Ms": 9.082532950332848
+    },
+    "hog": {
+     "Ms": 811.0305583599119,
+     "Ns": -53.55910948658427,
+     "row_sls": "SLS-S-0917",
+     "Mu": 2225.415020577154,
+     "Nu": -223.5543343673121,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4610.669983921894,
+     "Mal": 8250.934176974384,
+     "MdecT": -32.84280619539708,
+     "MalT": -3555.3589897342667,
+     "uS": 0.0982956039842408,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9364.144458233724,
+     "McrH": 214.57318120146738,
+     "Muo": 18809.751899608436,
+     "Muo_min": 11236.973349880469,
+     "okMin": true,
+     "phiMu": 15065.763103696287,
+     "phi": 0.7972213338519396,
+     "kuo": 0.11934014898827323,
+     "uB": 0.1477133952830549,
+     "face": "top",
+     "Nub": -16090.76603343336,
+     "soffit_sls": -9.579769487748463,
+     "deck_top_sls": -1.1342337441865968,
+     "girder_alone": {
+      "top": -8.653575835014847,
+      "bot": -11.577784807835355
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.6,
+    "x_m": 17.94900928278887,
+    "element": 51,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2937.775720070961,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4960.525641596152,
+     "Ns": -46.8078979023518,
+     "row_sls": "SLS-S-0166",
+     "Mu": 11920.1877946505,
+     "Nu": -68.40346207326283,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 4735.21606746224,
+     "Mal": 8347.051746182118,
+     "MdecT": -28.693055345014496,
+     "MalT": -3428.2016590526687,
+     "uS": 0.5942847597494602,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9355.429982684638,
+     "McrH": 90.07292607350246,
+     "Muo": 18806.113179610773,
+     "Muo_min": 11226.515979221565,
+     "okMin": true,
+     "phiMu": 15050.496721175374,
+     "phi": 0.7991489809393437,
+     "kuo": 0.11829001748472473,
+     "uB": 0.7920129159510948,
+     "face": "top",
+     "Nub": -16075.659226836646,
+     "soffit_sls": 0.568168013049663,
+     "deck_top_sls": -6.716100882109067,
+     "girder_alone": {
+      "top": -8.193753867546114,
+      "bot": -11.899986454898556
+     },
+     "dsb_at_Ms": 3.4084168873994414,
+     "dsp_at_Ms": 3.408416887399426
+    },
+    "hog": {
+     "Ms": 787.22922390583,
+     "Ns": -74.30317135193474,
+     "row_sls": "SLS-S-0917",
+     "Mu": 2258.1910897739494,
+     "Nu": -164.69863939069563,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 4744.759728076784,
+     "Mal": 8359.377591986635,
+     "MdecT": -45.54391455780774,
+     "MalT": -3452.199979055464,
+     "uS": 0.09417318636981707,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9364.973643299181,
+     "McrH": 73.22206686070922,
+     "Muo": 18806.113179610773,
+     "Muo_min": 11237.968371959018,
+     "okMin": true,
+     "phiMu": 15057.806519901973,
+     "phi": 0.7979509563238845,
+     "kuo": 0.11906225387934821,
+     "uB": 0.14996813027111802,
+     "face": "top",
+     "Nub": -16075.659226836646,
+     "soffit_sls": -9.979790036804348,
+     "deck_top_sls": -1.1210148822021722,
+     "girder_alone": {
+      "top": -8.193753867546114,
+      "bot": -11.899986454898556
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.7,
+    "x_m": 20.94051082992035,
+    "element": 52,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 2538.975716633594,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 4373.843482489715,
+     "Ns": -75.65542110407297,
+     "row_sls": "SLS-S-0166",
+     "Mu": 10560.395268533499,
+     "Nu": -108.12298756102666,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5118.820363452424,
+     "Mal": 8652.225507118072,
+     "MdecT": -46.27041059159796,
+     "MalT": -3088.5255976245467,
+     "uS": 0.505516584015455,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9338.417850023248,
+     "McrH": -302.7166761714202,
+     "Muo": 18784.203436293854,
+     "Muo_min": 11206.101420027897,
+     "okMin": true,
+     "phiMu": 15035.607518105748,
+     "phi": 0.7986417963244913,
+     "kuo": 0.11967863517698772,
+     "uB": 0.7023590670225173,
+     "face": "top",
+     "Nub": -15921.468850468706,
+     "soffit_sls": -1.8806546973705272,
+     "deck_top_sls": -6.000222152545326,
+     "girder_alone": {
+      "top": -6.8377237272484495,
+      "bot": -12.855662733723449
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 675.7930392536149,
+     "Ns": -120.58042298707548,
+     "row_sls": "SLS-S-0549",
+     "Mu": 2048.0200792636147,
+     "Nu": -101.300582013591,
+     "row_uls": "ULS-H-0009",
+     "Mdec": 5134.492584200532,
+     "Mal": 8672.575788265514,
+     "MdecT": -73.74033962989984,
+     "MalT": -3127.7460889514664,
+     "uS": 0.07792299032635738,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9354.090070771355,
+     "McrH": -330.1866052097216,
+     "Muo": 18784.203436293854,
+     "Muo_min": 11224.908084925626,
+     "okMin": true,
+     "phiMu": 15035.091369318923,
+     "phi": 0.7987274970297655,
+     "kuo": 0.11962334263967372,
+     "uB": 0.1362160048752925,
+     "face": "top",
+     "Nub": -15921.468850468706,
+     "soffit_sls": -11.255750960395195,
+     "deck_top_sls": -1.0174775792742854,
+     "girder_alone": {
+      "top": -6.8377237272484495,
+      "bot": -12.855662733723449
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.8,
+    "x_m": 23.93201237705183,
+    "element": 53,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 1874.3090442379814,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 3295.60893622662,
+     "Ns": -71.9927604393269,
+     "row_sls": "SLS-S-0021",
+     "Mu": 7984.682725199727,
+     "Nu": -121.63979259752979,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 5735.584027800215,
+     "Mal": 9127.595092665943,
+     "MdecT": -43.84781697666165,
+     "MalT": -2475.845485597307,
+     "uS": 0.36105993996980146,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9287.134845437866,
+     "McrH": -921.9059793883782,
+     "Muo": 18742.408453883858,
+     "Muo_min": 11144.56181452544,
+     "okMin": true,
+     "phiMu": 15001.799079304888,
+     "phi": 0.7984440458521382,
+     "kuo": 0.12177573487324163,
+     "uB": 0.5322483445478661,
+     "face": "top",
+     "Nub": -15635.395524307398,
+     "soffit_sls": -6.1720008189904485,
+     "deck_top_sls": -4.604163047244387,
+     "girder_alone": {
+      "top": -4.53113312896848,
+      "bot": -14.444403133101709
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 459.610075642388,
+     "Ns": -140.91553011934758,
+     "row_sls": "SLS-S-0549",
+     "Mu": 1544.7759784497093,
+     "Nu": -189.18641323009405,
+     "row_uls": "ULS-B-0413",
+     "Mdec": 5759.8501136853565,
+     "Mal": 9159.380573828506,
+     "MdecT": -85.81019008481927,
+     "MalT": -2536.0044663304407,
+     "uS": 0.05017916571297973,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9311.400931323007,
+     "McrH": -963.8683524965356,
+     "Muo": 18742.408453883858,
+     "Muo_min": 11173.681117587608,
+     "okMin": true,
+     "phiMu": 15006.102069552931,
+     "phi": 0.7975800239535229,
+     "kuo": 0.1223292001599919,
+     "uB": 0.10294318746398691,
+     "face": "top",
+     "Nub": -15635.395524307398,
+     "soffit_sls": -13.407139264913448,
+     "deck_top_sls": -0.7519797434928955,
+     "girder_alone": {
+      "top": -4.53113312896848,
+      "bot": -14.444403133101709
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   },
+   {
+    "t": 0.9,
+    "x_m": 26.923513924183307,
+    "element": 54,
+    "end": 2,
+    "n_strands": 48,
+    "Mnc": 943.7757028841253,
+    "limits": {
+     "fscr": 240.0,
+     "ftcr": 200.0,
+     "fscrT": 330.0,
+     "why": {
+      "fscr": "db 20 mm",
+      "fscrT": "db 12 mm"
+     }
+    },
+    "sag": {
+     "Ms": 1668.297266185135,
+     "Ns": -29.363236252280323,
+     "row_sls": "SLS-S-0021",
+     "Mu": 4024.595536610845,
+     "Nu": -41.876288614008914,
+     "row_uls": "ULS-B-0102",
+     "Mdec": 6579.297880408534,
+     "Mal": 9754.197763591008,
+     "MdecT": -17.784830131101042,
+     "MalT": -1583.1957919478048,
+     "uS": 0.17103377505962636,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9195.227867942473,
+     "McrH": -1763.5565078033483,
+     "Muo": 18675.322793712752,
+     "Muo_min": 11034.273441530966,
+     "okMin": true,
+     "phiMu": 14942.946346887204,
+     "phi": 0.7994500599701594,
+     "kuo": 0.12409999407926496,
+     "uB": 0.2693307894697231,
+     "face": "top",
+     "Nub": -15229.401877198588,
+     "soffit_sls": -12.460340060507908,
+     "deck_top_sls": -2.3789250719001176,
+     "girder_alone": {
+      "top": -1.1731062025286962,
+      "bot": -16.666863129923186
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    },
+    "hog": {
+     "Ms": 50.12454447354736,
+     "Ns": -133.4458824090915,
+     "row_sls": "SLS-S-0035",
+     "Mu": 516.7872672453415,
+     "Nu": -168.9544686914558,
+     "row_uls": "ULS-B-0467",
+     "Mdec": 6616.439027980701,
+     "Mal": 9803.525510704214,
+     "MdecT": -80.73657584242692,
+     "MalT": -1673.9408431047432,
+     "uS": 0.0051129100871740146,
+     "uST": 0.0,
+     "uncracked": true,
+     "okS": true,
+     "Mcr": 9232.369015514638,
+     "McrH": -1826.5082535146744,
+     "Muo": 18675.322793712752,
+     "Muo_min": 11078.842818617564,
+     "okMin": true,
+     "phiMu": 14950.980486316997,
+     "phi": 0.7977812067728751,
+     "kuo": 0.12517151747516603,
+     "uB": 0.03456544323085035,
+     "face": "top",
+     "Nub": -15229.401877198588,
+     "soffit_sls": -16.66025273378546,
+     "deck_top_sls": -0.1846344260085312,
+     "girder_alone": {
+      "top": -1.1731062025286962,
+      "bot": -16.666863129923186
+     },
+     "dsb_at_Ms": 0.0,
+     "dsp_at_Ms": 0.0
+    }
+   }
+  ],
+  "time_days": 3650.0,
+  "hog_method": "detailed",
+  "useN": true,
+  "notes": [
+   "fpb = MBL / area = 1786 MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty",
+   "Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc; free strains (gradient primary stresses, differential shrinkage) not applied",
+   "shear / torsion not checked: fitments and the closed-box torsion geometry are needed; strand development in the transmission zone not checked"
+  ],
+  "provisional": [
+   {
+    "path": "design.prestress_losses.rows[0]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k4",
+     "value": 0.6,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[1]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "chi",
+     "value": 0.8,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[2]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "ts",
+     "value": 1,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[3]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Rb",
+     "value": 2,
+     "unit": "%"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[4]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "k7",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[5]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tav",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[6]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "jt",
+     "value": 8,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[7]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rb",
+     "value": 0.0071,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[8]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dhard",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[9]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "tsd",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[10]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rd",
+     "value": 0,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[11]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidl",
+     "value": 4,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[12]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "sidlA",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[13]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "dform",
+     "value": 1,
+     "unit": "kN/m"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[14]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "meth",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[15]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "rlx",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[16]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "relpre",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[17]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "emod",
+     "value": 1,
+     "unit": "-"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[18]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "Tcur",
+     "value": 20,
+     "unit": "C"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[19]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "hcur",
+     "value": 0,
+     "unit": "h"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[20]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 7,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[21]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 14,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[22]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 28,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[23]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 60,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[24]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 100,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[25]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 150,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[26]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 200,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[27]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 365,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   },
+   {
+    "path": "design.prestress_losses.rows[28]",
+    "override": null,
+    "decision": "D-42",
+    "author": "AI",
+    "value": {
+     "item": "time",
+     "value": 3650,
+     "unit": "days"
+    },
+    "reason": "record proposed"
+   }
+  ],
+  "standards_status": "UNVERIFIED \u2014 standards data not approved"
+ }
+}
