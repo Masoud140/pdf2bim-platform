@@ -325,3 +325,8 @@
 
 - **Decision (agent, 2026-10-25; reversible):** the Super-T flexural strength is ported unchanged in method from the dashboard to `pdf2bim/design/flexure.py`, with every coefficient read from the standards data; the strand curve stays the PCI form already used, flagged as not from AS 5100.5. The dashboard's worked-example targets are reported but not used as a pass / fail benchmark (no source; internally inconsistent section properties).
 - **Consequence:** E-1 is reclassified as a reference-data question (owner: source of the worked example, or another referenced example for T11). Next stages: SLS stresses (cracked / uncracked), N–M interaction, shear and torsion.
+
+## ADR-033 P4.5 benchmark source and design readiness (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** the dashboard's dgBench reference-spreadsheet outputs are used as the V4 benchmark for the design modules, asserting only the quantities the dashboard itself reports as agreeing (with its tolerances) and reporting the rest. BR13A station design is not run until fpb, effective prestress, fitments and deck bars exist; nothing is assumed to fill them.
+- **Consequence:** E-1 is explained (method differences in dn and dv; Mu agrees 0.13 %); the owner can confirm by supplying the spreadsheet. The next autonomous stage is the prestress-loss (Hog) port that produces the effective prestress.

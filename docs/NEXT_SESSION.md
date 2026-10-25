@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–3 done on `p4-verification`; P4.5 stage 4 next; P4.4 MIDAS waits for the owner).
+**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–4a done on `p4-verification`; P4.5 stage 5 next; P4.4 MIDAS waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -36,19 +36,19 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P3c stages 2–5:** thermal, horizontal, wind, earthquake — DONE (`P3_MODEL_METHOD.md` §8, ADR-026).
 - **P3c AS 5100.2 combinations:** DONE (`P3_MODEL_METHOD.md` §9, ADR-027). Findings M-4, H-8.
 - **P3c close-out:** girder and sill responses, combined-action schedule — DONE (§9.1, ADR-028).
-- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4: next.**
+- **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4a benchmark + stations: DONE** (§7, ADR-033). **P4.5 stage 5: next.**
 
 ## 3. Next actions
 
-1. **P4.5 stage 4 — design stations along the girder**, on `p4-verification`:
-   - read how the dashboard builds its design sections and stations (`src/dsg2_ui.js` … `dsg12.js`: layers from the Super-T shape, open / solid end zones, composite deck width, strand / bar layout, `dgFac`, shear data bv, dv, Ao, uh, Acp, uc, y1, Pv, spo, transmission Fpt) and list every input with its source (description field, standards entry, or Assumed);
-   - build the same from the P2 sections (`pdf2bim/sections`) and the description in `pdf2bim/design/stations.py`; strands / bars for BR13A are placeholders (D-1) — keep them flagged;
-   - design actions per station from the combined-action schedule's girder rows (concurrent M, V, T at ULS; SLS M for stresses), then run flexure, SLS, shear per station; compare with the dashboard's design results (V5) and report utilisations as INDICATIVE;
-   - tests: station geometry vs P2 properties; actions = schedule values; port-equals-dashboard on the dashboard's own section data where possible.
-2. **Owner items** that block T11 (E-1 source), P4.4 (MIDAS) and the method confirmations (ADR-031).
-3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 55 min.
+1. **P4.5 stage 5 — effective prestress (losses)**, on `p4-verification`:
+   - read the dashboard's Hog time analysis (`history/` / `src/` Hog code: `HOG_API.snap()` / `calc()`; search "Hog" in `src/*.js`): transfer, elastic shortening, creep, shrinkage, relaxation, stage ages (transfer, erection, deck cast), strand MBL → fpb;
+   - inventory its constants (creep / shrinkage models, relaxation, MBL if hard-coded) as unverified standards entries; project inputs (ages, jacking ratio, relaxation %) come from the description (`supert_types[]`, `materials.strand`);
+   - port to `pdf2bim/design/prestress.py` returning the effective prestrain per strand per station and stage; tests: closed forms (elastic shortening of a concentric tendon), port = dashboard Hog on its own girder;
+   - then design actions per station from the combined-action schedule and the checks (flexure, SLS, shear) per station — BR13A still needs fpb (strand MBL), fitments and deck bars (owner / drawings).
+2. **Owner items:** the reference spreadsheet (E-1), P4.4 MIDAS, ADR-031, BR13A fitments / deck bars / strand MBL.
+3. Keep the generality guard green (local pre-commit hook, CHANGELOG 2026-10-25). Full suite ≈ 60 min.
 
-For reference (P4.5 stage 3): `pdf2bim/design/shear.py` (`shear`, `vm`); test `tests/design/test_shear.py` (≈ 2 s, uses Node).
+For reference (P4.5 stage 4a): `pdf2bim/design/stations.py` (`station_section`, `readiness`); tests `test_benchmark.py` (≈ 3 s), `test_stations.py` (≈ 70 s).
 
 ## 4. Do not
 
@@ -82,7 +82,8 @@ For reference (P4.5 stage 3): `pdf2bim/design/shear.py` (`shear`, `vm`); test `t
 - **M-3:** temperature / shrinkage restraint forces at the fixed abutment are sensitive to the bearing idealisation. The restraint-block / dowel detail would settle the bearing model.
 - **M-4:** combined minimum at bearing A-G4 is uplift on the P3b model (ULS −162 kN, SLS −37 kN), mostly from the Assumed shrinkage (300e-6) through the fixed-abutment restraint. Check in MIDAS / with the bearing detail.
 - **Earth-pressure fill category** (controlled fill SOc or other SOo): not in the description; the combinations use SOo (provisional).
-- **E-1:** source of the Super-T worked-example targets (Mu 68 979, dn 240.9, I 2.634e13) — or another referenced worked example for T11.
+- **E-1:** the reference spreadsheet behind the dashboard's dgBench (2.4 m composite trough, 120 strands) — to confirm the benchmark and the add-in's dn / dv definitions.
+- **BR13A design inputs:** strand MBL / fpb, fitments, deck bars (drawings); the strand / bar layout is an Assumed placeholder (D-1).
 - **ADR-031:** earthquake concurrency (CQC most probable values) and the pile response-ellipse resultant with linear 100 / 30 — confirm the method before design use.
 
   Once these are settled, geometry, sections and the model are no longer provisional.

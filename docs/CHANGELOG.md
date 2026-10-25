@@ -2,6 +2,11 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P4.5 stage 4a: reference benchmark and design stations (branch `p4-verification`)
+
+- **Added:** `pdf2bim/design/stations.py`; `tests/design/test_benchmark.py` (reference spreadsheet via the dashboard's dgBench), `tests/design/test_stations.py`; standards entries flexural tensile strength and minimum strength factor (83 entries).
+- **Result:** bending and SLS agree with the reference spreadsheet (≤ 0.13 %); dn / dv-based shear differ by method (E-1 explained); BR13A design blocked by fpb, effective prestress, fitments, deck bars.
+
 ## 2026-10-25 — P4.5 stage 3: shear and torsion (branch `p4-verification`)
 
 - **Added:** `pdf2bim/design/shear.py`; standards entry `AS5100.5:shear:general_method` (81 entries).

@@ -43,5 +43,6 @@
 - **P4.3 signed earthquake and pile resultants — DONE 2026-10-25** (ADR-031, method for the engineer to confirm): `P4_VERIFICATION_METHOD.md` §3. **P4.4 (independent MIDAS model) waits for the owner; next autonomous: P4.5 design engine.**
 - **P4.5 stage 1 flexural strength — DONE 2026-10-25** (ADR-032): `P4_VERIFICATION_METHOD.md` §4; E-1 needs the worked example's source. 
 - **P4.5 stage 2 SLS strain plane and N–M — DONE 2026-10-25:** `P4_VERIFICATION_METHOD.md` §5. 
-- **P4.5 stage 3 shear and torsion — DONE 2026-10-25:** `P4_VERIFICATION_METHOD.md` §6. **Next: P4.5 stage 4 (design stations along the girder: P2 sections + strands / bars + the combined-action schedule).**
+- **P4.5 stage 3 shear and torsion — DONE 2026-10-25:** `P4_VERIFICATION_METHOD.md` §6. 
+- **P4.5 stage 4a reference benchmark + design stations — DONE 2026-10-25** (ADR-033): `P4_VERIFICATION_METHOD.md` §7; BR13A design blocked by fpb, effective prestress, fitments, deck bars. **Next: P4.5 stage 5 (prestress losses / effective prestress, port of the dashboard's Hog time analysis).**
 - **P1 plan:** `docs/P1_GEOMETRY_PLAN.md`, for review.

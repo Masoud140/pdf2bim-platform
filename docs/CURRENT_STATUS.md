@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–3 (flexural strength, SLS strain plane, N–M, shear / torsion) done. **Next: P4.5 stage 4** (P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done; P4 plan drafted (`P4_PLAN.md`); **P4.1 concurrent traffic actions, P4.2 concurrent combinations and P4.3 signed earthquake / pile resultants done** (branch `p4-verification`). P4.5 stages 1–4a (flexural strength, SLS, N–M, shear / torsion, reference benchmark, design stations) done. **Next: P4.5 stage 5** (effective prestress; P4.4 MIDAS waits for the owner). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -38,7 +38,7 @@
 | C-2 | The mesh puts girders on offset curves, not straight chords (up to 265 mm at BR13A midspan) | C / E |
 | D-1 | Strands and bars are placeholders (TfNSW T4 standard layout); BR13A strand drawings are not in the set | D |
 | D-2 | Flared flange widths are not applied to model stiffness or design | D / E |
-| E-1 | Design engine: neutral-axis depth 8 % off the worked-example targets, Mu agrees. Investigated (P4.5): the targets have no recorded source and their section properties do not match the section (I ×12.6); the engine is exact against closed forms. **Owner: source of the worked example, or another referenced example** | F / data |
+| E-1 | Design engine: dn / kuo 8 % off the reference spreadsheet (recorded in the dashboard's dgBench; compiled add-in), Mu agrees 0.13 %; SLS, decompression, Ms,allow, 1.2 Mcr and minimum steel agree; dv and the shear chain differ by method (P4.5 §7). **Owner: the reference spreadsheet itself to confirm; shear / torsion method to verify** | F / data |
 | E-2 | No model builder: a frozen BR13A MIDAS .mct is patched; members are found by BR13A names and file order | E |
 | F-1 | Approximations: separate traffic M/V/T envelopes; unsigned earthquake; pile √(Ml²+Mt²); pedestrian 0; stage roll restraint (ARCHITECTURE §4) | F |
 | F-2 | Standards values are constants in the JS code. They are now inventoried in `standards/` (75 entries incl. traffic and combination constants, unverified), but the dashboard does not read them from there; traffic / DLA / crack-control constants are not inventoried yet | F |
@@ -64,6 +64,7 @@
 | H-6 | Dashboard wind lever arms measured from the deck top while its nodes are at the girder top (0.2 m low) | H (minor) |
 | H-7 | Dashboard vertical-wind distribution measured from the deck centre, ignores line lengths: total ±0.9 % | H (minor) |
 | M-4 | BR13A combined minimum bearing force at A-G4 on the P3b model: ULS −162 kN (uplift), SLS −37 kN (dashboard +64 / +265). Largest relief: shrinkage / creep (Assumed 300e-6) through the fixed-abutment restraint (M-3). **Engineer to check** (MIDAS, bearing / restraint detail) | E / F |
+| P4-2 | BR13A station design blocked: strand fpb missing, effective prestress needs the losses analysis (P4.5 stage 5), fitments and deck bars missing; strands / bars are Assumed placeholders (D-1) | data / F |
 | P4-1 | BR13A pile moment extremes (ULS) are all earthquake-governed; P4.3 gives concurrent pile actions (CQC most probable) and the response-ellipse resultant (0.85–0.87 of the earlier √ approximation): **method (ADR-031) for the engineer to confirm**. Bearing A-G4 at its uplift minimum carries concurrent tr −1124 / lon +1145 kN | F |
 | H-9 | Dashboard shear / torsion: a section without a closed torsion cell (Ao = 0) gives NaN utilisations when T = 0 (0 / 0). Not relevant to Super-T; the port returns finite values | H (minor) |
 | H-8 | Dashboard combinations keep the pedestrian action selected with no load case (BR13A pedestrian Missing-Flagged): 1142 terms silently zero. The platform lists unanalysed actions instead | H (minor) |
@@ -178,4 +179,4 @@
 
 ## Next task
 
-**P4.5 design engine, stage 4** (`docs/P4_PLAN.md`): design stations along each girder — section strips from the P2 sections (open / solid zones, composite deck), strands and bars from the description (BR13A: placeholders, D-1), shear / torsion section data (bv, dv, Ao, uh …), and the design actions from the combined-action schedule (concurrent M, V, T from P4.2 / P4.3) — then the checks per station. Branch `p4-verification`. P4.4 (independent MIDAS model) needs the owner.
+**P4.5 stage 5 — effective prestress** (`docs/P4_PLAN.md`): port the dashboard's Hog time analysis (transfer, elastic shortening, creep, shrinkage, relaxation; stages to the deck cast) so stations get the effective prestrain; inventory its constants as unverified standards entries; then design actions per station from the schedule and the checks. Branch `p4-verification`. P4.4 needs the owner.
