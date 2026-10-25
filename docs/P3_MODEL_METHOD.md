@@ -259,9 +259,16 @@ Mutation check: 7 / 7 injected faults caught.
 
 **Dashboard note H-8:** the dashboard selects the pedestrian action with no load case (BR13A pedestrian load: Missing-Flagged); its 1142 terms add nothing, silently. The platform leaves unanalysed actions out and lists them.
 
+### 9.1 Close-out: girders, sills and the combined-action schedule
+
+- **Girder rows** (role `girder`): section actions on the +x face at both element ends, exact with the member loads: M1 = f4, M2 = −f10 (sagging +), V1 = −f2, V2 = f8, T1 = −f3, T2 = f9, N1 = −f0, N2 = f6 (tension +); chainage of each end. The dashboard's GM1 = f4 + L·f2 omits the member-load term (code reading; small for its ≈ 1 m elements).
+- **Sill rows** (role `sill`): My, Vz, Mz, Vy, T on the +x face at both ends (member axes), with the position s along the sill axis.
+- **Schedule** (`combinations.schedule`, `tools/combined_actions.py` → `projects/BR13A/model/BR13A.combined_actions.md/.json`): ULS / SLS extremes per bearing, pile, girder line and sill with the governing rows and positions, the rows that govern, the not-combined actions, the provisional inputs and a run record (description SHA-256, engine commit, options). Values only: no capacity check.
+- **BR13A vs the dashboard (same rows, V5):** girder ULS sagging M −9 % (G1) … +12 % (G4, traffic sweep H-4); hogging at the fixed end larger in P3c; |V| −7 … +27 %; sill shears −7 … +43 %; **fixed-abutment sill |My| 2153 vs 4254 kN·m**: both models are dominated by the shrinkage / temperature restraint couple (dashboard SCR ≈ −1300 kN·m along the sill, P3c ≈ −650), i.e. finding M-3; dead load agrees (118 vs 119 kN·m at the same position).
+- Tests: 35 in `test_combinations.py` (girder / sill rows vs solver end forces, self-weight moment shape, schedule closed form, recorded comparisons); 5 / 5 new mutations caught.
+
 ## 10. Not yet done (P3c, remaining)
 
-- Girder (M, V, T) and headstock responses in the response set, so that the combined actions cover the superstructure and the sills (the dashboard's `rxQdef` has them).
 - W80 / A160 local wheel loads; pedestrian (BR13A: Missing).
 - Traffic responses not yet enveloped: girder shear and torsion, sill actions; concurrent actions (the envelopes are per response).
 - MIDAS: nodal loads, once a native export documents `*CONLOAD`; composite girders as COMPOSITE-GEN (stress recovery).

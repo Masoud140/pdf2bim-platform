@@ -75,7 +75,7 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - engine `dsg_test`: Mu 68971 vs 68979, but dn 221.0 vs 240.9 and kuo 0.0935 vs 0.1019 (E-1);
   - `sub_t`: 2740.35 vs 2700.14 kN/m.
 - **Format 0.2** (2026-10-24, branch `p0.2-format`): `tests/schema/test_format_0_2.py` 47 / 47 PASS (canonicalisation vectors, hash, worked example, rule-specific rejections, revision immutability, BR13A round trip). These test **record-keeping integrity**, not engineering values.
-- **P3c combinations** (2026-10-25, branch `p3-model`): `tests/model/test_combinations.py` 27 / 27.
+- **P3c combinations + schedule** (2026-10-25, branch `p3-model`): `tests/model/test_combinations.py` 35 / 35 (girder / sill rows vs solver end forces; schedule closed form).
   - Generator rows identical to the dashboard's for 9 register / option sets (V5, SHA-256); evaluation of the dashboard's primitives exact.
   - Closed forms for small registers, SLS subsets, earthquake states, envelope bounds; response set vs the solver to 1e-6.
   - **All load factors and combination constants are unverified** (code-extracted). Software agreement is not compliance; no combined action is design-approved.

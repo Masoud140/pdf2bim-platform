@@ -2,7 +2,7 @@
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 
-**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). **Next: P3c close-out** (girder and headstock responses in the combined actions). The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
+**Stage:** P0.2 → P2, **P3a** (superstructure model + Python solver) and **P3b** (integrated model with substructure + elastomeric bearings, SDL case, MIDAS .mct writer, modes) completed 2026-10-24. **P3c** load cases (traffic, imposed strains, horizontal, wind, earthquake) and **AS 5100.2 combinations** done (2026-10-25). P3c close-out (girder and sill responses, combined-action schedule) done. **Next: P4 plan.** The BR13A .mct awaits the engineer's import test. P0 → P3a await owner review (non-blocking, ADR-018). No dashboard engine code has been changed.
 
 ## Branches
 
@@ -59,7 +59,7 @@
 | M-1 | BR13A SDL bearing split at abutment A: P3b vs frozen −11 … +25 %; the load distribution alone agrees within 8 %, so the difference is in the models. Check in the independent MIDAS model (P4) | E |
 | M-2 | BR13A horizontal modes: P3b 8 % (longitudinal) / 5 % (transverse) shorter than frozen; vertical +0.6 %. Suspected bearing-link idealisation, unconfirmed | E |
 | X-2 | MIDAS .mct: ELASTICLINK / SPRING syntax unverified; nodal loads not written (no *CONLOAD syntax). Needs an engineer import test and one native export with a nodal load, a spring and a link | E / interop |
-| M-3 | BR13A temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (P3b vs frozen: H −30 %, vertical couples +35 … +80 %). Check in MIDAS (P4) and with the restraint-block detail | E |
+| M-3 | BR13A temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (P3b vs frozen: H −30 %, vertical couples +35 … +80 %). The fixed-abutment sill moment in the combinations is restraint-dominated: P3c 2153 vs dashboard 4254 kN·m. Check in MIDAS (P4) and with the restraint-block detail | E |
 | H-6 | Dashboard wind lever arms measured from the deck top while its nodes are at the girder top (0.2 m low) | H (minor) |
 | H-7 | Dashboard vertical-wind distribution measured from the deck centre, ignores line lengths: total ±0.9 % | H (minor) |
 | M-4 | BR13A combined minimum bearing force at A-G4 on the P3b model: ULS −162 kN (uplift), SLS −37 kN (dashboard +64 / +265). Largest relief: shrinkage / creep (Assumed 300e-6) through the fixed-abutment restraint (M-3). **Engineer to check** (MIDAS, bearing / restraint detail) | E / F |
@@ -175,4 +175,4 @@
 
 ## Next task
 
-**P3c close-out:** add girder and headstock responses to the response set, envelope them through the combinations, cross-check against the dashboard's girder / headstock combined actions, and write a combined-action schedule. Branch: continue `p3-model`.
+**P4 plan** (`docs/P4_PLAN.md`): stages, acceptance and verification for concurrent traffic actions, signed earthquake, pile resultants, the independent MIDAS model and the design engine (E-1); then P4.1 concurrent traffic actions. Branch: continue `p3-model` until the owner reviews (a new `p4-*` branch from it).

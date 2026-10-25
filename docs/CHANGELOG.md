@@ -2,6 +2,12 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-10-25 — P3c close-out: girders, sills, combined-action schedule (branch `p3-model`)
+
+- **Added:** girder and sill responses in `pdf2bim/model/responses.py`; `combinations.schedule()`; `tools/combined_actions.py` → `projects/BR13A/model/BR13A.combined_actions.md/.json`; dashboard fixture with its girder / headstock combined actions.
+- **Tests:** combinations 35 (5 / 5 new mutations caught).
+- **Findings:** fixed-abutment sill moment is restraint-dominated in both models (P3c about half the dashboard's) — part of M-3.
+
 ## 2026-10-25 — P3c combinations: AS 5100.2 (branch `p3-model`)
 
 - **Added:** `pdf2bim/model/combinations.py` (generator, evaluation, platform primitives, combined actions) and `responses.py` (shared response set; earthquake and traffic use it); combination constants in the standards inventory (75 entries); `tools/dump_dashboard_combinations.js`, `tools/compare_frozen_combinations.py`; `projects/BR13A/model/BR13A.combinations_vs_frozen.md`.

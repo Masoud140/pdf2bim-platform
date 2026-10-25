@@ -298,3 +298,8 @@
   4. **Only actions with an analysed case take part by default;** Missing-Flagged description items (pedestrian, flood, collision) are listed as not combined, not silently zero (the dashboard keeps them selected with zero effect: H-8).
   5. **Earth pressure is carried by SOo** (other fills) because the fill category is not in the description; recorded as a provisional input (larger adverse and smaller relieving factor).
 - **Consequence:** the generated rows equal the dashboard's for 9 register / option sets, and the evaluation of the dashboard's primitives is exact. Combined bearing and pile actions on the P3b model differ from the dashboard's only through the load cases (H-4, H-5, M-1, M-3). Finding M-4 (A-G4 bearing uplift in the combined minimum) goes to the engineer. Girder and headstock responses are not yet in the response set.
+
+## ADR-028 Combined-action schedule conventions (provisional)
+
+- **Decision (agent, 2026-10-25; reversible):** section actions are reported on the +x face of each member end in member axes (girder M sagging +, N tension +; pile N compression +, pile moments projected on the sill axis / its normal); every extreme carries its governing row and position; the schedule is values only (no capacity check) and records the input hash and engine commit.
+- **Consequence:** the schedule can feed P4 design checks without re-deriving signs; the P3 combination stage is closed. Concurrent actions (M with V, T) are not yet available (P4).
