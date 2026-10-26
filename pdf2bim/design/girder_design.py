@@ -114,7 +114,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     flexure_along."""
     from .girder_sls import staged, crack_limits, prof_at
     from .prestress import stage_moments_at, differential_shrinkage
-    from .girder_shear import box_params, box_geometry, shear_inputs
+    from .girder_shear import box_params, box_geometry, solid_end_geometry, shear_inputs
     from .shear import shear as shear_check
     from ..model.combinations import combine, concurrent_row
     H = hog_inputs(doc, geo, S, girder, std, allow_proposed)
@@ -166,6 +166,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     elif not bm or not sm:
         shear_why = "materials.reinforcement / materials.strand missing"
     Pbox = box_params(S["girders"][girder]["params"]) if shear_why is None else None
+    Pbox_solid = S["girders"][girder]["params"] if shear_why is None else None  # for solid_end_geometry (Assumed, ADR-039)
 
     def interp(E, k, lo, hi, w):
         return float((1 - w) * E[k][lo[1]] + w * E[k][hi[1]])
@@ -181,7 +182,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         if stations is not None and t not in stations:
             continue
         st = station_section(doc, geo, S, girder, t, allow_proposed)
-        if st["conf"] != "open":
+        if st["conf"] not in ("open", "solid"):
             continue
         sec = st["section"]
         F = strand_forces_at(r, st["x_m"] * 1000.0, time)
@@ -201,18 +202,23 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         mt = st["materials"]
         lv = {"y_deck_bot": S["deck_thickness"], "y_gir_top": st["y_girder_top"], "Dtot": st["Dtot"], "Eg": mt["E_girder"], "Ed": mt["E_deck"], "fcg": mt["fc_girder"], "fcd": mt["fc_deck"]}
         lim = crack_limits(sec, std)
-        res = {"t": t, "x_m": x0, "element": near[2][1], "end": near[3], "n_strands": len(sec.tend), "Mnc": Mnc, "limits": lim}
-        for side, Es_k, Eu_k, which in (("sag", "max", "max", "max"), ("hog", "min", "min", "min")):
-            Ms = interp(E_s, Es_k, lo, hi, w); Mu = interp(E_u, Eu_k, lo, hi, w)
-            gs = E_s["g" + Es_k][near[1]]; gu = E_u["g" + Eu_k][near[1]]
-            Ns = conc_N(gs, near, which); Nu = conc_N(gu, near, which)
-            fr, ff = free_for(gs)
-            o = staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, lim["fscr"], lim["ftcr"], lim["fscrT"], free=fr, why=lim["why"])
-            res[side] = {"Ms": Ms, "Ns": Ns, "row_sls": gs, "Mu": Mu, "Nu": Nu, "row_uls": gu, "free": {"gradient_factors": ff, "eps_dsh": eps_sh if fr else 0.0},
-                         **{k: o.get(k) for k in ("Mdec", "Mal", "MdecT", "MalT", "uS", "uST", "uncracked", "okS", "Mcr", "McrH", "Muo", "Muo_min", "okMin",
-                                                  "phiMu", "phi", "kuo", "uB", "face", "Nub")},
-                         "soffit_sls": o["sv"]["girBot"], "deck_top_sls": o["sv"]["deckTop"], "girder_alone": {"top": o["girder_alone"]["top"], "bot": o["girder_alone"]["bot"]},
-                         "dsb_at_Ms": o["inc"]["b"], "dsp_at_Ms": o["inc"]["t"], "_pre0": o["tend_pre0"]}
+        res = {"t": t, "x_m": x0, "conf": st["conf"], "element": near[2][1], "end": near[3], "n_strands": len(sec.tend), "Mnc": Mnc, "limits": lim}
+        if st["conf"] == "open":
+            for side, Es_k, Eu_k, which in (("sag", "max", "max", "max"), ("hog", "min", "min", "min")):
+                Ms = interp(E_s, Es_k, lo, hi, w); Mu = interp(E_u, Eu_k, lo, hi, w)
+                gs = E_s["g" + Es_k][near[1]]; gu = E_u["g" + Eu_k][near[1]]
+                Ns = conc_N(gs, near, which); Nu = conc_N(gu, near, which)
+                fr, ff = free_for(gs)
+                o = staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, lim["fscr"], lim["ftcr"], lim["fscrT"], free=fr, why=lim["why"])
+                res[side] = {"Ms": Ms, "Ns": Ns, "row_sls": gs, "Mu": Mu, "Nu": Nu, "row_uls": gu, "free": {"gradient_factors": ff, "eps_dsh": eps_sh if fr else 0.0},
+                             **{k: o.get(k) for k in ("Mdec", "Mal", "MdecT", "MalT", "uS", "uST", "uncracked", "okS", "Mcr", "McrH", "Muo", "Muo_min", "okMin",
+                                                      "phiMu", "phi", "kuo", "uB", "face", "Nub")},
+                             "soffit_sls": o["sv"]["girBot"], "deck_top_sls": o["sv"]["deckTop"], "girder_alone": {"top": o["girder_alone"]["top"], "bot": o["girder_alone"]["bot"]},
+                             "dsb_at_Ms": o["inc"]["b"], "dsp_at_Ms": o["inc"]["t"], "_pre0": o["tend_pre0"]}
+        else:
+            # solid end zone: SLS/flexure checks not applicable (strand development, full section not composite in the usual sense)
+            res["sag"] = {"_pre0": [td.get("sp", 0.0) / (td["E"] if td["E"] else 1.0) for td in sec.tend]}
+            res["hog"] = {}
         # shear and torsion at the station: the governing |V*| row at the nearer element end, concurrent T*, M*, N*
         if shear_why is None:
             fr_ = [f for f in fits if f.get("from") is not None and f["from"] - 1e-9 <= x0 <= f["to"] + 1e-9]
@@ -223,7 +229,13 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
                 tl = int(float(opts.get("torsion_tie_legs") or 0))
                 fit = {"d": float(fr0["diameter"]), "legs": int(fr0["legs"]), "s": float(fr0["spacing"]), "tie_d": float(fr0["diameter"]), "tie_legs": tl,
                        "tie_s": float(fr0["spacing"]), "fsyf": float(bm[0]["fsy"]), "dg": float(opts["aggregate_size"])}
-                g_ = box_geometry(Pbox, S["deck_thickness"], st["y_girder_top"] - S["deck_thickness"], float(opts["fitment_cover_side"]), float(opts["fitment_cover_top"]), fit["tie_d"])
+                if st["conf"] == "solid":
+                    # solid end block: use rectangular approximation (Assumed, ADR-039)
+                    g_ = solid_end_geometry(Pbox_solid, S["deck_thickness"], st["y_girder_top"] - S["deck_thickness"],
+                                            float(opts["fitment_cover_side"]), float(opts["fitment_cover_top"]), fit["tie_d"])
+                else:
+                    g_ = box_geometry(Pbox, S["deck_thickness"], st["y_girder_top"] - S["deck_thickness"],
+                                      float(opts["fitment_cover_side"]), float(opts["fitment_cover_top"]), fit["tie_d"])
                 pre0 = res["sag"].pop("_pre0")
                 Q = shear_inputs(sec, g_, lv, fit, {"fsy": float(bm[0]["fsy"]), "Es": float(bm[0]["Es"]), "Ep": float(sm[0]["Ep"])}, pre0)
                 iV = ix[("G", near[2], f"V{near[3]}")]
@@ -234,20 +246,22 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
                 Vs = float(cv[iV]); Ts = float(cv[ix[("G", near[2], f"T{near[3]}")]]); Ms_ = float(cv[ix[("G", near[2], f"M{near[3]}")]])
                 Ns_ = float(cv[ix[("G", near[2], f"N{near[3]}")]]) if useN else 0.0
                 sh = shear_check(Q, {"V": Vs, "T": Ts, "M": Ms_, "N": Ns_}, std)
+                geo_note = "solid-end rectangular approx (ADR-039, Assumed)" if st["conf"] == "solid" else "closed-box (ADR-039, provisional)"
                 res["shear"] = {"row": rowV, "V": Vs, "T": Ts, "M": Ms_, "N": Ns_, "fitments": f"N{fit['d']:g} x {fit['legs']} legs @ {fit['s']:g}",
-                                "dv": Q["dv"], "bv": Q["bv"], "Ao": Q["Ao"], **{k: sh.get(k) for k in ("ex", "th", "kv", "Vuc", "Vus", "Vumax", "Tcr", "uCr", "uV", "uT", "uL", "u", "phiVu", "minV")}}
+                                "dv": Q["dv"], "bv": Q["bv"], "Ao": Q["Ao"], "geo_note": geo_note,
+                                **{k: sh.get(k) for k in ("ex", "th", "kv", "Vuc", "Vus", "Vumax", "Tcr", "uCr", "uV", "uT", "uL", "u", "phiVu", "minV")}}
         else:
             res["shear"] = {"why": shear_why}
         for k_ in ("sag", "hog"):
             res[k_].pop("_pre0", None)
         out.append(res)
     if not out:
-        raise MissingInput(f"girder {girder}: no open-section station")
+        raise MissingInput(f"girder {girder}: no open-section or solid-end station")
     notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty")
     notes.append("Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc")
     notes.append(("deck differential shrinkage free strain %.1f x 1e-6 (losses analysis, detailed method)" % (eps_sh * 1e6)) if dsh else
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
     notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")
-    notes.append("shear / torsion: general method at each open station, governing |V*| row with concurrent T*, M*, N*; closed-box geometry mapped from the P2 parameters (ADR-039, provisional); stations inside the solid end blocks and strand development are not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
+    notes.append("shear / torsion: general method at each open station (closed-box geometry) and solid-end stations (rectangular approx, Assumed, ADR-039); governing |V*| row with concurrent T*, M*, N*; strand development in the end zone not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
     return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "useN": useN, "dsh": dsh,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

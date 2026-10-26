@@ -53,6 +53,39 @@ def box_geometry(P, tD, haunch, cover_side, cover_top, tie_d):
     return g
 
 
+def solid_end_geometry(p, tD, haunch, cover_side, cover_top, tie_d):
+    """Shear / torsion geometry for the solid end block of a Super-T (filled trough, no hollow cell).
+
+    The solid block is treated as a rectangular section with the soffit width bw (narrowest point):
+      bv = bw (minimum concrete width at the shear zone, conservative);
+      Acp = approximate gross composite area (girder outline trapezoid + deck slab), mm²;
+      uc  = approximate gross composite perimeter, mm;
+      Aoh = area enclosed by the outermost closed stirrup centroid (rectangular approximation), mm²;
+      Ao  = 0.9 Aoh (AS 5100.5 approximation for a non-hollow section with closed stirrups, Assumed);
+      uh  = perimeter of the outermost closed stirrup centroid, mm;
+      y1  = Dtot - 2 cover_side (height of the closed stirrup centreline).
+    Provisional / Assumed — the closed-cell Bredt formula does not apply here; Ao = 0.9 Aoh per
+    AS 5100.5 §8.2.7(d) rectangular approximation (ADR-039).
+    """
+    bw = float(p["bw"]); D = float(p["D"]); Dc = tD + haunch + D
+    # Gross girder area: approximate as a trapezoid (soffit bw, overall top width 2*(bw/2 + D/S), height D)
+    n = float(p["S"])  # web slope 1:n (1 horizontal : n vertical), i.e. run/rise = 1/n
+    bTop = bw + 2 * D / n   # full outer top width of the girder
+    A_girder = (bw + bTop) / 2 * D  # trapezoid
+    A_deck = (bTop + 2 * tD / n) / 2 * tD if n else bTop * tD  # deck (conservatively full top width)
+    # For Acp / uc: use the girder outer perimeter + deck contribution; simple 2-segment approximation
+    Acp = A_girder + bTop * tD      # conservative: ignore haunch, include deck
+    uc = bw + 2 * math.sqrt(D ** 2 + (D / n) ** 2) + bTop + 2 * tD + 2 * (tD / n if n else 0)
+    # Closed stirrup box (rectangular, at the narrow soffit)
+    boh = max(bw - 2 * (cover_side + tie_d / 2), 1.0)
+    yoh = max(Dc - 2 * (cover_side + tie_d / 2), 1.0)
+    Aoh = boh * yoh
+    Ao = 0.9 * Aoh
+    uh = 2 * (boh + yoh)
+    y1 = yoh
+    return {"bv": bw, "Ao": Ao, "Aoh": Aoh, "Acp": Acp, "uc": uc, "uh": uh, "y1": y1, "Dc": Dc, "tw": bw, "tb": 0.0, "Pv": 0.0}
+
+
 def shear_inputs(sec, g, lv, fit, mats, pre0, face="top"):
     """Section data Q for pdf2bim.design.shear.shear at a station (as the dashboard's dgLC builds it).
     sec: the station Section (y down from the deck top); fit: {"d", "legs", "s", "tie_d", "tie_legs", "tie_s", "fsyf", "dg"};
