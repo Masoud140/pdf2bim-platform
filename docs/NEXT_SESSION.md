@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-26 17:55 AEDT — transverse section fixes done (head `cac0e3f`). Slab now VALUE + b·d³/6 J; cross girder offset CT→CC. test_builder 17/17 PASS, test_mct 13/14 PASS (dashboard parse pre-existing). Next: P4-6 grillage torsion (changeable J factor + fitments).
+**Last updated:** 2026-10-26 — P4-6 done. `girder_J_factor` added to `analysis.grillage` (default 1.0, Assumed, ADR-041). Applied in builder.py at girder J. Decision: keep α=1.0 (full FD closed-cell J — mechanically correct; high u is a fitment-placeholder issue, not a modelling error). Sensitivity: α=0.5 drops peak u from 2.79→1.60 but uT still >1.0 at critical stations. test_builder 17/17 PASS, test_mct 13/14 PASS (dashboard parse pre-existing). Next: solid-end shear (map solid-block torsion box, check stations inside 2 m end zones).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -42,16 +42,14 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 **Start here (2026-10-26 handover):**
 
-- **Transverse section fixes DONE** (`cac0e3f`):
-  - Slab J changed from St-Venant to b·d³/6 (0.00373 m⁴); slab written as VALUE (not DBUSER) so MIDAS uses this J.
-  - All DBUSER sections (cross girder) now offset CC. Slab always VALUE/CC.
-  - test_builder 17/17 PASS, test_mct 13/14 PASS (dashboard parse: pre-existing, dist/ not built).
+- **Transverse section fixes DONE** (`cac0e3f`): slab J = b·d³/6, VALUE; cross girder offset CC.
+- **P4-6 grillage torsion DONE** (this commit, ADR-041): `girder_J_factor` = 1.0 (Assumed). See ADR-041.
 - **Awaiting owner re-import** of `BR13A.integrated.mct` with BNDR-GROUP fix (`d135add`+`cac0e3f`).
-- **Moment releases at rigid-arm ends** (reference §4 "small boxes"): not yet done. Needs a decision record before adding.
+- **Moment releases at rigid-arm ends** (reference §4 "small boxes"): not yet done. Needs a decision record.
 
 0. **Owner instruction 2026-10-26 (ADR-040):** BR13A is for software development; assume reasonable code / practice values where the drawings are silent, keep them changeable (Assumed + replace_with, Query Register). D-34 … D-46 accepted; no proposed decisions; tools run without `--allow-proposed`.
-1. **P4-6 grillage torsion:** shear / torsion u up to 2.8 governed by girder torsion −1.0 … −1.7 MN·m. Options to implement and compare: torsion stiffness factor on the Super-T J in the builder (a `analysis.grillage` item, Model tag), or torsion from the closed-box share only; report u for each. Choose a practice default (record as Assumed / Model) per ADR-040.
-2. **Solid end blocks:** map the solid-block torsion box (dgGeo solid branch) and check the stations inside the 2 m end zones (the critical shear region near the bearings).
+1. **Solid end blocks:** map the solid-block torsion box (dgGeo solid branch) and check the stations inside the 2 m end zones (the critical shear region near the bearings).
+2. **Fitments (D-1, D-45):** current u up to 2.79 governed by uV from torsion; α=1.0 is correct. Awaiting actual fitment schedule from drawings (D-45 is Assumed N12 2L @ 100/200; D-1 Assumed fitments for shear).
 3. **Viewer / dashboard refresh** from the new outputs (`tools/viewer/`, the status dashboard artifact).
 4. **P6:** a second single-span Super-T from its PDFs (owner to supply).
 5. Keep the generality guard green. Full suite ≈ 80 min.

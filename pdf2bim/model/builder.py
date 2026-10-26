@@ -71,6 +71,12 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
     tgt = spacing or _grillage_setting(rd, doc, "tgt")
     midgap = _grillage_setting(rd, doc, "midgap")
     mtype = _grillage_setting(rd, doc, "model")
+    # Torsion stiffness factor on the composite Super-T J (Assumed / Model, ADR-040).
+    # 1.0 = full FD closed-cell value; Hambly (grillage_modelling_reference Annex B) suggests ~0.5 for boxes.
+    try:
+        girder_J_factor = _grillage_setting(rd, doc, "girder_J_factor")
+    except Exception:
+        girder_J_factor = 1.0  # backwards-compatible default
     if int(round(mtype)) != 2:
         raise MissingInput("analysis.grillage.model: only model 2 (girder + web lines, engineer-confirmed) is implemented")
     tD = rd.value(D.get("slab_thickness"), "deck.slab_thickness") / 1000
@@ -297,7 +303,9 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 dw = _interp_station([{"t": s["t"], "d": {"w": (s["deck_left"] + s["deck_right"]) / 1000}} for s in st], tt, "d")["w"]
                 gross = Gg["A"] / 1e6 + dw * tD
                 asz = Asz
-            sec = {"A": C["A_transformed"] / 1e6, "Iy": C["Ix"] / 1e12, "Iz": C["Iy"] / 1e12, "J": C["J_geometric"] / 1e12, "Asy": None, "Asz": asz}
+            sec = {"A": C["A_transformed"] / 1e6, "Iy": C["Ix"] / 1e12, "Iz": C["Iy"] / 1e12,
+                   "J": C["J_geometric"] / 1e12 * girder_J_factor,  # Assumed/Model: ADR-040; see analysis.grillage girder_J_factor
+                   "Asy": None, "Asz": asz}
             add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"])
 
     dummy_of = lambda gid: {k: v * DUMMY for k, v in galone[gid].items()}
