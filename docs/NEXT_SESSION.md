@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-25 (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; P4.4 agent part, P5.1–P5.4, P5.5 first pass, P4.5 stage 8 done; development values accepted 2026-10-26; the MIDAS run waits for the owner).
+**Last updated:** 2026-10-26 17:40 AEDT — session handed over to a new chat (head `d135add` + this note). (P0.2 → P3 done; P4 plan drafted; P4.1–P4.3 and P4.5 stages 1–7 done on `p4-verification`; P4.4 agent part, P5.1–P5.4, P5.5 first pass, P4.5 stage 8 done; development values accepted 2026-10-26; the MIDAS run waits for the owner).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -39,6 +39,29 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P4:** plan drafted (`docs/P4_PLAN.md`, owner review non-blocking). **P4.1 concurrent traffic actions: DONE** (§1, ADR-029). **P4.2 concurrent combinations: DONE** (§2, ADR-030). **P4.3 signed earthquake / pile resultants: DONE** (§3, ADR-031 — method for the engineer to confirm). **P4.5 stage 1 flexure: DONE** (§4, ADR-032). **P4.5 stage 2 SLS + N–M: DONE** (§5). **P4.5 stage 3 shear / torsion: DONE** (§6). **P4.5 stage 4a benchmark + stations: DONE** (§7, ADR-033). **P4.5 stage 5 losses / inputs / ULS flexure: DONE** (§8, ADR-034, D-42). **P4.5 stage 6 staged SLS / minimum strength: DONE** (§9, ADR-035). **P4.5 stage 7 SLS free strains: DONE** (§10). Shear at stations waits for fitments.
 
 ## 3. Next actions
+
+**Start here (2026-10-26 handover):**
+
+- **MIDAS import feedback from the owner.** The owner imported `projects/BR13A/model/BR13A.integrated.mct` into MIDAS Civil.
+  - Import 1: 1184 errors, all `*SPRING` (field order). Fixed in `0147d4b`.
+  - Import 2: 1 run error on the first `*CONSTRAINT` line. Fixed by declaring `*BNDR-GROUP` / `*LOAD-GROUP` in `d135add`; awaiting re-import.
+  - Owner observation: in MIDAS solid view the **transverse deck members draw as lines, not thick slabs**.
+- **Asked the owner (no answer yet):** does section `S53_slab` show in MIDAS as a solid rectangle (H 0.2, B 2.797) or as "Value"?
+- **Transverse member treatment as built:**
+
+  | Member | Section |
+  |---|---|
+  | rigid arms inside each girder zone (W1–G–W2) | VALUE, girder-alone × 1000 |
+  | deck slab strips | DBUSER SB 0.2 × 2.797 m (orthogonal tributary), offset CT, weight 0 |
+  | cross girders | DBUSER 1.065 × 0.8, offset CT |
+  | deck-end dummies | VALUE × 0.001 |
+
+  VALUE sections always draw as lines in MIDAS.
+- **Planned fixes, in order:**
+  1. `pdf2bim/model/mct.py`: write the slab and cross-girder sections with offset CC (centred on the node). The platform grillage is planar, and CT can add an eccentricity if MIDAS applies offsets in analysis. Export-only change.
+  2. `pdf2bim/model/builder.py` `_rect_J`: slab strips use the full St-Venant J (0.00712 m⁴). The grillage reference (`grillage_modelling_reference.md` §7) uses b·d³/6 (0.00373 m⁴). Change slab J to b·d³/6 as a changeable option; MIDAS needs a VALUE section or a stiffness factor to take it. This changes every result: rerun only the affected tests and report the deltas.
+  3. Moment releases at the web-dummy ends of the rigid arms (reference §4 "small boxes"): none in the model. Record a decision before adding them.
+- **Usage:** the owner is at 70 % of the weekly limit. Run only the tests a change touches (the full suite only before a merge), keep replies short, and keep the chat compact.
 
 0. **Owner instruction 2026-10-26 (ADR-040):** BR13A is for software development; assume reasonable code / practice values where the drawings are silent, keep them changeable (Assumed + replace_with, Query Register). D-34 … D-46 accepted; no proposed decisions; tools run without `--allow-proposed`.
 1. **P4-6 grillage torsion:** shear / torsion u up to 2.8 governed by girder torsion −1.0 … −1.7 MN·m. Options to implement and compare: torsion stiffness factor on the Super-T J in the builder (a `analysis.grillage` item, Model tag), or torsion from the closed-box share only; report u for each. Choose a practice default (record as Assumed / Model) per ADR-040.
