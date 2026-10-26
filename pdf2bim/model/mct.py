@@ -27,8 +27,8 @@ Content rules:
 - sections: members with shape ('rect', H, B) -> DBUSER SB (MIDAS computes A, I, J, shear areas itself; its J and shear
   areas can differ slightly from the solver's); every other member -> VALUE with the solver's A, Asy, Asz, J, Iy, Iz
   (stiffness only: no stress recovery points; composite girders are NOT written as COMPOSITE-GEN yet);
-- section offset: CT (DBUSER) / CC (VALUE) as the first-case v8 file; whether MIDAS shifts a section relative to the node line is
-  unverified (§2 rule 7).
+- section offset: CC for all sections (both DBUSER and VALUE). The grillage is planar; CT (top-of-section) would add an
+  eccentricity that the model does not intend. Changed DBUSER to CC 2026-10-26.
 """
 import math
 
@@ -98,7 +98,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         key, role = sec_def[i]
         nm = f"S{i}_{role}"[:16]
         if key[0] == "rect":
-            L.append(f"   {i}, DBUSER, {nm}, CT, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
+            L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
         else:
             A, Asy, Asz, J, Iy, Iz = key[1:]
             L += [f"   {i}, VALUE, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB, ROLL",

@@ -335,7 +335,12 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 add(a, b, "rigid", rigid_of(gid), line=c["id"])
             else:
                 bt = _tributary(c, cross, step)
-                sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": _rect_J(bt, tD), "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6, "shape": ("rect", tD, bt)}
+                # Slab-strip J: grillage_modelling_reference §7 uses b·d³/6 (≈ half St-Venant).
+                # Written as VALUE (no "shape" key) so the exact J is preserved in the .mct file —
+                # DBUSER would let MIDAS recompute J as St-Venant and ignore this value.
+                # Changeable: set _SLAB_J_FORMULA = "st_venant" to revert to _rect_J.
+                _slab_J = bt * tD ** 3 / 6   # Assumed / Model (ADR-040; b·d³/6 per grillage reference §7)
+                sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": _slab_J, "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6}
                 add(a, b, "slab", sec, line=c["id"])
     # outriggers at girder special nodes that are not on a cross line (zone boundaries): none needed (girder line only)
 
