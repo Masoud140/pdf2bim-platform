@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-26 — P4-6 done. `girder_J_factor` added to `analysis.grillage` (default 1.0, Assumed, ADR-041). Applied in builder.py at girder J. Decision: keep α=1.0 (full FD closed-cell J — mechanically correct; high u is a fitment-placeholder issue, not a modelling error). Sensitivity: α=0.5 drops peak u from 2.79→1.60 but uT still >1.0 at critical stations. test_builder 17/17 PASS, test_mct 13/14 PASS (dashboard parse pre-existing). Next: solid-end shear (map solid-block torsion box, check stations inside 2 m end zones).
+**Last updated:** 2026-10-26 — P4-7 done. Solid-end shear implemented: `solid_end_geometry()` in `girder_shear.py` (Ao=0.9Aoh rectangular approx, Assumed, ADR-039); `checks_along()` visits conf='solid' stations (shear only, no flexure); `tools/girder_checks.py` skips solid rows in flexure tables. Commit `f1b3532`. test_stations 11/11, test_shear 11/11, test_girder_checks 8/8 PASS. Next: fitments (D-1, D-45) or moment releases at rigid-arm ends.
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -43,13 +43,14 @@ If this file and the repository disagree, the repository wins: fix this file. **
 **Start here (2026-10-26 handover):**
 
 - **Transverse section fixes DONE** (`cac0e3f`): slab J = b·d³/6, VALUE; cross girder offset CC.
-- **P4-6 grillage torsion DONE** (this commit, ADR-041): `girder_J_factor` = 1.0 (Assumed). See ADR-041.
+- **P4-6 grillage torsion DONE** (`376a58d`, ADR-041): `girder_J_factor` = 1.0 (Assumed). See ADR-041.
+- **P4-7 solid-end shear DONE** (`f1b3532`): `solid_end_geometry()` + `checks_along()` solid branch + reporting guards.
 - **Awaiting owner re-import** of `BR13A.integrated.mct` with BNDR-GROUP fix (`d135add`+`cac0e3f`).
 - **Moment releases at rigid-arm ends** (reference §4 "small boxes"): not yet done. Needs a decision record.
 
 0. **Owner instruction 2026-10-26 (ADR-040):** BR13A is for software development; assume reasonable code / practice values where the drawings are silent, keep them changeable (Assumed + replace_with, Query Register). D-34 … D-46 accepted; no proposed decisions; tools run without `--allow-proposed`.
-1. **Solid end blocks:** map the solid-block torsion box (dgGeo solid branch) and check the stations inside the 2 m end zones (the critical shear region near the bearings).
-2. **Fitments (D-1, D-45):** current u up to 2.79 governed by uV from torsion; α=1.0 is correct. Awaiting actual fitment schedule from drawings (D-45 is Assumed N12 2L @ 100/200; D-1 Assumed fitments for shear).
+1. **Fitments (D-1, D-45):** current peak u=2.79 governed by uV from torsion; solid-end stations now checked (low u). Awaiting actual fitment schedule from drawings (D-45 is Assumed N12 2L @ 100/200; D-1 Assumed).
+2. **Moment releases at rigid-arm ends:** not yet done. Needs ADR entry.
 3. **Viewer / dashboard refresh** from the new outputs (`tools/viewer/`, the status dashboard artifact).
 4. **P6:** a second single-span Super-T from its PDFs (owner to supply).
 5. Keep the generality guard green. Full suite ≈ 80 min.
