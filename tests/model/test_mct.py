@@ -56,6 +56,11 @@ t("counts: nodes, elements, links, springs, supports equal the model", (len(Rd["
   == (len(M["model"].nodes), len(M["model"].beams), len(M["model"].links), len(M["model"].springs), len(M["model"].fixed)))
 names = [m_["name"] for m_ in Rd["mats"].values()] + re.findall(r"^\s+\d+, (?:VALUE|DBUSER), ([^,]+),", txt, re.M)
 t("material and section names at most 16 characters (MIDAS limit)", all(len(n.strip()) <= 16 for n in names), str(max(len(n.strip()) for n in names)))
+t("piles written as DBUSER SR solid circle (native BR13B syntax), not VALUE", re.search(r"DBUSER, [^,]+, CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, 1.05, 0, 0, 0, 0, 0, 0, 0, 0, 0$", txt, re.M) is not None)
+sl = [i for i, x in enumerate(M["members"]) if x.get("role") == "slab"]
+t("deck strips drawn (DBUSER SB) with J kept by *SECT-SCALE: read-back J = written J",
+  sl and all(abs(Rd["secs"][Rd["els"][rep["element_map"][M["members"][i]["id"]]][1]]["J"] / M["model"].beams[M["members"][i]["id"]]["J"] - 1) < 1e-5 for i in sl)
+  and "*SECT-SCALE" in txt and not re.search(r"VALUE, S\d+_slab", txt))
 t("file is plain ASCII", all(ord(c) < 128 for c in txt))
 t("unverified blocks are marked in the file and listed in the report", rep["unverified_blocks"] == ["*BEAMEND", "*ELASTICLINK", "*SPRING"]
   and txt.count("UNVERIFIED SYNTAX") == 3 and "NEEDS ENGINEER IMPORT TEST" in rep["status"])

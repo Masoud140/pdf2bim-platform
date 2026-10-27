@@ -7,6 +7,7 @@
  "springs": 148,
  "supports": 8,
  "unverified_blocks": [
+  "*BEAMEND",
   "*ELASTICLINK",
   "*SPRING"
  ],
@@ -1174,10 +1175,10 @@
   300098.513,
   6249478.409
  ],
- "status": "NEEDS ENGINEER IMPORT TEST \u2014 contains UNVERIFIED syntax: *ELASTICLINK, *SPRING",
+ "status": "NEEDS ENGINEER IMPORT TEST \u2014 contains UNVERIFIED syntax: *BEAMEND, *ELASTICLINK, *SPRING",
  "description": "projects/BR13A/BR13A.bridge.0.2.json",
  "revision": 44,
- "description_hash": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d",
+ "description_hash": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c",
  "provisional": [],
  "standards_status": "UNVERIFIED \u2014 standards data not approved",
  "run_record": {
@@ -1192,7 +1193,7 @@
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
   "revision": 44,
-  "description_hash": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d",
+  "description_hash": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c",
   "decisions": [
    "D-1",
    "D-2",
@@ -1239,15 +1240,16 @@
    "D-43",
    "D-44",
    "D-45",
-   "D-46"
+   "D-46",
+   "D-47"
   ],
   "proposed_used": [],
-  "allow_proposed": false,
-  "engine_commit": "8ffb61fb56ebdddf9dde58ad85cfef592409aa83",
+  "allow_proposed": true,
+  "engine_commit": "d5226e346e7c5fede0d028bbc9efa36f142bbceb",
   "engine_dirty": true,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-25T23:16:41+00:00"
+  "run_at": "2026-10-27T21:20:08+00:00"
  }
 }

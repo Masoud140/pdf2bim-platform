@@ -11,6 +11,8 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 |---|---|---|
 | *UNIT, *NODE, *ELEMENT BEAM, *MATERIAL USER (name <= 16 chars) | verified | MCT_EXPORT_METHOD §1 |
 | *SECTION DBUSER SB rectangle (H, B) | verified | §1 |
+| *SECTION DBUSER SR solid circle (D) | from the engineer's native BR13B model (2026-10-28); import of a generated file not yet confirmed | §1 |
+| *SECT-SCALE (IXX_SF only; group in *BNDR-GROUP) | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | §1 |
 | *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; first-case v8 file |
 | *BNDR-GROUP, *LOAD-GROUP | UNVERIFIED | added 2026-10-26 after the engineer's import gave a run error on the first *CONSTRAINT line (group not declared); awaits re-import |
 | *STLDCASE, *CONSTRAINT, *USE-STLD, *SELFWEIGHT | from the engineer's native model, import of a generated file not yet confirmed | §1b |
@@ -24,7 +26,7 @@ Content rules:
 - self weight: MIDAS computes density x section area. Members whose weight differs from (density x area) — composite
   girders carry the GROSS weight on a transformed section; dummies, deck strips and rigid members are massless — get a
   material whose density = w / A (one material per distinct (E, density));
-- sections: members with shape ('rect', H, B) -> DBUSER SB (MIDAS computes A, I, J, shear areas itself; its J and shear
+- sections: members with shape ('rect', H, B) -> DBUSER SB, ('circle', D) -> DBUSER SR (MIDAS computes A, I, J, shear areas itself; its J and shear
   areas can differ slightly from the solver's); every other member -> VALUE with the solver's A, Asy, Asz, J, Iy, Iz
   (stiffness only: no stress recovery points; composite girders are NOT written as COMPOSITE-GEN yet);
 - section offset: CC for all sections (both DBUSER and VALUE). The grillage is planar; CT (top-of-section) would add an
@@ -67,10 +69,12 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         mem = members.get(eid, {})
         shp = mem.get("shape")
         if shp and shp[0] == "rect":
-            key = ("rect", round(shp[1], 6), round(shp[2], 6))
-        # "circle" shape: DBUSER CC syntax not yet verified from a native MCT export (MCT_EXPORT_METHOD §0 rule).
-        # Fall through to VALUE — imports and analyses correctly; MIDAS renders as a plain line but properties are exact.
-        # To fix rendering: export one circular pile section from MIDAS Civil as MCT and confirm the DBUSER CC/CIR syntax.
+            H, B = shp[1], shp[2]
+            from .builder import _rect_J
+            sf = round(b["J"] / _rect_J(B, H), 6)   # MIDAS computes J itself; a J other than St-Venant goes via *SECT-SCALE
+            key = ("rect", round(H, 6), round(B, 6), 1.0 if abs(sf - 1) < 1e-6 else sf)
+        elif shp and shp[0] == "circle":
+            key = ("circle", round(shp[1], 6))
         else:
             key = ("value",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"]))   # as written
         if key not in secs:
@@ -126,11 +130,17 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         nm = f"S{i}_{role}"[:16]
         if key[0] == "rect":
             L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
+        elif key[0] == "circle":   # solid round, D; syntax from the engineer's native BR13B export (2026-10-28)
+            L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, {key[1]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0, 0")
         else:
             A, Asy, Asz, J, Iy, Iz = key[1:]
             L += [f"   {i}, VALUE, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB, ROLL",
                   "        " + ", ".join((A, Asy, Asz, J, Iy, Iz)),
                   "        0, 0, 0, 0, 0, 0, 0, 0, 0, 0", "        0, 0, 0, 0, 0, 0, 0, 0"]
+    scl = [(i, k[3]) for i, (k, _) in sorted(sec_def.items()) if k[0] == "rect" and k[3] != 1.0]
+    if scl:   # syntax from the engineer's native BR13B model (2026-10-28); group declared in *BNDR-GROUP
+        L += ["*SECT-SCALE    ; Section Stiffness Scale Factor", "; iSEC, AREA_SF, ASY_SF, ASZ_SF, IXX_SF, IYY_SF, IZZ_SF, WGT_SF, GROUP, iPart, bDiffIJ"]
+        L += [f"   {i}, 1, 1, 1, {f:.6g}, 1, 1, 1, J_scale, 1, NO" for i, f in scl] + [""]
     L += ["*STLDCASE    ; Static Load Cases", "; LCNAME, LCTYPE, DESC", "   SW   , D , Self weight", ""]
     groups = {}
     for n, ds in m.fixed.items():
@@ -138,7 +148,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         groups.setdefault(f, []).append(nmap[n])
     # Boundary / load groups declared before use: the engineer's second MIDAS import (2026-10-26) gave
     # "Run Error : command in line ..." on the first *CONSTRAINT line, whose group was not defined (provisional fix).
-    bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else [])
+    bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else []) + (["J_scale"] if scl else [])
     L += ["*BNDR-GROUP    ; Boundary Group", "; NAME, AUTOTYPE"] + [f"   {g}, 0" for g in bg] + [""]
     if gravity:
         L += ["*LOAD-GROUP    ; Load Group", "; NAME", "   SelfWeight", ""]
@@ -221,8 +231,16 @@ def read_mct(text):
         elif p[1] == "DBUSER" and p[12] == "SB":
             H, B = float(p[14]), float(p[15]); A = H * B
             out["secs"][int(p[0])] = {"A": A, "Asy": 5 / 6 * A, "Asz": 5 / 6 * A, "J": _rect_J(B, H), "Iy": B * H ** 3 / 12, "Iz": H * B ** 3 / 12}; i += 1
+        elif p[1] == "DBUSER" and p[12] == "SR":
+            D = float(p[14]); A = math.pi * D ** 2 / 4; I = math.pi * D ** 4 / 64
+            out["secs"][int(p[0])] = {"A": A, "Asy": 0.9 * A, "Asz": 0.9 * A, "J": 2 * I, "Iy": I, "Iz": I}; i += 1   # 0.9 = substructure.PILE_ASHEAR
         else:
             raise ValueError(f"section line not understood: {b[i]}")
+    for l in blocks.get("*SECT-SCALE", []):
+        p = sp(l)
+        sec = out["secs"][int(p[0])]
+        for k, f in zip(("A", "Asy", "Asz", "J", "Iy", "Iz"), p[1:7]):
+            sec[k] *= float(f)
     for l in blocks.get("*CONSTRAINT", []):
         p = sp(l); out["cons"].append(([int(x) for x in p[0].split()], p[1]))
     for l in blocks.get("*ELASTICLINK", []):
