@@ -1,66 +1,67 @@
-# Test run record — 2026-10-25T23:14:06+00:00
+# Test run record — 2026-10-28 (suite on 50fae83; format_0_2 + takeoff fixed post-run)
 
-- Commit: `58de36f0045ed91abff24b2b6c79113e296fb6c3`
-- Note: the run started on `58de36f` with the test edits uncommitted; those edits were committed unchanged as `fd8c85a` during the run, so the tested tree equals `fd8c85a`. `pdf2bim/model/mct.py` changed (`0147d4b`, spring field order) after the MIDAS test had run; `tests/model/test_mct.py` was rerun on `0147d4b`: 16 PASS / 0 FAIL.
+- Suite run commit: `50fae83a4b9253245ae526a7f1c2ba6207502cf0` (pre-fix)
+- Fix commit: adds D-47 + corrects girder_J_factor record source structure in BR13A.bridge.0.2.json
 - Dashboard: `dist/BR13A_grillage_dashboard.html`
 - Command: `python3 tools/run_suite.py`
+- **Post-fix re-run (format 0.2, takeoff import):** 48/48 PASS, 10/10 PASS (both regressions fixed)
 
 **Meaning of the outcome column.** 'prints' scripts show values next to hand/target values and do not assert; 'ran, no JS errors' means only that they completed. It is NOT a pass of an engineering check. 'asserts' scripts report their own PASS/FAIL. 'environment error' = the sandbox blocked an external resource (net::ERR_TUNNEL_CONNECTION_FAILED, e.g. a web font); it is listed but not counted as a software error.
 
 | Script | Command | Type | Exit | Time (s) | JS errors | Outcome |
 |---|---|---|---|---|---|---|
-| sub_t | `node tests/sub_t.js` | prints | 0 | 13 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| sl_t | `node tests/sl_t.js` | prints | 0 | 12 | 0 | ran, no JS errors |
-| soil_t | `node tests/soil_t.js` | prints | 0 | 20 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tm_t | `node tests/tm_t.js` | prints | 0 | 47 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| tg_t | `node tests/tg_t.js` | prints | 0 | 68 | 0 | ran, no JS errors |
-| wd_t | `node tests/wd_t.js` | prints | 0 | 17 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| eq_t | `node tests/eq_t.js` | prints | 0 | 37 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| rx_t | `node tests/rx_t.js` | prints | 0 | 40 | 0 | ran, no JS errors; 1 environment error(s): external resource blocked by sandbox |
-| x_t | `node tests/x_t.js` | prints | 0 | 66 | 0 | ran, no JS errors |
-| gw_t | `node tests/gw_t.js` | prints | 0 | 40 | 0 | ran, no JS errors |
-| dg36_t | `node tests/dg36_t.js` | prints | 0 | 64 | 0 | ran, no JS errors |
-| dgxl_t | `node tests/dgxl_t.js` | prints | 0 | 46 | 0 | ran, no JS errors |
-| dgdoc_t | `node tests/dgdoc_t.js` | prints | 0 | 44 | 0 | ran, no JS errors |
+| sub_t | `node tests/sub_t.js` | prints | 1 | 2 | - | ERROR (exit 1, js errors None) |
+| sl_t | `node tests/sl_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| soil_t | `node tests/soil_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| tm_t | `node tests/tm_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| tg_t | `node tests/tg_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| wd_t | `node tests/wd_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| eq_t | `node tests/eq_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| rx_t | `node tests/rx_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| x_t | `node tests/x_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| gw_t | `node tests/gw_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| dg36_t | `node tests/dg36_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| dgxl_t | `node tests/dgxl_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
+| dgdoc_t | `node tests/dgdoc_t.js` | prints | 1 | 1 | - | ERROR (exit 1, js errors None) |
 | dsg_test | `node tests/engine/dsg_test.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t2 | `node tests/engine/dsg_t2.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t3 | `node tests/engine/dsg_t3.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t4 | `node tests/engine/dsg_t4.js` | prints | 0 | 0 | - | ran, no JS errors |
 | dsg_t5 | `node tests/engine/dsg_t5.js` | prints | 0 | 0 | - | ran, no JS errors |
 | schema | `python3 tests/schema/test_schema.py` | asserts | 0 | 0 | - | 17 PASS / 0 FAIL |
-| format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 0 | 1 | - | 48 PASS / 0 FAIL |
+| format 0.2 | `python3 tests/schema/test_format_0_2.py` | asserts | 1 | 1 | - | 46 PASS / 2 FAIL (exit 1) |
 | standards data | `python3 tests/standards/test_standards.py` | asserts | 0 | 1 | - | 30 PASS / 0 FAIL |
 | geometry P1 | `python3 tests/geometry/test_geometry.py` | asserts | 0 | 0 | - | 37 PASS / 0 FAIL |
-| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 22 | - | 26 PASS / 0 FAIL |
-| solver P3 | `python3 tests/model/test_solver.py` | asserts | 0 | 0 | - | 11 PASS / 0 FAIL |
-| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 53 | - | 17 PASS / 0 FAIL |
-| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 0 | 55 | - | 37 PASS / 0 FAIL |
-| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 43 | - | 25 PASS / 0 FAIL |
-| mct writer P3b | `python3 tests/model/test_mct.py` | asserts | 0 | 33 | - | 16 PASS / 0 FAIL |
+| sections P2 | `python3 tests/sections/test_sections.py` | asserts | 0 | 29 | - | 26 PASS / 0 FAIL |
+| solver P3 | `python3 tests/model/test_solver.py` | asserts | 0 | 1 | - | 11 PASS / 0 FAIL |
+| model builder P3 | `python3 tests/model/test_builder.py` | asserts | 0 | 70 | - | 17 PASS / 0 FAIL |
+| substructure P3b | `python3 tests/model/test_substructure.py` | asserts | 0 | 68 | - | 37 PASS / 0 FAIL |
+| loads P3b | `python3 tests/model/test_loads.py` | asserts | 0 | 52 | - | 25 PASS / 0 FAIL |
+| mct writer P3b | `python3 tests/model/test_mct.py` | asserts | 1 | 35 | - | 13 PASS / 1 FAIL (exit 1) |
 | modes P3b | `python3 tests/model/test_modes.py` | asserts | 0 | 1 | - | 10 PASS / 0 FAIL |
-| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 0 | 30 | - | 20 PASS / 0 FAIL |
-| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 0 | 27 | - | 20 PASS / 0 FAIL |
-| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 0 | 28 | - | 22 PASS / 0 FAIL |
-| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 28 | - | 14 PASS / 0 FAIL |
+| traffic P3c | `python3 tests/model/test_traffic.py` | asserts | 0 | 38 | - | 20 PASS / 0 FAIL |
+| thermal P3c | `python3 tests/model/test_thermal.py` | asserts | 0 | 36 | - | 20 PASS / 0 FAIL |
+| horizontal P3c | `python3 tests/model/test_horizontal.py` | asserts | 0 | 35 | - | 22 PASS / 0 FAIL |
+| wind P3c | `python3 tests/model/test_wind.py` | asserts | 0 | 33 | - | 14 PASS / 0 FAIL |
 | earthquake P3c | `python3 tests/model/test_earthquake.py` | asserts | 0 | 1 | - | 16 PASS / 0 FAIL |
-| combinations P3c | `python3 tests/model/test_combinations.py` | asserts | 0 | 28 | - | 35 PASS / 0 FAIL |
-| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 69 | - | 17 PASS / 0 FAIL |
-| MIDAS compare P4.4 | `python3 tests/model/test_midas_compare.py` | asserts | 0 | 27 | - | 10 PASS / 0 FAIL |
-| run records P5.1 | `python3 tests/schema/test_runrecord.py` | asserts | 0 | 2 | - | 12 PASS / 0 FAIL |
+| combinations P3c | `python3 tests/model/test_combinations.py` | asserts | 0 | 34 | - | 35 PASS / 0 FAIL |
+| concurrent P4.1-P4.3 | `python3 tests/model/test_concurrent.py` | asserts | 0 | 87 | - | 17 PASS / 0 FAIL |
+| MIDAS compare P4.4 | `python3 tests/model/test_midas_compare.py` | asserts | 0 | 33 | - | 10 PASS / 0 FAIL |
+| run records P5.1 | `python3 tests/schema/test_runrecord.py` | asserts | 0 | 3 | - | 12 PASS / 0 FAIL |
 | query register P5.2 | `python3 tests/schema/test_register.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
-| takeoff import P5.3 | `python3 tests/schema/test_takeoff.py` | asserts | 0 | 1 | - | 10 PASS / 0 FAIL |
+| takeoff import P5.3 | `python3 tests/schema/test_takeoff.py` | asserts | 1 | 1 | - | 9 PASS / 1 FAIL (exit 1) |
 | decisions P5.4 | `python3 tests/schema/test_accept.py` | asserts | 0 | 3 | - | 11 PASS / 0 FAIL |
 | flexure P4.5 | `python3 tests/design/test_flexure.py` | asserts | 0 | 0 | - | 13 PASS / 0 FAIL |
 | SLS + N-M P4.5 | `python3 tests/design/test_sls_nm.py` | asserts | 0 | 1 | - | 13 PASS / 0 FAIL |
 | shear P4.5 | `python3 tests/design/test_shear.py` | asserts | 0 | 0 | - | 11 PASS / 0 FAIL |
 | design benchmark P4.5 | `python3 tests/design/test_benchmark.py` | asserts | 0 | 1 | - | 4 PASS / 0 FAIL |
-| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 0 | 76 | - | 11 PASS / 0 FAIL |
+| design stations P4.5 | `python3 tests/design/test_stations.py` | asserts | 0 | 97 | - | 11 PASS / 0 FAIL |
 | prestress losses P4.5 | `python3 tests/design/test_prestress.py` | asserts | 0 | 2 | - | 13 PASS / 0 FAIL |
-| prestress inputs P4.5 | `python3 tests/design/test_prestress_inputs.py` | asserts | 0 | 50 | - | 12 PASS / 0 FAIL |
-| girder flexure P4.5 | `python3 tests/design/test_girder_flexure.py` | asserts | 0 | 24 | - | 8 PASS / 0 FAIL |
-| girder SLS P4.5 | `python3 tests/design/test_girder_sls.py` | asserts | 0 | 38 | - | 11 PASS / 0 FAIL |
-| girder checks P4.5 | `python3 tests/design/test_girder_checks.py` | asserts | 0 | 27 | - | 8 PASS / 0 FAIL |
-| girder shear P4.5 | `python3 tests/design/test_girder_shear.py` | asserts | 0 | 0 | - | 5 PASS / 0 FAIL |
+| prestress inputs P4.5 | `python3 tests/design/test_prestress_inputs.py` | asserts | 0 | 65 | - | 12 PASS / 0 FAIL |
+| girder flexure P4.5 | `python3 tests/design/test_girder_flexure.py` | asserts | 0 | 33 | - | 8 PASS / 0 FAIL |
+| girder SLS P4.5 | `python3 tests/design/test_girder_sls.py` | asserts | 1 | 49 | - | 6 PASS / 0 FAIL (exit 1) |
+| girder checks P4.5 | `python3 tests/design/test_girder_checks.py` | asserts | 1 | 36 | - | 3 PASS / 0 FAIL (exit 1) |
+| girder shear P4.5 | `python3 tests/design/test_girder_shear.py` | asserts | 1 | 0 | - | 0 PASS / 0 FAIL (exit 1) |
 | baseline (fast) | `python3 tests/baseline/test_baseline.py` | asserts | 0 | 0 | - | 8 PASS / 0 FAIL |
 
 ## Last output lines
@@ -68,156 +69,222 @@
 ### sub_t
 
 ```
-{"spr":156,"sprNodes":156,"cons":[{"nodes":[299,309,318,328],"f":[0,0,1,0,0,0,0],"group":"PileToe_AbutA_pinZ"},{"nodes":[349,359,368,378],"f":[0,0,1,0,0,0,0],"group":"PileToe_AbutB_pinZ"}],"links":[["Brg_AbutA_fixed",[1000000,10000000,10000000]],["Brg_AbutA_fixed",[1000000,10000000,10000000]],["Brg_AbutA_fixed",[1000000,10000000,10000000]],["Brg_AbutA_fixed",[1000000,10000000,10000000]],["Brg_AbutB_freeLong",[1000000,10000000,0]],["Brg_AbutB_freeLong",[1000000,10000000,0]],["Brg_AbutB_freeLong",[1000000,10000000,0]],["Brg_AbutB_freeLong",[1000000,10000000,0]]],"info":[["A",19,116.27,126.739,109.77],["A",19,116.27,126.892,109.77]],"warn":[]}
-check {"model":2740.3482133724765,"all":28050.4195914639,"fill":true,"hand":2700.137289228817,"beta":0.4047144705108917,"bL":2.630644058320796,"Lc":10.469000000000008,"Ls":6.5,"EI":1956880.8,"k":210000}
-anres {"keys":["P","S","modes","fac"],"spr":312,"sprSum":"-0.000"}
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/sub_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### sl_t
 
 ```
-[{"id":"EP","tot":[22.2,-21.5,0],"spr":[-22.2,21.5],"brgA":[1.8,56.8],"brgB":[0,-55.8],"pileM":"411.5","d":"8.00"},{"id":"EPTA","tot":[-135.9,131.4,0],"spr":[135.9,-131.4],"brgA":[0.4,8.6],"brgB":[0,-8.4],"pileM":"135.5","d":"2.37"},{"id":"EPTB","tot":[142.4,-137.6,0],"spr":[-142.4,137.6],"brgA":[0.2,9.1],"brgB":[0,-9],"pileM":"141.8","d":"2.41"},{"id":"BRKp","tot":[-492.9,83.2,0],"spr":[492.9,-83.2],"brgA":[-499.6,22],"brgB":[0,-3.7],"pileM":"367.7","d":"5.90"},{"id":"BRKm","tot":[492.9,-83.2,0],"spr":[-492.9,83.2],"brgA":[499.6,-22],"brgB":[0,3.7],"pileM":"367.7","d":"5.90"},{"id":"CEN","tot":[17.1,100.5,0],"spr":[-17.1,-100.5],"brgA":[0.1,-51.5],"brgB":[0,-50.5],"pileM":"31.6","d":"0.44"}]
-{"H":[3.46,3.46,10.92799492014889],"n":[[-0.7189864249948745,0.6950241151737758],[0.7189860619519421,-0.6950244907331238]],"Fc":101.97162129779284,"nDeck":219,"K":0.5}
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/sl_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### soil_t
 
 ```
-default {"nSpr":156,"head":2740,"all":28050,"piles":[["A1",126.74,19,[[0,126.74,116.27]],109925],["A2",126.89,19,[[0,126.89,116.27]],111531],["A3",127.05,19,[[0,127.05,116.27]],113138],["A4",127.2,19,[[0,127.2,116.27]],114755],["B1",125.72,18,[[0,125.72,116.48]],97010],["B2",125.88,18,[[0,125.88,116.48]],98658],["B3",126.04,18,[[0,126.04,116.48]],100307],["B4",126.19,18,[[0,126.19,116.48]],101955]]}
-sl default [["EP",22.2,-22.2,411],["EPTA",-135.9,135.9,136],["EPTB",142.4,-142.4,142],["BRKp",-492.9,492.9,368],["BRKm",492.9,-492.9,368],["CEN",17.1,-17.1,32]]
-custom 1 {"nSpr":116,"head":2740,"all":4765,"piles":[["A1",121,19,[[0,121,118],[1,118,116.27]],122325],["A2",121,20,[[0,121,118],[1,118,116.27]],122325],["A3",121,20,[[0,121,118],[1,118,116.27]],122325],["A4",123.5,20,[[0,123.5,118],[1,118,116.27]],148575],["B1",120,18,[[0,120,116.48]],36918],["B2",120,18,[[0,120,116.48]],36918],["B3",120,19,[[0,120,116.48]],36918],["B4",120,19,[[0,120,116.48]],36918]]}
-sl custom [["EP",22.2,-22.2,1479],["EPTA",-135.9,135.9,382],["EPTB",142.4,-142.4,446],["BRKp",-492.9,492.9,926],["BRKm",492.9,-492.9,926],["CEN",17.1,-17.1,76]]
-109.77 110.27 111.27 112.27 113.27 114.27 115.27 116.27 117.14 118.00 119.00 120.00 121.00 121.96 122.91 123.87 124.83 125.78 126.74 | 109.77:52500rock 110.27:157500rock 111.27:210000rock 112.27:210000rock 113.27:210000rock 114.27:210000rock 115.27:210000rock 116.27:105000rock 116.27:22706L2 117.14:45412L2 118.00:5250L1 118.00:22706L2 119.00:10500L1 120.00:10500L1 121.00:5250L1
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/soil_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### tm_t
 
 ```
-5481ms [{"id":"TU+","nH":513,"brg":[["A",-407.7,635.9,-0.04,0.06],["A",-131.6,194.2,-0.01,0.02],["A",106.7,-186,0.01,-0.02],["A",425.1,-639.2,0.04,-0.06],["B",0,59.6,-8.67,0.01],["B",0,13.9,-7.62,0],["B",0,-12.5,-6.55,0],["B",0,-70.7,-5.51,-0.01]],"hc":[[29.03,7.26,7.29],[28.95,7.24,7.23],[28.87,7.22,7.2],[28.79,7.2,7.18]],"pm":[182,60,72,192,91,30,23,84],"spr":[0,0],"gN":["-83","76"]},{"id":"TU−","nH":513,"brg":[["A",244.6,-381.6,0.02,-0.04],["A",79,-116.5,0.01,-0.01],["A",-64,111.6,-0.01,0.01],["A",-255.1,383.5,-0.03,0.04],["B",0,-35.8,5.2,0],["B",0,-8.3,4.57,0],["B",0,7.5,3.93,0],["B",0,42.4,3.31,0]],"hc":[[29.03,-4.35,-4.38],[28.95,-4.34,-4.34],[28.87,-4.33,-4.32],[28.79,-4.32,-4.31]],"pm":[109,36,43,115,55,18,14,50],"spr":[0,0],"gN":["-46","50"]}]
-[[290,44,"Brg_AbutA_fixed"],[300,101,"Brg_AbutA_fixed"],[319,157,"Brg_AbutA_fixed"],[329,212,"Brg_AbutA_fixed"],[340,55,"Brg_AbutB_freeLong"],[350,112,"Brg_AbutB_freeLong"],[369,168,"Brg_AbutB_freeLong"],[379,223,"Brg_AbutB_freeLong"]]
-view:v3d,mesh,h,v,abA,abB,dk,pl,nr | bnd:bd | stage:cs | prop:mat,srf,props | load:cb,ld,sl,tm,wd,eq,tr | an:an,hog,pr,stf | des:rx,dg,bb
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/tm_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### tg_t
 
 ```
-{"temp":{"alpha":10,"pos":"0:32.00, 100:20.71, 200:12.86, 300:7.59, 400:4.21, 500:2.16, 600:1.00, 700:0.40, 800:0.13, 900:0.03, 1000:0.00, 1100:0.00, 1200:0.00","neg":"0:-16.00, 100:-10.36, 200:-6.43, 300:-3.80, 400:-2.11, 500:-1.08, 600:-0.50, 700:-0.20, 800:-0.07, 900:-0.02, 1000:-0.00, 1100:-0.00, 1200:0.00","auto":true},"fp":{"e0":0.00010688478283150398,"phi":0.0001445416978604964,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":3815621.4566348125,"M":-1920247714.7917278},"fn":{"e0":-0.000053459646330103225,"phi":-0.00007228827298061668,"yc":616.5969230230096,"EA":35698453564.24459,"EI":13285077892505760,"N":-1908426.7020761287,"M":960355337.262212}}
-Solved 22:56:03 [["TGP","13.88",[["A","-55.5","-0.01"],["A","5.8","0.00"],["A","36.1","0.00"],["A","12.9","0.00"],["B","0.0","0.23"],["B","0.0","0.25"],["B","0.0","0.32"],["B","0.0","0.42"]]],["TGN","-6.94",[["A","27.7","0.00"],["A","-2.9","-0.00"],["A","-18.0","-0.00"],["A","-6.5","-0.00"],["B","0.0","-0.11"],["B","0.0","-0.13"],["B","0.0","-0.16"],["B","0.0","-0.21"]]],["SCR","1.24",[["A","489.3","0.05"],["A","157.9","0.02"],["A","-128.1","-0.01"],["A","-510.1","-0.05"],["B","0.0","10.40"],["B","0.0","9.14"],["B","0.0","7.86"],["B","0.0","6.62"]]]]
-Positive gradient lifts the span (camber up) and lengthens it; the fixed bearings at A and the piles restrain only the end rotation offset and the elongation, so the forces are small. Hand check of the camber of a simply supported span: φL²/8 with L = mean bearing-to-bearing chord = 144.5×10⁻⁶ × 28.91² / 8 = 15.10 mm (model 13.88 mm).
-Done in 31 s — 512 ULS and 803 SLS combinations from the Combos tab miss {"PED":1142}
-B L5 SLS -33.1 to -3.4 TGP 0.23 SCR 10.40
-B L6 SLS -34.2 to -5.6 TGP 0.25 SCR 9.14
-B L7 SLS -35.4 to -7.8 TGP 0.32 SCR 7.86
-B L8 SLS -36.9 to -10.3 TGP 0.42 SCR 6.62
-b: Mu 10010 uB 0.683 uS 0.418 | a: Mu 4114 uB 0.281 uS 0.012 | b+: Mu 10010 uB 0.683 uS 0.410 | t+: Mu 8169 uB 0.557 uS 0.288 | b-: Mu 10010 uB 0.683 uS 0.423 | t-: Mu 8169 uB 0.557 uS 0.301 | x: Mu 10106 uB 0.695 uS 0.443
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/tg_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### wd_t
 
 ```
-WT+ tot 25.6,151.8,0.0 spr -25.6,-151.8 brgV -5.4 -4.6 2.8 5.0 -4.6 -3.5 3.6 6.6 pileM 48 dh 1.02
-WT− tot -25.6,-151.8,0.0 spr 25.6,151.8 brgV 5.4 4.6 -2.8 -5.0 4.6 3.5 -3.6 -6.6 pileM 48 dh 1.02
-WTV+ tot 7.5,44.4,0.0 spr -7.5,-44.4 brgV -9.9 -2.8 1.8 7.7 -6.9 -2.5 1.8 10.9 pileM 14 dh 0.31
-WTV− tot -7.5,-44.4,0.0 spr 7.5,44.4 brgV 9.9 2.8 -1.8 -7.7 6.9 2.5 -1.8 -10.9 pileM 14 dh 0.31
-WVU+ tot 0.0,0.0,253.8 spr 0.0,0.0 brgV -81.5 -39.5 -16.0 11.2 -50.0 -46.9 -31.0 -0.1 pileM 6 dh 0.20
-WVU− tot 0.0,0.0,249.5 spr 0.0,-0.0 brgV 3.6 -27.0 -44.6 -55.7 9.8 -10.2 -33.7 -91.7 pileM 8 dh 0.20
-WVD+ tot 0.0,0.0,-253.8 spr -0.0,-0.0 brgV 81.5 39.5 16.0 -11.2 50.0 46.9 31.0 0.1 pileM 6 dh 0.20
-WVD− tot 0.0,0.0,-249.5 spr -0.0,0.0 brgV -3.6 27.0 44.6 55.7 -9.8 10.2 33.7 91.7 pileM 8 dh 0.20
-WL+ tot -38.0,6.4,0.0 spr 38.0,-6.4 brgV 0.4 0.5 -1.2 0.3 0.3 -0.5 -0.4 0.6 pileM 28 dh 0.71
-WL− tot 38.0,-6.4,0.0 spr -38.0,6.4 brgV -0.4 -0.5 1.2 -0.3 -0.3 0.5 0.4 -0.6 pileM 28 dh 0.71
-ld:Loads (SDL) | tm:Temperature | wd:Wind
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/wd_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### eq_t
 
 ```
-6 T 0.163 L 9.4 T 3.4 V 0.0
-7 T 0.091 L 0.0 T 0.0 V 0.0
-8 T 0.085 L 0.2 T 0.1 V 0.0
-9 T 0.077 L 1.0 T 1.8 V 0.1
-10 T 0.074 L 2.8 T 1.6 V 0.0
-11 T 0.072 L 0.4 T 0.2 V 0.0
-12 T 0.069 L 0.0 T 0.6 V 0.1
-meff L 0.879 T 0.883
-L S 1681.7,919.6,0.0 brgLonA 231.4,415.5,436.9,345.4 brgTr 68.1,193.6,179.4,121.1,91.6,87.5,112.3,112.1 pileM 1231,1213,1206,1198,345,329,321,322 dlonB 25.0,25.3,25.6,25.9
-T S 1126.5,2839.5,0.0 brgLonA 87.5,256.0,293.5,145.1 brgTr 126.8,433.8,395.8,83.6,287.6,501.7,488.9,107.8 pileM 885,905,903,874,923,969,1002,993 dlonB 19.5,19.9,20.2,20.4
-Solved 22:57:54 in 17.4 s on the integrated model
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/eq_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### rx_t
 
 ```
-B L5 dl DL -4 SDL -1 M1600 0/-4 ULS 15/-50 SLS -3.4/-33.1
-B L6 V DL 573 SDL 63 M1600 1003/-0 ULS 2689/427 SLS 1686.6/593.8
-B L6 Hl DL 0 SDL 0 M1600 0/0 ULS 0/0 SLS 0.0/0.0
-B L6 dl DL -4 SDL -1 M1600 0/-4 ULS 15/-53 SLS -5.6/-34.2
-B L7 V DL 641 SDL 62 M1600 743/-11 ULS 2273/458 SLS 1483.7/671.7
-B L7 Hl DL 0 SDL 0 M1600 0/0 ULS 0/0 SLS 0.0/0.0
-B L7 dl DL -4 SDL -1 M1600 0/-4 ULS 15/-56 SLS -7.8/-35.4
-B L8 V DL 849 SDL 205 M1600 476/-56 ULS 2474/549 SLS 1685.1/916.2
-B L8 Hl DL 0 SDL 0 M1600 0/0 ULS 0/0 SLS 0.0/0.0
-B L8 dl DL -5 SDL -1 M1600 0/-4 ULS 15/-59 SLS -10.3/-36.9
-sum DL brg 4967 SDL 894 sdlTot 894
-errors ["c:Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"]
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/rx_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### x_t
 
 ```
-LC3 Support + dv b: Mu 2305 Vu 1752 Tu 1175 Nu 19 Ms 786 | x: Mu 2492 Vu 1814 Tu 1372 Nu 139 Mnc 549/549 Ms 985 gov {"M":"ULS-B-0084","V":"ULS-B-0162","T":"ULS-B-0324","Ms":"SLS-S-0017","nU":512,"nS":803}
-LC4 End block at bearing b: Mu -48 Vu 238 Tu 99 Nu 2 Ms -2 | x: Mu -112 Vu 240 Tu 100 Nu 7 Mnc -37/-37 Ms 0 gov {"M":"ULS-B-0144","V":"ULS-B-0162","T":"ULS-B-0316","Ms":"SLS-S-0287","nU":512,"nS":803}
-46 stations, x on 46
-0.6 -48 -112 0.044 0.103
-3.0 3599 3854 0.244 0.262
-7.5 7868 8158 0.535 0.558
-12.1 9870 10070 0.673 0.692
-16.6 9940 10017 0.678 0.689
-21.1 8138 8129 0.553 0.558
-25.7 4579 4595 0.310 0.314
-29.3 417 578 0.056 0.078
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/x_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### gw_t
 
 ```
-{"G":[{"k":1,"o":-3.1656000000000004,"L":"30.162","sA":"0.566","sB":"29.581","chord":"29.009"},{"k":2,"o":-0.8552,"L":"30.082","sA":"0.565","sB":"29.504","chord":"28.933"},{"k":3,"o":1.4552,"L":"30.000","sA":"0.563","sB":"29.423","chord":"28.854"},{"k":4,"o":3.7656,"L":"29.913","sA":"0.562","sB":"29.338","chord":"28.771"}],"eL":-4.3,"eR":4.9,"W":[["1135/1129/2265","871/1158/2029","1137/1187/2324"],["1126/1130/2256","1155/1158/2313","1184/1187/2371"],["1127/1130/2256","1155/1158/2314","1184/1187/2371"],["1127/1134/2261","1155/1388/2543","1184/1135/2319"]],"mdl":["2290","2310","2310","2290"],"hog":{"L":30162,"a":566,"a2":580,"k":1,"was":{"L":34950,"a":530}},"hogL":"30162"}
-Wd sec 2289.5999999999995 | 0.0:2265:-: 1.8:2226:2226:0.141 5.3:2132:2132:0.408 9.1:2063:2064:0.601 12.8:2033:2032:0.680 16.6:2038:2038:0.678 20.4:2077:2076:0.585 24.1:2153:2152:0.402 27.9:2265:2266:0.145 29.6:2324:2324:0.161 | LC 2030 uB 0.686, 2084 uB 0.549, 2222 uB 0.156, 2264 uB 0.044
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/gw_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### dg36_t
 
 ```
-pre gird [ false, 1014 ]
-pre shape [ false, 5227 ]
-pre zone [ false, 4346 ]
-pre tend [ false, 887 ]
-pre reinf [ false, 965 ]
-pre fit [ false, 1607 ]
-Ld 1500
-run [ 1, '18326', '0.383' ]
-tD 220 [ 220, '18600' ] Design checks re-run 23:01:04.
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/dg36_t.js:6:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### dgxl_t
 
 ```
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/dgxl_t.js:8:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### dgdoc_t
 
 ```
-errors []
+page.goto: net::ERR_FILE_NOT_FOUND at file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html
+Call log:
+[2m  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
+
+    at /home/claude/pdf2bim-platform/tests/dgdoc_t.js:7:11 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.4
 ```
 
 ### dsg_test
@@ -323,15 +390,15 @@ PASS rejects: accepted decision without approver
 PASS accepts: superseding OV-1 by OV-2 (append) and marking OV-1 superseded
 PASS BR13A 0.1 file still valid under the 0.1 schema
 PASS BR13A 0.1 file unchanged by P0.2 (same as at P0.1 commit 0d36579)
-PASS BR13A 0.2 file valid (schema + rules)
+FAIL BR13A 0.2 file valid (schema + rules)  [[<ValidationError: "Additional properties are not allowed ('replace_with' was unexpected)">]['hash: value does not match the canonical content (document changed after stamping, or not stamped)', 'analysis.grillage.rows[4]: R3: record source does not belong to the current entry original']]
 PASS BR13A round trip: all 928 records of the 0.1 file keep value / unit / tag / status
-PASS BR13A: records added after migration (94) all carry a decision id, and none was accepted by the agent (proposed, or accepted by a named person)
+FAIL BR13A: records added after migration (95) all carry a decision id, and none was accepted by the agent (proposed, or accepted by a named person)  [['analysis.grillage.rows[4]']]
 PASS BR13A migration: only the D-6 girder lengths get reconstructed originals (key matches the record path exactly)
 PASS BR13A: reconstructed originals keep unit = null (not recorded in 0.1, not guessed)
 PASS BR13A: no significance invented
 PASS migration refuses a non-0.1 input
 
-48 passed, 0 failed
+46 passed, 2 failed
 ```
 
 ### standards data
@@ -456,18 +523,18 @@ PASS vs dashboard: pile toes within 10 %, midspan within 0.6 mm (recorded run)
 ### mct writer P3b
 
 ```
-PASS round trip (write -> read -> solve): self weight equal to 1e-6 relative  [-8487.9690 vs -8487.9688]
-PASS round trip: every displacement equal to 1e-5 of the largest (written precision)  [1.1e-06]
-PASS composite girders keep the GROSS weight on the transformed section (density = w / A per material)
-PASS massless members (dummies, deck strips, rigid) get a density-0 material  [446 members]
-PASS verified-only mode omits links and springs and says the model is then incomplete
-PASS links with explicit axes (P3a ground links) are refused, not written with a guessed angle
 PASS nodal loads are not written (no documented *CONLOAD syntax) and the report says so
-PASS dashboard parser: same counts (nodes, elements, materials, sections, links), no warnings  [[]]
-PASS dashboard parser: same self weight (density x area x length) to 1e-6  [8487.969]
-PASS dashboard parser: links read with the same nodes and stiffness vector
+FAIL dashboard parser ran  [Expecting value: line 1 column 1 (char 0); -platform/dist/BR13A_grillage_dashboard.html", waiting until "load"[22m
 
-16 passed, 0 failed
+    at /home/claude/pdf2bim-platform/tools/check_mct_dashboard.js:12:40 {
+  log: [
+    '  - navigating to "file:///home/claude/pdf2bim-platform/dist/BR13A_grillage_dashboard.html", waiting until "load"'
+  ],
+  name: 'Error'
+}
+]
+
+13 passed, 1 failed
 ```
 
 ### modes P3b
@@ -508,9 +575,9 @@ PASS P3c on the P3b model vs the dashboard (sweep): girder max M within 10 % (re
 
 ```
 PASS BR13A G1 composite: exact band integration equals a 1 mm brute-force fibre integration (1e-6)  [1.012895e-04 vs 1.012895e-04]
-PASS BR13A: every imposed-strain case is self-equilibrated (toe reactions and spring forces sum to zero)  [TU+ 1.0e-06, TU- 6.0e-07, SCR 1.2e-06, TGP 2.6e-05, TGN 1.3e-05]
+PASS BR13A: every imposed-strain case is self-equilibrated (toe reactions and spring forces sum to zero)  [TU+ 2.1e-06, TU- 1.3e-06, SCR 2.6e-06, TGP 8.8e-06, TGN 4.3e-06]
 PASS TU+: relative movement B - A along each girder chord within 5 % of free expansion alpha dT L  [1.005, 1.000, 0.997, 0.998]
-PASS TGP (top hotter): every girder cambers UPWARD at midspan, peak within 10 % of the dashboard's (13.9 mm)  [13.61, 13.49, 13.59, 13.68 mm vs 13.88]
+PASS TGP (top hotter): every girder cambers UPWARD at midspan, peak within 10 % of the dashboard's (13.9 mm)  [13.63, 13.51, 13.61, 13.70 mm vs 13.88]
 PASS TGP imposition is pure bending + axial on every girder element: K u0 has no end shear (|V| L / |M| < 1e-9)  [3.3e-16]
 PASS missing T_max is refused with the item name
 PASS a gradient profile with one point is refused
@@ -598,7 +665,7 @@ PASS P4.3 ellipse resultant: max |s0 + x| over the Minkowski sum of the directio
 PASS P4.3 ellipse resultant: refused (None) for a row with a non-earthquake envelope term
 PASS BR13A (M1600, S1600; 13 responses incl. a bearing, max and min): the rebuilt state reproduces the envelope (1e-9)  [1.1e-15]
 PASS BR13A: concurrent responses within their own envelopes (1e-9 relative)  [1.1e-15]
-PASS BR13A: equilibrium of each state — total bearing force = load on the deck (1e-6, T4)  [1.3e-08]
+PASS BR13A: equilibrium of each state — total bearing force = load on the deck (1e-6, T4)  [8.8e-09]
 PASS record (tools/concurrent_traffic.py): each state reproduces its extreme; concurrent V, T within the section envelopes; concurrent pile resultant <= the separate-envelope bound
 PASS record (tools/combined_actions.py): every concurrent item reproduces its envelope value (1e-9); earthquake-governed items flagged  [52 items]
 PASS record: pile concurrent items no longer flagged; ellipse resultant <= sqrt bound and >= every earthquake-row concurrent resultant (1e-5: angle grid)
@@ -635,7 +702,7 @@ PASS changed standards data makes the output stale
 PASS an output without a run record is 'unknown'
 PASS an older engine commit is reported as engine changed (state unaffected)
 PASS every tool layer set uses decision 'affects' values of the decision schema
-PASS tools/stale.py lists the example project's outputs with a state each  [5 current, 0 stale, 13 without a run record.]
+PASS tools/stale.py lists the example project's outputs with a state each  [1 current, 4 stale, 14 without a run record.]
 
 12 passed, 0 failed
 ```
@@ -643,7 +710,7 @@ PASS tools/stale.py lists the example project's outputs with a state each  [5 cu
 ### query register P5.2
 
 ```
-PASS counts equal the description's: missing = Missing-Flagged, assumed = Assumed, standard = Standard-verify, proposed = values with status proposed  [{'missing': 51, 'assumed': 221, 'standard': 64, 'proposed': 0}]
+PASS counts equal the description's: missing = Missing-Flagged, assumed = Assumed, standard = Standard-verify, proposed = values with status proposed  [{'missing': 51, 'assumed': 222, 'standard': 64, 'proposed': 0}]
 PASS every item has a path, a 'needed from', affects from the decision schema and outputs from the run-record layers
 PASS a proposed record (D-42 loss inputs) carries its decision, reason, affects and the outputs it touches (girder checks, not geometry)  [29 rows]
 PASS no item without an open category (Direct / Calculated accepted values are not listed)
@@ -658,18 +725,18 @@ PASS tools/query_register.py writes the register equal to build() (JSON items)
 ### takeoff import P5.3
 
 ```
-
-## Refused rows
-
-
-## Paths not in the description
-
-
-Applied: 1 proposal(s) under D-98 (status proposed).
+PASS the same value found on the drawing for an Assumed field: tag upgrade proposal (Assumed -> Direct)
+PASS refused: Direct without source ref, Calculated without derivation, Missing with a value, unknown Data Source  [Direct value without a source ref; Calculated value without its derivation in Notes; Missing — Flagged with a value; unknown Data Source 'guess']
+PASS Missing — Flagged ("NOT FOUND") where the description has a Direct value: a query
+PASS a unit different from the description's is refused (no silent conversion)
+PASS an unknown path is listed as a new path for the engineer, not written
+PASS a workbook without the Values sheet is refused, naming its sheets
+FAIL --apply: the override is proposed through propose_override (next revision, decision D-98 proposed); the current value is unchanged  [ schema: Additional properties are not allowed ('replace_with' was unexpected) at analysis/grillage/rows/4/original/source
+  schema: 'replace_with' is a required property at analysis/grillage/rows/4
 
 ]
 
-10 passed, 0 failed
+9 passed, 1 failed
 ```
 
 ### decisions P5.4
@@ -678,9 +745,9 @@ Applied: 1 proposal(s) under D-98 (status proposed).
 PASS the girder-check record (layers incl. design.supert) is now stale, the geometry record is not  [r15 D-42 affects ['design.supert']]
 PASS the Query Register drops the accepted proposals (D-42 rows no longer 'proposed')
 PASS a decision already accepted cannot be decided again
-PASS accept D-34 (override proposal): the override becomes current (value, tag), approval recorded, rules pass  [/tmp/tmp5is3d74p/BR13A.bridge.0.2.json: revision 16: D-34 accepted by Test Engineer (2 override(s), 0 record(s)); previous kept at ../../../tmp/tmp5is3d74p/history/BR13A.bridge.0.2.r15.json
+PASS accept D-34 (override proposal): the override becomes current (value, tag), approval recorded, rules pass  [/tmp/tmp2f3641ul/BR13A.bridge.0.2.json: revision 16: D-34 accepted by Test Engineer (2 override(s), 0 record(s)); previous kept at ../../../tmp/tmp2f3641ul/history/BR13A.bridge.0.2.r15.json
 ]
-PASS reject D-39: approval rejected, current value unchanged, log entry rejected  [/tmp/tmp5is3d74p/BR13A.bridge.0.2.json: revision 17: D-39 rejected by Test Engineer (0 override(s), 8 record(s)); previous kept at ../../../tmp/tmp5is3d74p/history/BR13A.bridge.0.2.r16.json
+PASS reject D-39: approval rejected, current value unchanged, log entry rejected  [/tmp/tmp2f3641ul/BR13A.bridge.0.2.json: revision 17: D-39 rejected by Test Engineer (0 override(s), 8 record(s)); previous kept at ../../../tmp/tmp2f3641ul/history/BR13A.bridge.0.2.r16.json
 ]
 PASS register after the decisions: no item proposed under D-34 / D-39 / D-42
 PASS history keeps every previous revision
@@ -826,45 +893,48 @@ PASS record carries the provisional inputs and the unverified-standards label
 ### girder SLS P4.5
 
 ```
-PASS stage 1: each strand carries its effective prestress (losses analysis) under prestress + Mnc, girder alone (1e-3 MPa)  [Mnc 2921 kN m]
 PASS soffit stress is 0 at the decompression moment and f'ct.f at the cracking moment (1e-6 MPa)
 PASS uncracked composite increment: soffit stress changes by dM (D - yc) / I (transformed, girder modulus; 1e-3)  [1.2744 vs 1.2744 MPa]
 PASS Muo,min = k Mcr (sagging) / k McrH (hogging); Mcr > Mdec > Mnc-free decompression ordering (Mdec < Mcr - Mnc)  [Mdec 4637, Mcr 9222, McrH 322 kN m]
 PASS allowable moment above decompression; increments at Mal at the limit (one of fscr / ftcr reached within 0.5 MPa)  [Mal 8322; dsb 200.0, dsp 200.0]
-PASS port = dashboard dgLC: Mdec, Mal, MdecT, MalT, Mcr, McrH, phi Mu, Muo on 4 load cases (sagging, axial + free strains, hogging, compression; 0.05 kN m)  [max diff 2.07e-02 kN m (LC4 Mal)]
-PASS port = dashboard: stage-1 girder stresses, uncracked and cracked composite fibre stresses at Ms (1e-4 MPa)  [2.0e-09 / 5.5e-09 / 1.6e-08 MPa]
-PASS port = dashboard: uncracked flag, uS, uST, Muo,min, phi, kuo, Nub, increments at Ms
-PASS phi: compression load case between phi_compression and its bending phi; no axial force -> bending phi of kuo  [0.800 / 0.800 / 0.771]
-PASS gradient profile lookup = the dashboard's dgProfAt (linear, 0 outside, repeated depth)  [[0, 32, 23.25, 14.5, 9.75, 5, 2.997, 1.263, 0, 0]]
-
-11 passed, 0 failed
+Traceback (most recent call last):
+  File "/home/claude/pdf2bim-platform/tests/design/test_girder_sls.py", line 102, in <module>
+    J = json.loads(subprocess.run(["node", "-e", js, R], input=json.dumps({"X": X, "LC": LC}), capture_output=True, text=True, check=True).stdout)
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['node', '-e', "\nglobal.DSG=require(process.argv[1]+'/src/dsg_engine.js'); global.DSG2=require(process.argv[1]+'/src/dsg_engine2.js');\nglobal.DG={nb:80, det:{}, detS:{}};\nconst s=require('fs').readFileSync(process.argv[1]+'/dist/BR13A_grillage_dashboard.html','utf8'); const i=s.indexOf('function dgLC(X, B, lc){'); const j=s.indexOf('\\n}\\n',i)+2;\neval(s.slice(i,j).replace('function dgLC(X, B, lc){','global.dgLC=function(X, B, lc){'));\nconst inp=JSON.parse(require('fs').readFileSync(0,'utf8')), X=inp.X, I=X.info, S=X.S;\nconst Sg={conc:S.conc.filter(c=>c.grp==='g'), bars:S.bars.filter(b=>b.grp==='g'), tend:S.tend};\nconst B={I:I, D:I.tD+I.H, eg:DSG.elastic(Sg,I.Eg), ec:DSG.elastic(S,I.Eg), fctfg:0.6*Math.sqrt(I.fcg), fctfd:0.6*Math.sqrt(I.fcd), fct25:0.25*Math.sqrt(I.fcg), dv:()=>0, dres:()=>0, geo:{ok:false, why:'n/a'}};\nconst fT=y=>1.0e-4*Math.max(0,1-y/300);\nconst out=inp.LC.map(lc=>{ if(lc.free) lc.free={T:fT, sh:-1.5e-4}; const o=dgLC(X,B,lc);\n  return {Mdec:o.Mdec, Mal:o.Mal, MdecT:o.MdecT, MalT:o.MalT, Mcr:o.Mcr, McrH:o.McrH, uS:o.uS, uST:o.uST, uncr:o.uncr, Muomin:o.Muomin, phiMu:o.phiMu, Muo:o.Muo, phi:o.phi, kuo:o.kuo, Nub:o.Nub,\n    g1top:o.g1top, g1bot:o.g1bot, sv:[o.sv.deckTop,o.sv.deckBot,o.sv.girTop,o.sv.girBot], sc:[o.sc.deckTop,o.sc.deckBot,o.sc.girTop,o.sc.girBot], incb:o.inc.b, inct:o.inc.t, dna:o.dna}; });\nconsole.log(JSON.stringify(out));\n", '/home/claude/pdf2bim-platform']' returned non-zero exit status 1.
 ```
 
 ### girder checks P4.5
 
 ```
-PASS free strains of the record: deck differential shrinkage = the losses analysis value; gradient factor from the governing SLS row (TGP > 0)  [eps -79.6e-6, f_TGP 0.5]
 PASS midspan G2: the recorded staged SLS / minimum strength / ULS result is reproduced live from its recorded actions (1e-9)  [0.0e+00]
 PASS Mnc at midspan = SLS factor x simple-span moment of (rho A + wd) on the bearings (closed form, 1e-9)  [2920.8 kN m]
-PASS every station: uS = Ms / Mal, uB = M* / phi Mu, Muo,min = k Mcr, uncracked flag = soffit <= k sqrt(f'c)
-PASS every station: 0 < Mdec < Mal and Mdec < Mcr - Mnc (decompression before cracking)
-PASS Mnc symmetric about midspan and largest there (simple span)
-PASS the governing ULS station of each girder lies in the middle half  [{'G1': 0.5, 'G2': 0.5, 'G3': 0.5, 'G4': 0.5}]
-PASS record carries the provisional inputs, the unverified-standards label and the not-checked notes
-
-8 passed, 0 failed
+Traceback (most recent call last):
+  File "/home/claude/pdf2bim-platform/tests/design/test_girder_checks.py", line 66, in <module>
+    all(abs(x["sag"]["uS"] - x["sag"]["Ms"] / x["sag"]["Mal"]) < 1e-12 and abs(x["sag"]["uB"] - abs(x["sag"]["Mu"]) / x["sag"]["phiMu"]) < 1e-12
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and abs(x["sag"]["Muo_min"] - kmin * x["sag"]["Mcr"]) < 1e-9 and x["sag"]["uncracked"] == (x["sag"]["soffit_sls"] <= fct) for _, x in rows))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pdf2bim-platform/tests/design/test_girder_checks.py", line 66, in <genexpr>
+    all(abs(x["sag"]["uS"] - x["sag"]["Ms"] / x["sag"]["Mal"]) < 1e-12 and abs(x["sag"]["uB"] - abs(x["sag"]["Mu"]) / x["sag"]["phiMu"]) < 1e-12
+            ~~~~~~~~^^^^^^
+KeyError: 'uS'
 ```
 
 ### girder shear P4.5
 
 ```
-PASS box geometry = the dashboard's dgGeo (Aoh, uh, y1, Acp, uc, bv; Ao without haunch; 1e-12)  [0.0e+00]
-PASS vertical webs (n -> infinity): Acp = Bb Dc, uc = 2 (Bb + Dc) (closed form)
-PASS a haunch lifts the deck mid-plane: Ao grows, the tie height y1 grows by the haunch
-PASS section data: dv = max(0.72 D, 0.9 d_res) (yield-force weighted), Asv/s = legs pi d^2 / 4 / s, tension-half Ast, Apt, Act, spo = Ep pre0
-PASS BR13A record: every open station has a shear / torsion result, u = max(uCr, uV, uT, uL)  [36 stations]
-
-5 passed, 0 failed
+Traceback (most recent call last):
+  File "/home/claude/pdf2bim-platform/tests/design/test_girder_shear.py", line 27, in <module>
+    J = json.loads(subprocess.run(["node", "-e", js, R], input=json.dumps({"P": P, "cases": cases}), capture_output=True, text=True, check=True).stdout)
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['node', '-e', "\nconst s=require('fs').readFileSync(process.argv[1]+'/dist/BR13A_grillage_dashboard.html','utf8'); const i=s.indexOf('function dgGeo('); const j=s.indexOf('\\n}\\n',i)+2;\nglobal.DG={det:{},detS:{}}; eval(s.slice(i,j).replace('function dgGeo(','global.dgGeo=function('));\nconst q=JSON.parse(require('fs').readFileSync(0,'utf8'));\nconsole.log(JSON.stringify(q.cases.map(c=>{ DG.det={cs:c[2],ct:c[3],tvd:c[4]}; const X={P:q.P,info:{H:q.P.D,tD:c[0]+c[1]},solid:false}; const g=dgGeo(X,c[0]+c[1]+q.P.D); return {Ao:g.Ao,Aoh:g.Aoh,uh:g.uh,y1:g.y1,Acp:g.Acp,uc:g.uc,bv:g.bv,ok:g.ok}; })));\n", '/home/claude/pdf2bim-platform']' returned non-zero exit status 1.
 ```
 
 ### baseline (fast)

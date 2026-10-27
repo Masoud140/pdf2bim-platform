@@ -16162,8 +16162,7 @@
           "tag": "Assumed",
           "status": "accepted",
           "source": {
-            "note": "Grillage torsion stiffness factor applied to composite Super-T J_geometric. 1.0 = full FD closed-cell value (conservative, may over-estimate torsional distribution). Hambly (grillage_modelling_reference Annex B) suggests ~0.5 for box girders. Changeable: set to 0.5 for Hambly equivalent. Assumed / Model per ADR-040.",
-            "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement."
+            "note": "Torsion stiffness factor on Super-T composite J. Default 1.0 (full FD value). Hambly Annex B ~0.5 for boxes. Assumed per ADR-040."
           },
           "original": {
             "cells": {
@@ -16175,11 +16174,13 @@
             "recorded_by": "P4-6 grillage torsion (2026-10-26)",
             "recorded_at": null,
             "source": {
-              "note": "Torsion stiffness factor on Super-T composite J. Default 1.0 (full FD value). Hambly Annex B ~0.5 for boxes. Assumed per ADR-040.",
-              "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement."
-            }
+              "note": "Torsion stiffness factor on Super-T composite J. Default 1.0 (full FD value). Hambly Annex B ~0.5 for boxes. Assumed per ADR-040."
+            },
+            "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement."
           },
-          "current": "original"
+          "current": "original",
+          "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement.",
+          "decision": "D-47"
         }
       ]
     },
@@ -33142,6 +33143,6 @@
     "algorithm": "sha256",
     "covers": "document-without-hash",
     "canonicalisation": "pdf2bim-c14n/1",
-    "value": "sha256:9e8d6e97f66401a94851a70dac6e5ad05cd72cb52cf8d3459c88b4559d6e4a2d"
+    "value": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c"
   }
 }
