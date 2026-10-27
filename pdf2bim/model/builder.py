@@ -280,7 +280,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         mid_[0] += 1
         Ex = E if E is not None else Ed
         off = ((0.0, 0.0, dz), (0.0, 0.0, dz)) if deck_top and dz else None
-        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role, off=off)
+        rel = [{"i": 0, "j": 6}[k] + {"Iy": 4}[v] for k, v in (releases or {}).items()]   # solver Iy = local My (dof 4 / 10)
+        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role, off=off, rel=rel)
         rec = {"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
                "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape"), "off": off}
         if releases:

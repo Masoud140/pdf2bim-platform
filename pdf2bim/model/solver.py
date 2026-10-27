@@ -91,10 +91,12 @@ class Model:
     def node(self, i, x, y, z):
         self.nodes[i] = np.array([x, y, z], float)
 
-    def beam(self, i, n1, n2, E, nu, A, Iy, Iz, J, Asy=None, Asz=None, w=0.0, role="", off=None, **meta):
+    def beam(self, i, n1, n2, E, nu, A, Iy, Iz, J, Asy=None, Asz=None, w=0.0, role="", off=None, rel=None, **meta):
         """off = (o1, o2): rigid end offsets, global vectors from each node to the element end (section centroid), as a
-        MIDAS section offset; None = element on the node line."""
-        self.beams[i] = dict(n1=n1, n2=n2, E=E, G=E / (2 * (1 + nu)), A=A, Iy=Iy, Iz=Iz, J=J, Asy=Asy, Asz=Asz, w=w, role=role, off=off, **meta)
+        MIDAS section offset; None = element on the node line. rel: local end dofs released (0-11; 4 / 10 = My at i / j,
+        vertical bending), as MIDAS *FRAME-RLS: condensed out, so the element carries zero force in them."""
+        self.beams[i] = dict(n1=n1, n2=n2, E=E, G=E / (2 * (1 + nu)), A=A, Iy=Iy, Iz=Iz, J=J, Asy=Asy, Asz=Asz, w=w, role=role, off=off,
+                             rel=tuple(rel) if rel else None, **meta)
 
     def link(self, i, n1, n2, k, axes=None, beta=None, dry=0.5, drz=0.5, role="link", **meta):
         """Elastic link (MIDAS GEN type). k = (kx, ky, kz, krx, kry, krz) in link axes.
@@ -142,6 +144,13 @@ class Model:
             Kg = T.T @ K @ T
             q = R @ (g * e["w"])
             fl = fef_uniform(q, L)
+            if e.get("rel"):   # static condensation of the released dofs
+                c = list(e["rel"]); k_ = [j for j in range(12) if j not in c]
+                Kcc_inv = np.linalg.inv(K[np.ix_(c, c)])
+                Kc = np.zeros((12, 12)); Kc[np.ix_(k_, k_)] = K[np.ix_(k_, k_)] - K[np.ix_(k_, c)] @ Kcc_inv @ K[np.ix_(c, k_)]
+                fc = np.zeros(12); fc[k_] = fl[k_] - K[np.ix_(k_, c)] @ Kcc_inv @ fl[c]
+                K, fl = Kc, fc
+                Kg = T.T @ K @ T
             if eid in imposed:
                 fl = fl + K @ np.asarray(imposed[eid], float)
             dofs = [DOF * idx[e["n1"]] + k for k in range(6)] + [DOF * idx[e["n2"]] + k for k in range(6)]

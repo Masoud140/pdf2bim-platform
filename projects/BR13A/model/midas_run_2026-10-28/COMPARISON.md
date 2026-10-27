@@ -19,4 +19,15 @@
 
 **Verified by this run:** MCT syntax of every block written (incl. *ELASTICLINK, *SPRING, *FRAME-RLS, *SECT-SCALE, COMPOSITE-GEN, DBUSER SR, section offset CT); geometry, supports, links, springs, self weight and the substructure response.
 
-**Open (superstructure transverse distribution):** the cross-girder / slab moments and the edge-vs-web deflection pattern differ more than the global response. Likely cause: MIDAS recalculating section stiffness itself (composite J / shear areas from the polygons, or DBUSER J / shear areas for the deck strips and cross girders) rather than using the written values. Next check: MIDAS section property table for one composite girder, the deck strip (S53) and the cross girder (S57) vs `BR13A.integrated.mct`.
+**Resolved (same day):** the transverse differences were a platform solver bug, not MIDAS. Since ADR-042 the builder recorded the
+rigid-arm moment releases and the .mct wrote them (*FRAME-RLS), but the solver never applied them. MIDAS section properties were
+confirmed equal to the written values (owner screenshots: S16 composite, S53 slab, S57 cross girder). After adding releases to the
+solver (static condensation):
+
+| Check (SW, all 459 nodes / 696 elements) | Result |
+|---|---|
+| Worst nodal translation difference | 0.013 mm (max deflection 19.10 mm both) |
+| Worst element end-force difference, any component | 12.3 kN·m on 2793 (girder My, 0.4 %); all others ≤ 5 kN |
+| Sign convention | MIDAS local My = − solver My; all other components equal |
+
+Regression test: `tests/model/test_midas_run.py` (fails, by design, whenever the model changes: re-run MIDAS and replace the evidence).

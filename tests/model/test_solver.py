@@ -79,5 +79,11 @@ def _ecc(explicit):
 ue, uo = _ecc(True), _ecc(False)
 t("rigid end offsets: offset beam equals explicit stiff stubs (axial load creates bending through the eccentricity)",
   abs(ue - uo).max() <= 1e-5 * abs(ue).max() and abs(uo[4]) > 1e-6, f"{abs(ue - uo).max():.2e}")
+# moment release (ADR-042, as MIDAS *FRAME-RLS): fixed - released-My beam under self weight = propped cantilever
+m = Model(); m.node(1, 0, 0, 0); m.node(2, 8, 0, 0)
+m.beam(1, 1, 2, 3e7, 0.2, 0.5, 0.04, 0.05, 0.02, w=10.0, rel=(10,)); m.fix(1); m.fix(2)
+rr = m.solve(); fe = m.end_forces(1)
+t("moment release: released end carries no My, its reaction = 3wL/8 (propped cantilever), fixed end My = wL^2/8",
+  abs(fe[10]) < 1e-9 and abs(rr["reactions"][2][2] - 3 * 10 * 8 / 8) < 1e-6 and abs(abs(fe[4]) - 10 * 64 / 8) < 1e-6, f"{rr['reactions'][2][2]:.4f}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)
