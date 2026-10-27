@@ -12,6 +12,7 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 | *UNIT, *NODE, *ELEMENT BEAM, *MATERIAL USER (name <= 16 chars) | verified | MCT_EXPORT_METHOD §1 |
 | *SECTION DBUSER SB rectangle (H, B) | verified | §1 |
 | *SECTION DBUSER SR solid circle (D) | from the engineer's native BR13B model (2026-10-28); import of a generated file not yet confirmed | §1 |
+| *SECT-PSCVALUE COMPOSITE-GEN (girder + deck, polygons) | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | §1, §1c |
 | *SECT-SCALE (IXX_SF only; group in *BNDR-GROUP) | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | §1 |
 | *SECTION VALUE (4 lines, ..., YES, NO, SB, ROLL) | import-verified, shape not drawn | §1 error log; first-case v8 file |
 | *BNDR-GROUP, *LOAD-GROUP | UNVERIFIED | added 2026-10-26 after the engineer's import gave a run error on the first *CONSTRAINT line (group not declared); awaits re-import |
@@ -28,7 +29,7 @@ Content rules:
   material whose density = w / A (one material per distinct (E, density));
 - sections: members with shape ('rect', H, B) -> DBUSER SB, ('circle', D) -> DBUSER SR (MIDAS computes A, I, J, shear areas itself; its J and shear
   areas can differ slightly from the solver's); every other member -> VALUE with the solver's A, Asy, Asz, J, Iy, Iz
-  (stiffness only: no stress recovery points; composite girders are NOT written as COMPOSITE-GEN yet);
+  (stiffness only: no stress recovery points; composite girders -> *SECT-PSCVALUE COMPOSITE-GEN, girder + deck polygons, sum-of-parts = solver values);
 - section offset: CC for all sections (both DBUSER and VALUE). The grillage is planar; CT (top-of-section) would add an
   eccentricity that the model does not intend. Changed DBUSER to CC 2026-10-26.
 """
@@ -45,6 +46,51 @@ def _num(v):
 
 def _node_list(ids):
     return " ".join(str(i) for i in ids)
+
+
+def _composite_gen(i, nm, shp, b):
+    """One COMPOSITE-GEN section: girder (part 1, main) + deck (part 2). Sum-of-parts stiffness = the solver's values."""
+    from pdf2bim.sections.polygon import Part, props
+    from .builder import _rect_J
+    _, girder, deck, Ed, Jg, asz_g = shp
+    nu = b["E"] / (2 * b["G"]) - 1
+    g = [(x / 1000, y / 1000) for x, y in girder]
+    d = [(x / 1000, y / 1000) for x, y in deck]
+    xs, ys = [q[0] for q in g + d], [q[1] for q in g + d]
+    x0, y0 = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
+    xl, zb = min(xs), min(ys)
+    ccw = lambda P: P if sum(P[k][0] * P[k - 1][1] - P[k - 1][0] * P[k][1] for k in range(len(P))) <= 0 else P[::-1]
+    g, d = ccw([(x - x0, y - y0) for x, y in g]), ccw([(x - x0, y - y0) for x, y in d])
+    f = lambda *v: ", ".join(f"{x:.9g}" for x in v)
+
+    def fibres(P, cx, cz):   # STIFF2 / STIFF3 of the part extents about (cx, cz) in polygon coordinates
+        px, pz = [q[0] for q in P], [q[1] for q in P]
+        per = sum(math.dist(P[k], P[k - 1]) for k in range(len(P)))
+        cyp, cym, czp, czm = max(px) - cx, cx - min(px), max(pz) - cz, cz - min(pz)
+        return ([cyp, cym, czp, czm, 0, 0, per, 0, cx + x0 - xl, cz + y0 - zb],
+                [-cym, cyp, cyp, -cym, czp, czp, -czm, -czm])
+
+    pg, pd = props([Part(g)]), props([Part(d)])
+    Ag, Ad = pg["A"], pd["A"]
+    hd, bd = max(q[1] for q in d) - min(q[1] for q in d), max(q[0] for q in d) - min(q[0] for q in d)
+    s1g = [Ag, Ag, asz_g, asz_g, Jg, pg["Ix"], pg["Iy"]]
+    s1d = [Ad, Ad, 5 / 6 * Ad, 5 / 6 * Ad, _rect_J(bd, hd), pd["Ix"], pd["Iy"]]
+    s1c = [b["A"], b["A"], b["Asy"] or 0, b["Asz"] or 0, b["J"], b["Iy"], b["Iz"]]
+    n = Ed / b["E"]
+    cz = (Ag * pg["yc"] + n * Ad * pd["yc"]) / (Ag + n * Ad)
+    cx = (Ag * pg["xc"] + n * Ad * pd["xc"]) / (Ag + n * Ad)
+    a2g, a3g = fibres(g, pg["xc"], pg["yc"]); a2d, a3d = fibres(d, pd["xc"], pd["yc"]); a2c, a3c = fibres(g, cx, cz)
+
+    def poly(P):
+        flat = [f"{x:.9g}, {y:.9g}" for x, y in P]   # 9 digits: polygon area to < 1 mm2 (MCT_EXPORT_METHOD §2 rule 5)
+        rows = [flat[:6]] + [flat[k:k + 4] for k in range(6, len(flat), 4)]
+        return ["       OPOLY=" + ", ".join(rows[0])] + ["             " + ", ".join(r) for r in rows[1:]]
+
+    W = lambda r: "       " + f(*r)
+    L = [f" SECT= {i}, COMPOSITE-GEN, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, CP_G, YES, YES, 1",
+         "       PART=1", W(s1g), W(a2g), W(a3g), W(s1g), W(a2g), W(a3g), f"       1, YES, YES, {b['E']:.6g}, {nu:g}"] + poly(g)
+    L += ["       PART=2", W(s1d), W(a2d), W(a3d), W(s1c), W(a2c), W(a3c), f"       1, NO, YES, {Ed:.6g}, {nu:g}"] + poly(d)
+    return L
 
 
 def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True):
@@ -64,7 +110,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
             mats[key] = len(mats) + 1
         mat_of[eid] = mats[key]
     # ---- sections ----
-    secs, sec_of, sec_def = {}, {}, {}
+    secs, sec_of, sec_def, comp_of = {}, {}, {}, {}
     for eid, b in m.beams.items():
         mem = members.get(eid, {})
         shp = mem.get("shape")
@@ -75,6 +121,9 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
             key = ("rect", round(H, 6), round(B, 6), 1.0 if abs(sf - 1) < 1e-6 else sf)
         elif shp and shp[0] == "circle":
             key = ("circle", round(shp[1], 6))
+        elif shp and shp[0] == "composite":
+            key = ("comp",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"])) + (id(shp[1]), id(shp[2]))
+            comp_of[key] = (shp, b)
         else:
             key = ("value",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"]))   # as written
         if key not in secs:
@@ -123,11 +172,23 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for (E, nu, dens), i in sorted(mats.items(), key=lambda q: q[1]):
         name = f"M{i}_E{E / 1e6:.1f}_d{dens:.1f}"[:16]
         L.append(f"   {i}, USER, {name}, 0, 0, , C, NO, 0.05, 2, {E:.0f}, {nu:g}, 1.000e-5, {dens:.6g}, 0")
+    cs = [(i, k) for i, (k, _) in sorted(sec_def.items()) if k[0] == "comp"]
+    if cs:   # syntax from the engineer's native BR13B model (2026-10-28); generated-file import not yet confirmed
+        L += ["*SECT-PSCVALUE    ; Composite General: part 1 girder (main), part 2 deck; m, kN/m2",
+              "; per part: STIFF1 (A, WAREA, Asy, Asz, Ixx, Iyy, Izz) / STIFF2 / STIFF3 for the part, then the same for the sum of parts,",
+              ";   then iMAT-type, bMAIN, YES, E, POISN, OPOLY. Sum-of-parts STIFF1 = the solver's section exactly (WAREA = A so",
+              ";   self weight = density x A whichever area MIDAS uses). Polygons: about the bounding-box centre of all parts."]
+        for i, k in cs:
+            shp, b = comp_of[k]
+            L += _composite_gen(i, f"S{i}_girder"[:16], shp, b)
+        L.append("")
     L += ["*SECTION", "; iSEC, TYPE, SNAME, [OFFSET], bSD, bWE, SHAPE, [DATA1]",
           "; VALUE = 4 lines: header / Area, Asy, Asz, Ixx(torsion J), Iyy, Izz (m2, m4) / CyP..Cz / Y1..Z4 (stress points not populated)"]
     for i in sorted(sec_def):
         key, role = sec_def[i]
         nm = f"S{i}_{role}"[:16]
+        if key[0] == "comp":
+            continue   # written in *SECT-PSCVALUE, not repeated here
         if key[0] == "rect":
             L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
         elif key[0] == "circle":   # solid round, D; syntax from the engineer's native BR13B export (2026-10-28)
@@ -236,6 +297,17 @@ def read_mct(text):
             out["secs"][int(p[0])] = {"A": A, "Asy": 0.9 * A, "Asz": 0.9 * A, "J": 2 * I, "Iy": I, "Iz": I}; i += 1   # 0.9 = substructure.PILE_ASHEAR
         else:
             raise ValueError(f"section line not understood: {b[i]}")
+    pv = blocks.get("*SECT-PSCVALUE", [])
+    for k, l in enumerate(pv):   # COMPOSITE-GEN: the sum-of-parts STIFF1 follows the last PART's 3 part lines
+        if l.strip().startswith("SECT="):
+            sid = int(sp(l.split("=", 1)[1])[0])
+            j = k + 1
+            while j < len(pv) and not pv[j].strip().startswith("SECT="):
+                if pv[j].strip().startswith("PART="):
+                    last = j
+                j += 1
+            v = [float(x) for x in sp(pv[last + 4])]
+            out["secs"][sid] = dict(zip(("A", "Asy", "Asz", "J", "Iy", "Iz"), (v[0],) + tuple(v[2:7])))
     for l in blocks.get("*SECT-SCALE", []):
         p = sp(l)
         sec = out["secs"][int(p[0])]

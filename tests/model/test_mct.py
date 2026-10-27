@@ -54,13 +54,16 @@ dxy = max(max(abs(Rd["nodes"][i][0] + base[0] - M["model"].nodes[inv[i]][0]), ab
 t("every node written to 0.01 mm (5 decimals in m)", dxy <= 5e-6 + 1e-9, f"{dxy * 1000:.4f} mm")
 t("counts: nodes, elements, links, springs, supports equal the model", (len(Rd["nodes"]), len(Rd["els"]), len(Rd["links"]), len(Rd["springs"]), sum(len(i) for i, _ in Rd["cons"]))
   == (len(M["model"].nodes), len(M["model"].beams), len(M["model"].links), len(M["model"].springs), len(M["model"].fixed)))
-names = [m_["name"] for m_ in Rd["mats"].values()] + re.findall(r"^\s+\d+, (?:VALUE|DBUSER), ([^,]+),", txt, re.M)
+names = [m_["name"] for m_ in Rd["mats"].values()] + re.findall(r"^\s+\d+, (?:VALUE|DBUSER), ([^,]+),", txt, re.M) + re.findall(r"SECT= *\d+, COMPOSITE-GEN, ([^,]+),", txt)
 t("material and section names at most 16 characters (MIDAS limit)", all(len(n.strip()) <= 16 for n in names), str(max(len(n.strip()) for n in names)))
 t("piles written as DBUSER SR solid circle (native BR13B syntax), not VALUE", re.search(r"DBUSER, [^,]+, CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, 1.05, 0, 0, 0, 0, 0, 0, 0, 0, 0$", txt, re.M) is not None)
 sl = [i for i, x in enumerate(M["members"]) if x.get("role") == "slab"]
 t("deck strips drawn (DBUSER SB) with J kept by *SECT-SCALE: read-back J = written J",
   sl and all(abs(Rd["secs"][Rd["els"][rep["element_map"][M["members"][i]["id"]]][1]]["J"] / M["model"].beams[M["members"][i]["id"]]["J"] - 1) < 1e-5 for i in sl)
   and "*SECT-SCALE" in txt and not re.search(r"VALUE, S\d+_slab", txt))
+t("composite girders written as COMPOSITE-GEN (girder + deck polygons), none left as VALUE",
+  txt.count("COMPOSITE-GEN, S") == len({rep["element_map"][x["id"]] for x in M["members"] if x["role"] == "girder"} and {Rd["els"][rep["element_map"][x["id"]]][1] for x in M["members"] if x["role"] == "girder"})
+  and not re.search(r"VALUE, S\d+_girder", txt) and txt.count("OPOLY=") == 2 * txt.count("COMPOSITE-GEN, S"))
 t("file is plain ASCII", all(ord(c) < 128 for c in txt))
 t("unverified blocks are marked in the file and listed in the report", rep["unverified_blocks"] == ["*BEAMEND", "*ELASTICLINK", "*SPRING"]
   and txt.count("UNVERIFIED SYNTAX") == 3 and "NEEDS ENGINEER IMPORT TEST" in rep["status"])

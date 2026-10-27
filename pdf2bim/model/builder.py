@@ -299,6 +299,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 C, Gg = se["composite"], se["girder"]
                 gross = Gg["A"] / 1e6 + (se["deck_left"] + se["deck_right"]) / 1000 * tD
                 asz = (Gg["A"] * 5 / 6) / 1e6
+                poly = se
             else:
                 tt = (xm - bo_a) / g["chord_length_bearings"]
                 C = _interp_station(st, tt, "composite")
@@ -306,9 +307,11 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 dw = _interp_station([{"t": s["t"], "d": {"w": (s["deck_left"] + s["deck_right"]) / 1000}} for s in st], tt, "d")["w"]
                 gross = Gg["A"] / 1e6 + dw * tD
                 asz = Asz
+                poly = min(st, key=lambda s_: abs(s_["t"] - tt))   # drawing only: nearest station outline
             sec = {"A": C["A_transformed"] / 1e6, "Iy": C["Ix"] / 1e12, "Iz": C["Iy"] / 1e12,
                    "J": C["J_geometric"] / 1e12 * girder_J_factor,  # Assumed/Model: ADR-040; see analysis.grillage girder_J_factor
-                   "Asy": None, "Asz": asz}
+                   "Asy": None, "Asz": asz,
+                   "shape": ("composite", poly["outline"], poly["deck"], Ed, Gg["J"] / 1e12, asz)}   # mm polygons; .mct COMPOSITE-GEN
             add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"])
 
     dummy_of = lambda gid: {k: v * DUMMY for k, v in galone[gid].items()}

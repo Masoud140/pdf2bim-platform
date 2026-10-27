@@ -88,7 +88,8 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
             J_c = torsion_J([gs["outline"], deck] + ([[(-gs["trough_half_top"], p["D"]), (gs["trough_half_top"], p["D"]), (gs["trough_half_top"], y0), (-gs["trough_half_top"], y0)]] if haunch > 0 else []), [], torsion_h)
             rows.append({"t": f["t"], "w_left": wl, "w_right": wr, "deck_left": dl, "deck_right": dr,
                          "girder": {"A": gs["A"], "yc": gs["yc"], "Ix": gs["Ix"], "Iy": gs["Iy"], "J": J_g},
-                         "composite": {"A_transformed": comp["A"], "yc": comp["yc"], "xc": comp["xc"], "Ix": comp["Ix"], "Iy": comp["Iy"], "J_geometric": J_c}})
+                         "composite": {"A_transformed": comp["A"], "yc": comp["yc"], "xc": comp["xc"], "Ix": comp["Ix"], "Iy": comp["Iy"], "J_geometric": J_c},
+                         "outline": gs["outline"], "deck": deck})
         # solid end blocks (zones): positions along the girder and the solid sections at each end
         Lg = g.get("length_end_to_end")
         zl = []
@@ -118,7 +119,7 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
             solid[end] = {"girder": {"A": ss["A"], "yc": ss["yc"], "Ix": ss["Ix"], "Iy": ss["Iy"], "J": torsion_J([ss["outline"]], [], torsion_h)},
                           "composite": {"A_transformed": comp["A"], "yc": comp["yc"], "xc": comp["xc"], "Ix": comp["Ix"], "Iy": comp["Iy"],
                                         "J_geometric": torsion_J([ss["outline"], deck], [], torsion_h)},
-                          "deck_left": dl, "deck_right": dr, "w_left": wl, "w_right": wr}
+                          "deck_left": dl, "deck_right": dr, "w_left": wl, "w_right": wr, "outline": ss["outline"], "deck": deck}
         out[g["id"]] = {"type": tkey, "type_ref": tref, "params": p, "param_source": prov, "haunch": haunch, "stations": rows,
                         "zones": zl, "solid_end": solid, "length_end_to_end": Lg}
     return {"format": "pdf2bim.sections/0.1", "units": "mm, mm^2, mm^4; y from the girder soffit; x from the girder centreline (+ right)",
