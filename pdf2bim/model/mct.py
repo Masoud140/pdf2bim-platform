@@ -68,6 +68,9 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         shp = mem.get("shape")
         if shp and shp[0] == "rect":
             key = ("rect", round(shp[1], 6), round(shp[2], 6))
+        # "circle" shape: DBUSER CC syntax not yet verified from a native MCT export (MCT_EXPORT_METHOD §0 rule).
+        # Fall through to VALUE — imports and analyses correctly; MIDAS renders as a plain line but properties are exact.
+        # To fix rendering: export one circular pile section from MIDAS Civil as MCT and confirm the DBUSER CC/CIR syntax.
         else:
             key = ("value",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"]))   # as written
         if key not in secs:

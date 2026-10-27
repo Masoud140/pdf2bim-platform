@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-28 — Generality suite run + 2 regressions fixed. girder_J_factor record: replace_with was erroneously nested inside source (not valid per $defs/source); moved to record level + original level + added D-47 decision. format_0_2 now 48/48, takeoff 10/10. All asserting tests match baseline (pre-existing dashboard failures unchanged). Next: P6 (second bridge, owner PDFs — blocked); re-import MCT (blocked on owner).
+**Last updated:** 2026-10-28 — Generality suite run + 2 regressions fixed. girder_J_factor record: replace_with was erroneously nested inside source (not valid per $defs/source); moved to record level + original level + added D-47 decision. format_0_2 now 48/48, takeoff 10/10. All asserting tests match baseline (pre-existing dashboard failures unchanged). Next: P6 (second bridge, owner PDFs — blocked); re-import MCT (blocked on owner). Later 2026-10-28: owner saw piles drawn as lines in MIDAS → X-3 logged; waiting on a native MCT with one circular section. Fitments parked by owner.
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
