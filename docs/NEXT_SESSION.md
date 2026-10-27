@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-27 — P4-8 done. Moment releases at rigid-arm ends: `add()` accepts `releases` param; rigid arms between main girder and W1/W2 nodes tagged with Iy release at web-line end (grillage ref §4). `*BEAMEND` block in MCT (UNVERIFIED, include_unverified gate). ADR-042 written. Commit `35b3719`. test_builder 17/17, test_mct 13/14 (1 pre-existing dashboard-parser skip) PASS. Next: fitments (D-1, D-45).
+**Last updated:** 2026-10-28 — P4-9 done. girder_checks regenerated (solid-end + J=1.0 in effect); viewer rebuilt with `build_viewer.py` (new repeatable script). extract2.py fixed (was hard-coded old scratchpad path). Commit `13d46ef`. Next: fitments awaiting drawings (D-45 Assumed); or P6 (second bridge owner to supply).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -51,7 +51,7 @@ If this file and the repository disagree, the repository wins: fix this file. **
 0. **Owner instruction 2026-10-26 (ADR-040):** BR13A is for software development; assume reasonable code / practice values where the drawings are silent, keep them changeable (Assumed + replace_with, Query Register). D-34 … D-46 accepted; no proposed decisions; tools run without `--allow-proposed`.
 1. **Fitments (D-1, D-45):** current peak u=2.79 governed by uV from torsion; solid-end stations now checked (low u). Awaiting actual fitment schedule from drawings (D-45 is Assumed N12 2L @ 100/200; D-1 Assumed).
 2. **Moment releases at rigid-arm ends:** DONE (`35b3719`, ADR-042).
-3. **Viewer / dashboard refresh** from the new outputs (`tools/viewer/`, the status dashboard artifact).
+3. **Viewer / dashboard refresh DONE** (`13d46ef`): girder_checks regenerated; viewer rebuilt via new `build_viewer.py`.
 4. **P6:** a second single-span Super-T from its PDFs (owner to supply).
 5. Keep the generality guard green. Full suite ≈ 80 min.
 
