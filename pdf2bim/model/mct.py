@@ -293,6 +293,11 @@ def read_mct(text):
             out["secs"][int(p[0])] = {"A": A, "Asy": 0.9 * A, "Asz": 0.9 * A, "J": 2 * I, "Iy": I, "Iz": I}; i += 1   # 0.9 = substructure.PILE_ASHEAR
         else:
             raise ValueError(f"section line not understood: {b[i]}")
+    fr = blocks.get("*FRAME-RLS", [])
+    out["rels"] = {}
+    for k in range(0, len(fr), 2):   # two lines per element: i flags, j flags + group
+        e, fi, fj = int(sp(fr[k])[0]), sp(fr[k])[2], sp(fr[k + 1])[0]
+        out["rels"][e] = tuple([j for j, c in enumerate(fi) if c == "1"] + [6 + j for j, c in enumerate(fj) if c == "1"])
     pv = blocks.get("*SECT-PSCVALUE", [])
     for k, l in enumerate(pv):   # COMPOSITE-GEN: the sum-of-parts STIFF1 follows the last PART's 3 part lines
         if l.strip().startswith("SECT="):

@@ -29,7 +29,7 @@ def rebuild(Rd, base):
     for e, (mt, sc, n1, n2) in Rd["els"].items():
         a, s = Rd["mats"][mt], Rd["secs"][sc]
         m.beam(e, n1, n2, a["E"], a["nu"], s["A"], s["Iy"], s["Iz"], s["J"], s["Asy"] or None, s["Asz"] or None, w=a["den"] * s["A"],
-               off=((0, 0, s["dz"]), (0, 0, s["dz"])) if s.get("dz") else None)
+               off=((0, 0, s["dz"]), (0, 0, s["dz"])) if s.get("dz") else None, rel=Rd["rels"].get(e))
     for i, l in enumerate(Rd["links"], 1):
         m.link(i, l["n1"], l["n2"], l["k"], beta=l["beta"], dry=l["dry"], drz=l["drz"])
     for n, k in Rd["springs"]:
@@ -72,7 +72,11 @@ m2 = rebuild(Rd, base)
 r1 = M["model"].solve(); r2 = m2.solve(gravity=Rd["selfweight"])
 U1 = np.concatenate([r1["u"][inv[n]] for n in sorted(inv)]); U2 = np.concatenate([r2["u"][n] for n in sorted(inv)])
 t("round trip (write -> read -> solve): self weight equal to 1e-6 relative", abs(r1["applied"][2] / r2["applied"][2] - 1) < 1e-6, f"{r1['applied'][2]:.4f} vs {r2['applied'][2]:.4f}")
-t("round trip: every displacement equal to 1e-5 of the largest (written precision)", abs(U1 - U2).max() <= 1e-5 * abs(U1).max(), f"{abs(U1 - U2).max() / abs(U1).max():.1e}")
+Tr = np.tile([1, 1, 1, 0, 0, 0], len(inv)).astype(bool)
+t("round trip: every translation equal to 1e-5 of the largest (written precision)", abs(U1 - U2)[Tr].max() <= 1e-5 * abs(U1[Tr]).max(), f"{abs(U1 - U2)[Tr].max() / abs(U1[Tr]).max():.1e}")
+# rotations: 1e-3 — with rigid-arm releases (ADR-042) the web-line nodes' rotation about the line is held only by the nominal
+# web member's torsion (girder-alone x 1e-3), so it is ill-conditioned and meaningless; translations are what the model is read for
+t("round trip: every rotation equal to 1e-3 of the largest", abs(U1 - U2)[~Tr].max() <= 1e-3 * abs(U1[~Tr]).max(), f"{abs(U1 - U2)[~Tr].max() / abs(U1[~Tr]).max():.1e}")
 gw = [b for i, b in M["model"].beams.items() if M["members"] and next((x for x in M["members"] if x["id"] == i), {}).get("role") == "girder"]
 t("composite girders keep the GROSS weight on the transformed section (density = w / A per material)",
   all(abs(Rd["mats"][Rd["els"][rep["element_map"][i]][0]]["den"] * Rd["secs"][Rd["els"][rep["element_map"][i]][1]]["A"] - b["w"]) < 1e-5 * b["w"]
