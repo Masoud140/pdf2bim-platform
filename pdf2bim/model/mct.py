@@ -49,7 +49,7 @@ def _node_list(ids):
     return " ".join(str(i) for i in ids)
 
 
-def _composite_gen(i, nm, shp, b):
+def _composite_gen(i, nm, shp, b, ofs="CC"):
     """One COMPOSITE-GEN section: girder (part 1, main) + deck (part 2). Sum-of-parts stiffness = the solver's values."""
     from pdf2bim.sections.polygon import Part, props
     from .builder import _rect_J
@@ -88,7 +88,7 @@ def _composite_gen(i, nm, shp, b):
         return ["       OPOLY=" + ", ".join(rows[0])] + ["             " + ", ".join(r) for r in rows[1:]]
 
     W = lambda r: "       " + f(*r)
-    L = [f" SECT= {i}, COMPOSITE-GEN, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, CP_G, YES, YES, 1",
+    L = [f" SECT= {i}, COMPOSITE-GEN, {nm}, {ofs}, 0, 0, 0, 0, 0, 0, YES, NO, CP_G, YES, YES, 1",
          "       PART=1", W(s1g), W(a2g), W(a3g), W(s1g), W(a2g), W(a3g), f"       1, YES, YES, {b['E']:.6g}, {nu:g}"] + poly(g)
     L += ["       PART=2", W(s1d), W(a2d), W(a3d), W(s1c), W(a2c), W(a3c), f"       1, NO, YES, {Ed:.6g}, {nu:g}"] + poly(d)
     return L
@@ -115,15 +115,16 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for eid, b in m.beams.items():
         mem = members.get(eid, {})
         shp = mem.get("shape")
+        ofs = "CT" if mem.get("off") else "CC"   # deck-top reference (D-48): top of section on the node = the solver's offset
         if shp and shp[0] == "rect":
             H, B = shp[1], shp[2]
             from .builder import _rect_J
             sf = round(b["J"] / _rect_J(B, H), 6)   # MIDAS computes J itself; a J other than St-Venant goes via *SECT-SCALE
-            key = ("rect", round(H, 6), round(B, 6), 1.0 if abs(sf - 1) < 1e-6 else sf)
+            key = ("rect", round(H, 6), round(B, 6), 1.0 if abs(sf - 1) < 1e-6 else sf, ofs)
         elif shp and shp[0] == "circle":
             key = ("circle", round(shp[1], 6))
         elif shp and shp[0] == "composite":
-            key = ("comp",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"])) + (id(shp[1]), id(shp[2]))
+            key = ("comp",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"])) + (id(shp[1]), id(shp[2]), ofs)
             comp_of[key] = (shp, b)
         else:
             key = ("value",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"]))   # as written
@@ -170,7 +171,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
               ";   self weight = density x A whichever area MIDAS uses). Polygons: about the bounding-box centre of all parts."]
         for i, k in cs:
             shp, b = comp_of[k]
-            L += _composite_gen(i, f"S{i}_girder"[:16], shp, b)
+            L += _composite_gen(i, f"S{i}_girder"[:16], shp, b, k[-1])
         L.append("")
     L += ["*SECTION", "; iSEC, TYPE, SNAME, [OFFSET], bSD, bWE, SHAPE, [DATA1]",
           "; VALUE = 4 lines: header / Area, Asy, Asz, Ixx(torsion J), Iyy, Izz (m2, m4) / CyP..Cz / Y1..Z4 (stress points not populated)"]
@@ -180,7 +181,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         if key[0] == "comp":
             continue   # written in *SECT-PSCVALUE, not repeated here
         if key[0] == "rect":
-            L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
+            L.append(f"   {i}, DBUSER, {nm}, {key[4]}, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {key[1]:.6g}, {key[2]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0")
         elif key[0] == "circle":   # solid round, D; syntax from the engineer's native BR13B export (2026-10-28)
             L.append(f"   {i}, DBUSER, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, {key[1]:.6g}, 0, 0, 0, 0, 0, 0, 0, 0, 0")
         else:
@@ -285,6 +286,8 @@ def read_mct(text):
         elif p[1] == "DBUSER" and p[12] == "SB":
             H, B = float(p[14]), float(p[15]); A = H * B
             out["secs"][int(p[0])] = {"A": A, "Asy": 5 / 6 * A, "Asz": 5 / 6 * A, "J": _rect_J(B, H), "Iy": B * H ** 3 / 12, "Iz": H * B ** 3 / 12}; i += 1
+            if p[3] == "CT":
+                out["secs"][int(p[0])]["dz"] = -H / 2
         elif p[1] == "DBUSER" and p[12] == "SR":
             D = float(p[14]); A = math.pi * D ** 2 / 4; I = math.pi * D ** 4 / 64
             out["secs"][int(p[0])] = {"A": A, "Asy": 0.9 * A, "Asz": 0.9 * A, "J": 2 * I, "Iy": I, "Iz": I}; i += 1   # 0.9 = substructure.PILE_ASHEAR
@@ -301,6 +304,14 @@ def read_mct(text):
                 j += 1
             v = [float(x) for x in sp(pv[last + 4])]
             out["secs"][sid] = dict(zip(("A", "Asy", "Asz", "J", "Iy", "Iz"), (v[0],) + tuple(v[2:7])))
+            if sp(l.split("=", 1)[1])[3] == "CT":   # top of all parts on the node: dz = -(bbox height - sum Cz)
+                zs, inpoly = [], False
+                for q in pv[k + 1:j]:
+                    t_ = q.strip()
+                    inpoly = t_.startswith("OPOLY=") or (inpoly and not t_.startswith("PART="))
+                    if inpoly:
+                        zs += [float(x) for x in sp(t_.replace("OPOLY=", ""))][1::2]
+                out["secs"][sid]["dz"] = -(max(zs) - min(zs) - float(sp(pv[last + 5])[9]))
     for l in blocks.get("*SECT-SCALE", []):
         p = sp(l)
         sec = out["secs"][int(p[0])]

@@ -60,5 +60,20 @@ t("vs frozen: midspan deflection of every girder within 5 %", all(abs(a / b - 1)
 Rx = {k: (a, b) for k, a, b in c["reactions"]}
 t("both models carry the most load at the obtuse corners (A-G1, B-G4): skew behaviour reproduced",
   all(Rx["A-G1"][i] == max(Rx[f"A-G{j}"][i] for j in range(1, 5)) and Rx["B-G4"][i] == max(Rx[f"B-G{j}"][i] for j in range(1, 5)) for i in (0, 1)))
+# D-48 deck-top reference: nodes at the deck top, members offset to their centroids; setting 0 gives the soffit plane
+import copy
+d0 = copy.deepcopy(d)
+next(r for r in d0["analysis"]["grillage"]["rows"] if r["cells"]["item"] == "deck_top_reference")["cells"]["value"] = "0"
+M0 = build_superstructure(d0, geo, S, allow_proposed=True)
+tDm = d["deck"]["slab_thickness"]["value"] / 1000 if isinstance(d["deck"]["slab_thickness"], dict) else None
+dzs = [M["model"].nodes[k][2] - M0["model"].nodes[k][2] for k in M["model"].nodes]
+byrole = lambda MM, r: [x for x in MM["members"] if x["role"] == r]
+t("deck-top reference: every node raised by the slab thickness; setting 0 = no offsets (Option A)",
+  tDm and max(abs(z - tDm) for z in dzs) < 1e-9 and all(x["off"] is None for x in M0["members"]), f"tD {tDm}")
+t("deck-top reference: slab strips offset -t/2, cross girders -depth/2, girders to the composite centroid (between -D-t and -t)",
+  all(abs(x["off"][0][2] + tDm / 2) < 1e-12 for x in byrole(M, "slab"))
+  and all(x["off"] and x["off"][0][2] < 0 for x in byrole(M, "cross_girder"))
+  and all(-(S["girders"][x["line"]]["params"]["D"] / 1000 + tDm) < x["off"][0][2] < -tDm for x in byrole(M, "girder"))
+  and all(x["off"] is None for x in M["members"] if x["role"] not in ("slab", "cross_girder", "girder")))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

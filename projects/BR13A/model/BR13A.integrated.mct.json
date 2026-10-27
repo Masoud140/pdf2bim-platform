@@ -1177,7 +1177,7 @@
  "status": "NEEDS ENGINEER IMPORT TEST \u2014 contains UNVERIFIED syntax: *ELASTICLINK, *SPRING",
  "description": "projects/BR13A/BR13A.bridge.0.2.json",
  "revision": 44,
- "description_hash": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c",
+ "description_hash": "sha256:4a28521f3d8d27f085612733c4277338a7d456411d19480e1cb450f3c0d76640",
  "provisional": [],
  "standards_status": "UNVERIFIED \u2014 standards data not approved",
  "run_record": {
@@ -1192,7 +1192,7 @@
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
   "revision": 44,
-  "description_hash": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c",
+  "description_hash": "sha256:4a28521f3d8d27f085612733c4277338a7d456411d19480e1cb450f3c0d76640",
   "decisions": [
    "D-1",
    "D-2",
@@ -1240,15 +1240,16 @@
    "D-44",
    "D-45",
    "D-46",
-   "D-47"
+   "D-47",
+   "D-48"
   ],
   "proposed_used": [],
   "allow_proposed": true,
-  "engine_commit": "2dce341df865770e6cdcc341465b71b7ff0b783d",
+  "engine_commit": "644342e6fe0b443f1e3f3784dbe42c15e7347443",
   "engine_dirty": true,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-27T22:01:41+00:00"
+  "run_at": "2026-10-27T22:25:07+00:00"
  }
 }

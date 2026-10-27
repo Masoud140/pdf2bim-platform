@@ -253,7 +253,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
                 bh = inp.v(it.get("bearing_height"), f"bearings.items[{bid}].bearing_height (needed with top_rl when seat_rl is not given)")
                 seat_rl = top_rl - bh / 1000
             Dg = S["girders"][bb["girder"]]["params"]["D"] / 1000
-            top_z = n["Z"] - Dg
+            top_z = n["Z"] - sup["node_above_girder_top"] - Dg
             hgt = inp.v(it.get("height"), f"bearings.items[{bid}].height", required=False)
             seat = node(n["E"], n["N"], seat_rl, "bearing_seat", support=sid, bearing=bid)
             top = node(n["E"], n["N"], top_z, "bearing_top", support=sid, bearing=bid)
@@ -286,7 +286,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
                                                                      "soffit_z0": float(z0), "soffit_slope": float(slope)},
                                  "piles": prec}
     return {"format": "pdf2bim.model/0.1", "kind": "integrated", "model": mdl, "nodes": nodes, "members": sup["members"] + members,
-            "superstructure_members": len(sup["members"]), "bearings": recs["bearings"], "supports": recs["supports"], "springs": springs,
+            "superstructure_members": len(sup["members"]), "node_above_girder_top": sup["node_above_girder_top"], "bearings": recs["bearings"], "supports": recs["supports"], "springs": springs,
             "checks": checks, "inputs": inp.used, "settings": dict(sup["settings"], bearing_fixed_stiffness=kfix, pile_toe=toe_mode,
                                                                     column_segment=seg, soil_factor=fac, pile_shear_area_factor=PILE_ASHEAR),
             "standards_status": std.result_status(), "standards_used": std.usage(), "provisional": rd.provisional,

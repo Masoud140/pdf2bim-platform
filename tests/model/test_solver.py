@@ -62,5 +62,22 @@ U = np.array(F["U"]); u = np.concatenate([r["u"][nn] for nn in F["ids"]])
 t(f"BR13A integrated model ({len(U)} dof, links, springs): displacements equal the dashboard solver to 1e-8 relative (V5)",
   abs(u - U).max() <= 1e-8 * abs(U).max(), f"{abs(u - U).max():.2e}")
 t("BR13A integrated model: equilibrium residual < 1e-6 of the self weight", np.abs(r["equilibrium_residual"]).max() < 1e-6 * abs(r["applied"][2]))
+# rigid end offsets (Option B, D-48): offset beam == same beam on offset nodes joined by stiff stubs
+def _ecc(explicit):
+    m = Model(); dz = -0.6
+    m.node(1, 0, 0, 0); m.node(2, 10, 2, 0)
+    P = dict(E=3.4e7, nu=0.2, A=0.8, Iy=0.3, Iz=0.5, J=0.2, Asy=0.6, Asz=0.4)
+    if explicit:
+        m.node(11, 0, 0, dz); m.node(12, 10, 2, dz)
+        m.beam(1, 11, 12, **P)
+        for i, (a, b) in enumerate(((1, 11), (2, 12)), 2):
+            m.beam(i, a, b, 3.4e7 * 1e6, 0.2, 10, 10, 10, 10)
+    else:
+        m.beam(1, 1, 2, **P, off=((0, 0, dz), (0, 0, dz)))
+    m.fix(1); m.load(2, (500, -80, -300, 0, 0, 0))
+    return m.solve(gravity=(0, 0, 0))["u"][2]
+ue, uo = _ecc(True), _ecc(False)
+t("rigid end offsets: offset beam equals explicit stiff stubs (axial load creates bending through the eccentricity)",
+  abs(ue - uo).max() <= 1e-5 * abs(ue).max() and abs(uo[4]) > 1e-6, f"{abs(ue - uo).max():.2e}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

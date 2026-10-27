@@ -16181,6 +16181,32 @@
           "current": "original",
           "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement.",
           "decision": "D-47"
+        },
+        {
+          "cells": {
+            "item": "deck_top_reference",
+            "value": "1"
+          },
+          "tag": "Confirmed-Engineer",
+          "status": "accepted",
+          "source": {
+            "note": "Grillage reference level. 1 = deck top: nodes at the finished deck top (below surfacing), every member offset to its own centroid (grillage reference Annex C Option B); 0 = all members on the node plane at the deck soffit (Option A)."
+          },
+          "original": {
+            "cells": {
+              "item": "deck_top_reference",
+              "value": "1"
+            },
+            "unit": null,
+            "tag": "Confirmed-Engineer",
+            "recorded_by": "owner instruction 2026-10-28 (MIDAS drawing review)",
+            "recorded_at": null,
+            "source": {
+              "note": "Grillage reference level. 1 = deck top: nodes at the finished deck top (below surfacing), every member offset to its own centroid (grillage reference Annex C Option B); 0 = all members on the node plane at the deck soffit (Option A)."
+            }
+          },
+          "current": "original",
+          "decision": "D-48"
         }
       ]
     },
@@ -33143,6 +33169,6 @@
     "algorithm": "sha256",
     "covers": "document-without-hash",
     "canonicalisation": "pdf2bim-c14n/1",
-    "value": "sha256:76a40cfcc5ad9d7fcd6fd92318ce5c607d5c2c40ec7e381d7e3991ac3558a06c"
+    "value": "sha256:4a28521f3d8d27f085612733c4277338a7d456411d19480e1cb450f3c0d76640"
   }
 }

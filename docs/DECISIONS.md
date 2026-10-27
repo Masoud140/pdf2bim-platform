@@ -389,3 +389,14 @@
 - **MCT syntax:** `*BEAMEND` is **UNVERIFIED** — not yet confirmed by a MIDAS Civil import. Written only when `include_unverified=True` and flagged in `rep["unverified_blocks"]` and the status string. Awaits engineer import test (same as `*ELASTICLINK`, `*SPRING`).
 - **DOF mapping:** solver Iy (vertical bending, strong axis) = MIDAS Ry = DOF code position 4 (0-indexed) = `"000010"`. If other DOFs are needed, extend `_DOF_CODE` in `mct.py`.
 - **Consequence:** the model topology is unchanged; rigid arms now correctly isolate bending at the main girder. Peak u values unaffected (releases are on dummy web members with near-zero stiffness contribution). MCT import test required before this result can be relied on in MIDAS.
+
+**ADR-042 update (2026-10-28):** MIDAS rejected `*BEAMEND` ("Parsing Error ... Invalid command"). Replaced by `*FRAME-RLS` (two lines per element, boundary group `Releases`), syntax from the engineer's native BR13B export; always written.
+
+## ADR-043 Deck-top grillage reference with member offsets (Option B, D-48)
+
+- **Decision (owner, 2026-10-28; switchable):** the top of deck is the reference level. Nodes sit at the finished deck top (below surfacing); every member with a section is offset down to its own centroid — slab strips −t/2, cross girders −depth/2 (top flush with the deck: **Assumed**, the drawings give width × depth only), composite girders to the transformed centroid of the drawn station. Dummies, rigid arms and outriggers stay on the node plane. Owner chose to apply it to **both** the platform solver and the MIDAS export, so the two still analyse the same structure.
+- **Setting:** `analysis.grillage` row `deck_top_reference` = 1 (D-48). 0 restores Option A (all members on the deck-soffit node plane, the earlier model).
+- **Basis:** grillage_modelling_reference Annex C — Option B for frames / axial-sensitive structures; BR13A's integrated fixed abutment is one.
+- **Implementation:** `solver.py` rigid end offsets (`off=`, 6×6 transformation folded into T; test: equals explicit stiff stubs to 1e-5); `builder.py` node level and per-member `dz`; `substructure.py` bearing top = node − node_above_girder_top − D; `mct.py` section offset `CT` on offset members (top of section on the node = the solver offset), reader parses it back (round trip exact).
+- **Consequence (BR13A self weight):** girder moments unchanged, vertical bearing reactions within 1 %, horizontal bearing forces change up to ~15 %, girder axial force rises (max 56 → 116 kN). Restraint actions (temperature, shrinkage, braking) are the most affected. Design checks use girder M only; girder axial force from eccentricity is not yet carried into the design checks.
+- **Unverified:** that MIDAS applies the section offset in the analysis (expected for MIDAS Civil); confirm by comparing the imported model's self-weight reactions with the report.

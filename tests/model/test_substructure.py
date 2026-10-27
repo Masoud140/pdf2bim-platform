@@ -126,8 +126,8 @@ for bid, b in M["bearings"].items():
     tg = np.array(next(g["unit_t"] for g in geo["girders"] if g["id"] == b["girder"]) + (0.0,)) if isinstance(next(g["unit_t"] for g in geo["girders"]), tuple) else np.array(list(next(g["unit_t"] for g in geo["girders"] if g["id"] == b["girder"])) + [0.0])
     ax_ok &= abs(Rl[0] @ np.array([0, 0, 1.0]) - 1) < 1e-12 and abs(Rl[2] @ tg - 1) < 1e-9
 t("bearing links: local x vertical (seat -> bearing top), local z along the girder chord A -> B", ax_ok)
-t("bearing links: seat at the seat RL, top at the girder soffit (girder line node - D)",
-  all(abs(m.nodes[b["seat"]][2] - b["seat_rl"]) < 1e-12 and abs(m.nodes[b["top"]][2] - (m.nodes[b["girder_node"]][2] - S["girders"][b["girder"]]["params"]["D"] / 1000)) < 1e-12 for b in M["bearings"].values()))
+t("bearing links: seat at the seat RL, top at the girder soffit (girder line node - node height above the girder top - D)",
+  all(abs(m.nodes[b["seat"]][2] - b["seat_rl"]) < 1e-12 and abs(m.nodes[b["top"]][2] - (m.nodes[b["girder_node"]][2] - M["node_above_girder_top"] - S["girders"][b["girder"]]["params"]["D"] / 1000)) < 1e-12 for b in M["bearings"].values()))
 t("r14: geometry check flags the seat-to-soffit gap that disagrees with the Assumed bearing height (F-6)",
   sum(1 for c in Mp["checks"] if "bearings.height" in c["id"] and not c["ok"]) == 8)
 tb = [c for c in M["checks"] if "top of bearing below the girder soffit" in c["id"]]

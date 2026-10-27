@@ -77,6 +77,12 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         girder_J_factor = _grillage_setting(rd, doc, "girder_J_factor")
     except Exception:
         girder_J_factor = 1.0  # backwards-compatible default
+    # Grillage reference level (D-48): 1 = nodes at the deck top, members offset to their centroids (reference Annex C
+    # Option B); 0 = all members on the node plane at the deck soffit (Option A, the earlier default).
+    try:
+        deck_top = int(round(_grillage_setting(rd, doc, "deck_top_reference"))) == 1
+    except MissingInput:
+        deck_top = False
     if int(round(mtype)) != 2:
         raise MissingInput("analysis.grillage.model: only model 2 (girder + web lines, engineer-confirmed) is implemented")
     tD = rd.value(D.get("slab_thickness"), "deck.slab_thickness") / 1000
@@ -101,7 +107,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
 
     def z_at(E, N, chg):
         ch, o = al.station(E, N, guess=chg)
-        return al.vertical.rl(ch) + hxf(o) - surf - tD, ch, o
+        return al.vertical.rl(ch) + hxf(o) - surf - (0.0 if deck_top else tD), ch, o
 
     # ---- deck-end lines: through the girder ends, parallel to the support line (Calculated) ----
     ends = {}
@@ -267,14 +273,16 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
     members = []
     mid_ = [0]
 
-    def add(n1, n2, role, sec, w=0.0, E=None, line=None, releases=None):
+    def add(n1, n2, role, sec, w=0.0, E=None, line=None, releases=None, dz=0.0):
+        """dz: centroid below the node (m, <= 0), used only with the deck-top reference (D-48)."""
         if n1 == n2:
             return
         mid_[0] += 1
         Ex = E if E is not None else Ed
-        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role)
+        off = ((0.0, 0.0, dz), (0.0, 0.0, dz)) if deck_top and dz else None
+        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role, off=off)
         rec = {"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
-               "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape")}
+               "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape"), "off": off}
         if releases:
             rec["releases"] = releases  # {"i": "Iy"} or {"j": "Iy"} or {"i": "Iy", "j": "Iy"} — DOF name in solver axes
         members.append(rec)
@@ -312,7 +320,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                    "J": C["J_geometric"] / 1e12 * girder_J_factor,  # Assumed/Model: ADR-040; see analysis.grillage girder_J_factor
                    "Asy": None, "Asz": asz,
                    "shape": ("composite", poly["outline"], poly["deck"], Ed, Gg["J"] / 1e12, asz)}   # mm polygons; .mct COMPOSITE-GEN
-            add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"])
+            top = p["D"] + Sg["haunch"] + tD * 1000            # deck top above the girder soffit, mm
+            add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"], dz=(poly["composite"]["yc"] - top) / 1000)
 
     dummy_of = lambda gid: {k: v * DUMMY for k, v in galone[gid].items()}
     rigid_of = lambda gid: {k: v * RIGID for k, v in galone[gid].items()}
@@ -341,7 +350,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 bw_, h_ = r["width"] / 1000, r["depth"] / 1000
                 A = bw_ * h_
                 sec = {"A": A, "Iy": bw_ * h_ ** 3 / 12, "Iz": h_ * bw_ ** 3 / 12, "J": _rect_J(bw_, h_), "Asy": A * 5 / 6, "Asz": A * 5 / 6, "shape": ("rect", h_, bw_)}
-                add(a, b, "cross_girder", sec, w=A * dens_d, line=c["id"])
+                # Assumed (D-48): cross-girder top flush with the deck top; the drawings give width x depth only
+                add(a, b, "cross_girder", sec, w=A * dens_d, line=c["id"], dz=-h_ / 2)
             elif c["kind"] == "deck_end":
                 add(a, b, "deck_end", dummy_of(any_g), line=c["id"])
             elif in_zone:
@@ -362,7 +372,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 # Changeable: set _SLAB_J_FORMULA = "st_venant" to revert to _rect_J.
                 _slab_J = bt * tD ** 3 / 6   # Assumed / Model (ADR-040; b·d³/6 per grillage reference §7)
                 sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": _slab_J, "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6, "shape": ("rect", tD, bt)}
-                add(a, b, "slab", sec, line=c["id"])
+                add(a, b, "slab", sec, line=c["id"], dz=-tD / 2)
     # outriggers at girder special nodes that are not on a cross line (zone boundaries): none needed (girder line only)
 
     # ---- bearings: zero-length links to ground in chord axes ----
@@ -396,7 +406,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
             bear[it["id"]] = {"node": k, "ground": gnode, "longitudinal": rl, "transverse": rt, "support": sid, "girder": g["id"], "unit_t": tuple(g["unit_t"])}
 
     return {"format": "pdf2bim.model/0.1", "model": mdl, "nodes": nodes, "members": members, "bearings": bear,
-            "settings": {"transverse_spacing_target": tgt, "transverse_step": step, "stations": nst + 1, "midgap": midgap, "web_offset_m": W,
+            "node_above_girder_top": tD if deck_top else 0.0,   # m; the substructure hangs bearings from the girder top
+            "settings": {"deck_top_reference": deck_top, "transverse_spacing_target": tgt, "transverse_step": step, "stations": nst + 1, "midgap": midgap, "web_offset_m": W,
                          "dummy_factor": DUMMY, "rigid_factor": RIGID, "fixed_stiffness": KFIX, "midgap_min_m": MIDGAP_MIN, "merge_m": merge, "tag": "Model"},
             "provisional": rd.provisional}
 

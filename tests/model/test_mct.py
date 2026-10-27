@@ -28,7 +28,8 @@ def rebuild(Rd, base):
         m.node(n, x + base[0], y + base[1], z)
     for e, (mt, sc, n1, n2) in Rd["els"].items():
         a, s = Rd["mats"][mt], Rd["secs"][sc]
-        m.beam(e, n1, n2, a["E"], a["nu"], s["A"], s["Iy"], s["Iz"], s["J"], s["Asy"] or None, s["Asz"] or None, w=a["den"] * s["A"])
+        m.beam(e, n1, n2, a["E"], a["nu"], s["A"], s["Iy"], s["Iz"], s["J"], s["Asy"] or None, s["Asz"] or None, w=a["den"] * s["A"],
+               off=((0, 0, s["dz"]), (0, 0, s["dz"])) if s.get("dz") else None)
     for i, l in enumerate(Rd["links"], 1):
         m.link(i, l["n1"], l["n2"], l["k"], beta=l["beta"], dry=l["dry"], drz=l["drz"])
     for n, k in Rd["springs"]:

@@ -2,7 +2,7 @@
 
     m = Model()
     m.node(id, x, y, z)
-    m.beam(id, n1, n2, E, nu, A, Iy, Iz, J, Asy, Asz, w=0.0, role='girder')   # w: self weight kN/m (gravity -Z)
+    m.beam(id, n1, n2, E, nu, A, Iy, Iz, J, Asy, Asz, w=0.0, role='girder', off=None)   # w: self weight kN/m (gravity -Z); off: rigid end offsets
     m.link(id, n1, n2, k=(kx, ky, kz, krx, kry, krz), axes=None)          # elastic link, local axes (rows) or global
     m.spring(node, k=(kx, ky, kz, krx, kry, krz))                          # node to ground
     m.fix(node, dofs='111000')
@@ -91,8 +91,10 @@ class Model:
     def node(self, i, x, y, z):
         self.nodes[i] = np.array([x, y, z], float)
 
-    def beam(self, i, n1, n2, E, nu, A, Iy, Iz, J, Asy=None, Asz=None, w=0.0, role="", **meta):
-        self.beams[i] = dict(n1=n1, n2=n2, E=E, G=E / (2 * (1 + nu)), A=A, Iy=Iy, Iz=Iz, J=J, Asy=Asy, Asz=Asz, w=w, role=role, **meta)
+    def beam(self, i, n1, n2, E, nu, A, Iy, Iz, J, Asy=None, Asz=None, w=0.0, role="", off=None, **meta):
+        """off = (o1, o2): rigid end offsets, global vectors from each node to the element end (section centroid), as a
+        MIDAS section offset; None = element on the node line."""
+        self.beams[i] = dict(n1=n1, n2=n2, E=E, G=E / (2 * (1 + nu)), A=A, Iy=Iy, Iz=Iz, J=J, Asy=Asy, Asz=Asz, w=w, role=role, off=off, **meta)
 
     def link(self, i, n1, n2, k, axes=None, beta=None, dry=0.5, drz=0.5, role="link", **meta):
         """Elastic link (MIDAS GEN type). k = (kx, ky, kz, krx, kry, krz) in link axes.
@@ -127,9 +129,16 @@ class Model:
         g = np.asarray(gravity, float)
         tot_w = np.zeros(3)
         for eid, e in self.beams.items():
-            L, R = axes(self.nodes[e["n1"]], self.nodes[e["n2"]])
+            off = e.get("off")
+            o1, o2 = (np.zeros(3), np.zeros(3)) if off is None else (np.asarray(off[0], float), np.asarray(off[1], float))
+            L, R = axes(self.nodes[e["n1"]] + o1, self.nodes[e["n2"]] + o2)
             K = k_local(e["E"], e["G"], e["A"], e["Iy"], e["Iz"], e["J"], e["Asy"], e["Asz"], L)
             T = np.kron(np.eye(4), R)
+            if off is not None:   # element end = node + o: u_end = u_node + theta x o
+                B = np.eye(12)
+                for k, o in ((0, o1), (6, o2)):
+                    B[k:k + 3, k + 3:k + 6] = -np.array([[0, -o[2], o[1]], [o[2], 0, -o[0]], [-o[1], o[0], 0]])
+                T = T @ B
             Kg = T.T @ K @ T
             q = R @ (g * e["w"])
             fl = fef_uniform(q, L)
