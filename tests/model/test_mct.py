@@ -57,8 +57,8 @@ t("counts: nodes, elements, links, springs, supports equal the model", (len(Rd["
 names = [m_["name"] for m_ in Rd["mats"].values()] + re.findall(r"^\s+\d+, (?:VALUE|DBUSER), ([^,]+),", txt, re.M)
 t("material and section names at most 16 characters (MIDAS limit)", all(len(n.strip()) <= 16 for n in names), str(max(len(n.strip()) for n in names)))
 t("file is plain ASCII", all(ord(c) < 128 for c in txt))
-t("unverified blocks are marked in the file and listed in the report", rep["unverified_blocks"] == ["*ELASTICLINK", "*SPRING"]
-  and txt.count("UNVERIFIED SYNTAX") == 2 and "NEEDS ENGINEER IMPORT TEST" in rep["status"])
+t("unverified blocks are marked in the file and listed in the report", rep["unverified_blocks"] == ["*BEAMEND", "*ELASTICLINK", "*SPRING"]
+  and txt.count("UNVERIFIED SYNTAX") == 3 and "NEEDS ENGINEER IMPORT TEST" in rep["status"])
 m2 = rebuild(Rd, base)
 r1 = M["model"].solve(); r2 = m2.solve(gravity=Rd["selfweight"])
 U1 = np.concatenate([r1["u"][inv[n]] for n in sorted(inv)]); U2 = np.concatenate([r2["u"][n] for n in sorted(inv)])
@@ -71,8 +71,9 @@ t("composite girders keep the GROSS weight on the transformed section (density =
 mass0 = [i for i, b in M["model"].beams.items() if b["w"] == 0]
 t("massless members (dummies, deck strips, rigid) get a density-0 material", all(Rd["mats"][Rd["els"][rep["element_map"][i]][0]]["den"] == 0 for i in mass0), f"{len(mass0)} members")
 txt2, rep2 = write_mct(M, doc, title="test", include_unverified=False)
-t("verified-only mode omits links and springs and says the model is then incomplete",
-  "*ELASTICLINK" not in txt2 and "*SPRING" not in txt2 and set(rep2["not_written"]) == {"*ELASTICLINK", "*SPRING"} and "incomplete" in txt2)
+t("verified-only mode omits links, springs and beam-end releases and says the model is then incomplete",
+  "*ELASTICLINK" not in txt2 and "*SPRING" not in txt2 and "*BEAMEND" not in txt2
+  and set(rep2["not_written"]) == {"*BEAMEND", "*ELASTICLINK", "*SPRING"} and "incomplete" in txt2)
 Mg = build_superstructure(doc, geo, S, allow_proposed=True)
 try:
     write_mct(Mg, doc); ok = False

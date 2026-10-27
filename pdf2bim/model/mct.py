@@ -87,6 +87,30 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for eid in sorted(m.beams):
         b = m.beams[eid]
         L.append(f"   {emap[eid]}, BEAM, {mat_of[eid]}, {sec_of[eid]}, {nmap[b['n1']]}, {nmap[b['n2']]}, 0, 0   ; {members.get(eid, {}).get('role', b.get('role', ''))}")
+    # *BEAMEND — moment releases at web/nominal-member ends of rigid arms (grillage reference §4; ADR-042)
+    # Iy = vertical bending (strong axis) — the DOF to release. MIDAS code string: Dx Dy Dz Rx Ry Rz = 000000/100000 etc.
+    # Iy in solver axes → Ry in MIDAS DOF order → code position 5 (0-indexed) → "000010".
+    # UNVERIFIED: *BEAMEND syntax is not yet import-confirmed; written only when include_unverified=True.
+    _DOF_CODE = {"Iy": "000010"}   # solver Iy = MIDAS Ry (strong axis vertical bending); extend if other DOFs needed
+    _beamend_rows = []
+    for eid, mem in members.items():
+        rel = mem.get("releases")
+        if not rel:
+            continue
+        i_code = _DOF_CODE.get(rel.get("i"), "000000")
+        j_code = _DOF_CODE.get(rel.get("j"), "000000")
+        if i_code != "000000" or j_code != "000000":
+            _beamend_rows.append((emap[eid], i_code, j_code))
+    if _beamend_rows and include_unverified:
+        unverified_beamend = True
+        L += ["", "; UNVERIFIED SYNTAX (*BEAMEND not yet confirmed by a MIDAS import; syntax from MIDAS Civil documentation).",
+              "; Releases Ry (strong-axis bending) at the web/nominal-member ends of rigid arms (grillage reference §4, ADR-042).",
+              "; DOF order: Dx Dy Dz Rx Ry Rz; '1' = released.",
+              "*BEAMEND    ; Beam End Release", "; iEL, I-DOF, J-DOF"]
+        for eid_n, ic, jc in sorted(_beamend_rows):
+            L.append(f"   {eid_n}, {ic}, {jc}")
+    else:
+        unverified_beamend = False
     L += ["*MATERIAL", "; iMAT, TYPE, MNAME, SPHEAT, HEATCO, PLAST, TUNIT, bMASS, DAMPRATIO, [DATA1] = ELAST, POISN, THERMAL, DEN, MASS",
           "; Density = member weight / section area (kN/m3): gross-weight composite girders, massless dummies / deck strips / rigid members."]
     for (E, nu, dens), i in sorted(mats.items(), key=lambda q: q[1]):
@@ -119,6 +143,8 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for f, ids in groups.items():
         L.append(f"   {_node_list(sorted(ids))}, {f}, Support_{f}")
     unverified = []
+    if unverified_beamend:
+        unverified.append("*BEAMEND")
     if m.links:
         if include_unverified:
             unverified.append("*ELASTICLINK")
@@ -154,7 +180,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     L += ["", "*ENDDATA"]
     rep = {"nodes": len(nmap), "elements": len(emap), "materials": len(mats), "sections": len(secs), "links": len(m.links), "springs": len(m.springs),
            "supports": sum(len(v) for v in groups.values()), "unverified_blocks": unverified,
-           "not_written": (["nodal loads (*CONLOAD undocumented)"] if m.loads else []) + ([] if include_unverified else ["*ELASTICLINK", "*SPRING"]),
+           "not_written": (["nodal loads (*CONLOAD undocumented)"] if m.loads else []) + ([] if include_unverified else (["*BEAMEND"] if _beamend_rows else []) + ["*ELASTICLINK", "*SPRING"]),
            "node_map": nmap, "element_map": emap, "base_point": (E0, N0),
            "status": "NEEDS ENGINEER IMPORT TEST" + (" — contains UNVERIFIED syntax: " + ", ".join(unverified) if unverified else "")}
     text = "\n".join(L) + "\n"

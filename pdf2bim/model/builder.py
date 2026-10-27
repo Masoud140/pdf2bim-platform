@@ -267,14 +267,17 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
     members = []
     mid_ = [0]
 
-    def add(n1, n2, role, sec, w=0.0, E=None, line=None):
+    def add(n1, n2, role, sec, w=0.0, E=None, line=None, releases=None):
         if n1 == n2:
             return
         mid_[0] += 1
         Ex = E if E is not None else Ed
         mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role)
-        members.append({"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
-                        "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape")})
+        rec = {"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
+               "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape")}
+        if releases:
+            rec["releases"] = releases  # {"i": "Iy"} or {"j": "Iy"} or {"i": "Iy", "j": "Iy"} — DOF name in solver axes
+        members.append(rec)
 
     # girder + girder-alone (for dummies / rigid) per girder
     galone = {}
@@ -340,7 +343,15 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 add(a, b, "deck_end", dummy_of(any_g), line=c["id"])
             elif in_zone:
                 gid = next(g for g, z in zone_of.items() if {la, lb} <= set(z))
-                add(a, b, "rigid", rigid_of(gid), line=c["id"])
+                # Moment releases at the web/nominal-member ends of each rigid arm (grillage reference §4 "small boxes"):
+                # the main girder carries ALL bending; the nominal web members are released for moment so the rigid link
+                # transmits shear/axial only, not moment. Release Iy (vertical bending, strong axis) at the web-line end.
+                # Assumed, ADR-042 (unverified MCT *BEAMEND syntax; confirmed by reference §4).
+                web_lines = {gid + "W1", gid + "W2"}
+                _ri = "Iy" if la in web_lines else None   # i-end release if node a is on a web line
+                _rj = "Iy" if lb in web_lines else None   # j-end release if node b is on a web line
+                _rel = {k: v for k, v in (("i", _ri), ("j", _rj)) if v}
+                add(a, b, "rigid", rigid_of(gid), line=c["id"], releases=_rel or None)
             else:
                 bt = _tributary(c, cross, step)
                 # Slab-strip J: grillage_modelling_reference §7 uses b·d³/6 (≈ half St-Venant).
