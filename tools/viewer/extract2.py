@@ -1,4 +1,16 @@
-import json,sys,math
+"""Extract all data required by the BR13A interactive viewer.
+
+Usage (from repo root):
+    python3 tools/viewer/extract2.py [--out PATH] [--allow-proposed]
+
+Default output: projects/BR13A/model/viewer_data.json
+"""
+import argparse, json, sys, math
+ap = argparse.ArgumentParser()
+ap.add_argument("--out", default="projects/BR13A/model/viewer_data.json")
+ap.add_argument("--allow-proposed", action="store_true")
+_args = ap.parse_args()
+_allow = _args.allow_proposed
 sys.path.insert(0,'.')
 import numpy as np
 from pdf2bim.geometry.bridge import build_geometry
@@ -15,14 +27,14 @@ from pdf2bim.sections.supert import supert_section
 from standards.accessor import Standards
 std=Standards()
 doc=json.load(open('projects/BR13A/BR13A.bridge.0.2.json'))
-geo=build_geometry(doc,allow_proposed=True); S=build_sections(doc,geo,allow_proposed=True)
-M=build_integrated(doc,geo,S,std,allow_proposed=True); m=M['model']
+geo=build_geometry(doc,allow_proposed=_allow); S=build_sections(doc,geo,allow_proposed=_allow)
+M=build_integrated(doc,geo,S,std,allow_proposed=_allow); m=M['model']
 ids=sorted(m.nodes); c=np.array([m.nodes[i][:3] for i in ids]).mean(0)
 al=geo['_alignment']
 out={}
 # ---------- traffic
 RS=ResponseSet(M); ix=RS.index
-T=traffic_envelope(doc,geo,M,std,allow_proposed=True,inf=Influence(M,responses=RS))
+T=traffic_envelope(doc,geo,M,std,allow_proposed=_allow,inf=Influence(M,responses=RS))
 deckz=float(max(m.nodes[i][2] for i in ids))-c[2]
 def xy(ch,o):
     E,N,_=al.point(ch,o); return [round(E-c[0],3),round(N-c[1],3)]
@@ -53,7 +65,7 @@ out['traffic']=tr
 # ---------- hog
 hog={}
 for g in S['girders']:
-    H=hog_inputs(doc,geo,S,g,std,allow_proposed=True); p=H['p']; r=run(p,std)
+    H=hog_inputs(doc,geo,S,g,std,_allow); p=H['p']; r=run(p,std)
     res=[{'t':q['t'],'label':q['label'],'hog_mm':round(q['hog'][r['mi']],2),'P_mid_kN':round(sum(q['Pm']),1)} for q in r['res']]
     X=r['X']; last=r['res'][-1]['P_st']; first=r['res'][0]['P_st']
     prof=[{'x_m':round(x/1000,3),'P_transfer':round(sum(first[i]),1),'P_final':round(sum(last[i]),1)} for i,x in enumerate(X) if i%3==0 or i==len(X)-1]
@@ -63,7 +75,7 @@ for g in S['girders']:
             'inputs':{k:p[k] for k in ('k4','chi','tau','pour','sidlA','fc','fci','Ect','Ec','rho','wd','sidl','RH' if 'RH' in p else 'k4') if k in p}}
 out['hog']=hog
 # ---------- section G2 midspan
-st=station_section(doc,geo,S,'G2',0.5,allow_proposed=True); sec=st['section']
+st=station_section(doc,geo,S,'G2',0.5,_allow); sec=st['section']
 Gp=S['girders']['G2']['params']; row=[r for r in S['girders']['G2']['stations'] if abs(r['t']-0.5)<1e-9][0]
 gs=supert_section(Gp,row['w_left'],row['w_right'],'open')
 tD=S['deck_thickness']; Dtot=st['Dtot']; ygt=st['y_girder_top']
@@ -72,7 +84,7 @@ deck=[[-row['deck_left'],0],[row['deck_right'],0]]
 strands=[{'x':t.get('x'),'y_from_soffit':round(Dtot-t['y'],1),'A':t['A']} for t in sec.tend]
 bars=[{'y_from_soffit':round(Dtot-b['y'],1),'d':b.get('d'),'n':b.get('n')} for b in sec.bars]
 el=elastic(sec,st['materials']['E_girder'])
-H=hog_inputs(doc,geo,S,'G2',std,allow_proposed=True); p=H['p']; r=run(p,std)
+H=hog_inputs(doc,geo,S,'G2',std,_allow); p=H['p']; r=run(p,std)
 F=strand_forces_at(r,st['x_m']*1000)
 for t in sec.tend: t['epe']=F[t['k_on']]*1e3/(t['A']*t['E']); t['fpb']=p['mbl']*1e3/p['Ap']
 nm=nm_curve(sec,std,'top',el['yc'])
@@ -88,14 +100,15 @@ out['section']={'girder':'G2','station':'midspan','D':Gp['D'],'tD':tD,'haunch':S
 CA=json.load(open('projects/BR13A/model/BR13A.combined_actions.json'))
 out['combos']={'rows':CA['run']['rows'],'on':CA['run']['on'],'sources':CA['sources'],'not_combined':CA['not_combined']}
 print(json.dumps(out['traffic']['cases'][0])[:300]); print(len(json.dumps(out)))
-json.dump(out,open('/tmp/claude-0/-home-claude/26ed6757-087c-514d-944a-fb75ed869c40/scratchpad/viewer_data2.json','w'),separators=(',',':'),default=float)
+json.dump(out,open(_args.out,'w'),separators=(',',':'),default=float)
 ch0=min(s['ch'] for s in geo['supports'])-0.6; ch1=max(s['ch'] for s in geo['supports'])+0.6
 chs=list(np.linspace(ch0,ch1,31))
 W=T['lane_width']
 for cs in out['traffic']['cases']:
     for ln in cs['lanes']:
         ln['poly']=[xy(ch,ln['a']) for ch in chs]+[xy(ch,ln['a']+W) for ch in reversed(chs)]
-json.dump(out,open('/tmp/claude-0/-home-claude/26ed6757-087c-514d-944a-fb75ed869c40/scratchpad/viewer_data2.json','w'),separators=(',',':'),default=float)
+import os; os.makedirs(os.path.dirname(os.path.abspath(_args.out)), exist_ok=True)
+json.dump(out,open(_args.out,'w'),separators=(',',':'),default=float)
 print('lanes ok', W, out['traffic']['models'])
 print({g:(h['times'][-1]['hog_mm'],h['times'][0]['hog_mm']) for g,h in out['hog'].items()})
 print(out['section']['stress'], out['section']['sp_mean'], out['section']['missing'])
