@@ -911,8 +911,8 @@
    440, BEAM, 48, 53, 55, 255, 0, 0   ; slab
    441, BEAM, 48, 53, 255, 70, 0, 0   ; slab
    442, BEAM, 48, 56, 70, 78, 0, 0   ; rigid
-   443, BEAM, 49, 57, 12, 256, 0, 0   ; cross_girder
-   444, BEAM, 49, 57, 256, 26, 0, 0   ; cross_girder
+   443, BEAM, 48, 48, 12, 256, 0, 0   ; support_edge
+   444, BEAM, 48, 48, 256, 26, 0, 0   ; support_edge
    445, BEAM, 49, 57, 26, 31, 0, 0   ; cross_girder
    446, BEAM, 49, 57, 31, 56, 0, 0   ; cross_girder
    447, BEAM, 49, 57, 56, 257, 0, 0   ; cross_girder
@@ -927,8 +927,8 @@
    456, BEAM, 49, 57, 259, 160, 0, 0   ; cross_girder
    457, BEAM, 49, 57, 160, 165, 0, 0   ; cross_girder
    458, BEAM, 49, 57, 165, 188, 0, 0   ; cross_girder
-   459, BEAM, 49, 57, 188, 260, 0, 0   ; cross_girder
-   460, BEAM, 49, 57, 260, 203, 0, 0   ; cross_girder
+   459, BEAM, 48, 48, 188, 260, 0, 0   ; support_edge
+   460, BEAM, 48, 48, 260, 203, 0, 0   ; support_edge
    461, BEAM, 48, 48, 13, 261, 0, 0   ; deck_end
    462, BEAM, 48, 48, 261, 27, 0, 0   ; deck_end
    463, BEAM, 48, 48, 27, 30, 0, 0   ; deck_end
@@ -947,8 +947,8 @@
    476, BEAM, 48, 48, 164, 189, 0, 0   ; deck_end
    477, BEAM, 48, 48, 189, 265, 0, 0   ; deck_end
    478, BEAM, 48, 48, 265, 192, 0, 0   ; deck_end
-   479, BEAM, 49, 57, 14, 266, 0, 0   ; cross_girder
-   480, BEAM, 49, 57, 266, 28, 0, 0   ; cross_girder
+   479, BEAM, 48, 48, 14, 266, 0, 0   ; support_edge
+   480, BEAM, 48, 48, 266, 28, 0, 0   ; support_edge
    481, BEAM, 49, 57, 28, 32, 0, 0   ; cross_girder
    482, BEAM, 49, 57, 32, 58, 0, 0   ; cross_girder
    483, BEAM, 49, 57, 58, 267, 0, 0   ; cross_girder
@@ -963,8 +963,8 @@
    492, BEAM, 49, 57, 269, 162, 0, 0   ; cross_girder
    493, BEAM, 49, 57, 162, 166, 0, 0   ; cross_girder
    494, BEAM, 49, 57, 166, 190, 0, 0   ; cross_girder
-   495, BEAM, 49, 57, 190, 270, 0, 0   ; cross_girder
-   496, BEAM, 49, 57, 270, 204, 0, 0   ; cross_girder
+   495, BEAM, 48, 48, 190, 270, 0, 0   ; support_edge
+   496, BEAM, 48, 48, 270, 204, 0, 0   ; support_edge
    497, BEAM, 48, 48, 11, 271, 0, 0   ; deck_end
    498, BEAM, 48, 48, 271, 29, 0, 0   ; deck_end
    499, BEAM, 48, 48, 29, 33, 0, 0   ; deck_end

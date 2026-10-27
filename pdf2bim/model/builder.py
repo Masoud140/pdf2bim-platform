@@ -342,10 +342,15 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         zone_of[g["id"]] = (g["id"] + "W1", g["id"], g["id"] + "W2")
     for c in cross:
         cn = sorted({k for _, k in cross_nodes[c["id"]]}, key=lambda k: (nodes[k]["E"] - c["P"][0]) * c["n"][0] + (nodes[k]["N"] - c["P"][1]) * c["n"][1])
-        for a, b in zip(cn, cn[1:]):
+        zi = [i for i, k in enumerate(cn) if any(nodes[k]["line"] in z for z in zone_of.values())]
+        for i, (a, b) in enumerate(zip(cn, cn[1:])):
             la, lb = nodes[a]["line"], nodes[b]["line"]
             in_zone = any({la, lb} <= set(z) for z in zone_of.values())
-            if c["kind"] == "support":
+            if c["kind"] == "support" and (i + 1 <= zi[0] or i >= zi[-1]):
+                # outside the edge Super-Ts there is no cross girder (owner 2026-10-28): nominal massless link only;
+                # the deck cantilever stiffness is already in the neighbouring transverse slab strips
+                add(a, b, "support_edge", dummy_of(any_g), line=c["id"])
+            elif c["kind"] == "support":
                 r = xg[c["support"]]
                 bw_, h_ = r["width"] / 1000, r["depth"] / 1000
                 A = bw_ * h_

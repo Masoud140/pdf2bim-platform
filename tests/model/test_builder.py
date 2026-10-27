@@ -48,6 +48,10 @@ t("solid-zone boundaries are nodes on every girder (no mesh quantisation)", len(
 xg = [m for m in E if m["role"] == "cross_girder"]
 sup_nodes = {s: {m[k] for m in xg for k in ("n1", "n2") if m["line"] == f"SUP_{s}"} for s in ("A", "B")}
 t("cross girders form a continuous line across the deck on each support line", all(len([m for m in xg if m["line"] == f"SUP_{s}"]) == len(sup_nodes[s]) - 1 for s in ("A", "B")))
+ends_ = {s: [N[k]["line"] for k in sup_nodes[s] if sum(k in (m["n1"], m["n2"]) for m in xg if m["line"] == f"SUP_{s}") == 1] for s in ("A", "B")}
+t("cross girders only between the Super-Ts: each support line's cross girder ends on the outer web lines; outside = massless nominal links",
+  all(sorted(e) == ["G1W1", "G4W2"] for e in ends_.values())
+  and all(m["w"] == 0 for m in E if m["role"] == "support_edge") and len([m for m in E if m["role"] == "support_edge"]) >= 4, str(ends_))
 t("web lines at the dashboard web offset (web centreline at the girder top) 0.4718 m", abs(st["web_offset_m"] - 0.4718) < 1e-4)
 
 # ---- cross-implementation: frozen superstructure, same solver, same bearings ----

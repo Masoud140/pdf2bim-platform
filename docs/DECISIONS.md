@@ -400,3 +400,9 @@
 - **Implementation:** `solver.py` rigid end offsets (`off=`, 6×6 transformation folded into T; test: equals explicit stiff stubs to 1e-5); `builder.py` node level and per-member `dz`; `substructure.py` bearing top = node − node_above_girder_top − D; `mct.py` section offset `CT` on offset members (top of section on the node = the solver offset), reader parses it back (round trip exact).
 - **Consequence (BR13A self weight):** girder moments unchanged, vertical bearing reactions within 1 %, horizontal bearing forces change up to ~15 %, girder axial force rises (max 56 → 116 kN). Restraint actions (temperature, shrinkage, braking) are the most affected. Design checks use girder M only; girder axial force from eccentricity is not yet carried into the design checks.
 - **Unverified:** that MIDAS applies the section offset in the analysis (expected for MIDAS Civil); confirm by comparing the imported model's self-weight reactions with the report.
+
+## ADR-044 No cross girder outside the edge Super-Ts (owner, 2026-10-28)
+
+- **Decision (owner):** support-line cross girders exist only between the Super-Ts. Outside the edge girders there is only the deck cantilever.
+- **Implementation:** `builder.py` — support-line segments beyond the outer web lines (G1W1 / G4W2) become massless nominal links (role `support_edge`, girder-alone × 1e-3), not a slab strip: the cantilever slab stiffness is already in the neighbouring uniform transverse strips, so a strip on the support line would double-count it. Cross girder weight falls by the removed segments (BR13A superstructure SW 4130 → 4011 kN).
+- **Frozen comparison:** `tools/compare_frozen_superstructure.py` drops the frozen model's XG segments outside the edge girder chords (+ web offset), so the cross-implementation check stays like-for-like (weight within 2 %, bearings within 15 %, deflections within 5 % — unchanged tolerances).

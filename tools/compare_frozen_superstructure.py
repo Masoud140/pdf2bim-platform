@@ -19,6 +19,19 @@ from pdf2bim.model.builder import KFIX
 def frozen_superstructure(fx, gfx, restraints, base):
     m = Model()
     keep = [e for e in fx["els"] if not (e["sec"].startswith("Pile") or e["sec"].startswith("SB"))]
+    # Owner 2026-10-28: no cross girder outside the edge Super-Ts. Drop the frozen XG segments whose midpoint lies more than
+    # the web offset outside the G1 / G4 chords, so both models carry the same cross girders (P3 builder rule).
+    xy = {n: (x, y) for n, x, y, z in fx["nodes"]}
+    G = gfx["girders"]
+
+    def side(g, inner, P):   # signed plan distance from girder g's chord, + away from the neighbouring girder `inner`
+        a, b = np.array(g["PA"][:2]), np.array(g["PB"][:2])
+        t = (b - a) / np.linalg.norm(b - a); nrm = np.array([-t[1], t[0]])
+        d = float((np.asarray(P) - a) @ nrm)
+        return d if float((np.array(inner["PA"][:2]) - a) @ nrm) < 0 else -d
+    W = 0.4718 + 1e-3   # web offset (builder settings web_offset_m) + tolerance
+    keep = [e for e in keep if not (e["sec"].startswith("XG") and any(
+        side(g, inner, (np.array(xy[e["n1"]]) + np.array(xy[e["n2"]])) / 2) > W for g, inner in ((G[0], G[1]), (G[-1], G[-2]))))]
     # keep only the connected component that holds the girders (substructure rigid offsets become loose pairs)
     adj = {}
     for e in keep:
