@@ -1,6 +1,6 @@
 # Query Register — BR13A.bridge.0.2.json revision 44
 
-1023 tagged values; open items: missing 51, assumed 222, standard 64, proposed 0. Decisions waiting: none.
+1024 tagged values; open items: missing 51, assumed 222, standard 64, proposed 0. Decisions waiting: none.
 
 Generated from the bridge description (`tools/query_register.py`); do not edit by hand.
 
@@ -266,7 +266,7 @@ Generated from the bridge description (`tools/query_register.py`); do not edit b
 | `loads.shrinkage_creep_shortening` | 300 1e-6 | Hog time analysis + creep | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.earthquake.rows[3]` | {"item": "Rf", "value": "1"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
 | `loads.earthquake.rows[5]` | {"item": "vertical", "value": "False"} | project seismic criteria / geotechnical report | D-2 | loads | combined_actions, concurrent_traffic, girder_checks, girder_flexure |
-| `analysis.grillage.rows[4]` | {"item": "girder_J_factor", "value": "1.0"} | Grillage torsion stiffness factor applied to composite Super-T J_geometric. 1.0 = full FD closed-cell value (conservative, may over-estimate | — | analysis.static, analysis.modal | combined_actions, concurrent_traffic, girder_checks, girder_flexure, midas_compare |
+| `analysis.grillage.rows[4]` | {"item": "girder_J_factor", "value": "1.0"} | Confirm factor from project grillage modelling standard or engineer judgement. | D-47 | model | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `design.girder_options.rows[5]` | {"item": "fitment_cover_side", "value": "40"} | girder reinforcement drawings / specification | D-46 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `design.girder_options.rows[6]` | {"item": "fitment_cover_top", "value": "45"} | girder reinforcement drawings / specification | D-46 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |
 | `design.girder_options.rows[7]` | {"item": "aggregate_size", "value": "20"} | girder reinforcement drawings / specification | D-46 | design.supert | combined_actions, concurrent_traffic, export_mct, girder_checks, girder_flexure, midas_compare, sections |

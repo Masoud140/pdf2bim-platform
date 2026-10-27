@@ -8631,23 +8631,24 @@
    },
    "unit": null,
    "proposed_value": null,
-   "note": "Grillage torsion stiffness factor applied to composite Super-T J_geometric. 1.0 = full FD closed-cell value (conservative, may over-estimate torsional distribution). Hambly (grillage_modelling_reference Annex B) suggests ~0.5 for box girders. Changeable: set to 0.5 for Hambly equivalent. Assumed / Model per ADR-040.",
-   "replace_with": null,
-   "decision": null,
-   "decision_status": null,
-   "decision_reason": null,
+   "note": "Torsion stiffness factor on Super-T composite J. Default 1.0 (full FD value). Hambly Annex B ~0.5 for boxes. Assumed per ADR-040.",
+   "replace_with": "Confirm factor from project grillage modelling standard or engineer judgement.",
+   "decision": "D-47",
+   "decision_status": "accepted",
+   "decision_reason": "Grillage torsion stiffness factor on composite Super-T J_geometric. Default 1.0 (full FD closed-cell value). Hambly Annex B ~0.5 for boxes; changeable per ADR-041. Accepted under owner instruction ADR-040.",
    "affects": [
-    "analysis.static",
-    "analysis.modal"
+    "model"
    ],
    "outputs": [
     "combined_actions",
     "concurrent_traffic",
+    "export_mct",
     "girder_checks",
     "girder_flexure",
-    "midas_compare"
+    "midas_compare",
+    "sections"
    ],
-   "needed_from": "engineer or project data (replace the placeholder)"
+   "needed_from": "Confirm factor from project grillage modelling standard or engineer judgement."
   },
   {
    "path": "design.girder_options.rows[5]",
@@ -11086,9 +11087,9 @@
   "Assumed": 222,
   "Calculated": 196,
   "Input-user": 24,
-  "Confirmed-Engineer": 20
+  "Confirmed-Engineer": 21
  },
- "values": 1023,
+ "values": 1024,
  "proposed_decisions": [],
  "run_record": {
   "format": "pdf2bim.run/1",
@@ -11098,7 +11099,7 @@
   ],
   "description": "projects/BR13A/BR13A.bridge.0.2.json",
   "revision": 44,
-  "description_hash": "sha256:c53b6193ed88b15d328365e087aa36b8ef5e88c1233476d1787a5c2bebb51a5f",
+  "description_hash": "sha256:4a28521f3d8d27f085612733c4277338a7d456411d19480e1cb450f3c0d76640",
   "decisions": [
    "D-1",
    "D-2",
@@ -11145,15 +11146,17 @@
    "D-43",
    "D-44",
    "D-45",
-   "D-46"
+   "D-46",
+   "D-47",
+   "D-48"
   ],
   "proposed_used": [],
   "allow_proposed": false,
-  "engine_commit": "50fae83a4b9253245ae526a7f1c2ba6207502cf0",
-  "engine_dirty": false,
+  "engine_commit": "644342e6fe0b443f1e3f3784dbe42c15e7347443",
+  "engine_dirty": true,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-27T19:19:36+00:00"
+  "run_at": "2026-10-27T22:17:03+00:00"
  }
 }
