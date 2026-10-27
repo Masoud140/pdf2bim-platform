@@ -11,6 +11,7 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 |---|---|---|
 | *UNIT, *NODE, *ELEMENT BEAM, *MATERIAL USER (name <= 16 chars) | verified | MCT_EXPORT_METHOD §1 |
 | *SECTION DBUSER SB rectangle (H, B) | verified | §1 |
+| *FRAME-RLS (2 lines per element, boundary group) | from the engineer's native BR13B model (2026-10-28) after MIDAS rejected *BEAMEND; import not yet confirmed | — |
 | *SECTION DBUSER SR solid circle (D) | from the engineer's native BR13B model (2026-10-28); import of a generated file not yet confirmed | §1 |
 | *SECT-PSCVALUE COMPOSITE-GEN (girder + deck, polygons) | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | §1, §1c |
 | *SECT-SCALE (IXX_SF only; group in *BNDR-GROUP) | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | §1 |
@@ -143,11 +144,10 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     for eid in sorted(m.beams):
         b = m.beams[eid]
         L.append(f"   {emap[eid]}, BEAM, {mat_of[eid]}, {sec_of[eid]}, {nmap[b['n1']]}, {nmap[b['n2']]}, 0, 0   ; {members.get(eid, {}).get('role', b.get('role', ''))}")
-    # *BEAMEND — moment releases at web/nominal-member ends of rigid arms (grillage reference §4; ADR-042)
-    # Iy = vertical bending (strong axis) — the DOF to release. MIDAS code string: Dx Dy Dz Rx Ry Rz = 000000/100000 etc.
-    # Iy in solver axes → Ry in MIDAS DOF order → code position 5 (0-indexed) → "000010".
-    # UNVERIFIED: *BEAMEND syntax is not yet import-confirmed; written only when include_unverified=True.
-    _DOF_CODE = {"Iy": "000010"}   # solver Iy = MIDAS Ry (strong axis vertical bending); extend if other DOFs needed
+    # *FRAME-RLS — moment releases at web/nominal-member ends of rigid arms (grillage reference §4; ADR-042).
+    # Flags Fx Fy Fz Mx My Mz; My = MIDAS local-y bending = solver Iy (vertical, strong axis) -> "000010".
+    # Syntax from the engineer's native BR13B model (2026-10-28; *BEAMEND was rejected by MIDAS: "Invalid command").
+    _DOF_CODE = {"Iy": "000010"}
     _beamend_rows = []
     for eid, mem in members.items():
         rel = mem.get("releases")
@@ -157,16 +157,6 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         j_code = _DOF_CODE.get(rel.get("j"), "000000")
         if i_code != "000000" or j_code != "000000":
             _beamend_rows.append((emap[eid], i_code, j_code))
-    if _beamend_rows and include_unverified:
-        unverified_beamend = True
-        L += ["", "; UNVERIFIED SYNTAX (*BEAMEND not yet confirmed by a MIDAS import; syntax from MIDAS Civil documentation).",
-              "; Releases Ry (strong-axis bending) at the web/nominal-member ends of rigid arms (grillage reference §4, ADR-042).",
-              "; DOF order: Dx Dy Dz Rx Ry Rz; '1' = released.",
-              "*BEAMEND    ; Beam End Release", "; iEL, I-DOF, J-DOF"]
-        for eid_n, ic, jc in sorted(_beamend_rows):
-            L.append(f"   {eid_n}, {ic}, {jc}")
-    else:
-        unverified_beamend = False
     L += ["*MATERIAL", "; iMAT, TYPE, MNAME, SPHEAT, HEATCO, PLAST, TUNIT, bMASS, DAMPRATIO, [DATA1] = ELAST, POISN, THERMAL, DEN, MASS",
           "; Density = member weight / section area (kN/m3): gross-weight composite girders, massless dummies / deck strips / rigid members."]
     for (E, nu, dens), i in sorted(mats.items(), key=lambda q: q[1]):
@@ -199,9 +189,6 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
                   "        " + ", ".join((A, Asy, Asz, J, Iy, Iz)),
                   "        0, 0, 0, 0, 0, 0, 0, 0, 0, 0", "        0, 0, 0, 0, 0, 0, 0, 0"]
     scl = [(i, k[3]) for i, (k, _) in sorted(sec_def.items()) if k[0] == "rect" and k[3] != 1.0]
-    if scl:   # syntax from the engineer's native BR13B model (2026-10-28); group declared in *BNDR-GROUP
-        L += ["*SECT-SCALE    ; Section Stiffness Scale Factor", "; iSEC, AREA_SF, ASY_SF, ASZ_SF, IXX_SF, IYY_SF, IZZ_SF, WGT_SF, GROUP, iPart, bDiffIJ"]
-        L += [f"   {i}, 1, 1, 1, {f:.6g}, 1, 1, 1, J_scale, 1, NO" for i, f in scl] + [""]
     L += ["*STLDCASE    ; Static Load Cases", "; LCNAME, LCTYPE, DESC", "   SW   , D , Self weight", ""]
     groups = {}
     for n, ds in m.fixed.items():
@@ -209,16 +196,22 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         groups.setdefault(f, []).append(nmap[n])
     # Boundary / load groups declared before use: the engineer's second MIDAS import (2026-10-26) gave
     # "Run Error : command in line ..." on the first *CONSTRAINT line, whose group was not defined (provisional fix).
-    bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else []) + (["J_scale"] if scl else [])
+    bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else []) + (["J_scale"] if scl else []) + (["Releases"] if _beamend_rows else [])
     L += ["*BNDR-GROUP    ; Boundary Group", "; NAME, AUTOTYPE"] + [f"   {g}, 0" for g in bg] + [""]
     if gravity:
         L += ["*LOAD-GROUP    ; Load Group", "; NAME", "   SelfWeight", ""]
     L += ["*CONSTRAINT    ; Supports", "; NODE_LIST, CONST(Dx,Dy,Dz,Rx,Ry,Rz,Rw), GROUP"]
     for f, ids in groups.items():
         L.append(f"   {_node_list(sorted(ids))}, {f}, Support_{f}")
+    if scl:   # native BR13B syntax; after *BNDR-GROUP, which declares J_scale (as the native file orders them)
+        L += ["", "*SECT-SCALE    ; Section Stiffness Scale Factor", "; iSEC, AREA_SF, ASY_SF, ASZ_SF, IXX_SF, IYY_SF, IZZ_SF, WGT_SF, GROUP, iPart, bDiffIJ"]
+        L += [f"   {i}, 1, 1, 1, {f:.6g}, 1, 1, 1, J_scale, 1, NO" for i, f in scl]
+    if _beamend_rows:   # after *BNDR-GROUP, which declares Releases
+        L += ["", "*FRAME-RLS    ; Beam End Release (Ry at the web/nominal-member ends of rigid arms, ADR-042)",
+              "; ELEM_LIST, bVALUE, FLAG-i, Fxi, Fyi, Fzi, Mxi, Myi, Mzi / FLAG-j, Fxj, Fyj, Fzj, Mxj, Myj, Mzj, GROUP"]
+        for eid_n, ic, jc in sorted(_beamend_rows):
+            L += [f"   {eid_n}, NO, {ic}, 0, 0, 0, 0, 0, 0", f"             {jc}, 0, 0, 0, 0, 0, 0, Releases"]
     unverified = []
-    if unverified_beamend:
-        unverified.append("*BEAMEND")
     if m.links:
         if include_unverified:
             unverified.append("*ELASTICLINK")
@@ -254,7 +247,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     L += ["", "*ENDDATA"]
     rep = {"nodes": len(nmap), "elements": len(emap), "materials": len(mats), "sections": len(secs), "links": len(m.links), "springs": len(m.springs),
            "supports": sum(len(v) for v in groups.values()), "unverified_blocks": unverified,
-           "not_written": (["nodal loads (*CONLOAD undocumented)"] if m.loads else []) + ([] if include_unverified else (["*BEAMEND"] if _beamend_rows else []) + ["*ELASTICLINK", "*SPRING"]),
+           "not_written": (["nodal loads (*CONLOAD undocumented)"] if m.loads else []) + ([] if include_unverified else ["*ELASTICLINK", "*SPRING"]),
            "node_map": nmap, "element_map": emap, "base_point": (E0, N0),
            "status": "NEEDS ENGINEER IMPORT TEST" + (" — contains UNVERIFIED syntax: " + ", ".join(unverified) if unverified else "")}
     text = "\n".join(L) + "\n"
