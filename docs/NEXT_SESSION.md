@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-10-26 — P4-7 done. Solid-end shear implemented: `solid_end_geometry()` in `girder_shear.py` (Ao=0.9Aoh rectangular approx, Assumed, ADR-039); `checks_along()` visits conf='solid' stations (shear only, no flexure); `tools/girder_checks.py` skips solid rows in flexure tables. Commit `f1b3532`. test_stations 11/11, test_shear 11/11, test_girder_checks 8/8 PASS. Next: fitments (D-1, D-45) or moment releases at rigid-arm ends.
+**Last updated:** 2026-10-27 — P4-8 done. Moment releases at rigid-arm ends: `add()` accepts `releases` param; rigid arms between main girder and W1/W2 nodes tagged with Iy release at web-line end (grillage ref §4). `*BEAMEND` block in MCT (UNVERIFIED, include_unverified gate). ADR-042 written. Commit `35b3719`. test_builder 17/17, test_mct 13/14 (1 pre-existing dashboard-parser skip) PASS. Next: fitments (D-1, D-45).
 
 **Rule:** read this file first, then `CURRENT_STATUS.md`. Then:
 1. `git fetch`;
@@ -46,11 +46,11 @@ If this file and the repository disagree, the repository wins: fix this file. **
 - **P4-6 grillage torsion DONE** (`376a58d`, ADR-041): `girder_J_factor` = 1.0 (Assumed). See ADR-041.
 - **P4-7 solid-end shear DONE** (`f1b3532`): `solid_end_geometry()` + `checks_along()` solid branch + reporting guards.
 - **Awaiting owner re-import** of `BR13A.integrated.mct` with BNDR-GROUP fix (`d135add`+`cac0e3f`).
-- **Moment releases at rigid-arm ends** (reference §4 "small boxes"): not yet done. Needs a decision record.
+- **Moment releases at rigid-arm ends DONE** (`35b3719`, ADR-042): Iy release at W1/W2 ends; `*BEAMEND` UNVERIFIED in MCT.
 
 0. **Owner instruction 2026-10-26 (ADR-040):** BR13A is for software development; assume reasonable code / practice values where the drawings are silent, keep them changeable (Assumed + replace_with, Query Register). D-34 … D-46 accepted; no proposed decisions; tools run without `--allow-proposed`.
 1. **Fitments (D-1, D-45):** current peak u=2.79 governed by uV from torsion; solid-end stations now checked (low u). Awaiting actual fitment schedule from drawings (D-45 is Assumed N12 2L @ 100/200; D-1 Assumed).
-2. **Moment releases at rigid-arm ends:** not yet done. Needs ADR entry.
+2. **Moment releases at rigid-arm ends:** DONE (`35b3719`, ADR-042).
 3. **Viewer / dashboard refresh** from the new outputs (`tools/viewer/`, the status dashboard artifact).
 4. **P6:** a second single-span Super-T from its PDFs (owner to supply).
 5. Keep the generality guard green. Full suite ≈ 80 min.
