@@ -15,6 +15,8 @@ def rec(path, value, unit, tag, sheet=None, view=None, note=None, derivation=Non
     r = {"path": path, "value": value, "unit": unit, "tag": tag}
     if sheet:
         r["source"] = {"document": "Second_Example.pdf", "sheet": sheet, "view": view, "note": note}
+    elif note:
+        r["note"] = note
     if derivation:
         r["derivation"] = derivation
     out.append(r)

@@ -111,7 +111,8 @@
   "path": "project.importance_level",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "classification BEDC-4 printed (109001); AS 5100.2 importance level not printed"
  },
  {
   "path": "alignment.control_line",
@@ -191,7 +192,8 @@
   "path": "alignment.vertical_note",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "CONFLICT: 109011 elevation prints DESIGN SURFACE RL 9.493 at MC10 CH 9215.900 (end of deck A); 109302 Table 1 prints TOP OF DECK CONCRETE RL 9.493 at deck ch 5.000 point 1 (same point). Wearing surface 80 thick (109011 notes) -> one label is wrong. Mapping MC10 chainage -> deck setout chainage also needed (SOP A: MC10 9216.350 = deck 5.449)."
  },
  {
   "path": "alignment.crossfall",
@@ -874,7 +876,8 @@
   "path": "superstructure.supert_types[ST1].section",
   "value": "lib:supert/T3",
   "unit": null,
-  "tag": "Standard-verify"
+  "tag": "Standard-verify",
+  "note": "1215 deep = T3 (1200) family, as BR13A 1515 = T4"
  },
  {
   "path": "superstructure.supert_types[ST1].depth",
@@ -916,7 +919,8 @@
   "path": "superstructure.flange_note",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "top flange 1160 each side of the girder centreline on every girder sheet (109202 SG-01, 109203 SG-02..09, 109204 SG-10; no trimmed variant drawn) = 2320 > 2269 bearing spacing of SG-06 / SG-05 across the median: flanges overlap 51 mm. Owner to confirm which is right (girder spacing at the median, or a trimmed flange not drawn)"
  },
  {
   "path": "superstructure.members[SG-01].flange_left",
@@ -1246,7 +1250,8 @@
   "path": "superstructure.cross_girders.intermediate",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "no intermediate cast-in-place cross girder drawn on 109301-304 (girders have internal diaphragms, 109203)"
  },
  {
   "path": "bearings.items[A-01].support",
@@ -2041,7 +2046,8 @@
   "path": "supports[A].piles[A-01].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[A].piles[A-02].E",
@@ -2109,7 +2115,8 @@
   "path": "supports[A].piles[A-02].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[A].piles[A-03].E",
@@ -2177,7 +2184,8 @@
   "path": "supports[A].piles[A-03].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[A].piles[A-04].E",
@@ -2245,7 +2253,8 @@
   "path": "supports[A].piles[A-04].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[A].piles[A-05].E",
@@ -2313,7 +2322,8 @@
   "path": "supports[A].piles[A-05].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[B].pile_line_ch",
@@ -2388,7 +2398,8 @@
   "path": "supports[B].piles[B-01].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[B].piles[B-02].E",
@@ -2456,7 +2467,8 @@
   "path": "supports[B].piles[B-02].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[B].piles[B-03].E",
@@ -2524,7 +2536,8 @@
   "path": "supports[B].piles[B-03].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[B].piles[B-04].E",
@@ -2592,7 +2605,8 @@
   "path": "supports[B].piles[B-04].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "supports[B].piles[B-05].E",
@@ -2660,7 +2674,8 @@
   "path": "supports[B].piles[B-05].rl_rock",
   "value": null,
   "unit": "m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
  },
  {
   "path": "bearings.items[A-01].plan_a",
@@ -2714,19 +2729,22 @@
   "path": "bearings.items[A-01].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-01].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-01].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-01].restraint_longitudinal",
@@ -2804,19 +2822,22 @@
   "path": "bearings.items[A-02].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-02].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-02].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-02].restraint_longitudinal",
@@ -2894,19 +2915,22 @@
   "path": "bearings.items[A-03].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-03].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-03].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-03].restraint_longitudinal",
@@ -2984,19 +3008,22 @@
   "path": "bearings.items[A-04].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-04].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-04].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-04].restraint_longitudinal",
@@ -3074,19 +3101,22 @@
   "path": "bearings.items[A-05].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-05].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-05].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-05].restraint_longitudinal",
@@ -3164,19 +3194,22 @@
   "path": "bearings.items[A-06].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-06].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-06].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-06].restraint_longitudinal",
@@ -3254,19 +3287,22 @@
   "path": "bearings.items[A-07].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-07].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-07].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-07].restraint_longitudinal",
@@ -3344,19 +3380,22 @@
   "path": "bearings.items[A-08].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-08].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-08].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-08].restraint_longitudinal",
@@ -3434,19 +3473,22 @@
   "path": "bearings.items[A-09].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-09].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-09].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-09].restraint_longitudinal",
@@ -3524,19 +3566,22 @@
   "path": "bearings.items[A-10].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-10].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-10].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[A-10].restraint_longitudinal",
@@ -3614,19 +3659,22 @@
   "path": "bearings.items[B-01].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-01].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-01].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-01].restraint_longitudinal",
@@ -3704,19 +3752,22 @@
   "path": "bearings.items[B-02].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-02].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-02].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-02].restraint_longitudinal",
@@ -3794,19 +3845,22 @@
   "path": "bearings.items[B-03].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-03].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-03].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-03].restraint_longitudinal",
@@ -3884,19 +3938,22 @@
   "path": "bearings.items[B-04].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-04].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-04].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-04].restraint_longitudinal",
@@ -3974,19 +4031,22 @@
   "path": "bearings.items[B-05].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-05].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-05].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-05].restraint_longitudinal",
@@ -4064,19 +4124,22 @@
   "path": "bearings.items[B-06].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-06].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-06].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-06].restraint_longitudinal",
@@ -4154,19 +4217,22 @@
   "path": "bearings.items[B-07].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-07].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-07].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-07].restraint_longitudinal",
@@ -4244,19 +4310,22 @@
   "path": "bearings.items[B-08].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-08].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-08].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-08].restraint_longitudinal",
@@ -4334,19 +4403,22 @@
   "path": "bearings.items[B-09].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-09].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-09].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-09].restraint_longitudinal",
@@ -4424,19 +4496,22 @@
   "path": "bearings.items[B-10].elastomer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-10].layer_thickness",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-10].shear_modulus",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)"
  },
  {
   "path": "bearings.items[B-10].restraint_longitudinal",
@@ -4533,7 +4608,8 @@
   "path": "supports[A].headstock_setout.start_end",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "along-line extents not dimensioned from the SOP on the sheets read"
  },
  {
   "path": "supports[A].curtain_wall.thickness",
@@ -4563,7 +4639,8 @@
   "path": "supports[A].soil",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "geotechnical parameters in the factual / interpretive reports (109001 references), not in the drawings"
  },
  {
   "path": "supports[B].kind",
@@ -4636,7 +4713,8 @@
   "path": "supports[B].headstock_setout.start_end",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "along-line extents not dimensioned from the SOP on the sheets read"
  },
  {
   "path": "supports[B].curtain_wall.thickness",
@@ -4666,7 +4744,8 @@
   "path": "supports[B].soil",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "geotechnical parameters in the factual / interpretive reports (109001 references), not in the drawings"
  },
  {
   "path": "deck.barriers[barrier_left].type",
@@ -4715,7 +4794,8 @@
   "path": "deck.barriers[barrier_left].rail_weight",
   "value": null,
   "unit": "kN/m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "twin traffic barrier rails 109451-455 not read"
  },
  {
   "path": "deck.barriers[barrier_right].type",
@@ -4764,7 +4844,8 @@
   "path": "deck.barriers[barrier_right].rail_weight",
   "value": null,
   "unit": "kN/m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "twin traffic barrier rails 109451-455 not read"
  },
  {
   "path": "deck.barriers[barrier_median].type",
@@ -4813,7 +4894,8 @@
   "path": "deck.barriers[barrier_median].weight",
   "value": null,
   "unit": "kN/m",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "area 0.3663 m2 Calculated; density of cast-in-place concrete not printed"
  },
  {
   "path": "materials.concrete[girders].fc",
@@ -4879,25 +4961,29 @@
   "path": "materials.concrete[girders].E",
   "value": null,
   "unit": "MPa",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "28-day modulus not printed (girder transfer modulus 32100 only)"
  },
  {
   "path": "materials.concrete[deck].E",
   "value": null,
   "unit": "MPa",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "28-day modulus not printed (girder transfer modulus 32100 only)"
  },
  {
   "path": "materials.concrete[abutments].E",
   "value": null,
   "unit": "MPa",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "28-day modulus not printed (girder transfer modulus 32100 only)"
  },
  {
   "path": "materials.concrete[pile infill].E",
   "value": null,
   "unit": "MPa",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "28-day modulus not printed (girder transfer modulus 32100 only)"
  },
  {
   "path": "materials.strand.diameter",
@@ -5131,7 +5217,8 @@
   "path": "loads.wind.V_with_traffic",
   "value": null,
   "unit": "m/s",
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on 109001"
  },
  {
   "path": "loads.earthquake.kp",
@@ -5209,30 +5296,35 @@
   "path": "loads.temperature",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
  },
  {
   "path": "loads.gradient",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
  },
  {
   "path": "loads.shrinkage_creep_shortening",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
  },
  {
   "path": "loads.braking_force",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
  },
  {
   "path": "loads.traffic_surcharge",
   "value": null,
   "unit": null,
-  "tag": "Missing-Flagged"
+  "tag": "Missing-Flagged",
+  "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
  }
 ]
