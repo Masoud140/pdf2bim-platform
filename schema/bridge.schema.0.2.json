@@ -23819,6 +23819,221 @@
           }
          ]
         },
+        "wall_thickness": {
+         "type": "object",
+         "description": "Steel tube wall thickness for a concrete-filled steel tube pile (empty = solid concrete pile) [mm]",
+         "additionalProperties": false,
+         "required": [
+          "value",
+          "tag",
+          "status",
+          "original",
+          "current"
+         ],
+         "properties": {
+          "value": {
+           "type": [
+            "number",
+            "null"
+           ]
+          },
+          "unit": {
+           "const": "mm"
+          },
+          "tag": {
+           "enum": [
+            "Direct",
+            "Calculated",
+            "Missing-Flagged",
+            "Standard-verify",
+            "Input-user",
+            "Confirmed-Engineer",
+            "Assumed",
+            "Model"
+           ],
+           "description": "Data source category"
+          },
+          "source": {
+           "$ref": "#/$defs/source"
+          },
+          "derivation": {
+           "$ref": "#/$defs/derivation"
+          },
+          "ref": {
+           "type": "string",
+           "pattern": "^(lib|std):",
+           "description": "Product library or standards key"
+          },
+          "status": {
+           "enum": [
+            "open",
+            "proposed",
+            "accepted",
+            "rejected",
+            "superseded"
+           ]
+          },
+          "decision": {
+           "type": "string",
+           "pattern": "^D-[0-9]+$",
+           "description": "Last decision-log entry that set this value"
+          },
+          "replace_with": {
+           "type": "string",
+           "description": "What the real value will come from (Assumed values)"
+          },
+          "note": {
+           "type": "string"
+          },
+          "original": {
+           "$ref": "#/$defs/original"
+          },
+          "overrides": {
+           "type": "array",
+           "items": {
+            "$ref": "#/$defs/override"
+           },
+           "description": "Append-only list of changes"
+          },
+          "current": {
+           "type": "string",
+           "pattern": "^(original|OV-[0-9]+)$",
+           "description": "Which entry is the accepted value now"
+          },
+          "significance": {
+           "$ref": "#/$defs/significance"
+          }
+         },
+         "allOf": [
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Direct"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "doc"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Calculated"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "derivation"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Missing-Flagged"
+             }
+            }
+           },
+           "then": {
+            "properties": {
+             "status": {
+              "enum": [
+               "open"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Standard-verify"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "ref"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Assumed"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source",
+             "replace_with"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "note"
+              ]
+             }
+            }
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "enum": [
+               "Input-user",
+               "Confirmed-Engineer"
+              ]
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "decision"
+            ]
+           }
+          },
+          {
+           "if": {
+            "properties": {
+             "tag": {
+              "const": "Model"
+             }
+            }
+           },
+           "then": {
+            "required": [
+             "source"
+            ],
+            "properties": {
+             "source": {
+              "required": [
+               "note"
+              ]
+             }
+            }
+           }
+          }
+         ]
+        },
         "rl_top": {
          "type": "object",
          "description": "Cut-off level / column top [m]",
@@ -26258,6 +26473,268 @@
              "null"
             ],
             "description": "MPa"
+           }
+          }
+         },
+         "tag": {
+          "enum": [
+           "Direct",
+           "Calculated",
+           "Missing-Flagged",
+           "Standard-verify",
+           "Input-user",
+           "Confirmed-Engineer",
+           "Assumed",
+           "Model"
+          ],
+          "description": "Data source category"
+         },
+         "source": {
+          "$ref": "#/$defs/source"
+         },
+         "derivation": {
+          "$ref": "#/$defs/derivation"
+         },
+         "ref": {
+          "type": "string",
+          "pattern": "^(lib|std):",
+          "description": "Product library or standards key"
+         },
+         "status": {
+          "enum": [
+           "open",
+           "proposed",
+           "accepted",
+           "rejected",
+           "superseded"
+          ]
+         },
+         "decision": {
+          "type": "string",
+          "pattern": "^D-[0-9]+$",
+          "description": "Last decision-log entry that set this value"
+         },
+         "replace_with": {
+          "type": "string",
+          "description": "What the real value will come from (Assumed values)"
+         },
+         "note": {
+          "type": "string"
+         },
+         "original": {
+          "$ref": "#/$defs/original"
+         },
+         "overrides": {
+          "type": "array",
+          "items": {
+           "$ref": "#/$defs/override"
+          },
+          "description": "Append-only list of changes"
+         },
+         "current": {
+          "type": "string",
+          "pattern": "^(original|OV-[0-9]+)$",
+          "description": "Which entry is the accepted value now"
+         },
+         "significance": {
+          "$ref": "#/$defs/significance"
+         }
+        },
+        "allOf": [
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Direct"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "doc"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Calculated"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "derivation"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Missing-Flagged"
+            }
+           }
+          },
+          "then": {
+           "properties": {
+            "status": {
+             "enum": [
+              "open"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Standard-verify"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "ref"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Assumed"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source",
+            "replace_with"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "enum": [
+              "Input-user",
+              "Confirmed-Engineer"
+             ]
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "decision"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Model"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         }
+        ]
+       }
+      },
+      "note": {
+       "type": "string"
+      }
+     }
+    },
+    "steel": {
+     "type": "object",
+     "description": "Structural steel by element (e.g. steel tube piles)",
+     "additionalProperties": false,
+     "required": [
+      "rows"
+     ],
+     "properties": {
+      "rows": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "required": [
+         "cells",
+         "tag",
+         "status",
+         "original",
+         "current"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "cells": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+           "element": {
+            "type": [
+             "string",
+             "null"
+            ],
+            "description": ""
+           },
+           "grade": {
+            "type": [
+             "string",
+             "null"
+            ],
+            "description": ""
+           },
+           "fy": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "MPa"
+           },
+           "Es": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "MPa"
+           },
+           "density": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "kN/m3"
            }
           }
          },

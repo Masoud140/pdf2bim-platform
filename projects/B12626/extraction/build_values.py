@@ -68,8 +68,11 @@ rec("alignment.support_lines", [
                "span %.4f = girder 27.900 - 2 x 0.400 (109202) = 27.100" % (chA, chB, off_of(*sopA), off_of(*sopB), chB - chA))
 
 # ---------------- vertical (MC10 profile, 109013) and the RL conflict ----------------
-rec("alignment.vertical", [{"ch": 9168.188, "RL": 11.830, "grade_in": 1.80, "grade_out": -1.90, "curve_length": 481.000}], None, D,
-    "109013", "vertical alignment diagram MC10", "IP CH 9168.188 RL 11.830, +1.80 % / -1.90 %, VC 481.000 — chainage along MC10, not the deck setout line")
+rec("alignment.vertical", [{"ch": 8927.688, "RL": 7.501, "grade_out": 1.80},
+                          {"ch": 9168.188, "RL": 11.830, "grade_in": 1.80, "grade_out": -1.90, "curve_length": 481.000},
+                          {"ch": 9408.688, "RL": 7.260, "grade_in": -1.90}], None, D,
+    "109013", "vertical alignment diagram MC10", "TP CH 8927.688 RL 7.501; IP CH 9168.188 RL 11.830, +1.80 % / -1.90 %, VC 481.000; "
+    "TP CH 9408.688 RL 7.260 — chainage along MC10, not the deck setout line")
 rec("alignment.vertical_note", None, None, M, note=(
     "CONFLICT: 109011 elevation prints DESIGN SURFACE RL 9.493 at MC10 CH 9215.900 (end of deck A); 109302 Table 1 prints TOP OF DECK "
     "CONCRETE RL 9.493 at deck ch 5.000 point 1 (same point). Wearing surface 80 thick (109011 notes) -> one label is wrong. "
@@ -148,7 +151,9 @@ for s, (sop, offs, tops) in piles.items():
         E, N = sop[0] + o * dirB[0], sop[1] + o * dirB[1]
         rec(p + ".E", round(E, 3), "m", C, derivation="SOP + %.3f along bearing 127°20'15\" (109031 plan dimensions; west negative)" % o)
         rec(p + ".N", round(N, 3), "m", C, derivation="as E")
-        rec(p + ".diameter", 900, "mm", D, "109031", "table 1")
+        rec(p + ".diameter", 900, "mm", D, "109031", "table 1", "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'")
+        rec(p + ".design_loads", {"SLS_N": 3535, "ULS_N": 5175, "ULS_M_concrete": 1831, "ULS_M_steel": 50}, "kN, kNm", D, "109035", "table 4 pile design loads",
+            "same for both abutments; 'not concurrent, maximum values in each case'")
         rec(p + ".wall_thickness", 16, "mm", D, "109031", "table 1", "steel pile thickness t")
         rec(p + ".rl_top", top, "m", D, "109031", "table 1", "top of pile RL 'B'")
         rec(p + ".rl_toe", -22.500, "m", D, "109031", "table 1", "pile toe level RL 'A'")
@@ -175,10 +180,14 @@ for s, dep, cw in (("A", 1575, 1327), ("B", 1925, 1324)):
     rec(p + ".kind", "piled abutment (sill beam on driven steel tube piles)", None, D, "109011", "elevation")
     rec(p + ".headstock.width", 1350, "mm", D, "109055", "section 1 (3)", "1350 = 350 curtain wall + 500 + 500")
     rec(p + ".headstock.depth", dep, "mm", D, "109055", "section 1 (3)", "front face depth below the bearing seat; values for B in brackets")
-    rec(p + ".headstock.length", 26.315 if s == "A" else 26.312, "m", D, "109011", "plan", "abutment length")
+    rec(p + ".headstock.length", 23.412, "m", D, "109051" if s == "A" else "109052", "plan", "23412 overall sill length along the line of bearings "
+        "(the GA 109011 'abutment length' 26315 / 26312 includes the wingwalls)")
+    rec(p + ".headstock.depth_elevation_typ", 1350 if s == "A" else 1700, "mm", D, "109051" if s == "A" else "109052", "elevation",
+        "'1350 TYP' (A) / '1700 TYP' (B): 225 less than the section depth below the seat (1575 / 1925) — meaning to confirm")
     rec(p + ".headstock_setout.front", 500, "mm", D, "109055", "section 1", "front face 500 from ℄ bearings")
     rec(p + ".headstock_setout.back", -850, "mm", C, derivation="-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)")
-    rec(p + ".headstock_setout.start_end", None, None, M, note="along-line extents not dimensioned from the SOP on the sheets read")
+    rec(p + ".headstock_setout.west_end", -9897, "mm", D, "109051" if s == "A" else "109052", "plan", "9897 SOP to the western sill end (+ east)")
+    rec(p + ".headstock_setout.east_end", 13516, "mm", D, "109051" if s == "A" else "109052", "plan", "13516 SOP to the eastern sill end (sum 23412)")
     rec(p + ".curtain_wall.thickness", 350, "mm", D, "109055", "section 1")
     rec(p + ".curtain_wall.height", cw, "mm", D, "109055", "section 1 (3)", "above the bearing seat")
     rec(p + ".soil", None, None, M, note="geotechnical parameters in the factual / interpretive reports (109001 references), not in the drawings")

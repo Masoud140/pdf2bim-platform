@@ -73,18 +73,21 @@ for k in ("name", "bridge_id", "client", "designer", "drawing_set", "revision", 
     put("project." + k, R["project." + k])
 put("project.importance_level", R["project.importance_level"])
 
+put("project.base_point.rows[0]", tag="Model", cells={"name": "MCT local origin = deck setout line ch 0 (109013)", "E": E0, "N": N0},
+    model_note="MIDAS file origin only (coordinates stay MGA in the description); the printed setout-line start point")
+
 # ---------------- alignment ----------------
 put("alignment.control_line", R["alignment.control_line"], value="DECK SETOUT LINE", tag="Direct")
 r = R["alignment.horizontal"]
 put("alignment.horizontal.rows[0]", r, cells={"element": "tangent", "ch_start": 0.0, "length": 40.0, "E_start": E0, "N_start": N0})
 put("alignment.horizontal.rows[1]", r, cells={"element": "tangent", "ch_start": 40.0, "E_start": E40, "N_start": N40})
 CH = 9216.350 - 5.4493
-rv = R["alignment.vertical"]["value"][0]
-put("alignment.vertical.rows[0]", tag="Calculated", cells={"ch": round(rv["ch"] - CH, 4), "RL": rv["RL"], "grade_in": rv["grade_in"], "grade_out": rv["grade_out"], "curve_length": rv["curve_length"]},
-    derivation="MC10 IP CH 9168.188 RL 11.830, +1.80 / -1.90 %%, VC 481.000 (109013) on deck setout chainage: ch(setout) = CH(MC10) - %.4f "
-               "(SOP A 9216.350 = %.4f; SOP B 9243.450 = 32.5493 gives the same); levels at MC10 = the setout line (%s). "
-               "OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)" % (CH, 5.4493, SOPD),
-    inputs=["alignment.support_lines.rows[0]"])
+for i, rv in enumerate(R["alignment.vertical"]["value"]):
+    put("alignment.vertical.rows[%d]" % i, tag="Calculated", cells=dict(rv, ch=round(rv["ch"] - CH, 4)),
+        derivation="MC10 profile point CH %.3f RL %.3f (109013: TP 8927.688 RL 7.501 / IP 9168.188 RL 11.830 +1.80 / -1.90 %% VC 481 / TP 9408.688 RL 7.260) "
+                   "on deck setout chainage: ch(setout) = CH(MC10) - %.4f (SOP A 9216.350 = 5.4493; SOP B 9243.450 = 32.5493 gives the same); "
+                   "levels at MC10 = the setout line (%s). OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)"
+                   % (rv["ch"], rv["RL"], CH, SOPD), inputs=["alignment.support_lines.rows[0]"])
 cf = R["alignment.crossfall"]["value"][0]
 put("alignment.crossfall.rows[0]", tag="Calculated", cells={"left": cf["left"], "right": cf["right"], "crown_offset": round(cf["crown_offset"] + oM, 4)},
     derivation="3 %% falls both ways from the median centre (109012 section 1), crown 1813 east of MC10 (109051) + mean SOP offset %.4f" % oM)
@@ -109,9 +112,12 @@ for b in ("left", "right", "median"):
         put(p + ".weight", R[p + ".weight"], unit="kN/m")
         put("custom.median_barrier_area", R[p + ".area"], unit="m2")
     else:
-        put(p + ".height", tag="Missing-Flagged", unit="mm", note="precast unit 1400 tall (109402); its height above the deck surface is not dimensioned")
+        put(p + ".height", tag="Calculated", value=725.0, unit="mm", derivation="109405 section 1: barrier top 490 + 160 + 155 = 805 above the deck concrete, "
+            "less 80 wearing surface (109011) = 725 above the deck surface; twin traffic rails above it (109451-) not included", inputs=["deck.surfacing_thickness"])
         put(p + ".weight", R[p + ".weight"], unit="kN/m", inputs=[])
-    put(p + ".offset", tag="Missing-Flagged", unit="m", note="centroid line not dimensioned; inside face at the carriageway edge")
+    put(p + ".solid", value=True, tag="Direct", r={"tag": "Direct", "source": {"sheet": "109405" if b != "median" else "109303", "view": "section 1" if b != "median" else "detail D",
+        "note": "solid concrete barrier" + ("; open twin rails above (109451-) not included" if b != "median" else "")}})
+    put(p + ".offset", tag="Missing-Flagged", unit="m", note="centroid line not dimensioned" + ("; symmetric about the median centre" if b == "median" else "; inside face at the carriageway edge"))
 
 # ---------------- superstructure ----------------
 put("superstructure.type", R["superstructure.type"]); put("superstructure.spans", R["superstructure.spans"])
@@ -137,6 +143,9 @@ put(t + ".depth", R[t + ".depth"], unit="mm")
 put(t + ".shape.rows[0]", R[t + ".depth"], cells={"key": "D", "name": "Overall depth", "value": 1215.0, "unit": "mm"})
 put(t + ".top_flange_width", tag="Calculated", value=2320.0, unit="mm", derivation="2 x 1160 (109202-204 plan)", inputs=[])
 put(t + ".concrete_28d", R[t + ".concrete_28d"], unit="MPa"); put(t + ".concrete_transfer", R[t + ".concrete_transfer"], unit="MPa")
+for i, end in enumerate("AB"):
+    put(t + ".zones.rows[%d]" % i, R["superstructure.end_diaphragm_length"], cells={"from": 0.0, "to": 1.5, "kind": "solid_end_" + end},
+        note="END DIAPHRAGM 1500 from each girder end (109203 plan)")
 put(t + ".haunch", tag="Missing-Flagged", unit="mm", note="girder top to deck soffit not dimensioned on the sheets read")
 for k in ("end_diaphragm_length", "flange_end_cutback"):
     put("custom." + k, R["superstructure." + k], unit="mm")
@@ -167,16 +176,30 @@ for s in "AB":
     put(p + ".kind", value="spill-through abutment", tag="Direct",
         r={"tag": "Direct", "source": {"sheet": "109001", "view": "construction sequence", "note": "CONSTRUCT EMBANKMENTS TO UNDERSIDE OF ABUTMENT SILL BEAMS ... BACKFILL; sill beam on 5 piles"}})
     put(p + ".headstock.rows[0]", R[p + ".headstock.width"], cells={"width": 1350.0, "depth": float(R[p + ".headstock.depth"]["value"]), "length": R[p + ".headstock.length"]["value"]},
-        tag="Direct", note="depth = front face below the bearing seat (109055); length from the GA (109011)")
+        tag="Direct", note="depth = front face below the bearing seat (109055 section 1 / 3); elevation shows 1350 / 1700 TYP (225 less) — to confirm; length 23412 (109051 / 052 plan)")
     put(p + ".headstock_setout.rows[0]", R[p + ".headstock_setout.front"], cells={"edge": "front", "value": 500.0})
     put(p + ".headstock_setout.rows[1]", R[p + ".headstock_setout.back"], cells={"edge": "back", "value": -850.0}, inputs=[])
+    for i, (edge, k) in enumerate((("start", "west_end"), ("end", "east_end")), 2):
+        r = R[p + ".headstock_setout." + k]
+        put(p + f".headstock_setout.rows[{i}]", r, tag="Calculated", cells={"edge": edge, "value": round(r["value"] - oS[s] * 1000, 1)},
+            derivation=f"{r['value']} from the SOP ({r['source']['sheet']} plan; + east = + along the support line bearing 127°20'15\") "
+                       f"- SOP position on the support line {oS[s] * 1000:.1f} mm")
+    put(p + ".soil_layers.rows[0]", tag="Missing-Flagged", cells={"name": "units 2C2 very stiff clay, 3A1 / 3A2 / 3B / 3C1 sands, 3C2 very dense sand (109035 table 2)"},
+        note="layer levels and lateral moduli not on the drawings: 'values are a function of depth, refer geotechnical report'")
+    put(p + ".backfill.rows[0]", tag="Missing-Flagged", cells={}, note="select backfill to TfNSW D&C B30 (109055); properties not printed")
+    put(p + ".rock_kh", tag="Missing-Flagged", unit="MN/m3", note="piles found in very dense sand 3C2 (109031); no rock")
     put(p + ".curtain_wall.rows[0]", R[p + ".curtain_wall.thickness"], cells={"thickness": 350.0, "height": float(R[p + ".curtain_wall.height"]["value"])})
     for k in range(1, 6):
         q = p + ".piles[%s-%02d]" % (s, k)
         put(q + ".E", R[q + ".E"], unit="m", inputs=[]); put(q + ".N", R[q + ".N"], unit="m", inputs=[])
-        put(q + ".diameter", R[q + ".diameter"], unit="mm"); put(q + ".rl_top", R[q + ".rl_top"], unit="m"); put(q + ".rl_toe", R[q + ".rl_toe"], unit="m")
+        put(q + ".diameter", R[q + ".diameter"], value=900.0 + 2 * 16, unit="mm", tag="Calculated",
+            derivation="outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)", inputs=[q + ".wall_thickness"])
+        dl = R[q + ".design_loads"]
+        put(q + ".design_actions.rows[0]", dl, cells={"limit_state": "SLS", "N": 3535.0}, note="109035 table 4; not concurrent")
+        put(q + ".design_actions.rows[1]", dl, cells={"limit_state": "ULS", "N": 5175.0, "M": 1831.0},
+            note="109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"); put(q + ".rl_top", R[q + ".rl_top"], unit="m"); put(q + ".rl_toe", R[q + ".rl_toe"], unit="m")
         put(q + ".rl_rock", R[q + ".rl_rock"], unit="m")
-    put(f"custom.pile_wall_thickness_{s}", R[p + ".piles[%s-01].wall_thickness" % s], unit="mm")
+        put(q + ".wall_thickness", R[q + ".wall_thickness"], unit="mm")
 put("custom.steel_pile_driving_stress_limit", R["materials.steel_pile.fy_limit"], unit="MPa")
 
 # ---------------- materials ----------------
@@ -184,6 +207,8 @@ for i, (el, pth) in enumerate((("Super-T girders", "girders"), ("deck", "deck"),
     r = R[f"materials.concrete[{pth}].fc"]
     cells = {"element": el, "fc": float(r["value"])}
     put(f"materials.concrete.rows[{i}]", r, cells=cells)
+put("materials.steel.rows[0]", tag="Missing-Flagged", cells={"element": "steel tube piles"},
+    note="Ø900 x 16 driven steel tubes with concrete infill (109031 / 109035); grade, Es and density not printed (driving stress limited to 315 MPa)")
 put("materials.strand.rows[0]", R["materials.strand.fpb"], cells={"type": "15.2 mm 7-wire ordinary, relax 2", "diameter": 15.2, "fpb": 1830.0})
 put("custom.strand_MBL", R["materials.strand.MBL"], unit="kN"); put("custom.strand_force_after_release", R["materials.strand.jacking_force_after_release"], unit="kN")
 
@@ -198,6 +223,17 @@ for i, (it, un) in enumerate((("V_uls", "m/s"), ("V_sls", "m/s"))):
     put(f"loads.wind.rows[{i}]", R["loads.wind." + it], cells={"item": it, "value": float(R["loads.wind." + it]["value"]), "unit": un})
 for i, it in enumerate(("kp", "Z", "site_class")):
     put(f"loads.earthquake.rows[{i}]", R["loads.earthquake." + it], cells={"item": it, "value": str(R["loads.earthquake." + it]["value"])})
+# rows the platform reads that the drawings do not give: written as Missing-Flagged placeholders (item / depth only)
+NP = "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+for i, it in enumerate(("V_with_traffic", "air_density", "Cd", "CL", "vertical_eccentricity_b", "longitudinal_fraction", "vehicle_line_load", "vehicle_height"), 2):
+    put(f"loads.wind.rows[{i}]", tag="Missing-Flagged", cells={"item": it}, note=NP)
+for i, it in enumerate(("T_max", "T_min", "T_set", "alpha")):
+    put(f"loads.temperature.rows[{i}]", tag="Missing-Flagged", cells={"item": it}, note=NP)
+for gname in ("gradient_positive", "gradient_negative"):
+    for i in range(13):
+        put(f"loads.{gname}.rows[{i}]", tag="Missing-Flagged", cells={"depth": 100.0 * i}, note=NP)
+for i, it in enumerate(("Rf", "zeta", "vertical"), 3):
+    put(f"loads.earthquake.rows[{i}]", tag="Missing-Flagged", cells={"item": it}, note=("µ 1.0 longitudinal / transverse printed (109001); Rf not printed" if it == "Rf" else NP))
 for k in ("design_lanes", "heavy_load_platform", "concurrent_traffic_with_HLP", "fatigue", "route_factor", "design_standard"):
     put("custom." + k, R["loads." + k])
 put("custom.differential_settlement", R["loads.differential_settlement"], unit="mm")
@@ -205,6 +241,17 @@ for k in ("region", "terrain", "ARI_uls", "ARI_sls"):
     put("custom.wind_" + k, R["loads.wind." + k], unit="years" if "ARI" in k else None)
 for k in ("mu_longitudinal", "mu_transverse"):
     put("custom.earthquake_" + k, R["loads.earthquake." + k])
+
+# ---------------- analysis: platform modelling settings (Model), the same as BR13A ----------------
+for i, (it, v, why) in enumerate((("tgt", "2.8", "transverse member spacing target (m), as BR13A"), ("merge", "0.4", "node merge tolerance (m), as BR13A"),
+                                  ("midgap", "1", "mid-gap longitudinal lines, as BR13A (owner choice there)"), ("model", "2", "integrated model, as BR13A (owner choice there)"),
+                                  ("girder_J_factor", "1.0", "Super-T torsion stiffness factor, as BR13A (ADR-041; torsion approach open, P4-6)"),
+                                  ("deck_top_reference", "1", "nodes at the deck top, members offset (ADR-043), as BR13A"))):
+    put(f"analysis.grillage.rows[{i}]", tag="Model", cells={"item": it, "value": v}, model_note=why)
+for k, v, un, why in (("bearing_fixed_stiffness", 1e7, "kN/m", "rigid idealisation, as BR13A"), ("pile_toe", "vertical only", None, "as BR13A"),
+                      ("column_segment", 1.0, "m", "piles split to about 1 m, as BR13A"), ("soil_factor", 1, None, "sensitivity factor, as BR13A"),
+                      ("modes", 30, None, "response spectrum modes, as BR13A")):
+    put("analysis." + k, tag="Model", value=v, unit=un, model_note=why)
 
 docs_list = sorted(docs.values(), key=lambda d: d["id"])
 json.dump({"origin": "projects/B12626/extraction/B12626_values.json (Second_Example.pdf, sha256 a03329fc...)", "documents": docs_list, "values": out},

@@ -96,6 +96,12 @@
    "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109401",
    "revision": "00",
    "kind": "drawing"
+  },
+  {
+   "id": "DRG-109405",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109405",
+   "revision": "00",
+   "kind": "drawing"
   }
  ],
  "values": [
@@ -187,6 +193,18 @@
    "note": "classification BEDC-4 printed (109001); AS 5100.2 importance level not printed"
   },
   {
+   "path": "project.base_point.rows[0]",
+   "tag": "Model",
+   "cells": {
+    "name": "MCT local origin = deck setout line ch 0 (109013)",
+    "E": 379693.511,
+    "N": 6369956.998
+   },
+   "source": {
+    "note": "MIDAS file origin only (coordinates stay MGA in the description); the printed setout-line start point"
+   }
+  },
+  {
    "path": "alignment.control_line",
    "tag": "Direct",
    "value": "DECK SETOUT LINE",
@@ -231,6 +249,21 @@
    "path": "alignment.vertical.rows[0]",
    "tag": "Calculated",
    "cells": {
+    "ch": -283.2127,
+    "RL": 7.501,
+    "grade_out": 1.8
+   },
+   "derivation": {
+    "formula": "MC10 profile point CH 8927.688 RL 7.501 (109013: TP 8927.688 RL 7.501 / IP 9168.188 RL 11.830 +1.80 / -1.90 % VC 481 / TP 9408.688 RL 7.260) on deck setout chainage: ch(setout) = CH(MC10) - 9210.9007 (SOP A 9216.350 = 5.4493; SOP B 9243.450 = 32.5493 gives the same); levels at MC10 = the setout line (SOP A / B (109051 / 109052) lie -0.0038 / -0.0028 m from the setout line (right +)). OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)",
+    "inputs": [
+     "alignment.support_lines.rows[0]"
+    ]
+   }
+  },
+  {
+   "path": "alignment.vertical.rows[1]",
+   "tag": "Calculated",
+   "cells": {
     "ch": -42.7127,
     "RL": 11.83,
     "grade_in": 1.8,
@@ -238,7 +271,22 @@
     "curve_length": 481.0
    },
    "derivation": {
-    "formula": "MC10 IP CH 9168.188 RL 11.830, +1.80 / -1.90 %, VC 481.000 (109013) on deck setout chainage: ch(setout) = CH(MC10) - 9210.9007 (SOP A 9216.350 = 5.4493; SOP B 9243.450 = 32.5493 gives the same); levels at MC10 = the setout line (SOP A / B (109051 / 109052) lie -0.0038 / -0.0028 m from the setout line (right +)). OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)",
+    "formula": "MC10 profile point CH 9168.188 RL 11.830 (109013: TP 8927.688 RL 7.501 / IP 9168.188 RL 11.830 +1.80 / -1.90 % VC 481 / TP 9408.688 RL 7.260) on deck setout chainage: ch(setout) = CH(MC10) - 9210.9007 (SOP A 9216.350 = 5.4493; SOP B 9243.450 = 32.5493 gives the same); levels at MC10 = the setout line (SOP A / B (109051 / 109052) lie -0.0038 / -0.0028 m from the setout line (right +)). OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)",
+    "inputs": [
+     "alignment.support_lines.rows[0]"
+    ]
+   }
+  },
+  {
+   "path": "alignment.vertical.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "ch": 197.7873,
+    "RL": 7.26,
+    "grade_in": -1.9
+   },
+   "derivation": {
+    "formula": "MC10 profile point CH 9408.688 RL 7.260 (109013: TP 8927.688 RL 7.501 / IP 9168.188 RL 11.830 +1.80 / -1.90 % VC 481 / TP 9408.688 RL 7.260) on deck setout chainage: ch(setout) = CH(MC10) - 9210.9007 (SOP A 9216.350 = 5.4493; SOP B 9243.450 = 32.5493 gives the same); levels at MC10 = the setout line (SOP A / B (109051 / 109052) lie -0.0038 / -0.0028 m from the setout line (right +)). OPEN: RL 9.493 is printed both as design surface (109011) and top of deck concrete (109302)",
     "inputs": [
      "alignment.support_lines.rows[0]"
     ]
@@ -388,10 +436,15 @@
   },
   {
    "path": "deck.barriers[barrier_left].height",
-   "tag": "Missing-Flagged",
-   "value": null,
+   "tag": "Calculated",
+   "value": 725.0,
    "unit": "mm",
-   "note": "precast unit 1400 tall (109402); its height above the deck surface is not dimensioned"
+   "derivation": {
+    "formula": "109405 section 1: barrier top 490 + 160 + 155 = 805 above the deck concrete, less 80 wearing surface (109011) = 725 above the deck surface; twin traffic rails above it (109451-) not included",
+    "inputs": [
+     "deck.surfacing_thickness"
+    ]
+   }
   },
   {
    "path": "deck.barriers[barrier_left].weight",
@@ -401,6 +454,16 @@
    "derivation": {
     "formula": "PB01 mass 6.01 t / length 5.580 m x g 9.80665 (109402); precast unit only — rails (109451-) not included",
     "inputs": []
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].solid",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-109405",
+    "view": "section 1",
+    "text": "solid concrete barrier; open twin rails above (109451-) not included"
    }
   },
   {
@@ -430,10 +493,15 @@
   },
   {
    "path": "deck.barriers[barrier_right].height",
-   "tag": "Missing-Flagged",
-   "value": null,
+   "tag": "Calculated",
+   "value": 725.0,
    "unit": "mm",
-   "note": "precast unit 1400 tall (109402); its height above the deck surface is not dimensioned"
+   "derivation": {
+    "formula": "109405 section 1: barrier top 490 + 160 + 155 = 805 above the deck concrete, less 80 wearing surface (109011) = 725 above the deck surface; twin traffic rails above it (109451-) not included",
+    "inputs": [
+     "deck.surfacing_thickness"
+    ]
+   }
   },
   {
    "path": "deck.barriers[barrier_right].weight",
@@ -443,6 +511,16 @@
    "derivation": {
     "formula": "PB01 mass 6.01 t / length 5.580 m x g 9.80665 (109402); precast unit only — rails (109451-) not included",
     "inputs": []
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].solid",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-109405",
+    "view": "section 1",
+    "text": "solid concrete barrier; open twin rails above (109451-) not included"
    }
   },
   {
@@ -499,11 +577,21 @@
    }
   },
   {
+   "path": "deck.barriers[barrier_median].solid",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-109303",
+    "view": "detail D",
+    "text": "solid concrete barrier"
+   }
+  },
+  {
    "path": "deck.barriers[barrier_median].offset",
    "tag": "Missing-Flagged",
    "value": null,
    "unit": "m",
-   "note": "centroid line not dimensioned; inside face at the carriageway edge"
+   "note": "centroid line not dimensioned; symmetric about the median centre"
   },
   {
    "path": "superstructure.type",
@@ -1463,6 +1551,36 @@
     "view": "general notes",
     "text": "37 MPa at transfer"
    }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].zones.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_A"
+   },
+   "source": {
+    "doc": "DRG-109203",
+    "view": "plan",
+    "text": "1500 END DIAPHRAGM each end"
+   },
+   "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].zones.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_B"
+   },
+   "source": {
+    "doc": "DRG-109203",
+    "view": "plan",
+    "text": "1500 END DIAPHRAGM each end"
+   },
+   "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
   },
   {
    "path": "superstructure.supert_types[ST1].haunch",
@@ -3778,14 +3896,14 @@
    "cells": {
     "width": 1350.0,
     "depth": 1575.0,
-    "length": 26.315
+    "length": 23.412
    },
    "source": {
     "doc": "DRG-109055",
     "view": "section 1 (3)",
     "text": "1350 = 350 curtain wall + 500 + 500"
    },
-   "note": "depth = front face below the bearing seat (109055); length from the GA (109011)"
+   "note": "depth = front face below the bearing seat (109055 section 1 / 3); elevation shows 1350 / 1700 TYP (225 less) — to confirm; length 23412 (109051 / 052 plan)"
   },
   {
    "path": "supports[A].headstock_setout.rows[0]",
@@ -3811,6 +3929,53 @@
     "formula": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)",
     "inputs": []
    }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "start",
+    "value": -9893.2
+   },
+   "derivation": {
+    "formula": "-9897 from the SOP (109051 plan; + east = + along the support line bearing 127°20'15\") - SOP position on the support line -3.8 mm",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[3]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "end",
+    "value": 13519.8
+   },
+   "derivation": {
+    "formula": "13516 from the SOP (109051 plan; + east = + along the support line bearing 127°20'15\") - SOP position on the support line -3.8 mm",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].soil_layers.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "name": "units 2C2 very stiff clay, 3A1 / 3A2 / 3B / 3C1 sands, 3C2 very dense sand (109035 table 2)"
+   },
+   "value": null,
+   "note": "layer levels and lateral moduli not on the drawings: 'values are a function of depth, refer geotechnical report'"
+  },
+  {
+   "path": "supports[A].backfill.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "select backfill to TfNSW D&C B30 (109055); properties not printed"
+  },
+  {
+   "path": "supports[A].rock_kh",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MN/m3",
+   "note": "piles found in very dense sand 3C2 (109031); no rock"
   },
   {
    "path": "supports[A].curtain_wall.rows[0]",
@@ -3846,13 +4011,44 @@
   },
   {
    "path": "supports[A].piles[A-01].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[A].piles[A-01].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[A].piles[A-01].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[A].piles[A-01].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[A].piles[A-01].rl_top",
@@ -3884,6 +4080,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[A].piles[A-01].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[A].piles[A-02].E",
    "tag": "Calculated",
    "value": 379694.332,
@@ -3905,13 +4112,44 @@
   },
   {
    "path": "supports[A].piles[A-02].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[A].piles[A-02].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[A].piles[A-02].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[A].piles[A-02].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[A].piles[A-02].rl_top",
@@ -3943,6 +4181,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[A].piles[A-02].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[A].piles[A-03].E",
    "tag": "Calculated",
    "value": 379698.149,
@@ -3964,13 +4213,44 @@
   },
   {
    "path": "supports[A].piles[A-03].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[A].piles[A-03].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[A].piles[A-03].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[A].piles[A-03].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[A].piles[A-03].rl_top",
@@ -4002,6 +4282,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[A].piles[A-03].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[A].piles[A-04].E",
    "tag": "Calculated",
    "value": 379701.965,
@@ -4023,13 +4314,44 @@
   },
   {
    "path": "supports[A].piles[A-04].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[A].piles[A-04].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[A].piles[A-04].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[A].piles[A-04].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[A].piles[A-04].rl_top",
@@ -4061,6 +4383,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[A].piles[A-04].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[A].piles[A-05].E",
    "tag": "Calculated",
    "value": 379705.781,
@@ -4082,13 +4415,44 @@
   },
   {
    "path": "supports[A].piles[A-05].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[A].piles[A-05].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[A].piles[A-05].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[A].piles[A-05].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[A].piles[A-05].rl_top",
@@ -4120,7 +4484,7 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
-   "path": "custom.pile_wall_thickness_A",
+   "path": "supports[A].piles[A-05].wall_thickness",
    "tag": "Direct",
    "value": 16,
    "unit": "mm",
@@ -4146,14 +4510,14 @@
    "cells": {
     "width": 1350.0,
     "depth": 1925.0,
-    "length": 26.312
+    "length": 23.412
    },
    "source": {
     "doc": "DRG-109055",
     "view": "section 1 (3)",
     "text": "1350 = 350 curtain wall + 500 + 500"
    },
-   "note": "depth = front face below the bearing seat (109055); length from the GA (109011)"
+   "note": "depth = front face below the bearing seat (109055 section 1 / 3); elevation shows 1350 / 1700 TYP (225 less) — to confirm; length 23412 (109051 / 052 plan)"
   },
   {
    "path": "supports[B].headstock_setout.rows[0]",
@@ -4179,6 +4543,53 @@
     "formula": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)",
     "inputs": []
    }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "start",
+    "value": -9894.2
+   },
+   "derivation": {
+    "formula": "-9897 from the SOP (109052 plan; + east = + along the support line bearing 127°20'15\") - SOP position on the support line -2.8 mm",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[3]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "end",
+    "value": 13518.8
+   },
+   "derivation": {
+    "formula": "13516 from the SOP (109052 plan; + east = + along the support line bearing 127°20'15\") - SOP position on the support line -2.8 mm",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].soil_layers.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "name": "units 2C2 very stiff clay, 3A1 / 3A2 / 3B / 3C1 sands, 3C2 very dense sand (109035 table 2)"
+   },
+   "value": null,
+   "note": "layer levels and lateral moduli not on the drawings: 'values are a function of depth, refer geotechnical report'"
+  },
+  {
+   "path": "supports[B].backfill.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "select backfill to TfNSW D&C B30 (109055); properties not printed"
+  },
+  {
+   "path": "supports[B].rock_kh",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MN/m3",
+   "note": "piles found in very dense sand 3C2 (109031); no rock"
   },
   {
    "path": "supports[B].curtain_wall.rows[0]",
@@ -4214,13 +4625,44 @@
   },
   {
    "path": "supports[B].piles[B-01].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[B].piles[B-01].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[B].piles[B-01].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[B].piles[B-01].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[B].piles[B-01].rl_top",
@@ -4252,6 +4694,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[B].piles[B-01].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[B].piles[B-02].E",
    "tag": "Calculated",
    "value": 379710.968,
@@ -4273,13 +4726,44 @@
   },
   {
    "path": "supports[B].piles[B-02].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[B].piles[B-02].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[B].piles[B-02].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[B].piles[B-02].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[B].piles[B-02].rl_top",
@@ -4311,6 +4795,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[B].piles[B-02].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[B].piles[B-03].E",
    "tag": "Calculated",
    "value": 379714.784,
@@ -4332,13 +4827,44 @@
   },
   {
    "path": "supports[B].piles[B-03].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[B].piles[B-03].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[B].piles[B-03].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[B].piles[B-03].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[B].piles[B-03].rl_top",
@@ -4370,6 +4896,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[B].piles[B-03].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[B].piles[B-04].E",
    "tag": "Calculated",
    "value": 379718.601,
@@ -4391,13 +4928,44 @@
   },
   {
    "path": "supports[B].piles[B-04].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[B].piles[B-04].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[B].piles[B-04].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[B].piles[B-04].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[B].piles[B-04].rl_top",
@@ -4429,6 +4997,17 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
+   "path": "supports[B].piles[B-04].wall_thickness",
+   "tag": "Direct",
+   "value": 16,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109031",
+    "view": "table 1",
+    "text": "steel pile thickness t"
+   }
+  },
+  {
    "path": "supports[B].piles[B-05].E",
    "tag": "Calculated",
    "value": 379722.417,
@@ -4450,13 +5029,44 @@
   },
   {
    "path": "supports[B].piles[B-05].diameter",
-   "tag": "Direct",
-   "value": 900,
+   "tag": "Calculated",
+   "value": 932.0,
    "unit": "mm",
-   "source": {
-    "doc": "DRG-109031",
-    "view": "table 1"
+   "derivation": {
+    "formula": "outside diameter = 900 internal (109035 '∅900 ID') + 2 x 16 wall (109031 table 1)",
+    "inputs": [
+     "supports[B].piles[B-05].wall_thickness"
+    ]
    }
+  },
+  {
+   "path": "supports[B].piles[B-05].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 3535.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4; not concurrent"
+  },
+  {
+   "path": "supports[B].piles[B-05].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 5175.0,
+    "M": 1831.0
+   },
+   "source": {
+    "doc": "DRG-109035",
+    "view": "table 4 pile design loads",
+    "text": "same for both abutments; 'not concurrent, maximum values in each case'"
+   },
+   "note": "109035 table 4: ULS moment 1831 kNm (concrete) + 50 kNm (steel part); not concurrent with N"
   },
   {
    "path": "supports[B].piles[B-05].rl_top",
@@ -4488,7 +5098,7 @@
    "note": "not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'"
   },
   {
-   "path": "custom.pile_wall_thickness_B",
+   "path": "supports[B].piles[B-05].wall_thickness",
    "tag": "Direct",
    "value": 16,
    "unit": "mm",
@@ -4568,6 +5178,15 @@
     "doc": "DRG-109401",
     "view": "general notes"
    }
+  },
+  {
+   "path": "materials.steel.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "element": "steel tube piles"
+   },
+   "value": null,
+   "note": "Ø900 x 16 driven steel tubes with concrete infill (109031 / 109035); grade, Es and density not printed (driving stress limited to 315 MPa)"
   },
   {
    "path": "materials.strand.rows[0]",
@@ -4723,6 +5342,375 @@
    }
   },
   {
+   "path": "loads.wind.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "V_with_traffic"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "air_density"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Cd"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "CL"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vertical_eccentricity_b"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "longitudinal_fraction"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vehicle_line_load"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.wind.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vehicle_height"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.temperature.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_max"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.temperature.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_min"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.temperature.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_set"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.temperature.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "alpha"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 0.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 100.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 200.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 300.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 400.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 500.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 600.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 700.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 800.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 900.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1000.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1100.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_positive.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1200.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 0.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 100.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 200.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 300.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 400.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 500.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 600.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 700.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 800.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 900.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1000.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1100.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.gradient_negative.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1200.0
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.earthquake.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Rf"
+   },
+   "value": null,
+   "note": "µ 1.0 longitudinal / transverse printed (109001); Rf not printed"
+  },
+  {
+   "path": "loads.earthquake.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "zeta"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
+   "path": "loads.earthquake.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vertical"
+   },
+   "value": null,
+   "note": "not printed on 109001; design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+  },
+  {
    "path": "custom.design_lanes",
    "tag": "Direct",
    "value": 7,
@@ -4841,6 +5829,114 @@
    "source": {
     "doc": "DRG-109001",
     "view": "design criteria"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[0]",
+   "tag": "Model",
+   "cells": {
+    "item": "tgt",
+    "value": "2.8"
+   },
+   "source": {
+    "note": "transverse member spacing target (m), as BR13A"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[1]",
+   "tag": "Model",
+   "cells": {
+    "item": "merge",
+    "value": "0.4"
+   },
+   "source": {
+    "note": "node merge tolerance (m), as BR13A"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[2]",
+   "tag": "Model",
+   "cells": {
+    "item": "midgap",
+    "value": "1"
+   },
+   "source": {
+    "note": "mid-gap longitudinal lines, as BR13A (owner choice there)"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[3]",
+   "tag": "Model",
+   "cells": {
+    "item": "model",
+    "value": "2"
+   },
+   "source": {
+    "note": "integrated model, as BR13A (owner choice there)"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[4]",
+   "tag": "Model",
+   "cells": {
+    "item": "girder_J_factor",
+    "value": "1.0"
+   },
+   "source": {
+    "note": "Super-T torsion stiffness factor, as BR13A (ADR-041; torsion approach open, P4-6)"
+   }
+  },
+  {
+   "path": "analysis.grillage.rows[5]",
+   "tag": "Model",
+   "cells": {
+    "item": "deck_top_reference",
+    "value": "1"
+   },
+   "source": {
+    "note": "nodes at the deck top, members offset (ADR-043), as BR13A"
+   }
+  },
+  {
+   "path": "analysis.bearing_fixed_stiffness",
+   "tag": "Model",
+   "value": 10000000.0,
+   "unit": "kN/m",
+   "source": {
+    "note": "rigid idealisation, as BR13A"
+   }
+  },
+  {
+   "path": "analysis.pile_toe",
+   "tag": "Model",
+   "value": "vertical only",
+   "source": {
+    "note": "as BR13A"
+   }
+  },
+  {
+   "path": "analysis.column_segment",
+   "tag": "Model",
+   "value": 1.0,
+   "unit": "m",
+   "source": {
+    "note": "piles split to about 1 m, as BR13A"
+   }
+  },
+  {
+   "path": "analysis.soil_factor",
+   "tag": "Model",
+   "value": 1,
+   "source": {
+    "note": "sensitivity factor, as BR13A"
+   }
+  },
+  {
+   "path": "analysis.modes",
+   "tag": "Model",
+   "value": 30,
+   "source": {
+    "note": "response spectrum modes, as BR13A"
    }
   }
  ]

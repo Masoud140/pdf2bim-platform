@@ -161,5 +161,14 @@ okb = all(abs(a / b - 1) <= 0.10 for _, a, b, *_ in fz["bearings"])
 okp = all(abs(a / b - 1) <= 0.05 for _, a, b in fz["piles"])
 okd = all(abs(a - b) <= 1.0 for _, a, b in fz["deflection"])
 t("vs frozen integrated model: bearing Rz within 10 %, pile toe Rz within 5 %, midspan uz within 1 mm (recorded run)", okb and okp and okd)
+# concrete-filled steel tube pile (P6, B12626): transformed to the pile concrete; weight of both materials
+from pdf2bim.model.substructure import _pile_section
+sec_t, w_t = _pile_section(0.932, 16, 34800, 25.5, {"Es": 200000, "density": 78.5})
+A0_ = math.pi * 0.932 ** 2 / 4; Ac_ = math.pi * 0.9 ** 2 / 4; I0_ = math.pi * 0.932 ** 4 / 64; Ic_ = math.pi * 0.9 ** 4 / 64; n_ = 200000 / 34800
+t("filled steel tube pile: A, I transformed by n = Es / Ec; weight = concrete + steel; MCT scale on the gross circle",
+  abs(sec_t["A"] - (Ac_ + n_ * (A0_ - Ac_))) < 1e-9 and abs(sec_t["Iy"] - (Ic_ + n_ * (I0_ - Ic_))) < 1e-12 and abs(w_t - (Ac_ * 25.5 + (A0_ - Ac_) * 78.5)) < 1e-9
+  and sec_t["shape"] == ("circle", 0.932, round(sec_t["A"] / A0_, 6), round(sec_t["Iy"] / I0_, 6)))
+sec_s, w_s = _pile_section(1.05, None, 32800, 25.5, None)
+t("solid concrete pile unchanged (BR13A): gross circle, shape ('circle', D)", sec_s["shape"] == ("circle", 1.05) and abs(w_s - math.pi * 1.05 ** 2 / 4 * 25.5) < 1e-9)
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

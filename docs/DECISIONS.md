@@ -421,3 +421,18 @@
 - **Evidence:** MIDAS run 2026-10-28g (Loads to Masses X, Y, Z): the platform with this mass reproduces MIDAS EQ_L / EQ_T to 0.0-0.9 %; with consistent centroid mass girder EQ moments differ by up to ~24 %, pile actions by up to ~11 %.
 - **Implementation:** `earthquake.earthquake_rsa` default path builds the lumped mass and calls `Model.modes(beam_mass=False)`; an explicit `extra_mass` keeps the old behaviour (beam mass consistent + given nodal mass). `Model.modes` default unchanged (consistent) for the modal comparisons. The .mct writes *LOADTOMASS direction XYZ.
 - **Consequence:** earthquake actions (and the ULS-H combination rows, pile design actions) change; re-run of the combined actions needed.
+
+## ADR-047 New bridge descriptions from extracted values; development inputs as proposed overrides (P6, 2026-10-28)
+
+- **Decision (agent, reversible):** a new bridge starts from `tools/new_description.py`.
+  - Every catalogue field is written; unfilled fields are Missing-Flagged and nothing is invented.
+  - Revision 1 holds the extracted state as the original.
+  - Values the drawings do not give but the chain needs are added as overrides **proposed** under one decision (B12626: D-1, `projects/B12626/dev_inputs.py`). They are tagged Calculated, Assumed with what replaces them, Standard-verify with a reference, or Model.
+  - Tools use them only with `--allow-proposed`, as BR13A's D-34…D-46 were used before acceptance.
+- **Why:** the owner asked for B12626 to be "a second example to test our model". Running the unchanged chain needs complete inputs, but the extraction rule forbids assumptions in extracted values. Proposed overrides keep both: the extracted record stays intact, and the owner accepts or replaces each assumption.
+- **Alternatives:**
+  - Writing assumptions straight into the description was rejected: it mixes them with drawing values.
+  - Stopping at the first Missing input was rejected: it finds only one gap per run.
+- **Catalogue change:** `supports[].piles[].wall_thickness` and `materials.steel` for concrete-filled steel tube piles (G-2, `docs/P6_SECOND_BRIDGE.md`).
+- **Format limitation:** an override needs an existing record. A table row the chain needs is therefore written as a Missing-Flagged placeholder row in revision 1.
+- **Status:** D-1 is PROPOSED. B12626 results are provisional.

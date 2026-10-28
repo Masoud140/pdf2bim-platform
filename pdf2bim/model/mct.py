@@ -196,8 +196,8 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
             from .builder import _rect_J
             sf = round(b["J"] / _rect_J(B, H), 6)   # MIDAS computes J itself; a J other than St-Venant goes via *SECT-SCALE
             key = ("rect", round(H, 6), round(B, 6), 1.0 if abs(sf - 1) < 1e-6 else sf, ofs)
-        elif shp and shp[0] == "circle":
-            key = ("circle", round(shp[1], 6))
+        elif shp and shp[0] == "circle":   # ("circle", D) or a filled steel tube ("circle", D, area scale, inertia scale on the gross circle)
+            key = ("circle", round(shp[1], 6)) + (tuple(shp[2:4]) if len(shp) > 2 else ())
         elif shp and shp[0] == "composite":
             key = ("comp",) + tuple(_num(x) for x in (b["A"], b["Asy"], b["Asz"], b["J"], b["Iy"], b["Iz"])) + (id(shp[1]), id(shp[2]), ofs)
             comp_of[key] = (shp, b)
@@ -268,7 +268,10 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
             L += [f"   {i}, VALUE, {nm}, CC, 0, 0, 0, 0, 0, 0, YES, NO, SB, ROLL",
                   "        " + ", ".join((A, Asy, Asz, J, Iy, Iz)),
                   "        0, 0, 0, 0, 0, 0, 0, 0, 0, 0", "        0, 0, 0, 0, 0, 0, 0, 0"]
-    scl = [(i, k[3]) for i, (k, _) in sorted(sec_def.items()) if k[0] == "rect" and k[3] != 1.0]
+    # *SECT-SCALE rows (AREA, ASY, ASZ, IXX, IYY, IZZ, WGT): rect J other than St-Venant; filled steel tube piles (transformed to concrete)
+    scl = [(i, (1, 1, 1, k[3], 1, 1, 1)) for i, (k, _) in sorted(sec_def.items()) if k[0] == "rect" and k[3] != 1.0]
+    # weight: MIDAS = density (= member weight / transformed A) x gross A x WGT_SF, so WGT_SF = the area scale (UNVERIFIED: no native example)
+    scl += [(i, (k[2], k[2], k[2], k[3], k[3], k[3], k[2])) for i, (k, _) in sorted(sec_def.items()) if k[0] == "circle" and len(k) > 2]
     L += ["*STLDCASE    ; Static Load Cases", "; LCNAME, LCTYPE, DESC", "   SW   , D , Self weight"] + [f"   {k}, {v.get('type', 'USER')}, " for k, v in cases.items()] + [""]
     groups = {}
     for n, ds in m.fixed.items():
@@ -287,7 +290,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
         L.append(f"   {_node_list(sorted(ids))}, {f}, Support_{f}")
     if scl:   # native BR13B syntax; after *BNDR-GROUP, which declares J_scale (as the native file orders them)
         L += ["", "*SECT-SCALE    ; Section Stiffness Scale Factor", "; iSEC, AREA_SF, ASY_SF, ASZ_SF, IXX_SF, IYY_SF, IZZ_SF, WGT_SF, GROUP, iPart, bDiffIJ"]
-        L += [f"   {i}, 1, 1, 1, {f:.6g}, 1, 1, 1, J_scale, 1, NO" for i, f in scl]
+        L += [f"   {i}, " + ", ".join(f"{x:.6g}" for x in f) + ", J_scale, 1, NO" for i, f in scl]
     if _beamend_rows:   # after *BNDR-GROUP, which declares Releases
         L += ["", "*FRAME-RLS    ; Beam End Release (Ry at the web/nominal-member ends of rigid arms, ADR-042)",
               "; ELEM_LIST, bVALUE, FLAG-i, Fxi, Fyi, Fzi, Mxi, Myi, Mzi / FLAG-j, Fxj, Fyj, Fzj, Mxj, Myj, Mzj, GROUP"]

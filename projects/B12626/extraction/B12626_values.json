@@ -172,11 +172,21 @@
   "path": "alignment.vertical",
   "value": [
    {
+    "ch": 8927.688,
+    "RL": 7.501,
+    "grade_out": 1.8
+   },
+   {
     "ch": 9168.188,
     "RL": 11.83,
     "grade_in": 1.8,
     "grade_out": -1.9,
     "curve_length": 481.0
+   },
+   {
+    "ch": 9408.688,
+    "RL": 7.26,
+    "grade_in": -1.9
    }
   ],
   "unit": null,
@@ -185,7 +195,7 @@
    "document": "Second_Example.pdf",
    "sheet": "109013",
    "view": "vertical alignment diagram MC10",
-   "note": "IP CH 9168.188 RL 11.830, +1.80 % / -1.90 %, VC 481.000 — chainage along MC10, not the deck setout line"
+   "note": "TP CH 8927.688 RL 7.501; IP CH 9168.188 RL 11.830, +1.80 % / -1.90 %, VC 481.000; TP CH 9408.688 RL 7.260 — chainage along MC10, not the deck setout line"
   }
  },
  {
@@ -2003,7 +2013,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[A].piles[A-01].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2072,7 +2099,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[A].piles[A-02].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2141,7 +2185,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[A].piles[A-03].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2210,7 +2271,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[A].piles[A-04].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2279,7 +2357,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[A].piles[A-05].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2355,7 +2450,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[B].piles[B-01].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2424,7 +2536,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[B].piles[B-02].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2493,7 +2622,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[B].piles[B-03].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2562,7 +2708,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[B].piles[B-04].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -2631,7 +2794,24 @@
    "document": "Second_Example.pdf",
    "sheet": "109031",
    "view": "table 1",
-   "note": null
+   "note": "steel pile diameter 900 — an INTERNAL diameter: 109035 '∅900 ID x t THICK STEEL TUBULAR DRIVEN PILE'"
+  }
+ },
+ {
+  "path": "supports[B].piles[B-05].design_loads",
+  "value": {
+   "SLS_N": 3535,
+   "ULS_N": 5175,
+   "ULS_M_concrete": 1831,
+   "ULS_M_steel": 50
+  },
+  "unit": "kN, kNm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "table 4 pile design loads",
+   "note": "same for both abutments; 'not concurrent, maximum values in each case'"
   }
  },
  {
@@ -4575,14 +4755,26 @@
  },
  {
   "path": "supports[A].headstock.length",
-  "value": 26.315,
+  "value": 23.412,
   "unit": "m",
   "tag": "Direct",
   "source": {
    "document": "Second_Example.pdf",
-   "sheet": "109011",
+   "sheet": "109051",
    "view": "plan",
-   "note": "abutment length"
+   "note": "23412 overall sill length along the line of bearings (the GA 109011 'abutment length' 26315 / 26312 includes the wingwalls)"
+  }
+ },
+ {
+  "path": "supports[A].headstock.depth_elevation_typ",
+  "value": 1350,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "elevation",
+   "note": "'1350 TYP' (A) / '1700 TYP' (B): 225 less than the section depth below the seat (1575 / 1925) — meaning to confirm"
   }
  },
  {
@@ -4605,11 +4797,28 @@
   "derivation": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)"
  },
  {
-  "path": "supports[A].headstock_setout.start_end",
-  "value": null,
-  "unit": null,
-  "tag": "Missing-Flagged",
-  "note": "along-line extents not dimensioned from the SOP on the sheets read"
+  "path": "supports[A].headstock_setout.west_end",
+  "value": -9897,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "plan",
+   "note": "9897 SOP to the western sill end (+ east)"
+  }
+ },
+ {
+  "path": "supports[A].headstock_setout.east_end",
+  "value": 13516,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "plan",
+   "note": "13516 SOP to the eastern sill end (sum 23412)"
+  }
  },
  {
   "path": "supports[A].curtain_wall.thickness",
@@ -4680,14 +4889,26 @@
  },
  {
   "path": "supports[B].headstock.length",
-  "value": 26.312,
+  "value": 23.412,
   "unit": "m",
   "tag": "Direct",
   "source": {
    "document": "Second_Example.pdf",
-   "sheet": "109011",
+   "sheet": "109052",
    "view": "plan",
-   "note": "abutment length"
+   "note": "23412 overall sill length along the line of bearings (the GA 109011 'abutment length' 26315 / 26312 includes the wingwalls)"
+  }
+ },
+ {
+  "path": "supports[B].headstock.depth_elevation_typ",
+  "value": 1700,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109052",
+   "view": "elevation",
+   "note": "'1350 TYP' (A) / '1700 TYP' (B): 225 less than the section depth below the seat (1575 / 1925) — meaning to confirm"
   }
  },
  {
@@ -4710,11 +4931,28 @@
   "derivation": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)"
  },
  {
-  "path": "supports[B].headstock_setout.start_end",
-  "value": null,
-  "unit": null,
-  "tag": "Missing-Flagged",
-  "note": "along-line extents not dimensioned from the SOP on the sheets read"
+  "path": "supports[B].headstock_setout.west_end",
+  "value": -9897,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109052",
+   "view": "plan",
+   "note": "9897 SOP to the western sill end (+ east)"
+  }
+ },
+ {
+  "path": "supports[B].headstock_setout.east_end",
+  "value": 13516,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109052",
+   "view": "plan",
+   "note": "13516 SOP to the eastern sill end (sum 23412)"
+  }
  },
  {
   "path": "supports[B].curtain_wall.thickness",

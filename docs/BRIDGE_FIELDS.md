@@ -184,6 +184,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `supports[].piles[].E` | num | m | Pile centre easting (project grid) |
 | `supports[].piles[].N` | num | m | Pile centre northing |
 | `supports[].piles[].diameter` | num | mm | Pile diameter |
+| `supports[].piles[].wall_thickness` | num | mm | Steel tube wall thickness for a concrete-filled steel tube pile (empty = solid concrete pile) |
 | `supports[].piles[].rl_top` | num | m | Cut-off level / column top |
 | `supports[].piles[].rl_rock` | num | m | Top of rock socket (RL B) |
 | `supports[].piles[].rl_toe` | num | m | Founding level (RL A) |
@@ -197,6 +198,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `materials.concrete` | table |  | Concrete by element — columns: element, fc (MPa), E (MPa), density (kN/m3), alpha (1e-6/C) |
 | `materials.strand` | table |  | Prestressing strand — columns: type, diameter (mm), area (mm2), fpb (MPa), Ep (MPa), relaxation (%) |
 | `materials.reinforcement` | table |  | Reinforcing steel — columns: grade, fsy (MPa), Es (MPa) |
+| `materials.steel` | table |  | Structural steel by element (e.g. steel tube piles) — columns: element, grade, fy (MPa), Es (MPa), density (kN/m3) |
 
 ## loads
 

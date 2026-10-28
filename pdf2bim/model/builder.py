@@ -421,9 +421,11 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
             "provisional": rd.provisional}
 
 
-def _line_curve(al, P, u, o, ch_guess, smax=12.0):
-    """Point where the straight line P + s u crosses the offset curve o (station offset = o). Scan + bisection."""
+def _line_curve(al, P, u, o, ch_guess, smax=None):
+    """Point where the straight line P + s u crosses the offset curve o (station offset = o). Scan + bisection.
+    Search range: 12 m + twice the offset still to cover (any deck width; skew up to 60 deg)."""
     f = lambda s: al.station(P[0] + s * u[0], P[1] + s * u[1], guess=ch_guess)[1] - o
+    smax = smax or 12.0 + 2 * abs(f(0.0))
     ss = [(-smax + 2 * smax * i / 48) for i in range(49)]
     fs = [f(x) for x in ss]
     best = None

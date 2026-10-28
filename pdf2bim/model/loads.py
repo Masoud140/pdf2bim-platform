@@ -84,7 +84,8 @@ def _end_chainage(al, end, o, guess):
     """Chainage where the offset curve o crosses the deck-end line (scan + bisection on the side function)."""
     P, u, sg = end
     f = lambda c: _side(P, u, sg, al.point(c, o)[:2])
-    a, b = guess - 15.0, guess + 15.0
+    e0, e1 = al.elements[0], al.elements[-1]
+    a, b = max(guess - 15.0, e0.ch0), min(guess + 15.0, e1.ch0 + e1.L)   # stay on the tabulated alignment (a short table starts near the deck)
     xs = np.linspace(a, b, 301)
     fs = [f(x) for x in xs]
     for i in range(len(xs) - 1):

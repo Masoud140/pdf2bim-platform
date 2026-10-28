@@ -189,8 +189,9 @@ t("BR13A: inner girder flange width grows from A to B (non-parallel chords betwe
 
 # ---------------- generality: no bridge-specific constants in the engine ----------------
 src = "".join(open(f).read() for f in glob.glob(os.path.join(R, "pdf2bim", "**", "*.py"), recursive=True))
-hits = [k for k in ("BR13A", "1895.3", "1924.21", "300098", "6249478", "44.029", "34.5", "3.1656") if k in src]
-t("engine code contains no BR13A constants", not hits, str(hits))
+hits = [k for k in ("BR13A", "1895.3", "1924.21", "300098", "6249478", "44.029", "34.5", "3.1656",
+                    "B12626", "379693", "6369956", "5.4493", "32.5493", "2344", "9210.9") if k in src]
+t("engine code contains no BR13A / B12626 constants", not hits, str(hits))
 
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

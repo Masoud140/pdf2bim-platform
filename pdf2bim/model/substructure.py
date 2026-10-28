@@ -56,11 +56,35 @@ class _Inputs:
         return out
 
 
-def _material(rd, doc, word):
-    for r in rd.rows((doc.get("materials") or {}).get("concrete"), "materials.concrete"):
-        if word in str(r.get("element", "")).lower():
-            return r
-    raise MissingInput(f"materials.concrete: no row whose element mentions {word!r}")
+def _material(rd, doc, *words, table="concrete"):
+    """First row of materials.<table> whose element mentions one of the words (in the order given)."""
+    rows = rd.rows((doc.get("materials") or {}).get(table), f"materials.{table}")
+    for w in words:
+        for r in rows:
+            if w in str(r.get("element", "")).lower():
+                for k in ("E", "density") if table == "concrete" else ("Es", "density"):
+                    if r.get(k) is None:
+                        raise MissingInput(f"materials.{table}[{r.get('element')}].{k} missing")
+                return r
+    raise MissingInput(f"materials.{table}: no row whose element mentions {' / '.join(map(repr, words))}")
+
+
+def _pile_section(D, t, Ec, dens_c, steel):
+    # D m, t mm, Ec MPa (as materials.steel Es), dens kN/m3
+    """Solid concrete pile (t None) or concrete-filled steel tube, transformed to the pile concrete (Ec): uncracked,
+    full bond (Model). Returns the section (shape carries the area / inertia scale on the gross circle, for the MCT) and the weight per metre."""
+    A0, I0 = math.pi * D * D / 4, math.pi * D ** 4 / 64
+    if not t:
+        sec, w = {"A": A0, "Iy": I0, "Iz": I0, "J": 2 * I0}, A0 * dens_c
+    else:
+        d = D - 2 * t / 1000
+        Ac, Ic = math.pi * d * d / 4, math.pi * d ** 4 / 64
+        n = float(steel["Es"]) / Ec
+        A, I = Ac + n * (A0 - Ac), Ic + n * (I0 - Ic)
+        sec, w = {"A": A, "Iy": I, "Iz": I, "J": 2 * I}, Ac * dens_c + (A0 - Ac) * float(steel["density"])
+    sec.update(Asy=PILE_ASHEAR * sec["A"], Asz=PILE_ASHEAR * sec["A"])
+    sec["shape"] = ("circle", D) if not t else ("circle", D, round(sec["A"] / A0, 6), round(sec["Iy"] / I0, 6))
+    return sec, w
 
 
 def _pile_levels(top, toe, cuts, seg):
@@ -95,8 +119,10 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
     toe_dofs = {"vertical only": "001000", "fixed": "111111"}.get(str(toe_mode).strip().lower())
     if toe_dofs is None:
         raise MissingInput(f"analysis.pile_toe: {toe_mode!r} not one of 'vertical only', 'fixed'")
-    mat = _material(rd, doc, "pile")
+    mat = _material(rd, doc, "headstock", "sill", "abutment", "pile")          # sill concrete
     Es, dens = float(mat["E"]) * 1000, float(mat["density"])   # kPa, kN/m3
+    pmat = _material(rd, doc, "pile")                                          # pile concrete (infill of a steel tube)
+    Ep, dens_p = float(pmat["E"]) * 1000, float(pmat["density"])
     nu = 0.2
     items = {b["id"]: b for b in (doc.get("bearings") or {}).get("items") or []}
     dsup = {s["id"]: s for s in doc.get("supports") or []}
@@ -145,6 +171,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             pid = p.get("id")
             q = {k: inp.v(p.get(k), f"supports[{sid}].piles[{pid}].{k}") for k in ("E", "N", "diameter", "rl_top", "rl_rock", "rl_toe")}
             q["ground"] = inp.v(p.get("ground_rl"), f"supports[{sid}].piles[{pid}].ground_rl", required=False)
+            q["t"] = inp.v(p.get("wall_thickness"), f"supports[{sid}].piles[{pid}].wall_thickness", required=False)
             q["id"] = pid
             rel = np.array([q["E"], q["N"]]) - P0
             q["u"], q["v"] = float(rel @ u), float(rel @ vs)
@@ -161,8 +188,9 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         res = Z - soffit(U)
         checks.append({"id": f"{sid}: pile heads on one straight sill soffit (max residual)", "model": float(np.abs(res).max()) * 1000, "description": 0.0,
                        "diff_mm": float(np.abs(res).max()) * 1000, "ok": float(np.abs(res).max()) <= 0.010})
-        checks.append({"id": f"{sid}: piles on the line of bearings (max offset)", "model": max(abs(p["v"]) for p in piles) * 1000, "description": 0.0,
-                       "diff_mm": max(abs(p["v"]) for p in piles) * 1000, "ok": max(abs(p["v"]) for p in piles) <= 0.010})
+        off = max(abs(p["v"] - c) + p["diameter"] / 2000 for p in piles)        # piles are linked to the sill centroid by rigid arms: any position inside the sill works
+        checks.append({"id": f"{sid}: piles inside the sill width (max pile edge from the sill centre)", "model": off * 1000, "description": b / 2 * 1000,
+                       "diff_mm": (off - b / 2) * 1000, "ok": off <= b / 2 + 1e-6})
         # bearings at this support
         brgs = [(bid, bb) for bid, bb in sup["bearings"].items() if bb["support"] == sid]
         bu = {}
@@ -191,7 +219,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             sill_nodes.append(k)
             for lab in labs:
                 if lab[1] is not None:
-                    sill_at[lab[1]] = k
+                    sill_at[lab] = k            # keyed (kind, id): pile and bearing ids may coincide (e.g. both A-01)
         Asb = b * d
         sec_sb = {"A": Asb, "Iy": b * d ** 3 / 12, "Iz": d * b ** 3 / 12, "J": _rect_J(b, d), "Asy": Asb * 5 / 6, "Asz": Asb * 5 / 6, "shape": ("rect", d, b)}
         rig = {k: v * RIGID for k, v in sec_sb.items() if k in ("A", "Iy", "Iz", "J")}
@@ -203,7 +231,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         for p in piles:
             D = p["diameter"] / 1000
             head = node(p["E"], p["N"], p["rl_top"], "pile_head", support=sid, pile=p["id"])
-            beam(sill_at[p["id"]], head, "rigid_sill_pile", rig, support=sid, pile=p["id"])
+            beam(sill_at[("pile", p["id"])], head, "rigid_sill_pile", rig, support=sid, pile=p["id"])
             ground = p["rl_top"] if p["ground"] is None else min(p["ground"], p["rl_top"])
             rock = p["rl_rock"]
             layers_in = inp.rows(ds.get("soil_layers"), f"supports[{sid}].soil_layers", required=False)
@@ -219,10 +247,9 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             khr = inp.v(ds.get("rock_kh"), f"supports[{sid}].rock_kh")
             zs = _pile_levels(p["rl_top"], p["rl_toe"], [rock, ground] + [L["top"] for L in layers] + [L["bot"] for L in layers], seg)
             chain = [head] + [node(p["E"], p["N"], z, "pile", support=sid, pile=p["id"]) for z in zs[1:]]
-            Ap = math.pi * D * D / 4; Ip = math.pi * D ** 4 / 64
-            sec_p = {"A": Ap, "Iy": Ip, "Iz": Ip, "J": 2 * Ip, "Asy": PILE_ASHEAR * Ap, "Asz": PILE_ASHEAR * Ap, "shape": ("circle", D)}
+            sec_p, wp = _pile_section(D, p["t"], Ep / 1000, dens_p, _material(rd, doc, "pile", table="steel") if p["t"] else None)
             for a, bnode in zip(chain, chain[1:]):
-                beam(a, bnode, "pile", sec_p, w=Ap * dens, support=sid, pile=p["id"])
+                beam(a, bnode, "pile", sec_p, w=wp, support=sid, pile=p["id"], E=Ep)
             mdl.fix(chain[-1], toe_dofs)
             sp = []
             for i, (n, z) in enumerate(zip(chain, zs)):
@@ -247,9 +274,8 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             it = items[bid]
             n = nodes[bb["node"]]
             top_rl = inp.v(it.get("top_rl"), f"bearings.items[{bid}].top_rl", required=False)
-            if it.get("seat_rl") is not None or top_rl is None:
-                seat_rl = inp.v(it.get("seat_rl"), f"bearings.items[{bid}].seat_rl")
-            else:                                         # seat from the top-of-bearing level and the bearing unit height
+            seat_rl = inp.v(it.get("seat_rl"), f"bearings.items[{bid}].seat_rl", required=top_rl is None)   # a Missing record counts as not given
+            if seat_rl is None:                           # seat from the top-of-bearing level and the bearing unit height
                 bh = inp.v(it.get("bearing_height"), f"bearings.items[{bid}].bearing_height (needed with top_rl when seat_rl is not given)")
                 seat_rl = top_rl - bh / 1000
             Dg = S["girders"][bb["girder"]]["params"]["D"] / 1000
@@ -257,7 +283,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             hgt = inp.v(it.get("height"), f"bearings.items[{bid}].height", required=False)
             seat = node(n["E"], n["N"], seat_rl, "bearing_seat", support=sid, bearing=bid)
             top = node(n["E"], n["N"], top_z, "bearing_top", support=sid, bearing=bid)
-            beam(sill_at[bid], seat, "rigid_sill_seat", rig, support=sid, bearing=bid)
+            beam(sill_at[("bearing", bid)], seat, "rigid_sill_seat", rig, support=sid, bearing=bid)
             beam(bb["node"], top, "rigid_girder_bearing", rig, support=sid, bearing=bid)
             ks = elastomer_stiffness(it, rd, std)
             for f, val in ks["inputs"].items():

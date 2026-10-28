@@ -176,6 +176,7 @@ SUPPORT = {
         'E': ('num', 'm', 'Pile centre easting (project grid)'),
         'N': ('num', 'm', 'Pile centre northing'),
         'diameter': ('num', 'mm', 'Pile diameter'),
+        'wall_thickness': ('num', 'mm', 'Steel tube wall thickness for a concrete-filled steel tube pile (empty = solid concrete pile)'),
         'rl_top': ('num', 'm', 'Cut-off level / column top'),
         'rl_rock': ('num', 'm', 'Top of rock socket (RL B)'),
         'rl_toe': ('num', 'm', 'Founding level (RL A)'),
@@ -192,6 +193,8 @@ MATERIALS = {
     'concrete': ('table', '', 'Concrete by element', {'element': ('str', ''), 'fc': ('num', 'MPa'), 'E': ('num', 'MPa'), 'density': ('num', 'kN/m3'), 'alpha': ('num', '1e-6/C')}),
     'strand': ('table', '', 'Prestressing strand', {'type': ('str', ''), 'diameter': ('num', 'mm'), 'area': ('num', 'mm2'), 'fpb': ('num', 'MPa'), 'Ep': ('num', 'MPa'), 'relaxation': ('num', '%')}),
     'reinforcement': ('table', '', 'Reinforcing steel', {'grade': ('str', ''), 'fsy': ('num', 'MPa'), 'Es': ('num', 'MPa')}),
+    'steel': ('table', '', 'Structural steel by element (e.g. steel tube piles)',
+              {'element': ('str', ''), 'grade': ('str', ''), 'fy': ('num', 'MPa'), 'Es': ('num', 'MPa'), 'density': ('num', 'kN/m3')}),
 }
 
 LOADS = {
