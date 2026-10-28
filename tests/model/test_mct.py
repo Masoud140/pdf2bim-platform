@@ -84,8 +84,8 @@ t("composite girders keep the GROSS weight on the transformed section (density =
 mass0 = [i for i, b in M["model"].beams.items() if b["w"] == 0]
 t("massless members (dummies, deck strips, rigid) get a density-0 material", all(Rd["mats"][Rd["els"][rep["element_map"][i]][0]]["den"] == 0 for i in mass0), f"{len(mass0)} members")
 txt2, rep2 = write_mct(M, doc, title="test", include_unverified=False)
-t("verified-only mode omits links and springs (releases kept: *FRAME-RLS is native syntax) and says the model is then incomplete",
-  "*ELASTICLINK" not in txt2 and "*SPRING" not in txt2 and "*FRAME-RLS" in txt2
+t("verified-only mode omits links and springs and says the model is then incomplete",
+  "*ELASTICLINK" not in txt2 and "*SPRING" not in txt2
   and set(rep2["not_written"]) == {"*ELASTICLINK", "*SPRING"} and "incomplete" in txt2)
 Mg = build_superstructure(doc, geo, S, allow_proposed=True)
 try:
@@ -95,7 +95,7 @@ except ValueError as e:
 t("links with explicit axes (P3a ground links) are refused, not written with a guessed angle", ok)
 m3 = copy.deepcopy(M); m3["model"].load(next(iter(m3["model"].nodes)), (0, 0, -1, 0, 0, 0))
 t3, r3 = write_mct(m3, doc)
-t("nodal loads are not written (no documented *CONLOAD syntax) and the report says so", not re.search(r"^\*CONLOAD", t3, re.M) and any("CONLOAD" in x for x in r3["not_written"]))
+t("nodal loads stored on the model itself are not written (they go in as a load case) and the report says so", not re.search(r"^\*CONLOAD", t3, re.M) and any("cases=" in x for x in r3["not_written"]))
 
 # dashboard's own parser (independent reading of the same syntax)
 node = shutil.which("node")
@@ -115,5 +115,26 @@ if node:
         t("dashboard parser ran", False, f"{e}; {out.stderr[-300:]}")
 else:
     t("dashboard parser check: node not available (NOT RUN)", False)
+# load cases as *CONLOAD (native BR13B syntax): every case solves the same from the file as from the model
+from pdf2bim.model.loads import sdl_case
+from pdf2bim.model.horizontal import horizontal_cases
+from pdf2bim.model.wind import wind_cases
+Cs = {"SDL": {"type": "D", "loads": sdl_case(doc, geo, M, allow_proposed=True)["loads"]}}
+Hc = horizontal_cases(doc, geo, M, Standards(), allow_proposed=True)["cases"]
+Wc = wind_cases(doc, geo, S, M, allow_proposed=True)["cases"]
+Cs.update({"BRK+": {"type": "BRK", "loads": Hc["BRKp"]["loads"]}, "EP": {"type": "EP", "loads": Hc["EP"]["loads"]}, "WT+": {"type": "W", "loads": Wc["WT+"]["loads"]}})
+txt3, rep3 = write_mct(M, doc, title="test", cases=Cs)
+Rd3 = read_mct(txt3); m3 = rebuild(Rd3, base)
+ok, worst = True, 0.0
+for k, v in Cs.items():
+    nm_ = k.replace("+", "p").replace("-", "m")
+    fl = {inv[n]: f for n, f in Rd3["cases"][nm_].items()}
+    tot = lambda L: np.sum([np.asarray(f)[:3] for f in L.values()], axis=0)
+    ok &= np.allclose(tot(fl), tot(v["loads"]), atol=1e-6)
+    ra = M["model"].solve(gravity=(0, 0, 0), loads=v["loads"]); rb = m3.solve(gravity=(0, 0, 0), loads={n: f for n, f in Rd3["cases"][nm_].items()})
+    Ua = np.concatenate([ra["u"][inv[n]][:3] for n in sorted(inv)]); Ub = np.concatenate([rb["u"][n][:3] for n in sorted(inv)])
+    worst = max(worst, abs(Ua - Ub).max() / abs(Ua).max())
+t("load cases (SDL, braking, earth pressure, wind) written as *CONLOAD: totals equal, every translation equal to 1e-5 from the file",
+  ok and worst < 1e-5 and rep3["load_cases"] == ["SDL", "BRKp", "EP", "WTp"] and txt3.count("*USE-STLD") == 5, f"{worst:.1e}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

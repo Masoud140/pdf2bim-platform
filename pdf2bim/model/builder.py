@@ -29,6 +29,9 @@ from ..description import Reader, MissingInput
 from .solver import Model
 
 DUMMY, RIGID, KFIX, MIDGAP_MIN = 1e-3, 1e3, 1e9, 0.4
+# Rigid-arm moment releases at the web ends (ADR-042) — OFF by owner decision 2026-10-28 (ADR-045): with them the cantilever
+# deck and the slab over the webs lose moment continuity (SDL deck edge 78 mm vs 5.9 mm). Kept switchable for the MIDAS-run test.
+RIGID_ARM_RELEASES = False
 
 
 def _grillage_setting(rd, doc, item):
@@ -370,7 +373,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                 _ri = "Iy" if la in web_lines else None   # i-end release if node a is on a web line
                 _rj = "Iy" if lb in web_lines else None   # j-end release if node b is on a web line
                 _rel = {k: v for k, v in (("i", _ri), ("j", _rj)) if v}
-                add(a, b, "rigid", rigid_of(gid), line=c["id"], releases=_rel or None)
+                add(a, b, "rigid", rigid_of(gid), line=c["id"], releases=(_rel or None) if RIGID_ARM_RELEASES else None)
             else:
                 bt = _tributary(c, cross, step)
                 # Slab-strip J: grillage_modelling_reference §7 uses b·d³/6 (≈ half St-Venant).

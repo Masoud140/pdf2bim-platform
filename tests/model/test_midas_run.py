@@ -19,6 +19,8 @@ def t(name, ok, info=""):
     res.append(bool(ok)); print(("PASS " if ok else "FAIL ") + name + (f"  [{info}]" if info else ""))
 
 
+import pdf2bim.model.builder as B
+B.RIGID_ARM_RELEASES = True   # the model MIDAS ran (commit 7645e0c) had the ADR-042 releases; removed later by ADR-045
 d = json.load(open(os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json")))
 geo = build_geometry(d, allow_proposed=True); S = build_sections(d, geo, allow_proposed=True)
 M = build_integrated(d, geo, S, Standards(), allow_proposed=True); m = M["model"]; r = m.solve()

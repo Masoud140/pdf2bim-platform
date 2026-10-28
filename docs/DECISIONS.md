@@ -408,3 +408,9 @@
 - **Frozen comparison:** `tools/compare_frozen_superstructure.py` drops the frozen model's XG segments outside the edge girder chords (+ web offset), so the cross-implementation check stays like-for-like (weight within 2 %, bearings within 15 %, deflections within 5 % — unchanged tolerances).
 
 **ADR-042 correction (2026-10-28):** the releases were written to the .mct but NOT applied by the platform solver (the builder did not pass them to `Model.beam`). Found by the first MIDAS run: transverse member forces differed by up to 70 %. `solver.py` now condenses released end dofs (`rel=`, test: propped cantilever exact); after the fix every node matches MIDAS to 0.013 mm and every element force to 0.4 % (`tests/model/test_midas_run.py`). All platform results before this commit carry the error; changes are in transverse / torsion actions, global vertical response barely moves.
+
+## ADR-045 Rigid-arm moment releases removed (owner, 2026-10-28) — supersedes ADR-042
+
+- **Decision (owner):** no moment releases on the Super-T rigid arms. Back to the engineer-confirmed model 2 (D-15): the deck slab is continuous over the girder webs and the cantilever is fixed to the girder.
+- **Why:** once the solver applied ADR-042 (fixed 2026-10-28), the released web ends left the cantilever deck held only by nominal torsion and the slab simply supported at every web. SDL deck-edge deflection 78 mm (5.9 mm without), girder SDL moment +13 %, girder torsion +40 %.
+- **Implementation:** `builder.RIGID_ARM_RELEASES = False`. The solver keeps release support (`rel=`, tested); the .mct writes no *FRAME-RLS block. `tests/model/test_midas_run.py` switches the releases back on, because the MIDAS run of 2026-10-28 was made on the released model; a MIDAS re-run of the current file will replace that evidence.

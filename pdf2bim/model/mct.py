@@ -20,7 +20,7 @@ each preceded by an "UNVERIFIED SYNTAX" comment, and listed in report['unverifie
 | *STLDCASE, *CONSTRAINT, *USE-STLD, *SELFWEIGHT | from the engineer's native model, import of a generated file not yet confirmed | §1b |
 | *ELASTICLINK (GEN, angle, SDx..SRz, bSHEAR, DRy, DRz, group) | UNVERIFIED | dashboard export (src/sub.js) / first-case v8 header |
 | *SPRING (LINEAR) | UNVERIFIED | field order corrected from the engineer's MIDAS import error report (2026-10-26: the dashboard order failed, 8 errors per line); awaits a clean re-import |
-| nodal loads (*CONLOAD) | NOT WRITTEN | no documented syntax: ask for a native export |
+| *CONLOAD per *USE-STLD case, one load group per case | from the engineer's native BR13B model (2026-10-28); import not yet confirmed | — |
 
 Content rules:
 - coordinates: X = E - E0, Y = N - N0 with the documented project base point (project.base_point), Z unchanged;
@@ -94,7 +94,18 @@ def _composite_gen(i, nm, shp, b, ofs="CC"):
     return L
 
 
-def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True):
+def _lc_name(name):
+    """MIDAS load-case / group name: letters, digits, space, _ : ( ) only (native names use these); + / - spelled out."""
+    import re
+    return re.sub(r"[^A-Za-z0-9 _:()]", "", str(name).replace("+", "p").replace("-", "m"))[:20]
+
+
+def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True, cases=None):
+    """cases: {name: {"type": MIDAS LCTYPE (D, DW, EP, BRK, W, USER ...), "loads": {model node: (Fx, Fy, Fz, Mx, My, Mz)}}}
+    written as static load cases of nodal loads (*CONLOAD, native BR13B syntax), one load group per case."""
+    cases = {_lc_name(k): v for k, v in (cases or {}).items()}
+    if len(cases) != len({k for k in cases}):
+        raise ValueError("load case names collide after MIDAS sanitising")
     m = mdl["model"]
     bp = next(r["cells"] for r in doc["project"]["base_point"]["rows"])
     E0, N0 = float(bp["E"]), float(bp["N"])
@@ -190,7 +201,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
                   "        " + ", ".join((A, Asy, Asz, J, Iy, Iz)),
                   "        0, 0, 0, 0, 0, 0, 0, 0, 0, 0", "        0, 0, 0, 0, 0, 0, 0, 0"]
     scl = [(i, k[3]) for i, (k, _) in sorted(sec_def.items()) if k[0] == "rect" and k[3] != 1.0]
-    L += ["*STLDCASE    ; Static Load Cases", "; LCNAME, LCTYPE, DESC", "   SW   , D , Self weight", ""]
+    L += ["*STLDCASE    ; Static Load Cases", "; LCNAME, LCTYPE, DESC", "   SW   , D , Self weight"] + [f"   {k}, {v.get('type', 'USER')}, " for k, v in cases.items()] + [""]
     groups = {}
     for n, ds in m.fixed.items():
         f = "".join("1" if d in ds else "0" for d in range(6)) + "0"
@@ -200,7 +211,9 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
     bg = [f"Support_{f}" for f in groups] + (["bearing"] if m.links and include_unverified else []) + (["Springs"] if m.springs and include_unverified else []) + (["J_scale"] if scl else []) + (["Releases"] if _beamend_rows else [])
     L += ["*BNDR-GROUP    ; Boundary Group", "; NAME, AUTOTYPE"] + [f"   {g}, 0" for g in bg] + [""]
     if gravity:
-        L += ["*LOAD-GROUP    ; Load Group", "; NAME", "   SelfWeight", ""]
+        L += ["*LOAD-GROUP    ; Load Group", "; NAME", "   SelfWeight"] + [f"   {k}" for k in cases] + [""]
+    elif cases:
+        L += ["*LOAD-GROUP    ; Load Group", "; NAME"] + [f"   {k}" for k in cases] + [""]
     L += ["*CONSTRAINT    ; Supports", "; NODE_LIST, CONST(Dx,Dy,Dz,Rx,Ry,Rz,Rw), GROUP"]
     for f, ids in groups.items():
         L.append(f"   {_node_list(sorted(ids))}, {f}, Support_{f}")
@@ -242,13 +255,18 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True)
         else:
             L.append("; point springs NOT written (unverified syntax); the model is incomplete without them")
     if m.loads:
-        L.append("; nodal loads of the model are NOT written: *CONLOAD syntax is not documented (ask for a native export)")
+        L.append("; nodal loads stored on the model itself are NOT written: pass them as a load case (cases=)")
     if gravity:
         L += ["", "*USE-STLD, SW", "", "*SELFWEIGHT    ; Self Weight", "; X, Y, Z, GROUP", "0, 0, -1, SelfWeight"]
+    for k, v in cases.items():   # syntax from the engineer's native BR13B model (2026-10-28)
+        L += ["", f"*USE-STLD, {k}", "", "*CONLOAD    ; Nodal Loads", "; NODE_LIST, FX, FY, FZ, MX, MY, MZ, GROUP,STRTYPENAME"]
+        for n, f in sorted(v["loads"].items(), key=lambda q: nmap[q[0]]):
+            if any(abs(x) > 0 for x in f):
+                L.append(f"   {nmap[n]}, " + ", ".join(f"{x:.9g}" for x in f) + f", {k},")
     L += ["", "*ENDDATA"]
     rep = {"nodes": len(nmap), "elements": len(emap), "materials": len(mats), "sections": len(secs), "links": len(m.links), "springs": len(m.springs),
            "supports": sum(len(v) for v in groups.values()), "unverified_blocks": unverified,
-           "not_written": (["nodal loads (*CONLOAD undocumented)"] if m.loads else []) + ([] if include_unverified else ["*ELASTICLINK", "*SPRING"]),
+           "load_cases": list(cases), "not_written": (["model nodal loads (pass as cases=)"] if m.loads else []) + ([] if include_unverified else ["*ELASTICLINK", "*SPRING"]),
            "node_map": nmap, "element_map": emap, "base_point": (E0, N0),
            "status": "NEEDS ENGINEER IMPORT TEST" + (" — contains UNVERIFIED syntax: " + ", ".join(unverified) if unverified else "")}
     text = "\n".join(L) + "\n"
@@ -329,6 +347,15 @@ def read_mct(text):
     for l in blocks.get("*SPRING", []):
         p = sp(l); o = 8 if p[2].upper() in ("YES", "NO") else 2   # F_ flags before the stiffnesses (current) or the older order
         out["springs"].append((int(p[0]), [float(x) for x in p[o:o + 6]]))
+    out["cases"], cur_lc, cur_blk = {}, None, None
+    for l in text.splitlines():
+        if l.startswith("*USE-STLD"):
+            cur_lc = l.split(",", 1)[1].strip()
+        elif l.startswith("*"):
+            cur_blk = l.split()[0].upper()
+        elif cur_blk == "*CONLOAD" and l.strip() and not l.strip().startswith(";"):
+            p = sp(l)
+            out["cases"].setdefault(cur_lc, {})[int(p[0])] = tuple(float(x) for x in p[1:7])
     sw = blocks.get("*SELFWEIGHT", [])
     if sw:
         out["selfweight"] = tuple(float(x) for x in sp(sw[0])[:3])

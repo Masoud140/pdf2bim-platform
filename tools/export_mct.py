@@ -28,7 +28,17 @@ def main():
     prov = sorted({str(p.get("decision")) for p in M["provisional"] + S["provisional"] + geo["provisional"] if p.get("decision")})
     name = doc["project"].get("name", {}).get("value") if isinstance(doc["project"].get("name"), dict) else None
     title = f"{name or os.path.basename(a.description)} integrated model, revision {doc['revision']['number']}" + (f" — PROVISIONAL ({', '.join(prov)})" if prov else "")
-    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only)
+    # static load cases as nodal loads (*CONLOAD). Types are the native BR13B LCTYPE codes; centrifugal has none there -> USER.
+    from pdf2bim.model.loads import sdl_case
+    from pdf2bim.model.horizontal import horizontal_cases
+    from pdf2bim.model.wind import wind_cases
+    cases = {"SDL": {"type": "D", "loads": sdl_case(doc, geo, M, allow_proposed=a.allow_proposed)["loads"]}}
+    typ = {"EP": "EP", "EPTA": "EP", "EPTB": "EP", "BRKp": "BRK", "BRKm": "BRK", "CEN": "USER"}
+    for k, v in horizontal_cases(doc, geo, M, Standards(), allow_proposed=a.allow_proposed)["cases"].items():
+        cases[k] = {"type": typ.get(k, "USER"), "loads": v["loads"]}
+    for k, v in wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["cases"].items():
+        cases[k] = {"type": "W", "loads": v["loads"]}
+    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write(txt)
     side = {k: v for k, v in rep.items()}
@@ -51,8 +61,8 @@ def main():
          "4. Self weight (load case SW) total reaction ≈ the platform's value in the report (`BR13A.integrated_vs_frozen.md`).",
          "5. Composite girders are COMPOSITE-GEN (girder + deck polygons; drawing = nearest station, stiffness = interpolated). In Section Properties confirm MIDAS kept the written A, Iyy, Izz, J (not recalculated from the polygons) and that self weight still totals the SW reaction in the report. Piles = DBUSER SR; deck strips = DBUSER SB + *SECT-SCALE (J).",
          "6. Section offset (CT / CC) and the node line: confirm the girders are not shifted vertically (MCT_EXPORT_METHOD §2 rule 7).",
-         "7. SDL and other load cases are NOT in the file: nodal-load syntax (*CONLOAD) is not documented. A native MIDAS export with one nodal load, one point spring "
-         "and one elastic link would let the platform write them without guessing.", ""]
+         "7. Load cases: SW + SDL, earth pressure (EP, EPTA, EPTB), braking (BRKp / BRKm), centrifugal (CEN, type USER) and 10 wind cases as *CONLOAD "
+         "nodal loads (native BR13B syntax; + / - in names spelled p / m). Not yet in the file: temperature / shrinkage, traffic (moving load), earthquake, combinations.", ""]
     open(a.out + ".md", "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 
