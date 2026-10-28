@@ -60,7 +60,17 @@ With the corrected values: R = 2000.000 at both ends, arc = 721.351 m = chainage
 ## Bearings (109151, p 22)
 - Laminated elastomeric, 10 per abutment (A-01..A-10, B-01..B-10), one per girder; Table 1 RL 'X' per bearing (A 7.630-7.912, B 7.484-7.767).
 
-## Next (P6 stage 2)
+## Stage 2a extracted (build_values.py -> B12626_values.json, 2026-10-28)
+- Control line = deck setout line (straight, 109013 end coordinates). Support lines from the abutment SOPs (109051/052): deck ch 5.4493 / 32.5493,
+  skew 0, span 27.0999 = girder 27.900 - 2 x 0.400 (109202). CH 5.400 / 32.600 on 109301 are NOT the bearing lines.
+- 10 girders (SG-01 east ... SG-10 west) at 2344 c/c except 2269 across the median (109051 plan string, sums 13516 / 9897 checked);
+  numbering fixed by the bearing RLs (109151) symmetric about the crown 1813 east of MC10.
+- Crossfall 3 % both ways from the crown (checked against 109302 table 1). Deck carriageway -9.500 / +13.120, edges -9.900 / +13.520.
+- Piles: 2 x 5 Ø900 x 16 steel tubes, toe RL -22.500, tops from table 1; pile lines on the setout line at ch 5.275 / 32.725.
+- Open (Missing-Flagged): design surface vs top-of-concrete RL conflict (9.493 printed for both at the same point); MC10 -> deck chainage
+  mapping for the vertical profile; trimmed flanges of the two median girders (2320 flange > 2269 spacing); pile rock level; importance level.
+
+## Next (P6 stage 2b)
 Extract into the interchange sheet (P5.3 format): deck setout table (109301), girder types / lengths / end blocks (109201-206),
 bearings table (109151), abutment / pile setouts (109031, 109051-), barrier data (109401-), cover-sheet design criteria.
 Then build `projects/B12626/B12626.bridge.0.2.json` with a generic new-description tool and run the platform chain unchanged.
