@@ -119,7 +119,7 @@ def midas_combinations(rows, r35, rS, eq_cases=False):
     Envelope actions are EXPANDED, never nested: a row with WZ (vertical wind up / down) or EPT (surcharge behind A / B / none)
     becomes one additive row per alternative (suffix a, b, ...). MIDAS evaluates nested envelopes in its own way (owner runs
     2026-10-28c / d: negative factors not swapped; an envelope of rows holding envelopes exceeds every row), so only plain
-    additive rows and one-level envelopes of them are written. The ULS / SLS envelopes of the expanded rows equal combine().
+    additive rows are written (no envelope combinations at all); the envelope of the expanded rows equals combine().
     Returns (combos, skipped rows): combos = [{"name", "type" (0 add / 1 envelope), "desc", "terms": [(ST|RS|CB, name, f)]}]."""
     import itertools
     r = {"U": 1.0, "35": r35, "S": rS}
@@ -148,10 +148,8 @@ def midas_combinations(rows, r35, rS, eq_cases=False):
                 nm = row["name"] + ("abcdefghijklmnopqrstuvwxyz"[k] if len(variants) > 1 else "")
                 out.append({"name": nm, "type": 0, "desc": f"{row['clause']} {row['pe']}", "terms": [t for part in v for t in part],
                             "ls": row["ls"], "row": row["name"]})
-    for ls in ("ULS", "SLS"):
-        names = [c["name"] for c in out if c.get("ls") == ls]
-        if names:
-            out.append({"name": f"{ls} Envelope", "type": 1, "desc": f"{ls} envelope of the exported rows", "terms": [("CB", n, 1.0) for n in names]})
+    # No overall ULS / SLS envelope combination: in the owner's run 2026-10-28e MIDAS's envelope of these plain rows ignored 63 of its
+    # 145 member rows (the rows themselves all match the platform). Envelope in MIDAS's own tools, or use the platform's envelopes.
     return out, skipped
 
 

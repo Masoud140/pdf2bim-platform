@@ -204,11 +204,12 @@ def ev(name):
             hi, lo = np.maximum(hi, a), np.minimum(lo, b)
     return hi, lo
 Cmb = combine(rows5, P)
-dmax = max(max(abs(ev(f"{ls} Envelope")[0] - Cmb[ls]["max"]).max(), abs(ev(f"{ls} Envelope")[1] - Cmb[ls]["min"]).max()) for ls in ("ULS", "SLS"))
-t("combinations: every exportable AS 5100.2 row written (envelope actions expanded, no nesting); the file's ULS / SLS envelopes equal combine()",
+# envelope of the file's rows per limit state (no envelope combination is written: MIDAS's own ignored rows, run 2026-10-28e)
+envf = lambda ls: (np.max([ev(c["name"])[0] for c in cb5 if c.get("ls") == ls], 0), np.min([ev(c["name"])[1] for c in cb5 if c.get("ls") == ls], 0))
+dmax = max(max(abs(envf(ls)[0] - Cmb[ls]["max"]).max(), abs(envf(ls)[1] - Cmb[ls]["min"]).max()) for ls in ("ULS", "SLS"))
+t("combinations: every exportable AS 5100.2 row written as a plain additive row (no envelope combinations); their ULS / SLS envelopes equal combine()",
   not sk5 and len({c["row"] for c in cb5 if c.get("ls")}) == len(rows5) == 133 and dmax < 1e-9
-  and all(k != "CB" for c in cb5 if c["type"] == 0 for k, _, _ in c["terms"]) and [c["name"] for c in cb5 if c["type"] == 1] == ["ULS Envelope", "SLS Envelope"],
-  f"{dmax:.1e} m, {len(cb5) - 2} rows")
+  and all(c["type"] == 0 and all(k != "CB" for k, _, _ in c["terms"]) for c in cb5), f"{dmax:.1e} m, {len(cb5)} rows")
 # earthquake (native *SFUNCTION / *SPLDCASE / *LOADTOMASS): written by tools/export_mct.py; spectrum = platform Sa(T),
 # every AS 5100.2 earthquake row present with RS terms
 import subprocess, tempfile as _tf

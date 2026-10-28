@@ -98,7 +98,8 @@ def main():
          "**Check the gradient cases against the platform** (band integration by MIDAS is the one unverified assumption).",
          "8. Combinations: the platform's AS 5100.2 rows that use only exported cases, as plain additive *LOADCOMB rows; rows with vertical wind "
          "(up / down) or traffic surcharge (A / B / none) are expanded into one row per alternative (suffix a, b, c ...), never nested envelopes "
-         "(MIDAS evaluates nested envelopes in its own way). Plus 'ULS Envelope' / 'SLS Envelope' of the rows. Factors are code-extracted-UNVERIFIED "
+         "(MIDAS evaluates nested envelopes in its own way). No envelope combination is written: MIDAS's envelope of the rows ignored 63 of 145 members "
+         "(run 2026-10-28e) — envelope with MIDAS's own tools or use the platform's envelopes. Factors are code-extracted-UNVERIFIED "
          "standards entries. Rows with traffic are not written yet (traffic is not in the file).",
          "9. Earthquake: spectrum cases EQ_L / EQ_T (one direction each; the 1.0 / 0.3 directional combination is in the combination rows) with the platform's "
          "Sa(T) points; masses = self weight + SDL (*LOADTOMASS), lumped (native setting; the platform uses consistent mass, and adds a missing-mass term). "
