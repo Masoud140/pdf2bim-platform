@@ -53,10 +53,24 @@ def main():
     from pdf2bim.model.mct import midas_combinations
     cases["NIL"] = {"type": "USER", "loads": {}}
     Wsc = wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["scale"]
-    on = {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ"}
+    # earthquake: the platform's spectrum points, directions and mode count (earthquake.py) as MIDAS spectrum cases
+    from pdf2bim.model.earthquake import ch_factor
+    from pdf2bim.description import Reader
+    import math
+    rdq = Reader(doc, a.allow_proposed)
+    eqv = {r["item"]: r["value"] for r in rdq.rows((doc.get("loads") or {}).get("earthquake"), "loads.earthquake")}
+    kp, Zq, Rf, zeta, site = float(eqv["kp"]), float(eqv["Z"]), float(eqv["Rf"]), float(eqv["zeta"]), str(eqv["site_class"]).strip()
+    chrow = Standards().get("AS1170.4:spectral_shape:Ch").value["rows"][site]
+    Ts = sorted({0.0, 0.1, 0.3, 1.5} | {round(0.06 * k, 2) for k in range(1, 101)})
+    cA = np.mean([mm.nodes[k][:2] for k in M["supports"][geo["supports"][0]["id"]]["sill_nodes"]], axis=0)
+    cB = np.mean([mm.nodes[k][:2] for k in M["supports"][geo["supports"][-1]["id"]]["sill_nodes"]], axis=0)
+    eq = {"points": [(T, kp * Zq * ch_factor(T, chrow) / Rf) for T in Ts], "kp": kp, "Z": Zq, "site": site, "zeta": zeta,
+          "angle_L": math.degrees(math.atan2(cB[1] - cA[1], cB[0] - cA[0])), "modes": int(rdq.value((doc.get("analysis") or {}).get("modes"), "analysis.modes")),
+          "mass_cases": ["SDL"]}
+    on = {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ", "EQX", "EQY"}
     rows = generate(Register(Standards(), on), None)["rows"]
-    combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"])
-    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases, alpha=alpha, combos=combos)
+    combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"], eq_cases=True)
+    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases, alpha=alpha, combos=combos, eq=eq)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write(txt)
     side = {k: v for k, v in rep.items()}
@@ -84,8 +98,13 @@ def main():
          "superstructure beam), gradients TGP / TGN as one *BSTEMPER band per girder element (force and moment equal the platform's E A e0 / E I phi). "
          "**Check the gradient cases against the platform** (band integration by MIDAS is the one unverified assumption).",
          "8. Combinations: the platform's AS 5100.2 rows that use only exported cases, as *LOADCOMB (envelopes EPT_env, WZ_*_env nested with CB; NIL = empty case "
-         "for 'no surcharge'), plus 'ULS Envelope' / 'SLS Envelope'. Factors are code-extracted-UNVERIFIED standards entries. Rows with traffic or earthquake "
-         "are not written yet (those cases are not in the file).", ""]
+         "for 'no surcharge'), plus 'ULS Envelope' / 'SLS Envelope'. Factors are code-extracted-UNVERIFIED standards entries. Rows with traffic "
+         "are not written yet (traffic is not in the file).",
+         "9. Earthquake: spectrum cases EQ_L / EQ_T (one direction each; the 1.0 / 0.3 directional combination is in the combination rows) with the platform's "
+         "Sa(T) points; masses = self weight + SDL (*LOADTOMASS), lumped (native setting; the platform uses consistent mass, and adds a missing-mass term). "
+         "**Check:** (a) the *SPLDCASE last field 0.3 (copied from the native file) must NOT add an orthogonal 30 % — compare EQ_L results with the platform's "
+         "longitudinal-alone results; (b) MIDAS uses the listed spectrum points, not its own AS 5100.2 'Be' curve (the native BR13B 'Be' values equal the "
+         "platform's Ae row — owner to confirm which is right).", ""]
     open(a.out + ".md", "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 

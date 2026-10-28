@@ -113,7 +113,7 @@ COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SOo": "EP", "SOc": "EP", "BRKR": "BRK
               "TGP": "TGP", "TGN": "TGN", "SCR": "SCR"}
 
 
-def midas_combinations(rows, r35, rS):
+def midas_combinations(rows, r35, rS, eq_cases=False):
     """Platform combination rows (combinations.generate) -> MIDAS *LOADCOMB entries, for rows whose actions are all exported.
     Wind as primitives(): WX = WL+ x r, WY = WT+ x r (+ WTV+ unscaled with traffic), WZ = envelope of WVU+ / WVU- x r;
     EPT = envelope of EPTA / EPTB / NIL (empty case: "no surcharge"). r = 1 (_U), r35 (_35), rS (_S).
@@ -136,6 +136,8 @@ def midas_combinations(rows, r35, rS):
                 terms.append(("ST", "WTp", f * r[sx])) ; terms += [("ST", "WTVp", f)] if sx == "35" else []
             elif base == "WZ" and sx in r:
                 terms.append(("CB", f"WZ_{sx}_env", f))
+            elif aid in ("EQX", "EQY") and eq_cases:
+                terms.append(("RS", {"EQX": "EQ_L", "EQY": "EQ_T"}[aid], f))
             else:
                 skipped.append(row["name"]); break
         else:
@@ -153,9 +155,11 @@ def _lc_name(name):
     return re.sub(r"[^A-Za-z0-9 _:()]", "", str(name).replace("+", "p").replace("-", "m"))[:20]
 
 
-def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True, cases=None, alpha=1.0e-5, combos=None):
+def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True, cases=None, alpha=1.0e-5, combos=None, eq=None):
     """cases: {name: {"type": MIDAS LCTYPE (D, DW, EP, BRK, W, USER ...), "loads": {model node: (Fx, Fy, Fz, Mx, My, Mz)}}}
     written as static load cases of nodal loads (*CONLOAD, native BR13B syntax), one load group per case.
+    eq: {"points": [(T, Sa g)], "kp", "Z", "site", "zeta", "angle_L" (deg from X), "modes", "mass_cases": [case names]} ->
+    *STRUCTYPE, *LOADTOMASS, *EIGEN-CTRL, *SFUNCTION and spectrum cases EQ_L / EQ_T (*SPLDCASE), native BR13B syntax.
     A case may instead carry "strain": {model beam: (e0, phi)} (free axial strain, free curvature + = top hotter): phi = 0 ->
     *ELTEMPER dT = e0 / alpha; else one *BSTEMPER band reproducing both (native BR13B syntax). alpha = material THERMAL."""
     cases = {_lc_name(k): v for k, v in (cases or {}).items()}
@@ -204,7 +208,11 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
          f";   To recover MGA: E = X + {E0:.3f}, N = Y + {N0:.3f}.",
          "; AXES: Iyy = vertical bending (strong), Izz = horizontal; Asy horizontal shear, Asz vertical shear. Beta 0 on every element.",
          "; Node / element numbers are renumbered 1..n; the map to the model ids is in the sidecar report.",
-         "*UNIT", "   KN, M, KJ, C", "*NODE", "; iNO, X, Y, Z"]
+         "*UNIT", "   KN, M, KJ, C"]
+    if eq:   # native BR13B values: lumped masses (iMASS 1), self weight converted to mass (iSMAS 1), g as below
+        L += ["*STRUCTYPE    ; Structure Type", "; iSTYP, iMASS, iSMAS, bMASSOFFSET, bSELFWEIGHT, GRAV, TEMPER, bALIGNBEAM, bALIGNSLAB, bROTRIGID, nMassAtNode",
+              "     0, 1, 1, YES, NO, 9.80665, 0, NO, NO, NO, 0"]
+    L += ["*NODE", "; iNO, X, Y, Z"]
     for n in sorted(m.nodes):
         x, y, z = m.nodes[n]
         L.append(f"   {nmap[n]}, {x - E0:.5f}, {y - N0:.5f}, {z:.5f}")
@@ -340,6 +348,19 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
         for n, f in sorted(v["loads"].items(), key=lambda q: nmap[q[0]]):
             if any(abs(x) > 0 for x in f):
                 L.append(f"   {nmap[n]}, " + ", ".join(f"{x:.9g}" for x in f) + f", {k},")
+    if eq:   # native BR13B syntax; spectrum = the platform's Sa(T) points (code line copied from the native file)
+        L += ["", "*LOADTOMASS    ; Load to Mass", "; DIR, bNODAL, bBEAM, bFLOOR, bPRES, GRAV", "   XY, YES, YES, YES, YES, 9.80665",
+              "   " + ", ".join(f"{c}, 1" for c in eq["mass_cases"]),
+              "", "*EIGEN-CTRL    ; Eigenvalue Analysis Control", f"   LANCZOS, {eq['modes']}, 20, 1, 1e-10, NO, 0, 0, NO",
+              "", "*SFUNCTION    ; Spectrum Function", "; FUNC=NAME, iTYPE, iMETHOD, SCALE/MAX, GRAV, DRATIO, DESC, RMF / SPEC_CODE, [CODE_DATA] / PERIOD, VALUE ...",
+              f"   FUNC=EQ_spectrum, 1, 0, 1, 9.80665, {eq['zeta']:g}, \"platform Sa(T): site {eq['site']} kp={eq['kp']:g} Z={eq['Z']:g}\", 1.000000",
+              f"   AS 5100.2(2017), 1, {eq['kp']:g}, {eq['Z']:g}, 1.25, 6"]
+        pts = [f"{T:.6f}, {v:.10g}" for T, v in eq["points"]]
+        L += ["          " + ", ".join(pts[j:j + 2]) for j in range(0, len(pts), 2)]
+        L += ["", "*SPLDCASE    ; Spectrum Load Cases", "; NAME=NAME, DIR, ANGLE, SCALE, PMFT, bDAMP, bECC, INTERP, DESC, ANGLTYPE, dCQC / COMTYPE, bADDSIGN, iSIGNTYPE, bMODE / FUNC / modes"]
+        for nm, ang in (("EQ_L", eq["angle_L"]), ("EQ_T", eq["angle_L"] + 90.0)):
+            L += [f"   NAME={nm}, XY, {ang:.6f}, 1, 1, NO, NO, LOG, , ANGLE, 0.3", "        CQC, NO, 0, YES", "        EQ_spectrum",
+                  "        " + ",".join("YES, 1" for _ in range(eq["modes"]))]
     if combos:   # syntax from the engineer's native BR13B model (2026-10-28); factors: code-extracted-UNVERIFIED standards entries
         L += ["", "; Load combinations generated by the platform (AS 5100.2 rows). Factors are code-extracted-UNVERIFIED standards data.",
               "*LOADCOMB    ; Combinations", "; NAME=NAME, KIND, ACTIVE, bES, iTYPE, DESC, iSERV-TYPE, nLCOMTYPE, nSEISTYPE, LcomFactor ; line 1",

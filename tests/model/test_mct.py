@@ -206,5 +206,20 @@ Cmb = combine(rows5, P)
 dmax = max(max(abs(ev(f"{ls} Envelope")[0] - Cmb[ls]["max"]).max(), abs(ev(f"{ls} Envelope")[1] - Cmb[ls]["min"]).max()) for ls in ("ULS", "SLS"))
 t("combinations: every exportable AS 5100.2 row written; the file's ULS / SLS envelopes equal the platform's combine() (nodal translations)",
   not sk5 and len([c for c in cb5 if c.get("ls")]) == len(rows5) == 133 and dmax < 1e-9, f"{dmax:.1e} m")
+# earthquake (native *SFUNCTION / *SPLDCASE / *LOADTOMASS): written by tools/export_mct.py; spectrum = platform Sa(T),
+# every AS 5100.2 earthquake row present with RS terms
+import subprocess, tempfile as _tf
+from pdf2bim.model.earthquake import ch_factor
+_out = os.path.join(_tf.mkdtemp(), "x.mct")
+subprocess.run([sys.executable, os.path.join(R, "tools/export_mct.py"), os.path.join(R, "projects/BR13A/BR13A.bridge.0.2.json"), "--allow-proposed", "--out", _out], check=True, capture_output=True)
+tx6 = open(_out).read()
+eqi = {r["cells"]["item"]: r["cells"]["value"] for r in doc["loads"]["earthquake"]["rows"]}
+chrow = Standards().get("AS1170.4:spectral_shape:Ch").value["rows"][eqi["site_class"]]
+blk = tx6.split("*SFUNCTION")[1].split("*SPLDCASE")[0].splitlines()[4:]
+pts6 = [float(x) for l in blk if l.strip() for x in l.split(",")]
+sa_err = max(abs(v - float(eqi["kp"]) * float(eqi["Z"]) * ch_factor(T, chrow) / float(eqi["Rf"])) for T, v in zip(pts6[::2], pts6[1::2]))
+eqrows = [b for b in tx6.split("NAME=") if "RS, EQ_L" in b or "RS, EQ_T" in b]
+t("earthquake: spectrum points equal the platform Sa(T); EQ_L / EQ_T spectrum cases; all 16 AS 5100.2 earthquake rows with RS terms; SDL as mass",
+  sa_err < 1e-9 and len(pts6) > 100 and tx6.count("NAME=EQ_") == 2 and len(eqrows) == 16 and "*LOADTOMASS" in tx6 and "*STRUCTYPE" in tx6, f"Sa err {sa_err:.1e}, rows {len(eqrows)}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)
