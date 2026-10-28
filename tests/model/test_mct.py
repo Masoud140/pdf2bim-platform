@@ -136,5 +136,75 @@ for k, v in Cs.items():
     worst = max(worst, abs(Ua - Ub).max() / abs(Ua).max())
 t("load cases (SDL, braking, earth pressure, wind) written as *CONLOAD: totals equal, every translation equal to 1e-5 from the file",
   ok and worst < 1e-5 and rep3["load_cases"] == ["SDL", "BRKp", "EP", "WTp"] and txt3.count("*USE-STLD") == 5, f"{worst:.1e}")
+# temperature / shrinkage (native *ELTEMPER, *BSTEMPER): read back -> same imposed strains -> same response
+from pdf2bim.model.thermal import thermal_cases
+Th = thermal_cases(doc, geo, S, M, allow_proposed=True)
+al = Th["inputs"]["temperature"]["alpha"]
+strain = lambda imp: {e: (u[6] / np.linalg.norm(M["model"].nodes[M["model"].beams[e]["n2"]] - M["model"].nodes[M["model"].beams[e]["n1"]]),
+                          u[10] / np.linalg.norm(M["model"].nodes[M["model"].beams[e]["n2"]] - M["model"].nodes[M["model"].beams[e]["n1"]])) for e, u in imp.items()}
+Ct = {k: {"type": "T", "strain": strain(v["imposed"])} for k, v in Th["cases"].items()}
+txt4, rep4 = write_mct(M, doc, title="test", cases=Ct, alpha=al)
+Rd4 = read_mct(txt4); m4 = rebuild(Rd4, base)
+einv4 = {v: k for k, v in rep4["element_map"].items()}
+worst4, blocks4 = 0.0, set()
+for k, v in Th["cases"].items():
+    imp = {}
+    for e, tt in Rd4["temps"][k.replace("+", "p").replace("-", "m")].items():
+        ms, sc = Rd4["mats"][Rd4["els"][e][0]], Rd4["secs"][Rd4["els"][e][1]]
+        n1, n2 = Rd4["els"][e][2], Rd4["els"][e][3]; Le = np.linalg.norm(m4.nodes[n2] - m4.nodes[n1])
+        if tt[0] == "T":
+            e0, ph = ms["alpha"] * tt[1], 0.0; blocks4.add("ELTEMPER")
+        else:
+            B, H1, T1, H2, T2 = tt[1:]; yt, yb = sc["H"] - sc["czb"], -sc["czb"]
+            bb = (T2 - T1) / (yb - yt); aa = T1 - bb * yt
+            e0 = ms["alpha"] * B * (aa * (yt - yb) + bb * (yt ** 2 - yb ** 2) / 2) / sc["A"]
+            ph = ms["alpha"] * B * (aa * (yt ** 2 - yb ** 2) / 2 + bb * (yt ** 3 - yb ** 3) / 3) / sc["Iy"]; blocks4.add("BSTEMPER")
+        u = np.zeros(12); u[6] = e0 * Le; u[8] = -ph * Le * Le / 2; u[10] = ph * Le; imp[e] = u
+    ra = M["model"].solve(gravity=(0, 0, 0), loads={}, imposed=v["imposed"]); rb = m4.solve(gravity=(0, 0, 0), loads={}, imposed=imp)
+    Ua = np.concatenate([ra["u"][inv[n]][:3] for n in sorted(inv)]); Ub = np.concatenate([rb["u"][n][:3] for n in sorted(inv)])
+    worst4 = max(worst4, abs(Ua - Ub).max() / abs(Ua).max())
+t("temperature (TU+/-), shrinkage (SCR) as *ELTEMPER and gradients (TGP/TGN) as one *BSTEMPER band: same response from the file to 1e-5",
+  worst4 < 1e-5 and blocks4 == {"ELTEMPER", "BSTEMPER"} and f"{al:.6g}" in txt4.split("*MATERIAL")[1].split("*")[0], f"{worst4:.1e}")
+# combinations (*LOADCOMB, native syntax): re-evaluated from the FILE TEXT with MIDAS semantics (add: sum, envelope: max / min,
+# CB: nested combination, sorted by the factor's sign) must give the platform's combine() envelopes, on nodal translations
+from pdf2bim.model.combinations import Register, generate, combine
+from pdf2bim.model.mct import midas_combinations
+Wsc = wind_cases(doc, geo, S, M, allow_proposed=True)["scale"]; r35, rS = Wsc["with_traffic"], Wsc["sls"]
+uc = lambda L: np.concatenate([u[:3] for _, u in sorted(M["model"].solve(gravity=(0, 0, 0), loads=L)["u"].items())])
+Hall = horizontal_cases(doc, geo, M, Standards(), allow_proposed=True)["cases"]
+resp = {"SW": np.concatenate([u[:3] for _, u in sorted(M["model"].solve()["u"].items())]), "SDL": uc(Cs["SDL"]["loads"])}
+resp.update({k: uc(Hall[h]["loads"]) for k, h in (("EP", "EP"), ("EPTA", "EPTA"), ("EPTB", "EPTB"), ("BRKp", "BRKp"), ("CEN", "CEN"))})
+resp.update({k: uc(Wc[w]["loads"]) for k, w in (("WLp", "WL+"), ("WTp", "WT+"), ("WTVp", "WTV+"), ("WVUp", "WVU+"), ("WVUm", "WVU-"))})
+for k, c in (("TUp", "TU+"), ("TUm", "TU-"), ("TGP", "TGP"), ("TGN", "TGN"), ("SCR", "SCR")):
+    resp[k] = np.concatenate([u[:3] for _, u in sorted(M["model"].solve(gravity=(0, 0, 0), loads={}, imposed=Th["cases"][c]["imposed"])["u"].items())])
+resp["NIL"] = np.zeros_like(resp["SW"])
+P = {"DLc": {"s": resp["SW"]}, "SDLp": {"s": resp["SDL"]}, "SOo": {"s": resp["EP"]}, "BRKR": {"s": resp["BRKp"]}, "CENR": {"s": resp["CEN"]},
+     "TUW": {"s": resp["TUp"]}, "TUC": {"s": resp["TUm"]}, "TGP": {"s": resp["TGP"]}, "TGN": {"s": resp["TGN"]}, "SCR": {"s": resp["SCR"]},
+     "EPT": {"max": np.maximum.reduce([resp["EPTA"], resp["EPTB"], resp["NIL"]]), "min": np.minimum.reduce([resp["EPTA"], resp["EPTB"], resp["NIL"]])}}
+for sx, rr in (("U", 1.0), ("35", r35), ("S", rS)):
+    P["WX_" + sx] = {"s": resp["WLp"] * rr}; P["WY_" + sx] = {"s": resp["WTp"] * rr + (resp["WTVp"] if sx == "35" else 0.0)}
+    P["WZ_" + sx] = {"max": np.maximum(resp["WVUp"], resp["WVUm"]) * rr, "min": np.minimum(resp["WVUp"], resp["WVUm"]) * rr}
+rows5 = generate(Register(Standards(), {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ"}), None)["rows"]
+cb5, sk5 = midas_combinations(rows5, r35, rS)
+txt5, _ = write_mct(M, doc, title="test", cases={**Cs, "NIL": {"type": "USER", "loads": {}}}, combos=cb5)
+CBs = {c["name"]: c for c in read_mct(txt5)["combos"]}
+def ev(name):
+    c = CBs[name]; hi = lo = None
+    for kind, n, f in c["terms"]:
+        if kind == "ST":
+            a = b = f * resp[n]
+        else:
+            h, l = ev(n); a, b = np.maximum(f * h, f * l), np.minimum(f * h, f * l)
+        if hi is None:
+            hi, lo = a, b
+        elif c["type"] == 0:
+            hi, lo = hi + a, lo + b
+        else:
+            hi, lo = np.maximum(hi, a), np.minimum(lo, b)
+    return hi, lo
+Cmb = combine(rows5, P)
+dmax = max(max(abs(ev(f"{ls} Envelope")[0] - Cmb[ls]["max"]).max(), abs(ev(f"{ls} Envelope")[1] - Cmb[ls]["min"]).max()) for ls in ("ULS", "SLS"))
+t("combinations: every exportable AS 5100.2 row written; the file's ULS / SLS envelopes equal the platform's combine() (nodal translations)",
+  not sk5 and len([c for c in cb5 if c.get("ls")]) == len(rows5) == 133 and dmax < 1e-9, f"{dmax:.1e} m")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

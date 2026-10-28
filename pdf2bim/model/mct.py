@@ -35,6 +35,7 @@ Content rules:
   eccentricity that the model does not intend. Changed DBUSER to CC 2026-10-26.
 """
 import math
+import numpy as np
 
 
 def _num(v):
@@ -87,11 +88,63 @@ def _composite_gen(i, nm, shp, b, ofs="CC"):
         rows = [flat[:6]] + [flat[k:k + 4] for k in range(6, len(flat), 4)]
         return ["       OPOLY=" + ", ".join(rows[0])] + ["             " + ", ".join(r) for r in rows[1:]]
 
+    _composite_gen.geom[i] = (max(ys) - min(ys), cz + y0 - zb)   # depth, centroid above the bottom (m): MIDAS band reference
     W = lambda r: "       " + f(*r)
     L = [f" SECT= {i}, COMPOSITE-GEN, {nm}, {ofs}, 0, 0, 0, 0, 0, 0, YES, NO, CP_G, YES, YES, 1",
          "       PART=1", W(s1g), W(a2g), W(a3g), W(s1g), W(a2g), W(a3g), f"       1, YES, YES, {b['E']:.6g}, {nu:g}"] + poly(g)
     L += ["       PART=2", W(s1d), W(a2d), W(a3d), W(s1c), W(a2c), W(a3c), f"       1, NO, YES, {Ed:.6g}, {nu:g}"] + poly(d)
     return L
+
+
+_composite_gen.geom = {}
+
+
+def _band(A, I, H, czb, e0, phi, alpha):
+    """One linear temperature band over the full depth (width 1 m, *BSTEMPER TYPE ELEMENT) whose force and moment about the
+    centroid equal E A e0 and E I phi: returns (T_top, T_bottom). y up from the centroid; top hotter = phi > 0."""
+    yt, yb = H - czb, -czb
+    a11, a12, a22 = H, (yt ** 2 - yb ** 2) / 2, (yt ** 3 - yb ** 3) / 3
+    a, b = np.linalg.solve([[a11, a12], [a12, a22]], [A * e0 / alpha, I * phi / alpha])
+    return a + b * yt, a + b * yb
+
+
+# platform combination action -> exported static load case (export_mct case names, + / - spelled p / m)
+COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SOo": "EP", "SOc": "EP", "BRKR": "BRKp", "CENR": "CEN", "TUW": "TUp", "TUC": "TUm",
+              "TGP": "TGP", "TGN": "TGN", "SCR": "SCR"}
+
+
+def midas_combinations(rows, r35, rS):
+    """Platform combination rows (combinations.generate) -> MIDAS *LOADCOMB entries, for rows whose actions are all exported.
+    Wind as primitives(): WX = WL+ x r, WY = WT+ x r (+ WTV+ unscaled with traffic), WZ = envelope of WVU+ / WVU- x r;
+    EPT = envelope of EPTA / EPTB / NIL (empty case: "no surcharge"). r = 1 (_U), r35 (_35), rS (_S).
+    Returns (combos, skipped rows): combos = [{"name", "type" (0 add / 1 envelope), "desc", "terms": [(ST|CB, name, f)]}]."""
+    r = {"U": 1.0, "35": r35, "S": rS}
+    env = [{"name": "EPT_env", "type": 1, "desc": "traffic surcharge A or B or none", "terms": [("ST", "EPTA", 1.0), ("ST", "EPTB", 1.0), ("ST", "NIL", 1.0)]}]
+    env += [{"name": f"WZ_{k}_env", "type": 1, "desc": f"vertical wind up / down x {v:.6g}", "terms": [("ST", "WVUp", v), ("ST", "WVUm", v)]} for k, v in r.items()]
+    out, skipped = [], []
+    for row in rows:
+        terms = []
+        for aid, f in row["t"]:
+            base, _, sx = aid.partition("_")
+            if aid in COMBO_CASE:
+                terms.append(("ST", COMBO_CASE[aid], f))
+            elif aid == "EPT":
+                terms.append(("CB", "EPT_env", f))
+            elif base == "WX" and sx in r:
+                terms.append(("ST", "WLp", f * r[sx]))
+            elif base == "WY" and sx in r:
+                terms.append(("ST", "WTp", f * r[sx])) ; terms += [("ST", "WTVp", f)] if sx == "35" else []
+            elif base == "WZ" and sx in r:
+                terms.append(("CB", f"WZ_{sx}_env", f))
+            else:
+                skipped.append(row["name"]); break
+        else:
+            out.append({"name": row["name"], "type": 0, "desc": f"{row['clause']} {row['pe']}", "terms": terms, "ls": row["ls"]})
+    for ls in ("ULS", "SLS"):
+        names = [c["name"] for c in out if c.get("ls") == ls]
+        if names:
+            out.append({"name": f"{ls} Envelope", "type": 1, "desc": f"{ls} envelope of the exported rows", "terms": [("CB", n, 1.0) for n in names]})
+    return env + out, skipped
 
 
 def _lc_name(name):
@@ -100,10 +153,13 @@ def _lc_name(name):
     return re.sub(r"[^A-Za-z0-9 _:()]", "", str(name).replace("+", "p").replace("-", "m"))[:20]
 
 
-def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True, cases=None):
+def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True, cases=None, alpha=1.0e-5, combos=None):
     """cases: {name: {"type": MIDAS LCTYPE (D, DW, EP, BRK, W, USER ...), "loads": {model node: (Fx, Fy, Fz, Mx, My, Mz)}}}
-    written as static load cases of nodal loads (*CONLOAD, native BR13B syntax), one load group per case."""
+    written as static load cases of nodal loads (*CONLOAD, native BR13B syntax), one load group per case.
+    A case may instead carry "strain": {model beam: (e0, phi)} (free axial strain, free curvature + = top hotter): phi = 0 ->
+    *ELTEMPER dT = e0 / alpha; else one *BSTEMPER band reproducing both (native BR13B syntax). alpha = material THERMAL."""
     cases = {_lc_name(k): v for k, v in (cases or {}).items()}
+    _composite_gen.geom.clear()
     if len(cases) != len({k for k in cases}):
         raise ValueError("load case names collide after MIDAS sanitising")
     m = mdl["model"]
@@ -173,7 +229,7 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
           "; Density = member weight / section area (kN/m3): gross-weight composite girders, massless dummies / deck strips / rigid members."]
     for (E, nu, dens), i in sorted(mats.items(), key=lambda q: q[1]):
         name = f"M{i}_E{E / 1e6:.1f}_d{dens:.1f}"[:16]
-        L.append(f"   {i}, USER, {name}, 0, 0, , C, NO, 0.05, 2, {E:.0f}, {nu:g}, 1.000e-5, {dens:.6g}, 0")
+        L.append(f"   {i}, USER, {name}, 0, 0, , C, NO, 0.05, 2, {E:.0f}, {nu:g}, {alpha:.6g}, {dens:.6g}, 0")
     cs = [(i, k) for i, (k, _) in sorted(sec_def.items()) if k[0] == "comp"]
     if cs:   # syntax from the engineer's native BR13B model (2026-10-28); generated-file import not yet confirmed
         L += ["*SECT-PSCVALUE    ; Composite General: part 1 girder (main), part 2 deck; m, kN/m2",
@@ -259,10 +315,40 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
     if gravity:
         L += ["", "*USE-STLD, SW", "", "*SELFWEIGHT    ; Self Weight", "; X, Y, Z, GROUP", "0, 0, -1, SelfWeight"]
     for k, v in cases.items():   # syntax from the engineer's native BR13B model (2026-10-28)
+        if "strain" in v:
+            el = sorted(v["strain"].items(), key=lambda q: emap[q[0]])
+            L += ["", f"*USE-STLD, {k}"]
+            unif = [(e, s_) for e, s_ in el if s_[1] == 0]
+            grad = [(e, s_) for e, s_ in el if s_[1] != 0]
+            if unif:
+                L += ["", "*ELTEMPER    ; Element Temperatures", "; ELEM_LIST, TEMPER, GROUP"]
+                L += [f"   {emap[e]}, {s_[0] / alpha:.9g}, " for e, s_ in unif]
+            if grad:
+                L += ["", "*BSTEMPER    ; Beam Section Temperature", "; ELEM_LIST, DIR, REF, NUM, GROUP, bPSC / TYPE, ELAST, THERMAL, B, H1, T1, H2, T2",
+                      "; one band over the full depth, width 1 m, chosen so MIDAS's force / moment = E A e0 / E I phi of the platform"]
+                for e, (e0, phi) in grad:
+                    b = m.beams[e]; key, _ = sec_def[sec_of[e]]
+                    H, czb = _composite_gen.geom[sec_of[e]] if key[0] == "comp" else ((key[1], key[1] / 2) if key[0] == "rect" else (None, None))
+                    if H is None:
+                        raise ValueError(f"temperature gradient on a section without a shape (beam {e})")
+                    t1, t2 = _band(b["A"], b["Iy"], H, czb, e0, phi, alpha)
+                    L += [f"   {emap[e]}, LZ, Top, 1, , NO", f"     ELEMENT, 0, 0, 1, 0, {t1:.9g}, {H:.9g}, {t2:.9g}"]
+            continue
+        if not any(any(abs(x) > 0 for x in f) for f in v["loads"].values()):
+            continue   # empty case (NIL): declared in *STLDCASE only
         L += ["", f"*USE-STLD, {k}", "", "*CONLOAD    ; Nodal Loads", "; NODE_LIST, FX, FY, FZ, MX, MY, MZ, GROUP,STRTYPENAME"]
         for n, f in sorted(v["loads"].items(), key=lambda q: nmap[q[0]]):
             if any(abs(x) > 0 for x in f):
                 L.append(f"   {nmap[n]}, " + ", ".join(f"{x:.9g}" for x in f) + f", {k},")
+    if combos:   # syntax from the engineer's native BR13B model (2026-10-28); factors: code-extracted-UNVERIFIED standards entries
+        L += ["", "; Load combinations generated by the platform (AS 5100.2 rows). Factors are code-extracted-UNVERIFIED standards data.",
+              "*LOADCOMB    ; Combinations", "; NAME=NAME, KIND, ACTIVE, bES, iTYPE, DESC, iSERV-TYPE, nLCOMTYPE, nSEISTYPE, LcomFactor ; line 1",
+              ";      ANAL1, LCNAME1, FACT1, ...                                                         ; from line 2"]
+        clean = lambda x: str(x).replace(",", " ")
+        for c in combos:
+            L.append(f"   NAME={clean(c['name'])}, GEN, ACTIVE, 0, {c['type']}, {clean(c['desc'])}, 0, 0, 0, 1")
+            tl = [f"{k}, {n}, {f:.6g}" for k, n, f in c["terms"]]
+            L += ["        " + ", ".join(tl[j:j + 3]) for j in range(0, len(tl), 3)]
     L += ["", "*ENDDATA"]
     rep = {"nodes": len(nmap), "elements": len(emap), "materials": len(mats), "sections": len(secs), "links": len(m.links), "springs": len(m.springs),
            "supports": sum(len(v) for v in groups.values()), "unverified_blocks": unverified,
@@ -294,7 +380,7 @@ def read_mct(text):
     for l in blocks.get("*ELEMENT", []):
         p = sp(l); out["els"][int(p[0])] = (int(p[2]), int(p[3]), int(p[4]), int(p[5]))
     for l in blocks.get("*MATERIAL", []):
-        p = sp(l); out["mats"][int(p[0])] = {"E": float(p[10]), "nu": float(p[11]), "den": float(p[13]), "name": p[2]}
+        p = sp(l); out["mats"][int(p[0])] = {"E": float(p[10]), "nu": float(p[11]), "alpha": float(p[12]), "den": float(p[13]), "name": p[2]}
     b = blocks.get("*SECTION", []); i = 0
     while i < len(b):
         p = sp(b[i])
@@ -304,6 +390,7 @@ def read_mct(text):
         elif p[1] == "DBUSER" and p[12] == "SB":
             H, B = float(p[14]), float(p[15]); A = H * B
             out["secs"][int(p[0])] = {"A": A, "Asy": 5 / 6 * A, "Asz": 5 / 6 * A, "J": _rect_J(B, H), "Iy": B * H ** 3 / 12, "Iz": H * B ** 3 / 12}; i += 1
+            out["secs"][int(p[0])].update(H=H, czb=H / 2)
             if p[3] == "CT":
                 out["secs"][int(p[0])]["dz"] = -H / 2
         elif p[1] == "DBUSER" and p[12] == "SR":
@@ -327,13 +414,14 @@ def read_mct(text):
                 j += 1
             v = [float(x) for x in sp(pv[last + 4])]
             out["secs"][sid] = dict(zip(("A", "Asy", "Asz", "J", "Iy", "Iz"), (v[0],) + tuple(v[2:7])))
+            zs, inpoly = [], False
+            for q in pv[k + 1:j]:
+                t_ = q.strip()
+                inpoly = t_.startswith("OPOLY=") or (inpoly and not t_.startswith("PART="))
+                if inpoly:
+                    zs += [float(x) for x in sp(t_.replace("OPOLY=", ""))][1::2]
+            out["secs"][sid].update(H=max(zs) - min(zs), czb=float(sp(pv[last + 5])[9]))
             if sp(l.split("=", 1)[1])[3] == "CT":   # top of all parts on the node: dz = -(bbox height - sum Cz)
-                zs, inpoly = [], False
-                for q in pv[k + 1:j]:
-                    t_ = q.strip()
-                    inpoly = t_.startswith("OPOLY=") or (inpoly and not t_.startswith("PART="))
-                    if inpoly:
-                        zs += [float(x) for x in sp(t_.replace("OPOLY=", ""))][1::2]
                 out["secs"][sid]["dz"] = -(max(zs) - min(zs) - float(sp(pv[last + 5])[9]))
     for l in blocks.get("*SECT-SCALE", []):
         p = sp(l)
@@ -356,6 +444,22 @@ def read_mct(text):
         elif cur_blk == "*CONLOAD" and l.strip() and not l.strip().startswith(";"):
             p = sp(l)
             out["cases"].setdefault(cur_lc, {})[int(p[0])] = tuple(float(x) for x in p[1:7])
+        elif cur_blk == "*ELTEMPER" and l.strip() and not l.strip().startswith(";"):
+            p = sp(l)
+            out.setdefault("temps", {}).setdefault(cur_lc, {})[int(p[0])] = ("T", float(p[1]))
+        elif cur_blk == "*BSTEMPER" and l.strip() and not l.strip().startswith(";"):
+            p = sp(l)
+            if p[0] == "ELEMENT":   # band line of the element above: B, H1, T1, H2, T2
+                out["temps"][cur_lc][bs_el] = ("B",) + tuple(float(x) for x in p[3:8])
+            else:
+                bs_el = int(p[0]); out.setdefault("temps", {}).setdefault(cur_lc, {})
+    out["combos"], cb = [], None
+    for l in blocks.get("*LOADCOMB", []):
+        q = l.strip()
+        if q.startswith("NAME="):
+            p = sp(q[5:]); cb = {"name": p[0], "type": int(p[4]), "terms": []}; out["combos"].append(cb)
+        else:
+            p = sp(q); cb["terms"] += [(p[j], p[j + 1], float(p[j + 2])) for j in range(0, len(p) - 2, 3)]
     sw = blocks.get("*SELFWEIGHT", [])
     if sw:
         out["selfweight"] = tuple(float(x) for x in sp(sw[0])[:3])

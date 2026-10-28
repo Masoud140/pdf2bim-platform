@@ -38,7 +38,25 @@ def main():
         cases[k] = {"type": typ.get(k, "USER"), "loads": v["loads"]}
     for k, v in wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["cases"].items():
         cases[k] = {"type": "W", "loads": v["loads"]}
-    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases)
+    # temperature / shrinkage as element temperatures (*ELTEMPER uniform, *BSTEMPER gradient band); alpha from the description
+    from pdf2bim.model.thermal import thermal_cases
+    import numpy as np
+    Th = thermal_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)
+    alpha = Th["inputs"]["temperature"]["alpha"]
+    mm = M["model"]
+    Lb = lambda e: float(np.linalg.norm(mm.nodes[mm.beams[e]["n2"]] - mm.nodes[mm.beams[e]["n1"]]))
+    for k, v in Th["cases"].items():
+        cases[k] = {"type": {"TU+": "T", "TU-": "T", "TGP": "TPG", "TGN": "TPG"}.get(k, "USER"),
+                    "strain": {e: (u[6] / Lb(e), u[10] / Lb(e)) for e, u in v["imposed"].items()}}
+    # AS 5100.2 combinations of the exported cases (rows with traffic / earthquake wait until those are exported)
+    from pdf2bim.model.combinations import Register, generate
+    from pdf2bim.model.mct import midas_combinations
+    cases["NIL"] = {"type": "USER", "loads": {}}
+    Wsc = wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["scale"]
+    on = {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ"}
+    rows = generate(Register(Standards(), on), None)["rows"]
+    combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"])
+    txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases, alpha=alpha, combos=combos)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write(txt)
     side = {k: v for k, v in rep.items()}
@@ -62,7 +80,12 @@ def main():
          "5. Composite girders are COMPOSITE-GEN (girder + deck polygons; drawing = nearest station, stiffness = interpolated). In Section Properties confirm MIDAS kept the written A, Iyy, Izz, J (not recalculated from the polygons) and that self weight still totals the SW reaction in the report. Piles = DBUSER SR; deck strips = DBUSER SB + *SECT-SCALE (J).",
          "6. Section offset (CT / CC) and the node line: confirm the girders are not shifted vertically (MCT_EXPORT_METHOD §2 rule 7).",
          "7. Load cases: SW + SDL, earth pressure (EP, EPTA, EPTB), braking (BRKp / BRKm), centrifugal (CEN, type USER) and 10 wind cases as *CONLOAD "
-         "nodal loads (native BR13B syntax; + / - in names spelled p / m). Not yet in the file: temperature / shrinkage, traffic (moving load), earthquake, combinations.", ""]
+         "nodal loads (native BR13B syntax; + / - in names spelled p / m); uniform temperature TUp / TUm and shrinkage SCR as *ELTEMPER (dT = strain / alpha on every "
+         "superstructure beam), gradients TGP / TGN as one *BSTEMPER band per girder element (force and moment equal the platform's E A e0 / E I phi). "
+         "**Check the gradient cases against the platform** (band integration by MIDAS is the one unverified assumption).",
+         "8. Combinations: the platform's AS 5100.2 rows that use only exported cases, as *LOADCOMB (envelopes EPT_env, WZ_*_env nested with CB; NIL = empty case "
+         "for 'no surcharge'), plus 'ULS Envelope' / 'SLS Envelope'. Factors are code-extracted-UNVERIFIED standards entries. Rows with traffic or earthquake "
+         "are not written yet (those cases are not in the file).", ""]
     open(a.out + ".md", "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 
