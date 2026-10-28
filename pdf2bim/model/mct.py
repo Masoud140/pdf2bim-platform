@@ -115,51 +115,44 @@ COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SOo": "EP", "SOc": "EP", "BRKR": "BRK
 
 def midas_combinations(rows, r35, rS, eq_cases=False):
     """Platform combination rows (combinations.generate) -> MIDAS *LOADCOMB entries, for rows whose actions are all exported.
-    Wind as primitives(): WX = WL+ x r, WY = WT+ x r (+ WTV+ unscaled with traffic), WZ = envelope of WVU+ / WVU- x r;
-    EPT = envelope of EPTA / EPTB / NIL (empty case: "no surcharge"). r = 1 (_U), r35 (_35), rS (_S).
-    Returns (combos, skipped rows): combos = [{"name", "type" (0 add / 1 envelope), "desc", "terms": [(ST|CB, name, f)]}]."""
+    Wind as primitives(): WX = WL+ x r, WY = WT+ x r (+ WTV+ unscaled with traffic), r = 1 (_U), r35 (_35), rS (_S).
+    Envelope actions are EXPANDED, never nested: a row with WZ (vertical wind up / down) or EPT (surcharge behind A / B / none)
+    becomes one additive row per alternative (suffix a, b, ...). MIDAS evaluates nested envelopes in its own way (owner runs
+    2026-10-28c / d: negative factors not swapped; an envelope of rows holding envelopes exceeds every row), so only plain
+    additive rows and one-level envelopes of them are written. The ULS / SLS envelopes of the expanded rows equal combine().
+    Returns (combos, skipped rows): combos = [{"name", "type" (0 add / 1 envelope), "desc", "terms": [(ST|RS|CB, name, f)]}]."""
+    import itertools
     r = {"U": 1.0, "35": r35, "S": rS}
-    env = [{"name": "EPT_env", "type": 1, "desc": "traffic surcharge A or B or none", "terms": [("ST", "EPTA", 1.0), ("ST", "EPTB", 1.0), ("ST", "NIL", 1.0)]}]
-    env += [{"name": f"WZ_{k}_env", "type": 1, "desc": f"vertical wind up / down x {v:.6g}", "terms": [("ST", "WVUp", v), ("ST", "WVUm", v)]} for k, v in r.items()]
     out, skipped = [], []
-    byname = {c["name"]: c for c in env}
-
-    def cb(name, f):
-        # MIDAS scales an envelope's max / min by a negative factor WITHOUT swapping them (owner run 2026-10-28c), so a
-        # negative factor goes on a negated copy of the envelope instead: exact whatever the convention
-        if f >= 0:
-            return ("CB", name, f)
-        nn = name + "_n"
-        if nn not in byname:
-            c = byname[name]
-            byname[nn] = {"name": nn, "type": 1, "desc": c["desc"] + " (negated)", "terms": [(k, t, -ff) for k, t, ff in c["terms"]]}
-            env.append(byname[nn])
-        return ("CB", nn, -f)
     for row in rows:
-        terms = []
+        alts = []   # per action: list of alternative term lists
         for aid, f in row["t"]:
             base, _, sx = aid.partition("_")
             if aid in COMBO_CASE:
-                terms.append(("ST", COMBO_CASE[aid], f))
+                alts.append([[("ST", COMBO_CASE[aid], f)]])
             elif aid == "EPT":
-                terms.append(cb("EPT_env", f))
+                alts.append([[("ST", "EPTA", f)], [("ST", "EPTB", f)], []])
             elif base == "WX" and sx in r:
-                terms.append(("ST", "WLp", f * r[sx]))
+                alts.append([[("ST", "WLp", f * r[sx])]])
             elif base == "WY" and sx in r:
-                terms.append(("ST", "WTp", f * r[sx])) ; terms += [("ST", "WTVp", f)] if sx == "35" else []
+                alts.append([[("ST", "WTp", f * r[sx])] + ([("ST", "WTVp", f)] if sx == "35" else [])])
             elif base == "WZ" and sx in r:
-                terms.append(cb(f"WZ_{sx}_env", f))
+                alts.append([[("ST", "WVUp", f * r[sx])], [("ST", "WVUm", f * r[sx])]])
             elif aid in ("EQX", "EQY") and eq_cases:
-                terms.append(("RS", {"EQX": "EQ_L", "EQY": "EQ_T"}[aid], f))
+                alts.append([[("RS", {"EQX": "EQ_L", "EQY": "EQ_T"}[aid], f)]])
             else:
                 skipped.append(row["name"]); break
         else:
-            out.append({"name": row["name"], "type": 0, "desc": f"{row['clause']} {row['pe']}", "terms": terms, "ls": row["ls"]})
+            variants = list(itertools.product(*alts))
+            for k, v in enumerate(variants):
+                nm = row["name"] + ("abcdefghijklmnopqrstuvwxyz"[k] if len(variants) > 1 else "")
+                out.append({"name": nm, "type": 0, "desc": f"{row['clause']} {row['pe']}", "terms": [t for part in v for t in part],
+                            "ls": row["ls"], "row": row["name"]})
     for ls in ("ULS", "SLS"):
         names = [c["name"] for c in out if c.get("ls") == ls]
         if names:
             out.append({"name": f"{ls} Envelope", "type": 1, "desc": f"{ls} envelope of the exported rows", "terms": [("CB", n, 1.0) for n in names]})
-    return env + out, skipped
+    return out, skipped
 
 
 def _lc_name(name):

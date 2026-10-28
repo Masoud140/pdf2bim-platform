@@ -187,7 +187,7 @@ for sx, rr in (("U", 1.0), ("35", r35), ("S", rS)):
     P["WZ_" + sx] = {"max": np.maximum(resp["WVUp"], resp["WVUm"]) * rr, "min": np.minimum(resp["WVUp"], resp["WVUm"]) * rr}
 rows5 = generate(Register(Standards(), {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ"}), None)["rows"]
 cb5, sk5 = midas_combinations(rows5, r35, rS)
-txt5, _ = write_mct(M, doc, title="test", cases={**Cs, "NIL": {"type": "USER", "loads": {}}}, combos=cb5)
+txt5, _ = write_mct(M, doc, title="test", cases=Cs, combos=cb5)
 CBs = {c["name"]: c for c in read_mct(txt5)["combos"]}
 def ev(name):
     c = CBs[name]; hi = lo = None
@@ -205,8 +205,10 @@ def ev(name):
     return hi, lo
 Cmb = combine(rows5, P)
 dmax = max(max(abs(ev(f"{ls} Envelope")[0] - Cmb[ls]["max"]).max(), abs(ev(f"{ls} Envelope")[1] - Cmb[ls]["min"]).max()) for ls in ("ULS", "SLS"))
-t("combinations: every exportable AS 5100.2 row written; the file's ULS / SLS envelopes equal the platform's combine() (nodal translations)",
-  not sk5 and len([c for c in cb5 if c.get("ls")]) == len(rows5) == 133 and dmax < 1e-9, f"{dmax:.1e} m")
+t("combinations: every exportable AS 5100.2 row written (envelope actions expanded, no nesting); the file's ULS / SLS envelopes equal combine()",
+  not sk5 and len({c["row"] for c in cb5 if c.get("ls")}) == len(rows5) == 133 and dmax < 1e-9
+  and all(k != "CB" for c in cb5 if c["type"] == 0 for k, _, _ in c["terms"]) and [c["name"] for c in cb5 if c["type"] == 1] == ["ULS Envelope", "SLS Envelope"],
+  f"{dmax:.1e} m, {len(cb5) - 2} rows")
 # earthquake (native *SFUNCTION / *SPLDCASE / *LOADTOMASS): written by tools/export_mct.py; spectrum = platform Sa(T),
 # every AS 5100.2 earthquake row present with RS terms
 import subprocess, tempfile as _tf

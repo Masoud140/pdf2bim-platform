@@ -51,7 +51,6 @@ def main():
     # AS 5100.2 combinations of the exported cases (rows with traffic / earthquake wait until those are exported)
     from pdf2bim.model.combinations import Register, generate
     from pdf2bim.model.mct import midas_combinations
-    cases["NIL"] = {"type": "USER", "loads": {}}
     Wsc = wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["scale"]
     # earthquake: the platform's spectrum points, directions and mode count (earthquake.py) as MIDAS spectrum cases
     from pdf2bim.model.earthquake import ch_factor
@@ -97,9 +96,10 @@ def main():
          "nodal loads (native BR13B syntax; + / - in names spelled p / m); uniform temperature TUp / TUm and shrinkage SCR as *ELTEMPER (dT = strain / alpha on every "
          "superstructure beam), gradients TGP / TGN as one *BSTEMPER band per girder element (force and moment equal the platform's E A e0 / E I phi). "
          "**Check the gradient cases against the platform** (band integration by MIDAS is the one unverified assumption).",
-         "8. Combinations: the platform's AS 5100.2 rows that use only exported cases, as *LOADCOMB (envelopes EPT_env, WZ_*_env nested with CB; NIL = empty case "
-         "for 'no surcharge'), plus 'ULS Envelope' / 'SLS Envelope'. Factors are code-extracted-UNVERIFIED standards entries. Rows with traffic "
-         "are not written yet (traffic is not in the file).",
+         "8. Combinations: the platform's AS 5100.2 rows that use only exported cases, as plain additive *LOADCOMB rows; rows with vertical wind "
+         "(up / down) or traffic surcharge (A / B / none) are expanded into one row per alternative (suffix a, b, c ...), never nested envelopes "
+         "(MIDAS evaluates nested envelopes in its own way). Plus 'ULS Envelope' / 'SLS Envelope' of the rows. Factors are code-extracted-UNVERIFIED "
+         "standards entries. Rows with traffic are not written yet (traffic is not in the file).",
          "9. Earthquake: spectrum cases EQ_L / EQ_T (one direction each; the 1.0 / 0.3 directional combination is in the combination rows) with the platform's "
          "Sa(T) points; masses = self weight + SDL (*LOADTOMASS), lumped (native setting; the platform uses consistent mass, and adds a missing-mass term). "
          "**Check:** (a) the *SPLDCASE last field 0.3 (copied from the native file) must NOT add an orthogonal 30 % — compare EQ_L results with the platform's "
