@@ -24,7 +24,7 @@ stages = [
     ("P3", "Model builder, solver, loads, combinations, MIDAS export", "Done", "MIDAS import + results verified 2026-10-28"),
     ("P4", "Structural verification and design checks", "In progress", "fitments and torsion approach wait for the owner"),
     ("P5", "Extraction and decision workflow", "Done", "first pass; visual second pass with P6"),
-    ("P6", "Second bridge B12626 from PDFs", "In progress", "extraction stages 2a + 2b done"),
+    ("P6", "Second bridge B12626 from PDFs", "In progress", "chain runs to MIDAS on provisional inputs"),
     ("P7", "Web application and planks", "Not started", ""),
 ]
 put("stages", [{"stage": s, "goal": g, "status": st, "note": n, "order": i} for i, (s, g, st, n) in enumerate(stages)])
@@ -58,8 +58,9 @@ M = [  # stage, milestone, status, date, evidence
     ("P6", "B12626 drawing-set survey (72 sheets)", "Done", "2026-10-28", "SURVEY.md"),
     ("P6", "Stage 2a: alignment, girders, bearing lines, piles", "Done", "2026-10-28", "e58a39f"),
     ("P6", "Stage 2b: flanges, bearings, abutments, barriers, materials, loads", "Done", "2026-10-28", "6c37989"),
-    ("P6", "Stage 3: extracted values to bridge description", "Next", "", ""),
-    ("P6", "Run the unchanged chain on B12626", "Not started", "", ""),
+    ("P6", "Stage 3a: generic new-description tool; B12626 description (0.2)", "Done", "2026-10-28", "0925c1a, ADR-047"),
+    ("P6", "Stage 3b: unchanged chain runs to the MIDAS .mct (provisional D-1); 7 generality gaps fixed", "Done", "2026-10-28", "8781004, P6_SECOND_BRIDGE.md"),
+    ("P6", "Traffic and combinations on B12626; compare pile actions with drawing 109035", "Next", "", ""),
     ("P7", "Web application, API, users; precast planks", "Not started", "", ""),
 ]
 put("milestones", [{"id": "M%02d" % i, "stage": s, "milestone": m, "status": st, "date": d, "evidence": e} for i, (s, m, st, d, e) in enumerate(M, 1)])
@@ -88,7 +89,8 @@ open_items = [
 ]
 put("open_items", [{"id": "Q%02d" % i, "bridge": b, "item": t, "severity": s, "with": w} for i, (b, t, s, w) in enumerate(open_items, 1)])
 
-tests = [("test_solver", 13, 13), ("test_builder", 20, 20), ("test_mct", 21, 22), ("test_midas_run", 4, 4), ("test_format_0_2", 48, 48), ("takeoff import", 10, 10)]
+tests = [("test_solver", 13, 13), ("test_builder", 20, 20), ("test_substructure", 39, 39), ("test_mct", 21, 22), ("test_midas_run", 4, 4), ("test_format_0_2", 48, 48),
+         ("test_b12626_chain", 10, 10), ("test_new_description", 7, 7), ("test_loads", 25, 25), ("test_combinations", 35, 35)]
 put("tests", [{"suite": s, "passed": p, "total": t, "date": "2026-10-28"} for s, p, t in tests])
 
 V = json.load(open(os.path.join(ROOT, "projects/B12626/extraction/B12626_values.json")))
