@@ -919,6 +919,336 @@
   "tag": "Missing-Flagged"
  },
  {
+  "path": "superstructure.members[SG-01].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-01].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-02].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-02].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-03].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-03].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-04].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-04].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-05].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-05].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-06].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-06].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-07].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-07].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-08].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-08].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-09].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-09].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-10].flange_left",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160 girder centreline to flange edge"
+  }
+ },
+ {
+  "path": "superstructure.members[SG-10].flange_right",
+  "value": 1160,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109202-204",
+   "view": "plan",
+   "note": "1160"
+  }
+ },
+ {
+  "path": "superstructure.end_diaphragm_length",
+  "value": 1500,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109203",
+   "view": "plan",
+   "note": "1500 END DIAPHRAGM each end"
+  }
+ },
+ {
+  "path": "superstructure.flange_end_cutback",
+  "value": 800,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109203 / 109204",
+   "view": "plan",
+   "note": "top flange cut back 800 from each girder end (both sides SG-02..09; inner side only on SG-10 / SG-01)"
+  }
+ },
+ {
+  "path": "superstructure.supert_types[ST1].density",
+  "value": 2600,
+  "unit": "kg/m3",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "DENSITY = 2600 kg/m³ (2400 kg/m³ FOR CALCULATION OF MODULUS)"
+  }
+ },
+ {
+  "path": "superstructure.supert_types[ST1].E_transfer",
+  "value": 32100,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "ELASTIC MODULUS AT TRANSFER = 32100 MPa"
+  }
+ },
+ {
+  "path": "superstructure.supert_types[ST1].mass",
+  "value": 45.7,
+  "unit": "t",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "lifting and handling",
+   "note": "approx. 45.7 tonnes each (density 2550)"
+  }
+ },
+ {
+  "path": "superstructure.cross_girders.end_width",
+  "value": 800,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109303",
+   "view": "sections 2 / 3",
+   "note": "800 cross girder (pour 1) at each abutment end"
+  }
+ },
+ {
+  "path": "superstructure.cross_girders.end_depth_below_slab",
+  "value": 765,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109303",
+   "view": "sections 2 / 3",
+   "note": "765 below the deck slab"
+  }
+ },
+ {
+  "path": "superstructure.cross_girders.intermediate",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
   "path": "bearings.items[A-01].support",
   "value": "A",
   "unit": null,
@@ -2330,6 +2660,2579 @@
   "path": "supports[B].piles[B-05].rl_rock",
   "value": null,
   "unit": "m",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-01].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-01].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-01].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-01].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-01].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-01].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-01].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-01].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-01].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-02].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-02].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-02].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-02].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-02].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-02].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-02].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-02].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-02].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-03].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-03].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-03].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-03].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-03].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-03].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-03].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-03].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-03].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-04].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-04].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-04].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-04].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-04].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-04].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-04].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-04].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-04].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-05].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-05].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-05].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-05].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-05].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-05].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-05].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-05].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-05].restraint_transverse",
+  "value": "lateral restraint block, 10 nom gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-06].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-06].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-06].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-06].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-06].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-06].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-06].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-06].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-06].restraint_transverse",
+  "value": "lateral restraint block, 10 nom gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-07].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-07].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-07].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-07].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-07].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-07].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-07].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-07].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-07].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-08].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-08].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-08].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-08].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-08].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-08].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-08].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-08].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-08].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-09].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-09].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-09].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-09].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-09].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-09].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-09].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-09].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-09].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[A-10].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[A-10].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[A-10].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[A-10].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[A-10].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-10].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-10].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[A-10].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[A-10].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-01].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-01].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-01].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-01].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-01].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-01].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-01].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-01].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-01].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-02].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-02].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-02].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-02].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-02].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-02].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-02].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-02].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-02].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-03].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-03].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-03].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-03].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-03].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-03].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-03].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-03].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-03].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-04].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-04].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-04].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-04].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-04].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-04].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-04].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-04].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-04].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-05].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-05].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-05].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-05].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-05].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-05].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-05].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-05].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-05].restraint_transverse",
+  "value": "lateral restraint block, 10 nom gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-06].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-06].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-06].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-06].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-06].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-06].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-06].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-06].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-06].restraint_transverse",
+  "value": "lateral restraint block, 10 nom gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-07].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-07].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-07].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-07].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-07].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-07].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-07].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-07].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-07].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-08].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-08].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-08].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-08].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-08].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-08].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-08].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-08].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-08].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-09].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-09].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-09].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-09].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-09].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-09].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-09].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-09].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-09].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "bearings.items[B-10].plan_a",
+  "value": 380,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan rectangular laminated elastomeric bearing",
+   "note": "380 (along traffic, same orientation as the 530 plate)"
+  }
+ },
+ {
+  "path": "bearings.items[B-10].plan_b",
+  "value": 480,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "480"
+  }
+ },
+ {
+  "path": "bearings.items[B-10].height",
+  "value": 115,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "section 2",
+   "note": "115 bearing below the attachment plate"
+  }
+ },
+ {
+  "path": "bearings.items[B-10].part_no",
+  "value": "AS [50] 070907R",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109152",
+   "view": "plan",
+   "note": "AS PART No"
+  }
+ },
+ {
+  "path": "bearings.items[B-10].elastomer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-10].layer_thickness",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-10].shear_modulus",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "bearings.items[B-10].restraint_longitudinal",
+  "value": "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "detail E buffer bearing",
+   "note": null
+  }
+ },
+ {
+  "path": "bearings.items[B-10].restraint_transverse",
+  "value": "elastomeric",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109056",
+   "view": "lateral restraint block detail",
+   "note": "one 900-wide block between SG-05 and SG-06 at each abutment"
+  }
+ },
+ {
+  "path": "supports[A].kind",
+  "value": "piled abutment (sill beam on driven steel tube piles)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109011",
+   "view": "elevation",
+   "note": null
+  }
+ },
+ {
+  "path": "supports[A].headstock.width",
+  "value": 1350,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "1350 = 350 curtain wall + 500 + 500"
+  }
+ },
+ {
+  "path": "supports[A].headstock.depth",
+  "value": 1575,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "front face depth below the bearing seat; values for B in brackets"
+  }
+ },
+ {
+  "path": "supports[A].headstock.length",
+  "value": 26.315,
+  "unit": "m",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109011",
+   "view": "plan",
+   "note": "abutment length"
+  }
+ },
+ {
+  "path": "supports[A].headstock_setout.front",
+  "value": 500,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1",
+   "note": "front face 500 from ℄ bearings"
+  }
+ },
+ {
+  "path": "supports[A].headstock_setout.back",
+  "value": -850,
+  "unit": "mm",
+  "tag": "Calculated",
+  "derivation": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)"
+ },
+ {
+  "path": "supports[A].headstock_setout.start_end",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "supports[A].curtain_wall.thickness",
+  "value": 350,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1",
+   "note": null
+  }
+ },
+ {
+  "path": "supports[A].curtain_wall.height",
+  "value": 1327,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "above the bearing seat"
+  }
+ },
+ {
+  "path": "supports[A].soil",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "supports[B].kind",
+  "value": "piled abutment (sill beam on driven steel tube piles)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109011",
+   "view": "elevation",
+   "note": null
+  }
+ },
+ {
+  "path": "supports[B].headstock.width",
+  "value": 1350,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "1350 = 350 curtain wall + 500 + 500"
+  }
+ },
+ {
+  "path": "supports[B].headstock.depth",
+  "value": 1925,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "front face depth below the bearing seat; values for B in brackets"
+  }
+ },
+ {
+  "path": "supports[B].headstock.length",
+  "value": 26.312,
+  "unit": "m",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109011",
+   "view": "plan",
+   "note": "abutment length"
+  }
+ },
+ {
+  "path": "supports[B].headstock_setout.front",
+  "value": 500,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1",
+   "note": "front face 500 from ℄ bearings"
+  }
+ },
+ {
+  "path": "supports[B].headstock_setout.back",
+  "value": -850,
+  "unit": "mm",
+  "tag": "Calculated",
+  "derivation": "-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)"
+ },
+ {
+  "path": "supports[B].headstock_setout.start_end",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "supports[B].curtain_wall.thickness",
+  "value": 350,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1",
+   "note": null
+  }
+ },
+ {
+  "path": "supports[B].curtain_wall.height",
+  "value": 1324,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109055",
+   "view": "section 1 (3)",
+   "note": "above the bearing seat"
+  }
+ },
+ {
+  "path": "supports[B].soil",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "deck.barriers[barrier_left].type",
+  "value": "precast concrete parapet, medium performance level (+ twin rails 109451-)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001 / 109401",
+   "view": "notes",
+   "note": null
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_left].height",
+  "value": 1400,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109402",
+   "view": "inside elevation PB01",
+   "note": "1400 precast unit"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_left].offset",
+  "value": -9.5,
+  "unit": "m",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "elevation",
+   "note": "inside face of barrier (carriageway edge)"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_left].weight",
+  "value": 10.56,
+  "unit": "kN/m",
+  "tag": "Calculated",
+  "derivation": "PB01 mass 6.01 t / length 5.580 m x g 9.80665 (109402); precast unit only — rails (109451-) not included"
+ },
+ {
+  "path": "deck.barriers[barrier_left].rail_weight",
+  "value": null,
+  "unit": "kN/m",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "deck.barriers[barrier_right].type",
+  "value": "precast concrete parapet, medium performance level (+ twin rails 109451-)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001 / 109401",
+   "view": "notes",
+   "note": null
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_right].height",
+  "value": 1400,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109402",
+   "view": "inside elevation PB01",
+   "note": "1400 precast unit"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_right].offset",
+  "value": 13.12,
+  "unit": "m",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "elevation",
+   "note": "inside face of barrier (carriageway edge)"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_right].weight",
+  "value": 10.56,
+  "unit": "kN/m",
+  "tag": "Calculated",
+  "derivation": "PB01 mass 6.01 t / length 5.580 m x g 9.80665 (109402); precast unit only — rails (109451-) not included"
+ },
+ {
+  "path": "deck.barriers[barrier_right].rail_weight",
+  "value": null,
+  "unit": "kN/m",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "deck.barriers[barrier_median].type",
+  "value": "cast-in-place concrete median barrier, regular performance level",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109303",
+   "view": "detail D",
+   "note": null
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_median].height",
+  "value": 1000,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109303",
+   "view": "detail D",
+   "note": "1000 above deck concrete (920 above wearing surface, 109012)"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_median].offset",
+  "value": 1.813,
+  "unit": "m",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "plan",
+   "note": "median centre (lateral restraint block setout) 1813 east of MC10, as the crown"
+  }
+ },
+ {
+  "path": "deck.barriers[barrier_median].area",
+  "value": 0.3663,
+  "unit": "m2",
+  "tag": "Calculated",
+  "derivation": "109303 detail D: widths 600 (0-160), 600->350 (160-340), 350->210 (340-1000); 0.6x0.16 + 0.475x0.18 + 0.28x0.66"
+ },
+ {
+  "path": "deck.barriers[barrier_median].weight",
+  "value": null,
+  "unit": "kN/m",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "materials.concrete[girders].fc",
+  "value": 60,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": null
+  }
+ },
+ {
+  "path": "materials.concrete[deck].fc",
+  "value": 40,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109301",
+   "view": "general notes",
+   "note": null
+  }
+ },
+ {
+  "path": "materials.concrete[abutments].fc",
+  "value": 40,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109051",
+   "view": "general notes",
+   "note": null
+  }
+ },
+ {
+  "path": "materials.concrete[pile infill].fc",
+  "value": 50,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109031",
+   "view": "general notes",
+   "note": null
+  }
+ },
+ {
+  "path": "materials.concrete[precast barriers].fc",
+  "value": 50,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109401",
+   "view": "general notes",
+   "note": null
+  }
+ },
+ {
+  "path": "materials.concrete[girders].E",
+  "value": null,
+  "unit": "MPa",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "materials.concrete[deck].E",
+  "value": null,
+  "unit": "MPa",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "materials.concrete[abutments].E",
+  "value": null,
+  "unit": "MPa",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "materials.concrete[pile infill].E",
+  "value": null,
+  "unit": "MPa",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "materials.strand.diameter",
+  "value": 15.2,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "7-wire ordinary 15.2 mm"
+  }
+ },
+ {
+  "path": "materials.strand.fpb",
+  "value": 1830,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "nominal tensile strength 1830 MPa, relax 2"
+  }
+ },
+ {
+  "path": "materials.strand.MBL",
+  "value": 261,
+  "unit": "kN",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "minimum breaking load 261 kN"
+  }
+ },
+ {
+  "path": "materials.strand.jacking_force_after_release",
+  "value": 190,
+  "unit": "kN",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "force in each strand immediately after release of the jack"
+  }
+ },
+ {
+  "path": "materials.steel_pile.fy_limit",
+  "value": 315,
+  "unit": "MPa",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109035",
+   "view": "notes",
+   "note": "stress in ID 900 / 16 wall limited to 315 MPa (driving)"
+  }
+ },
+ {
+  "path": "loads.traffic_models",
+  "value": "SM1600 (M1600 + S1600)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.design_lanes",
+  "value": 7,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.design_speed",
+  "value": 120,
+  "unit": "km/h",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.heavy_load_platform",
+  "value": "HLP 400, one vehicle per carriageway, 10 km/h, ±1 m lateral",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.concurrent_traffic_with_HLP",
+  "value": "0.5 x SM1600 on unobstructed lanes",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.fatigue",
+  "value": "70% of a single A160, 70% of a single M1600 without UDL; 2270 heavy vehicles / lane / day",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.route_factor",
+  "value": 1.0,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.differential_settlement",
+  "value": 5,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": "total SLS between adjacent supports"
+  }
+ },
+ {
+  "path": "loads.wind.region",
+  "value": "A2",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.terrain",
+  "value": "TC2",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.V_uls",
+  "value": 48,
+  "unit": "m/s",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.V_sls",
+  "value": 37,
+  "unit": "m/s",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.ARI_uls",
+  "value": 2000,
+  "unit": "years",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.ARI_sls",
+  "value": 20,
+  "unit": "years",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.wind.V_with_traffic",
+  "value": null,
+  "unit": "m/s",
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "loads.earthquake.kp",
+  "value": 1.7,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.earthquake.Z",
+  "value": 0.11,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.earthquake.site_class",
+  "value": "De",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.earthquake.mu_longitudinal",
+  "value": 1.0,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.earthquake.mu_transverse",
+  "value": 1.0,
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.design_standard",
+  "value": "AS(/NZS) 5100:2017 series",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109001",
+   "view": "design criteria",
+   "note": null
+  }
+ },
+ {
+  "path": "loads.temperature",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "loads.gradient",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "loads.shrinkage_creep_shortening",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "loads.braking_force",
+  "value": null,
+  "unit": null,
+  "tag": "Missing-Flagged"
+ },
+ {
+  "path": "loads.traffic_surcharge",
+  "value": null,
+  "unit": null,
   "tag": "Missing-Flagged"
  }
 ]

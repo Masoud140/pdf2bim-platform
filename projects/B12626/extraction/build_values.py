@@ -107,8 +107,21 @@ rec("superstructure.supert_types[ST1].section", "lib:supert/T3", None, "Standard
 rec("superstructure.supert_types[ST1].depth", 1215, "mm", D, "109202", "elevation girder SG-01", "1215")
 rec("superstructure.supert_types[ST1].concrete_28d", 60, "MPa", D, "109201", "general notes", "minimum 28 day 60 MPa")
 rec("superstructure.supert_types[ST1].concrete_transfer", 37, "MPa", D, "109201", "general notes", "37 MPa at transfer")
-rec("superstructure.flange_note", None, None, M, note="top flange 1160 each side of the girder centreline (109202 SG-01) = 2320 > 2269 spacing of the "
-    "two girders either side of the median: their flanges must be trimmed — read 109203 (SG-02..09) / 109204 (SG-10) before setting flange edges")
+rec("superstructure.flange_note", None, None, M, note="top flange 1160 each side of the girder centreline on every girder sheet (109202 SG-01, "
+    "109203 SG-02..09, 109204 SG-10; no trimmed variant drawn) = 2320 > 2269 bearing spacing of SG-06 / SG-05 across the median: flanges overlap 51 mm. "
+    "Owner to confirm which is right (girder spacing at the median, or a trimmed flange not drawn)")
+for g in ["SG-%02d" % k for k in range(1, 11)]:
+    rec("superstructure.members[%s].flange_left" % g, 1160, "mm", D, "109202-204", "plan", "1160 girder centreline to flange edge")
+    rec("superstructure.members[%s].flange_right" % g, 1160, "mm", D, "109202-204", "plan", "1160")
+rec("superstructure.end_diaphragm_length", 1500, "mm", D, "109203", "plan", "1500 END DIAPHRAGM each end")
+rec("superstructure.flange_end_cutback", 800, "mm", D, "109203 / 109204", "plan",
+    "top flange cut back 800 from each girder end (both sides SG-02..09; inner side only on SG-10 / SG-01)")
+rec("superstructure.supert_types[ST1].density", 2600, "kg/m3", D, "109201", "general notes", "DENSITY = 2600 kg/m³ (2400 kg/m³ FOR CALCULATION OF MODULUS)")
+rec("superstructure.supert_types[ST1].E_transfer", 32100, "MPa", D, "109201", "general notes", "ELASTIC MODULUS AT TRANSFER = 32100 MPa")
+rec("superstructure.supert_types[ST1].mass", 45.7, "t", D, "109201", "lifting and handling", "approx. 45.7 tonnes each (density 2550)")
+rec("superstructure.cross_girders.end_width", 800, "mm", D, "109303", "sections 2 / 3", "800 cross girder (pour 1) at each abutment end")
+rec("superstructure.cross_girders.end_depth_below_slab", 765, "mm", D, "109303", "sections 2 / 3", "765 below the deck slab")
+rec("superstructure.cross_girders.intermediate", None, None, M, note="no intermediate cast-in-place cross girder drawn on 109301-304 (girders have internal diaphragms, 109203)")
 
 # ---------------- bearings (109151 table 1) ----------------
 rlX = {"A": [7.632, 7.703, 7.773, 7.844, 7.912, 7.911, 7.841, 7.770, 7.700, 7.630],
@@ -138,6 +151,86 @@ for s, (sop, offs, tops) in piles.items():
         rec(p + ".rl_top", top, "m", D, "109031", "table 1", "top of pile RL 'B'")
         rec(p + ".rl_toe", -22.500, "m", D, "109031", "table 1", "pile toe level RL 'A'")
         rec(p + ".rl_rock", None, "m", M, note="not printed; 109031 gives founding material 3C2 and 'minimum penetration level for lateral stability RL -10.0'")
+
+# ================= stage 2b (2026-10-28) =================
+# ---------------- bearing plan / height (109152) and restraint (109056) ----------------
+for s in "AB":
+    for k in range(10):
+        p = "bearings.items[%s-%02d]" % (s, k + 1)
+        rec(p + ".plan_a", 380, "mm", D, "109152", "plan rectangular laminated elastomeric bearing", "380 (along traffic, same orientation as the 530 plate)")
+        rec(p + ".plan_b", 480, "mm", D, "109152", "plan", "480")
+        rec(p + ".height", 115, "mm", D, "109152", "section 2", "115 bearing below the attachment plate")
+        rec(p + ".part_no", "AS [50] 070907R", None, D, "109152", "plan", "AS PART No")
+        for f in ("elastomer_thickness", "layer_thickness", "shear_modulus"):
+            rec(p + "." + f, None, None, M, note="not printed; manufacturer catalogue part AS [50] 070907R (not in this drawing set)")
+        rec(p + ".restraint_longitudinal", "elastomeric; buffer bearing at the curtain wall after a 35 (±5) gap", None, D, "109055", "detail E buffer bearing")
+        rec(p + ".restraint_transverse", "lateral restraint block, 10 nom gap" if k + 1 in (5, 6) else "elastomeric", None, D, "109056",
+            "lateral restraint block detail", "one 900-wide block between SG-05 and SG-06 at each abutment")
+
+# ---------------- abutments (109055 section 1 / 3; GA) ----------------
+for s, dep, cw in (("A", 1575, 1327), ("B", 1925, 1324)):
+    p = "supports[%s]" % s
+    rec(p + ".kind", "piled abutment (sill beam on driven steel tube piles)", None, D, "109011", "elevation")
+    rec(p + ".headstock.width", 1350, "mm", D, "109055", "section 1 (3)", "1350 = 350 curtain wall + 500 + 500")
+    rec(p + ".headstock.depth", dep, "mm", D, "109055", "section 1 (3)", "front face depth below the bearing seat; values for B in brackets")
+    rec(p + ".headstock.length", 26.315 if s == "A" else 26.312, "m", D, "109011", "plan", "abutment length")
+    rec(p + ".headstock_setout.front", 500, "mm", D, "109055", "section 1", "front face 500 from ℄ bearings")
+    rec(p + ".headstock_setout.back", -850, "mm", C, derivation="-(500 + 350) from 109055 section 1 (500 to ℄ bearings, 350 curtain wall)")
+    rec(p + ".headstock_setout.start_end", None, None, M, note="along-line extents not dimensioned from the SOP on the sheets read")
+    rec(p + ".curtain_wall.thickness", 350, "mm", D, "109055", "section 1")
+    rec(p + ".curtain_wall.height", cw, "mm", D, "109055", "section 1 (3)", "above the bearing seat")
+    rec(p + ".soil", None, None, M, note="geotechnical parameters in the factual / interpretive reports (109001 references), not in the drawings")
+
+# ---------------- barriers (109401-402, 109303 detail D) ----------------
+for side, off in (("left", -9.500), ("right", 13.120)):
+    p = "deck.barriers[barrier_%s]" % side
+    rec(p + ".type", "precast concrete parapet, medium performance level (+ twin rails 109451-)", None, D, "109001 / 109401", "notes")
+    rec(p + ".height", 1400, "mm", D, "109402", "inside elevation PB01", "1400 precast unit")
+    rec(p + ".offset", off, "m", D, "109051", "elevation", "inside face of barrier (carriageway edge)")
+    rec(p + ".weight", round(6.01 / 5.580 * 9.80665, 2), "kN/m", C,
+        derivation="PB01 mass 6.01 t / length 5.580 m x g 9.80665 (109402); precast unit only — rails (109451-) not included")
+    rec(p + ".rail_weight", None, "kN/m", M, note="twin traffic barrier rails 109451-455 not read")
+A_med = 0.600 * 0.160 + (0.600 + 0.350) / 2 * 0.180 + (0.350 + 0.210) / 2 * 0.660
+rec("deck.barriers[barrier_median].type", "cast-in-place concrete median barrier, regular performance level", None, D, "109303", "detail D")
+rec("deck.barriers[barrier_median].height", 1000, "mm", D, "109303", "detail D", "1000 above deck concrete (920 above wearing surface, 109012)")
+rec("deck.barriers[barrier_median].offset", crown, "m", D, "109051", "plan", "median centre (lateral restraint block setout) 1813 east of MC10, as the crown")
+rec("deck.barriers[barrier_median].area", round(A_med, 4), "m2", C,
+    derivation="109303 detail D: widths 600 (0-160), 600->350 (160-340), 350->210 (340-1000); 0.6x0.16 + 0.475x0.18 + 0.28x0.66")
+rec("deck.barriers[barrier_median].weight", None, "kN/m", M, note="area %.4f m2 Calculated; density of cast-in-place concrete not printed" % A_med)
+
+# ---------------- materials ----------------
+rec("materials.concrete[girders].fc", 60, "MPa", D, "109201", "general notes")
+rec("materials.concrete[deck].fc", 40, "MPa", D, "109301", "general notes")
+rec("materials.concrete[abutments].fc", 40, "MPa", D, "109051", "general notes")
+rec("materials.concrete[pile infill].fc", 50, "MPa", D, "109031", "general notes")
+rec("materials.concrete[precast barriers].fc", 50, "MPa", D, "109401", "general notes")
+for el in ("girders", "deck", "abutments", "pile infill"):
+    rec("materials.concrete[%s].E" % el, None, "MPa", M, note="28-day modulus not printed (girder transfer modulus 32100 only)")
+rec("materials.strand.diameter", 15.2, "mm", D, "109201", "general notes", "7-wire ordinary 15.2 mm")
+rec("materials.strand.fpb", 1830, "MPa", D, "109201", "general notes", "nominal tensile strength 1830 MPa, relax 2")
+rec("materials.strand.MBL", 261, "kN", D, "109201", "general notes", "minimum breaking load 261 kN")
+rec("materials.strand.jacking_force_after_release", 190, "kN", D, "109201", "general notes", "force in each strand immediately after release of the jack")
+rec("materials.steel_pile.fy_limit", 315, "MPa", D, "109035", "notes", "stress in ID 900 / 16 wall limited to 315 MPa (driving)")
+
+# ---------------- loads (109001 cover) ----------------
+L1 = lambda item, v, u=None, note=None: rec("loads." + item, v, u, D, "109001", "design criteria", note)
+L1("traffic_models", "SM1600 (M1600 + S1600)")
+L1("design_lanes", 7)
+L1("design_speed", 120, "km/h")
+L1("heavy_load_platform", "HLP 400, one vehicle per carriageway, 10 km/h, ±1 m lateral")
+L1("concurrent_traffic_with_HLP", "0.5 x SM1600 on unobstructed lanes")
+L1("fatigue", "70% of a single A160, 70% of a single M1600 without UDL; 2270 heavy vehicles / lane / day")
+L1("route_factor", 1.0)
+L1("differential_settlement", 5, "mm", "total SLS between adjacent supports")
+L1("wind.region", "A2"); L1("wind.terrain", "TC2")
+L1("wind.V_uls", 48, "m/s"); L1("wind.V_sls", 37, "m/s")
+L1("wind.ARI_uls", 2000, "years"); L1("wind.ARI_sls", 20, "years")
+rec("loads.wind.V_with_traffic", None, "m/s", M, note="not printed on 109001")
+L1("earthquake.kp", 1.7); L1("earthquake.Z", 0.11); L1("earthquake.site_class", "De")
+L1("earthquake.mu_longitudinal", 1.0); L1("earthquake.mu_transverse", 1.0)
+L1("design_standard", "AS(/NZS) 5100:2017 series")
+for it in ("temperature", "gradient", "shrinkage_creep_shortening", "braking_force", "traffic_surcharge"):
+    rec("loads." + it, None, None, M, note="not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied")
 
 json.dump(out, open(os.path.join(H, "B12626_values.json"), "w"), indent=1, ensure_ascii=False)
 tags = {}

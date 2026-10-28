@@ -70,7 +70,23 @@ With the corrected values: R = 2000.000 at both ends, arc = 721.351 m = chainage
 - Open (Missing-Flagged): design surface vs top-of-concrete RL conflict (9.493 printed for both at the same point); MC10 -> deck chainage
   mapping for the vertical profile; trimmed flanges of the two median girders (2320 flange > 2269 spacing); pile rock level; importance level.
 
-## Next (P6 stage 2b)
+## Stage 2b extracted (2026-10-28) — 525 values (Direct 333, Calculated 50, Missing 91, Model 50, Standard-verify 1)
+- Girder flanges: 1160 each side on every girder sheet (109202-204); no trimmed median flange is drawn -> 51 mm overlap of SG-05 / SG-06
+  flanges at 2269 spacing stays Missing-Flagged (owner query). End diaphragm 1500, flange cut back 800 at the ends.
+- Cross girders at the ends 800 wide x 765 below the slab (109303); no intermediate cross girder drawn.
+- Bearings 380 x 480 x 115 (109152, part AS [50] 070907R); layer / elastomer thickness and G NOT printed (catalogue) — 60 Missing records.
+  Transverse restraint: one lateral restraint block between SG-05 / SG-06 per abutment (10 gap); longitudinal: buffer bearings after 35 gap.
+- Abutments (109055): sill 1350 wide, depth 1575 (A) / 1925 (B), curtain wall 350 x 1327 / 1324; lengths 26.315 / 26.312.
+- Barriers: outer precast PB01 6.01 t / 5.58 m -> 10.56 kN/m (Calculated, rails excluded); median CIP area 0.3663 m2, density not printed -> weight Missing.
+- Materials: girders 60 / 37 MPa, density 2600; deck & abutments 40; pile infill 50; strand 15.2 / 1830 / MBL 261. 28-day E not printed.
+- Loads (109001): SM1600, 7 lanes, 120 km/h, HLP 400, wind A2 / TC2 48 / 37 m/s, kp 1.7, Z 0.11, site De, mu 1.0 / 1.0.
+  Temperature, gradient, shrinkage, braking, surcharge NOT printed (design report not supplied).
+
+## Next (P6 stage 3)
+Generic new-description tool (values JSON -> 0.2 description; Missing items carried with tag Missing, replaceable), then run the
+platform chain unchanged and record each generality gap.
+
+## Earlier plan (stage 2b, done)
 Extract into the interchange sheet (P5.3 format): deck setout table (109301), girder types / lengths / end blocks (109201-206),
 bearings table (109151), abutment / pile setouts (109031, 109051-), barrier data (109401-), cover-sheet design criteria.
 Then build `projects/B12626/B12626.bridge.0.2.json` with a generic new-description tool and run the platform chain unchanged.
