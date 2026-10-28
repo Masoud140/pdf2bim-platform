@@ -48,6 +48,18 @@ geometry must come from the deck setout table (109301, p 37-38) and the abutment
 | bearing in 25°45'42" | arc from chainages (721.351) needs a 20°39'55" deflection | 23°45'42" (23°45'41.5" computed) | radial HCEN->HTP1 + 90°; also gives 37°20'19" at mid-bridge vs printed 37°20'14" |
 With the corrected values: R = 2000.000 at both ends, arc = 721.351 m = chainage difference exactly, bearing out 44°25'36" = printed.
 
+## Deck setout (109301-109302, p 37-38) — governs the deck geometry
+- The deck is set out on a STRAIGHT "DECK SETOUT LINE" (own chainage 0-40), bearing 37°20'15"; ends E 379693.511 N 6369956.998
+  (ch 0) and E 379717.771 N 6369988.801 (ch 40) on 109013 (length 40.000, bearing 37°20'10" from the coordinates — consistent).
+- Deck ends PERPENDICULAR to the setout line (bearing 127°20'15" = 37°20'15" + 90°): end of superstructure A ch 5.000, B ch 33.000
+  (28 000; median barrier joints 5 x 5600). No skew. Labels CH 5.400 / 32.600 at the ends = bearing lines (to confirm, 109151).
+- Table 1: E, N and top-of-deck-concrete RLs at points 1-5 every 2 m, ch 5.000 ... 33.000 (points 1, 3/4 at the median, 2 / 5 at the outer edges).
+- Section 1: 22 620 overall, 11 010 + 600 + 11 010, 400 outside the barrier lines each side; deck setout line 1511 / 1811 from the median.
+- MC10 is NOT the model control line: the platform control line for B12626 = the deck setout line (straight, printed coordinates).
+
+## Bearings (109151, p 22)
+- Laminated elastomeric, 10 per abutment (A-01..A-10, B-01..B-10), one per girder; Table 1 RL 'X' per bearing (A 7.630-7.912, B 7.484-7.767).
+
 ## Next (P6 stage 2)
 Extract into the interchange sheet (P5.3 format): deck setout table (109301), girder types / lengths / end blocks (109201-206),
 bearings table (109151), abutment / pile setouts (109031, 109051-), barrier data (109401-), cover-sheet design criteria.
