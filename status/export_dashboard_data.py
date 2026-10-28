@@ -143,6 +143,77 @@ for nm, o, h in (("Barrier left", val["deck.carriageway_left"], 1.4), ("Barrier 
     sec.append({"kind": "barrier", "label": nm, "pts": json.dumps([[o, round(deck(o), 4)], [o, round(deck(o) + h, 4)]])})
 put("b12626_section", sec)
 
+# ---------------- B12626 3D (schematic solids; x = deck ch, y = offset right of the setout line, z = RL AHD) ----------------
+F = []
+face = lambda grp, label, pts: F.append({"group": grp, "label": label, "pts": json.dumps([[round(a, 3) for a in p] for p in pts])})
+
+
+def prism(grp, label, sec2d, a, b):
+    """Extrude a closed 2D section (local u = across, v = up) from 3D point a to b; u is horizontal and square to a->b."""
+    dx, dy = b[0] - a[0], b[1] - a[1]; L_ = math.hypot(dx, dy); ux, uy = dy / L_, -dx / L_      # right of the run direction
+    P_ = lambda o, u_, v: (o[0] + u_ * ux, o[1] + u_ * uy, o[2] + v)
+    A_ = [P_(a, u_, v) for u_, v in sec2d]; B_ = [P_(b, u_, v) for u_, v in sec2d]
+    n = len(sec2d)
+    for i in range(n):
+        j = (i + 1) % n
+        face(grp, label, [A_[i], A_[j], B_[j], B_[i]])
+    face(grp, label, A_); face(grp, label, B_[::-1])
+
+
+rl = {s: {val["bearings.items[%s-%02d].member" % (s, k)]: val["bearings.items[%s-%02d].top_rl" % (s, k)] for k in range(1, 11)} for s in "AB"}
+gsec = [(x / 1000, y / 1000) for x, y in outline(p, 1160, 1160, "solid")[0]]   # (u right, v up from the soffit), m
+top_at = {}
+for g in gs:
+    a, bb = at("A", offs[g]), at("B", offs[g])
+    d = ((bb[0] - a[0]) / math.dist(a, bb), (bb[1] - a[1]) / math.dist(a, bb))
+    zA, zB = rl["A"][g], rl["B"][g]; gr = (zB - zA) / math.dist(a, bb)
+    pa = (a[0] - .4 * d[0], a[1] - .4 * d[1], zA - .4 * gr); pb = (bb[0] + .4 * d[0], bb[1] + .4 * d[1], zB + .4 * gr)
+    prism("girder", g, [(-u_, v) for u_, v in gsec], pa, pb)          # u flipped: outline x is to the right looking up-chainage
+    top_at[g] = (a, bb, zA + 1.215, zB + 1.215)
+yc = crown + oA
+# crown deck-top RL at each end: mean over girders of girder top + slab, lifted to the crown by the 3 % fall (haunch not modelled)
+zc = {s: sum(top_at[g][2 if s == "A" else 3] + slab + 0.03 * abs(offs[g] - crown) for g in gs) / len(gs) for s in "AB"}
+yl, yr = val["deck.edge_left"] + oA, val["deck.edge_right"] + oA
+zt = lambda x, y: zc["A"] + (zc["B"] - zc["A"]) * (x - 5.4493) / 27.1 - 0.03 * abs(y - yc)
+for x0, x1 in ((5.0, 33.0),):
+    for ya, yb in ((yl, yc), (yc, yr)):
+        top4 = [(x0, ya, zt(x0, ya)), (x1, ya, zt(x1, ya)), (x1, yb, zt(x1, yb)), (x0, yb, zt(x0, yb))]
+        bot4 = [(q[0], q[1], q[2] - slab) for q in top4]
+        face("slab", "Deck slab", top4); face("slab", "Deck slab", bot4[::-1])
+        for i in range(4):
+            j = (i + 1) % 4
+            face("slab", "Deck slab", [top4[i], top4[j], bot4[j], bot4[i]])
+for nm, yb_, w_, h_, base in (("Barrier left", val["deck.carriageway_left"] + oA, 0.4, 1.4, -0.2), ("Barrier right", val["deck.carriageway_right"] + oA, 0.4, 1.4, -0.2),
+                              ("Median barrier", yc, 0.6, 1.0, 0.0)):
+    if "Median" in nm:      # 109303 detail D outline, simplified to base 600 / top 210
+        sec_ = [(-0.3, 0), (0.3, 0), (0.105, 1.0), (-0.105, 1.0)]
+    else:                   # outer precast unit: schematic block, 400 wide outside the carriageway line, 1400 tall, base 200 below the deck top
+        o_ = -w_ if nm.endswith("left") else 0.0
+        sec_ = [(o_, base), (o_ + w_, base), (o_ + w_, base + h_), (o_, base + h_)]
+    za, zb_ = zt(5.0, yb_), zt(33.0, yb_)
+    prism("barrier", nm, [(-u_, v) for u_, v in sec_], (5.0, yb_, za), (33.0, yb_, zb_))
+for s in "AB":   # sills: 1350 wide (front 500 / back 850 about the bearing line), depth below the seat; seat = mean RL X - 0.115 bearing
+    seat = sum(rl[s].values()) / 10 - 0.115
+    dep = val["supports[%s].headstock.depth" % s] / 1000
+    xb = at(s, 0)[0]; sgn = 1 if s == "A" else -1
+    xf, xk = xb + sgn * 0.5, xb - sgn * 0.85
+    box = [(xk, yl), (xf, yl), (xf, yr), (xk, yr)]
+    tp = [(x, y, seat) for x, y in box]; bt = [(x, y, seat - dep) for x, y in box]
+    face("sill", "Sill " + s, tp); face("sill", "Sill " + s, bt[::-1])
+    for i in range(4):
+        j = (i + 1) % 4
+        face("sill", "Sill " + s, [tp[i], tp[j], bt[j], bt[i]])
+for k, v in val.items():
+    if k.endswith(".E") and ".piles[" in k:
+        base_ = k[:-2]; x, y = loc(v, val[base_ + ".N"]); r_ = val[base_ + ".diameter"] / 2000
+        ztop, ztoe = val[base_ + ".rl_top"], val[base_ + ".rl_toe"]
+        ring = [(x + r_ * math.cos(t * math.pi / 4), y + r_ * math.sin(t * math.pi / 4)) for t in range(8)]
+        for i in range(8):
+            j = (i + 1) % 8
+            face("pile", "Pile " + base_.split("piles[")[1][:-1], [(*ring[i], ztop), (*ring[j], ztop), (*ring[j], ztoe), (*ring[i], ztoe)])
+        face("pile", "Pile", [(*q, ztop) for q in ring])
+put("b12626_3d", F)
+
 # ---------------- BR13A integrated model (platform) ----------------
 from pdf2bim.geometry.bridge import build_geometry
 from pdf2bim.sections.girder import build_sections
