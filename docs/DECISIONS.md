@@ -414,3 +414,10 @@
 - **Decision (owner):** no moment releases on the Super-T rigid arms. Back to the engineer-confirmed model 2 (D-15): the deck slab is continuous over the girder webs and the cantilever is fixed to the girder.
 - **Why:** once the solver applied ADR-042 (fixed 2026-10-28), the released web ends left the cantilever deck held only by nominal torsion and the slab simply supported at every web. SDL deck-edge deflection 78 mm (5.9 mm without), girder SDL moment +13 %, girder torsion +40 %.
 - **Implementation:** `builder.RIGID_ARM_RELEASES = False`. The solver keeps release support (`rel=`, tested); the .mct writes no *FRAME-RLS block. `tests/model/test_midas_run.py` switches the releases back on, because the MIDAS run of 2026-10-28 was made on the released model; a MIDAS re-run of the current file will replace that evidence.
+
+## ADR-046 Earthquake mass lumped at the nodes, X Y Z (owner, 2026-10-28)
+
+- **Decision (owner):** the platform's response-spectrum analysis uses MIDAS's mass idealisation — member self weight lumped half at each end node plus the SDL as nodal mass, in X, Y and Z — instead of consistent member mass at the centroids. Owner: "more conservative".
+- **Evidence:** MIDAS run 2026-10-28g (Loads to Masses X, Y, Z): the platform with this mass reproduces MIDAS EQ_L / EQ_T to 0.0-0.9 %; with consistent centroid mass girder EQ moments differ by up to ~24 %, pile actions by up to ~11 %.
+- **Implementation:** `earthquake.earthquake_rsa` default path builds the lumped mass and calls `Model.modes(beam_mass=False)`; an explicit `extra_mass` keeps the old behaviour (beam mass consistent + given nodal mass). `Model.modes` default unchanged (consistent) for the modal comparisons. The .mct writes *LOADTOMASS direction XYZ.
+- **Consequence:** earthquake actions (and the ULS-H combination rows, pile design actions) change; re-run of the combined actions needed.

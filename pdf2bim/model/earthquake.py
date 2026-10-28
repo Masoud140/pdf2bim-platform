@@ -4,8 +4,9 @@
     Q = earthquake_rsa(doc, geo, mdl, std, sdl_loads, allow_proposed=False)
 
 Method (as the dashboard, src/sub5.js eqRun, generalised):
-- MASS: member self weight as in the static analysis (deck strips, dummies, rigid members massless; composite girders
-  carry the gross deck + girder weight) + the SDL case as lumped translational mass |Fz| / g at its nodes (the dashboard
+- MASS (owner decision ADR-046, 2026-10-28, as MIDAS "Loads to Masses" X Y Z — more conservative than consistent centroid mass):
+  member self weight as in the static analysis (deck strips, dummies, rigid members massless; composite girders carry the
+  gross deck + girder weight) LUMPED half at each end node, + the SDL case as lumped translational mass |Fz| / g at its nodes (the dashboard
   weights every member instead: finding H-3; `mass_rule="dashboard"` is NOT offered here — the comparison tool builds
   the dashboard's mass itself). Consistent beam mass (Model.modes), analysis.modes modes.
 - SPECTRUM: Sa(T) = kp Z Ch(T) / Rf (in g), Ch from standards entry AS1170.4:spectral_shape:Ch for the site class
@@ -65,8 +66,19 @@ def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, ext
     Sa = lambda T: kp * Z * ch_factor(T, row) / Rf
     nm = n_modes or int(rd.value((doc.get("analysis") or {}).get("modes"), "analysis.modes"))
     m = mdl["model"]
-    mass = dict(extra_mass) if extra_mass is not None else {k: -f[2] / G_ACC for k, f in (sdl_loads or {}).items() if f[2] < 0}
-    MD = m.modes(nm, extra_mass=mass, matrices=True)
+    if extra_mass is not None:
+        mass = dict(extra_mass)
+    else:   # owner decision 2026-10-28 (ADR-046, as MIDAS Loads to Masses X Y Z): member weight lumped half at each end node + SDL
+        mass = {}
+        for b in m.beams.values():
+            if b["w"] > 0:
+                Lb = float(np.linalg.norm(m.nodes[b["n2"]] - m.nodes[b["n1"]]))
+                for k in (b["n1"], b["n2"]):
+                    mass[k] = mass.get(k, 0.0) + b["w"] * Lb / 2 / G_ACC
+        for k, f in (sdl_loads or {}).items():
+            if f[2] < 0:
+                mass[k] = mass.get(k, 0.0) - f[2] / G_ACC
+    MD = m.modes(nm, extra_mass=mass, matrices=True, beam_mass=extra_mass is not None)
     K, Mm, free, idx, Phi, w2 = MD["K"], MD["M"], MD["free"], MD["idx"], MD["Phi"], MD["w2"]
     nd = DOF * len(m.nodes)
     pos = -np.ones(nd, int); pos[free] = np.arange(len(free))
@@ -110,7 +122,7 @@ def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, ext
     return {"case": "earthquake RSA", "names": names, "directions": {k: v.tolist() for k, v in dirs.items()}, "resp": resp, "combos": comb,
             "periods": Tn.tolist(), "Sa_g": [Sa(T) for T in Tn], "Sa0_g": Sa(0.0), "participation": {k: v.tolist() for k, v in gam.items()},
             "inputs": {"kp": kp, "Z": Z, "site_class": site, "Rf": Rf, "zeta": zeta, "vertical": vert, "modes": nm},
-            "mass_rule": "static self weight + SDL lumped" if extra_mass is None else "given", "standards_status": std.result_status(),
+            "mass_rule": "member weight lumped at the end nodes + SDL lumped, X Y Z (ADR-046)" if extra_mass is None else "given", "standards_status": std.result_status(),
             "standards_used": std.usage(), "provisional": rd.provisional + list(mdl.get("provisional") or [])}
 
 

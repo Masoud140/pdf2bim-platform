@@ -255,7 +255,7 @@ class Model:
         free = np.setdiff1d(np.arange(nd), fixed)
         return Kt, free, idx
 
-    def modes(self, n=10, extra_mass=None, g=9.80665, matrices=False):
+    def modes(self, n=10, extra_mass=None, g=9.80665, matrices=False, beam_mass=True):
         """Lowest n natural modes (consistent beam mass, as the dashboard: translations Hermite with mu = w / g, axial,
         torsional inertia mu (Iy + Iz) / A; links and springs massless) + lumped translational extra_mass {node: t}.
         Generalised eigenproblem K phi = w2 M phi on the free dofs (shift-invert Lanczos). Returns periods, mass-normalised
@@ -268,7 +268,7 @@ class Model:
                 continue
             ii, jj = np.meshgrid(dofs, dofs, indexing="ij")
             b = self.beams[key]
-            mu = b["w"] / g
+            mu = b["w"] / g if beam_mass else 0.0   # beam_mass=False: member mass supplied lumped in extra_mass
             if mu == 0:
                 continue
             Ip = mu * (b["Iy"] + b["Iz"]) / b["A"] if b["A"] > 0 else 0.0
