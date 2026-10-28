@@ -6316,7 +6316,7 @@
 
 *LOADTOMASS    ; Load to Mass
 ; DIR, bNODAL, bBEAM, bFLOOR, bPRES, GRAV
-   XY, YES, YES, YES, YES, 9.80665
+   XYZ, YES, YES, YES, YES, 9.80665
    SDL, 1, SW_mass, 1
 
 *EIGEN-CTRL    ; Eigenvalue Analysis Control

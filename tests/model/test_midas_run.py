@@ -29,6 +29,7 @@ M = build_integrated(d, geo, S, Standards(), allow_proposed=True); m = M["model"
 Rd = read_mct(open(os.path.join(R, "projects/BR13A/model/BR13A.integrated.mct")).read())
 rep = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.integrated.mct.json")))
 inv = {v: int(k) for k, v in rep["node_map"].items()}; einv = {v: int(k) for k, v in rep["element_map"].items()}
+einv_r = {int(k): v for k, v in rep["element_map"].items()}   # model element -> MCT element
 wb = openpyxl.load_workbook(os.path.join(R, "projects/BR13A/model/midas_run_2026-10-28c/Results_thermal_combinations.xlsx"), data_only=True)
 D = collections.defaultdict(dict); F = collections.defaultdict(lambda: collections.defaultdict(dict))
 Th = {k.replace("+", "p").replace("-", "m"): v["imposed"] for k, v in thermal_cases(d, geo, S, M, allow_proposed=True)["cases"].items()}
@@ -60,5 +61,39 @@ for case in sorted(D):
         bad_f.append((case, wf, fm))
 t("every case: every nodal translation equals MIDAS to 0.05 mm", not bad_u, str(bad_u))
 t("every case: every element end force equals MIDAS within 1.5 % of the case's largest force (or 0.5 kN)", not bad_f, str(bad_f))
+# earthquake (run 2026-10-28g, mass direction X Y Z set in MIDAS): MIDAS lumps the converted mass (self weight via SW_mass beam
+# loads + SDL) at the nodes; the platform with the same lumped nodal mass must reproduce EQ_L / EQ_T. The platform's own RSA uses
+# consistent member mass at the centroids — girder EQ moments then differ by up to ~24 % (documented, midas_run_2026-10-28g).
+import copy
+from pdf2bim.model.loads import sdl_case
+from pdf2bim.model.earthquake import earthquake_rsa
+mass = collections.defaultdict(float)
+for e, b in m.beams.items():
+    if b["w"] > 0:
+        Le = float(np.linalg.norm(m.nodes[b["n2"]] - m.nodes[b["n1"]]))
+        mass[b["n1"]] += b["w"] * Le / 2 / 9.80665; mass[b["n2"]] += b["w"] * Le / 2 / 9.80665
+for k, f in sdl_case(d, geo, M, allow_proposed=True)["loads"].items():
+    if f[2] < 0:
+        mass[k] += -f[2] / 9.80665
+M2 = copy.deepcopy(M)
+for b in M2["model"].beams.values():
+    b["w"] = 0.0
+Q = earthquake_rsa(d, geo, M2, Standards(), extra_mass=dict(mass), allow_proposed=True)
+wq = openpyxl.load_workbook(os.path.join(R, "projects/BR13A/model/midas_run_2026-10-28g/Results_mass_XYZ.xlsx"), read_only=True)
+FQ = collections.defaultdict(lambda: collections.defaultdict(dict))
+for ws in wq:
+    if next(ws.iter_rows(max_row=1, values_only=True))[0] == "Elem":
+        for r in ws.iter_rows(min_row=2, values_only=True):
+            if r[0] and r[1] in ("EQ_L(RS)", "EQ_T(RS)"):
+                FQ[r[1]][r[0]][r[2][0]] = np.abs(np.array(r[3:9], float))
+COMP = {"N1": (0, "I"), "N2": (0, "J"), "Vy": (1, "I"), "Vz": (2, "I"), "My1": (4, "I"), "Mz1": (5, "I"), "My2": (4, "J"), "Mz2": (5, "J"),
+        "M1": (4, "I"), "M2": (4, "J"), "V1": (2, "I"), "V2": (2, "J"), "T1": (3, "I"), "T2": (3, "J")}
+eqw = []
+for lab, dn in (("EQ_L(RS)", "L"), ("EQ_T(RS)", "T")):
+    own = np.abs(Q["resp"][dn]["R"])
+    a = np.array([(FQ[lab][einv_r[n[1][1]]][COMP[n[2]][1]][COMP[n[2]][0]], own[i]) for i, n in enumerate(Q["names"]) if n[0] in ("P", "G") and n[2] in COMP])
+    eqw.append(abs(a[:, 0] - a[:, 1]).max() / a[:, 0].max())
+t("earthquake EQ_L / EQ_T: every pile and girder end action equals the platform RSA with MIDAS's lumped X Y Z mass to 2 % of the largest",
+  max(eqw) < 0.02, f"{max(eqw) * 100:.2f} %")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

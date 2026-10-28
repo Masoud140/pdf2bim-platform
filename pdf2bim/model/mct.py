@@ -358,7 +358,8 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
             if any(abs(x) > 0 for x in f):
                 L.append(f"   {nmap[n]}, " + ", ".join(f"{x:.9g}" for x in f) + f", {k},")
     if eq:   # native BR13B syntax; spectrum = the platform's Sa(T) points (code line copied from the native file)
-        L += ["", "*LOADTOMASS    ; Load to Mass", "; DIR, bNODAL, bBEAM, bFLOOR, bPRES, GRAV", "   XY, YES, YES, YES, YES, 9.80665",
+        L += ["", "*LOADTOMASS    ; Load to Mass", "; DIR, bNODAL, bBEAM, bFLOOR, bPRES, GRAV",
+              "   XYZ, YES, YES, YES, YES, 9.80665",   # X, Y, Z: owner choice 2026-10-28 (run g); token unverified until re-import (XY verified)
               "   " + ", ".join(f"{c}, 1" for c in eq["mass_cases"]),
               "", "*EIGEN-CTRL    ; Eigenvalue Analysis Control", f"   LANCZOS, {eq['modes']}, 20, 1, 1e-10, NO, 0, 0, NO",
               "", "*SFUNCTION    ; Spectrum Function", "; FUNC=NAME, iTYPE, iMETHOD, SCALE/MAX, GRAV, DRATIO, DESC, RMF / SPEC_CODE, [CODE_DATA] / PERIOD, VALUE ...",
