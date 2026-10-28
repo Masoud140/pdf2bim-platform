@@ -223,7 +223,11 @@ blk = tx6.split("*SFUNCTION")[1].split("*SPLDCASE")[0].splitlines()[4:]
 pts6 = [float(x) for l in blk if l.strip() for x in l.split(",")]
 sa_err = max(abs(v - float(eqi["kp"]) * float(eqi["Z"]) * ch_factor(T, chrow) / float(eqi["Rf"])) for T, v in zip(pts6[::2], pts6[1::2]))
 eqrows = [b for b in tx6.split("NAME=") if "RS, EQ_L" in b or "RS, EQ_T" in b]
-t("earthquake: spectrum points equal the platform Sa(T); EQ_L / EQ_T spectrum cases; all 16 AS 5100.2 earthquake rows with RS terms; SDL as mass",
-  sa_err < 1e-9 and len(pts6) > 100 and tx6.count("NAME=EQ_") == 2 and len(eqrows) == 16 and "*LOADTOMASS" in tx6 and "*STRUCTYPE" in tx6, f"Sa err {sa_err:.1e}, rows {len(eqrows)}")
+Rd6 = read_mct(tx6)
+swm = sum(w * np.linalg.norm(m2.nodes[Rd6["els"][e][3]] - m2.nodes[Rd6["els"][e][2]]) for e, w in Rd6["beamloads"]["SW_mass"].items())
+mass_line = tx6.split("*LOADTOMASS")[1].splitlines()[3]
+t("earthquake: spectrum = platform Sa(T); EQ_L / EQ_T; 16 rows with RS terms; mass = SDL + member self weight (SW_mass beam loads = total self weight, not combined)",
+  sa_err < 1e-9 and len(pts6) > 100 and tx6.count("NAME=EQ_") == 2 and len(eqrows) == 16 and "SDL, 1" in mass_line and "SW_mass, 1" in mass_line
+  and abs(swm / -M["model"].solve()["applied"][2] - 1) < 1e-6 and "SW_mass" not in tx6.split("*LOADCOMB")[1], f"Sa err {sa_err:.1e}, SW_mass {swm:.1f} kN")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

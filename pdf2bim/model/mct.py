@@ -327,6 +327,11 @@ def write_mct(mdl, doc, title="P3 model", include_unverified=True, gravity=True,
     if gravity:
         L += ["", "*USE-STLD, SW", "", "*SELFWEIGHT    ; Self Weight", "; X, Y, Z, GROUP", "0, 0, -1, SelfWeight"]
     for k, v in cases.items():   # syntax from the engineer's native BR13B model (2026-10-28)
+        if "beam" in v:   # uniform beam loads, global -Z, kN/m (native *BEAMLOAD UNILOAD GZ)
+            L += ["", f"*USE-STLD, {k}", "", "*BEAMLOAD    ; Element Beam Loads", "; ELEM_LIST, CMD, TYPE, DIR, bPROJ, [ECCEN], [VALUE], GROUP"]
+            L += [f"   {emap[e]}, BEAM   , UNILOAD, GZ, NO , NO, LY, , , , 0, {-w:.9g}, 1, {-w:.9g}, 0, 0, 0, 0, {k}, NO, 0, 0, NO, "
+                  for e, w in sorted(v["beam"].items(), key=lambda q: emap[q[0]]) if w]
+            continue
         if "strain" in v:
             el = sorted(v["strain"].items(), key=lambda q: emap[q[0]])
             L += ["", f"*USE-STLD, {k}"]
@@ -469,6 +474,9 @@ def read_mct(text):
         elif cur_blk == "*CONLOAD" and l.strip() and not l.strip().startswith(";"):
             p = sp(l)
             out["cases"].setdefault(cur_lc, {})[int(p[0])] = tuple(float(x) for x in p[1:7])
+        elif cur_blk == "*BEAMLOAD" and l.strip() and not l.strip().startswith(";"):
+            p = sp(l)
+            out.setdefault("beamloads", {}).setdefault(cur_lc, {})[int(p[0])] = -float(p[11])
         elif cur_blk == "*ELTEMPER" and l.strip() and not l.strip().startswith(";"):
             p = sp(l)
             out.setdefault("temps", {}).setdefault(cur_lc, {})[int(p[0])] = ("T", float(p[1]))

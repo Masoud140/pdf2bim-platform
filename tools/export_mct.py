@@ -65,7 +65,10 @@ def main():
     cB = np.mean([mm.nodes[k][:2] for k in M["supports"][geo["supports"][-1]["id"]]["sill_nodes"]], axis=0)
     eq = {"points": [(T, kp * Zq * ch_factor(T, chrow) / Rf) for T in Ts], "kp": kp, "Z": Zq, "site": site, "zeta": zeta,
           "angle_L": math.degrees(math.atan2(cB[1] - cA[1], cB[0] - cA[0])), "modes": int(rdq.value((doc.get("analysis") or {}).get("modes"), "analysis.modes")),
-          "mass_cases": ["SDL"]}
+          "mass_cases": ["SDL", "SW_mass"]}
+    # member self weight as a mass-only beam-load case: MIDAS did not convert the self weight to mass (run 2026-10-28e);
+    # Loads to Masses converts beam loads (owner screenshot). Not used in any combination.
+    cases["SW_mass"] = {"type": "USER", "beam": {e: b["w"] for e, b in mm.beams.items() if b["w"] > 0}}
     on = {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ", "EQX", "EQY"}
     rows = generate(Register(Standards(), on), None)["rows"]
     combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"], eq_cases=True)
@@ -102,7 +105,7 @@ def main():
          "(run 2026-10-28e) — envelope with MIDAS's own tools or use the platform's envelopes. Factors are code-extracted-UNVERIFIED "
          "standards entries. Rows with traffic are not written yet (traffic is not in the file).",
          "9. Earthquake: spectrum cases EQ_L / EQ_T (one direction each; the 1.0 / 0.3 directional combination is in the combination rows) with the platform's "
-         "Sa(T) points; masses = self weight + SDL (*LOADTOMASS), lumped (native setting; the platform uses consistent mass, and adds a missing-mass term). "
+         "Sa(T) points; masses = SDL + member self weight, both through *LOADTOMASS (SW_mass = self weight as beam loads, a mass-only case: do NOT combine it), lumped (native setting; the platform uses consistent mass, and adds a missing-mass term). "
          "**Check:** (a) the *SPLDCASE last field 0.3 (copied from the native file) must NOT add an orthogonal 30 % — compare EQ_L results with the platform's "
          "longitudinal-alone results; (b) MIDAS uses the listed spectrum points, not its own AS 5100.2 'Be' curve (the native BR13B 'Be' values equal the "
          "platform's Ae row — owner to confirm which is right).", ""]
