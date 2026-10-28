@@ -165,8 +165,9 @@ for k, v in Th["cases"].items():
     worst4 = max(worst4, abs(Ua - Ub).max() / abs(Ua).max())
 t("temperature (TU+/-), shrinkage (SCR) as *ELTEMPER and gradients (TGP/TGN) as one *BSTEMPER band: same response from the file to 1e-5",
   worst4 < 1e-5 and blocks4 == {"ELTEMPER", "BSTEMPER"} and f"{al:.6g}" in txt4.split("*MATERIAL")[1].split("*")[0], f"{worst4:.1e}")
-# combinations (*LOADCOMB, native syntax): re-evaluated from the FILE TEXT with MIDAS semantics (add: sum, envelope: max / min,
-# CB: nested combination, sorted by the factor's sign) must give the platform's combine() envelopes, on nodal translations
+# combinations (*LOADCOMB, native syntax): re-evaluated from the FILE TEXT with MIDAS semantics as observed in the owner's run
+# (add: sum, envelope: max / min, CB: nested combination, max / min scaled by the factor WITHOUT swapping) must give the
+# platform's combine() envelopes, on nodal translations
 from pdf2bim.model.combinations import Register, generate, combine
 from pdf2bim.model.mct import midas_combinations
 Wsc = wind_cases(doc, geo, S, M, allow_proposed=True)["scale"]; r35, rS = Wsc["with_traffic"], Wsc["sls"]
@@ -194,7 +195,7 @@ def ev(name):
         if kind == "ST":
             a = b = f * resp[n]
         else:
-            h, l = ev(n); a, b = np.maximum(f * h, f * l), np.minimum(f * h, f * l)
+            h, l = ev(n); a, b = f * h, f * l   # MIDAS: max / min scaled WITHOUT swapping (owner run 2026-10-28c)
         if hi is None:
             hi, lo = a, b
         elif c["type"] == 0:

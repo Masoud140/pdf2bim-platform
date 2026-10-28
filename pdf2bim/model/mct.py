@@ -122,6 +122,19 @@ def midas_combinations(rows, r35, rS, eq_cases=False):
     env = [{"name": "EPT_env", "type": 1, "desc": "traffic surcharge A or B or none", "terms": [("ST", "EPTA", 1.0), ("ST", "EPTB", 1.0), ("ST", "NIL", 1.0)]}]
     env += [{"name": f"WZ_{k}_env", "type": 1, "desc": f"vertical wind up / down x {v:.6g}", "terms": [("ST", "WVUp", v), ("ST", "WVUm", v)]} for k, v in r.items()]
     out, skipped = [], []
+    byname = {c["name"]: c for c in env}
+
+    def cb(name, f):
+        # MIDAS scales an envelope's max / min by a negative factor WITHOUT swapping them (owner run 2026-10-28c), so a
+        # negative factor goes on a negated copy of the envelope instead: exact whatever the convention
+        if f >= 0:
+            return ("CB", name, f)
+        nn = name + "_n"
+        if nn not in byname:
+            c = byname[name]
+            byname[nn] = {"name": nn, "type": 1, "desc": c["desc"] + " (negated)", "terms": [(k, t, -ff) for k, t, ff in c["terms"]]}
+            env.append(byname[nn])
+        return ("CB", nn, -f)
     for row in rows:
         terms = []
         for aid, f in row["t"]:
@@ -129,13 +142,13 @@ def midas_combinations(rows, r35, rS, eq_cases=False):
             if aid in COMBO_CASE:
                 terms.append(("ST", COMBO_CASE[aid], f))
             elif aid == "EPT":
-                terms.append(("CB", "EPT_env", f))
+                terms.append(cb("EPT_env", f))
             elif base == "WX" and sx in r:
                 terms.append(("ST", "WLp", f * r[sx]))
             elif base == "WY" and sx in r:
                 terms.append(("ST", "WTp", f * r[sx])) ; terms += [("ST", "WTVp", f)] if sx == "35" else []
             elif base == "WZ" and sx in r:
-                terms.append(("CB", f"WZ_{sx}_env", f))
+                terms.append(cb(f"WZ_{sx}_env", f))
             elif aid in ("EQX", "EQY") and eq_cases:
                 terms.append(("RS", {"EQX": "EQ_L", "EQY": "EQ_T"}[aid], f))
             else:
