@@ -287,6 +287,13 @@ for d_ in (27.0, 89.0):
     put(f"design.prestress_losses.rows[{i_}]", tag="Model", cells={"item": "time", "value": d_, "unit": "days"},
         model_note="report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)")
     i_ += 1
+GC = R["superstructure.girder_cover"]
+for i, (it, v_, src_) in enumerate((("fitment_cover_side", "30", GC), ("fitment_cover_top", "30", GC))):
+    put(f"design.girder_options.rows[{i}]", src_, cells={"item": it, "value": v_}, note="required cover 30 mm to the reinforcement nearest the surface (109251 notes)")
+put("design.girder_options.rows[2]", r={"tag": "Direct", "source": {"sheet": "109201", "view": "general notes", "note": "minimum aggregate size of 14mm"}},
+    value=None, tag="Direct", cells={"item": "aggregate_size", "value": "14"})
+for i, (it, v_) in enumerate((("useN", "true"), ("kuoLim", "true"), ("tend", '"sc"'), ("k1p", "0.4"), ("dsh", "true"), ("torsion_tie_legs", "1")), 3):
+    put(f"design.girder_options.rows[{i}]", tag="Model", cells={"item": it, "value": v_}, model_note="design option, as BR13A")
 put("materials.reinforcement.rows[0]", tag="Missing-Flagged", cells={"grade": "D500N"}, note="grade D500N to AS/NZS 4671 (109251 notes); Es not printed")
 
 # ---------------- analysis: platform modelling settings (Model), the same as BR13A ----------------

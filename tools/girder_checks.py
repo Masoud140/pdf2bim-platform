@@ -30,11 +30,19 @@ def main():
     M = build_integrated(doc, geo, S, std, allow_proposed=a.allow_proposed)
     CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
     out = {}
+
+    def tags(field):   # data-source tags of a girder-type table across the description (e.g. strand_pattern: Direct)
+        ts = {r_.get("tag") for T_ in (doc.get("superstructure") or {}).get("supert_types") or [] for r_ in (T_.get(field) or {}).get("rows", [])}
+        return " / ".join(sorted(t_ for t_ in ts if t_)) or "missing"
     L = ["# Super-T girder checks along the girders (P4.5 stage 6) — INDICATIVE", "",
          "Staged SLS (girder alone under prestress + Mnc, then composite), decompression Mdec, allowable moment Mal (Table 8.6.2.1 increments), "
          "cracking moment Mcr and minimum strength Muo >= 1.2 Mcr, ULS bending with the concurrent axial force. Effective prestress from the ported "
-         "losses analysis (D-42 Assumed inputs); strand / bar layout an Assumed placeholder (D-1); standards values code-extracted-UNVERIFIED. "
-         "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Shear / torsion by the general method with Assumed fitments (D-45 / D-46). Solid-end zone stations: shear only (rectangular approx, Assumed ADR-039); flexure / SLS not applicable. Strand development not checked.", ""]
+         f"losses analysis; inputs: strand pattern {tags('strand_pattern')}, bars {tags('bars')}, fitments {tags('fitments')} "
+         f"(tags of the description){'; PROPOSED decisions used: ' + ', '.join(sorted({str(q.get('decision')) for q in M['provisional'] + S['provisional'] + geo['provisional'] if q.get('decision')})) if a.allow_proposed else ''}; "
+         "standards values code-extracted-UNVERIFIED. "
+         "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Shear / torsion by the general method. Solid-end zone stations: shear only (rectangular approx, Assumed ADR-039); flexure / SLS not applicable. Strand development not checked.", "",
+         "SUMMARY", ""]
+    i_sum = len(L)
     for g in S["girders"]:
         R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
         out[g] = R
@@ -69,6 +77,14 @@ def main():
         L += ["", f"- crack-control limits (Table 8.6.2.1 as coded): fscr {lim['fscr']:g} MPa ({lim['why']['fscr']}), fscrT {lim['fscrT']:g} MPa ({lim['why']['fscrT']}), ftcr {lim['ftcr']:g} MPa",
               f"- axial force with the moments: {'concurrent N of the governing row (useN)' if R['useN'] else 'not used (useN false)'}; losses method {R['hog_method']}, time {R['time_days']:g} d"]
         L += [f"- {n}" for n in R["notes"]] + [""]
+    S_ = ["## Summary (largest utilisation along each girder)", "", "| Girder | Ms*/Mal (SLS) | M*/phi Mu (ULS) | shear / torsion u | Muo < 1.2 Mcr |", "|---|---|---|---|---|"]
+    for g, R in out.items():
+        fl = [r for r in R["rows"] if r.get("conf") != "solid"]
+        uS = max(r["sag"]["uS"] for r in fl); uB = max(r["sag"]["uB"] for r in fl)
+        uv = [r["shear"]["u"] for r in R["rows"] if "u" in r.get("shear", {})]
+        S_.append(f"| {g} | {uS:.2f} | {uB:.2f}{' **> 1**' if uB > 1 else ''} | {max(uv):.2f}{' **> 1**' if uv and max(uv) > 1 else ''} | "
+                  f"{'yes' if any(not r['sag']['okMin'] for r in fl) else 'no'} |" if uv else f"| {g} | {uS:.2f} | {uB:.2f} | — | — |")
+    L[i_sum - 2:i_sum - 1] = S_ + [""]   # replaces the SUMMARY placeholder line
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")
     from pdf2bim.runrecord import make as run_record

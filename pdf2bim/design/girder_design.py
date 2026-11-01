@@ -6,7 +6,7 @@
 For every P2 station of the girder with an open section (solid end zones excluded):
 - the design section (pdf2bim.design.stations) with each bonded strand's EFFECTIVE prestrain from the prestress-loss
   analysis at that position and the last reported time (pdf2bim.design.prestress, inputs from
-  pdf2bim.design.prestress_inputs); fpb = MBL / area from AS5100.5:strand:table_3_3_1 when materials.strand.fpb is empty;
+  pdf2bim.design.prestress_inputs); fpb = MBL / area (materials.strand when the drawings give area and fpb, else AS5100.5:strand:table_3_3_1);
 - the design actions: the ULS sagging maximum and hogging minimum of the composite girder, interpolated linearly
   between the two girder element ends that bracket the station (combined_actions envelopes; the governing row of the
   nearer end is reported);
@@ -81,7 +81,7 @@ def flexure_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=
     if not rows:
         raise MissingInput(f"girder {girder}: no open-section station")
     if p.get("mbl") and (doc.get("materials") or {}).get("strand"):
-        notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa from AS5100.5:strand:table_3_3_1 (materials.strand.fpb empty)")
+        notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa (MBL: {H['source'].get('mbl')})")
     return {"girder": girder, "rows": rows, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"],
             "notes": notes + ["sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"],
             "provisional": H["provisional"], "standards_status": std.result_status()}
@@ -257,7 +257,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         out.append(res)
     if not out:
         raise MissingInput(f"girder {girder}: no open-section or solid-end station")
-    notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa from AS5100.5:strand:table_3_3_1 where materials.strand.fpb is empty")
+    notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa (MBL: {H['source'].get('mbl')})")
     notes.append("Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc")
     notes.append(("deck differential shrinkage free strain %.1f x 1e-6 (losses analysis, detailed method)" % (eps_sh * 1e6)) if dsh else
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))

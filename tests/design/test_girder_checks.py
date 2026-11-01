@@ -59,15 +59,16 @@ w = p["rho"] * p["A"] / 1e6 + p["wd"]; a = p["a"]; L = p["L"]
 Mcl = (w * (L / 2 - a) * (L - a - L / 2) - w * a * a) / 2e6
 fS = std.get("AS5100.2:load_factor:DLc").value["sls"]
 t("Mnc at midspan = SLS factor x simple-span moment of (rho A + wd) on the bearings (closed form, 1e-9)", abs(rec["Mnc"] - fS * Mcl) < 1e-9 * Mcl, f"{rec['Mnc']:.1f} kN m")
-rows = [(G, x) for G, R_ in Z.items() for x in R_["rows"]]
+rows = [(G, x) for G, R_ in Z.items() for x in R_["rows"] if x.get("conf") != "solid"]   # solid-end stations: shear only (P4-7)
 kmin = std.get("AS5100.5:flexure:minimum_strength_factor").value
 fct = std.get("AS5100.5:crack_control:uncracked_tension_limit").value * math.sqrt(mt["fc_girder"])
 t("every station: uS = Ms / Mal, uB = M* / phi Mu, Muo,min = k Mcr, uncracked flag = soffit <= k sqrt(f'c)",
   all(abs(x["sag"]["uS"] - x["sag"]["Ms"] / x["sag"]["Mal"]) < 1e-12 and abs(x["sag"]["uB"] - abs(x["sag"]["Mu"]) / x["sag"]["phiMu"]) < 1e-12
       and abs(x["sag"]["Muo_min"] - kmin * x["sag"]["Mcr"]) < 1e-9 and x["sag"]["uncracked"] == (x["sag"]["soffit_sls"] <= fct) for _, x in rows))
 t("every station: 0 < Mdec < Mal and Mdec < Mcr - Mnc (decompression before cracking)", all(0 < x["sag"]["Mdec"] < x["sag"]["Mal"] and x["sag"]["Mdec"] < x["sag"]["Mcr"] - x["Mnc"] for _, x in rows))
-t("Mnc symmetric about midspan and largest there (simple span)", all(max(R_["rows"], key=lambda q: q["Mnc"])["t"] == 0.5 for R_ in Z.values()))
-gov = {G: max(R_["rows"], key=lambda q: q["sag"]["uB"])["t"] for G, R_ in Z.items()}
+fl_ = lambda R_: [q for q in R_["rows"] if q.get("conf") != "solid"]
+t("Mnc symmetric about midspan and largest there (simple span)", all(max(fl_(R_), key=lambda q: q["Mnc"])["t"] == 0.5 for R_ in Z.values()))
+gov = {G: max(fl_(R_), key=lambda q: q["sag"]["uB"])["t"] for G, R_ in Z.items()}
 t("the governing ULS station of each girder lies in the middle half", all(0.25 <= v <= 0.75 for v in gov.values()), str(gov))
 t("record carries the provisional inputs, the unverified-standards label and the not-checked notes",
   all(isinstance(R_["provisional"], list) and str(R_["standards_status"]).startswith("UNVERIFIED") and any("shear" in n for n in R_["notes"]) for R_ in Z.values()))

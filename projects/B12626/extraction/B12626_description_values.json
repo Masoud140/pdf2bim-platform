@@ -8149,6 +8149,113 @@
    }
   },
   {
+   "path": "design.girder_options.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "item": "fitment_cover_side",
+    "value": "30"
+   },
+   "source": {
+    "doc": "DRG-109251",
+    "view": "general notes",
+    "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+   },
+   "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)"
+  },
+  {
+   "path": "design.girder_options.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "item": "fitment_cover_top",
+    "value": "30"
+   },
+   "source": {
+    "doc": "DRG-109251",
+    "view": "general notes",
+    "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+   },
+   "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)"
+  },
+  {
+   "path": "design.girder_options.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "item": "aggregate_size",
+    "value": "14"
+   },
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes",
+    "text": "minimum aggregate size of 14mm"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[3]",
+   "tag": "Model",
+   "cells": {
+    "item": "useN",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[4]",
+   "tag": "Model",
+   "cells": {
+    "item": "kuoLim",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[5]",
+   "tag": "Model",
+   "cells": {
+    "item": "tend",
+    "value": "\"sc\""
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[6]",
+   "tag": "Model",
+   "cells": {
+    "item": "k1p",
+    "value": "0.4"
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[7]",
+   "tag": "Model",
+   "cells": {
+    "item": "dsh",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[8]",
+   "tag": "Model",
+   "cells": {
+    "item": "torsion_tie_legs",
+    "value": "1"
+   },
+   "source": {
+    "note": "design option, as BR13A"
+   }
+  },
+  {
    "path": "materials.reinforcement.rows[0]",
    "tag": "Missing-Flagged",
    "cells": {

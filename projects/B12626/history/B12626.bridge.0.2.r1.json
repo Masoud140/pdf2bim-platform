@@ -18922,7 +18922,249 @@
  },
  "design": {
   "girder_options": {
-   "rows": []
+   "rows": [
+    {
+     "cells": {
+      "item": "fitment_cover_side",
+      "value": "30"
+     },
+     "source": {
+      "doc": "DRG-109251",
+      "view": "general notes",
+      "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+     },
+     "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)",
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "fitment_cover_side",
+       "value": "30"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109251",
+       "view": "general notes",
+       "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+      },
+      "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "fitment_cover_top",
+      "value": "30"
+     },
+     "source": {
+      "doc": "DRG-109251",
+      "view": "general notes",
+      "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+     },
+     "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)",
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "fitment_cover_top",
+       "value": "30"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109251",
+       "view": "general notes",
+       "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+      },
+      "note": "required cover 30 mm to the reinforcement nearest the surface (109251 notes)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "aggregate_size",
+      "value": "14"
+     },
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes",
+      "text": "minimum aggregate size of 14mm"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "aggregate_size",
+       "value": "14"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes",
+       "text": "minimum aggregate size of 14mm"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "useN",
+      "value": "true"
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "useN",
+       "value": "true"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "kuoLim",
+      "value": "true"
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "kuoLim",
+       "value": "true"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "tend",
+      "value": "\"sc\""
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "tend",
+       "value": "\"sc\""
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "k1p",
+      "value": "0.4"
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "k1p",
+       "value": "0.4"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "dsh",
+      "value": "true"
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "dsh",
+       "value": "true"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "torsion_tie_legs",
+      "value": "1"
+     },
+     "source": {
+      "note": "design option, as BR13A"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "torsion_tie_legs",
+       "value": "1"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "design option, as BR13A"
+      }
+     },
+     "current": "original"
+    }
+   ]
   },
   "stations": {
    "rows": []
@@ -19414,6 +19656,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:73c43d7b188b99b9856f724f259c99c8854ebfaf69fc83ce8c2248698c7b8ec5"
+  "value": "sha256:6b478c9020b9321a6db55189085730b370da093624ce28eddfa698749731ca06"
  }
 }

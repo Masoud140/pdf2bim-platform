@@ -117,6 +117,28 @@ Tests: `tests/model/test_b12626_chain.py` (10), `tests/schema/test_new_descripti
   - The creep model and the age at loading for steam-cured girders need review before the platform's hog or SLS losses are relied on.
 - Report: `projects/B12626/model/B12626.hog_vs_drawing.md` (`projects/B12626/hog_vs_drawing.py`). Combined actions: `projects/B12626/model/B12626.combined_actions.md`.
 
+## 4b. Stage 5 (2026-11-02): girder design checks on the real strands and fitments
+
+`tools/girder_checks.py` on B12626 (`projects/B12626/model/B12626.girder_checks.md`, summary at the top). Inputs: strand pattern Direct (109206); fitments Calculated from the bundle counts; girder longitudinal bars not extracted; losses inputs as D-1. Also added: fitment cover 30 mm and aggregate 14 mm (Direct, 109251 / 109201).
+
+| Girders | SLS Ms*/Mal | ULS M*/φMu | Shear / torsion u |
+|---|---|---|---|
+| SG-01, SG-10 (edge) | 0.87–0.88 | **1.04** | **1.00–1.01** (uL, @200 zone) |
+| SG-02, SG-09 | 0.77 | 0.96 | 0.89 |
+| SG-03…SG-08 | 0.59–0.68 | 0.85–0.89 | 0.67–0.76 |
+
+An IFC design should not exceed 1.0, so the platform is conservative somewhere for the edge girders. The likely cause is visible in the governing row (ULS-B-0156): the whole SDL case takes the 'permanent' factor 2.0, barriers included. AS 5100.2 has a 'special case' factor of 1.4 for SDL that is accurately known, which precast barriers may qualify for.
+- With 1.4 on the barriers, the edge-girder M* drops by roughly 450 kNm, giving u ≈ 1.00. This is an estimate, not a run.
+- **H-12 (engineer):**
+  - Split the SDL case into barriers and surfacing.
+  - Choose the barrier factor: 2.0 (as now) or 1.4.
+  - This applies to BR13A too.
+- **Other contributors:** H-11 (losses / hog) and the D-1 placeholders for wind, temperature and the barrier centroid.
+
+Also fixed this stage:
+- **G-13:** the girder-checks report quoted BR13A decision ids (D-1, D-42, D-45, D-46) in its header. It now states the input tags and the proposed decisions in use, and opens with a summary table.
+- The fpb note now names where MBL came from.
+
 ## 5. Next
 
 1. Owner answers on the flange overlap and the sill depth; replace the Assumed inputs with the design report, the bearing catalogue and the geotechnical report.
