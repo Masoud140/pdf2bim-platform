@@ -12,6 +12,7 @@
  ],
  "load_cases": [
   "SDL",
+  "SDLs",
   "EP",
   "EPTA",
   "EPTB",
@@ -2475,11 +2476,11 @@
    "D-1"
   ],
   "allow_proposed": true,
-  "engine_commit": "dc67851a520c0caebda9f64730f6f0db8f22cfe7",
+  "engine_commit": "e66efdbec861e2e23c472c5cea68e204c1365bb6",
   "engine_dirty": true,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-11-01T21:20:31+00:00"
+  "run_at": "2026-11-01T22:35:31+00:00"
  }
 }

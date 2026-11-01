@@ -65,6 +65,16 @@ sd = sdl_case(doc, geo, M, allow_proposed=True)
 hand = 22 * 0.080 * (13.1167 + 9.5033) * 28.0 + (10.56 * 2 + 9.34) * 28.0
 t("SDL total vs hand (surfacing 22 x 0.08 x 22.62 m x 28 m + barriers x 28 m) within 1 %", abs(-sd["total_kN"] / hand - 1) < 0.01, f"{-sd['total_kN']:.1f} vs {hand:.1f} kN")
 
+# SDL factor groups (owner rule, ADR-048): barriers with drawing weights -> SDLs (1.4); others, surfacing -> SDLp (2.0)
+import copy as _cp
+sp_, ss_ = sdl_case(doc, geo, M, allow_proposed=True, part="SDLp"), sdl_case(doc, geo, M, allow_proposed=True, part="SDLs")
+t("SDL split: outer precast barriers (weight from 109402 masses, Calculated) SDLs, median (density assumed) SDLp; parts sum to the whole",
+  sp_["barrier_actions"] == {"barrier_left": "SDLs", "barrier_right": "SDLs", "barrier_median": "SDLp"} and abs(sp_["total_kN"] + ss_["total_kN"] - sd["total_kN"]) < 1e-6,
+  f"SDLp {sp_['total_kN']:.1f} + SDLs {ss_['total_kN']:.1f} kN")
+d2 = _cp.deepcopy(doc)
+d2["combinations"]["settings"]["rows"].append({"cells": {"item": "barrier_sdl_action", "value": "SDLp"}, "tag": "Input-user", "status": "accepted", "decision": "D-99"})
+t("combinations.settings barrier_sdl_action = SDLp (project criteria) puts every barrier at 2.0",
+  set(sdl_case(d2, geo, M, allow_proposed=True, part="SDLp")["barrier_actions"].values()) == {"SDLp"})
 txt, rep = write_mct(M, doc, title="test B12626")
 Rd = read_mct(txt)
 base = rep["base_point"]

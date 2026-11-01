@@ -109,7 +109,7 @@ def _band(A, I, H, czb, e0, phi, alpha):
 
 
 # platform combination action -> exported static load case (export_mct case names, + / - spelled p / m)
-COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SOo": "EP", "SOc": "EP", "BRKR": "BRKp", "CENR": "CEN", "TUW": "TUp", "TUC": "TUm",
+COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SDLs": "SDLs", "SOo": "EP", "SOc": "EP", "BRKR": "BRKp", "CENR": "CEN", "TUW": "TUp", "TUC": "TUm",
               "TGP": "TGP", "TGN": "TGN", "SCR": "SCR"}
 
 

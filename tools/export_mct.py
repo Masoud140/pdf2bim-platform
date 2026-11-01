@@ -32,7 +32,10 @@ def main():
     from pdf2bim.model.loads import sdl_case
     from pdf2bim.model.horizontal import horizontal_cases
     from pdf2bim.model.wind import wind_cases
-    cases = {"SDL": {"type": "D", "loads": sdl_case(doc, geo, M, allow_proposed=a.allow_proposed)["loads"]}}
+    sp = sdl_case(doc, geo, M, allow_proposed=a.allow_proposed, part="SDLp")
+    cases = {"SDL": {"type": "D", "loads": sp["loads"]}}
+    if "SDLs" in sp["barrier_actions"].values():   # barriers with drawing weights: SDL special case, ULS 1.4 (ADR-048)
+        cases["SDLs"] = {"type": "D", "loads": sdl_case(doc, geo, M, allow_proposed=a.allow_proposed, part="SDLs")["loads"]}
     typ = {"EP": "EP", "EPTA": "EP", "EPTB": "EP", "BRKp": "BRK", "BRKm": "BRK", "CEN": "USER"}
     for k, v in horizontal_cases(doc, geo, M, Standards(), allow_proposed=a.allow_proposed)["cases"].items():
         cases[k] = {"type": typ.get(k, "USER"), "loads": v["loads"]}
@@ -65,11 +68,13 @@ def main():
     cB = np.mean([mm.nodes[k][:2] for k in M["supports"][geo["supports"][-1]["id"]]["sill_nodes"]], axis=0)
     eq = {"points": [(T, kp * Zq * ch_factor(T, chrow) / Rf) for T in Ts], "kp": kp, "Z": Zq, "site": site, "zeta": zeta,
           "angle_L": math.degrees(math.atan2(cB[1] - cA[1], cB[0] - cA[0])), "modes": int(rdq.value((doc.get("analysis") or {}).get("modes"), "analysis.modes")),
-          "mass_cases": ["SDL", "SW_mass"]}
+          "mass_cases": ["SDL", "SW_mass"] + (["SDLs"] if "SDLs" in cases else [])}
     # member self weight as a mass-only beam-load case: MIDAS did not convert the self weight to mass (run 2026-10-28e);
     # Loads to Masses converts beam loads (owner screenshot). Not used in any combination.
     cases["SW_mass"] = {"type": "USER", "beam": {e: b["w"] for e, b in mm.beams.items() if b["w"] > 0}}
     on = {"DLc", "SDLp", "SOo", "EPT", "BRKR", "CENR", "TUW", "TUC", "TGP", "TGN", "SCR", "WX", "WY", "WZ", "EQX", "EQY"}
+    if "SDLs" in cases:
+        on.add("SDLs")
     rows = generate(Register(Standards(), on), None)["rows"]
     combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"], eq_cases=True)
     txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases, alpha=alpha, combos=combos, eq=eq)

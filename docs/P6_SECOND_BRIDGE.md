@@ -139,6 +139,29 @@ Also fixed this stage:
 - **G-13:** the girder-checks report quoted BR13A decision ids (D-1, D-42, D-45, D-46) in its header. It now states the input tags and the proposed decisions in use, and opens with a summary table.
 - The fpb note now names where MBL came from.
 
+## 4c. H-12 decided (ADR-048, 2026-11-02): barrier SDL factor
+
+**Owner rule:**
+- **1.4** (SDL special case) when the barrier is permanent SDL and its self weight is accurately known.
+- **2.0** when the standard or project criteria require it, or the uncertainty justifies it.
+
+**Implemented:** the barrier's weight tag decides. Drawing-based weights (Direct / Calculated / Confirmed-Engineer) get 1.4; Assumed or Missing weights get 2.0; a project setting can force 2.0 for all.
+- B12626: the outer precast barriers take 1.4 and the median barrier stays at 2.0 (its density is assumed).
+- BR13A: unchanged.
+
+**B12626 after the change:**
+
+| | Before | After |
+|---|---|---|
+| Edge girder ULS M*/φMu | 1.04 | **1.02** |
+| Edge girder shear / torsion u | 1.00–1.01 | 0.98 |
+| Pile N, SLS / ULS vs 109035 | +2.6 % / +4.3 % | +1.2 % / +2.5 % |
+
+The edge girders are still 2 % over 1.0. The remaining contributors are provisional inputs, not the factor:
+- H-11 (effective prestress / losses);
+- the barrier centroid (Assumed at half the plan width);
+- wind and temperature placeholders.
+
 ## 5. Next
 
 1. Owner answers on the flange overlap and the sill depth; replace the Assumed inputs with the design report, the bearing catalogue and the geotechnical report.

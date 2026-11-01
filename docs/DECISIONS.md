@@ -436,3 +436,19 @@
 - **Catalogue change:** `supports[].piles[].wall_thickness` and `materials.steel` for concrete-filled steel tube piles (G-2, `docs/P6_SECOND_BRIDGE.md`).
 - **Format limitation:** an override needs an existing record. A table row the chain needs is therefore written as a Missing-Flagged placeholder row in revision 1.
 - **Status:** D-1 is PROPOSED. B12626 results are provisional.
+
+## ADR-048 Barrier superimposed dead load factor by how well its weight is known (owner, 2026-11-02)
+
+- **Decision (owner rule, H-12):**
+  - A barrier is 'SDL – special case permanent' (AS 5100.2 SDLs, ULS 1.4) when it is treated as permanent SDL and its self weight is accurately known.
+  - Otherwise it is 'SDL – permanent' (SDLp, ULS 2.0).
+  - It is also SDLp when the applicable standard or the project design criteria require 2.0, or the load uncertainty justifies the higher factor.
+- **Implementation:**
+  - `loads.barrier_action` sets "accurately known" from the data-source tag of `deck.barriers[].weight` in use: Direct, Calculated (from drawing values) or Confirmed-Engineer.
+  - Assumed or Missing weights stay at 2.0.
+  - `combinations.settings` item `barrier_sdl_action = SDLp` puts every barrier at 2.0 (project criteria).
+  - The SDL case is split: SDLp = surfacing + other SDL + uncertain barriers; SDLs = barriers with known weight. The .mct writes them as SDL and SDLs.
+- **Effect:**
+  - BR13A: no change (barrier weights Assumed).
+  - B12626: outer precast barriers (6.01 t / 5.58 m, 109402) take 1.4. The median barrier stays at 2.0 (its density is assumed).
+- **Factors:** code-extracted standards entries AS5100.2:load_factor:SDLs / SDLp (UNVERIFIED).

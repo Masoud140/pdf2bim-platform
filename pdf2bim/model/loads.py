@@ -10,6 +10,10 @@ SDL (superimposed dead load) = surfacing + barriers + other SDL, from the descri
 - barriers: deck.barriers[]: line load `weight` along the control-line offset `offset`, between the deck-end lines;
 - other SDL: deck.other_sdl (kPa over the full deck width), if it has a value; otherwise reported as not applied.
 No factor is applied here (characteristic load case); factors belong to the combinations (standards accessor).
+Factor group (owner rule 2026-11-02, ADR-048): a barrier whose weight is accurately known (tag Direct / Calculated /
+Confirmed-Engineer, i.e. from the drawings) is AS 5100.2 'SDL - special case permanent' (SDLs, ULS 1.4); any other
+barrier, the surfacing and other SDL are 'SDL - permanent' (SDLp, ULS 2.0). combinations.settings item barrier_sdl_action
+= SDLp (project criteria requiring 2.0) puts every barrier in SDLp. sdl_case(part="SDLp" / "SDLs") returns one group.
 
 Discretisation (deterministic, no mesh quantisation of the total):
 - the loaded strip is cut into cells of about `dc` (along the control line) x `do` (across) in chainage / offset; each
@@ -153,7 +157,22 @@ class Distributor:
         return out
 
 
-def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1):
+KNOWN_WEIGHT = ("Direct", "Calculated", "Confirmed-Engineer")
+
+
+def barrier_action(doc, b, rd):
+    """SDLs (weight accurately known, ULS 1.4) or SDLp (ULS 2.0) for one deck.barriers[] item (owner rule, ADR-048)."""
+    sets = rd.rows((doc.get("combinations") or {}).get("settings"), "combinations.settings", required=False)
+    if any(r.get("item") == "barrier_sdl_action" and str(r.get("value")).strip() == "SDLp" for r in sets):
+        return "SDLp"   # project design criteria require 2.0 for every barrier
+    rec = b.get("weight")
+    if rec is None:
+        return "SDLp"
+    _, tag = rd.rec(rec, f"deck.barriers[{b.get('id')}].weight")   # tag of the value in use (a proposed override carries its own)
+    return "SDLs" if tag in KNOWN_WEIGHT else "SDLp"
+
+
+def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1, part=None):
     rd = Reader(doc, allow_proposed)
     used = []
 
@@ -225,17 +244,22 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1):
     g = v(D.get("surfacing_density"), "deck.surfacing_density")
     cl = v(D.get("carriageway_left"), "deck.carriageway_left")
     cr = v(D.get("carriageway_right"), "deck.carriageway_right")
-    area_load("surfacing", cl, cr, g * t / 1000, ["deck.surfacing_thickness", "deck.surfacing_density", "deck.carriageway_left", "deck.carriageway_right"])
+    if part in (None, "SDLp"):
+        area_load("surfacing", cl, cr, g * t / 1000, ["deck.surfacing_thickness", "deck.surfacing_density", "deck.carriageway_left", "deck.carriageway_right"])
     # barriers
+    groups = {}
     for b in D.get("barriers") or []:
         bid = b.get("id")
+        groups[bid] = barrier_action(doc, b, rd)
+        if part is not None and groups[bid] != part:
+            continue
         w = v(b.get("weight"), f"deck.barriers[{bid}].weight")
         o = v(b.get("offset"), f"deck.barriers[{bid}].offset")
         line_load(f"barrier {bid}", o, w, [f"deck.barriers[{bid}].weight", f"deck.barriers[{bid}].offset"])
     # other SDL
     q = v(D.get("other_sdl"), "deck.other_sdl", required=False)
     not_applied = []
-    if q:
+    if q and part in (None, "SDLp"):
         el = v(D.get("edge_left"), "deck.edge_left"); er = v(D.get("edge_right"), "deck.edge_right")
         area_load("other SDL", el, er, q, ["deck.other_sdl", "deck.edge_left", "deck.edge_right"])
     else:
@@ -243,6 +267,6 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1):
     loads = dist.nodal()
     point_loads = list(dist.pts)
     total = sum(loads.values())
-    return {"case": "SDL", "kind": "permanent (characteristic, unfactored)", "loads": {k: (0.0, 0.0, f, 0.0, 0.0, 0.0) for k, f in loads.items()},
+    return {"case": "SDL" if part is None else part, "part": part, "barrier_actions": groups, "kind": "permanent (characteristic, unfactored)", "loads": {k: (0.0, 0.0, f, 0.0, 0.0, 0.0) for k, f in loads.items()},
             "total_kN": total, "components": comps, "point_loads": point_loads, "inputs": used, "not_applied": not_applied, "points": len(dist.pts), "snapped_points": dist.snapped, "snap_max_m": dist.snap_max,
             "settings": {"dc_m": dc, "do_m": do, "tag": "Model"}, "provisional": rd.provisional}

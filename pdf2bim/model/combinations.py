@@ -386,8 +386,13 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     st = lambda **kw: RS.static(**kw)
     P, src, prov, notc = {}, {}, [], []
     P["DLc"] = {"s": st(gravity=(0.0, 0.0, -1.0))}; src["DLc"] = "self weight of every member (integrated model)"
-    C = sdl_case(doc, geo, mdl, allow_proposed=allow_proposed)
-    P["SDLp"] = {"s": st(loads=C["loads"])}; src["SDLp"] = "SDL case (surfacing, barriers, other line loads)"
+    C = sdl_case(doc, geo, mdl, allow_proposed=allow_proposed, part="SDLp")
+    P["SDLp"] = {"s": st(loads=C["loads"])}
+    known = sorted(k for k, a_ in C["barrier_actions"].items() if a_ == "SDLs")
+    src["SDLp"] = "SDL case: surfacing, other SDL and barriers whose weight is not accurately known" + (f" (barriers {', '.join(sorted(set(C['barrier_actions']) - set(known)))})" if C["barrier_actions"] else "")
+    if known:   # barriers with drawing weights: SDL special case permanent (owner rule, ADR-048)
+        CS = sdl_case(doc, geo, mdl, allow_proposed=allow_proposed, part="SDLs")
+        P["SDLs"] = {"s": st(loads=CS["loads"])}; src["SDLs"] = f"SDL special case: barriers with accurately known weight ({', '.join(known)})"
     H = horizontal_cases(doc, geo, mdl, std, allow_proposed=allow_proposed)
     hc = {k: st(loads=v["loads"]) for k, v in H["cases"].items()}
     P[soil_action] = {"s": hc["EP"]}; src[soil_action] = "earth pressure on both headstocks (EP)"
