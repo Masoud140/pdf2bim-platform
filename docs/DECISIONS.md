@@ -452,3 +452,15 @@
   - BR13A: no change (barrier weights Assumed).
   - B12626: outer precast barriers (6.01 t / 5.58 m, 109402) take 1.4. The median barrier stays at 2.0 (its density is assumed).
 - **Factors:** code-extracted standards entries AS5100.2:load_factor:SDLs / SDLp (UNVERIFIED).
+
+## ADR-049 Web application stage 1: local Python API over the existing tools, TypeScript front end (P7.1, 2026-11-02)
+
+- **Owner request (2026-11-02):** "a software or web base that I can upload drawings and see everything happening there, including model analysis and design"; text-only output is not acceptable for engineering work. P7 brought forward; H-11 stays open.
+- **Decision (agent, reversible):**
+  - `app/server.py` (Flask) serves an API and a single-page front end. Each chain step runs the existing tool as a subprocess (`build_geometry`, `build_sections`, `app/model_view.py`, `export_mct`, `combined_actions`, `girder_checks`), so the app computes no engineering value and the results equal the command-line results.
+  - Front end in TypeScript (ADR-006), no framework, three.js for 3D; bundled with esbuild to `app/static/app.js`, which is committed so the app runs with Python only.
+  - Uploads, rendered pages and runs live in `app_data/` (git-ignored): drawings are confidential and must not reach the repository.
+  - A new bridge gets a blank description from `tools/new_description.py` (all Missing-Flagged); nothing is filled in automatically.
+  - Results show provenance (run id, engine commit, proposed inputs used) and the INDICATIVE banner; without a run the committed repository outputs are shown, labelled.
+- **Alternatives:** FastAPI (not installed; no gain at one user); a hosted artifact page (cannot run the Python engine); React (a framework is not needed yet).
+- **Not yet (P7 later stages):** automatic extraction from uploaded PDFs (needs an AI service: key / confidentiality decision), editing values and accepting decisions in the app, users / log-in and hosting, PostgreSQL. Until log-in exists the server listens on localhost only.

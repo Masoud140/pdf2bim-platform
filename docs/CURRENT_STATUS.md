@@ -66,6 +66,7 @@
 | P6 | Second bridge B12626 (ADR-047, `P6_SECOND_BRIDGE.md`): the chain runs unchanged to the .mct on PROPOSED development inputs (D-1); generality gaps fixed G-2 (filled steel tube piles), G-4 (pile / bearing id collision on the sill), G-5..G-10; open G-1 (one flange setback per bridge), G-3 (crowned sill modelled straight, 173 mm); owner queries on flange overlap, sill depth, RL 9.493 | E / data |
 | H-11 | B12626 hog vs drawing 109201: transfer +18 %, growth to 90 days about 3x the designer's (platform 106 mm vs 60 mm); wet-deck deflection +6 %. Creep model / age at loading for steam-cured girders to review before hog or SLS losses are used (`P6_SECOND_BRIDGE.md` §4a) | F |
 | H-12 | DECIDED 2026-11-02 (ADR-048: barriers with accurately known weight SDLs 1.4, else SDLp 2.0). Was: B12626 edge girders ULS M*/phiMu 1.04 and shear u 1.01 on provisional inputs (IFC design should be <= 1): the whole SDL case takes SDLp 2.0, barriers included; AS 5100.2 'special case' 1.4 would give about 1.00 (estimate). Engineer: split barriers / surfacing and choose the factor (BR13A too) | F |
+| P7.1 | Web app stage 1 DONE 2026-11-02 (ADR-049, `app/README.md`): `python3 app/server.py` → http://localhost:8600 — upload drawings, page viewer linked to the description's drawing numbers, every value with its tag / sheet / derivation / Needs-review filter, 3D integrated model (SW / SDL deformed), analysis (bearings, piles, girders, sills), girder design heat maps, run log and downloads. Chain steps are the existing tools. Not yet: automatic extraction of uploaded PDFs, editing values / accepting decisions in the app, users / hosting | app |
 | X-6 | Earthquake mass = MIDAS idealisation (ADR-046, owner 2026-10-28): member weight lumped at end nodes + SDL, X Y Z; platform RSA reproduces MIDAS run g to 0.0-0.9 %. Earthquake combined actions / pile design actions computed before this change are superseded | E |
 | M-3 | BR13A temperature / shrinkage restraint forces at the fixed abutment depend strongly on the bearing idealisation (P3b vs frozen: H −30 %, vertical couples +35 … +80 %). The fixed-abutment sill moment in the combinations is restraint-dominated: P3c 2153 vs dashboard 4254 kN·m. Check in MIDAS (P4) and with the restraint-block detail | E |
 | H-6 | Dashboard wind lever arms measured from the deck top while its nodes are at the girder top (0.2 m low) | H (minor) |
@@ -194,4 +195,7 @@
 
 ## Next task
 
+**2026-11-02:** P7.2 — extraction from uploaded PDFs inside the app (needs the owner's choice of AI service / where drawings may be sent), then value editing and decision acceptance in the app. H-11 stays open (owner).
+
+Older:
 **P4.5 stage 5 — effective prestress** (`docs/P4_PLAN.md`): port the dashboard's Hog time analysis (transfer, elastic shortening, creep, shrinkage, relaxation; stages to the deck cast) so stations get the effective prestrain; inventory its constants as unverified standards entries; then design actions per station from the schedule and the checks. Branch `p4-verification`. P4.4 needs the owner.

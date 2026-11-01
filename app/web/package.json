@@ -1,0 +1,12 @@
+{
+  "name": "pdf2bim-app-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "PDF2BIM web app front end (TypeScript, ADR-006 / ADR-049). Build: npm run build -> ../static/app.js",
+  "scripts": {
+    "build": "tsc --noEmit && esbuild src/main.ts --bundle --minify --format=esm --target=es2020 --outfile=../static/app.js",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": { "esbuild": "0.24.2", "typescript": "5.6.3", "@types/three": "0.170.0" },
+  "dependencies": { "three": "0.170.0" }
+}

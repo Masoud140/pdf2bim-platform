@@ -18,7 +18,7 @@
 | **P4** Structural verification | Trustworthy actions and checks | Concurrent traffic actions, signed earthquake, pile resultants, stage assumptions resolved; standards data file (ADR-009); design engine E-1 fixed | Independent MIDAS model and benchmarks within tolerance; standards entries checked | R5 |
 | **P5** Extraction + decision workflow | PDF → description → decisions in the app | Extraction writes the description and the Query Register; decision review UI; run records; stale marking | A new GA produces a valid description; every value is source-linked | R6, R9 |
 | **P6** Second-bridge pilot | Prove it is generic | A different single-span Super-T from PDFs, without code changes | Full chain runs; only data and decisions differ | R8 |
-| **P7** Productisation + planks | Web application; plank module | TypeScript front end, API, database, users; precast planks in the product library | Agreed with the owner at the time | R7 |
+| **P7** Productisation + planks | Web application; plank module | TypeScript front end, API, database, users; precast planks in the product library | Agreed with the owner at the time. **P7.1 web app stage 1 DONE 2026-11-02 (ADR-049)**, brought forward at the owner's request | R7 |
 
 ## P0 sub-stages
 
