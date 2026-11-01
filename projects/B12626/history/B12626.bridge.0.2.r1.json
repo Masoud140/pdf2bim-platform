@@ -80,6 +80,24 @@
    "kind": "drawing"
   },
   {
+   "id": "DRG-109206",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109206",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-109251",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109251",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-109254",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109254",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
    "id": "DRG-109301",
    "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109301",
    "revision": "00",
@@ -125,6 +143,106 @@
     "derivation": {
      "formula": "109303 detail D: widths 600 (0-160), 600->350 (160-340), 350->210 (340-1000); 0.6x0.16 + 0.475x0.18 + 0.28x0.66",
      "inputs": []
+    }
+   },
+   "current": "original"
+  },
+  "girder_hog_table": {
+   "source": {
+    "doc": "DRG-109201",
+    "view": "table 1 girder hog values",
+    "text": "SG-01 to SG-10: hog at transfer 41, 28 days 53, 90 days 60; deflection due to weight of deck slab 23"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": {
+    "transfer": 41,
+    "28_days": 53,
+    "90_days": 60,
+    "deck_slab_deflection": 23
+   },
+   "unit": "mm",
+   "original": {
+    "value": {
+     "transfer": 41,
+     "28_days": 53,
+     "90_days": 60,
+     "deck_slab_deflection": 23
+    },
+    "unit": "mm",
+    "tag": "Direct",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "source": {
+     "doc": "DRG-109201",
+     "view": "table 1 girder hog values",
+     "text": "SG-01 to SG-10: hog at transfer 41, 28 days 53, 90 days 60; deflection due to weight of deck slab 23"
+    }
+   },
+   "current": "original"
+  },
+  "girder_hog_basis": {
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes (hog assumptions, storage)"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": "density 2600 (2400 for modulus); E at transfer 32100 MPa; steam curing 70 °C 8 h; open-air storage 20 °C, RH 50-70 %; girder self weight only; temporary supports 300 to 1000 from each end",
+   "original": {
+    "value": "density 2600 (2400 for modulus); E at transfer 32100 MPa; steam curing 70 °C 8 h; open-air storage 20 °C, RH 50-70 %; girder self weight only; temporary supports 300 to 1000 from each end",
+    "unit": null,
+    "tag": "Direct",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "source": {
+     "doc": "DRG-109201",
+     "view": "general notes (hog assumptions, storage)"
+    }
+   },
+   "current": "original"
+  },
+  "end_diaphragm_bars": {
+   "source": {
+    "doc": "DRG-109254",
+    "view": "details A-F"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": "7 bundles @100 (G2 1-N16-BZ, G3 1-N12-AZ, G21 1-N16-FZ, G22 5-N16-HH) and 6 bundles @140 (G3 1-N12-AZ, G20 / G25 1-N16-FZ, G22 5-N16-HH, G24 1-N16-CZ)",
+   "original": {
+    "value": "7 bundles @100 (G2 1-N16-BZ, G3 1-N12-AZ, G21 1-N16-FZ, G22 5-N16-HH) and 6 bundles @140 (G3 1-N12-AZ, G20 / G25 1-N16-FZ, G22 5-N16-HH, G24 1-N16-CZ)",
+    "unit": null,
+    "tag": "Direct",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "source": {
+     "doc": "DRG-109254",
+     "view": "details A-F"
+    }
+   },
+   "current": "original"
+  },
+  "girder_cover": {
+   "source": {
+    "doc": "DRG-109251",
+    "view": "general notes",
+    "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": 30,
+   "unit": "mm",
+   "original": {
+    "value": 30,
+    "unit": "mm",
+    "tag": "Direct",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "source": {
+     "doc": "DRG-109251",
+     "view": "general notes",
+     "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
     }
    },
    "current": "original"
@@ -2005,19 +2123,19 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
-     "value": "ST1",
+     "value": "ST2",
      "original": {
-      "value": "ST1",
+      "value": "ST2",
       "unit": null,
       "tag": "Model",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -2200,7 +2318,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -2212,7 +2330,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -2395,7 +2513,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -2407,7 +2525,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -2590,7 +2708,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -2602,7 +2720,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -2785,7 +2903,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -2797,7 +2915,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -2980,7 +3098,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -2992,7 +3110,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -3175,7 +3293,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -3187,7 +3305,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -3370,7 +3488,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -3382,7 +3500,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -3565,7 +3683,7 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
@@ -3577,7 +3695,7 @@
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -3760,19 +3878,19 @@
     },
     "type_ref": {
      "source": {
-      "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+      "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
      },
      "tag": "Model",
      "status": "accepted",
-     "value": "ST1",
+     "value": "ST2",
      "original": {
-      "value": "ST1",
+      "value": "ST2",
       "unit": null,
       "tag": "Model",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "source": {
-       "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+       "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
       }
      },
      "current": "original"
@@ -4089,20 +4207,1903 @@
      "current": "original"
     },
     "strand_pattern": {
-     "rows": []
+     "rows": [
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 260.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row E",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 260.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row E"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 260.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row E",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 260.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row E"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 1135.0,
+        "x": -495.0,
+        "diameter": 15.2,
+        "debond_left": 800.0,
+        "debond_right": 800.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row F",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 1135.0,
+         "x": -495.0,
+         "diameter": 15.2,
+         "debond_left": 800.0,
+         "debond_right": 800.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row F"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 1135.0,
+        "x": 495.0,
+        "diameter": 15.2,
+        "debond_left": 800.0,
+        "debond_right": 800.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row F",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 1135.0,
+         "x": 495.0,
+         "diameter": 15.2,
+         "debond_left": 800.0,
+         "debond_right": 800.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row F"
+       },
+       "current": "original"
+      }
+     ]
     },
     "jacking_ratio": {
-     "value": null,
-     "tag": "Missing-Flagged",
-     "status": "open",
-     "note": "not extracted",
+     "derivation": {
+      "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+      "inputs": [
+       "materials.strand.rows[0]"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
+     "value": 0.728,
      "original": {
-      "value": null,
+      "value": 0.728,
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "not extracted"
+      "derivation": {
+       "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+       "inputs": [
+        "materials.strand.rows[0]"
+       ]
+      }
      },
      "current": "original"
     },
@@ -4110,7 +6111,173 @@
      "rows": []
     },
     "fitments": {
-     "rows": []
+     "rows": [
+      {
+       "cells": {
+        "from": 1.5,
+        "to": 8.9,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 100.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 1.5,
+         "to": 8.9,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 100.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 8.9,
+        "to": 12.3,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 200.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 8.9,
+         "to": 12.3,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 200.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 12.3,
+        "to": 15.6,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 300.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 12.3,
+         "to": 15.6,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 300.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 15.6,
+        "to": 19.0,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 200.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 15.6,
+         "to": 19.0,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 200.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 19.0,
+        "to": 26.4,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 100.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 19.0,
+         "to": 26.4,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 100.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      }
+     ]
     },
     "zones": {
      "rows": [
@@ -4183,7 +6350,2458 @@
      ]
     },
     "deck_bars": {
+     "rows": [
+      {
+       "cells": {
+        "face": "top",
+        "diameter": 16.0,
+        "spacing": 150.0,
+        "cover": 61.0
+       },
+       "derivation": {
+        "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+        "inputs": [
+         "deck.slab_thickness"
+        ]
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "face": "top",
+         "diameter": 16.0,
+         "spacing": 150.0,
+         "cover": 61.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+         "inputs": [
+          "deck.slab_thickness"
+         ]
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "face": "bot",
+        "diameter": 16.0,
+        "spacing": 150.0,
+        "cover": 61.0
+       },
+       "derivation": {
+        "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+        "inputs": [
+         "deck.slab_thickness"
+        ]
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "face": "bot",
+         "diameter": 16.0,
+         "spacing": 150.0,
+         "cover": 61.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+         "inputs": [
+          "deck.slab_thickness"
+         ]
+        }
+       },
+       "current": "original"
+      }
+     ]
+    },
+    "transfer_supports": {
+     "value": null,
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "note": "not extracted",
+     "unit": "mm",
+     "original": {
+      "value": null,
+      "unit": "mm",
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not extracted"
+     },
+     "current": "original"
+    },
+    "age_at_transfer": {
+     "value": null,
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "note": "not extracted",
+     "unit": "days",
+     "original": {
+      "value": null,
+      "unit": "days",
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not extracted"
+     },
+     "current": "original"
+    },
+    "age_at_erection": {
+     "value": null,
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "note": "not extracted",
+     "unit": "days",
+     "original": {
+      "value": null,
+      "unit": "days",
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not extracted"
+     },
+     "current": "original"
+    },
+    "age_deck_cast": {
+     "value": null,
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "note": "not extracted",
+     "unit": "days",
+     "original": {
+      "value": null,
+      "unit": "days",
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not extracted"
+     },
+     "current": "original"
+    }
+   },
+   {
+    "id": "ST2",
+    "section": {
+     "ref": "lib:supert/T3",
+     "tag": "Standard-verify",
+     "status": "accepted",
+     "value": "lib:supert/T3",
+     "original": {
+      "value": "lib:supert/T3",
+      "unit": null,
+      "tag": "Standard-verify",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "ref": "lib:supert/T3"
+     },
+     "current": "original"
+    },
+    "depth": {
+     "source": {
+      "doc": "DRG-109202",
+      "view": "elevation girder SG-01",
+      "text": "1215"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "unit": "mm",
+     "value": 1215,
+     "original": {
+      "value": 1215,
+      "unit": "mm",
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109202",
+       "view": "elevation girder SG-01",
+       "text": "1215"
+      }
+     },
+     "current": "original"
+    },
+    "top_flange_width": {
+     "derivation": {
+      "formula": "2 x 1160 (109202-204 plan)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
+     "unit": "mm",
+     "value": 2320.0,
+     "original": {
+      "value": 2320.0,
+      "unit": "mm",
+      "tag": "Calculated",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "derivation": {
+       "formula": "2 x 1160 (109202-204 plan)",
+       "inputs": []
+      }
+     },
+     "current": "original"
+    },
+    "shape": {
+     "rows": [
+      {
+       "cells": {
+        "key": "D",
+        "name": "Overall depth",
+        "value": 1215.0,
+        "unit": "mm"
+       },
+       "source": {
+        "doc": "DRG-109202",
+        "view": "elevation girder SG-01",
+        "text": "1215"
+       },
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "key": "D",
+         "name": "Overall depth",
+         "value": 1215.0,
+         "unit": "mm"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109202",
+         "view": "elevation girder SG-01",
+         "text": "1215"
+        }
+       },
+       "current": "original"
+      }
+     ]
+    },
+    "haunch": {
+     "note": "girder top to deck soffit not dimensioned on the sheets read",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "unit": "mm",
+     "value": null,
+     "original": {
+      "value": null,
+      "unit": "mm",
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "girder top to deck soffit not dimensioned on the sheets read"
+     },
+     "current": "original"
+    },
+    "concrete_transfer": {
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes",
+      "text": "37 MPa at transfer"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "unit": "MPa",
+     "value": 37,
+     "original": {
+      "value": 37,
+      "unit": "MPa",
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes",
+       "text": "37 MPa at transfer"
+      }
+     },
+     "current": "original"
+    },
+    "concrete_28d": {
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes",
+      "text": "minimum 28 day 60 MPa"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "unit": "MPa",
+     "value": 60,
+     "original": {
+      "value": 60,
+      "unit": "MPa",
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes",
+       "text": "minimum 28 day 60 MPa"
+      }
+     },
+     "current": "original"
+    },
+    "strand_pattern": {
+     "rows": [
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 60.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row A",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 60.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row A"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 7000.0,
+        "debond_right": 7000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 7000.0,
+         "debond_right": 7000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 110.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row B",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 110.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row B"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 5000.0,
+        "debond_right": 5000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 5000.0,
+         "debond_right": 5000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 160.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row C",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 160.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row C"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 225.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 225.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -175.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -175.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 175.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 175.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 125.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 125.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -75.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -75.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 75.0,
+        "diameter": 15.2,
+        "debond_left": 3000.0,
+        "debond_right": 3000.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 75.0,
+         "diameter": 15.2,
+         "debond_left": 3000.0,
+         "debond_right": 3000.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": -25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": -25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 210.0,
+        "x": 25.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row D",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 210.0,
+         "x": 25.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row D"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 260.0,
+        "x": -275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row E",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 260.0,
+         "x": -275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row E"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 260.0,
+        "x": 275.0,
+        "diameter": 15.2,
+        "debond_left": 0.0,
+        "debond_right": 0.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row E",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 260.0,
+         "x": 275.0,
+         "diameter": 15.2,
+         "debond_left": 0.0,
+         "debond_right": 0.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row E"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 1135.0,
+        "x": -495.0,
+        "diameter": 15.2,
+        "debond_left": 800.0,
+        "debond_right": 800.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row F",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 1135.0,
+         "x": -495.0,
+         "diameter": 15.2,
+         "debond_left": 800.0,
+         "debond_right": 800.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row F"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "y": 1135.0,
+        "x": 495.0,
+        "diameter": 15.2,
+        "debond_left": 800.0,
+        "debond_right": 800.0,
+        "on": true
+       },
+       "source": {
+        "doc": "DRG-109206",
+        "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+        "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+       },
+       "note": "row F",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "y": 1135.0,
+         "x": 495.0,
+         "diameter": 15.2,
+         "debond_left": 800.0,
+         "debond_right": 800.0,
+         "on": true
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109206",
+         "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+         "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+        },
+        "note": "row F"
+       },
+       "current": "original"
+      }
+     ]
+    },
+    "jacking_ratio": {
+     "derivation": {
+      "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+      "inputs": [
+       "materials.strand.rows[0]"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
+     "value": 0.728,
+     "original": {
+      "value": 0.728,
+      "unit": null,
+      "tag": "Calculated",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "derivation": {
+       "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+       "inputs": [
+        "materials.strand.rows[0]"
+       ]
+      }
+     },
+     "current": "original"
+    },
+    "bars": {
      "rows": []
+    },
+    "fitments": {
+     "rows": [
+      {
+       "cells": {
+        "from": 1.5,
+        "to": 8.9,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 100.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 1.5,
+         "to": 8.9,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 100.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 8.9,
+        "to": 19.0,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 200.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 8.9,
+         "to": 19.0,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 200.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 19.0,
+        "to": 26.4,
+        "diameter": 16.0,
+        "legs": 2,
+        "spacing": 100.0
+       },
+       "derivation": {
+        "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+        "inputs": []
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 19.0,
+         "to": 26.4,
+         "diameter": 16.0,
+         "legs": 2,
+         "spacing": 100.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+         "inputs": []
+        }
+       },
+       "current": "original"
+      }
+     ]
+    },
+    "zones": {
+     "rows": [
+      {
+       "cells": {
+        "from": 0.0,
+        "to": 1.5,
+        "kind": "solid_end_A"
+       },
+       "source": {
+        "doc": "DRG-109203",
+        "view": "plan",
+        "text": "1500 END DIAPHRAGM each end"
+       },
+       "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 0.0,
+         "to": 1.5,
+         "kind": "solid_end_A"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109203",
+         "view": "plan",
+         "text": "1500 END DIAPHRAGM each end"
+        },
+        "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "from": 0.0,
+        "to": 1.5,
+        "kind": "solid_end_B"
+       },
+       "source": {
+        "doc": "DRG-109203",
+        "view": "plan",
+        "text": "1500 END DIAPHRAGM each end"
+       },
+       "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)",
+       "tag": "Direct",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "from": 0.0,
+         "to": 1.5,
+         "kind": "solid_end_B"
+        },
+        "unit": null,
+        "tag": "Direct",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "source": {
+         "doc": "DRG-109203",
+         "view": "plan",
+         "text": "1500 END DIAPHRAGM each end"
+        },
+        "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
+       },
+       "current": "original"
+      }
+     ]
+    },
+    "deck_bars": {
+     "rows": [
+      {
+       "cells": {
+        "face": "top",
+        "diameter": 16.0,
+        "spacing": 150.0,
+        "cover": 61.0
+       },
+       "derivation": {
+        "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+        "inputs": [
+         "deck.slab_thickness"
+        ]
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "face": "top",
+         "diameter": 16.0,
+         "spacing": 150.0,
+         "cover": 61.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+         "inputs": [
+          "deck.slab_thickness"
+         ]
+        }
+       },
+       "current": "original"
+      },
+      {
+       "cells": {
+        "face": "bot",
+        "diameter": 16.0,
+        "spacing": 150.0,
+        "cover": 61.0
+       },
+       "derivation": {
+        "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+        "inputs": [
+         "deck.slab_thickness"
+        ]
+       },
+       "tag": "Calculated",
+       "status": "accepted",
+       "original": {
+        "cells": {
+         "face": "bot",
+         "diameter": 16.0,
+         "spacing": 150.0,
+         "cover": 61.0
+        },
+        "unit": null,
+        "tag": "Calculated",
+        "recorded_by": "AI (extraction)",
+        "recorded_at": null,
+        "derivation": {
+         "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+         "inputs": [
+          "deck.slab_thickness"
+         ]
+        }
+       },
+       "current": "original"
+      }
+     ]
     },
     "transfer_supports": {
      "value": null,
@@ -12837,29 +17455,29 @@
      "cells": {
       "type": "15.2 mm 7-wire ordinary, relax 2",
       "diameter": 15.2,
-      "fpb": 1830.0
+      "fpb": 1830.0,
+      "area": 142.6
      },
-     "source": {
-      "doc": "DRG-109201",
-      "view": "general notes",
-      "text": "nominal tensile strength 1830 MPa, relax 2"
+     "derivation": {
+      "formula": "diameter 15.2, fpb 1830 MPa, MBL 261 kN (109201 notes); area = MBL / fpb = 261000 / 1830 = 142.6 mm2",
+      "inputs": []
      },
-     "tag": "Direct",
+     "tag": "Calculated",
      "status": "accepted",
      "original": {
       "cells": {
        "type": "15.2 mm 7-wire ordinary, relax 2",
        "diameter": 15.2,
-       "fpb": 1830.0
+       "fpb": 1830.0,
+       "area": 142.6
       },
       "unit": null,
-      "tag": "Direct",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "source": {
-       "doc": "DRG-109201",
-       "view": "general notes",
-       "text": "nominal tensile strength 1830 MPa, relax 2"
+      "derivation": {
+       "formula": "diameter 15.2, fpb 1830 MPa, MBL 261 kN (109201 notes); area = MBL / fpb = 261000 / 1830 = 142.6 mm2",
+       "inputs": []
       }
      },
      "current": "original"
@@ -12867,7 +17485,27 @@
    ]
   },
   "reinforcement": {
-   "rows": []
+   "rows": [
+    {
+     "cells": {
+      "grade": "D500N"
+     },
+     "note": "grade D500N to AS/NZS 4671 (109251 notes); Es not printed",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "grade": "D500N"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "grade D500N to AS/NZS 4671 (109251 notes); Es not printed"
+     },
+     "current": "original"
+    }
+   ]
   },
   "steel": {
    "rows": [
@@ -14290,7 +18928,478 @@
    "rows": []
   },
   "prestress_losses": {
-   "rows": []
+   "rows": [
+    {
+     "cells": {
+      "item": "k4"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "k4"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "chi"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "chi"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "ts"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "ts"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Rb"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "Rb"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "k7"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "k7"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Tav",
+      "value": 20.0,
+      "unit": "C"
+     },
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes (hog assumptions, storage)"
+     },
+     "note": "storage in open air at 20 °C average temperature (109201 hog notes)",
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "Tav",
+       "value": 20.0,
+       "unit": "C"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes (hog assumptions, storage)"
+      },
+      "note": "storage in open air at 20 °C average temperature (109201 hog notes)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "jt"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "jt"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rb"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "rb"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "dhard"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "dhard"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "tsd"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "tsd"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rd"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "rd"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "sidl"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "sidl"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "sidlA"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "sidlA"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "dform"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "dform"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "meth"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "meth"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "rlx"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "rlx"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "relpre"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "relpre"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "emod"
+     },
+     "note": "not printed (109201 gives the hog basis only)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "emod"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "not printed (109201 gives the hog basis only)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "Tcur",
+      "value": 70.0,
+      "unit": "C"
+     },
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes (hog assumptions, storage)"
+     },
+     "note": "elevated temperature curing at 70 °C (109201 hog notes)",
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "Tcur",
+       "value": 70.0,
+       "unit": "C"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes (hog assumptions, storage)"
+      },
+      "note": "elevated temperature curing at 70 °C (109201 hog notes)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "hcur",
+      "value": 8.0,
+      "unit": "h"
+     },
+     "source": {
+      "doc": "DRG-109201",
+      "view": "general notes (hog assumptions, storage)"
+     },
+     "note": "for 8 hours (109201 hog notes)",
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "hcur",
+       "value": 8.0,
+       "unit": "h"
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109201",
+       "view": "general notes (hog assumptions, storage)"
+      },
+      "note": "for 8 hours (109201 hog notes)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 27.0,
+      "unit": "days"
+     },
+     "source": {
+      "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 27.0,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "item": "time",
+      "value": 89.0,
+      "unit": "days"
+     },
+     "source": {
+      "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+     },
+     "tag": "Model",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "item": "time",
+       "value": 89.0,
+       "unit": "days"
+      },
+      "unit": null,
+      "tag": "Model",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+      }
+     },
+     "current": "original"
+    }
+   ]
   }
  },
  "revision": {
@@ -14305,6 +19414,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:d91073bf300acf88206278cc1ac29f797724dd55c6d27929c8ef9ad535ac7a32"
+  "value": "sha256:73c43d7b188b99b9856f724f259c99c8854ebfaf69fc83ce8c2248698c7b8ec5"
  }
 }

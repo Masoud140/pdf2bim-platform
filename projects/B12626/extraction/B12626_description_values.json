@@ -80,6 +80,24 @@
    "kind": "drawing"
   },
   {
+   "id": "DRG-109206",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109206",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-109251",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109251",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-109254",
+   "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109254",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
    "id": "DRG-109301",
    "number": "M1RTBH2T-JHGM-6003BR09-BR-DRG-109301",
    "revision": "00",
@@ -676,9 +694,9 @@
   {
    "path": "superstructure.members[SG-01].type_ref",
    "tag": "Model",
-   "value": "ST1",
+   "value": "ST2",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -761,7 +779,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -844,7 +862,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -927,7 +945,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1010,7 +1028,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1093,7 +1111,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1176,7 +1194,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1259,7 +1277,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1342,7 +1360,7 @@
    "tag": "Model",
    "value": "ST1",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1423,9 +1441,9 @@
   {
    "path": "superstructure.members[SG-10].type_ref",
    "tag": "Model",
-   "value": "ST1",
+   "value": "ST2",
    "source": {
-    "note": "all ten girders on one girder type (109201 girder schedule: one cross-section)"
+    "note": "one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)"
    }
   },
   {
@@ -1588,6 +1606,2086 @@
    "value": null,
    "unit": "mm",
    "note": "girder top to deck soffit not dimensioned on the sheets read"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[4]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[5]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[6]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[7]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[8]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[9]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[10]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[11]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[12]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[13]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[14]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[15]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[16]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[17]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[18]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[19]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[20]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[21]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[22]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[23]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[24]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[25]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[26]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[27]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[28]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[29]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[30]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[31]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[32]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[33]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[34]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[35]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[36]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[37]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[38]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[39]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[40]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[41]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[42]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[43]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[44]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[45]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[46]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1135.0,
+    "x": -495.0,
+    "diameter": 15.2,
+    "debond_left": 800.0,
+    "debond_right": 800.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[47]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1135.0,
+    "x": 495.0,
+    "diameter": 15.2,
+    "debond_left": 800.0,
+    "debond_right": 800.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].jacking_ratio",
+   "tag": "Calculated",
+   "value": 0.728,
+   "derivation": {
+    "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+    "inputs": [
+     "materials.strand.rows[0]"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 1.5,
+    "to": 8.9,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 100.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 8.9,
+    "to": 12.3,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 200.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 12.3,
+    "to": 15.6,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 300.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[3]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 15.6,
+    "to": 19.0,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 200.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[4]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 19.0,
+    "to": 26.4,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 100.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms (109252): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].deck_bars.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "top",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].deck_bars.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "bot",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].section",
+   "tag": "Standard-verify",
+   "value": "lib:supert/T3",
+   "ref": "lib:supert/T3"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].depth",
+   "tag": "Direct",
+   "value": 1215,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109202",
+    "view": "elevation girder SG-01",
+    "text": "1215"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].shape.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1215.0,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-109202",
+    "view": "elevation girder SG-01",
+    "text": "1215"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].top_flange_width",
+   "tag": "Calculated",
+   "value": 2320.0,
+   "unit": "mm",
+   "derivation": {
+    "formula": "2 x 1160 (109202-204 plan)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].concrete_28d",
+   "tag": "Direct",
+   "value": 60,
+   "unit": "MPa",
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes",
+    "text": "minimum 28 day 60 MPa"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].concrete_transfer",
+   "tag": "Direct",
+   "value": 37,
+   "unit": "MPa",
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes",
+    "text": "37 MPa at transfer"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].zones.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_A"
+   },
+   "source": {
+    "doc": "DRG-109203",
+    "view": "plan",
+    "text": "1500 END DIAPHRAGM each end"
+   },
+   "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].zones.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_B"
+   },
+   "source": {
+    "doc": "DRG-109203",
+    "view": "plan",
+    "text": "1500 END DIAPHRAGM each end"
+   },
+   "note": "END DIAPHRAGM 1500 from each girder end (109203 plan)"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].haunch",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "girder top to deck soffit not dimensioned on the sheets read"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[4]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[5]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[6]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[7]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[8]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[9]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[10]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[11]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[12]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[13]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[14]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[15]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[16]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[17]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 7000.0,
+    "debond_right": 7000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[18]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[19]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[20]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[21]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[22]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[23]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[24]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[25]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[26]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[27]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 5000.0,
+    "debond_right": 5000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[28]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[29]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[30]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[31]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[32]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[33]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[34]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[35]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 225.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[36]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -175.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[37]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 175.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[38]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[39]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 125.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[40]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -75.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[41]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 75.0,
+    "diameter": 15.2,
+    "debond_left": 3000.0,
+    "debond_right": 3000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[42]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[43]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 25.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[44]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": -275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[45]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": 275.0,
+    "diameter": 15.2,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[46]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1135.0,
+    "x": -495.0,
+    "diameter": 15.2,
+    "debond_left": 800.0,
+    "debond_right": 800.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].strand_pattern.rows[47]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1135.0,
+    "x": 495.0,
+    "diameter": 15.2,
+    "debond_left": 800.0,
+    "debond_right": 800.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109206",
+    "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "text": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST2].jacking_ratio",
+   "tag": "Calculated",
+   "value": 0.728,
+   "derivation": {
+    "formula": "force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+    "inputs": [
+     "materials.strand.rows[0]"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].fitments.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 1.5,
+    "to": 8.9,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 100.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].fitments.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 8.9,
+    "to": 19.0,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 200.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].fitments.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 19.0,
+    "to": 26.4,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 100.0
+   },
+   "derivation": {
+    "formula": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms (109251 / 109253): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed (109254 details: 7 bundles @100 + 6 @140 of other bar marks)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].deck_bars.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "top",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST2].deck_bars.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "bot",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "custom.girder_hog_table",
+   "tag": "Direct",
+   "value": {
+    "transfer": 41,
+    "28_days": 53,
+    "90_days": 60,
+    "deck_slab_deflection": 23
+   },
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109201",
+    "view": "table 1 girder hog values",
+    "text": "SG-01 to SG-10: hog at transfer 41, 28 days 53, 90 days 60; deflection due to weight of deck slab 23"
+   }
+  },
+  {
+   "path": "custom.girder_hog_basis",
+   "tag": "Direct",
+   "value": "density 2600 (2400 for modulus); E at transfer 32100 MPa; steam curing 70 °C 8 h; open-air storage 20 °C, RH 50-70 %; girder self weight only; temporary supports 300 to 1000 from each end",
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes (hog assumptions, storage)"
+   }
+  },
+  {
+   "path": "custom.end_diaphragm_bars",
+   "tag": "Direct",
+   "value": "7 bundles @100 (G2 1-N16-BZ, G3 1-N12-AZ, G21 1-N16-FZ, G22 5-N16-HH) and 6 bundles @140 (G3 1-N12-AZ, G20 / G25 1-N16-FZ, G22 5-N16-HH, G24 1-N16-CZ)",
+   "source": {
+    "doc": "DRG-109254",
+    "view": "details A-F"
+   }
+  },
+  {
+   "path": "custom.girder_cover",
+   "tag": "Direct",
+   "value": 30,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-109251",
+    "view": "general notes",
+    "text": "required cover to reinforcement nearest to the concrete surface 30 mm"
+   }
   },
   {
    "path": "custom.end_diaphragm_length",
@@ -5190,16 +7288,16 @@
   },
   {
    "path": "materials.strand.rows[0]",
-   "tag": "Direct",
+   "tag": "Calculated",
    "cells": {
     "type": "15.2 mm 7-wire ordinary, relax 2",
     "diameter": 15.2,
-    "fpb": 1830.0
+    "fpb": 1830.0,
+    "area": 142.6
    },
-   "source": {
-    "doc": "DRG-109201",
-    "view": "general notes",
-    "text": "nominal tensile strength 1830 MPa, relax 2"
+   "derivation": {
+    "formula": "diameter 15.2, fpb 1830 MPa, MBL 261 kN (109201 notes); area = MBL / fpb = 261000 / 1830 = 142.6 mm2",
+    "inputs": []
    }
   },
   {
@@ -5830,6 +7928,234 @@
     "doc": "DRG-109001",
     "view": "design criteria"
    }
+  },
+  {
+   "path": "design.prestress_losses.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "k4"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "chi"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "ts"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Rb"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "k7"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[5]",
+   "tag": "Direct",
+   "cells": {
+    "item": "Tav",
+    "value": 20.0,
+    "unit": "C"
+   },
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes (hog assumptions, storage)"
+   },
+   "note": "storage in open air at 20 °C average temperature (109201 hog notes)"
+  },
+  {
+   "path": "design.prestress_losses.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "jt"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rb"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "dhard"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "tsd"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rd"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "sidl"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "sidlA"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[13]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "dform"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[14]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "meth"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[15]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rlx"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[16]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "relpre"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[17]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "emod"
+   },
+   "value": null,
+   "note": "not printed (109201 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[18]",
+   "tag": "Direct",
+   "cells": {
+    "item": "Tcur",
+    "value": 70.0,
+    "unit": "C"
+   },
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes (hog assumptions, storage)"
+   },
+   "note": "elevated temperature curing at 70 °C (109201 hog notes)"
+  },
+  {
+   "path": "design.prestress_losses.rows[19]",
+   "tag": "Direct",
+   "cells": {
+    "item": "hcur",
+    "value": 8.0,
+    "unit": "h"
+   },
+   "source": {
+    "doc": "DRG-109201",
+    "view": "general notes (hog assumptions, storage)"
+   },
+   "note": "for 8 hours (109201 hog notes)"
+  },
+  {
+   "path": "design.prestress_losses.rows[20]",
+   "tag": "Model",
+   "cells": {
+    "item": "time",
+    "value": 27.0,
+    "unit": "days"
+   },
+   "source": {
+    "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+   }
+  },
+  {
+   "path": "design.prestress_losses.rows[21]",
+   "tag": "Model",
+   "cells": {
+    "item": "time",
+    "value": 89.0,
+    "unit": "days"
+   },
+   "source": {
+    "note": "report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)"
+   }
+  },
+  {
+   "path": "materials.reinforcement.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "grade": "D500N"
+   },
+   "value": null,
+   "note": "grade D500N to AS/NZS 4671 (109251 notes); Es not printed"
   },
   {
    "path": "analysis.grillage.rows[0]",

@@ -37,6 +37,9 @@ typ = [r[side] for g in geo["girders"] for r in g["flange"] for side in ("left",
 t("typical flange tips 1160 from the girder line (2344 spacing - 24 gap, = 109202-204)", max(abs(x - 1160) for x in typ) < 0.5, f"{max(abs(x - 1160) for x in typ):.2f} mm")
 
 S = build_sections(doc, geo, allow_proposed=True)
+st3 = S["girders"]["SG-03"]["stations"][0]
+t("interior girder carries the full 2344 deck width (flange tips + half the gap each side; regression: girder ids not starting with 'G')",
+  abs(st3["deck_left"] + st3["deck_right"] - 2344) < 0.5, f"{st3['deck_left'] + st3['deck_right']:.1f} mm")
 M = build_integrated(doc, geo, S, Standards(), allow_proposed=True)
 m = M["model"]
 r = m.solve()
@@ -85,5 +88,19 @@ U1 = np.array([r["u"][inv[n]][:3] for n in sorted(inv)]); U2 = np.array([r2["u"]
 t("MCT round trip (write -> read -> solve): self weight to 1e-5 (pile scale factors written to 6 figures), translations to 0.01 mm",
   abs(r["applied"][2] / r2["applied"][2] - 1) < 1e-5 and np.abs(U1 - U2).max() < 1e-5, f"SW {r['applied'][2]:.2f} vs {r2['applied'][2]:.2f} kN, max diff {np.abs(U1 - U2).max() * 1000:.4f} mm")
 t("piles written as SR Ø0.932 with area / inertia scale on the gross circle", ", SR , 2, 0.932," in txt and "1.32039, 1.32039, 1.32039, 1.61915" in txt)
+# girder prestress (109206 strand layout, 109201 notes) and the losses / hog inputs
+from pdf2bim.design.prestress_inputs import hog_inputs
+T1 = next(x for x in doc["superstructure"]["supert_types"] if x["id"] == "ST1")
+pat = [r_["cells"] for r_ in T1["strand_pattern"]["rows"]]
+deb = sorted(c["debond_left"] for c in pat)
+t("strand layout 109206: 48 straight strands, debonded 8 x 7000 / 6 x 5000 / 6 x 3000 / 2 x 800 (row F)",
+  len(pat) == 48 and deb.count(7000) == 8 and deb.count(5000) == 6 and deb.count(3000) == 6 and deb.count(800) == 2)
+Hd = hog_inputs(doc, geo, S, "SG-03", Standards(), allow_proposed=True)
+p_ = Hd["p"]
+t("hog inputs complete; strand area / MBL from the drawings (142.6 mm2, 261 kN), not the standards table; P0 = 0.728 x MBL less relaxation",
+  not Hd["missing"] and abs(p_["Ap"] - 142.6) < 1e-9 and abs(p_["mbl"] - 260.958) < 1e-3 and abs(p_["ji"] - 0.728) < 1e-9)
+EIg = p_["Ec"] * 1e3 * p_["I"] * 1e-12; Ls = (p_["L"] - 2 * p_["a"]) / 1000
+t("wet-deck deflection 5wL^4/384EI from the hog inputs within 10 % of 109201 Table 1 (23 mm)", abs(5 * p_["wd"] * Ls ** 4 / (384 * EIg) * 1000 / 23 - 1) < 0.10,
+  f"{5 * p_['wd'] * Ls ** 4 / (384 * EIg) * 1000:.1f} mm")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

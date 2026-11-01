@@ -78,8 +78,8 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
             if stations is not None and not any(abs(f["t"] - s) < 1e-9 for s in stations):
                 continue
             wl, wr = f["left"], f["right"]
-            dl = wl + (gap / 2 if f["left_to"].startswith("G") else 0.0)
-            dr = wr + (gap / 2 if f["right_to"].startswith("G") else 0.0)
+            dl = wl + (gap / 2 if not f["left_to"].startswith("deck edge") else 0.0)
+            dr = wr + (gap / 2 if not f["right_to"].startswith("deck edge") else 0.0)
             gs = supert_section(p, wl, wr, "open")
             y0 = p["D"] + haunch
             deck = [(-dl, y0), (dr, y0), (dr, y0 + tD), (-dl, y0 + tD)]
@@ -110,8 +110,8 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
             if not any(z["kind"] == "solid" and z["end"] == end for z in zl):
                 continue
             wl, wr = f["left"], f["right"]
-            dl = wl + (gap / 2 if f["left_to"].startswith("G") else 0.0)
-            dr = wr + (gap / 2 if f["right_to"].startswith("G") else 0.0)
+            dl = wl + (gap / 2 if not f["left_to"].startswith("deck edge") else 0.0)
+            dr = wr + (gap / 2 if not f["right_to"].startswith("deck edge") else 0.0)
             ss = supert_section(p, wl, wr, "solid")
             y0 = p["D"] + haunch
             deck = [(-dl, y0), (dr, y0), (dr, y0 + tD), (-dl, y0 + tD)]

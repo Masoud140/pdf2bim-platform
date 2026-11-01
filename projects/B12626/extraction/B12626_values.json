@@ -5564,5 +5564,462 @@
   "unit": null,
   "tag": "Missing-Flagged",
   "note": "not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied"
+ },
+ {
+  "path": "superstructure.strand_pattern",
+  "value": [
+   {
+    "row": "A",
+    "y": 60,
+    "x": -225,
+    "debond": 7000
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": 225,
+    "debond": 7000
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": -125,
+    "debond": 7000
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": 125,
+    "debond": 7000
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": -75,
+    "debond": 0
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": 75,
+    "debond": 0
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": -25,
+    "debond": 0
+   },
+   {
+    "row": "A",
+    "y": 60,
+    "x": 25,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -275,
+    "debond": 7000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 275,
+    "debond": 7000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -225,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 225,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -175,
+    "debond": 5000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 175,
+    "debond": 5000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -125,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 125,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -75,
+    "debond": 7000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 75,
+    "debond": 7000
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": -25,
+    "debond": 0
+   },
+   {
+    "row": "B",
+    "y": 110,
+    "x": 25,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -275,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 275,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -225,
+    "debond": 5000
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 225,
+    "debond": 5000
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -175,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 175,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -125,
+    "debond": 5000
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 125,
+    "debond": 5000
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -75,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 75,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": -25,
+    "debond": 0
+   },
+   {
+    "row": "C",
+    "y": 160,
+    "x": 25,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -275,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 275,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -225,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 225,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -175,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 175,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -125,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 125,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -75,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 75,
+    "debond": 3000
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": -25,
+    "debond": 0
+   },
+   {
+    "row": "D",
+    "y": 210,
+    "x": 25,
+    "debond": 0
+   },
+   {
+    "row": "E",
+    "y": 260,
+    "x": -275,
+    "debond": 0
+   },
+   {
+    "row": "E",
+    "y": 260,
+    "x": 275,
+    "debond": 0
+   },
+   {
+    "row": "F",
+    "y": 1135,
+    "x": -495,
+    "debond": 800
+   },
+   {
+    "row": "F",
+    "y": 1135,
+    "x": 495,
+    "debond": 800
+   }
+  ],
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109206",
+   "view": "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+   "note": "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends"
+  }
+ },
+ {
+  "path": "superstructure.strand_force_after_release",
+  "value": 190,
+  "unit": "kN",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes",
+   "note": "force remaining in each strand immediately after release of the tensioning jack"
+  }
+ },
+ {
+  "path": "superstructure.hog_table",
+  "value": {
+   "transfer": 41,
+   "28_days": 53,
+   "90_days": 60,
+   "deck_slab_deflection": 23
+  },
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "table 1 girder hog values",
+   "note": "SG-01 to SG-10: hog at transfer 41, 28 days 53, 90 days 60; deflection due to weight of deck slab 23"
+  }
+ },
+ {
+  "path": "superstructure.hog_basis",
+  "value": "density 2600 (2400 for modulus); E at transfer 32100 MPa; steam curing 70 °C 8 h; open-air storage 20 °C, RH 50-70 %; girder self weight only; temporary supports 300 to 1000 from each end",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109201",
+   "view": "general notes (hog assumptions, storage)",
+   "note": null
+  }
+ },
+ {
+  "path": "superstructure.fitments_SG02_09",
+  "value": [
+   [
+    "74",
+    100
+   ],
+   [
+    "17",
+    200
+   ],
+   [
+    "10",
+    300
+   ],
+   [
+    "17",
+    200
+   ],
+   [
+    "74",
+    100
+   ]
+  ],
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109252",
+   "view": "plan girder SG-02 to SG-09",
+   "note": "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms"
+  }
+ },
+ {
+  "path": "superstructure.fitments_SG01_10",
+  "value": [
+   [
+    "74",
+    100
+   ],
+   [
+    "50",
+    200
+   ],
+   [
+    "74",
+    100
+   ]
+  ],
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109251 / 109253",
+   "view": "plan girder SG-01 / SG-10",
+   "note": "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms"
+  }
+ },
+ {
+  "path": "superstructure.end_diaphragm_bars",
+  "value": "7 bundles @100 (G2 1-N16-BZ, G3 1-N12-AZ, G21 1-N16-FZ, G22 5-N16-HH) and 6 bundles @140 (G3 1-N12-AZ, G20 / G25 1-N16-FZ, G22 5-N16-HH, G24 1-N16-CZ)",
+  "unit": null,
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109254",
+   "view": "details A-F",
+   "note": null
+  }
+ },
+ {
+  "path": "deck.longitudinal_bars",
+  "value": {
+   "top": [
+    16,
+    150
+   ],
+   "bottom": [
+    16,
+    150
+   ]
+  },
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109351",
+   "view": "plan deck reinforcement",
+   "note": "157 bundles of D7 1-N16-S-150 EF (each face, across the 23.4 m width)"
+  }
+ },
+ {
+  "path": "deck.cover",
+  "value": 45,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109351",
+   "view": "general notes",
+   "note": "required cover to reinforcement nearest to the concrete surface 45 mm"
+  }
+ },
+ {
+  "path": "superstructure.girder_cover",
+  "value": 30,
+  "unit": "mm",
+  "tag": "Direct",
+  "source": {
+   "document": "Second_Example.pdf",
+   "sheet": "109251",
+   "view": "general notes",
+   "note": "required cover to reinforcement nearest to the concrete surface 30 mm"
+  }
  }
 ]

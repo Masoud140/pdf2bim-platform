@@ -243,6 +243,43 @@ L1("design_standard", "AS(/NZS) 5100:2017 series")
 for it in ("temperature", "gradient", "shrinkage_creep_shortening", "braking_force", "traffic_surcharge"):
     rec("loads." + it, None, None, M, note="not printed on the cover sheet (109001) — design report M1RTBH2T-JHGM-6003BR09-BR-RPT-109001 not supplied")
 
+# ================= stage 4a (2026-10-29): girder reinforcement, prestress, hog (109201, 109206, 109251-253, 109351-352) =================
+# strand layout 109206 'STRAND LAYOUT 1215 GIRDER, GIRDER SG-01 TO SG-10, 48/15.2mm STRANDS, STRANDS TO BE STRAIGHT':
+# rows A..E at 60 + 50 n from the soffit (4 spaces at 50 = 200); columns 1..6 each side at x = 275 - 50 (c - 1) ('5 SPACES AT 50 = 250' from 25);
+# row F two strands 495 each side of the girder centreline, 80 below the top. Symbols: circle = debond 7000, square = 5000, diamond = 3000.
+COLX = {c: 275 - 50 * (c - 1) for c in range(1, 7)}      # column 1 outer ... 6 inner (mm from the centreline)
+LAY = {"A": (60, {2: 7000, 4: 7000, 5: 0, 6: 0}),
+       "B": (110, {1: 7000, 2: 0, 3: 5000, 4: 0, 5: 7000, 6: 0}),
+       "C": (160, {1: 0, 2: 5000, 3: 0, 4: 5000, 5: 0, 6: 0}),
+       "D": (210, {1: 3000, 2: 0, 3: 3000, 4: 0, 5: 3000, 6: 0}),
+       "E": (260, {1: 0})}
+strands = []
+for row, (y, cols) in LAY.items():
+    for c, deb in sorted(cols.items()):
+        for sgn in (-1, 1):
+            strands.append({"row": row, "y": y, "x": sgn * COLX[c], "debond": deb})
+strands += [{"row": "F", "y": 1215 - 80, "x": sgn * 495, "debond": 800} for sgn in (-1, 1)]
+assert len(strands) == 48 and sum(s_["debond"] == 7000 for s_ in strands) == 8 and sum(s_["debond"] == 5000 for s_ in strands) == 6 \
+    and sum(s_["debond"] == 3000 for s_ in strands) == 6, "strand count / debond counts differ from 109206"
+rec("superstructure.strand_pattern", strands, "mm", D, "109206", "strand layout 1215 girder (SG-01 to SG-10) + typical strand layout elevation",
+    "48/15.2mm strands, straight; rows A-E at 60 + 4 x 50; columns 25 + 5 x 50 each side; row F ±495, 80 below the top, debonded 800 from ends; "
+    "debond 8 strands 7000 (circle), 6 strands 5000 (square), 6 strands 3000 (diamond) from ends")
+rec("superstructure.strand_force_after_release", 190, "kN", D, "109201", "general notes", "force remaining in each strand immediately after release of the tensioning jack")
+rec("superstructure.hog_table", {"transfer": 41, "28_days": 53, "90_days": 60, "deck_slab_deflection": 23}, "mm", D, "109201", "table 1 girder hog values",
+    "SG-01 to SG-10: hog at transfer 41, 28 days 53, 90 days 60; deflection due to weight of deck slab 23")
+rec("superstructure.hog_basis", "density 2600 (2400 for modulus); E at transfer 32100 MPa; steam curing 70 °C 8 h; open-air storage 20 °C, RH 50-70 %; "
+    "girder self weight only; temporary supports 300 to 1000 from each end", None, D, "109201", "general notes (hog assumptions, storage)")
+# fitments (web verticals G4 2-N16-V = one N16 per web) — 109251 (SG-01), 109252 (SG-02 to 09), 109253 (SG-10); end diaphragm 1500 each end (109203)
+rec("superstructure.fitments_SG02_09", [("74", 100), ("17", 200), ("10", 300), ("17", 200), ("74", 100)], None, D, "109252", "plan girder SG-02 to SG-09",
+    "bundles of G2 1-N16-BZ / G3 1-N12-AZ / G4 2-N16-V: 74 @100, 17 @200, 10 @300, 17 @200, 74 @100 between the end diaphragms")
+rec("superstructure.fitments_SG01_10", [("74", 100), ("50", 200), ("74", 100)], None, D, "109251 / 109253", "plan girder SG-01 / SG-10",
+    "bundles of G2 / G3 / G4 2-N16-V: 74 @100, 50 @200, 74 @100 between the end diaphragms")
+rec("superstructure.end_diaphragm_bars", "7 bundles @100 (G2 1-N16-BZ, G3 1-N12-AZ, G21 1-N16-FZ, G22 5-N16-HH) and 6 bundles @140 "
+    "(G3 1-N12-AZ, G20 / G25 1-N16-FZ, G22 5-N16-HH, G24 1-N16-CZ)", None, D, "109254", "details A-F")
+rec("deck.longitudinal_bars", {"top": (16, 150), "bottom": (16, 150)}, "mm", D, "109351", "plan deck reinforcement", "157 bundles of D7 1-N16-S-150 EF (each face, across the 23.4 m width)")
+rec("deck.cover", 45, "mm", D, "109351", "general notes", "required cover to reinforcement nearest to the concrete surface 45 mm")
+rec("superstructure.girder_cover", 30, "mm", D, "109251", "general notes", "required cover to reinforcement nearest to the concrete surface 30 mm")
+
 json.dump(out, open(os.path.join(H, "B12626_values.json"), "w"), indent=1, ensure_ascii=False)
 tags = {}
 for r in out:

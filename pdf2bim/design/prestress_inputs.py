@@ -15,8 +15,9 @@ Sources, in order (nothing is invented; a value not found is missing):
 - concrete: girder f'c (supert_types[].concrete_28d or the girder concrete row), f'cp at transfer
   (supert_types[].concrete_transfer); moduli and mean strength from AS5100.5:concrete:table_3_1_2 (emod = 1);
   girder density from the girder concrete row;
-- strands: supert_types[].strand_pattern (y, x, diameter, debond_left / right, on); area and MBL from
-  AS5100.5:strand:table_3_3_1 by diameter (checked against materials.strand.area); Ep from materials.strand;
+- strands: supert_types[].strand_pattern (y, x, diameter, debond_left / right, on); area and MBL from materials.strand
+  (area, fpb) when both are given (drawings), otherwise AS5100.5:strand:table_3_3_1 by diameter (checked against
+  materials.strand.area); Ep from materials.strand;
   jacking ratio supert_types[].jacking_ratio; transmission length from AS5100.5:prestress:transmission_length;
 - bars: supert_types[].bars (y, diameter, number);
 - ages: tau = supert_types[].age_at_transfer; pour = age_deck_cast - age_at_transfer (both girder AGES, as the
@@ -141,6 +142,9 @@ def hog_inputs(doc, geo, S, girder, std, allow_proposed=False, partial=False):
         key = next((k for k in tab33 if abs(float(k) - db) < 1e-9), None)
         if key is None:
             missing.append(f"strand diameter {db} not in AS5100.5:strand:table_3_3_1")
+        elif sm.get("area") is not None and sm.get("fpb") is not None:    # strand specified on the drawings: it governs the table
+            put("db", db, tp + ".strand_pattern diameter"); put("Ap", float(sm["area"]), "materials.strand.area")
+            put("mbl", float(sm["fpb"]) * float(sm["area"]) / 1000, "materials.strand.fpb x area")
         else:
             Ap, mbl = tab33[key]
             if sm.get("area") is not None and abs(float(sm["area"]) - Ap) > 1e-9:

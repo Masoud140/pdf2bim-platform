@@ -35,6 +35,8 @@ ITEMS = [
     ("materials.concrete.rows[1]", {"element": "deck", "fc": 40.0, "E": 32800.0, "density": 25.5}, None, A,
      "fc 40 (109301); E = AS 5100.5 Table 3.1.2 at 40 MPa (32800, standards entry UNVERIFIED); density not printed for the deck: 25.5 kN/m3 as the girders",
      "deck concrete density from the design report / specification"),
+    ("superstructure.supert_types[ST2].haunch", 0, "mm", A, "as ST1 (same girder; edge-girder fitments only differ)",
+     "haunch from the top-of-concrete RLs (109302 table 1) less girder soffit levels"),
     ("superstructure.supert_types[ST1].haunch", 0, "mm", A, "girder top to deck soffit not dimensioned (109303 section 2: slab '200 MIN', varies); 0 as BR13A",
      "haunch from the top-of-concrete RLs (109302 table 1) less girder soffit levels (bearing RL X + plate + epoxy block, 109151 / 109152) less 1215"),
 ]
@@ -83,6 +85,23 @@ ITEMS += [
     ("loads.earthquake.rows[4]", {"item": "zeta", "value": "0.05"}, None, SV, "5 % damping, as BR13A (UNVERIFIED)", "std:AS1170.4/zeta"),
     ("loads.earthquake.rows[5]", {"item": "vertical", "value": "False"}, None, A, "no vertical earthquake, as BR13A", RPT),
 ]
+HOG = "the girder supplier's / designer's hog calculation inputs (109201 notes give the basis only)"
+ITEMS += [
+    ("superstructure.supert_types[ST1].age_at_transfer", 1, "days", A, "steam cured at 70 °C for 8 h (109201): transfer the next day", HOG),
+    ("superstructure.supert_types[ST2].age_at_transfer", 1, "days", A, "as ST1", HOG),
+    ("superstructure.supert_types[ST1].age_deck_cast", 120, "days", A, "deck cast after the 90-day hog of 109201 table 1 (girder self weight only to 90 days)", "construction programme"),
+    ("superstructure.supert_types[ST2].age_deck_cast", 120, "days", A, "as ST1", "construction programme"),
+    ("materials.strand.rows[0]", {"type": "15.2 mm 7-wire ordinary, relax 2", "diameter": 15.2, "fpb": 1830.0, "area": 142.6, "Ep": 195000.0}, None, A,
+     "diameter, fpb, area as extracted (109201, area = MBL / fpb); Ep 195000 MPa not printed (usual strand value)", "strand supplier's certificate / AS 5100.5"),
+    ("materials.reinforcement.rows[0]", {"grade": "D500N", "fsy": 500.0, "Es": 200000.0}, None, A, "D500N (109251): fsy 500 by the grade designation; Es 200000 not printed",
+     "AS 5100.5 reinforcement properties"),
+]
+for i_, (it, v_, u_) in enumerate((("k4", 0.6, "-"), ("chi", 0.8, "-"), ("ts", 1.0, "days"), ("Rb", 2.0, "%"), ("k7", 1.0, "-")), 0):
+    ITEMS.append((f"design.prestress_losses.rows[{i_}]", {"item": it, "value": v_, "unit": u_}, None, A, f"not printed; {v_} as BR13A (RH 50-70 % storage, 109201)", HOG))
+for i_, (it, v_, u_) in enumerate((("jt", 8.0, "days"), ("rb", 0.0071, "-"), ("dhard", 7.0, "days"), ("tsd", 7.0, "days"), ("rd", 0.0, "-"), ("sidl", 4.0, "kN/m"),
+                                   ("sidlA", 150.0, "days"), ("dform", 1.0, "kN/m"), ("meth", 1.0, "-"), ("rlx", 1.0, "-"), ("relpre", 1.0, "-"), ("emod", 1.0, "-")), 6):
+    ITEMS.append((f"design.prestress_losses.rows[{i_}]", {"item": it, "value": v_, "unit": u_}, None, A,
+                  f"not printed; {v_} as BR13A" + (" except SIDL applied at 150 days, after the 120-day deck" if it == "sidlA" else ""), HOG))
 GEO = "geotechnical interpretive report M1RTBH2T-JHGM-6003-GE-RPT-152001 (109001 references)"
 for s_, tops in (("A", (5.977, 6.122, 6.266, 6.122, 5.977)), ("B", (5.484, 5.627, 5.770, 5.627, 5.484))):
     for k in range(1, 6):

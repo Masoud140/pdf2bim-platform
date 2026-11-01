@@ -130,23 +130,50 @@ for k in range(1, 11):
     put(p + ".length", R[p + ".length"], unit="m")
     put(p + ".bearing_offset_A", R[p + ".bearing_offset_A"], unit="mm"); put(p + ".bearing_offset_B", R[p + ".bearing_offset_B"], unit="mm")
     put(p + ".straight", value=True, tag="Model", model_note="precast girders are straight between bearings")
-    put(p + ".type_ref", R[p + ".type_ref"], model_note="all ten girders on one girder type (109201 girder schedule: one cross-section)")
+    put(p + ".type_ref", value="ST2" if k in (1, 10) else "ST1", tag="Model",
+        model_note="one cross-section and strand layout for all ten (109201 / 109206); edge girders SG-01 / SG-10 = ST2 for their fitments (109251 / 109253)")
     put(p + ".flange_edges.rows[0]", R[p + ".flange_left"], cells={"t": 0.0, "left": 1160.0, "right": 1160.0})
 put("superstructure.flange_gap", tag="Missing-Flagged", unit="mm", note="1160 flanges on 2344 spacing leave 24 mm; across the median (2269) they overlap 51 mm: owner query")
 put("superstructure.edge_flange_setback", tag="Missing-Flagged", unit="mm", note="flange tip to deck edge: 36 mm east (SG-01), 43 mm west (SG-10) from the offsets; one value per bridge in the catalogue")
 for i, s in enumerate("AB"):
     put(f"superstructure.cross_girders.rows[{i}]", tag="Calculated", cells={"support": s, "width": 800.0, "depth": 965.0, "concrete": "deck (40 MPa)"},
         derivation="width 800 (109303 sections 2 / 3); depth 765 below the slab + 200 slab = 965", inputs=["deck.slab_thickness"])
-t = "superstructure.supert_types[ST1]"
-put(t + ".section", R[t + ".section"])
-put(t + ".depth", R[t + ".depth"], unit="mm")
-put(t + ".shape.rows[0]", R[t + ".depth"], cells={"key": "D", "name": "Overall depth", "value": 1215.0, "unit": "mm"})
-put(t + ".top_flange_width", tag="Calculated", value=2320.0, unit="mm", derivation="2 x 1160 (109202-204 plan)", inputs=[])
-put(t + ".concrete_28d", R[t + ".concrete_28d"], unit="MPa"); put(t + ".concrete_transfer", R[t + ".concrete_transfer"], unit="MPa")
-for i, end in enumerate("AB"):
-    put(t + ".zones.rows[%d]" % i, R["superstructure.end_diaphragm_length"], cells={"from": 0.0, "to": 1.5, "kind": "solid_end_" + end},
-        note="END DIAPHRAGM 1500 from each girder end (109203 plan)")
-put(t + ".haunch", tag="Missing-Flagged", unit="mm", note="girder top to deck soffit not dimensioned on the sheets read")
+T0 = "superstructure.supert_types[ST1]"           # extraction paths (one type)
+FIT = {"ST1": ("superstructure.fitments_SG02_09", [(1.5, 8.9, 100), (8.9, 12.3, 200), (12.3, 15.6, 300), (15.6, 19.0, 200), (19.0, 26.4, 100)]),
+       "ST2": ("superstructure.fitments_SG01_10", [(1.5, 8.9, 100), (8.9, 19.0, 200), (19.0, 26.4, 100)])}
+for tid in ("ST1", "ST2"):
+    t = f"superstructure.supert_types[{tid}]"
+    put(t + ".section", R[T0 + ".section"])
+    put(t + ".depth", R[T0 + ".depth"], unit="mm")
+    put(t + ".shape.rows[0]", R[T0 + ".depth"], cells={"key": "D", "name": "Overall depth", "value": 1215.0, "unit": "mm"})
+    put(t + ".top_flange_width", tag="Calculated", value=2320.0, unit="mm", derivation="2 x 1160 (109202-204 plan)", inputs=[])
+    put(t + ".concrete_28d", R[T0 + ".concrete_28d"], unit="MPa"); put(t + ".concrete_transfer", R[T0 + ".concrete_transfer"], unit="MPa")
+    for i, end in enumerate("AB"):
+        put(t + ".zones.rows[%d]" % i, R["superstructure.end_diaphragm_length"], cells={"from": 0.0, "to": 1.5, "kind": "solid_end_" + end},
+            note="END DIAPHRAGM 1500 from each girder end (109203 plan)")
+    put(t + ".haunch", tag="Missing-Flagged", unit="mm", note="girder top to deck soffit not dimensioned on the sheets read")
+    for i, st in enumerate(R["superstructure.strand_pattern"]["value"]):
+        put(t + f".strand_pattern.rows[{i}]", R["superstructure.strand_pattern"],
+            cells={"y": float(st["y"]), "x": float(st["x"]), "diameter": 15.2, "debond_left": float(st["debond"]), "debond_right": float(st["debond"]), "on": True},
+            note=f"row {st['row']}")
+    put(t + ".jacking_ratio", tag="Calculated", value=round(190 / 261, 4), unit="",
+        derivation="force in each strand after release of the jack 190 kN / minimum breaking load 261 kN (109201 notes); fpb = MBL / area",
+        inputs=["materials.strand.rows[0]"])
+    fr, zones = FIT[tid]
+    for i, (a_, b_, sp) in enumerate(zones):
+        put(t + f".fitments.rows[{i}]", tag="Calculated", cells={"from": a_, "to": b_, "diameter": 16.0, "legs": 2, "spacing": float(sp)},
+            derivation=f"{R[fr]['source']['note']} ({R[fr]['source']['sheet']}): zones from girder end A after the 1500 end diaphragm, length = bundles x spacing, "
+                       "the centre zone takes the remainder of 27.900; legs = G4 2-N16-V (one per web). End diaphragm zones 0-1.5 not listed "
+                       "(109254 details: 7 bundles @100 + 6 @140 of other bar marks)", inputs=[])
+    for i, face in enumerate(("top", "bot")):
+        put(t + f".deck_bars.rows[{i}]", tag="Calculated", cells={"face": face, "diameter": 16.0, "spacing": 150.0, "cover": 61.0},
+            derivation="D7 1-N16-S-150 each face (109351 plan); cover 45 to the nearest (transverse N16) bars (109351 notes) + 16 = 61 to the longitudinal bar",
+            inputs=["deck.slab_thickness"])
+put("custom.girder_hog_table", R["superstructure.hog_table"], unit="mm")
+put("custom.girder_hog_basis", R["superstructure.hog_basis"])
+put("custom.end_diaphragm_bars", R["superstructure.end_diaphragm_bars"])
+put("custom.girder_cover", R["superstructure.girder_cover"], unit="mm")
+t = T0
 for k in ("end_diaphragm_length", "flange_end_cutback"):
     put("custom." + k, R["superstructure." + k], unit="mm")
 put("custom.girder_density", R[t + ".density"], unit="kg/m3"); put("custom.girder_E_transfer", R[t + ".E_transfer"], unit="MPa")
@@ -209,7 +236,8 @@ for i, (el, pth) in enumerate((("Super-T girders", "girders"), ("deck", "deck"),
     put(f"materials.concrete.rows[{i}]", r, cells=cells)
 put("materials.steel.rows[0]", tag="Missing-Flagged", cells={"element": "steel tube piles"},
     note="Ø900 x 16 driven steel tubes with concrete infill (109031 / 109035); grade, Es and density not printed (driving stress limited to 315 MPa)")
-put("materials.strand.rows[0]", R["materials.strand.fpb"], cells={"type": "15.2 mm 7-wire ordinary, relax 2", "diameter": 15.2, "fpb": 1830.0})
+put("materials.strand.rows[0]", R["materials.strand.fpb"], tag="Calculated", cells={"type": "15.2 mm 7-wire ordinary, relax 2", "diameter": 15.2, "fpb": 1830.0, "area": 142.6},
+    derivation="diameter 15.2, fpb 1830 MPa, MBL 261 kN (109201 notes); area = MBL / fpb = 261000 / 1830 = 142.6 mm2", inputs=[])
 put("custom.strand_MBL", R["materials.strand.MBL"], unit="kN"); put("custom.strand_force_after_release", R["materials.strand.jacking_force_after_release"], unit="kN")
 
 # ---------------- loads ----------------
@@ -241,6 +269,25 @@ for k in ("region", "terrain", "ARI_uls", "ARI_sls"):
     put("custom.wind_" + k, R["loads.wind." + k], unit="years" if "ARI" in k else None)
 for k in ("mu_longitudinal", "mu_transverse"):
     put("custom.earthquake_" + k, R["loads.earthquake." + k])
+
+# ---------------- prestress-loss / camber inputs (design.prestress_losses; item names of pdf2bim.design.prestress) ----------------
+HB = R["superstructure.hog_basis"]
+i_ = 0
+for it, un in (("k4", "-"), ("chi", "-"), ("ts", "days"), ("Rb", "%"), ("k7", "-"), ("Tav", "C"), ("jt", "days"), ("rb", "-"), ("dhard", "days"),
+               ("tsd", "days"), ("rd", "-"), ("sidl", "kN/m"), ("sidlA", "days"), ("dform", "kN/m"), ("meth", "-"), ("rlx", "-"), ("relpre", "-"),
+               ("emod", "-"), ("Tcur", "C"), ("hcur", "h")):
+    direct = {"Tav": 20.0, "Tcur": 70.0, "hcur": 8.0}
+    if it in direct:
+        put(f"design.prestress_losses.rows[{i_}]", HB, cells={"item": it, "value": direct[it], "unit": un},
+            note={"Tav": "storage in open air at 20 °C average temperature", "Tcur": "elevated temperature curing at 70 °C", "hcur": "for 8 hours"}[it] + " (109201 hog notes)")
+    else:
+        put(f"design.prestress_losses.rows[{i_}]", tag="Missing-Flagged", cells={"item": it}, note="not printed (109201 gives the hog basis only)")
+    i_ += 1
+for d_ in (27.0, 89.0):
+    put(f"design.prestress_losses.rows[{i_}]", tag="Model", cells={"item": "time", "value": d_, "unit": "days"},
+        model_note="report time = girder age 28 / 90 days (109201 table 1) less a 1-day age at transfer (proposed D-1)")
+    i_ += 1
+put("materials.reinforcement.rows[0]", tag="Missing-Flagged", cells={"grade": "D500N"}, note="grade D500N to AS/NZS 4671 (109251 notes); Es not printed")
 
 # ---------------- analysis: platform modelling settings (Model), the same as BR13A ----------------
 for i, (it, v, why) in enumerate((("tgt", "2.8", "transverse member spacing target (m), as BR13A"), ("merge", "0.4", "node merge tolerance (m), as BR13A"),

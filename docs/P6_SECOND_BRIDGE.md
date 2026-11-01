@@ -45,6 +45,8 @@ Source: owner PDF `Second_Example.pdf` (72 sheets, DS2023/000442, IFC rev 00). I
 | G-8 | The check "piles on the line of bearings" assumed BR13A's layout. B12626's piles are 175 mm behind the bearings, on the sill centre. | **Fixed.** The check is now "piles inside the sill width". |
 | G-9 | The MCT import checklist had BR13A's link and spring counts written in. | **Fixed.** |
 | G-10 | There was no way to start a description for a new bridge. | **Fixed:** `tools/new_description.py` (7 tests). |
+| G-11 | Sections added the half flange gap to the deck width only when the neighbour's id started with "G" (BR13A: G1…G4). B12626's girders are SG-01…, so every interior girder lost 24 mm of deck. | **Fixed.** The test is now "neighbour is not the deck edge"; an interior girder carries 2344 mm. |
+| G-12 | Prestress inputs always took strand area and MBL from the AS 5100.5 table (140 mm², 250 kN), and refused a different `materials.strand.area`. B12626's drawings specify 1830 MPa strand with MBL 261 kN. | **Fixed.** When `materials.strand` gives area and fpb (from the drawings), those are used; otherwise the table, as before. |
 
 ## 3. Data findings (owner)
 
@@ -82,6 +84,38 @@ Source: owner PDF `Second_Example.pdf` (72 sheets, DS2023/000442, IFC rev 00). I
 | MIDAS export | 951 nodes, 1452 elements, 20 bearing links, 298 springs | round trip: self weight to 1e-5, translations to 0.01 mm |
 
 Tests: `tests/model/test_b12626_chain.py` (10), `tests/schema/test_new_description.py` (7), `tests/model/test_substructure.py` (+2 for the filled tube pile).
+
+## 4a. Stage 4 (2026-11-02): girder reinforcement and benchmarks against the designer's numbers
+
+**Extracted:**
+- **Strands (109206):** 48 × 15.2 mm, all straight.
+  - Rows A–E at 60 + 4 × 50 mm, columns 25 + 5 × 50 mm each side; row F has 2 strands at ±495 mm, 80 mm below the top.
+  - Debonding: 8 strands for 7000, 6 for 5000, 6 for 3000, and row F for 800 from each end. The counts are checked against the drawing.
+- **Prestress:** jacking ratio 190 / 261 = 0.728 (Calculated). Strand area = MBL / fpb = 142.6 mm².
+- **Web fitments:** N16, 2 legs, in zones from end A (Calculated from bundle counts × spacing).
+  - SG-02…09: @100 / 200 / 300 / 200 / 100.
+  - SG-01 and SG-10: @100 / 200 / 100. They become girder type ST2.
+  - The 1.5 m end diaphragm zones are not listed (other bar marks).
+- **Deck longitudinal bars:** N16 @150 each face; cover 61 mm to them (45 mm to the outer transverse bars + 16).
+- **Hog table (109201):** transfer 41 mm, 28 days 53 mm, 90 days 60 mm; wet deck slab 23 mm.
+
+**Benchmarks (provisional D-1 inputs):**
+
+| Quantity | Designer (drawing) | Platform | Difference |
+|---|---|---|---|
+| Pile N, SLS (109035 Table 4) | 3535 kN | 3626 kN | +2.6 % |
+| Pile N, ULS | 5175 kN | 5399 kN | +4.3 % |
+| Pile M, ULS | 1831 + 50 kNm | 2312 kNm | +23 %: earthquake-governed, placeholder soil (kh 10 MN/m³) |
+| Wet-deck deflection | 23 mm | 24.4 mm (elastic, girder alone) | +6 % |
+| Hog at transfer | 41 mm | 48.4 mm | +18 % |
+| Hog at 28 / 90 days | 53 / 60 mm | 89.5 / 106.5 mm | growth after transfer about 3× the designer's |
+
+- **H-11 (engineer):** the platform's time-dependent hog is far above the designer's.
+  - The model is the dashboard's AS 5100.5 creep / shrinkage engine, loading at a 1-day age.
+  - Ep and E at transfer change it by less than 2 %. The simplified method gives 94 mm and transfer at 3 days gives 100 mm.
+  - The designer's calculation is not in the drawing set.
+  - The creep model and the age at loading for steam-cured girders need review before the platform's hog or SLS losses are relied on.
+- Report: `projects/B12626/model/B12626.hog_vs_drawing.md` (`projects/B12626/hog_vs_drawing.py`). Combined actions: `projects/B12626/model/B12626.combined_actions.md`.
 
 ## 5. Next
 

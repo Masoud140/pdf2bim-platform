@@ -2450,7 +2450,7 @@
  "status": "NEEDS ENGINEER IMPORT TEST \u2014 contains UNVERIFIED syntax: *ELASTICLINK, *SPRING",
  "description": "projects/B12626/B12626.bridge.0.2.json",
  "revision": 2,
- "description_hash": "sha256:a92704bccbbfbed423f7ab1eb59b3a9432c04def6b55718381eb78073fefcfed",
+ "description_hash": "sha256:6ef4cf29f973cd74a8e432ed090d2be4a6a268735d5fa474c82f33b34879685e",
  "provisional": [
   "D-1"
  ],
@@ -2467,7 +2467,7 @@
   ],
   "description": "projects/B12626/B12626.bridge.0.2.json",
   "revision": 2,
-  "description_hash": "sha256:a92704bccbbfbed423f7ab1eb59b3a9432c04def6b55718381eb78073fefcfed",
+  "description_hash": "sha256:6ef4cf29f973cd74a8e432ed090d2be4a6a268735d5fa474c82f33b34879685e",
   "decisions": [
    "D-1"
   ],
@@ -2475,11 +2475,11 @@
    "D-1"
   ],
   "allow_proposed": true,
-  "engine_commit": "0925c1af09bed5e053cf2b34677193a6da8a7dfb",
+  "engine_commit": "4ae7c79e6f05e64af1a62b5ee9078d91becbfa13",
   "engine_dirty": true,
   "standards_hash": "sha256:95a4591e5f6723ef85c962ea5b1a392508f659c4cbadcfce6cb14462e253993a",
   "library_hash": "sha256:b8d280f4751f9c32792486c64b5441b00f63f100a11f6ac669b344f13314d156",
   "options": {},
-  "run_at": "2026-10-28T10:10:14+00:00"
+  "run_at": "2026-11-01T21:03:31+00:00"
  }
 }
