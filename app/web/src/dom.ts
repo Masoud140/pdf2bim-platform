@@ -23,10 +23,12 @@ function add(el: HTMLElement, kids: Child[]) {
   }
 }
 
-export const fmt = (v: unknown, d = 0): string => {
+// d given: fixed decimals (results); d omitted: the value exactly as stored (bridge data, coordinates — never rounded)
+export const fmt = (v: unknown, d?: number): string => {
   if (v === null || v === undefined) return "—";
-  if (typeof v === "number") return Number.isInteger(v) && d === 0 ? v.toLocaleString("en-AU") : v.toLocaleString("en-AU", { maximumFractionDigits: d, minimumFractionDigits: d });
-  if (typeof v === "object") return Object.entries(v as Record<string, unknown>).map(([k, x]) => `${k}: ${typeof x === "number" ? +x.toPrecision(6) : x}`).join(" · ");
+  if (typeof v === "number") return d === undefined ? String(v)
+    : v.toLocaleString("en-AU", { maximumFractionDigits: d, minimumFractionDigits: d });
+  if (typeof v === "object") return Object.entries(v as Record<string, unknown>).map(([k, x]) => `${k}: ${x}`).join(" · ");
   return String(v);
 };
 

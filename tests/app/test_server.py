@@ -76,5 +76,32 @@ t("chain on a blank description: geometry step fails, later steps skipped, no re
   st["state"] == "failed" and st["steps"][0]["state"] == "failed" and all(s["state"] == "skipped" for s in st["steps"][1:])
   and c.get("/api/projects/TESTBR/results/girder_checks.json").get_json()["data"] is None, st["log"].strip().splitlines()[-1][:160] if st["log"] else "")
 
+# decisions and engineer input (P7.3) on a copy of B12626 in the temporary data folder (the repository is not touched)
+import shutil
+d = os.path.join(tmp, "projects", "COPY1"); os.makedirs(d)
+shutil.copy(os.path.join(R, "projects/B12626/B12626.bridge.0.2.json"), os.path.join(d, "COPY1.bridge.0.2.json"))
+shutil.copy(os.path.join(R, "projects/B12626/B12626.decisions.jsonl"), os.path.join(d, "COPY1.decisions.jsonl"))
+DL = c.get("/api/projects/COPY1/decisions").get_json()
+t("proposed decision D-1 listed with its values", any(x["id"] == "D-1" and len(x["values"]) > 100 for x in DL["items"]))
+ai = c.post("/api/projects/COPY1/decisions/D-1", json={"by": "Claude", "accept": True})
+t("the AI cannot accept (accept_decision refuses)", ai.status_code == 400 and "AI cannot" in ai.get_data(as_text=True))
+t("reject needs a note; a name is required", c.post("/api/projects/COPY1/decisions/D-1", json={"by": "Test Engineer", "accept": False}).status_code == 400
+  and c.post("/api/projects/COPY1/decisions/D-1", json={"by": "", "accept": True}).status_code == 400)
+rev0 = json.load(open(os.path.join(d, "COPY1.bridge.0.2.json")))["revision"]["number"]
+ok = c.post("/api/projects/COPY1/decisions/D-1", json={"by": "Test Engineer", "accept": True})
+doc1 = json.load(open(os.path.join(d, "COPY1.bridge.0.2.json")))
+sd1 = dict(records(doc1))["deck.surfacing_density"]
+t("accepted by a person: new revision, previous kept in history, override becomes the value",
+  ok.status_code == 200 and doc1["revision"]["number"] == rev0 + 1 and sd1["value"] == 22 and sd1["current"] == "OV-1"
+  and os.path.exists(os.path.join(d, "history", f"COPY1.bridge.0.2.r{rev0}.json")), ok.get_data(as_text=True)[-160:])
+miss = next(p for p, r in records(doc1) if r["tag"] == "Missing-Flagged" and "value" in r and not r.get("overrides") and r.get("unit") is None and p.startswith("project."))
+bad = c.post("/api/projects/COPY1/values", json={"path": miss, "value": "x", "tag": "Assumed", "reason": "r", "by": "Test Engineer"})
+nos = c.post("/api/projects/COPY1/values", json={"path": miss, "value": "x", "tag": "Direct", "reason": "r", "by": "Test Engineer"})
+t("entered values: Assumed refused here, Direct needs a sheet", bad.status_code == 400 and nos.status_code == 400)
+ev = c.post("/api/projects/COPY1/values", json={"path": miss, "value": "Level 2", "tag": "Input-user", "reason": "client brief", "by": "Test Engineer"})
+r2 = dict(records(json.load(open(os.path.join(d, "COPY1.bridge.0.2.json")))))[miss]
+t("engineer input saved under a new decision, accepted by the same person, tagged Input-user",
+  ev.status_code == 200 and ev.get_json()["decision"] == "D-2" and r2["value"] == "Level 2" and r2["tag"] == "Input-user", f"{miss}: {ev.get_data(as_text=True)[-120:]}")
+
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

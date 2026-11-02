@@ -215,11 +215,79 @@ def api_values(pid):
     return jsonify({"revision": doc.get("revision"), "hash": doc.get("hash"), "rows": rows})
 
 
+# ---------------- decisions and engineer input (P7.3) ----------------
+# Both go through the existing schema tools (subprocess), which keep history, check the rules and refuse AI approval.
+EDIT_TAGS = ("Direct", "Input-user", "Confirmed-Engineer")      # tags a person can enter here without a derivation / replace_with
+
+
+def _tool(argv):
+    r = subprocess.run([PY] + argv, cwd=ROOT, capture_output=True, text=True)
+    if r.returncode:
+        abort(400, (r.stderr or r.stdout).strip()[-1500:] or "refused")
+    return r.stdout.strip()
+
+
+def _person(by):
+    by = (by or "").strip()
+    if len(by) < 2:
+        abort(400, "enter your name: decisions are recorded against a person")
+    return by
+
+
+@app.get("/api/projects/<pid>/decisions")
+def api_decisions(pid):
+    p = project(pid)
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    from decision_review import review
+    doc, items = review(p["description"])
+    return jsonify({"revision": (doc.get("revision") or {}).get("number"), "items": items})
+
+
+@app.post("/api/projects/<pid>/decisions/<did>")
+def api_decide(pid, did):
+    p = project(pid)
+    if not re.match(r"^D-\d+$", did):
+        abort(400, "bad decision id")
+    b = request.get_json(force=True) or {}
+    by, accept, note = _person(b.get("by")), bool(b.get("accept")), (b.get("note") or "").strip()
+    if not accept and not note:
+        abort(400, "say why the decision is rejected")
+    argv = ["schema/accept_decision.py", p["description"], "--decision", did, "--by", by] + ([] if accept else ["--reject"]) + (["--note", note] if note else [])
+    return jsonify({"message": _tool(argv)})
+
+
+@app.post("/api/projects/<pid>/values")
+def api_enter_value(pid):
+    """A person enters a value: proposed under a new decision, then accepted by the same person (two revisions)."""
+    p = project(pid)
+    b = request.get_json(force=True) or {}
+    by, path, tag, reason = _person(b.get("by")), b.get("path") or "", b.get("tag"), (b.get("reason") or "").strip()
+    if tag not in EDIT_TAGS:
+        abort(400, f"tag must be one of {', '.join(EDIT_TAGS)}")
+    if not reason:
+        abort(400, "give the reason / where the value comes from")
+    if path not in dict(records(load_doc(p))):
+        abort(400, f"no value at {path}")
+    src = {k: v for k, v in (("doc", b.get("sheet")), ("view", b.get("view")), ("note", reason)) if v}
+    if tag == "Direct" and not b.get("sheet"):
+        abort(400, "a Direct value needs the drawing / sheet it is printed on")
+    logf = p["description"].replace(".bridge.0.2.json", ".decisions.jsonl")
+    ids = [int(json.loads(l)["id"][2:]) for l in open(logf) if l.strip()] if os.path.exists(logf) else []
+    did = f"D-{max(ids, default=0) + 1}"
+    argv = ["schema/propose_override.py", p["description"], "--path", path, "--value", json.dumps(b.get("value")), "--tag", tag,
+            "--reason", reason, "--author", by, "--decision", did, "--source", json.dumps(src)]
+    if b.get("unit"):
+        argv += ["--unit", b["unit"]]
+    m1 = _tool(argv)
+    m2 = _tool(["schema/accept_decision.py", p["description"], "--decision", did, "--by", by, "--note", "entered in the app"])
+    return jsonify({"decision": did, "message": m1 + "\n" + m2})
+
+
 # ---------------- chain runs ----------------
 def _run_chain(pid, desc, allow, rid):
     d = pdir(pid, "runs", rid)
     st = {"id": rid, "state": "running", "pid": os.getpid(), "allow_proposed": allow, "started": _now(), "finished": None, "description": os.path.relpath(desc, ROOT),
-          "engine_commit": _git("rev-parse", "--short", "HEAD"), "steps": [{"key": k, "title": t, "state": "waiting"} for k, t, _, _ in STEPS]}
+          "engine_commit": _git("rev-parse", "--short", "HEAD"), "revision": (json.load(open(desc)).get("revision") or {}).get("number"), "steps": [{"key": k, "title": t, "state": "waiting"} for k, t, _, _ in STEPS]}
     save = lambda: json.dump(st, open(os.path.join(d, "status.json"), "w"), indent=1)
     save()
     log = open(os.path.join(d, "log.txt"), "w")

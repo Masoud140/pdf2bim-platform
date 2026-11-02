@@ -148,10 +148,10 @@ def main():
         print("nothing new to propose"); return
     if DEC not in dec:
         dec[DEC] = {"id": DEC, "date": created, "by": "AI", "key": "(B12626 development inputs: projects/B12626/dev_inputs.py)", "from": None, "from_tag": None,
-                    "to": None, "to_tag": None, "reason": "values the platform chain needs that the B12626 drawings do not give, so P6 can run "
+                    "to": None, "to_tag": "Assumed", "reason": "values the platform chain needs that the B12626 drawings do not give, so P6 can run "
                     "(owner 2026-10-28: B12626 is the second example to test the model); Calculated items are arithmetic on drawing values, "
                     "Assumed items are placeholders to replace", "evidence": ["projects/B12626/dev_inputs.py"], "status": "proposed",
-                    "affects": ["geometry", "sections", "model", "loads"]}
+                    "affects": ["geometry", "model", "loads", "design.supert", "substructure"]}
         open(LOG, "a").write(json.dumps(dec[DEC], ensure_ascii=False) + "\n")
     doc["revision"] = {"number": first_rev + 1, "parent_hash": json.load(open(F))["hash"]["value"], "created": created, "author": "AI",
                        "note": f"{done} overrides proposed under {DEC} (projects/B12626/dev_inputs.py)", "decision_log_sha256": None}

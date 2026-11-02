@@ -38,6 +38,7 @@ def decide(doc, dec, did, by, accept=True, note=None, at=None):
                 o["approval"] = {"status": st, "approved_by": by, "approved_at": at, **({"note": note} if note else {})}
                 if accept:
                     rec["current"] = o["id"]
+                    rec["decision"] = did                  # schema: the last decision that set this value
                     if "cells" in rec and "value" not in rec:
                         rec["cells"] = o["value"]
                     else:

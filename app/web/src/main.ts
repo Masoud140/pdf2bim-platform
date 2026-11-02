@@ -1,10 +1,10 @@
 // PDF2BIM web app: projects, drawings, description values, model, analysis, design, run log.
-import { api, STATIC, Project, Run, ValueRow, Drawings, Meta } from "./api";
+import { api, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
 
 const app = document.getElementById("app")!;
-const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["model", "Model 3D"],
+const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"],
   ["analysis", "Analysis"], ["design", "Design checks"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
@@ -66,7 +66,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   const body = h("section", { class: "tabbody" }, h("div", { class: "muted" }, "Loading…"));
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
     h("div", { class: "row" }, dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
-  const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id),
+  const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
     model: () => model(id), analysis: () => analysis(id), design: () => design(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
@@ -109,6 +109,8 @@ async function overview(id: string) {
   ];
   return h("div", {}, h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, "Pipeline"),
       STATIC ? h("span", { class: "small muted" }, "Runs start in the app on your computer") : h("div", { class: "row" }, h("label", { class: "small" }, allow, " use proposed inputs (provisional)"), runBtn)), pipe,
+    run && run.revision !== undefined && run.revision !== (vals.revision as any)?.number
+      ? h("div", { class: "alert warn small" }, `The bridge data changed since the last run (run used revision ${run.revision}, now ${(vals.revision as any)?.number}). Results below are out of date: run the chain again.`) : null,
     h("p", { class: "small muted" }, run ? `Last run ${run.id}: ${run.state}${run.finished ? `, finished ${run.finished}` : ""}.` : "Not run in the app yet — results below (if any) are the outputs committed in the repository.")),
     h("div", { class: "grid tiles" }, tiles), provenance(gc.meta || mv.meta, mv.data?.provisional_decisions),
     h("div", { class: "card" }, h("h3", {}, "Data quality"), tagBar(tags), h("div", { class: "row wrap small" }, TAGS.filter((t) => tags[t]).map((t) => h("span", {}, tagChip(t), " ", tags[t])))));
@@ -169,18 +171,70 @@ async function values(id: string) {
         h("td", {}, tagChip(r.tag), r.proposed ? h("span", { class: "pill warn", title: `proposed override, decision ${r.decision}; drawing record: ${r.original_tag}` }, "proposed") : null),
         h("td", {}, did ? h("a", { href: `#/p/${id}/drawings?doc=${encodeURIComponent(did)}` }, r.sheet) : r.sheet || "", r.view ? h("div", { class: "small muted" }, r.view) : null),
         h("td", { class: "small" }, r.derivation ? h("div", {}, "= ", r.derivation) : null, r.note || "", r.replace_with ? h("div", { class: "muted" }, "needs: ", r.replace_with) : null),
-        h("td", { class: "small" }, r.decision || "")); }));
+        h("td", { class: "small" }, r.decision || "", STATIC || !needsReview(r) ? null : h("button", { class: "btn ghost small", onclick: (e: Event) => editRow(e, r) }, "Enter value"))); }));
   };
   const chips = h("div", { class: "row wrap" }, h("button", { class: "chip on", onclick: (e: Event) => pick("", e) }, `All ${rows.length}`),
     TAGS.filter((t) => counts[t]).map((t) => h("button", { class: "chip", onclick: (e: Event) => pick(t, e) }, tagChip(t), ` ${counts[t]}`)));
   const pick = (t: string, e: Event) => { state.tag = t; chips.querySelectorAll(".chip").forEach((c) => c.classList.remove("on")); (e.currentTarget as HTMLElement).classList.add("on"); draw(); };
   const rev = h("input", { type: "checkbox", checked: state.review, onchange: (e: Event) => { state.review = (e.target as HTMLInputElement).checked; draw(); } });
+  const editRow = (e: Event, r: ValueRow) => {
+    const tr = (e.currentTarget as HTMLElement).closest("tr")!;
+    if (tr.nextElementSibling?.classList.contains("editrow")) { tr.nextElementSibling.remove(); return; }
+    const isRow = r.value !== null && typeof r.value === "object";
+    const val = h(isRow ? "textarea" : "input", { rows: 3 }) as HTMLInputElement;
+    val.value = isRow ? JSON.stringify(r.value) : r.value === null || r.value === undefined ? "" : String(r.value);
+    const unit = h("input", { value: r.unit || "", size: 6 }) as HTMLInputElement;
+    const tag = h("select", {}, ["Direct", "Input-user", "Confirmed-Engineer"].map((t) => h("option", { value: t }, t))) as HTMLSelectElement;
+    const sheet = h("input", { placeholder: "drawing / sheet (Direct)", value: r.sheet || "" }) as HTMLInputElement;
+    const view = h("input", { placeholder: "view / table / note on sheet" }) as HTMLInputElement;
+    const reason = h("input", { placeholder: "where the value comes from / why", size: 40 }) as HTMLInputElement;
+    const msg = h("div", { class: "small" });
+    const save = async () => {
+      let v: unknown = val.value.trim();
+      if (isRow) { try { v = JSON.parse(String(v)); } catch { msg.textContent = "Table row must be JSON, e.g. {\"item\": \"T_max\", \"value\": 45}"; return; } }
+      else if (v !== "" && !Number.isNaN(Number(v))) v = Number(v);
+      msg.textContent = "Saving…";
+      try { const res = await api.enterValue(id, { path: r.path, value: v, unit: unit.value || null, tag: tag.value, sheet: sheet.value, view: view.value, reason: reason.value, by: who() });
+        msg.textContent = `Saved as ${res.decision} (accepted by ${who()}). Reloading…`; setTimeout(route, 900);
+      } catch (err) { msg.className = "small bad"; msg.textContent = (err as Error).message; }
+    };
+    tr.after(h("tr", { class: "editrow" }, h("td", { colspan: 7 }, h("div", { class: "row wrap" }, h("b", {}, r.path), val, unit, tag, sheet, view, reason, nameInput(),
+      h("button", { class: "btn primary", onclick: save }, "Save and accept")), msg)));
+  };
   setTimeout(draw);
   return h("div", {}, h("div", { class: "card filters" }, chips, h("div", { class: "row wrap" },
       h("input", { type: "search", placeholder: "Search path, value or note", oninput: (e: Event) => { state.q = (e.target as HTMLInputElement).value.toLowerCase(); draw(); } }),
       h("select", { onchange: (e: Event) => { state.group = (e.target as HTMLSelectElement).value; draw(); } }, h("option", { value: "" }, "All sections"), groups.map((g) => h("option", { value: g }, g))),
       h("label", { class: "small" }, rev, " Needs review only"), cnt)),
     h("div", { class: "tablewrap tall" }, h("table", { class: "values" }, h("thead", {}, h("tr", {}, ["Path", "Value", "Unit", "Data source", "Sheet", "Note / derivation", "Decision"].map((x) => h("th", {}, x)))), tbody)));
+}
+
+// ---------------- decisions ----------------
+const store = { get: (k: string) => { try { return localStorage.getItem(k) || ""; } catch { return ""; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* not stored */ } } };
+const who = () => store.get("pdf2bim.name");
+const nameInput = () => h("input", { placeholder: "your name", value: who(), size: 16, oninput: (e: Event) => store.set("pdf2bim.name", (e.target as HTMLInputElement).value) });
+
+async function decisions(id: string) {
+  const { items, revision } = await api.decisions(id);
+  if (!items.length) return empty("No decisions waiting", "Every proposed value has been accepted or rejected.");
+  const card = (d: Decision) => {
+    const note = h("input", { placeholder: "note (required to reject)", size: 36 }) as HTMLInputElement;
+    const msg = h("div", { class: "small" });
+    const act = (accept: boolean) => async () => {
+      msg.className = "small"; msg.textContent = accept ? "Accepting…" : "Rejecting…";
+      try { const r = await api.decide(id, d.id, { by: who(), accept, note: note.value }); msg.textContent = r.message + " — run the chain again to update the results."; setTimeout(route, 2500); }
+      catch (e) { msg.className = "small bad"; msg.textContent = (e as Error).message; }
+    };
+    const tags: Record<string, number> = {}; d.values.forEach((v) => (tags[v.tag] = (tags[v.tag] || 0) + 1));
+    return h("div", { class: "card" }, h("div", { class: "row between wrap" }, h("h3", {}, `${d.id} — proposed by ${d.by}`), h("span", { class: "small muted" }, d.date)),
+      h("p", {}, d.reason), h("div", { class: "row wrap small" }, `${d.values.length} value(s), tags now on record: `, Object.entries(tags).map(([t, n]) => h("span", {}, tagChip(t), " ", n))),
+      h("p", { class: "small muted" }, `Affects: ${d.affects.join(", ") || "—"} · evidence: ${d.evidence.join("; ") || "—"} · outputs made out of date: ${d.outputs.length || "none recorded"}`),
+      h("details", {}, h("summary", { class: "small" }, "Show the values"), table(["Path", "Value", "Tag"], d.values.map((v) => [h("span", { class: "mono" }, v.path), fmt(v.value), tagChip(v.tag)]))),
+      STATIC ? null : h("div", { class: "row wrap", style: "margin-top:10px" }, nameInput(), note,
+        h("button", { class: "btn primary", onclick: act(true) }, "Accept"), h("button", { class: "btn", onclick: act(false) }, "Reject")), msg);
+  };
+  return h("div", {}, h("div", { class: "alert warn small" }, `Description revision ${revision}. Accepting makes every value of the decision part of the bridge record, under your name; a new revision is written and the previous one kept in history. Only a person can accept (the AI cannot).`),
+    items.map(card));
 }
 
 // ---------------- model ----------------

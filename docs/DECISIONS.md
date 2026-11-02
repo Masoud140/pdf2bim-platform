@@ -464,3 +464,12 @@
   - Results show provenance (run id, engine commit, proposed inputs used) and the INDICATIVE banner; without a run the committed repository outputs are shown, labelled.
 - **Alternatives:** FastAPI (not installed; no gain at one user); a hosted artifact page (cannot run the Python engine); React (a framework is not needed yet).
 - **Not yet (P7 later stages):** automatic extraction from uploaded PDFs (needs an AI service: key / confidentiality decision), editing values and accepting decisions in the app, users / log-in and hosting, PostgreSQL. Until log-in exists the server listens on localhost only.
+
+## ADR-050 Decisions and engineer input in the web app (P7.3, 2026-11-02)
+
+- **Decision (agent, reversible):** the app's Decisions tab accepts or rejects a proposed decision, and the Bridge data tab lets a person enter a value for a Missing / Assumed / proposed record. Both call the existing tools: `schema/accept_decision.py` and `schema/propose_override.py` (a person's entry is proposed under a new decision and accepted by the same person). History, rule checks, JSON-schema validation and the refusal of AI approval (ADR-005) therefore apply unchanged. A name is required; a rejection needs a note; entry tags limited to Direct (with its sheet), Input-user, Confirmed-Engineer.
+- **Runs record the description revision;** the Overview warns when the bridge data changed after the last run.
+- **Bugs found by this stage and fixed at the source:**
+  - `accept_decision` did not set the record's `decision` field, so any accepted Input-user / Confirmed-Engineer value failed the schema.
+  - B12626 D-1 log entry was invalid against the decision schema (`to_tag` null; layer `sections` does not exist), so D-1 could never be accepted. `dev_inputs.py` and the log fixed: `to_tag` Assumed (mixed set, labelled by its weakest tag); affects geometry, model, loads, design.supert, substructure.
+  - The app rounded bridge values to integers on screen (barrier offset −9.8433 shown −10); values are now shown exactly as stored.
