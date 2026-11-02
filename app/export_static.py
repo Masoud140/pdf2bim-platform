@@ -23,8 +23,8 @@ def main():
     urls = ["/api/projects"]
     for p in c.get("/api/projects").get_json():
         b = f"/api/projects/{p['id']}"
-        urls += [f"{b}/values?allow_proposed=1", f"{b}/runs/latest", f"{b}/decisions"]
-        urls += [f"{b}/results/{n}" for n in ("model_view.json", "combined_actions.json", "girder_checks.json")]
+        urls += [f"{b}/values?allow_proposed=1", f"{b}/runs/latest", f"{b}/decisions", f"{b}/verification", f"{b}/revisions"]
+        urls += [f"{b}/results/{n}" for n in ("model_view.json", "combined_actions.json", "girder_checks.json", "sections.json")]
         urls.append(f"{b}/drawings")
     os.makedirs(os.path.join(a.out, "data"), exist_ok=True)
     files = []

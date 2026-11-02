@@ -1,0 +1,8 @@
+# PDF2BIM platform + web app (Python 3.10+). Versions as tested 2026-11-02.
+numpy>=2.0
+scipy>=1.13
+jsonschema>=4.20
+flask>=3.0
+pdfplumber>=0.11
+pypdfium2>=4.30
+openpyxl>=3.1

@@ -9,8 +9,9 @@ export interface ModelView {
   beams: [string, string, string][];
   links: [string, string, string][];
   springs: string[]; fixed: string[];
-  cases: Record<string, { u: Record<string, [number, number, number]>; applied_kN: number[]; equilibrium_residual_kN: number; total_kN?: number;
+  cases: Record<string, { u: Record<string, [number, number, number]>; applied_kN: number[]; equilibrium_residual_kN: number; total_kN?: number; T?: number;
     reactions: Record<string, number[]>; spring_forces: Record<string, number[]> }>;
+  modes?: { n: number; T: number; f: number; eff: Record<string, number> }[]; modes_note?: string | null; mass_rule?: string;
   provisional_decisions: string[]; allow_proposed: boolean;
 }
 
@@ -73,11 +74,11 @@ export function modelViewer(mv: ModelView): HTMLElement {
     h("label", {}, h("span", { class: "sw dot", style: "background:#c43c3c" }), `supports / springs (${mv.fixed.length + mv.springs.length})`));
   const info = h("div", { class: "muted small" });
   const scaleIn = h("input", { type: "range", min: 0, max: 400, value: 100 }) as HTMLInputElement;
-  const caseSel = h("select", {}, h("option", { value: "" }, "Undeformed"), Object.keys(mv.cases).map((c) => h("option", { value: c }, `Deformed — ${c === "SW" ? "self weight" : "superimposed dead load"}`))) as HTMLSelectElement;
+  const caseSel = h("select", {}, h("option", { value: "" }, "Undeformed"), Object.keys(mv.cases).map((c) => h("option", { value: c }, c === "SW" ? "Deformed — self weight" : c === "SDL" ? "Deformed — superimposed dead load" : `${c} — T = ${mv.cases[c].T} s`))) as HTMLSelectElement;
   const upd = () => {
     cs = caseSel.value || null;
     if (cs) { const m = maxU(cs); scale = (0.04 * size) / Math.max(m, 1e-9) * (+scaleIn.value / 100);
-      info.textContent = `max displacement ${fmt(m * 1000, 1)} mm · drawn × ${fmt(scale, 0)}`; } else { scale = 0; info.textContent = `${ids.length} nodes · ${mv.beams.length} members · ${mv.links.length} bearing links`; }
+      info.textContent = mv.cases[cs].T ? `mode shape (mass-normalised) · drawn × ${fmt(scale, 0)}` : `max displacement ${fmt(m * 1000, 1)} mm · drawn × ${fmt(scale, 0)}`; } else { scale = 0; info.textContent = `${ids.length} nodes · ${mv.beams.length} members · ${mv.links.length} bearing links`; }
     build();
   };
   caseSel.onchange = upd; scaleIn.oninput = upd; upd();

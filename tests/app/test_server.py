@@ -76,6 +76,18 @@ t("chain on a blank description: geometry step fails, later steps skipped, no re
   st["state"] == "failed" and st["steps"][0]["state"] == "failed" and all(s["state"] == "skipped" for s in st["steps"][1:])
   and c.get("/api/projects/TESTBR/results/girder_checks.json").get_json()["data"] is None, st["log"].strip().splitlines()[-1][:160] if st["log"] else "")
 
+# verification (P7.7): drawing-printed pile loads (109035, Direct) against the results; MIDAS runs listed for BR13A
+VB = c.get("/api/projects/B12626/verification").get_json()
+pr = VB["printed"]
+t("B12626: 109035 envelope rows (SLS N, ULS N, ULS M) over the 10 piles, platform value present",
+  len(pr) == 3 and all("DRG-109035" in r["source"] and r["platform"] and len(r["piles"]) == 10 for r in pr), f"{len(pr)} rows")
+sls = next(r for r in pr if "SLS N" in r["item"])
+t("envelope: printed 3535 kN against the platform maximum over the piles, governing pile named", sls["reference"] == 3535.0
+  and sls["platform"] == max(v["SLS"]["N"]["max"] for v in json.load(open(os.path.join(R, "projects/B12626/model/B12626.combined_actions.json")))["schedule"]["piles"].values())
+  and sls["governing"] in [x["pile"] for x in sls["piles"]])
+VR = c.get("/api/projects/BR13A/verification").get_json()
+t("BR13A: the owner's MIDAS runs listed (7)", len(VR["midas_runs"]) == 7 and VR["midas_runs"][-1]["run"] == "midas_run_2026-10-28g")
+
 # decisions and engineer input (P7.3) on a copy of B12626 in the temporary data folder (the repository is not touched)
 import shutil
 d = os.path.join(tmp, "projects", "COPY1"); os.makedirs(d)
@@ -102,6 +114,11 @@ ev = c.post("/api/projects/COPY1/values", json={"path": miss, "value": "Level 2"
 r2 = dict(records(json.load(open(os.path.join(d, "COPY1.bridge.0.2.json")))))[miss]
 t("engineer input saved under a new decision, accepted by the same person, tagged Input-user",
   ev.status_code == 200 and ev.get_json()["decision"] == "D-2" and r2["value"] == "Level 2" and r2["tag"] == "Input-user", f"{miss}: {ev.get_data(as_text=True)[-120:]}")
+
+RV = c.get("/api/projects/COPY1/revisions").get_json()
+t("revision history lists the kept revisions with the current one first", RV[0]["current"] and [r["number"] for r in RV] == sorted([r["number"] for r in RV], reverse=True), str([r["number"] for r in RV]))
+DF = c.get(f"/api/projects/COPY1/revisions/{rev0}/{rev0 + 1}").get_json()["rows"]
+t("diff of the D-1 acceptance shows the surfacing density 22 Standard-verify", any(r["path"] == "deck.surfacing_density" and r["to"] == 22 and r["to_tag"] == "Standard-verify" for r in DF), f"{len(DF)} changed")
 
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

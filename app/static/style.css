@@ -88,3 +88,9 @@ pre.log { max-height: 55vh; overflow: auto; background: #111820; color: #d7e0e8;
 @media (max-width: 760px) { .drawings, .viewer-body { grid-template-columns: 1fr; height: auto; } .canvasbox { height: 60vh; } input[type=search] { min-width: 0; width: 100%; } }
 table.num td.left { text-align: left; }
 table.values td.mono { white-space: nowrap; }
+.grid.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+.secsvg { width: 100%; max-height: 300px; display: block; }
+.sec-girder { fill: var(--t-model); stroke: var(--accent); stroke-width: 6; } .sec-deck { fill: var(--t-calc); stroke: var(--muted); stroke-width: 4; }
+.sec-na { stroke: var(--bad-ink); stroke-width: 4; stroke-dasharray: 30 18; } .sec-na.g { stroke: var(--accent); }
+.sec-t { font-size: 60px; fill: var(--muted); font-family: system-ui, sans-serif; }
+pre.md { white-space: pre-wrap; font-size: 12px; background: var(--bg); padding: 10px; border-radius: 6px; max-height: 50vh; overflow: auto; }

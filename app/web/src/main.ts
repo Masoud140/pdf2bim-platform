@@ -4,8 +4,8 @@ import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
 
 const app = document.getElementById("app")!;
-const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"],
-  ["analysis", "Analysis"], ["design", "Design checks"], ["run", "Run log & files"]];
+const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections"],
+  ["analysis", "Analysis"], ["design", "Design checks"], ["verification", "Verification"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
 const dl = (href: string | null, text: string, cls = "") => href ? h("a", { href, class: cls }, text) : h("span", { class: cls + " muted", title: "Download in the app on your computer" }, text);
@@ -65,9 +65,9 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   const nav = h("nav", { class: "tabs" }, TABS.map(([k, n]) => h("a", { href: `#/p/${id}/${k}`, class: k === tab ? "on" : "" }, n)));
   const body = h("section", { class: "tabbody" }, h("div", { class: "muted" }, "Loading…"));
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
-    h("div", { class: "row" }, dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
+    h("div", { class: "row" }, STATIC ? null : h("a", { class: "btn primary", href: `/api/projects/${encodeURIComponent(id)}/report`, target: "_blank" }, "Calculation report"), dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
   const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
-    model: () => model(id), analysis: () => analysis(id), design: () => design(id), run: () => runTab(id) };
+    model: () => model(id), sections: () => sections(id), analysis: () => analysis(id), design: () => design(id), verification: () => verification(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
 
@@ -80,8 +80,8 @@ function provenance(meta: Meta | null, extra?: string[]) {
 }
 
 // ---------------- overview ----------------
-const PIPE = [["drawings", "Drawings"], ["values", "Bridge data"], ["geometry", "Geometry"], ["sections", "Sections"], ["model", "Model + SW/SDL"],
-  ["mct", "MIDAS .mct"], ["actions", "Loads & combinations"], ["design", "Design checks"]];
+const PIPE = [["drawings", "Drawings"], ["values", "Bridge data"], ["geometry", "Geometry"], ["sections", "Sections"], ["model", "Model, SW/SDL, modes"],
+  ["mct", "MIDAS .mct"], ["actions", "Loads & combinations"], ["design", "Design checks"], ["report", "Report"]];
 
 async function overview(id: string) {
   const [run, vals, dr, mv, gc, ca] = await Promise.all([api.latest(id), api.values(id, true), api.drawings(id), api.result<ModelView>(id, "model_view.json"),
@@ -91,7 +91,7 @@ async function overview(id: string) {
   const st = (k: string) => k === "drawings" ? (dr.files.length ? "done" : "waiting") : k === "values" ? (tags["Missing-Flagged"] === vals.rows.length ? "waiting" : "done")
     : run?.steps.find((s) => s.key === k)?.state || "not run";
   const pipe = h("div", { class: "pipe" }, PIPE.map(([k, n], i) => [i ? h("span", { class: "arrow" }, "→") : null,
-    h("a", { class: `stage s-${st(k).replace(/ /g, "")}`, href: `#/p/${id}/${k === "geometry" || k === "sections" || k === "mct" ? "run" : k === "actions" ? "analysis" : k}` },
+    h("a", { class: `stage s-${st(k).replace(/ /g, "")}`, href: `#/p/${id}/${k === "geometry" || k === "mct" || k === "report" ? "run" : k === "actions" ? "analysis" : k}` },
       h("b", {}, n), h("span", { class: "small" }, st(k)))]));
   const allow = h("input", { type: "checkbox", checked: true }) as HTMLInputElement;
   const runBtn = h("button", { class: "btn primary", onclick: async () => { try { await api.run(id, allow.checked); location.hash = `#/p/${id}/run`; } catch (e) { alert((e as Error).message); } } }, "Run the chain");
@@ -214,9 +214,23 @@ const store = { get: (k: string) => { try { return localStorage.getItem(k) || ""
 const who = () => store.get("pdf2bim.name");
 const nameInput = () => h("input", { placeholder: "your name", value: who(), size: 16, oninput: (e: Event) => store.set("pdf2bim.name", (e.target as HTMLInputElement).value) });
 
+async function history(id: string) {
+  const revs = await api.revisions(id);
+  const diff = h("div");
+  const show = async (a: number, b: number) => {
+    const d = await api.revDiff(id, a, b);
+    diff.replaceChildren(h("h3", {}, `Changes from revision ${a} to ${b} (${d.rows.length})`), table(["Path", "From", "To", "Proposals added", "Decision"],
+      d.rows.slice(0, 500).map((r) => [h("span", { class: "mono" }, r.path), h("span", {}, fmt(r.from), " ", tagChip(r.from_tag)), h("span", {}, fmt(r.to), " ", tagChip(r.to_tag)),
+        r.proposals_added || "", r.decision || ""])), d.rows.length > 500 ? h("p", { class: "small muted" }, `first 500 of ${d.rows.length}`) : "");
+  };
+  return h("div", { class: "card" }, h("h3", {}, "Revision history of the bridge data"),
+    table(["Revision", "Date", "By", "Note", ""], revs.map((r, i) => [String(r.number) + (r.current ? " (current)" : ""), r.created || "—", r.author || "—", h("span", { class: "small" }, r.note || ""),
+      i < revs.length - 1 && !STATIC ? h("button", { class: "btn ghost small", onclick: () => show(revs[i + 1].number, r.number) }, `Changes from ${revs[i + 1].number}`) : ""]), "txt"), diff);
+}
+
 async function decisions(id: string) {
-  const { items, revision } = await api.decisions(id);
-  if (!items.length) return empty("No decisions waiting", "Every proposed value has been accepted or rejected.");
+  const [{ items, revision }, hist] = await Promise.all([api.decisions(id), history(id)]);
+  if (!items.length) return h("div", {}, empty("No decisions waiting", "Every proposed value has been accepted or rejected."), hist);
   const card = (d: Decision) => {
     const note = h("input", { placeholder: "note (required to reject)", size: 36 }) as HTMLInputElement;
     const msg = h("div", { class: "small" });
@@ -234,7 +248,7 @@ async function decisions(id: string) {
         h("button", { class: "btn primary", onclick: act(true) }, "Accept"), h("button", { class: "btn", onclick: act(false) }, "Reject")), msg);
   };
   return h("div", {}, h("div", { class: "alert warn small" }, `Description revision ${revision}. Accepting makes every value of the decision part of the bridge record, under your name; a new revision is written and the previous one kept in history. Only a person can accept (the AI cannot).`),
-    items.map(card));
+    items.map(card), hist);
 }
 
 // ---------------- model ----------------
@@ -242,6 +256,45 @@ async function model(id: string) {
   const r = await api.result<ModelView>(id, "model_view.json");
   if (!r.data) return empty("No model yet", h("span", {}, "Run the chain from the ", h("a", { href: `#/p/${id}/overview` }, "Overview"), " tab to build the integrated model."));
   return h("div", {}, provenance(r.meta, r.data.provisional_decisions), modelViewer(r.data));
+}
+
+// ---------------- sections ----------------
+function sectionSvg(st: any): SVGElement {
+  const pts: number[][] = [...st.outline, ...(st.deck || [])];
+  const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+  const x0 = Math.min(...xs) - 150, x1 = Math.max(...xs) + 150, y0 = Math.min(...ys) - 150, y1 = Math.max(...ys) + 150;
+  const P = (poly: number[][]) => poly.map((p) => `${p[0].toFixed(1)},${(-p[1]).toFixed(1)}`).join(" ");
+  const yc = st.composite?.yc, ycg = st.girder?.yc;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", `${x0} ${-y1} ${x1 - x0} ${y1 - y0}`); svg.setAttribute("class", "secsvg");
+  svg.innerHTML = (st.deck ? `<polygon points="${P(st.deck)}" class="sec-deck"/>` : "") + `<polygon points="${P(st.outline)}" class="sec-girder" fill-rule="evenodd"/>`
+    + (yc !== undefined ? `<line x1="${x0}" x2="${x1}" y1="${-yc}" y2="${-yc}" class="sec-na"/><text x="${x1 - 10}" y="${-yc - 20}" text-anchor="end" class="sec-t">composite centroid ${yc.toFixed(0)}</text>` : "")
+    + (ycg !== undefined ? `<line x1="${x0}" x2="${x1}" y1="${-ycg}" y2="${-ycg}" class="sec-na g"/><text x="${x0 + 10}" y="${-ycg - 20}" class="sec-t">girder centroid ${ycg.toFixed(0)}</text>` : "");
+  return svg;
+}
+
+async function sections(id: string) {
+  const r = await api.result<any>(id, "sections.json");
+  if (!r.data) return empty("No section properties", "Run the chain to compute them.");
+  const G = r.data.girders as Record<string, any>; const gs = Object.keys(G).sort();
+  const box = h("div");
+  const sel = h("select", { onchange: (e: Event) => show((e.target as HTMLSelectElement).value) }, gs.map((g) => h("option", { value: g }, g)));
+  const e9 = (v: number | undefined) => (v === undefined ? "—" : fmt(v / 1e9, 2));
+  const show = (g: string) => {
+    const S = G[g]; const mid = S.stations[Math.floor(S.stations.length / 2)];
+    const solid = S.solid_end?.A;
+    box.replaceChildren(h("div", { class: "grid two" },
+      h("div", { class: "card" }, h("h3", {}, `${g} — ${S.type} at midspan (open)`), sectionSvg(mid)),
+      solid ? h("div", { class: "card" }, h("h3", {}, `${g} — solid end zone`), sectionSvg(solid)) : null),
+      h("div", { class: "card" }, h("h3", {}, "Properties along the girder (mm, mm², ×10⁹ mm⁴)"),
+        table(["t", "Deck width", "Girder A", "Girder yc", "Girder Ix", "Girder J", "Composite A (transformed)", "Composite yc", "Composite Ix", "Composite J"],
+          S.stations.map((st: any) => [fmt(st.t, 2), fmt(st.deck_left + st.deck_right, 0), fmt(st.girder.A, 0), fmt(st.girder.yc, 1), e9(st.girder.Ix), e9(st.girder.J),
+            fmt(st.composite.A_transformed, 0), fmt(st.composite.yc, 1), e9(st.composite.Ix), e9(st.composite.J_geometric)]), "num"),
+        h("p", { class: "small muted" }, `Super-T ${S.type} (${S.type_ref || ""}), haunch ${S.haunch ?? "—"} mm, length end to end ${fmt(S.length_end_to_end, 3)} m. y from the girder soffit. `,
+          (r.data.notes || []).join(" "))));
+  };
+  setTimeout(() => show(gs[0]));
+  return h("div", {}, provenance(r.meta), h("div", { class: "row between" }, h("span", { class: "small muted" }, `E girder ${r.data.E_girder_MPa} MPa · E deck ${r.data.E_deck_MPa} MPa · modular ratio ${fmt(r.data.modular_ratio_deck, 4)} · deck ${r.data.deck_thickness} mm`), sel), box);
 }
 
 // ---------------- analysis ----------------
@@ -252,8 +305,16 @@ async function analysis(id: string) {
     const m = mv.data;
     const gz = (c: string) => { let best = { n: "", z: 0 }; for (const [n, u] of Object.entries(m.cases[c].u)) if (m.nodes[n]?.[3] === "girder" && u[2] < best.z) best = { n, z: u[2] }; return best; };
     out.append(h("div", { class: "card" }, h("h3", {}, "Permanent load cases (unfactored)"), table(["Case", "Applied (kN)", "Max girder deflection (mm)", "Equilibrium residual (kN)"],
-      Object.keys(m.cases).map((c) => [c === "SW" ? "Self weight" : "Superimposed dead load", fmt(-m.cases[c].applied_kN[2], 1), fmt(-gz(c).z * 1000, 1), m.cases[c].equilibrium_residual_kN.toExponential(2)]))));
+      ["SW", "SDL"].filter((c) => m.cases[c]).map((c) => [c === "SW" ? "Self weight" : "Superimposed dead load", fmt(-m.cases[c].applied_kN[2], 1), fmt(-gz(c).z * 1000, 1), m.cases[c].equilibrium_residual_kN.toExponential(2)]))));
   }
+  if (mv.data?.modes?.length) {
+    const md = mv.data.modes; const cum = { X: 0, Y: 0, Z: 0 } as Record<string, number>;
+    out.append(h("div", { class: "card" }, h("h3", {}, `Natural modes (${md.length}) — mass: ${mv.data.mass_rule}`),
+      table(["Mode", "Period T (s)", "f (Hz)", "Mass X", "Mass Y", "Mass Z", "Cumulative X / Y / Z"], md.slice(0, 12).map((x) => {
+        ["X", "Y", "Z"].forEach((d) => (cum[d] += x.eff[d]));
+        return [x.n, fmt(x.T, 3), fmt(x.f, 2), fmt(100 * x.eff.X, 1) + " %", fmt(100 * x.eff.Y, 1) + " %", fmt(100 * x.eff.Z, 1) + " %", `${fmt(100 * cum.X, 0)} / ${fmt(100 * cum.Y, 0)} / ${fmt(100 * cum.Z, 0)} %`]; }), "num"),
+      h("p", { class: "small muted" }, `First 12 of ${md.length} shown; X = global easting, Y = northing. Mode shapes: Model 3D tab.`)));
+  } else if (mv.data?.modes_note) out.append(h("div", { class: "alert warn small" }, mv.data.modes_note));
   if (!ca.data) { out.append(empty("No combined actions", "Run the chain to compute loads and AS 5100.2 combinations.")); return out; }
   const S = ca.data.schedule; const gov = (o: any, k: string) => h("span", { class: "small muted" }, o?.[k] || "");
   const cell = (v: any, g?: any) => h("td", {}, fmt(v, 0), g ? h("div", {}, g) : null);
@@ -310,6 +371,25 @@ async function design(id: string) {
     h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, "Station detail"), sel), detail),
     notes.length ? h("div", { class: "card small" }, h("h3", {}, "Method notes"), h("ul", {}, notes.map((n) => h("li", {}, n)))) : null,
     h("p", { class: "small muted" }, "Full report: ", dl(api.fileUrl(id, "girder_checks.md"), "girder_checks.md")));
+}
+
+// ---------------- verification ----------------
+async function verification(id: string) {
+  const v = await api.verification(id);
+  const out = h("div", {}, provenance(v.meta));
+  const band = (d: number | null) => (d === null ? "u-na" : Math.abs(d) <= 5 ? "u-ok" : Math.abs(d) <= 15 ? "u-warn" : "u-fail");
+  if (v.printed.length) {
+    out.append(h("div", { class: "card" }, h("h3", {}, "Platform results against values printed on the drawings"),
+      table(["Item", "Drawing", "Platform", "Difference", "Source", "Note"], v.printed.map((r) => {
+        const d = r.platform === null || r.platform === undefined ? null : (100 * (r.platform - r.reference)) / r.reference;
+        return [h("span", {}, r.item, r.governing ? h("div", { class: "small muted" }, `governing pile ${r.governing}; per pile: ${(r.piles || []).map((x) => `${x.pile} ${fmt(x.platform, 0)}`).join(", ")}`) : null),
+          `${fmt(r.reference, 0)} ${r.unit}`, r.platform === null || r.platform === undefined ? "—" : `${fmt(r.platform, 0)} ${r.unit}`,
+          h("td", { class: `uc ${band(d)}` }, d === null ? "—" : `${d > 0 ? "+" : ""}${fmt(d, 1)} %`), r.source, h("span", { class: "small" }, r.note || "")]; }), "num"),
+      h("p", { class: "small muted" }, "Where the drawing gives one value for several piles (an envelope), it is compared with the platform maximum over those piles. Colour shows the size of the difference only (green ≤ 5 %, amber ≤ 15 %, red above); whether a difference is acceptable is the engineer's call. Reference values are the drawing values tagged Direct in the bridge data.")));
+  } else out.append(empty("No printed design actions in the bridge data", "When the drawings print design loads (e.g. pile loads), record them in the bridge data and they are compared here after every run."));
+  if (v.midas_runs.length) out.append(h("div", { class: "card" }, h("h3", {}, `Independent MIDAS Civil runs (${v.midas_runs.length})`),
+    v.midas_runs.map((m) => h("details", {}, h("summary", {}, h("b", {}, m.run), " — ", m.title), h("pre", { class: "md" }, m.text)))));
+  return out;
 }
 
 // ---------------- run log ----------------

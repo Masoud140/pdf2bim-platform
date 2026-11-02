@@ -7,10 +7,9 @@ const { chromium } = require("playwright");
   const errs = [];
   p.on("pageerror", (e) => errs.push(e.message));
   p.on("console", (m) => m.type() === "error" && errs.push(m.text()));
-  const tabs = [["home", "#/"], ["overview", `#/p/${id}/overview`], ["values", `#/p/${id}/values`], ["values_review", `#/p/${id}/values?review=1`], ["model", `#/p/${id}/model`],
-    ["analysis", `#/p/${id}/analysis`], ["design", `#/p/${id}/design`], ["drawings", `#/p/${id}/drawings`], ["run", `#/p/${id}/run`]];
-  for (const [n, h] of tabs) {
-    await p.goto(base + "/" + h); await p.waitForTimeout(n === "model" ? 4000 : 1500);
+  const tabs = ["overview", "drawings", "values", "decisions", "model", "sections", "analysis", "design", "verification", "run"];
+  for (const n of ["home", ...tabs]) {
+    await p.goto(base + "/" + (n === "home" ? "#/" : `#/p/${id}/${n}`)); await p.waitForTimeout(n === "model" ? 4000 : 1800);
     await p.screenshot({ path: `${out}/${id}_${n}${dark ? "_dark" : ""}.png`, fullPage: n !== "model" && n !== "drawings" });
   }
   console.log(errs.length ? "PAGE ERRORS:\n" + errs.join("\n") : "no page errors");

@@ -49,6 +49,21 @@ def rho_cqc(wi, wj, z):
     return 8 * z * z * (1 + r) * r ** 1.5 / ((1 - r * r) ** 2 + 4 * z * z * r * (1 + r) ** 2)
 
 
+def lumped_mass(m, sdl_loads=None):
+    """Owner decision 2026-10-28 (ADR-046, as MIDAS Loads to Masses X Y Z): member weight lumped half at each end node
+    + downward SDL nodal loads; t per node."""
+    mass = {}
+    for b in m.beams.values():
+        if b["w"] > 0:
+            Lb = float(np.linalg.norm(m.nodes[b["n2"]] - m.nodes[b["n1"]]))
+            for k in (b["n1"], b["n2"]):
+                mass[k] = mass.get(k, 0.0) + b["w"] * Lb / 2 / G_ACC
+    for k, f in (sdl_loads or {}).items():
+        if f[2] < 0:
+            mass[k] = mass.get(k, 0.0) - f[2] / G_ACC
+    return mass
+
+
 def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, extra_mass=None, n_modes=None):
     rd = Reader(doc, allow_proposed)
     Ld = doc.get("loads") or {}
@@ -66,18 +81,7 @@ def earthquake_rsa(doc, geo, mdl, std, sdl_loads=None, allow_proposed=False, ext
     Sa = lambda T: kp * Z * ch_factor(T, row) / Rf
     nm = n_modes or int(rd.value((doc.get("analysis") or {}).get("modes"), "analysis.modes"))
     m = mdl["model"]
-    if extra_mass is not None:
-        mass = dict(extra_mass)
-    else:   # owner decision 2026-10-28 (ADR-046, as MIDAS Loads to Masses X Y Z): member weight lumped half at each end node + SDL
-        mass = {}
-        for b in m.beams.values():
-            if b["w"] > 0:
-                Lb = float(np.linalg.norm(m.nodes[b["n2"]] - m.nodes[b["n1"]]))
-                for k in (b["n1"], b["n2"]):
-                    mass[k] = mass.get(k, 0.0) + b["w"] * Lb / 2 / G_ACC
-        for k, f in (sdl_loads or {}).items():
-            if f[2] < 0:
-                mass[k] = mass.get(k, 0.0) - f[2] / G_ACC
+    mass = dict(extra_mass) if extra_mass is not None else lumped_mass(m, sdl_loads)
     MD = m.modes(nm, extra_mass=mass, matrices=True, beam_mass=extra_mass is not None)
     K, Mm, free, idx, Phi, w2 = MD["K"], MD["M"], MD["free"], MD["idx"], MD["Phi"], MD["w2"]
     nd = DOF * len(m.nodes)

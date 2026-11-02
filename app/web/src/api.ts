@@ -42,6 +42,11 @@ export const api = {
     fetch(`${base(id)}/decisions/${did}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<{ message: string }>(r)),
   enterValue: (id: string, body: Record<string, unknown>) =>
     fetch(`${base(id)}/values`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<{ decision: string; message: string }>(r)),
+  verification: (id: string) => fetch(`${base(id)}/verification`).then((r) => j<{ meta: Meta | null; printed: { item: string; reference: number; platform: number | null; unit: string; source: string; note: string | null; governing?: string; piles?: { pile: string; platform: number | null }[] }[];
+    midas_runs: { run: string; title: string; text: string }[] }>(r)),
+  revisions: (id: string) => fetch(`${base(id)}/revisions`).then((r) => j<{ number: number; created: string | null; author: string | null; note: string | null; current: boolean }[]>(r)),
+  revDiff: (id: string, a: number, b: number) => fetch(`${base(id)}/revisions/${a}/${b}`).then((r) => j<{ rows: { path: string; from: unknown; from_tag: string | null; from_status: string | null;
+    to: unknown; to_tag: string | null; to_status: string | null; proposals_added: number; decision: string | null }[] }>(r)),
   fileUrl: (id: string, name: string): string | null => (STATIC ? null : `${base(id)}/files/${encodeURIComponent(name)}`),
   descUrl: (id: string): string | null => (STATIC ? null : `${base(id)}/description.json`),
 };

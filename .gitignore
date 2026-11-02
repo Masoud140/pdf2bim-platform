@@ -8,3 +8,4 @@ __pycache__/
 *.pyc
 tests/xlout/
 app_data/
+.venv/

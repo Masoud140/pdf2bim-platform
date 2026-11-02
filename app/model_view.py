@@ -14,6 +14,8 @@ from pdf2bim.geometry.bridge import build_geometry
 from pdf2bim.sections.girder import build_sections
 from pdf2bim.model.substructure import build_integrated
 from pdf2bim.model.loads import sdl_case
+from pdf2bim.model.earthquake import lumped_mass
+from pdf2bim.description import Reader, MissingInput
 from standards.accessor import Standards
 
 
@@ -43,12 +45,23 @@ def main():
     sd = sdl_case(doc, geo, M, allow_proposed=ap)
     sdl = solve_view(m, m.solve(gravity=(0.0, 0.0, 0.0), loads=sd["loads"]))
     sdl["total_kN"] = round(float(sd["total_kN"]), 2)
+    mv_cases = {"SW": sw, "SDL": sdl}
+    # modes with the earthquake mass (ADR-046: lumped member weight + SDL, X Y Z), as many as analysis.modes asks
+    modes, note = [], None
+    try:
+        nm = int(Reader(doc, ap).value((doc.get("analysis") or {}).get("modes"), "analysis.modes"))
+        MD = m.modes(nm, extra_mass=lumped_mass(m, sd["loads"]), beam_mass=False)
+        for k, md in enumerate(MD["modes"], 1):
+            modes.append({"n": k, "T": round(md["T"], 4), "f": round(md["f"], 3), "eff": {d: round(v, 4) for d, v in md["eff"].items()}})
+            mv_cases[f"Mode {k}"] = {"u": {str(n): [round(float(x), 6) for x in v[:3]] for n, v in md["shape"].items()}, "T": round(md["T"], 4)}
+    except MissingInput as e:
+        note = f"modes not computed: {e}"
     prov = sorted({str(q.get("decision")) for q in M["provisional"] + S["provisional"] + geo["provisional"] if q.get("decision")})
     json.dump({"origin": o, "nodes": nodes, "beams": beams, "links": links, "springs": [str(n) for n in m.springs],
-               "fixed": [str(n) for n in m.fixed], "cases": {"SW": sw, "SDL": sdl}, "geometry_checks": geo["checks"],
+               "fixed": [str(n) for n in m.fixed], "cases": mv_cases, "modes": modes, "modes_note": note, "mass_rule": "ADR-046 lumped member weight + SDL (X Y Z)", "geometry_checks": geo["checks"],
                "provisional_decisions": prov, "allow_proposed": ap}, open(out, "w"), default=str)
     print(f"model view: {len(nodes)} nodes, {len(beams)} members, {len(links)} links; SW applied {sw['applied_kN'][2]} kN, "
-          f"SDL {sdl['total_kN']} kN; equilibrium residual {sw['equilibrium_residual_kN']} kN")
+          f"SDL {sdl['total_kN']} kN; equilibrium residual {sw['equilibrium_residual_kN']} kN; " + (f"{len(modes)} modes, T1 = {modes[0]['T']} s" if modes else note))
 
 
 if __name__ == "__main__":

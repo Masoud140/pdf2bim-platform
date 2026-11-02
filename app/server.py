@@ -29,6 +29,7 @@ STEPS = [
     ("mct", "MIDAS Civil export (.mct)", lambda d, o, a: ["tools/export_mct.py", d, "--out", f"{o}/model.mct"] + a, "model.mct"),
     ("actions", "Loads, combinations and combined actions", lambda d, o, a: ["tools/combined_actions.py", d, "--out", f"{o}/combined_actions.md"] + a, "combined_actions.json"),
     ("design", "Girder design checks (SLS, ULS, shear / torsion)", lambda d, o, a: ["tools/girder_checks.py", d, "--out", f"{o}/girder_checks.md"] + a, "girder_checks.json"),
+    ("report", "Calculation report", lambda d, o, a: ["app/report.py", d, o] + a, "report.html"),
 ]
 JOBS = {}          # project id -> thread
 LOCK = threading.Lock()
@@ -374,7 +375,7 @@ def _result_file(pid, name):
 
 @app.get("/api/projects/<pid>/results/<name>")
 def api_result(pid, name):
-    if name not in ("model_view.json", "combined_actions.json", "girder_checks.json", "geometry.json"):
+    if name not in ("model_view.json", "combined_actions.json", "girder_checks.json", "geometry.json", "sections.json"):
         abort(404)
     f, meta = _result_file(pid, name)
     if not f:
@@ -394,6 +395,101 @@ def api_file(pid, name):
     if not f:
         abort(404)
     return send_file(f, as_attachment=True, download_name=f"{pid}.{name}")
+
+
+# ---------------- revision history (P7.8) ----------------
+def _revisions(p):
+    d = os.path.dirname(p["description"]); base = os.path.basename(p["description"]).replace(".json", "")
+    revs = {}
+    for f in glob.glob(os.path.join(d, "history", base + ".r*.json")):
+        m = re.search(r"\.r(\d+)\.json$", f)
+        if m:
+            revs[int(m.group(1))] = f
+    cur = load_doc(p)["revision"]["number"]
+    revs[cur] = p["description"]
+    return revs
+
+
+@app.get("/api/projects/<pid>/revisions")
+def api_revisions(pid):
+    p = project(pid)
+    out = []
+    for n, f in sorted(_revisions(p).items(), reverse=True):
+        r = json.load(open(f)).get("revision") or {}
+        out.append({"number": n, "created": r.get("created"), "author": r.get("author"), "note": r.get("note"), "current": f == p["description"]})
+    return jsonify(out)
+
+
+@app.get("/api/projects/<pid>/revisions/<int:a>/<int:b>")
+def api_rev_diff(pid, a, b):
+    """Values whose current value, tag or status differ between two revisions (as stored, not with proposals)."""
+    revs = _revisions(project(pid))
+    if a not in revs or b not in revs:
+        abort(404, "revision not kept")
+    A, B = (dict(records(json.load(open(revs[x])))) for x in (a, b))
+    cur = lambda r: (r.get("cells") if "value" not in r else r.get("value"), r.get("tag"), r.get("status"), len(r.get("overrides") or []))
+    rows = []
+    for path in sorted(set(A) | set(B)):
+        ra, rb = A.get(path), B.get(path)
+        if ra is None or rb is None or cur(ra) != cur(rb):
+            ca_, cb_ = (cur(x) if x else (None, None, None, 0) for x in (ra, rb))
+            rows.append({"path": path, "from": ca_[0], "from_tag": ca_[1], "from_status": ca_[2], "to": cb_[0], "to_tag": cb_[1], "to_status": cb_[2],
+                         "proposals_added": cb_[3] - ca_[3], "decision": (rb or {}).get("decision")})
+    return jsonify({"a": a, "b": b, "rows": rows})
+
+
+# ---------------- verification (P7.7) ----------------
+PILE_DA = re.compile(r"^supports\[([^\]]+)\]\.piles\[([^\]]+)\]\.design_actions\.rows\[\d+\]$")
+
+
+@app.get("/api/projects/<pid>/verification")
+def api_verification(pid):
+    """Printed values on the drawings (description, tag Direct) against the latest results, plus recorded MIDAS runs.
+    Differences only; acceptance is the engineer's (no pass criterion is invented here)."""
+    p = project(pid); doc = load_doc(p)
+    f, meta = _result_file(pid, "combined_actions.json")
+    ca = json.load(open(f)) if f else None
+    rows = []
+    for path, r in records(doc):
+        m = PILE_DA.match(path)
+        if not m or r.get("tag") not in ("Direct", "Calculated", "Confirmed-Engineer"):
+            continue
+        c = r.get("cells") or {}; pile = m.group(2); ls = c.get("limit_state")
+        sch = ((ca or {}).get("schedule") or {}).get("piles", {}).get(pile, {}).get(ls) if ca else None
+        src = r.get("source") or {}
+        for q, ref, plat in (("N max", c.get("N"), sch and sch["N"]["max"]),
+                             ("M", c.get("M"), ls == "ULS" and ca and (ca.get("pile_resultants") or {}).get(pile, {}).get("resultant_upper"))):
+            if ref is not None:
+                rows.append({"item": f"Pile {pile} {ls} {q}", "reference": ref, "platform": plat, "unit": "kN" if q.startswith("N") else "kN·m",
+                             "source": f"{src.get('doc', '')} {src.get('view', '')}".strip(), "note": src.get("text"), "path": path})
+    # one printed value shared by several piles from the same table is an envelope: compare with the platform maximum
+    groups = {}
+    for r in rows:
+        groups.setdefault((r["item"].split(" ", 2)[2], r["reference"], r["source"]), []).append(r)
+    env = []
+    for (q, ref, src), g in groups.items():
+        if len(g) == 1:
+            env.append(g[0]); continue
+        vals = [x["platform"] for x in g if x["platform"] is not None]
+        top = max(g, key=lambda x: x["platform"] or float("-inf"))
+        env.append({**g[0], "item": f"{len(g)} piles, envelope: {q}", "platform": max(vals) if vals else None, "governing": top["item"].split(" ")[1],
+                    "piles": [{"pile": x["item"].split(" ")[1], "platform": x["platform"]} for x in g]})
+    rows = env
+    runs = []
+    for fm in sorted(glob.glob(os.path.join(os.path.dirname(p["description"]), "model", "midas_run_*", "COMPARISON.md"))):
+        txt = open(fm).read()
+        runs.append({"run": os.path.basename(os.path.dirname(fm)), "title": txt.splitlines()[0].lstrip("# ").strip(), "text": txt[:6000]})
+    return jsonify({"meta": meta, "printed": rows, "midas_runs": runs})
+
+
+@app.get("/api/projects/<pid>/report")
+def api_report(pid):
+    project(pid)
+    st = latest_run(pid)
+    f = st and os.path.join(DATA, pid, "runs", st["id"], "report.html")
+    if not f or not os.path.exists(f):
+        abort(404, "no report yet: run the chain")
+    return send_file(f, mimetype="text/html")
 
 
 @app.get("/api/projects/<pid>/description.json")

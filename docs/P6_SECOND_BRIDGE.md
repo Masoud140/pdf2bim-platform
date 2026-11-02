@@ -167,3 +167,11 @@ The edge girders are still 2 % over 1.0. The remaining contributors are provisio
 1. Owner answers on the flange overlap and the sill depth; replace the Assumed inputs with the design report, the bearing catalogue and the geotechnical report.
 2. Traffic (7 lanes, SM1600) and the combinations on B12626; compare pile actions with 109035 Table 4.
 3. G-1 (per-side flange setback) and G-3 (crowned sill), if the owner wants them modelled.
+
+## 4d. App verification view and modes (2026-11-02, P7.5 / P7.7)
+
+- Drawing 109035 Table 4 prints one envelope for all piles ("same for both abutments; not concurrent, maximum values in each case");
+  the app compares it with the platform maximum over the 10 piles: SLS N 3578 vs 3535 (+1.2 %), ULS N 5303 vs 5175 (+2.5 %),
+  ULS M 2285 vs 1831 (+24.8 %; earthquake-governed, placeholder soil kh 10 MN/m3, D-1 Assumed).
+- B12626 T1 = 1.32 s (lumped mass, ADR-046), mass X 22 % / Y 38 % in mode 1: long, governed by the placeholder pile-soil stiffness — the same
+  input as the pile-moment difference. Both close only with the geotechnical report (owner query).

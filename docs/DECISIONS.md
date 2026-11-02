@@ -473,3 +473,11 @@
   - `accept_decision` did not set the record's `decision` field, so any accepted Input-user / Confirmed-Engineer value failed the schema.
   - B12626 D-1 log entry was invalid against the decision schema (`to_tag` null; layer `sections` does not exist), so D-1 could never be accepted. `dev_inputs.py` and the log fixed: `to_tag` Assumed (mixed set, labelled by its weakest tag); affects geometry, model, loads, design.supert, substructure.
   - The app rounded bridge values to integers on screen (barrier offset −9.8433 shown −10); values are now shown exactly as stored.
+
+## ADR-051 App completion stages P7.4–P7.7 (2026-11-02)
+
+- **Owner request:** bring the app to completion as a professional, comprehensive platform; more examples later. Plan in `docs/P7_PLAN.md`.
+- **P7.4:** `start_app.bat` / `start_app.sh` + `requirements.txt` so the owner runs the app on his PC (the cloud workspace address cannot be reached from outside).
+- **P7.5:** natural modes in the model view with the earthquake mass rule (ADR-046), via `earthquake.lumped_mass` extracted so there is one definition; BR13A T1 0.5626 s = MIDAS run g 0.563 s (test). Sections tab draws the Super-T / composite section from the section engine outline.
+- **P7.6:** `app/report.py` writes a printable calculation report per run (last chain step) from the run outputs only.
+- **P7.7:** Verification tab compares drawing-printed design actions held in the description (tag Direct, e.g. 109035 pile loads) with the latest results and lists the recorded MIDAS runs. It reports differences; colour bands (5 / 15 %) describe size only, acceptance stays with the engineer.
