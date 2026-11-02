@@ -1,5 +1,5 @@
 // PDF2BIM web app: projects, drawings, description values, model, analysis, design, run log.
-import { api, Project, Run, ValueRow, Drawings, Meta } from "./api";
+import { api, STATIC, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
 
@@ -7,6 +7,8 @@ const app = document.getElementById("app")!;
 const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["model", "Model 3D"],
   ["analysis", "Analysis"], ["design", "Design checks"], ["run", "Run log & files"]];
 let poll: number | undefined;
+// download link, or plain text in the read-only online copy (downloads are local-app only)
+const dl = (href: string | null, text: string, cls = "") => href ? h("a", { href, class: cls }, text) : h("span", { class: cls + " muted", title: "Download in the app on your computer" }, text);
 
 function route() {
   clearInterval(poll);
@@ -21,7 +23,8 @@ const fail = (e: Error) => { app.replaceChildren(h("div", { class: "page" }, h("
 
 function topbar(crumb?: string) {
   return h("header", { class: "top" }, h("a", { href: "#/", class: "brand" }, h("span", { class: "logo" }, "▱"), "PDF2BIM"),
-    h("span", { class: "muted" }, "Bridge drawings → model → analysis → design"), crumb ? h("span", { class: "crumb" }, "/ ", crumb) : null);
+    h("span", { class: "muted" }, "Bridge drawings → model → analysis → design"), crumb ? h("span", { class: "crumb" }, "/ ", crumb) : null,
+    STATIC ? h("span", { class: "pill warn" }, `Read-only online copy · ${STATIC.taken} · engine ${STATIC.commit}`) : null);
 }
 
 function tagBar(tags: Record<string, number>) {
@@ -43,7 +46,7 @@ async function home() {
   h("button", { class: "btn primary", type: "submit" }, "Create"));
   const msg = h("div", { class: "small muted" }); form.append(msg);
   app.replaceChildren(topbar(), h("main", { class: "page" }, h("h1", {}, "Bridges"),
-    h("div", { class: "grid cards" }, ps.map(projCard), form)));
+    h("div", { class: "grid cards" }, ps.map(projCard), STATIC ? null : form)));
 }
 
 function projCard(p: Project) {
@@ -62,7 +65,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   const nav = h("nav", { class: "tabs" }, TABS.map(([k, n]) => h("a", { href: `#/p/${id}/${k}`, class: k === tab ? "on" : "" }, n)));
   const body = h("section", { class: "tabbody" }, h("div", { class: "muted" }, "Loading…"));
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
-    h("div", { class: "row" }, h("a", { class: "btn ghost", href: api.descUrl(id) }, "Description JSON"))), nav, body));
+    h("div", { class: "row" }, dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
   const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id),
     model: () => model(id), analysis: () => analysis(id), design: () => design(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
@@ -105,7 +108,7 @@ async function overview(id: string) {
     tile("Max pile axial (ULS)", pmax ? `${fmt(pmax.N, 0)} kN` : "—", pmax ? `pile ${pmax.k} · SLS ${fmt(pmax.Ns, 0)} kN` : "no results", `#/p/${id}/analysis`),
   ];
   return h("div", {}, h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, "Pipeline"),
-      h("div", { class: "row" }, h("label", { class: "small" }, allow, " use proposed inputs (provisional)"), runBtn)), pipe,
+      STATIC ? h("span", { class: "small muted" }, "Runs start in the app on your computer") : h("div", { class: "row" }, h("label", { class: "small" }, allow, " use proposed inputs (provisional)"), runBtn)), pipe,
     h("p", { class: "small muted" }, run ? `Last run ${run.id}: ${run.state}${run.finished ? `, finished ${run.finished}` : ""}.` : "Not run in the app yet — results below (if any) are the outputs committed in the repository.")),
     h("div", { class: "grid tiles" }, tiles), provenance(gc.meta || mv.meta, mv.data?.provisional_decisions),
     h("div", { class: "card" }, h("h3", {}, "Data quality"), tagBar(tags), h("div", { class: "row wrap small" }, TAGS.filter((t) => tags[t]).map((t) => h("span", {}, tagChip(t), " ", tags[t])))));
@@ -119,6 +122,7 @@ async function drawings(id: string, params: URLSearchParams) {
   const d: Drawings = await api.drawings(id);
   const up = h("form", { class: "row", onsubmit: async (e: Event) => { e.preventDefault(); await api.upload(id, new FormData(e.target as HTMLFormElement)); route(); } },
     h("input", { type: "file", name: "drawings", accept: "application/pdf", multiple: true }), h("button", { class: "btn" }, "Upload"));
+  if (STATIC && !d.files.length) return empty("Drawings are not in the online copy", "Drawings stay on your computer (they are confidential). Upload them in the app on your computer.");
   if (!d.files.length) return h("div", {}, empty("No drawings uploaded", "Upload the PDF drawing set. Drawings are stored in the app's data folder only (never committed to the repository)."), up);
   const docName = (did: string) => d.documents.find((x) => x.id === did)?.number || did;
   const pages = d.files.flatMap((f) => f.pages.map((p) => ({ file: f.file, ...p })));
@@ -211,7 +215,7 @@ async function analysis(id: string) {
     h("div", { class: "card" }, h("h3", {}, "Sills / headstocks (kN·m, kN)"), table(["Support", "ULS My max", "ULS My min", "ULS Vz", "ULS T"],
       Object.entries<any>(S.sills).map(([k, v]) => [k, cell(v.ULS.My_max.value), cell(v.ULS.My_min.value), cell(v.ULS.Vz.abs), cell(v.ULS.T?.abs)]), "num")),
     h("p", { class: "small muted" }, `${ca.data.governing_rows?.length || 0} governing combination rows; ${ca.data.not_combined?.length || 0} actions not combined. Full schedule: `,
-      h("a", { href: api.fileUrl(id, "combined_actions.md") }, "combined_actions.md")));
+      dl(api.fileUrl(id, "combined_actions.md"), "combined_actions.md")));
   return out;
 }
 
@@ -251,7 +255,7 @@ async function design(id: string) {
     heat("uV", "Shear / torsion utilisation along the girders", (x) => x.shear?.u),
     h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, "Station detail"), sel), detail),
     notes.length ? h("div", { class: "card small" }, h("h3", {}, "Method notes"), h("ul", {}, notes.map((n) => h("li", {}, n)))) : null,
-    h("p", { class: "small muted" }, "Full report: ", h("a", { href: api.fileUrl(id, "girder_checks.md") }, "girder_checks.md")));
+    h("p", { class: "small muted" }, "Full report: ", dl(api.fileUrl(id, "girder_checks.md"), "girder_checks.md")));
 }
 
 // ---------------- run log ----------------
@@ -263,7 +267,7 @@ async function runTab(id: string) {
     box.replaceChildren(h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, `Run ${run.id} — ${run.state}`),
         h("span", { class: "small muted" }, `${run.allow_proposed ? "proposed inputs used (provisional)" : "accepted inputs only"} · engine ${run.engine_commit || "?"} · ${run.description}`)),
       table(["Step", "State", "Time (s)"], run.steps.map((s) => [s.title, h("span", { class: `state s-${s.state}` }, s.state), s.seconds ?? ""]))),
-      h("div", { class: "card" }, h("h3", {}, "Files from this run"), h("div", { class: "row wrap" }, run.files.map((f) => h("a", { class: "btn ghost", href: api.fileUrl(id, f) }, f)))),
+      h("div", { class: "card" }, h("h3", {}, "Files from this run"), h("div", { class: "row wrap" }, run.files.map((f) => dl(api.fileUrl(id, f), f, "btn ghost")))),
       h("div", { class: "card" }, h("h3", {}, "Log"), pre));
     pre.scrollTop = pre.scrollHeight;
     if (run.state !== "running") clearInterval(poll);

@@ -16,6 +16,14 @@ async function j<T>(r: Response): Promise<T> {
   return r.json() as Promise<T>;
 }
 const base = (id: string) => `/api/projects/${encodeURIComponent(id)}`;
+// Read-only snapshot (published copy): GETs read pre-exported JSON files next to the page (app/export_static.py).
+export const STATIC: { taken: string; commit: string } | null = (window as any).PDF2BIM_STATIC || null;
+export const staticKey = (url: string) => url.replace(/^\//, "").replace(/\?/g, "__").replace(/=/g, "-").replace(/&/g, "__") + ".json";
+const fetch = (url: string, init?: RequestInit): Promise<Response> => {
+  if (!STATIC) return window.fetch(url, init);
+  if (init?.method && init.method !== "GET") return Promise.reject(new Error("This online copy is read-only. Upload drawings and run the chain in the app on your computer."));
+  return window.fetch("data/" + staticKey(url));
+};
 
 export const api = {
   projects: () => fetch("/api/projects").then((r) => j<Project[]>(r)),
@@ -27,6 +35,6 @@ export const api = {
   run: (id: string, allow: boolean) => fetch(`${base(id)}/runs`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ allow_proposed: allow }) }).then((r) => j<{ id: string }>(r)),
   latest: (id: string) => fetch(`${base(id)}/runs/latest`).then((r) => j<Run | null>(r)),
   result: <T>(id: string, name: string) => fetch(`${base(id)}/results/${name}`).then((r) => j<Result<T>>(r)),
-  fileUrl: (id: string, name: string) => `${base(id)}/files/${encodeURIComponent(name)}`,
-  descUrl: (id: string) => `${base(id)}/description.json`,
+  fileUrl: (id: string, name: string): string | null => (STATIC ? null : `${base(id)}/files/${encodeURIComponent(name)}`),
+  descUrl: (id: string): string | null => (STATIC ? null : `${base(id)}/description.json`),
 };

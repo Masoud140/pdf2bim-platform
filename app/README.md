@@ -36,4 +36,6 @@ python3 app/server.py                               # then open http://localhost
 TypeScript in `app/web/src` (ADR-006), bundled to `app/static/app.js` (committed, so Python alone runs the app).
 Rebuild after editing: `cd app/web && npm install && npm run build`.
 
+Read-only online copy (no drawings, no runs): `python3 app/export_static.py OUT_DIR`, then publish OUT_DIR.
+
 Tests: `python3 tests/app/test_server.py`.
