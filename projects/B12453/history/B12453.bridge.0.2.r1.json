@@ -9565,6 +9565,35 @@
       }
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400",
+      "on": true
+     },
+     "source": {
+      "doc": "RPT-000001",
+      "view": "§2.4.2 table 2-7 / 0101",
+      "text": "HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400",
+       "on": true
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "RPT-000001",
+       "view": "§2.4.2 table 2-7 / 0101",
+       "text": "HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No"
+      }
+     },
+     "current": "original"
     }
    ]
   },
@@ -11642,7 +11671,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-03T21:43:15+00:00",
+  "created": "2026-11-03T22:05:19+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf (143 sheets) + report RPT-000001 rev E, 2026-11-04)",
   "decision_log_sha256": null
@@ -11651,6 +11680,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:d2952361b6bac4c05897cf160bbb796fea8dfe9c1e661d193b7fe087a1b9c921"
+  "value": "sha256:3ae05ff9ea6686b6a34840a80624fb8e2d2f6e704f230a9f3ba325880f8bd109"
  }
 }

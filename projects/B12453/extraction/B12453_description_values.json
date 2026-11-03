@@ -3971,6 +3971,19 @@
    }
   },
   {
+   "path": "loads.traffic_models.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "model": "HLP400",
+    "on": true
+   },
+   "source": {
+    "doc": "RPT-000001",
+    "view": "§2.4.2 table 2-7 / 0101",
+    "text": "HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No"
+   }
+  },
+  {
    "path": "loads.design_speed",
    "tag": "Direct",
    "value": 90,

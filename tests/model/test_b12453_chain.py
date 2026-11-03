@@ -46,5 +46,14 @@ sd = sdl_case(doc, geo, M, allow_proposed=True)
 hand = 22 * 0.075 * 7.0 * 33.559 + 2 * 8.78 * 33.559 + (2.0 / 7.8) * 7.8 * 33.559
 t("SDL total vs hand (asphalt 22 x 0.075 x 7.0 m between barriers + 2 PB-1 barriers 8.78 kN/m + 2 kN/m utilities / screens) within 3 %",
   abs(-sd["total_kN"] / hand - 1) < 0.03, f"{-sd['total_kN']:.1f} vs {hand:.1f} kN")
+from pdf2bim.model.traffic import traffic_envelope, governing_state, concurrent
+T = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True)
+t("HLP400 switched on from the report row and enveloped under register action 'HLP'", "HLP" in T["env"] and T["env"]["HLP"]["vehicle"] == "HLP400")
+i = int(np.argmax(T["env"]["HLP"]["max"]))
+st = governing_state(T, "HLP", i, 1)
+P = sum(p for *_, p in st["loads"])
+t("HLP governing state rebuilds the envelope value; load on the deck <= 16 x 250 x 1.1 kN; centre within +-1 m of the carriageway centre",
+  abs(concurrent(T, st)[i] - T["env"]["HLP"]["max"][i]) < 1e-6 * abs(T["env"]["HLP"]["max"][i]) and 0 < P <= 4400 + 1e-6 and abs(st["platform"]["shift_m"]) <= 1.0 + 1e-9,
+  f"{T['env']['HLP']['max'][i]:.1f} kNm, {P:.0f} kN on deck, {st['platform']}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

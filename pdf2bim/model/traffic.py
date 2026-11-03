@@ -223,12 +223,15 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     cl = rd.value(D.get("carriageway_left"), "deck.carriageway_left")
     cr = rd.value(D.get("carriageway_right"), "deck.carriageway_right")
     on = {r["model"]: bool(r.get("on")) for r in rd.rows((doc.get("loads") or {}).get("traffic_models"), "loads.traffic_models")}
-    models = models or [k for k, v in on.items() if v and k in ("M1600", "S1600")]
+    hlp = [k for k, v in on.items() if v and k in ("HLP320", "HLP400")]
+    models = models or [k for k, v in on.items() if v and k in ("M1600", "S1600")] + hlp
     if not models:
-        raise MissingInput("loads.traffic_models: no M1600 / S1600 model switched on")
+        raise MissingInput("loads.traffic_models: no M1600 / S1600 / HLP model switched on")
     W = std.get("AS5100.2:traffic:lane_width").value
     lf = list(std.get("AS5100.2:traffic:accompanying_lane_factors").value)
     veh = {mn: std.get(f"AS5100.2:traffic:{mn}").value for mn in models}
+    if len([m for m in models if m.startswith("HLP")]) > 1:
+        raise MissingInput("loads.traffic_models: more than one HLP model switched on (one register action 'HLP')")
     b = cr - cl
     n = int(math.floor(b / W + 1e-9))
     if n < 1:
@@ -246,6 +249,11 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     grid = inf.c0 + dc * np.arange(N)
     env = {}
     for mn in models:
+        if mn.startswith("HLP"):     # one platform vehicle, no UDL, no lane factors; register action id "HLP"
+            p, q = platform_effect(inf, grid, dc, veh[mn], (cl + cr) / 2)
+            env["HLP"] = {"max": p, "min": q, "vehicle": mn}
+            veh["HLP"] = veh[mn]
+            continue
         memo = {}
         mx = np.zeros(len(inf.R)); mi = np.zeros(len(inf.R))
         for Lay in lays:
@@ -258,12 +266,72 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             p, q = combine_lanes(eff, lf)
             mx = np.maximum(mx, p); mi = np.minimum(mi, q)
         env[mn] = {"max": mx, "min": mi}
-    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "lanes": n,
+    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "lanes": n,
             "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf, "vehicles": veh,
             "lane_width": W, "grid": grid,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
             "standards_status": std.result_status(), "standards_used": std.usage(),
             "provisional": rd.provisional + list(mdl.get("provisional") or [])}   # the model's provisional inputs carry over
+
+
+def _platform_axles(veh, dc):
+    """Axle-line positions (grid steps from the first axle line) for every trailer gap tried."""
+    s = veh["axle_line_spacing_m"]
+    g0, g1 = veh["gap_min_m"], veh.get("gap_max_m") or veh["gap_min_m"]
+    out = []
+    for g in np.arange(g0, g1 + 1e-9, 1.0):          # shortcut: 1 m steps over the variable gap; refine if it governs
+        x = [k * s for k in range(veh["axle_lines_per_trailer"])]
+        x += [x[-1] + g + k * s for k in range(veh["axle_lines_per_trailer"])] if veh["trailers"] == 2 else []
+        out.append((float(g), [round(v / dc) for v in x]))
+    return out
+
+
+def _platform_scan(inf, grid, dc, veh, oc, r=None):
+    """Heavy load platform (HLP) scan: every axle line carries len(wheel_offsets) equal wheel loads x (1 + DLA) at
+    oc + lateral shift + offset; lateral shift over +-lateral_range in 0.1 m steps; the platform at every grid position
+    (also partly off the deck); symmetric in plan, so one direction of travel. r None: (max, min) per response; else
+    for response r: {(+1|-1): (value, (shift, gap, start index))}."""
+    N = len(grid)
+    amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
+    R = veh["lateral_range_m"]
+    lat = [round(-R + 0.1 * i, 10) for i in range(int(round(2 * R / 0.1)) + 1)]
+    ax = _platform_axles(veh, dc)
+    PAD = max(a[1][-1] for a in ax) + 2
+    nr = len(inf.R)
+    vp = np.zeros(nr); vn = np.zeros(nr); best = {1: (0.0, None), -1: (0.0, None)}
+    for dv in lat:
+        A = sum(inf.line(oc + dv + w, grid) for w in veh["wheel_offsets_m"]) * amp
+        A = A if r is None else A[:, [r]]
+        Z = np.zeros((N + 2 * PAD, A.shape[1])); Z[PAD:PAD + N] = A
+        for g, offs in ax:
+            E = sum(_shift(Z, o) for o in offs)
+            if r is None:
+                vp = np.maximum(vp, np.maximum(E.max(0), 0)); vn = np.minimum(vn, np.minimum(E.min(0), 0))
+            else:
+                for sg in (1, -1):
+                    i = int(np.argmax(sg * E[:, 0]))
+                    if sg * E[i, 0] > sg * best[sg][0]:
+                        best[sg] = (float(E[i, 0]), (dv, g, i - PAD, offs))
+    return (vp, vn) if r is None else best
+
+
+def platform_effect(inf, grid, dc, veh, oc):
+    return _platform_scan(inf, grid, dc, veh, oc)
+
+
+def _platform_state(T, r, sign):
+    veh, grid, dc = T["vehicles"]["HLP"], T["grid"], T["settings"]["dc_m"]
+    oc = T["carriageway_centre"]
+    val, st = _platform_scan(T["influence"], grid, dc, veh, oc, r)[sign]
+    loads = []
+    if st is not None:
+        dv, g, i0, offs = st
+        amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
+        for o in offs:
+            k = i0 + o
+            if 0 <= k < len(grid):
+                loads += [(float(grid[k]), oc + dv + w, amp) for w in veh["wheel_offsets_m"]]
+    return {"value": val, "loads": loads, "layout": [oc], "factors": [(oc, 1.0)], "platform": st and {"shift_m": st[0], "gap_m": st[1]}}
 
 
 # ----------------------------------------------------------------------------------------------------------------
@@ -332,6 +400,8 @@ def governing_state(T, model, r, sign=1):
     """Rebuild the load state of traffic envelope value T["env"][model]["max" | "min"][r] (sign +1 / -1): lane layout,
     lanes ranked with the accompanying factors, per lane the patterned UDL and the vehicle position. Returns
     {"value": envelope value from the state, "loads": [(ch, o, P)], "layout": offsets, "factors": [...]}."""
+    if model == "HLP":
+        return _platform_state(T, r, sign)
     inf, grid, st = T["influence"], T["grid"], T["settings"]
     veh, W, lf = T["vehicles"][model], T["lane_width"], T["lane_factors"]
     best = None

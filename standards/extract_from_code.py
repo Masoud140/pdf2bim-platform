@@ -214,6 +214,25 @@ def traffic():
     return e
 
 
+def placeholders():
+    """Entries with NO code source (the engine needs them; nothing in the dashboard holds them): values written here by
+    the agent from recollection, status placeholder-unverified, to be replaced by a transcription from an authorised copy."""
+    path = "pdf2bim/model/traffic.py"
+    line, _ = find(path, r'veh = \{mn: std\.get\(f"AS5100\.2:traffic:\{mn\}"\)')
+    x = entry("AS5100.2:traffic:HLP400", "AS 5100.2", "Cl 7.3",
+              "HLP400 heavy load platform: two trailers of axle lines at a fixed spacing, clear gap between trailers (variable, min / max), load per axle line "
+              "shared equally by the wheel positions across the platform, dynamic load allowance, lateral range of the platform centre about the carriageway centreline",
+              "kN, m, -", {"trailers": 2, "axle_lines_per_trailer": 8, "axle_line_spacing_m": 1.8, "gap_min_m": 6.0, "gap_max_m": 15.0, "axle_line_kN": 250.0,
+                           "wheel_offsets_m": [-1.5, -0.5, 0.5, 1.5], "dla": 0.1, "lateral_range_m": 1.0},
+              "HLP400 where the project requires it (one platform per carriageway, no UDL, no accompanying lane factor; concurrent 0.5 SM1600 in other lanes NOT implemented)",
+              "traffic (P8 HLP platform scan, pdf2bim/model/traffic.py platform_effect)", [f"{path}:{line} (read here; platform_effect)"],
+              interp="NOT transcribed from an authorised copy: geometry, axle-line load, wheel positions and DLA are the agent's recollection of AS 5100.2-2017 "
+                     "Fig 7.3 (total 16 x 250 = 4000 kN). Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), "
+                     "not checked as the standard's default. Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.", specialist=True)
+    x["reference"]["figure"] = "Fig 7.3"; x["status"] = "placeholder-unverified"; x["implementation"]["version"] = "P8 (2026-11-04), no code source"
+    return [x]
+
+
 def combinations():
     """Constants of the AS 5100.2 combination generator (Combos tab genAll) other than the per-action load factors."""
     path = "base/BR13A_grillage_dashboard_v15.html"
@@ -313,7 +332,7 @@ PROJECT_DEFAULTS = [
 
 
 def main():
-    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic() + combinations(),
+    groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic() + placeholders() + combinations(),
               "AS1170.4": earthquake(),
               "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"] + prestress_losses(),
               "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],

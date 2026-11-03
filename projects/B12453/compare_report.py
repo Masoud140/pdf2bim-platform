@@ -5,7 +5,7 @@
                                                            # -> projects/B12453/model/COMPARISON_REPORT.md
 
 Report values are for "the most critically loaded" element over SB01 / SB02 / SB03 unless the table is per bridge.
-Platform values are INDICATIVE (proposed inputs D-1; standards entries unverified; HLP400 not modelled)."""
+Platform values are INDICATIVE (proposed inputs D-1; standards entries unverified; HLP400 vehicle a placeholder entry)."""
 import json, os, sys
 
 H = os.path.dirname(os.path.abspath(__file__))
@@ -51,10 +51,21 @@ v, k = mx(Z["piles"], lambda p: max(p["SLS"]["Ml"]["abs"], p["SLS"]["Mt"]["abs"]
 
 L = ["# B12453 (SB02) — platform vs design report RPT-000001 rev E", "",
      f"Run `{os.path.basename(os.path.normpath(run))}`; INDICATIVE: development inputs D-1 PROPOSED (soil springs, bearing elastomer, temperatures "
-     "and wind as BR13A — Appendix J not supplied); standards entries unverified; **HLP400 not modelled** (SM1600 only); report values are the critical "
+     "and wind as BR13A — Appendix J not supplied); standards entries unverified; **HLP400 modelled with a placeholder-unverified vehicle** (AS5100.2:traffic:HLP400, agent recollection of Fig 7.3 — to be checked); report values are the critical "
      "element over the three bridges unless marked per abutment.", "",
      "| Item | Report / drawing | Source | Platform | Where (governing row) | Difference |", "|---|---|---|---|---|---|"]
 for item, ref, src, val, where, d, scope in rows:
     L.append(f"| {item} | {ref:,} | {src} | {'—' if val is None else f'{val:,.0f}'} | {where} | {'—' if d is None else f'{d:+.1f} %'} |")
+L += ["", "## Reading the differences (what is known, not a pass/fail)", "",
+ "- **Scope.** Report tables 4-4..4-15 give the *critical* element over SB01/SB02/SB03; only SB02 is modelled. SB01 is wider (14 girders, 6 marked lanes, "
+ "HLP400 in two lanes per direction + 0.5 SM1600 alongside), so the report's critical girder is probably on SB01. Only the per-abutment pile values on drawing 0201 are SB02-specific.",
+ "- **HLP400 (P8.2).** Now enveloped (one platform, centreline ±1 m, ULS 1.5 / SLS 1.0 as report table 2-9). On SB02 it governs some SLS rows (bearing N max 1,664 → 1,699 kN, "
+ "pile SLS N +2 %) but not ULS (M1600 × 1.8 is larger). So the remaining girder gap (−15 %) is **not** explained by HLP — consistent with the SB01 scope above.",
+ "- **Capacity φMu −18 %.** Platform Muo 17,503 kNm, φ 0.80 → φMu 14,001; the report's design capacity 17,057 is close to the platform's *un-factored* Muo (−2.6 %). "
+ "Either the critical girder (SB01) has more strands or the φ basis differs. **Query for the designer**; nothing changed.",
+ "- **Pile moments −51 / −53 %, pile SLS M −29 %.** Soil springs are proposed placeholders (Appendix J not supplied); B12626 showed the same sensitivity. Pile M is not benchmarkable until the springs come from the report.",
+ "- **Pile N.** ULS +7 / +9 %, SLS −6 / −9 % — inside what the placeholder inputs allow. Report table 5-5 SLS 3,281 also differs from drawing 0201 (2,713 / 2,885): query on the register.",
+ "- **Bearing N min −52 %.** The minimum comes from a different arrangement in the platform combinations; the report does not print its N-min combination. Open item.",
+ "- **Shear check not run.** `design.girder_options.aggregate_size` is not on the drawings; left blank, not assumed."]
 open(os.path.join(H, "model", "COMPARISON_REPORT.md"), "w").write("\n".join(L) + "\n")
 print("\n".join(L))

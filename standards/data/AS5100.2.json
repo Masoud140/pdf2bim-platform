@@ -2336,6 +2336,56 @@
    }
   },
   {
+   "id": "AS5100.2:traffic:HLP400",
+   "standard": "AS 5100.2",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 7.3",
+    "table": null,
+    "figure": "Fig 7.3",
+    "authorised_source": null
+   },
+   "quantity": "HLP400 heavy load platform: two trailers of axle lines at a fixed spacing, clear gap between trailers (variable, min / max), load per axle line shared equally by the wheel positions across the platform, dynamic load allowance, lateral range of the platform centre about the carriageway centreline",
+   "units": "kN, m, -",
+   "value": {
+    "trailers": 2,
+    "axle_lines_per_trailer": 8,
+    "axle_line_spacing_m": 1.8,
+    "gap_min_m": 6.0,
+    "gap_max_m": 15.0,
+    "axle_line_kN": 250.0,
+    "wheel_offsets_m": [
+     -1.5,
+     -0.5,
+     0.5,
+     1.5
+    ],
+    "dla": 0.1,
+    "lateral_range_m": 1.0
+   },
+   "applicability": "HLP400 where the project requires it (one platform per carriageway, no UDL, no accompanying lane factor; concurrent 0.5 SM1600 in other lanes NOT implemented)",
+   "context": "traffic (P8 HLP platform scan, pdf2bim/model/traffic.py platform_effect)",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/model/traffic.py:232 (read here; platform_effect)"
+    ],
+    "version": "P8 (2026-11-04), no code source"
+   },
+   "status": "placeholder-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "NOT transcribed from an authorised copy: geometry, axle-line load, wheel positions and DLA are the agent's recollection of AS 5100.2-2017 Fig 7.3 (total 16 x 250 = 4000 kN). Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), not checked as the standard's default. Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.2:traffic:M1600",
    "standard": "AS 5100.2",
    "edition": null,

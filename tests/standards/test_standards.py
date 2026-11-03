@@ -31,7 +31,8 @@ def raises(f, exc):
 S = Standards()
 E = S.entries
 t("standards data loads and validates", len(E) > 0)
-t("every entry is code-extracted-unverified (nothing reviewed yet; agents may not upgrade)", all(e["status"] == "code-extracted-unverified" for e in E.values()))
+t("every entry is unverified: code-extracted, or placeholder where no code holds the value (nothing reviewed yet; agents may not upgrade)",
+  all(e["status"] in ("code-extracted-unverified", "placeholder-unverified") for e in E.values()))
 t("edition and amendment are null (not recorded in code; not guessed)", all(e["edition"] is None and e["amendment"] is None for e in E.values()))
 t("every entry names at least one code location", all(e["implementation"]["used_by"] for e in E.values()))
 

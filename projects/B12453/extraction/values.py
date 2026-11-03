@@ -263,6 +263,7 @@ put("custom.sdl_line_loads", "utilities 1 kN/m, safety screens 1 kN/m", sheet="R
 # ---------------- loads ----------------
 put("loads.traffic_models.rows[0]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "M1600", "on": True})
 put("loads.traffic_models.rows[1]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "S1600", "on": True})
+put("loads.traffic_models.rows[2]", sheet="RPT", view="§2.4.2 table 2-7 / 0101", text="HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No", cells={"model": "HLP400", "on": True})
 put("loads.design_speed", 90, unit="km/h", sheet="0101", view="design criteria", text="DESIGN TRAFFIC SPEED: 90 km/h")
 for k, un in (("braking_force", "kN"), ("traffic_surcharge", "kPa"), ("shrinkage_creep_shortening", "1e-6")):
     put("loads." + k, tag="Missing-Flagged", unit=un, note="AS 5100.2 method stated in the report (2.4.5 / 2.4.9); value not printed")
