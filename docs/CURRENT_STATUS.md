@@ -1,4 +1,7 @@
-# Current status — 2026-10-28
+# Current status — 2026-11-04
+
+**2026-11-04 (P8, ADR-052):** third example B12453 (SB02) runs end to end; benchmark against the design report in `projects/B12453/model/COMPARISON_REPORT.md`. Main gap: HLP400 not in the traffic engine (next stage).
+
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
 

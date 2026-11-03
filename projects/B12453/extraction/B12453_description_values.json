@@ -1,0 +1,4975 @@
+{
+ "origin": "owner drawing set SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf (143 sheets) + report RPT-000001 rev E, 2026-11-04",
+ "documents": [
+  {
+   "id": "DRG-0101",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000101",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0111",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000111",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0113",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000113",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0200",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000200",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0201",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000201",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0250",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000250",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0302",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000302",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0305",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000305",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0306",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000306",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0500",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000500",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0503",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000503",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0600",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000600",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0601",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000601",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0602",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000602",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0603",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000603",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0606",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000606",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0608",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000608",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0655",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000655",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0700",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000700",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0701",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000701",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "DRG-0902",
+   "number": "SGWS1-JHSW-1000-BR-DRG-000902",
+   "revision": "-",
+   "kind": "drawing"
+  },
+  {
+   "id": "RPT-000001",
+   "number": "SGWS1-JHSW-1000-BR-RPT-000001",
+   "revision": "E",
+   "kind": "report",
+   "title": "Bridge design report"
+  }
+ ],
+ "values": [
+  {
+   "path": "project.name",
+   "tag": "Direct",
+   "value": "Sydney Gateway Stage 1 - three bridges on Airport Drive over Main Road No 183: SB02",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.bridge_id",
+   "tag": "Direct",
+   "value": "B12453",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block",
+    "text": "SB02 BRIDGE No: B12453"
+   }
+  },
+  {
+   "path": "project.client",
+   "tag": "Direct",
+   "value": "Transport for NSW",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.designer",
+   "tag": "Direct",
+   "value": "BG&E Structural for John Holland Seymour Whyte (JHSW)",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.drawing_set",
+   "tag": "Direct",
+   "value": "DS2021/000504",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.revision",
+   "tag": "Direct",
+   "value": "E (0101); sheets B-E",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.status",
+   "tag": "Direct",
+   "value": "Final design documentation",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.datum_horizontal",
+   "tag": "Direct",
+   "value": "MGA zone 56 (GDA94)",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.datum_vertical",
+   "tag": "Direct",
+   "value": "AHD",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block"
+   }
+  },
+  {
+   "path": "project.importance_level",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "BEDC-4 'essential for post-earthquake recovery' (0101, report 2.4.7); no importance level printed"
+  },
+  {
+   "path": "project.design_life",
+   "tag": "Direct",
+   "value": 100,
+   "unit": "years",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-10",
+    "text": "primary bridge structural elements 100"
+   }
+  },
+  {
+   "path": "project.base_point.rows[0]",
+   "tag": "Model",
+   "cells": {
+    "name": "MCT local origin = MCD0 HTP1 ch 153.303 (0111)",
+    "E": 331514.993,
+    "N": 6245413.62
+   },
+   "source": {
+    "note": "MIDAS file origin only; the description stays in MGA"
+   },
+   "note": "MIDAS file origin only; the description stays in MGA"
+  },
+  {
+   "path": "alignment.control_line",
+   "tag": "Direct",
+   "value": "CONTROL LINE MCD0",
+   "source": {
+    "doc": "DRG-0111",
+    "view": "horizontal alignment - control line MCD0"
+   }
+  },
+  {
+   "path": "alignment.horizontal.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "element": "tangent",
+    "ch_start": 153.303,
+    "length": 121.924,
+    "E_start": 331514.993,
+    "N_start": 6245413.62
+   },
+   "source": {
+    "doc": "DRG-0111",
+    "view": "horizontal alignment table MCD0",
+    "text": "HTP1 153.303 E 331514.993 N 6245413.620; HTP2 275.227 bearing out 225°50'57.4\""
+   },
+   "note": "straight: HTP1 to HTP2 chord 121.9235 m vs chainage difference 121.924"
+  },
+  {
+   "path": "alignment.horizontal.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "element": "tangent",
+    "ch_start": 275.227,
+    "E_start": 331427.512,
+    "N_start": 6245328.694
+   },
+   "source": {
+    "doc": "DRG-0111",
+    "view": "horizontal alignment table MCD0"
+   }
+  },
+  {
+   "path": "alignment.vertical.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "ch": 53.699,
+    "RL": 6.489,
+    "grade_out": 6.0
+   },
+   "source": {
+    "doc": "DRG-0111",
+    "view": "vertical alignment diagram MCD0",
+    "text": "TP CH 53.699 RL 6.489, 6.00%"
+   }
+  },
+  {
+   "path": "alignment.vertical.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "ch": 131.343,
+    "RL": 11.148,
+    "grade_in": 6.0,
+    "grade_out": -0.5,
+    "curve_length": 155.289
+   },
+   "derivation": {
+    "formula": "IP CH 131.343 RL 11.148, grades +6.00% / -0.50% (0111 diagram); curve length = TP 208.988 - TP 53.699 = 155.289; check: IP RL = 6.489 + 0.06 x 77.644 = 11.148",
+    "inputs": []
+   }
+  },
+  {
+   "path": "alignment.vertical.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "ch": 208.988,
+    "RL": 10.762,
+    "grade_in": -0.5
+   },
+   "source": {
+    "doc": "DRG-0111",
+    "view": "vertical alignment diagram MCD0",
+    "text": "TP CH 208.988 RL 10.762, -0.50%"
+   }
+  },
+  {
+   "path": "alignment.crossfall.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "left": 3.0,
+    "right": 3.0,
+    "crown_offset": 1.4
+   },
+   "derivation": {
+    "formula": "one-way 3% fall to the left (0113 section 1 / 0701 section 1): 0703 table 4 ch 163.169 RL1 (MCD0) 10.551, RL2 (6.000 left) 10.373 = -2.97%, RL3 (1.000 right) 10.580 = +2.9%; crown placed at the right deck edge (1.000 + 0.400) so the whole deck falls left",
+    "inputs": [
+     "deck.edge_right"
+    ]
+   }
+  },
+  {
+   "path": "alignment.support_lines.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "support": "A",
+    "ch": 163.643,
+    "skew": 5.433,
+    "bearing": 141.2786
+   },
+   "source": {
+    "doc": "DRG-0305",
+    "view": "plan abutment A2",
+    "text": "SOP CH 163.643; bearing 141°16′43″; 5.433° skew TYP"
+   }
+  },
+  {
+   "path": "alignment.support_lines.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "support": "B",
+    "ch": 196.283,
+    "skew": 5.433,
+    "bearing": 141.2764
+   },
+   "source": {
+    "doc": "DRG-0306",
+    "view": "plan abutment B2",
+    "text": "SOP CH 196.283; bearing 321°16′35″ (= 141°16′35″); 5.433° skew TYP"
+   }
+  },
+  {
+   "path": "deck.carriageway_left",
+   "tag": "Direct",
+   "value": -6.0,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0701",
+    "view": "section 1 bridge SB02",
+    "text": "6000 (6027 skew) barrier setout to MCD0"
+   }
+  },
+  {
+   "path": "deck.carriageway_right",
+   "tag": "Direct",
+   "value": 1.0,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0701",
+    "view": "section 1 bridge SB02",
+    "text": "1000 (1005 skew)"
+   }
+  },
+  {
+   "path": "deck.edge_left",
+   "tag": "Calculated",
+   "value": -6.4,
+   "unit": "m",
+   "derivation": {
+    "formula": "barrier setout 6.000 left (0701) + 400 to the deck edge (0706 detail A)",
+    "inputs": [
+     "deck.carriageway_left"
+    ]
+   }
+  },
+  {
+   "path": "deck.edge_right",
+   "tag": "Calculated",
+   "value": 1.4,
+   "unit": "m",
+   "derivation": {
+    "formula": "barrier setout 1.000 right (0701) + 400 (0706 detail A); deck width 7.8 m = report table 4-1",
+    "inputs": [
+     "deck.carriageway_right"
+    ]
+   }
+  },
+  {
+   "path": "deck.slab_thickness",
+   "tag": "Direct",
+   "value": 200.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0701",
+    "view": "section 1",
+    "text": "MIN 200 THICK CONCRETE DECK"
+   }
+  },
+  {
+   "path": "deck.surfacing_thickness",
+   "tag": "Direct",
+   "value": 75.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0701",
+    "view": "section 1",
+    "text": "75 THICK BITUMINOUS WEARING SURFACE"
+   }
+  },
+  {
+   "path": "deck.surfacing_density",
+   "tag": "Direct",
+   "value": 22.0,
+   "unit": "kN/m3",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-5",
+    "text": "asphalt surfacing 22 kN/m3"
+   }
+  },
+  {
+   "path": "deck.end_gap",
+   "tag": "Direct",
+   "value": 50.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0111",
+    "view": "elevation bridge SB02",
+    "text": "50 GAP"
+   }
+  },
+  {
+   "path": "deck.girders_follow_crossfall",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-0113",
+    "view": "section 1",
+    "text": "girders shown square to the 3% fall"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].side",
+   "tag": "Direct",
+   "value": "left",
+   "source": {
+    "doc": "DRG-0113",
+    "view": "section 1"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].type",
+   "tag": "Direct",
+   "value": "precast concrete parapet, medium performance level, with twin steel rails",
+   "source": {
+    "doc": "DRG-0113",
+    "view": "section 1",
+    "text": "MEDIUM PERFORMANCE LEVEL PRECAST CONCRETE TRAFFIC BARRIER WITH TWIN STEEL RAIL"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].height",
+   "tag": "Direct",
+   "value": 1250.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0902",
+    "view": "type PB-1 inside elevation",
+    "text": "1250 precast unit; rails above not included"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].weight",
+   "tag": "Calculated",
+   "value": 8.78,
+   "unit": "kN/m",
+   "derivation": {
+    "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+    "inputs": []
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].solid",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-0902",
+    "view": "type PB-1",
+    "text": "solid precast concrete unit"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_left].offset",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "m",
+   "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+  },
+  {
+   "path": "deck.barriers[barrier_right].side",
+   "tag": "Direct",
+   "value": "right",
+   "source": {
+    "doc": "DRG-0113",
+    "view": "section 1"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].type",
+   "tag": "Direct",
+   "value": "precast concrete parapet, medium performance level, with twin steel rails",
+   "source": {
+    "doc": "DRG-0113",
+    "view": "section 1",
+    "text": "MEDIUM PERFORMANCE LEVEL PRECAST CONCRETE TRAFFIC BARRIER WITH TWIN STEEL RAIL"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].height",
+   "tag": "Direct",
+   "value": 1250.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0902",
+    "view": "type PB-1 inside elevation",
+    "text": "1250 precast unit; rails above not included"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].weight",
+   "tag": "Calculated",
+   "value": 8.78,
+   "unit": "kN/m",
+   "derivation": {
+    "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+    "inputs": []
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].solid",
+   "tag": "Direct",
+   "value": true,
+   "source": {
+    "doc": "DRG-0902",
+    "view": "type PB-1",
+    "text": "solid precast concrete unit"
+   }
+  },
+  {
+   "path": "deck.barriers[barrier_right].offset",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "m",
+   "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+  },
+  {
+   "path": "superstructure.type",
+   "tag": "Direct",
+   "value": "super-t",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "girder layout plan",
+    "text": "1515 DEEP SUPER-T"
+   }
+  },
+  {
+   "path": "superstructure.spans",
+   "tag": "Direct",
+   "value": 1,
+   "source": {
+    "doc": "DRG-0111",
+    "view": "elevation bridge SB02"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].line_offset_A",
+   "tag": "Calculated",
+   "value": -5.3947,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 5.419 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 5.3947 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].line_offset_B",
+   "tag": "Calculated",
+   "value": -5.3947,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 5.419 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 5.3947 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].length",
+   "tag": "Direct",
+   "value": 33.441,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0602",
+    "view": "table girders dimensions",
+    "text": "02-0x X1 = 33441 overall length along girder CL (soffit)"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].bearing_offset_A",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].bearing_offset_B",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-01].straight",
+   "tag": "Model",
+   "value": true,
+   "source": {
+    "note": "precast girders straight between bearings"
+   },
+   "note": "precast girders straight between bearings"
+  },
+  {
+   "path": "superstructure.members[G02-01].type_ref",
+   "tag": "Model",
+   "value": "ST1",
+   "source": {
+    "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+   },
+   "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+  },
+  {
+   "path": "superstructure.members[G02-02].line_offset_A",
+   "tag": "Calculated",
+   "value": -3.4296,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 3.445 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 3.4296 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-02].line_offset_B",
+   "tag": "Calculated",
+   "value": -3.4296,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 3.445 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 3.4296 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-02].length",
+   "tag": "Direct",
+   "value": 33.441,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "table girders dimensions",
+    "text": "02-0x X1 = 33441 overall length along girder CL (soffit)"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-02].bearing_offset_A",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-02].bearing_offset_B",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-02].straight",
+   "tag": "Model",
+   "value": true,
+   "source": {
+    "note": "precast girders straight between bearings"
+   },
+   "note": "precast girders straight between bearings"
+  },
+  {
+   "path": "superstructure.members[G02-02].type_ref",
+   "tag": "Model",
+   "value": "ST1",
+   "source": {
+    "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+   },
+   "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+  },
+  {
+   "path": "superstructure.members[G02-03].line_offset_A",
+   "tag": "Calculated",
+   "value": -1.4744,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 1.481 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 1.4744 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].line_offset_B",
+   "tag": "Calculated",
+   "value": -1.4744,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 1.481 left of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 1.4744 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].length",
+   "tag": "Direct",
+   "value": 33.441,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "table girders dimensions",
+    "text": "02-0x X1 = 33441 overall length along girder CL (soffit)"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].bearing_offset_A",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].bearing_offset_B",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].straight",
+   "tag": "Model",
+   "value": true,
+   "source": {
+    "note": "precast girders straight between bearings"
+   },
+   "note": "precast girders straight between bearings"
+  },
+  {
+   "path": "superstructure.members[G02-03].type_ref",
+   "tag": "Model",
+   "value": "ST1",
+   "source": {
+    "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+   },
+   "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+  },
+  {
+   "path": "superstructure.members[G02-04].line_offset_A",
+   "tag": "Calculated",
+   "value": 0.4709,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 0.473 right of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 0.4709 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-04].line_offset_B",
+   "tag": "Calculated",
+   "value": 0.4709,
+   "unit": "m",
+   "derivation": {
+    "formula": "bearing 0.473 right of the SOP along the support line (0305 A2 / 0306 B2 plans, the same at both) x sin(84.575°) = 0.4709 square to MCD0; right +",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-04].length",
+   "tag": "Direct",
+   "value": 33.441,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0603",
+    "view": "table girders dimensions",
+    "text": "02-0x X1 = 33441 overall length along girder CL (soffit)"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-04].bearing_offset_A",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-04].bearing_offset_B",
+   "tag": "Direct",
+   "value": 400,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "CL bearing 400 from the girder end"
+   }
+  },
+  {
+   "path": "superstructure.members[G02-04].straight",
+   "tag": "Model",
+   "value": true,
+   "source": {
+    "note": "precast girders straight between bearings"
+   },
+   "note": "precast girders straight between bearings"
+  },
+  {
+   "path": "superstructure.members[G02-04].type_ref",
+   "tag": "Model",
+   "value": "ST1",
+   "source": {
+    "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+   },
+   "note": "one cross-section and strand layout for all four (0606 / 0608); F2 / F3 differ in edge details only"
+  },
+  {
+   "path": "superstructure.members[G02-02].flange_edges.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "t": 0.0,
+    "left": 972.6,
+    "right": 967.6
+   },
+   "derivation": {
+    "formula": "flange tips 'VARIES' (0606): (spacing - 20 NOM gap (0701 detail C)) / 2 each side; spacings from the bearing offsets",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.members[G02-03].flange_edges.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "t": 0.0,
+    "left": 967.6,
+    "right": 962.6
+   },
+   "derivation": {
+    "formula": "flange tips 'VARIES' (0606): (spacing - 20 NOM gap (0701 detail C)) / 2 each side; spacings from the bearing offsets",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.flange_gap",
+   "tag": "Direct",
+   "value": 20.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0701",
+    "view": "detail C",
+    "text": "20 NOM GAP"
+   }
+  },
+  {
+   "path": "superstructure.edge_flange_setback",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "edge girder outer flange tip to deck edge not dimensioned (0606 'VARIES'; 0706 detail A)"
+  },
+  {
+   "path": "superstructure.cross_girders.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "support": "A",
+    "width": 800.0,
+    "depth": 1265.0,
+    "concrete": "deck (40 MPa)"
+   },
+   "derivation": {
+    "formula": "width 800 (0706 section 2); depth: W = 1065 for SB02 (0601 table 1; 0706 '1065 (for bridges SB01 & SB02)') below the slab + 200 slab = 1265 (reading to confirm)",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.cross_girders.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "support": "B",
+    "width": 800.0,
+    "depth": 1265.0,
+    "concrete": "deck (40 MPa)"
+   },
+   "derivation": {
+    "formula": "width 800 (0706 section 2); depth: W = 1065 for SB02 (0601 table 1; 0706 '1065 (for bridges SB01 & SB02)') below the slab + 200 slab = 1265 (reading to confirm)",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].section",
+   "tag": "Standard-verify",
+   "value": "lib:supert/T4",
+   "ref": "lib:supert/T4",
+   "note": "1515 deep Super-T (TfNSW T4 family), as BR13A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].depth",
+   "tag": "Direct",
+   "value": 1515,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "1515"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "key": "D",
+    "name": "Overall depth",
+    "value": 1515,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "1515"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "key": "bw",
+    "name": "Soffit width",
+    "value": 757,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "757"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "key": "tw",
+    "name": "Web thickness",
+    "value": 100,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "100"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "key": "d1",
+    "name": "Void floor fall",
+    "value": 58,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "58"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[4]",
+   "tag": "Direct",
+   "cells": {
+    "key": "d2",
+    "name": "Bottom flange depth at CL",
+    "value": 265,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "265"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[5]",
+   "tag": "Direct",
+   "cells": {
+    "key": "ttf",
+    "name": "Top flange thickness",
+    "value": 90,
+    "unit": "mm"
+   },
+   "source": {
+    "doc": "DRG-0606",
+    "view": "typical Super-T girder section",
+    "text": "90"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].shape.rows[6]",
+   "tag": "Standard-verify",
+   "cells": {
+    "key": "S",
+    "name": "Web slope (V : H)",
+    "value": 10.556,
+    "unit": ""
+   },
+   "ref": "lib:supert/T4",
+   "note": "10.556 : 1 printed (0606)"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].concrete_28d",
+   "tag": "Direct",
+   "value": 50,
+   "unit": "MPa",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "general notes",
+    "text": "MINIMUM 28 DAY COMPRESSIVE STRENGTH OF CONCRETE SHALL BE 50 MPa"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].concrete_transfer",
+   "tag": "Direct",
+   "value": 40,
+   "unit": "MPa",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "general notes",
+    "text": "MINIMUM COMPRESSIVE STRENGTH OF CONCRETE SHALL BE 40 MPa AT TRANSFER"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].zones.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_A"
+   },
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "1500 end diaphragm"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].zones.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "from": 0.0,
+    "to": 1.5,
+    "kind": "solid_end_B"
+   },
+   "source": {
+    "doc": "DRG-0601",
+    "view": "plan girder type F1",
+    "text": "1500 end diaphragm"
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].haunch",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "girder top to deck soffit not dimensioned (deck '200 MIN', varies)"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -225.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -125.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -75.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": -25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[4]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[5]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 75.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[6]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 125.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[7]",
+   "tag": "Direct",
+   "cells": {
+    "y": 60.0,
+    "x": 225.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row F"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[8]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -275.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[9]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -225.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[10]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -175.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[11]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -125.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[12]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -75.0,
+    "diameter": 15.7,
+    "debond_left": 4000.0,
+    "debond_right": 4000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[13]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": -25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[14]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[15]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 75.0,
+    "diameter": 15.7,
+    "debond_left": 4000.0,
+    "debond_right": 4000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[16]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 125.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[17]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 175.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[18]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 225.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[19]",
+   "tag": "Direct",
+   "cells": {
+    "y": 110.0,
+    "x": 275.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row E"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[20]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -275.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[21]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -225.0,
+    "diameter": 15.7,
+    "debond_left": 6000.0,
+    "debond_right": 6000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[22]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -175.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[23]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -125.0,
+    "diameter": 15.7,
+    "debond_left": 4000.0,
+    "debond_right": 4000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[24]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -75.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[25]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": -25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[26]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[27]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 75.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[28]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 125.0,
+    "diameter": 15.7,
+    "debond_left": 4000.0,
+    "debond_right": 4000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[29]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 175.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[30]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 225.0,
+    "diameter": 15.7,
+    "debond_left": 6000.0,
+    "debond_right": 6000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[31]",
+   "tag": "Direct",
+   "cells": {
+    "y": 160.0,
+    "x": 275.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row D"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[32]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -275.0,
+    "diameter": 15.7,
+    "debond_left": 8000.0,
+    "debond_right": 8000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[33]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -225.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[34]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -175.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[35]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -125.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[36]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -75.0,
+    "diameter": 15.7,
+    "debond_left": 12000.0,
+    "debond_right": 12000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[37]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": -25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[38]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 25.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[39]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 75.0,
+    "diameter": 15.7,
+    "debond_left": 12000.0,
+    "debond_right": 12000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[40]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 125.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[41]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 175.0,
+    "diameter": 15.7,
+    "debond_left": 2000.0,
+    "debond_right": 2000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[42]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 225.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[43]",
+   "tag": "Direct",
+   "cells": {
+    "y": 210.0,
+    "x": 275.0,
+    "diameter": 15.7,
+    "debond_left": 8000.0,
+    "debond_right": 8000.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row C"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[44]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": -275.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[45]",
+   "tag": "Direct",
+   "cells": {
+    "y": 260.0,
+    "x": 275.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row B"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[46]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1435.0,
+    "x": -495.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].strand_pattern.rows[47]",
+   "tag": "Direct",
+   "cells": {
+    "y": 1435.0,
+    "x": 495.0,
+    "diameter": 15.7,
+    "debond_left": 0.0,
+    "debond_right": 0.0,
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0608",
+    "view": "strand layout + debonding schedule",
+    "text": "rows F-B at 60 + 4 x 50; locations 1-6 at 25 + 5 x 50 each side; row A loc 7 at ±495, 80 below the top; debonded both ends"
+   },
+   "note": "row A"
+  },
+  {
+   "path": "superstructure.supert_types[ST1].jacking_ratio",
+   "tag": "Calculated",
+   "value": 0.7491,
+   "derivation": {
+    "formula": "force remaining in each strand immediately after release of the jack 209 kN / MBL 279 kN (0600 prestressing notes)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 1.5,
+    "to": 11.55,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 150.0
+   },
+   "derivation": {
+    "formula": "0650 / 0651: 67 bundles of G1 1-N16-BZ / G8 2-N16-V at 150 from each end after the 1500 end diaphragm (67 x 0.15 = 10.05), 36 bundles G27 / G29 2-N16-V at 300 in the centre (36 x 0.3 = 10.8 printed; the centre zone takes the remainder of 33.441: 10.341)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 11.55,
+    "to": 21.891,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 300.0
+   },
+   "derivation": {
+    "formula": "0650 / 0651: 67 bundles of G1 1-N16-BZ / G8 2-N16-V at 150 from each end after the 1500 end diaphragm (67 x 0.15 = 10.05), 36 bundles G27 / G29 2-N16-V at 300 in the centre (36 x 0.3 = 10.8 printed; the centre zone takes the remainder of 33.441: 10.341)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].fitments.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "from": 21.891,
+    "to": 31.941,
+    "diameter": 16.0,
+    "legs": 2,
+    "spacing": 150.0
+   },
+   "derivation": {
+    "formula": "0650 / 0651: 67 bundles of G1 1-N16-BZ / G8 2-N16-V at 150 from each end after the 1500 end diaphragm (67 x 0.15 = 10.05), 36 bundles G27 / G29 2-N16-V at 300 in the centre (36 x 0.3 = 10.8 printed; the centre zone takes the remainder of 33.441: 10.341)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].deck_bars.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "top",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D32 52-N16-S-150 NF / D33 52-N16-S-150 FF longitudinal (0751 plan SB02); cover 45 to the nearest bar (0750 notes) + transverse N16 = 61",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "superstructure.supert_types[ST1].deck_bars.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "face": "bot",
+    "diameter": 16.0,
+    "spacing": 150.0,
+    "cover": 61.0
+   },
+   "derivation": {
+    "formula": "D32 52-N16-S-150 NF / D33 52-N16-S-150 FF longitudinal (0751 plan SB02); cover 45 to the nearest bar (0750 notes) + transverse N16 = 61",
+    "inputs": [
+     "deck.slab_thickness"
+    ]
+   }
+  },
+  {
+   "path": "custom.girder_hog_table",
+   "tag": "Direct",
+   "value": {
+    "girders": "02-01 .. 02-04",
+    "transfer": 57,
+    "28_days": 74,
+    "60_days": 78,
+    "100_days": 80,
+    "deck_slab_deflection": -27,
+    "mass_t": 58.2
+   },
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "calculated hog of girders"
+   }
+  },
+  {
+   "path": "custom.girder_hog_basis",
+   "tag": "Direct",
+   "value": "density 2550 kg/m3; E at transfer 32,800 MPa; elevated temperature curing at 70 °C for 8 hours after casting; girder self weight only",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes"
+   }
+  },
+  {
+   "path": "custom.girder_density_drawing",
+   "tag": "Direct",
+   "value": 2550,
+   "unit": "kg/m3",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes / lifting",
+    "text": "DENSITY = 2550kg/m3"
+   }
+  },
+  {
+   "path": "custom.strand_MBL",
+   "tag": "Direct",
+   "value": 279,
+   "unit": "kN",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes"
+   }
+  },
+  {
+   "path": "custom.strand_force_after_release",
+   "tag": "Direct",
+   "value": 209,
+   "unit": "kN",
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes"
+   }
+  },
+  {
+   "path": "custom.steam_curing_age_at_loading",
+   "tag": "Direct",
+   "value": 7,
+   "unit": "days",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "§2.4.9 shrinkage and creep",
+    "text": "for precast elements subject to accelerated ageing such as steam curing, the age at first loading for k3 shall be 7 days (TMR)"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].support",
+   "tag": "Model",
+   "value": "A",
+   "source": {
+    "note": "bearing A02-01 on abutment A2"
+   },
+   "note": "bearing A02-01 on abutment A2"
+  },
+  {
+   "path": "bearings.items[A-01].member",
+   "tag": "Model",
+   "value": "G02-01",
+   "source": {
+    "note": "bearing A02-01 under girder 02-01 (0500 / 0600 numbering)"
+   },
+   "note": "bearing A02-01 under girder 02-01 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[A-01].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].top_rl",
+   "tag": "Direct",
+   "value": 8.527,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "A02-01 RL 'X' 8.527"
+   }
+  },
+  {
+   "path": "bearings.items[A-01].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-01].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-01].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-01].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[A-01].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-01].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-02].support",
+   "tag": "Model",
+   "value": "A",
+   "source": {
+    "note": "bearing A02-02 on abutment A2"
+   },
+   "note": "bearing A02-02 on abutment A2"
+  },
+  {
+   "path": "bearings.items[A-02].member",
+   "tag": "Model",
+   "value": "G02-02",
+   "source": {
+    "note": "bearing A02-02 under girder 02-02 (0500 / 0600 numbering)"
+   },
+   "note": "bearing A02-02 under girder 02-02 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[A-02].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[A-02].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[A-02].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[A-02].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[A-02].top_rl",
+   "tag": "Direct",
+   "value": 8.587,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "A02-02 RL 'X' 8.587"
+   }
+  },
+  {
+   "path": "bearings.items[A-02].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-02].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-02].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-02].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[A-02].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-02].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-03].support",
+   "tag": "Model",
+   "value": "A",
+   "source": {
+    "note": "bearing A02-03 on abutment A2"
+   },
+   "note": "bearing A02-03 on abutment A2"
+  },
+  {
+   "path": "bearings.items[A-03].member",
+   "tag": "Model",
+   "value": "G02-03",
+   "source": {
+    "note": "bearing A02-03 under girder 02-03 (0500 / 0600 numbering)"
+   },
+   "note": "bearing A02-03 under girder 02-03 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[A-03].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[A-03].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[A-03].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[A-03].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[A-03].top_rl",
+   "tag": "Direct",
+   "value": 8.645,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "A02-03 RL 'X' 8.645"
+   }
+  },
+  {
+   "path": "bearings.items[A-03].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-03].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-03].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-03].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[A-03].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-03].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-04].support",
+   "tag": "Model",
+   "value": "A",
+   "source": {
+    "note": "bearing A02-04 on abutment A2"
+   },
+   "note": "bearing A02-04 on abutment A2"
+  },
+  {
+   "path": "bearings.items[A-04].member",
+   "tag": "Model",
+   "value": "G02-04",
+   "source": {
+    "note": "bearing A02-04 under girder 02-04 (0500 / 0600 numbering)"
+   },
+   "note": "bearing A02-04 under girder 02-04 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[A-04].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[A-04].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[A-04].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[A-04].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[A-04].top_rl",
+   "tag": "Direct",
+   "value": 8.698,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "A02-04 RL 'X' 8.698"
+   }
+  },
+  {
+   "path": "bearings.items[A-04].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-04].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-04].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[A-04].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[A-04].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[A-04].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-01].support",
+   "tag": "Model",
+   "value": "B",
+   "source": {
+    "note": "bearing B02-01 on abutment B2"
+   },
+   "note": "bearing B02-01 on abutment B2"
+  },
+  {
+   "path": "bearings.items[B-01].member",
+   "tag": "Model",
+   "value": "G02-01",
+   "source": {
+    "note": "bearing B02-01 under girder 02-01 (0500 / 0600 numbering)"
+   },
+   "note": "bearing B02-01 under girder 02-01 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[B-01].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[B-01].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[B-01].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[B-01].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[B-01].top_rl",
+   "tag": "Direct",
+   "value": 8.758,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "B02-01 RL 'X' 8.758"
+   }
+  },
+  {
+   "path": "bearings.items[B-01].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-01].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-01].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-01].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[B-01].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-01].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-02].support",
+   "tag": "Model",
+   "value": "B",
+   "source": {
+    "note": "bearing B02-02 on abutment B2"
+   },
+   "note": "bearing B02-02 on abutment B2"
+  },
+  {
+   "path": "bearings.items[B-02].member",
+   "tag": "Model",
+   "value": "G02-02",
+   "source": {
+    "note": "bearing B02-02 under girder 02-02 (0500 / 0600 numbering)"
+   },
+   "note": "bearing B02-02 under girder 02-02 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[B-02].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[B-02].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[B-02].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[B-02].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[B-02].top_rl",
+   "tag": "Direct",
+   "value": 8.82,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "B02-02 RL 'X' 8.82"
+   }
+  },
+  {
+   "path": "bearings.items[B-02].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-02].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-02].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-02].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[B-02].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-02].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-03].support",
+   "tag": "Model",
+   "value": "B",
+   "source": {
+    "note": "bearing B02-03 on abutment B2"
+   },
+   "note": "bearing B02-03 on abutment B2"
+  },
+  {
+   "path": "bearings.items[B-03].member",
+   "tag": "Model",
+   "value": "G02-03",
+   "source": {
+    "note": "bearing B02-03 under girder 02-03 (0500 / 0600 numbering)"
+   },
+   "note": "bearing B02-03 under girder 02-03 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[B-03].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[B-03].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[B-03].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[B-03].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[B-03].top_rl",
+   "tag": "Direct",
+   "value": 8.88,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "B02-03 RL 'X' 8.88"
+   }
+  },
+  {
+   "path": "bearings.items[B-03].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-03].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-03].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-03].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[B-03].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-03].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-04].support",
+   "tag": "Model",
+   "value": "B",
+   "source": {
+    "note": "bearing B02-04 on abutment B2"
+   },
+   "note": "bearing B02-04 on abutment B2"
+  },
+  {
+   "path": "bearings.items[B-04].member",
+   "tag": "Model",
+   "value": "G02-04",
+   "source": {
+    "note": "bearing B02-04 under girder 02-04 (0500 / 0600 numbering)"
+   },
+   "note": "bearing B02-04 under girder 02-04 (0500 / 0600 numbering)"
+  },
+  {
+   "path": "bearings.items[B-04].type",
+   "tag": "Direct",
+   "value": "elastomeric",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "laminated elastomeric bearing",
+    "text": "AS5100.4 part No AS [50] 070910R"
+   }
+  },
+  {
+   "path": "bearings.items[B-04].plan_a",
+   "tag": "Direct",
+   "value": 380,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "380 (direction of traffic)"
+   }
+  },
+  {
+   "path": "bearings.items[B-04].plan_b",
+   "tag": "Direct",
+   "value": 480,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing",
+    "text": "480"
+   }
+  },
+  {
+   "path": "bearings.items[B-04].bearing_height",
+   "tag": "Direct",
+   "value": 157,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "elevation",
+    "text": "157"
+   }
+  },
+  {
+   "path": "bearings.items[B-04].top_rl",
+   "tag": "Direct",
+   "value": 8.936,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0500",
+    "view": "table 1 bearing data",
+    "text": "B02-04 RL 'X' 8.936"
+   }
+  },
+  {
+   "path": "bearings.items[B-04].elastomer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-04].layer_thickness",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-04].shear_modulus",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MPa",
+   "note": "catalogue part AS [50] 070910R; layers / G not printed"
+  },
+  {
+   "path": "bearings.items[B-04].height",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "mm",
+   "note": "seat to soffit: mortar pad + epoxy block per measured hog (0502 table 2)"
+  },
+  {
+   "path": "bearings.items[B-04].restraint_longitudinal",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "laminated elastomeric; buffer bearing behind each girder, 30 mm gap (report 4.1.3) — idealisation for the engineer"
+  },
+  {
+   "path": "bearings.items[B-04].restraint_transverse",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "note": "lateral restraint block at 2.454 along the support line (0305), HDPE plates — idealisation for the engineer"
+  },
+  {
+   "path": "custom.bearing_part_no",
+   "tag": "Direct",
+   "value": "AS [50] 070910R",
+   "source": {
+    "doc": "DRG-0503",
+    "view": "plan laminated elastomeric bearing"
+   }
+  },
+  {
+   "path": "supports[A].kind",
+   "tag": "Model",
+   "value": "spill-through abutment",
+   "source": {
+    "note": "catalogue class nearest to 0113 section 1: cast-in-place abutment sill beam on 3 sleeved Ø1050 bored piles inside a reinforced soil wall block"
+   },
+   "note": "catalogue class nearest to 0113 section 1: cast-in-place abutment sill beam on 3 sleeved Ø1050 bored piles inside a reinforced soil wall block"
+  },
+  {
+   "path": "supports[A].headstock.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "width": 1350.0,
+    "depth": 1220.0,
+    "length": 7.963
+   },
+   "derivation": {
+    "formula": "width 571 + 779 about the bearing line (0305 plan); depth = seat RL - soffit RL at both ends (8.524 - 7.308, 8.306 - 7.081, 0305 elevation) mean; length 7963 along the support line",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "edge": "front",
+    "value": 779.0
+   },
+   "source": {
+    "doc": "DRG-0305",
+    "view": "plan",
+    "text": "779 span side of the bearing line"
+   }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "edge": "back",
+    "value": -571.0
+   },
+   "source": {
+    "doc": "DRG-0305",
+    "view": "plan",
+    "text": "571 curtain-wall side"
+   }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "start",
+    "value": -1460.0
+   },
+   "derivation": {
+    "formula": "right end of the sill from the SOP along the support line (0305 plan dims; + = left / along 141.2786°)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].headstock_setout.rows[3]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "end",
+    "value": 6503.0
+   },
+   "derivation": {
+    "formula": "left end of the sill from the SOP along the support line (0305 plan dims)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].soil_layers.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "name": "fill / estuarine soft clay / Botany sand / residual clay / Unit 6 weak rock / Unit 7 sound rock (report table 5-3)"
+   },
+   "value": null,
+   "note": "lateral soil moduli in Appendix J (geotechnical design report), not in the copy supplied"
+  },
+  {
+   "path": "supports[A].backfill.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "reinforced soil wall block; φ 30° c 0 (report 2.4.3); unit weight 22 kN/m3 compacted soil (table 2-4)"
+  },
+  {
+   "path": "supports[A].rock_kh",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MN/m3",
+   "note": "SB02: Unit 6 Erm 50 MPa, Unit 7 Erm 350 MPa (report table 5-4); subgrade modulus not given"
+  },
+  {
+   "path": "supports[A].curtain_wall.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "curtain wall above the seat: top RL 10.136 / 9.927 (A2) — thickness on the section sheets not read"
+  },
+  {
+   "path": "supports[A].piles[A-01].E",
+   "tag": "Calculated",
+   "value": 331510.959,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + +5.411 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].N",
+   "tag": "Calculated",
+   "value": 6245402.196,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + +5.411 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].rl_top",
+   "tag": "Direct",
+   "value": 7.143,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].rl_toe",
+   "tag": "Direct",
+   "value": -11.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment A: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-01].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2713.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[A].piles[A-01].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2049.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].E",
+   "tag": "Calculated",
+   "value": 331509.145,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + +2.511 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].N",
+   "tag": "Calculated",
+   "value": 6245404.459,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + +2.511 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].rl_top",
+   "tag": "Direct",
+   "value": 7.227,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].rl_toe",
+   "tag": "Direct",
+   "value": -11.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment A: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-02].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2713.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[A].piles[A-02].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2049.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].E",
+   "tag": "Calculated",
+   "value": 331507.331,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + -0.389 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].N",
+   "tag": "Calculated",
+   "value": 6245406.721,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0305 (331507.574, 6245406.418) + -0.389 along the pile line bearing 141.2786° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].rl_top",
+   "tag": "Direct",
+   "value": 7.311,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].rl_toe",
+   "tag": "Direct",
+   "value": -11.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment A: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[A].piles[A-03].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2713.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[A].piles[A-03].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2049.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "supports[B].kind",
+   "tag": "Model",
+   "value": "spill-through abutment",
+   "source": {
+    "note": "catalogue class nearest to 0113 section 1: cast-in-place abutment sill beam on 3 sleeved Ø1050 bored piles inside a reinforced soil wall block"
+   },
+   "note": "catalogue class nearest to 0113 section 1: cast-in-place abutment sill beam on 3 sleeved Ø1050 bored piles inside a reinforced soil wall block"
+  },
+  {
+   "path": "supports[B].headstock.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "width": 1350.0,
+    "depth": 1220.0,
+    "length": 8.337
+   },
+   "derivation": {
+    "formula": "width 543 + 807 about the bearing line (0306 plan); depth = seat RL - soffit RL at both ends (8.54 - 7.315, 8.767 - 7.552, 0306 elevation) mean; length 8337 along the support line",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "edge": "front",
+    "value": 807.0
+   },
+   "source": {
+    "doc": "DRG-0306",
+    "view": "plan",
+    "text": "807 span side of the bearing line"
+   }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "edge": "back",
+    "value": -543.0
+   },
+   "source": {
+    "doc": "DRG-0306",
+    "view": "plan",
+    "text": "543 curtain-wall side"
+   }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "start",
+    "value": -1483.0
+   },
+   "derivation": {
+    "formula": "right end of the sill from the SOP along the support line (0306 plan dims; + = left / along 141.2764°)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].headstock_setout.rows[3]",
+   "tag": "Calculated",
+   "cells": {
+    "edge": "end",
+    "value": 6854.0
+   },
+   "derivation": {
+    "formula": "left end of the sill from the SOP along the support line (0306 plan dims)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].soil_layers.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "name": "fill / estuarine soft clay / Botany sand / residual clay / Unit 6 weak rock / Unit 7 sound rock (report table 5-3)"
+   },
+   "value": null,
+   "note": "lateral soil moduli in Appendix J (geotechnical design report), not in the copy supplied"
+  },
+  {
+   "path": "supports[B].backfill.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "reinforced soil wall block; φ 30° c 0 (report 2.4.3); unit weight 22 kN/m3 compacted soil (table 2-4)"
+  },
+  {
+   "path": "supports[B].rock_kh",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "MN/m3",
+   "note": "SB02: Unit 6 Erm 50 MPa, Unit 7 Erm 350 MPa (report table 5-4); subgrade modulus not given"
+  },
+  {
+   "path": "supports[B].curtain_wall.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {},
+   "value": null,
+   "note": "curtain wall above the seat: top RL 10.136 / 9.927 (A2) — thickness on the section sheets not read"
+  },
+  {
+   "path": "supports[B].piles[B-01].E",
+   "tag": "Calculated",
+   "value": 331487.54,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + +5.411 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].N",
+   "tag": "Calculated",
+   "value": 6245379.46,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + +5.411 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].rl_top",
+   "tag": "Direct",
+   "value": 7.374,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].rl_toe",
+   "tag": "Direct",
+   "value": -13.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment B: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-01].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2885.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[B].piles[B-01].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2031.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].E",
+   "tag": "Calculated",
+   "value": 331485.726,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + +2.511 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].N",
+   "tag": "Calculated",
+   "value": 6245381.723,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + +2.511 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].rl_top",
+   "tag": "Direct",
+   "value": 7.461,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].rl_toe",
+   "tag": "Direct",
+   "value": -13.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment B: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-02].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2885.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[B].piles[B-02].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2031.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].E",
+   "tag": "Calculated",
+   "value": 331483.912,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + -0.389 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].N",
+   "tag": "Calculated",
+   "value": 6245383.985,
+   "unit": "m",
+   "derivation": {
+    "formula": "SOP 0306 (331484.155, 6245383.682) + -0.389 along the pile line bearing 141.2764° (0200 pile layout: 5411 / 2511 / 389)",
+    "inputs": []
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].diameter",
+   "tag": "Direct",
+   "value": 1050.0,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0200",
+    "view": "pile layout plan",
+    "text": "Ø1050 bored cast-in-place piles"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].rl_top",
+   "tag": "Direct",
+   "value": 7.549,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "TOP OF PILE RL 'B'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].rl_toe",
+   "tag": "Direct",
+   "value": -13.5,
+   "unit": "m",
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "FOUNDING LEVEL RL 'A'"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].rl_rock",
+   "tag": "Direct",
+   "value": -10.0,
+   "unit": "m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 5-3 inferred stratigraphy",
+    "text": "SB02 abutment B: Unit 6 weak rock top RL -10.0"
+   }
+  },
+  {
+   "path": "supports[B].piles[B-03].design_actions.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "SLS",
+    "N": 2885.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "design maximum axial compression at top of pile SLS"
+   },
+   "note": "report table 5-5 gives SLS 3281 kN for socket design (query)"
+  },
+  {
+   "path": "supports[B].piles[B-03].design_actions.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "limit_state": "ULS",
+    "N": 3524.0,
+    "M": 2031.0
+   },
+   "source": {
+    "doc": "DRG-0201",
+    "view": "table 1 pile data",
+    "text": "ULS axial / design maximum bending moment ULS"
+   }
+  },
+  {
+   "path": "materials.concrete.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "element": "Super-T girders",
+    "fc": 50.0,
+    "E": 34800.0,
+    "density": 26.0
+   },
+   "source": {
+    "doc": "DRG-0600",
+    "view": "general notes",
+    "text": "50 MPa (0600); E 34800 (report table 2-1); density 26.0 kN/m3 (report table 2-4: prestressed beams)"
+   },
+   "note": "girder density: report 26.0 kN/m3 vs 0600 hog basis 2550 kg/m3 = 25.0 kN/m3 (query)"
+  },
+  {
+   "path": "materials.concrete.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "element": "deck",
+    "fc": 40.0,
+    "E": 32800.0,
+    "density": 25.0
+   },
+   "source": {
+    "doc": "DRG-0700",
+    "view": "general notes",
+    "text": "40 MPa (0700); E 32800 (report table 2-1); density 25.0 kN/m3 (report table 2-4: reinforced concrete)"
+   }
+  },
+  {
+   "path": "materials.concrete.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "element": "piles",
+    "fc": 50.0,
+    "E": 34800.0,
+    "density": 25.0
+   },
+   "source": {
+    "doc": "DRG-0250",
+    "view": "general notes",
+    "text": "50 MPa (0250); E 34800 (report table 2-1); density 25.0 kN/m3 (report table 2-4: reinforced concrete)"
+   }
+  },
+  {
+   "path": "materials.concrete.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "element": "abutments",
+    "fc": 40.0,
+    "E": 32800.0,
+    "density": 25.0
+   },
+   "source": {
+    "doc": "DRG-0302",
+    "view": "general notes",
+    "text": "40 MPa (0302); E 32800 (report table 2-1); density 25.0 kN/m3 (report table 2-4: reinforced concrete)"
+   }
+  },
+  {
+   "path": "materials.strand.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "type": "15.7 mm 7-wire ordinary, relax 2",
+    "diameter": 15.7,
+    "fpb": 1860.0,
+    "area": 150.0,
+    "Ep": 195000.0
+   },
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-3",
+    "text": "15.7 mm 7 wire ordinary relax 2, A 150, MBL 279 kN, fpb 1860, E 195 GPa"
+   }
+  },
+  {
+   "path": "materials.reinforcement.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "grade": "D500N",
+    "fsy": 500.0,
+    "Es": 200000.0
+   },
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-2",
+    "text": "D500N 500 MPa, E 200,000"
+   }
+  },
+  {
+   "path": "custom.concrete_E_report",
+   "tag": "Direct",
+   "value": "34,800 MPa (50 MPa) / 32,800 MPa (40 MPa); basic shrinkage 800e-6; creep 2.4 (50) / 2.8 (40)",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-1"
+   }
+  },
+  {
+   "path": "custom.densities_report",
+   "tag": "Direct",
+   "value": "reinforced concrete 25.0, prestressed beams 26.0, asphalt 22.0, compacted soil 22.0 kN/m3",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-4"
+   }
+  },
+  {
+   "path": "custom.sdl_line_loads",
+   "tag": "Direct",
+   "value": "utilities 1 kN/m, safety screens 1 kN/m",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-5"
+   }
+  },
+  {
+   "path": "loads.traffic_models.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "model": "M1600",
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "ROAD TRAFFIC LOADING: SM1600"
+   }
+  },
+  {
+   "path": "loads.traffic_models.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "model": "S1600",
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "ROAD TRAFFIC LOADING: SM1600"
+   }
+  },
+  {
+   "path": "loads.design_speed",
+   "tag": "Direct",
+   "value": 90,
+   "unit": "km/h",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "DESIGN TRAFFIC SPEED: 90 km/h"
+   }
+  },
+  {
+   "path": "loads.braking_force",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "kN",
+   "note": "AS 5100.2 method stated in the report (2.4.5 / 2.4.9); value not printed"
+  },
+  {
+   "path": "loads.traffic_surcharge",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "kPa",
+   "note": "AS 5100.2 method stated in the report (2.4.5 / 2.4.9); value not printed"
+  },
+  {
+   "path": "loads.shrinkage_creep_shortening",
+   "tag": "Missing-Flagged",
+   "value": null,
+   "unit": "1e-6",
+   "note": "AS 5100.2 method stated in the report (2.4.5 / 2.4.9); value not printed"
+  },
+  {
+   "path": "loads.wind.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "item": "V_uls",
+    "value": 48.0,
+    "unit": "m/s"
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "wind loading",
+    "text": "WIND VELOCITY ULS 48 m/s"
+   }
+  },
+  {
+   "path": "loads.wind.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "item": "V_sls",
+    "value": 37.0,
+    "unit": "m/s"
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "wind loading",
+    "text": "WIND VELOCITY SLS 37 m/s"
+   }
+  },
+  {
+   "path": "loads.wind.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "item": "V_with_traffic",
+    "value": 35.0,
+    "unit": "m/s"
+   },
+   "source": {
+    "doc": "RPT-000001",
+    "view": "2.4.6 wind loads",
+    "text": "design speed 35 m/s for ULS PE + road traffic"
+   }
+  },
+  {
+   "path": "loads.wind.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "air_density"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Cd"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "CL"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vertical_eccentricity_b"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "longitudinal_fraction"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vehicle_line_load"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.wind.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vehicle_height"
+   },
+   "value": null,
+   "note": "AS 5100.2 section 17 stated; values not printed"
+  },
+  {
+   "path": "loads.earthquake.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "item": "kp",
+    "value": "1.7"
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "earthquake loading",
+    "text": "kp 1.7"
+   }
+  },
+  {
+   "path": "loads.earthquake.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "item": "Z",
+    "value": "0.08"
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "earthquake loading",
+    "text": "Z 0.08"
+   }
+  },
+  {
+   "path": "loads.earthquake.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "item": "site_class",
+    "value": "De"
+   },
+   "source": {
+    "doc": "DRG-0101",
+    "view": "earthquake loading",
+    "text": "site_class De"
+   }
+  },
+  {
+   "path": "loads.earthquake.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Rf"
+   },
+   "value": null,
+   "note": "µ 1.0 longitudinal / 1.5 transverse (0101); Rf not printed"
+  },
+  {
+   "path": "loads.earthquake.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "zeta"
+   },
+   "value": null,
+   "note": "not printed"
+  },
+  {
+   "path": "loads.earthquake.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "vertical"
+   },
+   "value": null,
+   "note": "not printed on the drawings read"
+  },
+  {
+   "path": "loads.temperature.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_max"
+   },
+   "value": null,
+   "note": "AS 5100.2: coastal, < 1000 m, region 2 (report 2.4.10); values not printed"
+  },
+  {
+   "path": "loads.temperature.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_min"
+   },
+   "value": null,
+   "note": "AS 5100.2: coastal, < 1000 m, region 2 (report 2.4.10); values not printed"
+  },
+  {
+   "path": "loads.temperature.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "T_set"
+   },
+   "value": null,
+   "note": "AS 5100.2: coastal, < 1000 m, region 2 (report 2.4.10); values not printed"
+  },
+  {
+   "path": "loads.temperature.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "alpha"
+   },
+   "value": null,
+   "note": "AS 5100.2: coastal, < 1000 m, region 2 (report 2.4.10); values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 0.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 100.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 200.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 300.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 400.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 500.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 600.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 700.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 800.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 900.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1000.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1100.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_positive.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1200.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 0.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 100.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 200.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 300.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 400.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 500.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 600.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 700.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 800.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 900.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1000.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1100.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "loads.gradient_negative.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "depth": 1200.0
+   },
+   "value": null,
+   "note": "AS 5100.2 differential temperature stated; values not printed"
+  },
+  {
+   "path": "custom.design_lanes",
+   "tag": "Direct",
+   "value": 2,
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "No OF DESIGN LANES SB02: 2"
+   }
+  },
+  {
+   "path": "custom.heavy_load_platform",
+   "tag": "Direct",
+   "value": "HLP 400, one vehicle per carriageway, centreline of carriageway ±1 m, 10 km/h, no concurrent SM1600 on SB02",
+   "source": {
+    "doc": "RPT-000001",
+    "view": "table 2-7 / 0101"
+   }
+  },
+  {
+   "path": "custom.route_factor",
+   "tag": "Direct",
+   "value": 0.3,
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "ROUTE FACTOR: 0.3"
+   }
+  },
+  {
+   "path": "custom.heavy_vehicles_per_lane_day",
+   "tag": "Direct",
+   "value": 169,
+   "source": {
+    "doc": "DRG-0101",
+    "view": "design criteria",
+    "text": "SB02-WB: 169"
+   }
+  },
+  {
+   "path": "custom.collision_load",
+   "tag": "Direct",
+   "value": "2700 kN in any horizontal direction at 1.2 m above ground",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "collision loading"
+   }
+  },
+  {
+   "path": "custom.differential_settlement",
+   "tag": "Direct",
+   "value": 11,
+   "unit": "mm",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "differential settlement",
+    "text": "11mm TOTAL BETWEEN ADJACENT SUPPORTS (report 2.4.4: 10 mm — query)"
+   }
+  },
+  {
+   "path": "custom.earthquake_mu_longitudinal",
+   "tag": "Direct",
+   "value": 1.0,
+   "source": {
+    "doc": "DRG-0101",
+    "view": "earthquake loading"
+   }
+  },
+  {
+   "path": "custom.earthquake_mu_transverse",
+   "tag": "Direct",
+   "value": 1.5,
+   "source": {
+    "doc": "DRG-0101",
+    "view": "earthquake loading"
+   }
+  },
+  {
+   "path": "custom.wind_region",
+   "tag": "Direct",
+   "value": "A2",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "wind loading"
+   }
+  },
+  {
+   "path": "custom.wind_terrain",
+   "tag": "Direct",
+   "value": "TC2",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "wind loading"
+   }
+  },
+  {
+   "path": "design.prestress_losses.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "k4"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "chi"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "ts"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Rb"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[4]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "k7"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[5]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "Tav"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[6]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "jt"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[7]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rb"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "dhard"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[9]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "tsd"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[10]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rd"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[11]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "sidl"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[12]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "sidlA"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[13]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "dform"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[14]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "meth"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[15]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "rlx"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[16]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "relpre"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[17]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "emod"
+   },
+   "value": null,
+   "note": "not printed (0600 gives the hog basis only)"
+  },
+  {
+   "path": "design.prestress_losses.rows[18]",
+   "tag": "Direct",
+   "cells": {
+    "item": "Tcur",
+    "value": 70.0,
+    "unit": "C"
+   },
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes",
+    "text": "ELEVATED TEMPERATURE CURING AT 70°C FOR 8 HOURS"
+   }
+  },
+  {
+   "path": "design.prestress_losses.rows[19]",
+   "tag": "Direct",
+   "cells": {
+    "item": "hcur",
+    "value": 8.0,
+    "unit": "h"
+   },
+   "source": {
+    "doc": "DRG-0600",
+    "view": "prestressing notes",
+    "text": "ELEVATED TEMPERATURE CURING AT 70°C FOR 8 HOURS"
+   }
+  },
+  {
+   "path": "design.prestress_losses.rows[20]",
+   "tag": "Model",
+   "cells": {
+    "item": "time",
+    "value": 27.0,
+    "unit": "days"
+   },
+   "source": {
+    "note": "report times = girder age 28 / 100 days (0600 hog table) less a 1-day age at transfer (proposed)"
+   },
+   "note": "report times = girder age 28 / 100 days (0600 hog table) less a 1-day age at transfer (proposed)"
+  },
+  {
+   "path": "design.prestress_losses.rows[21]",
+   "tag": "Model",
+   "cells": {
+    "item": "time",
+    "value": 99.0,
+    "unit": "days"
+   },
+   "source": {
+    "note": "report times = girder age 28 / 100 days (0600 hog table) less a 1-day age at transfer (proposed)"
+   },
+   "note": "report times = girder age 28 / 100 days (0600 hog table) less a 1-day age at transfer (proposed)"
+  },
+  {
+   "path": "design.girder_options.rows[0]",
+   "tag": "Direct",
+   "cells": {
+    "item": "fitment_cover_side",
+    "value": "35"
+   },
+   "source": {
+    "doc": "DRG-0655",
+    "view": "general notes",
+    "text": "COVER ... INTERNAL SURFACE: 30mm, EXTERNAL SURFACE: 35mm"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[1]",
+   "tag": "Direct",
+   "cells": {
+    "item": "fitment_cover_top",
+    "value": "30"
+   },
+   "source": {
+    "doc": "DRG-0655",
+    "view": "general notes",
+    "text": "INTERNAL SURFACE: 30mm"
+   }
+  },
+  {
+   "path": "design.girder_options.rows[2]",
+   "tag": "Model",
+   "cells": {
+    "item": "useN",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "design.girder_options.rows[3]",
+   "tag": "Model",
+   "cells": {
+    "item": "kuoLim",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "design.girder_options.rows[4]",
+   "tag": "Model",
+   "cells": {
+    "item": "tend",
+    "value": "\"sc\""
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "design.girder_options.rows[5]",
+   "tag": "Model",
+   "cells": {
+    "item": "k1p",
+    "value": "0.4"
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "design.girder_options.rows[6]",
+   "tag": "Model",
+   "cells": {
+    "item": "dsh",
+    "value": "true"
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "design.girder_options.rows[7]",
+   "tag": "Model",
+   "cells": {
+    "item": "torsion_tie_legs",
+    "value": "1"
+   },
+   "source": {
+    "note": "design option, as BR13A / B12626"
+   },
+   "note": "design option, as BR13A / B12626"
+  },
+  {
+   "path": "analysis.grillage.rows[0]",
+   "tag": "Model",
+   "cells": {
+    "item": "tgt",
+    "value": "2.8"
+   },
+   "source": {
+    "note": "transverse member spacing target (m), as BR13A"
+   },
+   "note": "transverse member spacing target (m), as BR13A"
+  },
+  {
+   "path": "analysis.grillage.rows[1]",
+   "tag": "Model",
+   "cells": {
+    "item": "merge",
+    "value": "0.4"
+   },
+   "source": {
+    "note": "node merge tolerance (m), as BR13A"
+   },
+   "note": "node merge tolerance (m), as BR13A"
+  },
+  {
+   "path": "analysis.grillage.rows[2]",
+   "tag": "Model",
+   "cells": {
+    "item": "midgap",
+    "value": "1"
+   },
+   "source": {
+    "note": "mid-gap lines, as BR13A"
+   },
+   "note": "mid-gap lines, as BR13A"
+  },
+  {
+   "path": "analysis.grillage.rows[3]",
+   "tag": "Model",
+   "cells": {
+    "item": "model",
+    "value": "2"
+   },
+   "source": {
+    "note": "integrated model, as BR13A"
+   },
+   "note": "integrated model, as BR13A"
+  },
+  {
+   "path": "analysis.grillage.rows[4]",
+   "tag": "Model",
+   "cells": {
+    "item": "girder_J_factor",
+    "value": "1.0"
+   },
+   "source": {
+    "note": "Super-T torsion factor (ADR-041; P4-6 open), as BR13A"
+   },
+   "note": "Super-T torsion factor (ADR-041; P4-6 open), as BR13A"
+  },
+  {
+   "path": "analysis.grillage.rows[5]",
+   "tag": "Model",
+   "cells": {
+    "item": "deck_top_reference",
+    "value": "1"
+   },
+   "source": {
+    "note": "nodes at the deck top (ADR-043), as BR13A"
+   },
+   "note": "nodes at the deck top (ADR-043), as BR13A"
+  },
+  {
+   "path": "analysis.bearing_fixed_stiffness",
+   "tag": "Model",
+   "value": 10000000.0,
+   "unit": "kN/m",
+   "source": {
+    "note": "rigid idealisation"
+   },
+   "note": "rigid idealisation"
+  },
+  {
+   "path": "analysis.pile_toe",
+   "tag": "Model",
+   "value": "vertical only",
+   "source": {
+    "note": "as BR13A"
+   },
+   "note": "as BR13A"
+  },
+  {
+   "path": "analysis.column_segment",
+   "tag": "Model",
+   "value": 1.0,
+   "unit": "m",
+   "source": {
+    "note": "piles split to about 1 m"
+   },
+   "note": "piles split to about 1 m"
+  },
+  {
+   "path": "analysis.soil_factor",
+   "tag": "Model",
+   "value": 1,
+   "source": {
+    "note": "sensitivity factor (report: x0.5 / x2, x3 earthquake)"
+   },
+   "note": "sensitivity factor (report: x0.5 / x2, x3 earthquake)"
+  },
+  {
+   "path": "analysis.modes",
+   "tag": "Model",
+   "value": 30,
+   "source": {
+    "note": "response spectrum modes"
+   },
+   "note": "response spectrum modes"
+  }
+ ]
+}

@@ -481,3 +481,20 @@
 - **P7.5:** natural modes in the model view with the earthquake mass rule (ADR-046), via `earthquake.lumped_mass` extracted so there is one definition; BR13A T1 0.5626 s = MIDAS run g 0.563 s (test). Sections tab draws the Super-T / composite section from the section engine outline.
 - **P7.6:** `app/report.py` writes a printable calculation report per run (last chain step) from the run outputs only.
 - **P7.7:** Verification tab compares drawing-printed design actions held in the description (tag Direct, e.g. 109035 pile loads) with the latest results and lists the recorded MIDAS runs. It reports differences; colour bands (5 / 15 %) describe size only, acceptance stays with the engineer.
+
+## ADR-052 Third example bridge B12453 (SB02, Sydney Gateway) and report benchmark (P8, 2026-11-04)
+
+- **Owner request:** run the third bridge (drawings plus design report RPT-000001 rev E) and check the results against the report's numbers. The owner's PDF and docx are not committed.
+- **Done:**
+  - `projects/B12453/extraction/values.py` extracts 437 tagged values from 22 documents.
+  - `dev_inputs.py` proposes 116 development inputs under D-1 (PROPOSED; the owner accepts).
+  - The unchanged chain runs end to end in the app (run 20261104-084337).
+  - `tests/model/test_b12453_chain.py` passes 9/9 against printed geometry.
+  - `compare_report.py` writes `projects/B12453/model/COMPARISON_REPORT.md`.
+- **Result (indicative):**
+  - Girder M is −15 % and bearing N max −17 %, consistent with HLP400 not being modelled.
+  - Pile N is within −11 / +9 %.
+  - Pile M is about −52 % (placeholder soil springs; Appendix J not supplied).
+  - φMu is −18 %, but the platform's un-factored Muo is within 2.6 % of the report's "design capacity". Recorded as a query; nothing changed.
+- **Not done (gaps):** HLP400 vehicle; buffer bearings and restraint blocks; soil-spring sensitivity; separate µ per direction; shear-check aggregate size (blank, not assumed).
+- **Next:** the HLP400 standards entry (UNVERIFIED) with the SB02 placement rule, then rerun the comparison.
