@@ -230,7 +230,7 @@ def placeholders():
               interp="NOT checked against an authorised copy. Owner-supplied 2026-11-04 (citing AS 5100.2:2017 Cl 7.3 / Fig 7.3): 16 axle lines, 250 kN per axle line, "
                      "1.8 m spacing, 4000 kN total, overall width 4.5 m, tyre contact 500 x 200 mm. Agent placeholders still open: trailer gap 6-15 m (two groups of 8), "
                      "4 tyre positions per axle line spread evenly between the outer tyre centres +-(4.5 - 0.5) / 2 = +-2.0 m, DLA 0.1. Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), "
-                     "not checked as the standard's default. Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.", specialist=True)
+                     "and agrees with the Autodesk AU handout SE6327 (D. Geeves, quoting AS 5100.2-2004: HLP centrally on two design lanes or the carriageway, whichever is less, +-1.0 m lateral, 0.5 M1600 / S1600 in unobstructed lanes, accompanying lane factor 1.0; configurations in AS 5100.7). Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.", specialist=True)
     x["reference"]["figure"] = "Fig 7.3"; x["status"] = "placeholder-unverified"; x["implementation"]["version"] = "P8 (2026-11-04), no code source"
     return [x]
 
