@@ -41,6 +41,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `deck.edge_right` | num | m | Deck edge offset from the control line, right (+) |
 | `deck.carriageway_left` | num | m | Barrier face / carriageway edge, left |
 | `deck.carriageway_right` | num | m | Barrier face / carriageway edge, right |
+| `deck.carriageways` | table |  | Carriageways between barriers on a divided deck (offsets from the control line; empty = one carriageway between carriageway_left and carriageway_right) — columns: name, left (m), right (m) |
 | `deck.slab_thickness` | num | mm | Cast-in-situ deck slab / topping thickness |
 | `deck.surfacing_thickness` | num | mm | Design surfacing thickness |
 | `deck.surfacing_density` | num | kN/m3 | Surfacing unit weight |

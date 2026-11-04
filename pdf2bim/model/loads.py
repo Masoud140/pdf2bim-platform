@@ -244,8 +244,11 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1, part=None):
     g = v(D.get("surfacing_density"), "deck.surfacing_density")
     cl = v(D.get("carriageway_left"), "deck.carriageway_left")
     cr = v(D.get("carriageway_right"), "deck.carriageway_right")
+    cws = rd.rows(D.get("carriageways"), "deck.carriageways", required=False)
     if part in (None, "SDLp"):
-        area_load("surfacing", cl, cr, g * t / 1000, ["deck.surfacing_thickness", "deck.surfacing_density", "deck.carriageway_left", "deck.carriageway_right"])
+        for c in cws or [{"left": cl, "right": cr}]:   # divided deck: surfacing on each carriageway only
+            area_load("surfacing" + (f" {c.get('name')}" if cws else ""), c["left"], c["right"], g * t / 1000,
+                      ["deck.surfacing_thickness", "deck.surfacing_density"] + (["deck.carriageways"] if cws else ["deck.carriageway_left", "deck.carriageway_right"]))
     # barriers
     groups = {}
     for b in D.get("barriers") or []:

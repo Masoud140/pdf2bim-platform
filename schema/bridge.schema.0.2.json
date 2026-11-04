@@ -5060,6 +5060,254 @@
       }
      ]
     },
+    "carriageways": {
+     "type": "object",
+     "description": "Carriageways between barriers on a divided deck (offsets from the control line; empty = one carriageway between carriageway_left and carriageway_right)",
+     "additionalProperties": false,
+     "required": [
+      "rows"
+     ],
+     "properties": {
+      "rows": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "required": [
+         "cells",
+         "tag",
+         "status",
+         "original",
+         "current"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "cells": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+           "name": {
+            "type": [
+             "string",
+             "null"
+            ],
+            "description": ""
+           },
+           "left": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "m"
+           },
+           "right": {
+            "type": [
+             "number",
+             "null"
+            ],
+            "description": "m"
+           }
+          }
+         },
+         "tag": {
+          "enum": [
+           "Direct",
+           "Calculated",
+           "Missing-Flagged",
+           "Standard-verify",
+           "Input-user",
+           "Confirmed-Engineer",
+           "Assumed",
+           "Model"
+          ],
+          "description": "Data source category"
+         },
+         "source": {
+          "$ref": "#/$defs/source"
+         },
+         "derivation": {
+          "$ref": "#/$defs/derivation"
+         },
+         "ref": {
+          "type": "string",
+          "pattern": "^(lib|std):",
+          "description": "Product library or standards key"
+         },
+         "status": {
+          "enum": [
+           "open",
+           "proposed",
+           "accepted",
+           "rejected",
+           "superseded"
+          ]
+         },
+         "decision": {
+          "type": "string",
+          "pattern": "^D-[0-9]+$",
+          "description": "Last decision-log entry that set this value"
+         },
+         "replace_with": {
+          "type": "string",
+          "description": "What the real value will come from (Assumed values)"
+         },
+         "note": {
+          "type": "string"
+         },
+         "original": {
+          "$ref": "#/$defs/original"
+         },
+         "overrides": {
+          "type": "array",
+          "items": {
+           "$ref": "#/$defs/override"
+          },
+          "description": "Append-only list of changes"
+         },
+         "current": {
+          "type": "string",
+          "pattern": "^(original|OV-[0-9]+)$",
+          "description": "Which entry is the accepted value now"
+         },
+         "significance": {
+          "$ref": "#/$defs/significance"
+         }
+        },
+        "allOf": [
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Direct"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "doc"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Calculated"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "derivation"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Missing-Flagged"
+            }
+           }
+          },
+          "then": {
+           "properties": {
+            "status": {
+             "enum": [
+              "open"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Standard-verify"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "ref"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Assumed"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source",
+            "replace_with"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "enum": [
+              "Input-user",
+              "Confirmed-Engineer"
+             ]
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "decision"
+           ]
+          }
+         },
+         {
+          "if": {
+           "properties": {
+            "tag": {
+             "const": "Model"
+            }
+           }
+          },
+          "then": {
+           "required": [
+            "source"
+           ],
+           "properties": {
+            "source": {
+             "required": [
+              "note"
+             ]
+            }
+           }
+          }
+         }
+        ]
+       }
+      },
+      "note": {
+       "type": "string"
+      }
+     }
+    },
     "slab_thickness": {
      "type": "object",
      "description": "Cast-in-situ deck slab / topping thickness [mm]",

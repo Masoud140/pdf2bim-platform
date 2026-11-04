@@ -1,6 +1,6 @@
 # Current status — 2026-11-04
 
-**2026-11-05 (ADR-055):** barrier line load from the drawn section (SB02 11.47 kN/m); HLP + 0.5 M1600 in free lanes with accompanying lane factors (B12626 on, SB02 off). **(ADR-054):** haunch concrete as permanent SDL along each girder (owner rule); SB02 adds 0.18 kN/m per girder (crest curve cancels most of the precamber).
+**2026-11-05 (ADR-056):** divided decks (carriageway rows) for SB01; SB01 survey done. **(ADR-055):** barrier line load from the drawn section (SB02 11.47 kN/m); HLP + 0.5 M1600 in free lanes with accompanying lane factors (B12626 on, SB02 off). **(ADR-054):** haunch concrete as permanent SDL along each girder (owner rule); SB02 adds 0.18 kN/m per girder (crest curve cancels most of the precamber).
 
 **2026-11-04 (P8, ADR-052):** third example B12453 (SB02) runs end to end; benchmark against the design report in `projects/B12453/model/COMPARISON_REPORT.md`. HLP400 added (ADR-053, transcribed from AS 5100.7-2004 App A, MIDAS agrees); SB02 SLS now within 5 % (girder M) and 4 % (pile N); ULS girder M −12 %.
 

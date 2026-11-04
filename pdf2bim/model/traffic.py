@@ -21,6 +21,7 @@ Method (a port of the dashboard's Traffic tab, src: trInfluence / trLaneEffect /
 Standards values (lane width, M1600 / S1600 geometry and loads, DLA, lane factors) come from standards/data through the
 accessor (code-extracted-UNVERIFIED); results carry that label. Results are characteristic (no ULS / SLS factor).
 """
+import itertools
 import math
 import numpy as np
 import scipy.sparse as sp
@@ -232,18 +233,24 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     veh = {mn: std.get(f"AS5100.2:traffic:{mn}").value for mn in models}
     if len([m for m in models if m.startswith("HLP")]) > 1:
         raise MissingInput("loads.traffic_models: more than one HLP model switched on (one register action 'HLP')")
-    b = cr - cl
-    n = int(math.floor(b / W + 1e-9))
-    if n < 1:
-        raise MissingInput(f"carriageway {b:.3f} m narrower than one lane ({W} m)")
-    if layout == "left":
-        lays = [[round(cl + i * W, 6) for i in range(n)]]
-    elif layout == "sweep":
-        slack = b - n * W
-        k = int(math.floor(slack / sweep_step + 1e-9))
-        lays = [[round(cl + d * sweep_step + i * W, 6) for i in range(n)] for d in range(k + 1)]
-    else:
-        raise ValueError(f"layout {layout!r}: 'left' or 'sweep'")
+    cws = [(r["left"], r["right"]) for r in rd.rows(D.get("carriageways"), "deck.carriageways", required=False)] or [(cl, cr)]
+    per = []                                  # lane layouts of each carriageway (lanes never cross a median)
+    for a0, a1 in cws:
+        b = a1 - a0
+        n = int(math.floor(b / W + 1e-9))
+        if n < 1:
+            if len(cws) == 1:
+                raise MissingInput(f"carriageway {b:.3f} m narrower than one lane ({W} m)")
+            per.append([[]]); continue
+        if layout == "left":
+            per.append([[round(a0 + i * W, 6) for i in range(n)]])
+        elif layout == "sweep":
+            k = int(math.floor((b - n * W) / sweep_step + 1e-9))
+            per.append([[round(a0 + d * sweep_step + i * W, 6) for i in range(n)] for d in range(k + 1)])
+        else:
+            raise ValueError(f"layout {layout!r}: 'left' or 'sweep'")
+    lays = [sum(c, []) for c in itertools.product(*per)]   # every combination of the carriageways' layouts
+    n = len(lays[0])
     inf = inf or Influence(mdl)
     N = int(math.floor((inf.c1 - inf.c0) / dc)) + 1
     grid = inf.c0 + dc * np.arange(N)
@@ -255,7 +262,11 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             if on.get(mn + "_with_half_M1600"):   # AS 5100.7-2004 A2.2.5.2: half M1600 in unobstructed lanes unless the authority says otherwise
                 acc = {"veh": std.get("AS5100.2:traffic:M1600").value, "factor": 0.5, "lf": lf[1:] or lf[-1:], "cl": cl, "cr": cr}
             hlp_acc = acc
-            p, q = platform_effect(inf, grid, dc, veh[mn], (cl + cr) / 2, acc, cl, cr, W, {"pattern": pattern, "lateral": lateral, "dla_on_udl": dla_on_udl})
+            p = q = None
+            for c in cws:   # one HLP, on any carriageway (shortcut: centred on the carriageway; marked-lane pairs not tried)
+                pc, qc = platform_effect(inf, grid, dc, veh[mn], (c[0] + c[1]) / 2, acc and dict(acc, cl=c[0], cr=c[1], others=[x for x in cws if x != c]),
+                                         c[0], c[1], W, {"pattern": pattern, "lateral": lateral, "dla_on_udl": dla_on_udl})
+                p = pc if p is None else np.maximum(p, pc); q = qc if q is None else np.minimum(q, qc)
             env["HLP"] = {"max": p, "min": q, "vehicle": mn, "with_half_M1600": bool(acc)}
             veh["HLP"] = veh[mn]
             continue
@@ -271,7 +282,7 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             p, q = combine_lanes(eff, lf)
             mx = np.maximum(mx, p); mi = np.minimum(mi, q)
         env[mn] = {"max": mx, "min": mi}
-    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "hlp_accompany": hlp_acc, "lanes": n,
+    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "carriageways": cws, "hlp_accompany": hlp_acc, "lanes": n,
             "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf, "vehicles": veh,
             "lane_width": W, "grid": grid,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
@@ -338,6 +349,11 @@ def _accompany_lanes(cl, cr, W, c, occ):
     return out
 
 
+def _other_lanes(acc, W):
+    """Lanes packed from the left kerb of every other carriageway (shortcut: one packing per carriageway)."""
+    return [round(a0 + i * W, 6) for a0, a1 in acc.get("others", []) for i in range(int(math.floor((a1 - a0) / W + 1e-9)))]
+
+
 def platform_effect(inf, grid, dc, veh, oc, acc=None, cl=None, cr=None, W=None, kw=None):
     """HLP envelope (max, min). acc: {"veh": M1600 vehicle, "factor": 0.5, "lf": accompanying lane factors} -> at every
     lateral shift the HLP plus factor x M1600 in the unobstructed lanes, ranked with lf (the HLP is lane 1, factor 1)."""
@@ -348,7 +364,7 @@ def platform_effect(inf, grid, dc, veh, oc, acc=None, cl=None, cr=None, W=None, 
     for dv in _hlp_shifts(veh):
         p, q = _platform_scan(inf, grid, dc, veh, oc, lat=[dv])
         eff = []
-        for a in _accompany_lanes(cl, cr, W, oc + dv, occ):
+        for a in _accompany_lanes(cl, cr, W, oc + dv, occ) + _other_lanes(acc, W):
             k = round(a * 1000)
             if k not in memo:
                 e = lane_effect(inf, grid, dc, acc["veh"], a, W, **(kw or {}))
@@ -362,8 +378,19 @@ def platform_effect(inf, grid, dc, veh, oc, acc=None, cl=None, cr=None, W=None, 
 
 def _platform_state(T, r, sign):
     veh, grid, dc, inf = T["vehicles"]["HLP"], T["grid"], T["settings"]["dc_m"], T["influence"]
-    oc, acc, st_ = T["carriageway_centre"], T.get("hlp_accompany"), T["settings"]
+    st_ = T["settings"]
     amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
+    best = None
+    for c in T["carriageways"]:
+        oc = (c[0] + c[1]) / 2
+        acc = T.get("hlp_accompany") and dict(T["hlp_accompany"], cl=c[0], cr=c[1], others=[x for x in T["carriageways"] if x != c])
+        b_ = _platform_state_at(T, r, sign, oc, acc, veh, grid, dc, inf, st_, amp)
+        if best is None or sign * b_["value"] > sign * best["value"]:
+            best = b_
+    return best
+
+
+def _platform_state_at(T, r, sign, oc, acc, veh, grid, dc, inf, st_, amp):
     best = None
     for dv in (_hlp_shifts(veh) if acc else [None]):
         val, st = _platform_scan(inf, grid, dc, veh, oc, r, lat=None if dv is None else [dv])[sign]
@@ -376,7 +403,7 @@ def _platform_state(T, r, sign):
                     loads += [(float(grid[k]), oc + d_ + w, amp) for w in veh["wheel_offsets_m"]]
         if acc:
             occ = min(2 * T["lane_width"], acc["cr"] - acc["cl"])
-            lanes = _accompany_lanes(acc["cl"], acc["cr"], T["lane_width"], oc + dv, occ)
+            lanes = _accompany_lanes(acc["cl"], acc["cr"], T["lane_width"], oc + dv, occ) + _other_lanes(acc, T["lane_width"])
             eff = [_lane_state(inf, grid, dc, acc["veh"], a, T["lane_width"], r, sign, st_["pattern_udl"], st_["lateral_shift"], st_["dla_on_udl"]) for a in lanes]
             order = sorted(range(len(eff)), key=lambda k: -sign * eff[k][0])
             for rank, k in enumerate(order):

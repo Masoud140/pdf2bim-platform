@@ -552,3 +552,15 @@
   - Interpretation, PROVISIONAL: the ALF ranking of the free lanes and taking the HLP register factor (ULS 1.5) for the whole group. The platform source (AS 5100.7-2004 A2.2.5.2 / A2.2.6) says not to apply the multiple-lane factors to the HLP and gives no rule for the accompanying lanes.
   - SB02: off (report table 2-7 "No"). B12626: on (cover sheet). Piles are unchanged (+1.2 / +2.5 / +24.8 % against 109035).
 - **Effect on SB02 (run 20261105-071140):** girder ULS M −10.3 %, SLS M −3.0 %, bearing N max −7.4 %, pile SLS N +0.9 / −2.5 %, pile ULS N +8.3 / +10.4 % against drawing 0201.
+
+## ADR-056 Divided decks: carriageway rows (P8 stage 4a, 2026-11-05)
+
+- **Why:** SB01 has two carriageways with a median barrier. The engine had one carriageway, so lanes could straddle the median.
+- **What:**
+  - New field `deck.carriageways` (table: name, left, right).
+  - Traffic: lane layouts per carriageway (left-packed or swept within that carriageway). The bridge layouts are every combination of the carriageways' layouts. All lanes are ranked together with the accompanying lane factors.
+  - HLP: one platform, centred on any carriageway (±range). With half M1600, the free lanes of its carriageway plus the left-packed lanes of the other carriageways are loaded.
+  - SDL surfacing is applied on each carriageway only.
+  - Empty table: unchanged behaviour (single carriageway between `carriageway_left` / `carriageway_right`).
+- **Test:** B12626 split into two carriageways (synthetic) gives 169 layouts, 6 lanes, and every lane inside a carriageway. The HLP and M1600 governing states rebuild their envelope values.
+- **Shortcuts (flagged in code):** the HLP is centred on the carriageway, not on "any two marked lanes" (needs the marked-lane setout). The other carriageways' lanes are left-packed when accompanying the HLP.

@@ -54,6 +54,8 @@ DECK = {
     'edge_right': ('num', 'm', 'Deck edge offset from the control line, right (+)'),
     'carriageway_left': ('num', 'm', 'Barrier face / carriageway edge, left'),
     'carriageway_right': ('num', 'm', 'Barrier face / carriageway edge, right'),
+    'carriageways': ('table', '', 'Carriageways between barriers on a divided deck (offsets from the control line; empty = one carriageway between carriageway_left and carriageway_right)',
+                     {'name': ('str', ''), 'left': ('num', 'm'), 'right': ('num', 'm')}),
     'slab_thickness': ('num', 'mm', 'Cast-in-situ deck slab / topping thickness'),
     'surfacing_thickness': ('num', 'mm', 'Design surfacing thickness'),
     'surfacing_density': ('num', 'kN/m3', 'Surfacing unit weight'),

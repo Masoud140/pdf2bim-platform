@@ -130,5 +130,18 @@ st = governing_state(T, "HLP", i, 1)
 t("HLP + free-lane state rebuilds the envelope value; free lanes at 0.5 x accompanying factors (0.8, 0.4 ...)",
   abs(concurrent(T, st)[i] - H["max"][i]) < 1e-6 * abs(H["max"][i]) and all(abs(f - 1.0) < 1e-9 or f <= 0.4 + 1e-9 for _, f in st["factors"]),
   f"{H['max'][i]:.1f}; factors {st['factors']}")
+# divided deck: two carriageways with a 1.0 m median (synthetic split of B12626, engine test only)
+d2 = copy.deepcopy(doc)
+proto = d2["loads"]["traffic_models"]["rows"][0]
+cl_, cr_ = d2["deck"]["carriageway_left"]["value"], d2["deck"]["carriageway_right"]["value"]
+d2["deck"]["carriageways"] = {"rows": [dict(copy.deepcopy(proto), cells={"name": n_, "left": a_, "right": b_}) for n_, a_, b_ in (("west", cl_, 1.3), ("east", 2.3, cr_))]}
+T2 = traffic_envelope(d2, geo, M, Standards(), allow_proposed=True, inf=inf)
+inside = all(any(a_ >= c[0] - 1e-6 and a_ + T2["lane_width"] <= c[1] + 1e-6 for c in T2["carriageways"]) for L in T2["layouts"] for a_ in L)
+i2 = int(np.argmax(T2["env"]["HLP"]["max"])); s2 = governing_state(T2, "HLP", i2, 1)
+j2 = int(np.argmax(T2["env"]["M1600"]["max"])); m2 = governing_state(T2, "M1600", j2, 1)
+t("divided deck: every lane inside one carriageway; HLP and M1600 states rebuild their envelope values", inside and len(T2["carriageways"]) == 2
+  and abs(concurrent(T2, s2)[i2] - T2["env"]["HLP"]["max"][i2]) < 1e-6 * abs(T2["env"]["HLP"]["max"][i2])
+  and abs(concurrent(T2, m2)[j2] - T2["env"]["M1600"]["max"][j2]) < 1e-6 * abs(T2["env"]["M1600"]["max"][j2]),
+  f"{len(T2['layouts'])} layouts, {T2['lanes']} lanes")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)
