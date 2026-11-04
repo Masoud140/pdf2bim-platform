@@ -95,6 +95,9 @@ put("deck.surfacing_thickness", 75.0, unit="mm", sheet="0701", view="section 1",
 put("deck.surfacing_density", 22.0, unit="kN/m3", sheet="RPT", view="table 2-5", text="asphalt surfacing 22 kN/m3")
 put("deck.end_gap", 50.0, unit="mm", sheet="0111", view="elevation bridge SB02", text="50 GAP")
 put("deck.girders_follow_crossfall", True, sheet="0113", view="section 1", text="girders shown square to the 3% fall")
+for i, g in enumerate(("G02-01", "G02-02", "G02-03", "G02-04")):
+    put(f"deck.haunch_concrete.rows[{i}]", tag="Missing-Flagged", cells={"girder": g},
+        note="haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)")
 for b, side in (("left", "left"), ("right", "right")):
     p = f"deck.barriers[barrier_{b}]"
     put(p + ".side", side, sheet="0113", view="section 1")

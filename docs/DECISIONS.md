@@ -518,3 +518,19 @@
   - The 6–15 m central gap applies to continuous bridges only; the engine offers it only when there are more than 2 supports.
   - The entry status is now `transcribed-unverified`. AS 5100.2:2017 Cl 7.3 and Amendment 2:2024 are still to be checked.
   - SB02 rerun 20261104-175724: HLP400 governs the SLS results. Girder SLS M −5 %, bearing N max −9 %, pile SLS N −0.4 / −3.8 % against drawing 0201.
+
+## ADR-054 Haunch concrete as superimposed dead load (2026-11-05)
+
+- **Owner rule (2026-11-05):** the extra deck concrete from precamber and the vertical profile is treated as superimposed dead load.
+- **What:**
+  - New description field `deck.haunch_concrete` (table: girder, w kN/m).
+  - `loads.sdl_case` applies it as a line load along each girder chord, end to end, in the permanent SDL part (`SDLp`, report table 2-9 SDL permanent: ULS 2.0 / 0.7, SLS 1.3 via the register).
+  - The girder self-weight still uses the 200 mm minimum slab only.
+- **SB02 values (D-1, PROPOSED):**
+  - Haunch is parabolic and zero at the thinnest point (deck "200 MIN").
+  - Extreme value = crest-curve rise over the 33.441 m girder chord (58.5 mm, 0111) − girder net camber at deck pour (80 − 27 = 53 mm, 0600; deck pour age 100 days proposed) = 5.5 mm, largest at midspan.
+  - Mean over the girder = 2/3 × 5.5 = 3.7 mm; × flange width × 25 kN/m³ gives 0.17–0.18 kN/m per girder, 23.5 kN in total.
+  - Girders follow the crossfall (0113), so there is no transverse wedge.
+  - On SB02 the crest curve nearly cancels the precamber. On a flat or sag profile the same rule gives the haunch largest at the ends, as the owner described.
+- **Effect (run 20261105-065703):** girder ULS M +0.3 %, SLS M +0.3 %. Pile and bearing changes are under 0.3 %.
+- **Open:** replace with the designer's haunch / deck-level table, or with deck RLs less girder tops, when available.

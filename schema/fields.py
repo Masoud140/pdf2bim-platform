@@ -77,6 +77,8 @@ DECK = {
         'depth': ('num', 'mm', 'Depth'),
     }, 'Cross girders / diaphragms'),
     'other_sdl': ('num', 'kPa', 'Other superimposed dead load over the deck (services, etc.)'),
+    'haunch_concrete': ('table', '', 'Haunch concrete over each girder (precamber / vertical-profile make-up above the minimum slab), applied as permanent superimposed dead load along the girder',
+                        {'girder': ('str', ''), 'w': ('num', 'kN/m')}),
 }
 
 SUPERT = {

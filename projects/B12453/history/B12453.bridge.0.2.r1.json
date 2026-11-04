@@ -1679,6 +1679,86 @@
     "note": "not extracted"
    },
    "current": "original"
+  },
+  "haunch_concrete": {
+   "rows": [
+    {
+     "cells": {
+      "girder": "G02-01"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-01"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "girder": "G02-02"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-02"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "girder": "G02-03"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-03"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "girder": "G02-04"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-04"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original"
+    }
+   ]
   }
  },
  "superstructure": {
@@ -11671,7 +11751,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-03T22:05:19+00:00",
+  "created": "2026-11-04T19:56:22+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf (143 sheets) + report RPT-000001 rev E, 2026-11-04)",
   "decision_log_sha256": null
@@ -11680,6 +11760,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:3ae05ff9ea6686b6a34840a80624fb8e2d2f6e704f230a9f3ba325880f8bd109"
+  "value": "sha256:964a8dce1620bc6e104e32c515bdcbb44078c88ddc1b8e08baaa1a4b555e7f1a"
  }
 }

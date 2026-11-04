@@ -264,6 +264,20 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1, part=None):
         area_load("other SDL", el, er, q, ["deck.other_sdl", "deck.edge_left", "deck.edge_right"])
     else:
         not_applied.append({"path": "deck.other_sdl", "tag": (D.get("other_sdl") or {}).get("tag"), "reason": "no value (not applied)"})
+    # haunch concrete over the girders: permanent SDL along each girder (owner rule 2026-11-05)
+    if D.get("haunch_concrete") and part in (None, "SDLp"):
+        gby = {g["id"]: g for g in geo["girders"]}
+        for i, r in enumerate(rd.rows(D["haunch_concrete"], "deck.haunch_concrete")):
+            g = gby[r["girder"]]
+            P0, P1 = (g["end_A"]["E"], g["end_A"]["N"]), (g["end_B"]["E"], g["end_B"]["N"])
+            L = math.hypot(P1[0] - P0[0], P1[1] - P0[1]); n = max(1, math.ceil(L / dc))
+            for k in range(n):
+                f = (k + 0.5) / n
+                ch, o = al.station(P0[0] + f * (P1[0] - P0[0]), P0[1] + f * (P1[1] - P0[1]), guess=g["midchord_station"][0])
+                dist.add(ch, o, -r["w"] * L / n)
+            used.append({"path": f"deck.haunch_concrete.rows[{i}]", "value": r, "tag": None, "status": None})
+            comps.append({"name": f"haunch concrete {g['id']}", "kind": "line", "girder": g["id"], "w_kN_per_m": r["w"], "length_m": L, "total_kN": -r["w"] * L,
+                          "points": n, "inputs": [f"deck.haunch_concrete.rows[{i}]"]})
     loads = dist.nodal()
     point_loads = list(dist.pts)
     total = sum(loads.values())

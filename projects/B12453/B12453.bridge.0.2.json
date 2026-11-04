@@ -1520,7 +1520,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1678,7 +1678,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1746,7 +1746,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-03T22:05:20+00:00",
+     "timestamp": "2026-11-04T19:56:22+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -1755,6 +1755,210 @@
      "source": {
       "note": "report table 2-5: utilities 1 kN/m + safety screens 1 kN/m = 2 kN/m spread over the 7.8 m deck (the catalogue holds an area load)"
      }
+    }
+   ]
+  },
+  "haunch_concrete": {
+   "rows": [
+    {
+     "cells": {
+      "girder": "G02-01"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-01"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original",
+     "replace_with": "the designer's haunch / deck-level table (deck RLs 0703 less girder tops from bearing RL X 0500 + stack + 1515 + measured hog)",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "girder": "G02-01",
+        "w": 0.178
+       },
+       "unit": "kN/m",
+       "tag": "Assumed",
+       "from_value": {
+        "girder": "G02-01"
+       },
+       "from_unit": null,
+       "reason": "flange width 1.9379 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed",
+       "evidence": [
+        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
+        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
+       ],
+       "author": "AI",
+       "timestamp": "2026-11-04T19:56:22+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-1",
+       "supersedes": null,
+       "source": {
+        "note": "flange width 1.9379 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed"
+       }
+      }
+     ]
+    },
+    {
+     "cells": {
+      "girder": "G02-02"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-02"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original",
+     "replace_with": "the designer's haunch / deck-level table (deck RLs 0703 less girder tops from bearing RL X 0500 + stack + 1515 + measured hog)",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "girder": "G02-02",
+        "w": 0.178
+       },
+       "unit": "kN/m",
+       "tag": "Assumed",
+       "from_value": {
+        "girder": "G02-02"
+       },
+       "from_unit": null,
+       "reason": "flange width 1.9402 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed",
+       "evidence": [
+        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
+        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
+       ],
+       "author": "AI",
+       "timestamp": "2026-11-04T19:56:22+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-1",
+       "supersedes": null,
+       "source": {
+        "note": "flange width 1.9402 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed"
+       }
+      }
+     ]
+    },
+    {
+     "cells": {
+      "girder": "G02-03"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-03"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original",
+     "replace_with": "the designer's haunch / deck-level table (deck RLs 0703 less girder tops from bearing RL X 0500 + stack + 1515 + measured hog)",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "girder": "G02-03",
+        "w": 0.177
+       },
+       "unit": "kN/m",
+       "tag": "Assumed",
+       "from_value": {
+        "girder": "G02-03"
+       },
+       "from_unit": null,
+       "reason": "flange width 1.9303 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed",
+       "evidence": [
+        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
+        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
+       ],
+       "author": "AI",
+       "timestamp": "2026-11-04T19:56:22+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-1",
+       "supersedes": null,
+       "source": {
+        "note": "flange width 1.9303 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed"
+       }
+      }
+     ]
+    },
+    {
+     "cells": {
+      "girder": "G02-04"
+     },
+     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "girder": "G02-04"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+     },
+     "current": "original",
+     "replace_with": "the designer's haunch / deck-level table (deck RLs 0703 less girder tops from bearing RL X 0500 + stack + 1515 + measured hog)",
+     "overrides": [
+      {
+       "id": "OV-1",
+       "value": {
+        "girder": "G02-04",
+        "w": 0.17
+       },
+       "unit": "kN/m",
+       "tag": "Assumed",
+       "from_value": {
+        "girder": "G02-04"
+       },
+       "from_unit": null,
+       "reason": "flange width 1.8518 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed",
+       "evidence": [
+        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
+        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
+       ],
+       "author": "AI",
+       "timestamp": "2026-11-04T19:56:22+00:00",
+       "approval": {
+        "status": "proposed"
+       },
+       "decision": "D-1",
+       "supersedes": null,
+       "source": {
+        "note": "flange width 1.8518 m x mean haunch 2/3 x |58.5 - (53)| = 3.67 mm x 25 kN/m3 (deck, report table 2-4); crest curve 58.5 mm over 33.441 m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed"
+       }
+      }
+     ]
     }
    ]
   }
@@ -2588,7 +2792,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-03T22:05:20+00:00",
+     "timestamp": "2026-11-04T19:56:22+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -2993,7 +3197,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5242,7 +5446,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5300,7 +5504,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5463,7 +5667,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5505,7 +5709,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5546,7 +5750,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5587,7 +5791,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5709,7 +5913,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5867,7 +6071,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5909,7 +6113,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5950,7 +6154,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5991,7 +6195,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6113,7 +6317,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6271,7 +6475,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6313,7 +6517,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6354,7 +6558,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6395,7 +6599,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6517,7 +6721,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6675,7 +6879,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6717,7 +6921,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6758,7 +6962,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6799,7 +7003,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6921,7 +7125,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7079,7 +7283,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7121,7 +7325,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7162,7 +7366,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7203,7 +7407,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7325,7 +7529,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7483,7 +7687,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7525,7 +7729,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7566,7 +7770,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7607,7 +7811,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7729,7 +7933,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7887,7 +8091,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7929,7 +8133,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7970,7 +8174,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8011,7 +8215,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8133,7 +8337,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8291,7 +8495,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8333,7 +8537,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8374,7 +8578,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8415,7 +8619,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8537,7 +8741,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8759,7 +8963,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9543,7 +9747,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9587,7 +9791,7 @@
        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
       ],
       "author": "AI",
-      "timestamp": "2026-11-03T22:05:20+00:00",
+      "timestamp": "2026-11-04T19:56:22+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -9634,7 +9838,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9855,7 +10059,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10639,7 +10843,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10683,7 +10887,7 @@
        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
       ],
       "author": "AI",
-      "timestamp": "2026-11-03T22:05:20+00:00",
+      "timestamp": "2026-11-04T19:56:22+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -10730,7 +10934,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-03T22:05:20+00:00",
+        "timestamp": "2026-11-04T19:56:22+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -11109,7 +11313,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-03T22:05:20+00:00",
+     "timestamp": "2026-11-04T19:56:22+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -11151,7 +11355,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-03T22:05:20+00:00",
+     "timestamp": "2026-11-04T19:56:22+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -11311,7 +11515,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11363,7 +11567,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11414,7 +11618,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11465,7 +11669,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11516,7 +11720,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11567,7 +11771,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11618,7 +11822,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11673,7 +11877,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11724,7 +11928,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11775,7 +11979,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11826,7 +12030,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11880,7 +12084,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11930,7 +12134,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11980,7 +12184,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12030,7 +12234,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12080,7 +12284,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12130,7 +12334,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12180,7 +12384,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12230,7 +12434,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12280,7 +12484,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12330,7 +12534,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12380,7 +12584,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12430,7 +12634,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12480,7 +12684,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12534,7 +12738,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12584,7 +12788,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12634,7 +12838,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12684,7 +12888,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12734,7 +12938,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12784,7 +12988,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12834,7 +13038,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12884,7 +13088,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12934,7 +13138,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12984,7 +13188,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13034,7 +13238,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13084,7 +13288,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13134,7 +13338,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13178,7 +13382,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-03T22:05:20+00:00",
+     "timestamp": "2026-11-04T19:56:22+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -13317,7 +13521,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13366,7 +13570,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13417,7 +13621,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14029,7 +14233,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14080,7 +14284,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14131,7 +14335,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14182,7 +14386,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14233,7 +14437,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14284,7 +14488,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14335,7 +14539,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14386,7 +14590,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14437,7 +14641,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14488,7 +14692,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14539,7 +14743,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14590,7 +14794,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14641,7 +14845,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14692,7 +14896,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14743,7 +14947,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14794,7 +14998,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14845,7 +15049,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14896,7 +15100,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-03T22:05:20+00:00",
+       "timestamp": "2026-11-04T19:56:22+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15033,16 +15237,16 @@
  },
  "revision": {
   "number": 2,
-  "parent_hash": "sha256:3ae05ff9ea6686b6a34840a80624fb8e2d2f6e704f230a9f3ba325880f8bd109",
-  "created": "2026-11-03T22:05:20+00:00",
+  "parent_hash": "sha256:964a8dce1620bc6e104e32c515bdcbb44078c88ddc1b8e08baaa1a4b555e7f1a",
+  "created": "2026-11-04T19:56:22+00:00",
   "author": "AI",
-  "note": "116 overrides proposed under D-1 (projects/B12453/dev_inputs.py)",
+  "note": "120 overrides proposed under D-1 (projects/B12453/dev_inputs.py)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:20a8253767e5cb2ae6f4af4fea1e2f94574c8233a01fde037e796a49341e4e21"
+  "value": "sha256:0da6b3491fc30bd82eb4f1e2888b88d3e013b796ee10f97921a10d80ab926175"
  }
 }

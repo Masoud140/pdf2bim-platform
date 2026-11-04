@@ -55,6 +55,23 @@ for i in range(13):
     tp = round(32 * ((1200 - d_) / 1200) ** 5, 2) if d_ < 1200 else 0.0
     ITEMS.append((f"loads.gradient_positive.rows[{i}]", {"depth": d_, "dT": tp}, None, A, "T = 32((1200 - d)/1200)^5, as BR13A", "AS 5100.2 section 18 gradient"))
     ITEMS.append((f"loads.gradient_negative.rows[{i}]", {"depth": d_, "dT": round(-0.5 * tp, 2)}, None, A, "-0.5 x positive, as BR13A", "AS 5100.2 section 18 gradient"))
+# haunch concrete over each girder as permanent SDL (owner rule 2026-11-05): parabolic haunch, zero at the thinnest point
+# ('200 MIN' slab), extreme delta = vertical-curve rise over the girder chord - girder net camber after the deck pour
+K = (6.0 - (-0.5)) / 100 / 155.289                      # 0111: grades +6.00 % / -0.50 %, curve length 155.289 m -> curvature 1/m
+LG = 33.441                                             # 0601-0603 girder length
+RISE = K * LG ** 2 / 8 * 1000                           # mm, crest: deck rises above the girder chord at midspan
+CAMBER = 80 - 27                                        # 0600 hog at 100 days (deck pour age 100 d, proposed) - deck slab deflection 27
+DELTA = RISE - CAMBER                                   # > 0: haunch largest at midspan, zero at the ends
+OFF = {"G02-01": -5.3947, "G02-02": -3.4296, "G02-03": -1.4744, "G02-04": 0.4709}   # girder offsets (0305 / 0306, as values.py)
+ids = list(OFF)
+for i, g in enumerate(ids):
+    halves = [(abs(OFF[g] - OFF[ids[j]]) - 0.020) / 2 if 0 <= j < len(ids) else abs(OFF[g] - edge) - 0.040
+              for j, edge in ((i - 1, -6.4), (i + 1, 1.4))]  # interior: (spacing - 20 gap) / 2; edge: to the deck edge - 40 setback (proposed)
+    w = round(sum(halves) * (2 / 3 * abs(DELTA) / 1000) * 25.0, 3)
+    ITEMS.append((f"deck.haunch_concrete.rows[{i}]", {"girder": g, "w": w}, "kN/m", A,
+                  f"flange width {sum(halves):.4f} m x mean haunch 2/3 x |{RISE:.1f} - ({CAMBER})| = {2 / 3 * abs(DELTA):.2f} mm x 25 kN/m3 (deck, report table 2-4); "
+                  f"crest curve {RISE:.1f} mm over {LG} m from 0111, hog 80 at 100 days and deck deflection -27 from 0600; pour age 100 d proposed",
+                  "the designer's haunch / deck-level table (deck RLs 0703 less girder tops from bearing RL X 0500 + stack + 1515 + measured hog)"))
 ITEMS += [
     ("loads.earthquake.rows[3]", {"item": "Rf", "value": "1"}, None, A, "µ 1.0 longitudinal / 1.5 transverse (0101); one Rf in the platform: 1 (µ 1.0, the larger action)",
      "AS 5100.2 Rf per direction (platform: one value)"),

@@ -46,6 +46,9 @@ sd = sdl_case(doc, geo, M, allow_proposed=True)
 hand = 22 * 0.075 * 7.0 * 33.559 + 2 * 8.78 * 33.559 + (2.0 / 7.8) * 7.8 * 33.559
 t("SDL total vs hand (asphalt 22 x 0.075 x 7.0 m between barriers + 2 PB-1 barriers 8.78 kN/m + 2 kN/m utilities / screens) within 3 %",
   abs(-sd["total_kN"] / hand - 1) < 0.03, f"{-sd['total_kN']:.1f} vs {hand:.1f} kN")
+hc = [c for c in sd["components"] if c["name"].startswith("haunch concrete")]
+t("haunch concrete applied as SDL along every girder: total = sum w x girder length", len(hc) == 4 and
+  abs(sum(c["total_kN"] for c in hc) + sum(c["w_kN_per_m"] * c["length_m"] for c in hc)) < 1e-6, f"{-sum(c['total_kN'] for c in hc):.1f} kN")
 from pdf2bim.model.traffic import traffic_envelope, governing_state, concurrent
 T = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True)
 t("HLP400 switched on from the report row and enveloped under register action 'HLP'", "HLP" in T["env"] and T["env"]["HLP"]["vehicle"] == "HLP400")

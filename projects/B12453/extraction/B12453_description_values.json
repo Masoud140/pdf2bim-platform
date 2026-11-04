@@ -477,6 +477,42 @@
    }
   },
   {
+   "path": "deck.haunch_concrete.rows[0]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "girder": "G02-01"
+   },
+   "value": null,
+   "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+  },
+  {
+   "path": "deck.haunch_concrete.rows[1]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "girder": "G02-02"
+   },
+   "value": null,
+   "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+  },
+  {
+   "path": "deck.haunch_concrete.rows[2]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "girder": "G02-03"
+   },
+   "value": null,
+   "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+  },
+  {
+   "path": "deck.haunch_concrete.rows[3]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "girder": "G02-04"
+   },
+   "value": null,
+   "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)"
+  },
+  {
    "path": "deck.barriers[barrier_left].side",
    "tag": "Direct",
    "value": "left",

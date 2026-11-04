@@ -50,6 +50,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `deck.barriers[]` | list | | Traffic / pedestrian barriers (fields below) |
 | `deck.diaphragms[]` | list | | Cross girders / diaphragms (fields below) |
 | `deck.other_sdl` | num | kPa | Other superimposed dead load over the deck (services, etc.) |
+| `deck.haunch_concrete` | table |  | Haunch concrete over each girder (precamber / vertical-profile make-up above the minimum slab), applied as permanent superimposed dead load along the girder — columns: girder, w (kN/m) |
 
 #### `deck.barriers[]` — each item has an `id` plus:
 

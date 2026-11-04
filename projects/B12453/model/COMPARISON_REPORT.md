@@ -1,22 +1,22 @@
 # B12453 (SB02) — platform vs design report RPT-000001 rev E
 
-Run `20261104-175724`; INDICATIVE: development inputs D-1 PROPOSED (soil springs, bearing elastomer, temperatures and wind as BR13A — Appendix J not supplied); standards entries unverified; **HLP400 modelled with a placeholder-unverified vehicle** (AS5100.2:traffic:HLP400, agent recollection of Fig 7.3 — to be checked); report values are the critical element over the three bridges unless marked per abutment.
+Run `20261105-065703`; INDICATIVE: development inputs D-1 PROPOSED (soil springs, bearing elastomer, temperatures and wind as BR13A — Appendix J not supplied); standards entries unverified; **HLP400 modelled with a placeholder-unverified vehicle** (AS5100.2:traffic:HLP400, agent recollection of Fig 7.3 — to be checked); report values are the critical element over the three bridges unless marked per abutment.
 
 | Item | Report / drawing | Source | Platform | Where (governing row) | Difference |
 |---|---|---|---|---|---|
-| Girder ULS sagging moment M* (kNm) | 15,924 | report table 4-6 | 13,977 | G02-01 ULS-B-0318 | -12.2 % |
-| Girder SLS moment (kNm) | 10,528 | report table 4-4 | 10,003 | G02-01 SLS-S-0091 | -5.0 % |
-| Girder ULS shear V* (kN) | 2,157 | report table 4-6 ('equivalent shear', incl. torsion) | 1,966 | G02-01 | -8.9 % |
+| Girder ULS sagging moment M* (kNm) | 15,924 | report table 4-6 | 14,023 | G02-01 ULS-B-0318 | -11.9 % |
+| Girder SLS moment (kNm) | 10,528 | report table 4-4 | 10,033 | G02-01 SLS-S-0091 | -4.7 % |
+| Girder ULS shear V* (kN) | 2,157 | report table 4-6 ('equivalent shear', incl. torsion) | 1,972 | G02-01 | -8.6 % |
 | Girder ULS capacity φMu at midspan (kNm) | 17,057 | report table 4-6 | 14,002 | G02-02 | -17.9 % |
-| Bearing SLS N max (kN) | 2,015 | report table 4-10 | 1,833 | A-01 | -9.0 % |
-| Bearing SLS N min (kN) | 946 | report table 4-10 | 454 | A-04 | -52.0 % |
-| Pile SLS N max, abutment A2 (kN) | 2,713 | drawing 0201 table 1 (report 5-5: 3281) | 2,702 | A-01 | -0.4 % |
-| Pile ULS N max, abutment A2 (kN) | 3,524 | drawing 0201 table 1 / report 5-5 | 3,764 | A-01 | +6.8 % |
+| Bearing SLS N max (kN) | 2,015 | report table 4-10 | 1,838 | A-01 | -8.8 % |
+| Bearing SLS N min (kN) | 946 | report table 4-10 | 458 | A-04 | -51.6 % |
+| Pile SLS N max, abutment A2 (kN) | 2,713 | drawing 0201 table 1 (report 5-5: 3281) | 2,707 | A-01 | -0.2 % |
+| Pile ULS N max, abutment A2 (kN) | 3,524 | drawing 0201 table 1 / report 5-5 | 3,772 | A-01 | +7.0 % |
 | Pile ULS moment, abutment A2 (kNm) | 2,049 | drawing 0201 table 1 (report 4-15: 2053) | 968 | A-03 | -52.7 % |
-| Pile SLS N max, abutment B2 (kN) | 2,885 | drawing 0201 table 1 (report 5-5: 3281) | 2,776 | B-03 | -3.8 % |
-| Pile ULS N max, abutment B2 (kN) | 3,524 | drawing 0201 table 1 / report 5-5 | 3,837 | B-03 | +8.9 % |
+| Pile SLS N max, abutment B2 (kN) | 2,885 | drawing 0201 table 1 (report 5-5: 3281) | 2,781 | B-03 | -3.6 % |
+| Pile ULS N max, abutment B2 (kN) | 3,524 | drawing 0201 table 1 / report 5-5 | 3,845 | B-03 | +9.1 % |
 | Pile ULS moment, abutment B2 (kNm) | 2,031 | drawing 0201 table 1 (report 4-15: 2053) | 998 | B-01 | -50.9 % |
-| Pile SLS moment (kNm) | 952 | report table 4-14 (with N 2358) | 674 | B-02 | -29.2 % |
+| Pile SLS moment (kNm) | 952 | report table 4-14 (with N 2358) | 673 | B-02 | -29.3 % |
 
 ## Reading the differences (what is known, not a pass/fail)
 
