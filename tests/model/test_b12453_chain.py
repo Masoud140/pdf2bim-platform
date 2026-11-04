@@ -43,8 +43,9 @@ r = m.solve()
 W = sum(b["w"] * np.linalg.norm(m.nodes[b["n2"]] - m.nodes[b["n1"]]) for b in m.beams.values())
 t("self weight equilibrium", abs(r["applied"][2] + W) / W < 1e-6, f"{W:.1f} kN")
 sd = sdl_case(doc, geo, M, allow_proposed=True)
-hand = 22 * 0.075 * 7.0 * 33.559 + 2 * 8.78 * 33.559 + (2.0 / 7.8) * 7.8 * 33.559
-t("SDL total vs hand (asphalt 22 x 0.075 x 7.0 m between barriers + 2 PB-1 barriers 8.78 kN/m + 2 kN/m utilities / screens) within 3 %",
+bw = doc['deck']['barriers'][0]['weight']['value']
+hand = 22 * 0.075 * 7.0 * 33.559 + 2 * bw * 33.559 + (2.0 / 7.8) * 7.8 * 33.559
+t("SDL total vs hand (asphalt 22 x 0.075 x 7.0 m between barriers + 2 barriers (0909 section: precast + stitch pour) + 2 kN/m utilities / screens) within 3 %",
   abs(-sd["total_kN"] / hand - 1) < 0.03, f"{-sd['total_kN']:.1f} vs {hand:.1f} kN")
 hc = [c for c in sd["components"] if c["name"].startswith("haunch concrete")]
 t("haunch concrete applied as SDL along every girder: total = sum w x girder length", len(hc) == 4 and

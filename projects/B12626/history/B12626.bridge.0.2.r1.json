@@ -1936,6 +1936,9 @@
     "note": "not extracted"
    },
    "current": "original"
+  },
+  "haunch_concrete": {
+   "rows": []
   }
  },
  "superstructure": {
@@ -17587,6 +17590,60 @@
       }
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400",
+      "on": true
+     },
+     "source": {
+      "doc": "DRG-109001",
+      "view": "design criteria"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400",
+       "on": true
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109001",
+       "view": "design criteria"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400_with_half_M1600",
+      "on": true
+     },
+     "source": {
+      "doc": "DRG-109001",
+      "view": "design criteria"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400_with_half_M1600",
+       "on": true
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109001",
+       "view": "design criteria"
+      }
+     },
+     "current": "original"
     }
    ]
   },
@@ -19647,7 +19704,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-10-28T09:30:00+00:00",
+  "created": "2026-11-04T20:09:20+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (projects/B12626/extraction/B12626_values.json (Second_Example.pdf, sha256 a03329fc...))",
   "decision_log_sha256": null
@@ -19656,6 +19713,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:6b478c9020b9321a6db55189085730b370da093624ce28eddfa698749731ca06"
+  "value": "sha256:b04bb0e79b11ca73cbcdf8a4e6536aedb962080459089a7032fffe173556f833"
  }
 }

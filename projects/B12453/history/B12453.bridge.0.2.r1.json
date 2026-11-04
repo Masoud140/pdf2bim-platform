@@ -1470,39 +1470,49 @@
     },
     "weight": {
      "derivation": {
-      "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+      "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
       "inputs": []
      },
      "tag": "Calculated",
      "status": "accepted",
      "unit": "kN/m",
-     "value": 8.78,
+     "value": 11.47,
      "original": {
-      "value": 8.78,
+      "value": 11.47,
       "unit": "kN/m",
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+       "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
        "inputs": []
       }
      },
      "current": "original"
     },
     "offset": {
-     "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "inside face -6.000 (0701) - section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+      "inputs": [
+       "deck.carriageway_left"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": -6.2522,
      "original": {
-      "value": null,
+      "value": -6.2522,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+      "derivation": {
+       "formula": "inside face -6.000 (0701) - section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+       "inputs": [
+        "deck.carriageway_left"
+       ]
+      }
      },
      "current": "original"
     },
@@ -1602,39 +1612,49 @@
     },
     "weight": {
      "derivation": {
-      "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+      "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
       "inputs": []
      },
      "tag": "Calculated",
      "status": "accepted",
      "unit": "kN/m",
-     "value": 8.78,
+     "value": 11.47,
      "original": {
-      "value": 8.78,
+      "value": 11.47,
       "unit": "kN/m",
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+       "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
        "inputs": []
       }
      },
      "current": "original"
     },
     "offset": {
-     "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "inside face +1.000 (0701) + section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+      "inputs": [
+       "deck.carriageway_right"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 1.2522,
      "original": {
-      "value": null,
+      "value": 1.2522,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+      "derivation": {
+       "formula": "inside face +1.000 (0701) + section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+       "inputs": [
+        "deck.carriageway_right"
+       ]
+      }
      },
      "current": "original"
     },
@@ -9674,6 +9694,35 @@
       }
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400_with_half_M1600",
+      "on": false
+     },
+     "source": {
+      "doc": "RPT-000001",
+      "view": "§2.4.2 table 2-7",
+      "text": "SB02 and SB03 ... SM1600 loading: No"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400_with_half_M1600",
+       "on": false
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "RPT-000001",
+       "view": "§2.4.2 table 2-7",
+       "text": "SB02 and SB03 ... SM1600 loading: No"
+      }
+     },
+     "current": "original"
     }
    ]
   },
@@ -11751,7 +11800,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-04T19:56:22+00:00",
+  "created": "2026-11-04T20:11:07+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf (143 sheets) + report RPT-000001 rev E, 2026-11-04)",
   "decision_log_sha256": null
@@ -11760,6 +11809,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:964a8dce1620bc6e104e32c515bdcbb44078c88ddc1b8e08baaa1a4b555e7f1a"
+  "value": "sha256:3be3f70393caaf49dd1c17e9e038836990394db0d14a9f70ddcf59d6656cfa66"
  }
 }

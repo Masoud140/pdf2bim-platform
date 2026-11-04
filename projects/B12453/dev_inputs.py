@@ -34,8 +34,6 @@ ITEMS = [
      "edge girder flange width from the girder plans (0602 / 0603)"),
     ("superstructure.supert_types[ST1].haunch", 0, "mm", A, "girder top to deck soffit not dimensioned (slab '200 MIN'); 0 as BR13A / B12626",
      "haunch from the deck RLs (0703 tables) less girder top (bearing RL X 0500 + plate + epoxy block + 1515)"),
-    ("deck.barriers[barrier_left].offset", -6.28, "m", A, "inside face -6.000 (0701) - 280 = half the 561 PB-1 base (0902); centroid not computed", "barrier centroid from the PB-1 section (0909)"),
-    ("deck.barriers[barrier_right].offset", 1.28, "m", A, "inside face 1.000 (0701) + 280 = half the 561 PB-1 base (0902); centroid not computed", "barrier centroid from the PB-1 section (0909)"),
     ("deck.other_sdl", round(2.0 / 7.8, 3), "kPa", A, "report table 2-5: utilities 1 kN/m + safety screens 1 kN/m = 2 kN/m spread over the 7.8 m deck (the catalogue holds an area load)",
      "line loads at their positions (catalogue: line SDL)"),
     ("loads.traffic_surcharge", 10, "kPa", A, "not stated; 10 kPa as BR13A", RPT),

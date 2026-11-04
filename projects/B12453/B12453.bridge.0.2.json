@@ -1470,67 +1470,51 @@
     },
     "weight": {
      "derivation": {
-      "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+      "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
       "inputs": []
      },
      "tag": "Calculated",
      "status": "accepted",
      "unit": "kN/m",
-     "value": 8.78,
+     "value": 11.47,
      "original": {
-      "value": 8.78,
+      "value": 11.47,
       "unit": "kN/m",
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+       "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
        "inputs": []
       }
      },
      "current": "original"
     },
     "offset": {
-     "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "inside face -6.000 (0701) - section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+      "inputs": [
+       "deck.carriageway_left"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": -6.2522,
      "original": {
-      "value": null,
+      "value": -6.2522,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
-     },
-     "current": "original",
-     "replace_with": "barrier centroid from the PB-1 section (0909)",
-     "overrides": [
-      {
-       "id": "OV-1",
-       "value": -6.28,
-       "unit": "m",
-       "tag": "Assumed",
-       "from_value": null,
-       "from_unit": "m",
-       "reason": "inside face -6.000 (0701) - 280 = half the 561 PB-1 base (0902); centroid not computed",
-       "evidence": [
-        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
-        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
-       ],
-       "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
-       "approval": {
-        "status": "proposed"
-       },
-       "decision": "D-1",
-       "supersedes": null,
-       "source": {
-        "note": "inside face -6.000 (0701) - 280 = half the 561 PB-1 base (0902); centroid not computed"
-       }
+      "derivation": {
+       "formula": "inside face -6.000 (0701) - section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+       "inputs": [
+        "deck.carriageway_left"
+       ]
       }
-     ]
+     },
+     "current": "original"
     },
     "solid": {
      "source": {
@@ -1628,67 +1612,51 @@
     },
     "weight": {
      "derivation": {
-      "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+      "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
       "inputs": []
      },
      "tag": "Calculated",
      "status": "accepted",
      "unit": "kN/m",
-     "value": 8.78,
+     "value": 11.47,
      "original": {
-      "value": 8.78,
+      "value": 11.47,
       "unit": "kN/m",
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+       "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
        "inputs": []
       }
      },
      "current": "original"
     },
     "offset": {
-     "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "inside face +1.000 (0701) + section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+      "inputs": [
+       "deck.carriageway_right"
+      ]
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 1.2522,
      "original": {
-      "value": null,
+      "value": 1.2522,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
-     },
-     "current": "original",
-     "replace_with": "barrier centroid from the PB-1 section (0909)",
-     "overrides": [
-      {
-       "id": "OV-1",
-       "value": 1.28,
-       "unit": "m",
-       "tag": "Assumed",
-       "from_value": null,
-       "from_unit": "m",
-       "reason": "inside face 1.000 (0701) + 280 = half the 561 PB-1 base (0902); centroid not computed",
-       "evidence": [
-        "SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf",
-        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
-       ],
-       "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
-       "approval": {
-        "status": "proposed"
-       },
-       "decision": "D-1",
-       "supersedes": null,
-       "source": {
-        "note": "inside face 1.000 (0701) + 280 = half the 561 PB-1 base (0902); centroid not computed"
-       }
+      "derivation": {
+       "formula": "inside face +1.000 (0701) + section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+       "inputs": [
+        "deck.carriageway_right"
+       ]
       }
-     ]
+     },
+     "current": "original"
     },
     "solid": {
      "source": {
@@ -1746,7 +1714,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-04T19:56:22+00:00",
+     "timestamp": "2026-11-04T20:11:07+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -1798,7 +1766,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1848,7 +1816,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1898,7 +1866,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1948,7 +1916,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -2792,7 +2760,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-04T19:56:22+00:00",
+     "timestamp": "2026-11-04T20:11:07+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -3197,7 +3165,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5446,7 +5414,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5504,7 +5472,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5667,7 +5635,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5709,7 +5677,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5750,7 +5718,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5791,7 +5759,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5913,7 +5881,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6071,7 +6039,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6113,7 +6081,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6154,7 +6122,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6195,7 +6163,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6317,7 +6285,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6475,7 +6443,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6517,7 +6485,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6558,7 +6526,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6599,7 +6567,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6721,7 +6689,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6879,7 +6847,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6921,7 +6889,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6962,7 +6930,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7003,7 +6971,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7125,7 +7093,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7283,7 +7251,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7325,7 +7293,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7366,7 +7334,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7407,7 +7375,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7529,7 +7497,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7687,7 +7655,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7729,7 +7697,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7770,7 +7738,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7811,7 +7779,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7933,7 +7901,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8091,7 +8059,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8133,7 +8101,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8174,7 +8142,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8215,7 +8183,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8337,7 +8305,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8495,7 +8463,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8537,7 +8505,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8578,7 +8546,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8619,7 +8587,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8741,7 +8709,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8963,7 +8931,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9747,7 +9715,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9791,7 +9759,7 @@
        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
       ],
       "author": "AI",
-      "timestamp": "2026-11-04T19:56:22+00:00",
+      "timestamp": "2026-11-04T20:11:07+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -9838,7 +9806,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10059,7 +10027,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10843,7 +10811,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10887,7 +10855,7 @@
        "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
       ],
       "author": "AI",
-      "timestamp": "2026-11-04T19:56:22+00:00",
+      "timestamp": "2026-11-04T20:11:07+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -10934,7 +10902,7 @@
          "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
         ],
         "author": "AI",
-        "timestamp": "2026-11-04T19:56:22+00:00",
+        "timestamp": "2026-11-04T20:11:07+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -11256,6 +11224,35 @@
       }
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400_with_half_M1600",
+      "on": false
+     },
+     "source": {
+      "doc": "RPT-000001",
+      "view": "§2.4.2 table 2-7",
+      "text": "SB02 and SB03 ... SM1600 loading: No"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400_with_half_M1600",
+       "on": false
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "RPT-000001",
+       "view": "§2.4.2 table 2-7",
+       "text": "SB02 and SB03 ... SM1600 loading: No"
+      }
+     },
+     "current": "original"
     }
    ]
   },
@@ -11313,7 +11310,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-04T19:56:22+00:00",
+     "timestamp": "2026-11-04T20:11:07+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -11355,7 +11352,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-04T19:56:22+00:00",
+     "timestamp": "2026-11-04T20:11:07+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -11515,7 +11512,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11567,7 +11564,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11618,7 +11615,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11669,7 +11666,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11720,7 +11717,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11771,7 +11768,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11822,7 +11819,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11877,7 +11874,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11928,7 +11925,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11979,7 +11976,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12030,7 +12027,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12084,7 +12081,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12134,7 +12131,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12184,7 +12181,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12234,7 +12231,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12284,7 +12281,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12334,7 +12331,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12384,7 +12381,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12434,7 +12431,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12484,7 +12481,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12534,7 +12531,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12584,7 +12581,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12634,7 +12631,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12684,7 +12681,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12738,7 +12735,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12788,7 +12785,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12838,7 +12835,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12888,7 +12885,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12938,7 +12935,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12988,7 +12985,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13038,7 +13035,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13088,7 +13085,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13138,7 +13135,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13188,7 +13185,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13238,7 +13235,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13288,7 +13285,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13338,7 +13335,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13382,7 +13379,7 @@
       "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
      ],
      "author": "AI",
-     "timestamp": "2026-11-04T19:56:22+00:00",
+     "timestamp": "2026-11-04T20:11:07+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -13521,7 +13518,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13570,7 +13567,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13621,7 +13618,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14233,7 +14230,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14284,7 +14281,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14335,7 +14332,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14386,7 +14383,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14437,7 +14434,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14488,7 +14485,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14539,7 +14536,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14590,7 +14587,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14641,7 +14638,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14692,7 +14689,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14743,7 +14740,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14794,7 +14791,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14845,7 +14842,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14896,7 +14893,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14947,7 +14944,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14998,7 +14995,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15049,7 +15046,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15100,7 +15097,7 @@
         "SGWS1-JHSW-1000-BR-RPT-000001 rev E"
        ],
        "author": "AI",
-       "timestamp": "2026-11-04T19:56:22+00:00",
+       "timestamp": "2026-11-04T20:11:07+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15237,16 +15234,16 @@
  },
  "revision": {
   "number": 2,
-  "parent_hash": "sha256:964a8dce1620bc6e104e32c515bdcbb44078c88ddc1b8e08baaa1a4b555e7f1a",
-  "created": "2026-11-04T19:56:22+00:00",
+  "parent_hash": "sha256:3be3f70393caaf49dd1c17e9e038836990394db0d14a9f70ddcf59d6656cfa66",
+  "created": "2026-11-04T20:11:07+00:00",
   "author": "AI",
-  "note": "120 overrides proposed under D-1 (projects/B12453/dev_inputs.py)",
+  "note": "118 overrides proposed under D-1 (projects/B12453/dev_inputs.py)",
   "decision_log_sha256": null
  },
  "hash": {
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:0da6b3491fc30bd82eb4f1e2888b88d3e013b796ee10f97921a10d80ab926175"
+  "value": "sha256:cfb2f49986bb080e5e6a15aacefdba44247ef3ac3b14667e57ad86c418140a83"
  }
 }

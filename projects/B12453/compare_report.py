@@ -63,6 +63,8 @@ L += ["", "## Reading the differences (what is known, not a pass/fail)", "",
  "4 dual wheels at ±1.1 / ±2.0 m, DLA 0.1; no central gap on a single span; ±1 m about the carriageway centreline (report table 2-7); ULS 1.5 / SLS 1.0 (report table 2-9). "
  "With the compact 27 m platform HLP400 now governs SLS: girder SLS M −15.6 % → **−5.0 %**, bearing N max −15 % → **−9 %**, pile SLS N → **−0.4 % / −3.8 %** against drawing 0201. "
  "Girder ULS M −12 % (governing row now HLP-led); the rest of the gap is consistent with the report's critical girder being on SB01 (scope above).",
+ "- **Barriers and haunch (ADR-054/055).** Barrier line load from the 0909 section (precast PB-1 + in-situ stitch pour) 11.47 kN/m at 252 mm outside the inside face "
+ "(was 8.78 kN/m from the unit mass, offset assumed); haunch concrete 0.18 kN/m per girder as SDL. Girder ULS M −11.9 → −10.3 %, SLS −4.7 → −3.0 %.",
  "- **Capacity φMu −18 %.** Platform Muo 17,503 kNm, φ 0.80 → φMu 14,001; the report's design capacity 17,057 is close to the platform's *un-factored* Muo (−2.6 %). "
  "Either the critical girder (SB01) has more strands or the φ basis differs. **Query for the designer**; nothing changed.",
  "- **Pile moments −51 / −53 %, pile SLS M −29 %.** Soil springs are proposed placeholders (Appendix J not supplied); B12626 showed the same sensitivity. Pile M is not benchmarkable until the springs come from the report.",

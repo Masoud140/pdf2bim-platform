@@ -7347,6 +7347,30 @@
    }
   },
   {
+   "path": "loads.traffic_models.rows[2]",
+   "tag": "Direct",
+   "cells": {
+    "model": "HLP400",
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109001",
+    "view": "design criteria"
+   }
+  },
+  {
+   "path": "loads.traffic_models.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "model": "HLP400_with_half_M1600",
+    "on": true
+   },
+   "source": {
+    "doc": "DRG-109001",
+    "view": "design criteria"
+   }
+  },
+  {
    "path": "loads.design_speed",
    "tag": "Direct",
    "value": 120,

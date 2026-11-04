@@ -112,5 +112,23 @@ t("hog inputs complete; strand area / MBL from the drawings (142.6 mm2, 261 kN),
 EIg = p_["Ec"] * 1e3 * p_["I"] * 1e-12; Ls = (p_["L"] - 2 * p_["a"]) / 1000
 t("wet-deck deflection 5wL^4/384EI from the hog inputs within 10 % of 109201 Table 1 (23 mm)", abs(5 * p_["wd"] * Ls ** 4 / (384 * EIg) * 1000 / 23 - 1) < 0.10,
   f"{5 * p_['wd'] * Ls ** 4 / (384 * EIg) * 1000:.1f} mm")
+# HLP400 with 0.5 x M1600 in the unobstructed lanes (109035 cover sheet; AS 5100.7-2004 A2.2.5.2), accompanying lane factors
+import copy, numpy as np
+from pdf2bim.model.traffic import traffic_envelope, governing_state, concurrent, Influence
+inf = Influence(M)
+T = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True, inf=inf)
+d0 = copy.deepcopy(doc)
+for r_ in d0["loads"]["traffic_models"]["rows"]:
+    if r_["cells"]["model"] == "HLP400_with_half_M1600":
+        r_["cells"]["on"] = False
+T0 = traffic_envelope(d0, geo, M, Standards(), allow_proposed=True, inf=inf)
+H, H0 = T["env"]["HLP"], T0["env"]["HLP"]
+t("HLP + 0.5 M1600 in free lanes switched on (cover sheet) and never below the HLP alone", H["with_half_M1600"] and not H0["with_half_M1600"]
+  and np.all(H["max"] >= H0["max"] - 1e-6) and np.all(H["min"] <= H0["min"] + 1e-6), f"max ratio {np.max(H['max']) / np.max(H0['max']):.3f}")
+i = int(np.argmax(H["max"]))
+st = governing_state(T, "HLP", i, 1)
+t("HLP + free-lane state rebuilds the envelope value; free lanes at 0.5 x accompanying factors (0.8, 0.4 ...)",
+  abs(concurrent(T, st)[i] - H["max"][i]) < 1e-6 * abs(H["max"][i]) and all(abs(f - 1.0) < 1e-9 or f <= 0.4 + 1e-9 for _, f in st["factors"]),
+  f"{H['max'][i]:.1f}; factors {st['factors']}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

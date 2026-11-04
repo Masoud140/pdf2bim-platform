@@ -247,12 +247,16 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     inf = inf or Influence(mdl)
     N = int(math.floor((inf.c1 - inf.c0) / dc)) + 1
     grid = inf.c0 + dc * np.arange(N)
-    env = {}
+    env, hlp_acc = {}, None
     for mn in models:
         if mn.startswith("HLP"):     # one platform vehicle, no UDL, no lane factors; register action id "HLP"
             veh[mn] = dict(veh[mn], split=len(geo["supports"]) > 2)   # the central gap is for continuous bridges only
-            p, q = platform_effect(inf, grid, dc, veh[mn], (cl + cr) / 2)
-            env["HLP"] = {"max": p, "min": q, "vehicle": mn}
+            acc = None
+            if on.get(mn + "_with_half_M1600"):   # AS 5100.7-2004 A2.2.5.2: half M1600 in unobstructed lanes unless the authority says otherwise
+                acc = {"veh": std.get("AS5100.2:traffic:M1600").value, "factor": 0.5, "lf": lf[1:] or lf[-1:], "cl": cl, "cr": cr}
+            hlp_acc = acc
+            p, q = platform_effect(inf, grid, dc, veh[mn], (cl + cr) / 2, acc, cl, cr, W, {"pattern": pattern, "lateral": lateral, "dla_on_udl": dla_on_udl})
+            env["HLP"] = {"max": p, "min": q, "vehicle": mn, "with_half_M1600": bool(acc)}
             veh["HLP"] = veh[mn]
             continue
         memo = {}
@@ -267,7 +271,7 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             p, q = combine_lanes(eff, lf)
             mx = np.maximum(mx, p); mi = np.minimum(mi, q)
         env[mn] = {"max": mx, "min": mi}
-    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "lanes": n,
+    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "hlp_accompany": hlp_acc, "lanes": n,
             "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf, "vehicles": veh,
             "lane_width": W, "grid": grid,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
@@ -289,15 +293,14 @@ def _platform_axles(veh, dc):
     return out
 
 
-def _platform_scan(inf, grid, dc, veh, oc, r=None):
+def _platform_scan(inf, grid, dc, veh, oc, r=None, lat=None):
     """Heavy load platform (HLP) scan: every axle line carries len(wheel_offsets) equal wheel loads x (1 + DLA) at
     oc + lateral shift + offset; lateral shift over +-lateral_range in 0.1 m steps; the platform at every grid position
     (also partly off the deck); symmetric in plan, so one direction of travel. r None: (max, min) per response; else
     for response r: {(+1|-1): (value, (shift, gap, start index))}."""
     N = len(grid)
     amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
-    R = veh["lateral_range_m"]
-    lat = [round(-R + 0.1 * i, 10) for i in range(int(round(2 * R / 0.1)) + 1)]
+    lat = _hlp_shifts(veh) if lat is None else lat
     ax = _platform_axles(veh, dc)
     PAD = max(a[1][-1] for a in ax) + 2
     nr = len(inf.R)
@@ -318,23 +321,73 @@ def _platform_scan(inf, grid, dc, veh, oc, r=None):
     return (vp, vn) if r is None else best
 
 
-def platform_effect(inf, grid, dc, veh, oc):
-    return _platform_scan(inf, grid, dc, veh, oc)
+def _hlp_shifts(veh):
+    R = veh["lateral_range_m"]
+    return [round(-R + 0.1 * i, 10) for i in range(int(round(2 * R / 0.1)) + 1)]
+
+
+def _accompany_lanes(cl, cr, W, c, occ):
+    """Left edges of the standard design lanes outside the strip the HLP occupies ([c - occ/2, c + occ/2]), packed
+    outward from the strip on both sides (shortcut: one packing; a sweep of the free lanes is not tried)."""
+    out, a = [], c - occ / 2 - W
+    while a >= cl - 1e-9:
+        out.append(a); a -= W
+    a = c + occ / 2
+    while a + W <= cr + 1e-9:
+        out.append(a); a += W
+    return out
+
+
+def platform_effect(inf, grid, dc, veh, oc, acc=None, cl=None, cr=None, W=None, kw=None):
+    """HLP envelope (max, min). acc: {"veh": M1600 vehicle, "factor": 0.5, "lf": accompanying lane factors} -> at every
+    lateral shift the HLP plus factor x M1600 in the unobstructed lanes, ranked with lf (the HLP is lane 1, factor 1)."""
+    if not acc:
+        return _platform_scan(inf, grid, dc, veh, oc)
+    occ = min(2 * W, cr - cl)
+    nr = len(inf.R); mx = np.zeros(nr); mi = np.zeros(nr); memo = {}
+    for dv in _hlp_shifts(veh):
+        p, q = _platform_scan(inf, grid, dc, veh, oc, lat=[dv])
+        eff = []
+        for a in _accompany_lanes(cl, cr, W, oc + dv, occ):
+            k = round(a * 1000)
+            if k not in memo:
+                e = lane_effect(inf, grid, dc, acc["veh"], a, W, **(kw or {}))
+                memo[k] = (acc["factor"] * e[0], acc["factor"] * e[1])
+            eff.append(memo[k])
+        if eff:
+            cp, cq = combine_lanes(eff, acc["lf"]); p = p + cp; q = q + cq
+        mx = np.maximum(mx, p); mi = np.minimum(mi, q)
+    return mx, mi
 
 
 def _platform_state(T, r, sign):
-    veh, grid, dc = T["vehicles"]["HLP"], T["grid"], T["settings"]["dc_m"]
-    oc = T["carriageway_centre"]
-    val, st = _platform_scan(T["influence"], grid, dc, veh, oc, r)[sign]
-    loads = []
-    if st is not None:
-        dv, g, i0, offs = st
-        amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
-        for o in offs:
-            k = i0 + o
-            if 0 <= k < len(grid):
-                loads += [(float(grid[k]), oc + dv + w, amp) for w in veh["wheel_offsets_m"]]
-    return {"value": val, "loads": loads, "layout": [oc], "factors": [(oc, 1.0)], "platform": st and {"shift_m": st[0], "gap_m": st[1]}}
+    veh, grid, dc, inf = T["vehicles"]["HLP"], T["grid"], T["settings"]["dc_m"], T["influence"]
+    oc, acc, st_ = T["carriageway_centre"], T.get("hlp_accompany"), T["settings"]
+    amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
+    best = None
+    for dv in (_hlp_shifts(veh) if acc else [None]):
+        val, st = _platform_scan(inf, grid, dc, veh, oc, r, lat=None if dv is None else [dv])[sign]
+        loads, fac = [], [(oc, 1.0)]
+        if st is not None:
+            d_, g, i0, offs = st
+            for o in offs:
+                k = i0 + o
+                if 0 <= k < len(grid):
+                    loads += [(float(grid[k]), oc + d_ + w, amp) for w in veh["wheel_offsets_m"]]
+        if acc:
+            occ = min(2 * T["lane_width"], acc["cr"] - acc["cl"])
+            lanes = _accompany_lanes(acc["cl"], acc["cr"], T["lane_width"], oc + dv, occ)
+            eff = [_lane_state(inf, grid, dc, acc["veh"], a, T["lane_width"], r, sign, st_["pattern_udl"], st_["lateral_shift"], st_["dla_on_udl"]) for a in lanes]
+            order = sorted(range(len(eff)), key=lambda k: -sign * eff[k][0])
+            for rank, k in enumerate(order):
+                fk = acc["factor"] * acc["lf"][min(rank, len(acc["lf"]) - 1)]
+                if sign * eff[k][0] > 0:
+                    val += fk * eff[k][0]
+                    loads += [(c, o, P * fk) for c, o, P in eff[k][1]]
+                    fac.append((lanes[k], fk))
+        if best is None or sign * val > sign * best["value"]:
+            best = {"value": val, "loads": loads, "layout": [oc], "factors": fac, "platform": st and {"shift_m": st[0], "gap_m": st[1]}}
+    return best
 
 
 # ----------------------------------------------------------------------------------------------------------------

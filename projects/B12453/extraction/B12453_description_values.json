@@ -545,10 +545,10 @@
   {
    "path": "deck.barriers[barrier_left].weight",
    "tag": "Calculated",
-   "value": 8.78,
+   "value": 11.47,
    "unit": "kN/m",
    "derivation": {
-    "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+    "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
     "inputs": []
    }
   },
@@ -564,10 +564,15 @@
   },
   {
    "path": "deck.barriers[barrier_left].offset",
-   "tag": "Missing-Flagged",
-   "value": null,
+   "tag": "Calculated",
+   "value": -6.2522,
    "unit": "m",
-   "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+   "derivation": {
+    "formula": "inside face -6.000 (0701) - section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+    "inputs": [
+     "deck.carriageway_left"
+    ]
+   }
   },
   {
    "path": "deck.barriers[barrier_right].side",
@@ -602,10 +607,10 @@
   {
    "path": "deck.barriers[barrier_right].weight",
    "tag": "Calculated",
-   "value": 8.78,
+   "value": 11.47,
    "unit": "kN/m",
    "derivation": {
-    "formula": "type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included",
+    "formula": "0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m; combined centroid 252.2 mm outward from the inside face; check: PB-1 alone 9.28 kN/m vs 0902 mass 4.27 t / 4.768 m = 8.78 kN/m; twin steel rails not included (mass not printed)",
     "inputs": []
    }
   },
@@ -621,10 +626,15 @@
   },
   {
    "path": "deck.barriers[barrier_right].offset",
-   "tag": "Missing-Flagged",
-   "value": null,
+   "tag": "Calculated",
+   "value": 1.2522,
    "unit": "m",
-   "note": "barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)"
+   "derivation": {
+    "formula": "inside face +1.000 (0701) + section centroid 252.2 mm from the inside face (outward), 0909 section 1 polygons: precast PB-1 A = 0.3710 m2, in-situ stitch pour A = 0.0878 m2, x 25 kN/m3 (report table 2-4) = 11.47 kN/m",
+    "inputs": [
+     "deck.carriageway_right"
+    ]
+   }
   },
   {
    "path": "superstructure.type",
@@ -4017,6 +4027,19 @@
     "doc": "RPT-000001",
     "view": "§2.4.2 table 2-7 / 0101",
     "text": "HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No"
+   }
+  },
+  {
+   "path": "loads.traffic_models.rows[3]",
+   "tag": "Direct",
+   "cells": {
+    "model": "HLP400_with_half_M1600",
+    "on": false
+   },
+   "source": {
+    "doc": "RPT-000001",
+    "view": "§2.4.2 table 2-7",
+    "text": "SB02 and SB03 ... SM1600 loading: No"
    }
   },
   {

@@ -1492,7 +1492,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -1677,7 +1677,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1834,7 +1834,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -1967,7 +1967,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -2007,7 +2007,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -2063,6 +2063,9 @@
     "note": "not extracted"
    },
    "current": "original"
+  },
+  "haunch_concrete": {
+   "rows": []
   }
  },
  "superstructure": {
@@ -4090,7 +4093,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -4132,7 +4135,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -4348,7 +4351,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6670,7 +6673,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6727,7 +6730,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6869,7 +6872,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9125,7 +9128,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9182,7 +9185,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9340,7 +9343,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9381,7 +9384,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9421,7 +9424,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9461,7 +9464,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9584,7 +9587,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9737,7 +9740,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9778,7 +9781,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9818,7 +9821,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9858,7 +9861,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -9981,7 +9984,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10134,7 +10137,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10175,7 +10178,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10215,7 +10218,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10255,7 +10258,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10378,7 +10381,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10531,7 +10534,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10572,7 +10575,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10612,7 +10615,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10652,7 +10655,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10775,7 +10778,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10928,7 +10931,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10969,7 +10972,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11009,7 +11012,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11049,7 +11052,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11172,7 +11175,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11325,7 +11328,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11366,7 +11369,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11406,7 +11409,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11446,7 +11449,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11569,7 +11572,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11722,7 +11725,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11763,7 +11766,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11803,7 +11806,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11843,7 +11846,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11966,7 +11969,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12119,7 +12122,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12160,7 +12163,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12200,7 +12203,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12240,7 +12243,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12363,7 +12366,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12516,7 +12519,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12557,7 +12560,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12597,7 +12600,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12637,7 +12640,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12760,7 +12763,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12913,7 +12916,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12954,7 +12957,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12994,7 +12997,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13034,7 +13037,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13157,7 +13160,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13310,7 +13313,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13351,7 +13354,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13391,7 +13394,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13431,7 +13434,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13554,7 +13557,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13707,7 +13710,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13748,7 +13751,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13788,7 +13791,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13828,7 +13831,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13951,7 +13954,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14104,7 +14107,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14145,7 +14148,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14185,7 +14188,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14225,7 +14228,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14348,7 +14351,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14501,7 +14504,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14542,7 +14545,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14582,7 +14585,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14622,7 +14625,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14745,7 +14748,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14898,7 +14901,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14939,7 +14942,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14979,7 +14982,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15019,7 +15022,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15142,7 +15145,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15295,7 +15298,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15336,7 +15339,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15376,7 +15379,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15416,7 +15419,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15539,7 +15542,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15692,7 +15695,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15733,7 +15736,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15773,7 +15776,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15813,7 +15816,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -15936,7 +15939,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16089,7 +16092,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16130,7 +16133,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16170,7 +16173,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16210,7 +16213,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16333,7 +16336,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16486,7 +16489,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16527,7 +16530,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16567,7 +16570,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16607,7 +16610,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16730,7 +16733,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16883,7 +16886,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16924,7 +16927,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -16964,7 +16967,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -17004,7 +17007,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -17127,7 +17130,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -17503,7 +17506,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -17773,7 +17776,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -18043,7 +18046,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -18313,7 +18316,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -18583,7 +18586,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -18746,7 +18749,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -18789,7 +18792,7 @@
        "B12626 drawing set (Second_Example.pdf)"
       ],
       "author": "AI",
-      "timestamp": "2026-11-01T21:19:18+00:00",
+      "timestamp": "2026-11-04T20:09:21+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -18835,7 +18838,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -19210,7 +19213,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -19480,7 +19483,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -19750,7 +19753,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -20020,7 +20023,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -20290,7 +20293,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -20453,7 +20456,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -20496,7 +20499,7 @@
        "B12626 drawing set (Second_Example.pdf)"
       ],
       "author": "AI",
-      "timestamp": "2026-11-01T21:19:18+00:00",
+      "timestamp": "2026-11-04T20:09:21+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -20542,7 +20545,7 @@
          "B12626 drawing set (Second_Example.pdf)"
         ],
         "author": "AI",
-        "timestamp": "2026-11-01T21:19:18+00:00",
+        "timestamp": "2026-11-04T20:09:21+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -20608,7 +20611,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20669,7 +20672,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20729,7 +20732,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20789,7 +20792,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20887,7 +20890,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20941,7 +20944,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -20995,7 +20998,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21066,6 +21069,60 @@
       }
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400",
+      "on": true
+     },
+     "source": {
+      "doc": "DRG-109001",
+      "view": "design criteria"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400",
+       "on": true
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109001",
+       "view": "design criteria"
+      }
+     },
+     "current": "original"
+    },
+    {
+     "cells": {
+      "model": "HLP400_with_half_M1600",
+      "on": true
+     },
+     "source": {
+      "doc": "DRG-109001",
+      "view": "design criteria"
+     },
+     "tag": "Direct",
+     "status": "accepted",
+     "original": {
+      "cells": {
+       "model": "HLP400_with_half_M1600",
+       "on": true
+      },
+      "unit": null,
+      "tag": "Direct",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "source": {
+       "doc": "DRG-109001",
+       "view": "design criteria"
+      }
+     },
+     "current": "original"
     }
    ]
   },
@@ -21120,7 +21177,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -21161,7 +21218,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -21285,7 +21342,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21335,7 +21392,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21386,7 +21443,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21436,7 +21493,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21486,7 +21543,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21536,7 +21593,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21586,7 +21643,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21636,7 +21693,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21690,7 +21747,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21740,7 +21797,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21790,7 +21847,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21840,7 +21897,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21893,7 +21950,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21942,7 +21999,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -21991,7 +22048,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22040,7 +22097,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22089,7 +22146,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22138,7 +22195,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22187,7 +22244,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22236,7 +22293,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22285,7 +22342,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22334,7 +22391,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22383,7 +22440,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22432,7 +22489,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22481,7 +22538,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22534,7 +22591,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22583,7 +22640,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22632,7 +22689,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22681,7 +22738,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22730,7 +22787,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22779,7 +22836,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22828,7 +22885,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22877,7 +22934,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22926,7 +22983,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -22975,7 +23032,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23024,7 +23081,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23073,7 +23130,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23122,7 +23179,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23165,7 +23222,7 @@
       "B12626 drawing set (Second_Example.pdf)"
      ],
      "author": "AI",
-     "timestamp": "2026-11-01T21:19:18+00:00",
+     "timestamp": "2026-11-04T20:09:21+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -23297,7 +23354,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23345,7 +23402,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -23395,7 +23452,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24005,7 +24062,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24055,7 +24112,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24105,7 +24162,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24155,7 +24212,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24205,7 +24262,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24286,7 +24343,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24336,7 +24393,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24386,7 +24443,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24436,7 +24493,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24486,7 +24543,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24536,7 +24593,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24586,7 +24643,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24636,7 +24693,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24686,7 +24743,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24736,7 +24793,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24786,7 +24843,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24836,7 +24893,7 @@
         "B12626 drawing set (Second_Example.pdf)"
        ],
        "author": "AI",
-       "timestamp": "2026-11-01T21:19:18+00:00",
+       "timestamp": "2026-11-04T20:09:21+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -24969,8 +25026,8 @@
  },
  "revision": {
   "number": 2,
-  "parent_hash": "sha256:6b478c9020b9321a6db55189085730b370da093624ce28eddfa698749731ca06",
-  "created": "2026-11-01T21:19:18+00:00",
+  "parent_hash": "sha256:b04bb0e79b11ca73cbcdf8a4e6536aedb962080459089a7032fffe173556f833",
+  "created": "2026-11-04T20:09:21+00:00",
   "author": "AI",
   "note": "197 overrides proposed under D-1 (projects/B12626/dev_inputs.py)",
   "decision_log_sha256": null
@@ -24979,6 +25036,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:a88b63e64957a9cb49ae37c6b55d672178f37fcb2427d4d7f415192e3046832d"
+  "value": "sha256:a79e485fabd7b87d70013039098647b161e2df668a7f6a164c34a75acc1f5798"
  }
 }

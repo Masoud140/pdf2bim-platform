@@ -243,6 +243,8 @@ put("custom.strand_MBL", R["materials.strand.MBL"], unit="kN"); put("custom.stra
 # ---------------- loads ----------------
 put("loads.traffic_models.rows[0]", R["loads.traffic_models"], cells={"model": "M1600", "on": True})
 put("loads.traffic_models.rows[1]", R["loads.traffic_models"], cells={"model": "S1600", "on": True})
+put("loads.traffic_models.rows[2]", R["loads.heavy_load_platform"], cells={"model": "HLP400", "on": True})
+put("loads.traffic_models.rows[3]", R["loads.concurrent_traffic_with_HLP"], cells={"model": "HLP400_with_half_M1600", "on": True})
 put("loads.design_speed", R["loads.design_speed"], unit="km/h")
 for k in ("braking_force", "traffic_surcharge", "shrinkage_creep_shortening"):
     put("loads." + k, R.get("loads." + k) or R["loads.temperature"], unit={"braking_force": "kN", "traffic_surcharge": "kPa", "shrinkage_creep_shortening": "1e-6"}[k], tag="Missing-Flagged",

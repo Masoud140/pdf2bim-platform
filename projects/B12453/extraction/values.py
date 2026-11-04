@@ -10,6 +10,8 @@ below). Coordinates are MGA zone 56 on control line MCD0 (no local origin). Offs
 chainage positive (the deck lies mostly on the LEFT = eastern side). Distances printed along the skewed support line are
 converted to offsets square to MCD0 with sin(84.575°) (0305: M° = 84.575°), arithmetic shown in each derivation."""
 import json, math, os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")))
 
 H = os.path.dirname(os.path.abspath(__file__))
 P = "SGWS1-JHSW-1000-BR-DRG-"
@@ -98,16 +100,33 @@ put("deck.girders_follow_crossfall", True, sheet="0113", view="section 1", text=
 for i, g in enumerate(("G02-01", "G02-02", "G02-03", "G02-04")):
     put(f"deck.haunch_concrete.rows[{i}]", tag="Missing-Flagged", cells={"girder": g},
         note="haunch over the girder not dimensioned (deck '200 MIN'); follows from the vertical curve (0111), girder hog at deck pour (0600) and deck pour age (not printed)")
+# barrier section (0909 section 1, 1:10; PB-1 0902): x from the inside face of barrier (outward negative), y from the
+# precast underside; chamfers / recesses / conduits ignored. Precast: 561 base = 120 leg + 44 + 171 + 225 (bottom row) and
+# 125 + 383 + 53 at the top (143 + 150 + 90 = 383); heights 1250 overall, 490 / 160 / 155 below the top, step underside at
+# 1250 - 805 = 445. In-situ 40 MPa stitch pour: apex (0, 760) diagonally to 125 beyond the inside face (diagonal end at y 577,
+# not dimensioned: scaled from the 1:10 section), then down to the deck top 20 below the step underside (y 425).
+from pdf2bim.model.loads import _area_centroid
+PRE = [(-561, 0), (-441, 0), (-396, 445), (-225, 445), (-225, 600), (0, 760), (-53, 1250), (-436, 1250)]
+STI = [(-225, 425), (125, 425), (125, 577), (0, 760), (-225, 600)]
+(aP, cP), (aS, cS) = _area_centroid(PRE), _area_centroid(STI)
+GC = 25.0                                                    # report table 2-4: reinforced concrete 25 kN/m3
+BW = round((aP + aS) / 1e6 * GC, 2)
+BXC = -(aP * cP[0] + aS * cS[0]) / (aP + aS) / 1000          # m outward from the inside face
+BW_TXT = (f"0909 section 1 polygons: precast PB-1 A = {aP / 1e6:.4f} m2, in-situ stitch pour A = {aS / 1e6:.4f} m2, x 25 kN/m3 (report table 2-4) = "
+          f"{BW:.2f} kN/m; combined centroid {BXC * 1000:.1f} mm outward from the inside face; check: PB-1 alone {aP / 1e6 * GC:.2f} kN/m vs 0902 mass "
+          f"4.27 t / 4.768 m = {4.27 * 9.80665 / 4.768:.2f} kN/m; twin steel rails not included (mass not printed)")
+print(BW_TXT)
 for b, side in (("left", "left"), ("right", "right")):
     p = f"deck.barriers[barrier_{b}]"
     put(p + ".side", side, sheet="0113", view="section 1")
     put(p + ".type", "precast concrete parapet, medium performance level, with twin steel rails", sheet="0113", view="section 1",
         text="MEDIUM PERFORMANCE LEVEL PRECAST CONCRETE TRAFFIC BARRIER WITH TWIN STEEL RAIL")
     put(p + ".height", 1250.0, unit="mm", sheet="0902", view="type PB-1 inside elevation", text="1250 precast unit; rails above not included")
-    put(p + ".weight", round(4.27 * 9.80665 / 4.768, 2), unit="kN/m", tag="Calculated",
-        formula="type PB-1 approximate mass 4.27 t / 4.768 m (0902 plan, inside face) x 9.80665 = 8.78 kN/m; twin steel rails not included")
+    put(p + ".weight", BW, unit="kN/m", tag="Calculated", formula=BW_TXT, inputs=[])
     put(p + ".solid", True, sheet="0902", view="type PB-1", text="solid precast concrete unit")
-    put(p + ".offset", tag="Missing-Flagged", unit="m", note="barrier centroid line not dimensioned; inside face at the setout line, base 561 wide outward (0902)")
+    face = -6.0 if b == "left" else 1.0                       # inside face = barrier setout line (0701 section 1)
+    put(p + ".offset", round(face - BXC if b == "left" else face + BXC, 4), unit="m", tag="Calculated", inputs=[f"deck.carriageway_{b}"],
+        formula=f"inside face {face:+.3f} (0701) {'-' if b == 'left' else '+'} section centroid {BXC * 1000:.1f} mm from the inside face (outward), " + BW_TXT.split(';')[0])
 
 # ---------------- superstructure ----------------
 put("superstructure.type", "super-t", sheet="0600", view="girder layout plan", text="1515 DEEP SUPER-T")
@@ -267,6 +286,7 @@ put("custom.sdl_line_loads", "utilities 1 kN/m, safety screens 1 kN/m", sheet="R
 put("loads.traffic_models.rows[0]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "M1600", "on": True})
 put("loads.traffic_models.rows[1]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "S1600", "on": True})
 put("loads.traffic_models.rows[2]", sheet="RPT", view="§2.4.2 table 2-7 / 0101", text="HLP400 ... ± 1 m either side of the centreline of the carriageway (SB02 and SB03); SM1600 loading: No", cells={"model": "HLP400", "on": True})
+put("loads.traffic_models.rows[3]", sheet="RPT", view="§2.4.2 table 2-7", text="SB02 and SB03 ... SM1600 loading: No", cells={"model": "HLP400_with_half_M1600", "on": False})
 put("loads.design_speed", 90, unit="km/h", sheet="0101", view="design criteria", text="DESIGN TRAFFIC SPEED: 90 km/h")
 for k, un in (("braking_force", "kN"), ("traffic_surcharge", "kPa"), ("shrinkage_creep_shortening", "1e-6")):
     put("loads." + k, tag="Missing-Flagged", unit=un, note="AS 5100.2 method stated in the report (2.4.5 / 2.4.9); value not printed")

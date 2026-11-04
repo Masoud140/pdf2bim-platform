@@ -534,3 +534,21 @@
   - On SB02 the crest curve nearly cancels the precamber. On a flat or sag profile the same rule gives the haunch largest at the ends, as the owner described.
 - **Effect (run 20261105-065703):** girder ULS M +0.3 %, SLS M +0.3 %. Pile and bearing changes are under 0.3 %.
 - **Open:** replace with the designer's haunch / deck-level table, or with deck RLs less girder tops, when available.
+
+## ADR-055 Barrier line load from the drawn section; HLP with half M1600 and accompanying lane factors (2026-11-05)
+
+- **Owner request (2026-11-05):** apply accompanying lane factors to the moving load, and calculate the barrier line load from the barrier shape.
+- **Barrier (SB02):**
+  - `values.py` builds the precast PB-1 and in-situ stitch-pour polygons from 0909 section 1 (dimensioned; the stitch diagonal end is scaled at y 577).
+  - Area and centroid use `loads._area_centroid`, × 25 kN/m³ (report table 2-4), giving 11.47 kN/m.
+  - The centroid is 252.2 mm outward from the inside face, so offsets are −6.252 / +1.252 (Calculated; the D-1 offset proposals were removed).
+  - Check: the PB-1 polygon alone gives 9.28 kN/m against the 0902 unit mass of 8.78 kN/m (+5.7 %; chamfers, conduits and recesses ignored).
+  - Twin steel rails are not included (mass not printed).
+- **HLP + 0.5 M1600:**
+  - A `loads.traffic_models` row `<HLP>_with_half_M1600` switches it on.
+  - The HLP occupies two standard lanes, or the carriageway if narrower, centred on its (shifted) position.
+  - The free lanes are packed outward on both sides, each loaded with 0.5 × M1600 (patterned UDL + vehicle) and ranked with the accompanying lane factors after the first (HLP = lane 1, factor 1.0): 0.5 × 0.8, 0.5 × 0.4 ...
+  - The envelope is the maximum over lateral shifts. The governing state rebuilds exactly (test).
+  - Interpretation, PROVISIONAL: the ALF ranking of the free lanes and taking the HLP register factor (ULS 1.5) for the whole group. The platform source (AS 5100.7-2004 A2.2.5.2 / A2.2.6) says not to apply the multiple-lane factors to the HLP and gives no rule for the accompanying lanes.
+  - SB02: off (report table 2-7 "No"). B12626: on (cover sheet). Piles are unchanged (+1.2 / +2.5 / +24.8 % against 109035).
+- **Effect on SB02 (run 20261105-071140):** girder ULS M −10.3 %, SLS M −3.0 %, bearing N max −7.4 %, pile SLS N +0.9 / −2.5 %, pile ULS N +8.3 / +10.4 % against drawing 0201.
