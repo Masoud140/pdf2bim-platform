@@ -223,11 +223,13 @@ def placeholders():
               "HLP400 heavy load platform: two trailers of axle lines at a fixed spacing, clear gap between trailers (variable, min / max), load per axle line "
               "shared equally by the wheel positions across the platform, dynamic load allowance, lateral range of the platform centre about the carriageway centreline",
               "kN, m, -", {"trailers": 2, "axle_lines_per_trailer": 8, "axle_line_spacing_m": 1.8, "gap_min_m": 6.0, "gap_max_m": 15.0, "axle_line_kN": 250.0,
-                           "wheel_offsets_m": [-1.5, -0.5, 0.5, 1.5], "dla": 0.1, "lateral_range_m": 1.0},
+                           "wheel_offsets_m": [-2.0, -0.6667, 0.6667, 2.0], "dla": 0.1, "lateral_range_m": 1.0,
+                           "overall_width_m": 4.5, "tyre_contact_mm": [500, 200]},
               "HLP400 where the project requires it (one platform per carriageway, no UDL, no accompanying lane factor; concurrent 0.5 SM1600 in other lanes NOT implemented)",
               "traffic (P8 HLP platform scan, pdf2bim/model/traffic.py platform_effect)", [f"{path}:{line} (read here; platform_effect)"],
-              interp="NOT transcribed from an authorised copy: geometry, axle-line load, wheel positions and DLA are the agent's recollection of AS 5100.2-2017 "
-                     "Fig 7.3 (total 16 x 250 = 4000 kN). Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), "
+              interp="NOT checked against an authorised copy. Owner-supplied 2026-11-04 (citing AS 5100.2:2017 Cl 7.3 / Fig 7.3): 16 axle lines, 250 kN per axle line, "
+                     "1.8 m spacing, 4000 kN total, overall width 4.5 m, tyre contact 500 x 200 mm. Agent placeholders still open: trailer gap 6-15 m (two groups of 8), "
+                     "4 tyre positions per axle line spread evenly between the outer tyre centres +-(4.5 - 0.5) / 2 = +-2.0 m, DLA 0.1. Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), "
                      "not checked as the standard's default. Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.", specialist=True)
     x["reference"]["figure"] = "Fig 7.3"; x["status"] = "placeholder-unverified"; x["implementation"]["version"] = "P8 (2026-11-04), no code source"
     return [x]
