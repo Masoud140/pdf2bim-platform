@@ -347,7 +347,7 @@ def main():
         old = {x["id"]: x for x in json.load(open(f))["entries"]} if os.path.exists(f) else {}
         for x in entries:
             o = old.get(x["id"])
-            if o:
+            if o and x["status"] != "placeholder-unverified":   # placeholders: this file is the source, nothing to keep
                 if json.dumps(o["value"], sort_keys=True) == json.dumps(x["value"], sort_keys=True):
                     for k in keep:
                         x[k] = o[k]
