@@ -250,6 +250,7 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     env = {}
     for mn in models:
         if mn.startswith("HLP"):     # one platform vehicle, no UDL, no lane factors; register action id "HLP"
+            veh[mn] = dict(veh[mn], split=len(geo["supports"]) > 2)   # the central gap is for continuous bridges only
             p, q = platform_effect(inf, grid, dc, veh[mn], (cl + cr) / 2)
             env["HLP"] = {"max": p, "min": q, "vehicle": mn}
             veh["HLP"] = veh[mn]
@@ -275,14 +276,16 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
 
 
 def _platform_axles(veh, dc):
-    """Axle-line positions (grid steps from the first axle line) for every trailer gap tried."""
-    s = veh["axle_line_spacing_m"]
-    g0, g1 = veh["gap_min_m"], veh.get("gap_max_m") or veh["gap_min_m"]
-    out = []
-    for g in np.arange(g0, g1 + 1e-9, 1.0):          # shortcut: 1 m steps over the variable gap; refine if it governs
-        x = [k * s for k in range(veh["axle_lines_per_trailer"])]
-        x += [x[-1] + g + k * s for k in range(veh["axle_lines_per_trailer"])] if veh["trailers"] == 2 else []
-        out.append((float(g), [round(v / dc) for v in x]))
+    """Axle-row positions (grid steps from the first row): one train of rows; on continuous bridges (veh["split"]) also
+    the two-group variants with every central gap tried."""
+    s, n = veh["axle_line_spacing_m"], veh["axle_rows"]
+    out = [(None, [round(k * s / dc) for k in range(n)])]
+    sp = veh.get("continuous_split")
+    if veh.get("split") and sp:
+        m = n // sp["groups"]
+        for g in np.arange(sp["gap_min_m"], sp["gap_max_m"] + 1e-9, 1.0):   # shortcut: 1 m steps over the gap; refine if it governs
+            x = [k * s for k in range(m)]
+            out.append((float(g), [round(v / dc) for v in x + [x[-1] + g + v for v in x]]))
     return out
 
 

@@ -2343,33 +2343,35 @@
    "reference": {
     "clause": "Cl 7.3",
     "table": null,
-    "figure": "Fig 7.3",
+    "figure": "Fig 7.3 (AS 5100.7-2004 Fig A3)",
     "authorised_source": null
    },
-   "quantity": "HLP400 heavy load platform: two trailers of axle lines at a fixed spacing, clear gap between trailers (variable, min / max), load per axle line shared equally by the wheel positions across the platform, dynamic load allowance, lateral range of the platform centre about the carriageway centreline",
+   "quantity": "HLP400 heavy load platform: axle rows at a fixed spacing (continuous bridges: may be split into two groups with a central gap, min / max), load per axle row shared equally by the dual wheels at the given offsets from the platform centre, dynamic load allowance, lateral range of the platform centre about the specified position",
    "units": "kN, m, -",
    "value": {
-    "trailers": 2,
-    "axle_lines_per_trailer": 8,
+    "axle_rows": 16,
     "axle_line_spacing_m": 1.8,
-    "gap_min_m": 6.0,
-    "gap_max_m": 15.0,
     "axle_line_kN": 250.0,
     "wheel_offsets_m": [
      -2.0,
-     -0.6667,
-     0.6667,
+     -1.1,
+     1.1,
      2.0
     ],
+    "continuous_split": {
+     "groups": 2,
+     "gap_min_m": 6.0,
+     "gap_max_m": 15.0
+    },
     "dla": 0.1,
     "lateral_range_m": 1.0,
     "overall_width_m": 4.5,
-    "tyre_contact_mm": [
+    "dual_wheel_contact_mm": [
      500,
      200
     ]
    },
-   "applicability": "HLP400 where the project requires it (one platform per carriageway, no UDL, no accompanying lane factor; concurrent 0.5 SM1600 in other lanes NOT implemented)",
+   "applicability": "HLP400 where the project requires it (no UDL, no lane modification factor; concurrent 0.5 M1600 / S1600 in unobstructed lanes NOT implemented)",
    "context": "traffic (P8 HLP platform scan, pdf2bim/model/traffic.py platform_effect)",
    "implementation": {
     "used_by": [
@@ -2377,7 +2379,7 @@
     ],
     "version": "P8 (2026-11-04), no code source"
    },
-   "status": "placeholder-unverified",
+   "status": "transcribed-unverified",
    "review": {
     "reviewer": null,
     "date": null,
@@ -2386,7 +2388,7 @@
    },
    "interpretation": {
     "open": true,
-    "note": "NOT checked against an authorised copy. Owner-supplied 2026-11-04 (citing AS 5100.2:2017 Cl 7.3 / Fig 7.3): 16 axle lines, 250 kN per axle line, 1.8 m spacing, 4000 kN total, overall width 4.5 m, tyre contact 500 x 200 mm. Agent placeholders still open: trailer gap 6-15 m (two groups of 8), 4 tyre positions per axle line spread evenly between the outer tyre centres +-(4.5 - 0.5) / 2 = +-2.0 m, DLA 0.1. Lateral range +-1 m is the project rule for SB02 (design report RPT-000001 table 2-7 / cover sheet 0101), and agrees with the Autodesk AU handout SE6327 (D. Geeves, quoting AS 5100.2-2004: HLP centrally on two design lanes or the carriageway, whichever is less, +-1.0 m lateral, 0.5 M1600 / S1600 in unobstructed lanes, accompanying lane factor 1.0; configurations in AS 5100.7). Must be checked against Cl 7.3 / Fig 7.3 before any result is relied on.",
+    "note": "Transcribed 2026-11-04 from AS 5100.7-2004 Appendix A (superseded edition; copy supplied by the owner, not an authorised source): A2.2.4 (i) 16 axle rows, (ii) 250 kN per axle shared equally among all wheels, (iii) 1.8 m centres, (iv) 8 tyres per row, (v) overall width 4.5 m with Fig A3 dual wheels 500 wide in two 1400 groups -> dual-wheel centres +-1.1 / +-2.0 m from the platform centre (calculated: 2.25 - 0.25 = 2.0; 2.25 - 1.4 + 0.25 = 1.1), (vi) continuous bridges only: two groups of 8 with a central gap 6-15 m, (vii) dual-wheel contact 500 x 200 mm; A2.2.10.3 DLA 0.1; A2.2.5.2 +-1 m about the position the authority specifies (SB02: carriageway centreline, design report RPT-000001 table 2-7). Same values as the owner's summary of AS 5100.2:2017 Cl 7.3 / Fig 7.3; the 2017 clause itself (and Amendment 2:2024) not checked. Second source: MIDAS Civil standard vehicle 'AS 5100.2 - Heavy Load Platform' HLP400 (owner screenshot 2026-11-04): P 250 kN, D 1.8 m, 16 axles, DLA 0.1, no gap — agrees.",
     "specialist_review": true
    }
   },

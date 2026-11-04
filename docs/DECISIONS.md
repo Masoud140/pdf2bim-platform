@@ -511,3 +511,10 @@
 - **Effect on SB02:** HLP governs some SLS rows (bearing N max +2 %) and no ULS row. The girder gap against the report stays at −15 % (see `projects/B12453/model/COMPARISON_REPORT.md`).
 - **Update 2026-11-04 (owner input).** The owner confirmed 16 axle lines × 250 kN at 1.8 m (4000 kN), overall width 4.5 m and tyre contact 500 × 200 mm, citing AS 5100.2:2017 Cl 7.3 / Fig 7.3. The tyre positions are spread to the outer tyre centres at ±2.0 m. Still agent placeholders: the trailer gap of 6–15 m, the 4 tyres per axle line, and DLA 0.1. The entry stays `placeholder-unverified` until an authorised copy is checked. SB02 rerun 20261104-173933: bearing N max 1,712 kN (+0.8 % from the wider spread); girder results unchanged.
 - **Update 2026-11-04 (sources the owner pointed to).** The owner named AS 5100.7:2004 and NZTA RR 361 Fig 2.4, but the links did not come through and no file was attached. The NZTA report and the MIDAS / VicRoads pages could not be read. The Autodesk AU handout SE6327 (public) confirms the placement rules the engine already uses: ±1.0 m lateral, accompanying lane factor 1.0, and 0.5 M1600 / S1600 in unobstructed lanes (that last rule is not implemented). It says the vehicle configuration is in AS 5100.7, which is licensed and not reachable. The trailer gap, the tyres per axle line and the DLA remain placeholders.
+- **Update 2026-11-04 (definition supplied by the owner).** HLP400 is transcribed from AS 5100.7-2004 Appendix A (A2.2.4, Fig A3, A2.2.10.3, A2.2.5.2), a superseded edition supplied by the owner. The MIDAS Civil HLP400 library vehicle (owner screenshot) agrees.
+  - 16 axle rows × 250 kN at 1.8 m.
+  - 4 dual wheels per row at ±1.1 / ±2.0 m (Calculated from Fig A3).
+  - DLA 0.1.
+  - The 6–15 m central gap applies to continuous bridges only; the engine offers it only when there are more than 2 supports.
+  - The entry status is now `transcribed-unverified`. AS 5100.2:2017 Cl 7.3 and Amendment 2:2024 are still to be checked.
+  - SB02 rerun 20261104-175724: HLP400 governs the SLS results. Girder SLS M −5 %, bearing N max −9 %, pile SLS N −0.4 / −3.8 % against drawing 0201.

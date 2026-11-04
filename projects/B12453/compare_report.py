@@ -59,8 +59,10 @@ for item, ref, src, val, where, d, scope in rows:
 L += ["", "## Reading the differences (what is known, not a pass/fail)", "",
  "- **Scope.** Report tables 4-4..4-15 give the *critical* element over SB01/SB02/SB03; only SB02 is modelled. SB01 is wider (14 girders, 6 marked lanes, "
  "HLP400 in two lanes per direction + 0.5 SM1600 alongside), so the report's critical girder is probably on SB01. Only the per-abutment pile values on drawing 0201 are SB02-specific.",
- "- **HLP400 (P8.2).** Now enveloped (one platform, centreline ±1 m, ULS 1.5 / SLS 1.0 as report table 2-9). Vehicle data: owner-supplied 2026-11-04 (16 × 250 kN at 1.8 m, width 4.5 m) + agent placeholders (trailer gap, tyre positions, DLA 0.1). On SB02 it governs some SLS rows (bearing N max 1,664 → 1,712 kN; widening the tyre spread from ±1.5 to ±2.0 m changed it by under 1 %, "
- "pile SLS N +2 %) but not ULS (M1600 × 1.8 is larger). So the remaining girder gap (−15 %) is **not** explained by HLP — consistent with the SB01 scope above.",
+ "- **HLP400 (P8.2).** Vehicle from AS 5100.7-2004 App A (A2.2.4, Fig A3, A2.2.10.3) and confirmed by the MIDAS HLP400 library vehicle: 16 axle rows × 250 kN at 1.8 m, "
+ "4 dual wheels at ±1.1 / ±2.0 m, DLA 0.1; no central gap on a single span; ±1 m about the carriageway centreline (report table 2-7); ULS 1.5 / SLS 1.0 (report table 2-9). "
+ "With the compact 27 m platform HLP400 now governs SLS: girder SLS M −15.6 % → **−5.0 %**, bearing N max −15 % → **−9 %**, pile SLS N → **−0.4 % / −3.8 %** against drawing 0201. "
+ "Girder ULS M −12 % (governing row now HLP-led); the rest of the gap is consistent with the report's critical girder being on SB01 (scope above).",
  "- **Capacity φMu −18 %.** Platform Muo 17,503 kNm, φ 0.80 → φMu 14,001; the report's design capacity 17,057 is close to the platform's *un-factored* Muo (−2.6 %). "
  "Either the critical girder (SB01) has more strands or the φ basis differs. **Query for the designer**; nothing changed.",
  "- **Pile moments −51 / −53 %, pile SLS M −29 %.** Soil springs are proposed placeholders (Appendix J not supplied); B12626 showed the same sensitivity. Pile M is not benchmarkable until the springs come from the report.",

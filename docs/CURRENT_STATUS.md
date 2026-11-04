@@ -1,6 +1,6 @@
 # Current status — 2026-11-04
 
-**2026-11-04 (P8, ADR-052):** third example B12453 (SB02) runs end to end; benchmark against the design report in `projects/B12453/model/COMPARISON_REPORT.md`. HLP400 added (ADR-053, vehicle data placeholder-unverified); it does not close the girder gap — the report's critical girder is likely on SB01.
+**2026-11-04 (P8, ADR-052):** third example B12453 (SB02) runs end to end; benchmark against the design report in `projects/B12453/model/COMPARISON_REPORT.md`. HLP400 added (ADR-053, transcribed from AS 5100.7-2004 App A, MIDAS agrees); SB02 SLS now within 5 % (girder M) and 4 % (pile N); ULS girder M −12 %.
 
 
 **Resume point:** `NEXT_SESSION.md`. **Visual overview:** `status/index.html` (generated; rebuild with `python3 status/build_status.py`).
