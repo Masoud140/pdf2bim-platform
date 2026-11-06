@@ -155,15 +155,17 @@ def page_index(pid, name, doc):
     cache = os.path.join(pdir(pid, "pages"), name + ".json")
     if os.path.exists(cache):
         return json.load(open(cache))
-    import pdfplumber
+    import pypdfium2 as pdfium          # pdfium: ~3 s for a 143-sheet A1 set (pdfplumber took minutes and ran out of memory)
     keys = [(d["id"], [s for s in (d.get("number"), re.sub(r"^\D+", "", d["id"])) if s and len(s) >= 5]) for d in doc.get("documents") or []]
     pages = []
     try:
-        with pdfplumber.open(_pdf(pid, name)) as pdf:
-            for i, pg in enumerate(pdf.pages):
-                txt = pg.extract_text() or ""
-                hit = [did for did, ks in keys if any(k in txt for k in ks)]
-                pages.append({"page": i + 1, "documents": hit[:3], "w": float(pg.width), "h": float(pg.height)})
+        pdf = pdfium.PdfDocument(_pdf(pid, name))
+        for i in range(len(pdf)):
+            pg = pdf[i]
+            txt = pg.get_textpage().get_text_range() or ""
+            w, hh = pg.get_size()
+            hit = [did for did, ks in keys if any(k in txt for k in ks)]
+            pages.append({"page": i + 1, "documents": hit[:3], "w": float(w), "h": float(hh)})
     except Exception as e:
         return [{"page": 0, "documents": [], "error": f"unreadable PDF: {e}"[:200]}]   # not cached: re-read after a re-upload
     json.dump(pages, open(cache, "w"))
@@ -198,6 +200,112 @@ def api_page(pid, name, page):
 
 
 # ---------------- description values ----------------
+# ---------------- drawing reader (P9, Claude API with the owner's key) ----------------
+SETTINGS = lambda: os.path.join(DATA, "settings.json")
+
+
+def _settings():
+    try:
+        return json.load(open(SETTINGS()))
+    except (OSError, ValueError):
+        return {}
+
+
+def _api_key():
+    return os.environ.get("ANTHROPIC_API_KEY") or _settings().get("api_key")
+
+
+@app.get("/api/settings")
+def api_settings():
+    k = _api_key()
+    return jsonify({"api_key_set": bool(k), "api_key_hint": ("…" + k[-4:]) if k else None, "from_env": bool(os.environ.get("ANTHROPIC_API_KEY")),
+                    "model": _settings().get("model") or "claude-opus-5-5"})
+
+
+@app.post("/api/settings")
+def api_save_settings():
+    b = request.json or {}
+    s = _settings()
+    if "api_key" in b:
+        k = str(b["api_key"] or "").strip()
+        if k and not re.match(r"^[A-Za-z0-9_\-]{20,300}$", k):
+            abort(400, "that does not look like an API key")
+        s["api_key"] = k or None
+    if b.get("model"):
+        if not re.match(r"^[a-z0-9.\-]{3,60}$", b["model"]):
+            abort(400, "bad model name")
+        s["model"] = b["model"]
+    os.makedirs(DATA, exist_ok=True)
+    f = SETTINGS()
+    with open(os.open(f, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), "w") as fh:    # local only, owner-readable, never committed
+        json.dump(s, fh)
+    return api_settings()
+
+
+def _extract_job(pid, p, rid, page_range):
+    from pdf2bim.extract.run import run as read_set
+    d = pdir(pid, "extract", rid)
+    st = {"id": rid, "state": "running", "started": _now(), "finished": None, "log": [], "summary": None}
+    save = lambda: json.dump(st, open(os.path.join(d, "status.json"), "w"), indent=1)
+    prog = lambda m: (st["log"].append(m), save())
+    save()
+    try:
+        pdfs = sorted(glob.glob(os.path.join(DATA, pid, "drawings", "*.pdf")))
+        st["summary"] = read_set(pdfs, d, _api_key(), _settings().get("model") or "claude-opus-5-5", page_range, progress=prog)
+        desc = p["description"]
+        for f in (desc, desc[:-5] + ".new.md"):
+            if os.path.exists(f):
+                os.remove(f)
+        shutil.rmtree(os.path.join(os.path.dirname(desc), "history"), ignore_errors=True)
+        r = subprocess.run([PY, "tools/new_description.py", os.path.join(d, "values.json"), "--out", desc], cwd=ROOT, capture_output=True, text=True)
+        prog((r.stdout or "") + (r.stderr or ""))
+        st["state"] = "done" if r.returncode == 0 and os.path.exists(desc) else "failed"
+    except Exception as e:
+        prog(f"failed: {e}"); st["state"] = "failed"
+    st["finished"] = _now(); save()
+
+
+@app.post("/api/projects/<pid>/extract")
+def api_extract(pid):
+    p = project(pid)
+    if p["origin"] != "uploaded":
+        abort(409, "this bridge's data is kept in the repository; create a new bridge in the app to read drawings")
+    if (load_doc(p).get("revision") or {}).get("number", 1) > 1:
+        abort(409, "this bridge's data already has reviewed revisions; reading again would replace them. Create a new bridge instead.")
+    if not _api_key():
+        abort(400, "no Claude API key: add it on the Drawings tab (it is stored on this computer only)")
+    if not glob.glob(os.path.join(DATA, pid, "drawings", "*.pdf")):
+        abort(400, "upload the drawings first")
+    pr = (request.json or {}).get("pages") if request.is_json else None
+    page_range = None
+    if pr:
+        m = re.match(r"^\s*(\d+)\s*-\s*(\d+)\s*$", str(pr))
+        if not m:
+            abort(400, "pages: e.g. 1-20")
+        page_range = (int(m.group(1)), int(m.group(2)))
+    key = pid + ":extract"
+    with LOCK:
+        if (key in JOBS and JOBS[key].is_alive()) or (pid in JOBS and JOBS[pid].is_alive()):
+            abort(409, "a reading or a run is already in progress")
+        rid = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        th = threading.Thread(target=_extract_job, args=(pid, p, rid, page_range), daemon=True)
+        JOBS[key] = th; th.start()
+    return jsonify({"id": rid})
+
+
+@app.get("/api/projects/<pid>/extract/latest")
+def api_extract_latest(pid):
+    project(pid)
+    fs = sorted(glob.glob(os.path.join(DATA, pid, "extract", "*", "status.json")))
+    if not fs:
+        return jsonify(None)
+    st = json.load(open(fs[-1]))
+    rep = os.path.join(os.path.dirname(fs[-1]), "EXTRACTION.md")
+    st["report"] = open(rep).read()[:200000] if os.path.exists(rep) else None
+    st["log"] = st.get("log", [])[-400:]
+    return jsonify(st)
+
+
 @app.get("/api/projects/<pid>/values")
 def api_values(pid):
     p = project(pid); doc = load_doc(p)

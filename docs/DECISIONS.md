@@ -564,3 +564,23 @@
   - Empty table: unchanged behaviour (single carriageway between `carriageway_left` / `carriageway_right`).
 - **Test:** B12626 split into two carriageways (synthetic) gives 169 layouts, 6 lanes, and every lane inside a carriageway. The HLP and M1600 governing states rebuild their envelope values.
 - **Shortcuts (flagged in code):** the HLP is centred on the carriageway, not on "any two marked lanes" (needs the marked-lane setout). The other carriageways' lanes are left-packed when accompanying the HLP.
+
+## ADR-057 Drawing reader through the Claude API (P9.1, 2026-11-06) — owner decision P7.2
+
+- **Owner decision (2026-11-06, Masoud):** drawings may be sent to the Claude API with the owner's key, so the app can read new drawings automatically on upload. This resolves open decision P7.2.
+- **What:** `pdf2bim/extract/` sends each page (image + text layer) to Claude with the field catalogue and the no-assumption rules. Claude only proposes. `verify.py` decides deterministically:
+  - the path must be a catalogue field (or `custom.*`);
+  - Direct: the quote must be on the page and the number must be printed on the page;
+  - Calculated: the expression is re-evaluated (arithmetic only) from printed numbers;
+  - wording that is not a printed literal becomes `Model` with the quote as its note;
+  - scanned pages are rejected;
+  - sheets that disagree leave the field Missing-Flagged with the candidates.
+  - The output goes through `tools/new_description.py`.
+  - Every page's answer and checks are kept for audit (`app_data/<id>/extract/<run>/pages/`), with a summary in `EXTRACTION.md`.
+- **App:** the Drawings tab gets a "Read the drawings with Claude" panel.
+  - The key is set from `ANTHROPIC_API_KEY` or saved in `app_data/settings.json` (mode 600, git-ignored, never echoed).
+  - Only new (uploaded) bridges whose data has no reviewed revision can be read; repository bridges are refused.
+  - The model defaults to `claude-opus-5-5`.
+- **Fix:** the page index uses pdfium instead of pdfplumber. The 143-sheet SB02 set took over 100 s with pdfplumber and crashed the dev server; it now takes about 3 s.
+- **Not yet:** proposing the inputs drawings never give (soil, bearings, temperatures) as a D-n decision for engineer acceptance; a live run on a real set with the owner's key (no key in the cloud session).
+- **Tests:** `tests/extract/test_reader.py` 16/16, `tests/app/test_reader_app.py` 10/10 (fake API, no network).

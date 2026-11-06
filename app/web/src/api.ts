@@ -11,6 +11,9 @@ export interface Decision { id: string; key: string; by: string; date: string; r
 export interface Meta { source: "run" | "repository"; run?: string; file?: string; allow_proposed?: boolean; engine_commit?: string | null }
 export interface Result<T> { meta: Meta | null; data: T | null }
 export interface Page { page: number; documents: string[]; w: number; h: number }
+export interface Settings { api_key_set: boolean; api_key_hint: string | null; from_env: boolean; model: string }
+export interface Extraction { id: string; state: string; started: string; finished: string | null; log: string[]; report: string | null;
+  summary: { values: number; conflicts: number; rejected: number; failed: number; documents: number; usage: Record<string, number> } | null }
 export interface Drawings { files: { file: string; pages: Page[] }[]; documents: { id: string; number: string; revision: string; title?: string }[] }
 
 async function j<T>(r: Response): Promise<T> {
@@ -47,6 +50,10 @@ export const api = {
   revisions: (id: string) => fetch(`${base(id)}/revisions`).then((r) => j<{ number: number; created: string | null; author: string | null; note: string | null; current: boolean }[]>(r)),
   revDiff: (id: string, a: number, b: number) => fetch(`${base(id)}/revisions/${a}/${b}`).then((r) => j<{ rows: { path: string; from: unknown; from_tag: string | null; from_status: string | null;
     to: unknown; to_tag: string | null; to_status: string | null; proposals_added: number; decision: string | null }[] }>(r)),
+  settings: () => fetch("/api/settings").then((r) => j<Settings>(r)),
+  saveSettings: (body: { api_key?: string; model?: string }) => fetch("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<Settings>(r)),
+  extract: (id: string, pages?: string) => fetch(`${base(id)}/extract`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pages ? { pages } : {}) }).then((r) => j<{ id: string }>(r)),
+  extractLatest: (id: string) => fetch(`${base(id)}/extract/latest`).then((r) => j<Extraction | null>(r)),
   fileUrl: (id: string, name: string): string | null => (STATIC ? null : `${base(id)}/files/${encodeURIComponent(name)}`),
   descUrl: (id: string): string | null => (STATIC ? null : `${base(id)}/description.json`),
 };

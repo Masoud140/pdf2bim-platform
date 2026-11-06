@@ -47,14 +47,14 @@ def http_call(body, key, timeout=300):
         return json.load(r)
 
 
-def read_page(png, text, key, model=DEFAULT_MODEL, call=http_call, max_tokens=16000):
+def read_page(png, text, key, model=DEFAULT_MODEL, call=None, max_tokens=16000):
     """-> (parsed JSON or None, raw text, usage). `call` is injectable for tests."""
     body = {"model": model, "max_tokens": max_tokens,
             "system": [{"type": "text", "text": system_prompt(), "cache_control": {"type": "ephemeral"}}],
             "messages": [{"role": "user", "content": [
                 {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": base64.b64encode(png).decode()}},
                 {"type": "text", "text": "Page text layer (copy quotes from here):\n" + (text[:60000] or "(no text layer: scanned page)")}]}]}
-    r = call(body, key)
+    r = (call or http_call)(body, key)
     raw = "".join(b.get("text", "") for b in r.get("content", []) if b.get("type") == "text")
     m = re.search(r"\{.*\}", raw, re.S)
     try:

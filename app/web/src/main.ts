@@ -1,5 +1,5 @@
 // PDF2BIM web app: projects, drawings, description values, model, analysis, design, run log.
-import { api, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
+import { api, type Extraction, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
 
@@ -126,6 +126,7 @@ async function drawings(id: string, params: URLSearchParams) {
     h("input", { type: "file", name: "drawings", accept: "application/pdf", multiple: true }), h("button", { class: "btn" }, "Upload"));
   if (STATIC && !d.files.length) return empty("Drawings are not in the online copy", "Drawings stay on your computer (they are confidential). Upload them in the app on your computer.");
   if (!d.files.length) return h("div", {}, empty("No drawings uploaded", "Upload the PDF drawing set. Drawings are stored in the app's data folder only (never committed to the repository)."), up);
+  const reader = STATIC ? null : await readerPanel(id);
   const docName = (did: string) => d.documents.find((x) => x.id === did)?.number || did;
   const pages = d.files.flatMap((f) => f.pages.map((p) => ({ file: f.file, ...p })));
   const want = params.get("doc");
@@ -148,8 +149,45 @@ async function drawings(id: string, params: URLSearchParams) {
     h("button", { class: "btn ghost", onclick: z(1 / 1.4) }, "−"), h("button", { class: "btn ghost", onclick: z(1.4) }, "+"),
     h("button", { class: "btn ghost", onclick: () => { zoom = 1; show(); } }, "Fit"), title);
   setTimeout(show);
-  return h("div", {}, h("div", { class: "row between" }, h("span", { class: "small muted" }, `${pages.length} pages in ${d.files.length} file(s)`), up),
+  return h("div", {}, reader, h("div", { class: "row between" }, h("span", { class: "small muted" }, `${pages.length} pages in ${d.files.length} file(s)`), up),
     h("div", { class: "drawings" }, list, h("div", { class: "sheetwrap" }, bar, h("div", { class: "sheetscroll" }, img))));
+}
+
+// Drawing reader (P9): Claude proposes values per page; the engine keeps only what it finds printed (verify.py).
+async function readerPanel(id: string): Promise<HTMLElement> {
+  const [cfg, last, projects] = await Promise.all([api.settings(), api.extractLatest(id), api.projects()]);
+  const p = projects.find((x) => x.id === id);
+  const box = h("div", { class: "card" });
+  const msg = h("span", { class: "small muted" });
+  const keyIn = h("input", { type: "password", placeholder: cfg.api_key_set ? `key saved (${cfg.api_key_hint})` : "Anthropic API key (sk-ant-…)", size: 34, autocomplete: "off" }) as HTMLInputElement;
+  const pagesIn = h("input", { placeholder: "all pages (or e.g. 1-20)", size: 18 }) as HTMLInputElement;
+  const log = h("pre", { class: "log small" });
+  const rep = h("details", {}, h("summary", {}, "Reading report: accepted, conflicts, rejected"), h("pre", { class: "log small" }, last?.report || ""));
+  const status = (x: Extraction | null) => {
+    if (!x) return "Not read yet.";
+    const s = x.summary;
+    return x.state === "running" ? `Reading… (started ${x.started})` : x.state === "failed" ? `Reading failed (${x.finished}). See the log.`
+      : `Read ${x.finished}: ${s?.values ?? 0} values kept from ${s?.documents ?? 0} documents, ${s?.conflicts ?? 0} conflicts left for you, ${s?.rejected ?? 0} proposals rejected by the checks.`;
+  };
+  const head = h("div", { class: "small" }, status(last));
+  const poll = async () => {
+    const x = await api.extractLatest(id);
+    head.textContent = status(x); log.textContent = (x?.log || []).join("\n"); log.hidden = !log.textContent;
+    if (x?.state === "running") setTimeout(poll, 2500);
+    else if (x) { (rep.querySelector("pre") as HTMLElement).textContent = x.report || ""; msg.textContent = x.state === "done" ? "Done: open Bridge data and Decisions to review, then Run." : ""; }
+  };
+  const saveKey = async () => { try { const c = await api.saveSettings({ api_key: keyIn.value }); keyIn.value = ""; keyIn.placeholder = c.api_key_set ? `key saved (${c.api_key_hint})` : "Anthropic API key"; msg.textContent = "Key saved on this computer."; } catch (e) { msg.textContent = (e as Error).message; } };
+  const go = async () => { msg.textContent = ""; try { await api.extract(id, pagesIn.value.trim() || undefined); setTimeout(poll, 800); } catch (e) { msg.textContent = (e as Error).message; } };
+  const canRead = p?.origin === "uploaded";   // the server also refuses a bridge whose data already has reviewed revisions
+  box.append(h("h3", {}, "Read the drawings with Claude"),
+    h("p", { class: "small muted" }, "Each page is sent to Claude, which proposes the values printed on it. The platform keeps a value only if its text is found on the page, every number is printed there, and any arithmetic re-computes; disagreements between sheets stay Missing for you to decide. Drawings are sent to Anthropic’s API with your key."),
+    cfg.from_env ? h("div", { class: "small" }, "API key: from the ANTHROPIC_API_KEY environment variable.") : h("div", { class: "row wrap" }, keyIn, h("button", { class: "btn ghost", onclick: saveKey }, "Save key")),
+    canRead ? h("div", { class: "row wrap" }, pagesIn, h("button", { class: "btn", onclick: go }, "Read drawings"), msg)
+      : h("div", { class: "small muted" }, "This bridge’s data is in the repository or already reviewed; create a new bridge to read drawings."),
+    head, log, rep);
+  if (last?.state === "running") setTimeout(poll, 500); else log.textContent = (last?.log || []).slice(-30).join("\n");
+  log.hidden = !log.textContent; rep.hidden = !last?.report;
+  return box;
 }
 
 // ---------------- bridge data (description values) ----------------
