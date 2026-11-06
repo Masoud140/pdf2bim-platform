@@ -50,6 +50,8 @@ export const api = {
   revisions: (id: string) => fetch(`${base(id)}/revisions`).then((r) => j<{ number: number; created: string | null; author: string | null; note: string | null; current: boolean }[]>(r)),
   revDiff: (id: string, a: number, b: number) => fetch(`${base(id)}/revisions/${a}/${b}`).then((r) => j<{ rows: { path: string; from: unknown; from_tag: string | null; from_status: string | null;
     to: unknown; to_tag: string | null; to_status: string | null; proposals_added: number; decision: string | null }[] }>(r)),
+  saveBatch: (id: string, body: { by: string; reason: string; items: { path: string; value: unknown }[]; new_rows: { table: string; cells: Record<string, unknown> }[] }) =>
+    fetch(`${base(id)}/values/batch`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<{ decision: string; changed: number; message: string }>(r)),
   settings: () => fetch("/api/settings").then((r) => j<Settings>(r)),
   saveSettings: (body: { api_key?: string; model?: string }) => fetch("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<Settings>(r)),
   extract: (id: string, pages?: string) => fetch(`${base(id)}/extract`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pages ? { pages } : {}) }).then((r) => j<{ id: string }>(r)),

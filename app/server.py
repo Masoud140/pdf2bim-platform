@@ -402,6 +402,76 @@ def api_enter_value(pid):
     return jsonify({"decision": did, "message": m1 + "\n" + m2})
 
 
+@app.post("/api/projects/<pid>/values/batch")
+def api_enter_batch(pid):
+    """An engineer edits several values at once (e.g. a girder's strands, bars and fitments): one decision, proposed
+    and accepted by that person, one new revision. New table rows are added as empty records first (records are never
+    removed: switch a strand off with on = false). Tag Input-user; nothing is computed here."""
+    from propose_override import propose
+    from rules_0_2 import check, check_revision
+    from c14n import stamp
+    p = project(pid)
+    b = request.get_json(force=True) or {}
+    by, reason = _person(b.get("by")), (b.get("reason") or "").strip()
+    if not reason:
+        abort(400, "give the reason for the change (e.g. design option 2: 44 strands)")
+    items, new_rows = b.get("items") or [], b.get("new_rows") or []
+    if not items and not new_rows:
+        abort(400, "nothing changed")
+    if len(items) + len(new_rows) > 500:
+        abort(400, "too many changes in one save")
+    prev = load_doc(p)
+    doc = json.loads(json.dumps(prev))
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    R = dict(records(doc))
+    for nr in new_rows:                                  # append an empty row record to the table, then propose its cells
+        t, cells = str(nr.get("table") or ""), nr.get("cells")
+        if not isinstance(cells, dict) or not cells:
+            abort(400, "a new row needs its cells")
+        node = doc
+        for name, idx in re.findall(r"([^.\[\]]+)(?:\[([^\]]+)\])?", t):
+            node = node.get(name) if isinstance(node, dict) else None
+            if idx is not None and isinstance(node, list):
+                node = next((x for x in node if isinstance(x, dict) and x.get("id") == idx), None)
+            if node is None:
+                abort(400, f"no table at {t}")
+        if not isinstance(node, dict) or not isinstance(node.get("rows"), list):
+            abort(400, f"{t} is not a table")
+        rec = {"cells": {}, "note": "row added in the app", "tag": "Missing-Flagged", "status": "open",
+               "original": {"cells": {}, "unit": None, "tag": "Missing-Flagged", "recorded_by": by, "recorded_at": now, "note": "row added in the app"}, "current": "original"}
+        node["rows"].append(rec)
+        items.append({"path": f"{t}.rows[{len(node['rows']) - 1}]", "value": cells})
+    stamp(doc)
+    R = dict(records(doc))
+    logf = p["description"].replace(".bridge.0.2.json", ".decisions.jsonl")
+    dec = {json.loads(l)["id"]: json.loads(l) for l in open(logf) if l.strip()} if os.path.exists(logf) else {}
+    did = f"D-{max([int(k[2:]) for k in dec], default=0) + 1}"
+    n = 0
+    for it in items:
+        path = str(it.get("path") or "")
+        if path not in R:
+            abort(400, f"no value at {path}")
+        doc, _ = propose(doc, path, it.get("value"), "Input-user", reason, [f"entered in the app by {by}"], by, did, {"note": reason}, it.get("unit"), now)
+        R = dict(records(doc)); n += 1
+    first = prev["revision"]["number"]
+    doc["revision"] = {"number": first + 1, "parent_hash": prev["hash"]["value"], "created": now, "author": by,
+                       "note": f"{n} values entered in the app under {did}: {reason}"[:300], "decision_log_sha256": None}
+    stamp(doc)
+    entry = {"id": did, "date": now, "by": by, "key": f"({n} values entered in the app)", "from": None, "from_tag": None, "to": None, "to_tag": "Input-user",
+             "reason": reason, "evidence": [f"entered in the app by {by}"], "status": "proposed", "affects": ["design.supert"]}
+    errs = check(doc, dict(dec, **{did: entry})) + check_revision(prev, doc)
+    if errs:
+        abort(400, "refused by the format rules: " + "; ".join(errs[:8]))
+    hist = os.path.join(os.path.dirname(p["description"]), "history"); os.makedirs(hist, exist_ok=True)
+    keep = os.path.join(hist, os.path.basename(p["description"]).replace(".json", f".r{first}.json"))
+    if not os.path.exists(keep):
+        shutil.copy(p["description"], keep)
+    json.dump(doc, open(p["description"], "w"), indent=1, ensure_ascii=False)
+    open(logf, "a").write(json.dumps(entry, ensure_ascii=False) + "\n")
+    m2 = _tool(["schema/accept_decision.py", p["description"], "--decision", did, "--by", by, "--note", "entered in the app"])
+    return jsonify({"decision": did, "changed": n, "message": m2})
+
+
 # ---------------- chain runs ----------------
 def _run_chain(pid, desc, allow, rid):
     d = pdir(pid, "runs", rid)

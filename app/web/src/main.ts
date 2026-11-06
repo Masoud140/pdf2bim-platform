@@ -2,10 +2,11 @@
 import { api, type Extraction, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
+import { girderEditor, girderSummary } from "./girder";
 
 const app = document.getElementById("app")!;
 const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections"],
-  ["analysis", "Analysis"], ["design", "Design checks"], ["verification", "Verification"], ["run", "Run log & files"]];
+  ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
 const dl = (href: string | null, text: string, cls = "") => href ? h("a", { href, class: cls }, text) : h("span", { class: cls + " muted", title: "Download in the app on your computer" }, text);
@@ -67,7 +68,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
     h("div", { class: "row" }, STATIC ? null : h("a", { class: "btn primary", href: `/api/projects/${encodeURIComponent(id)}/report`, target: "_blank" }, "Calculation report"), dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
   const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
-    model: () => model(id), sections: () => sections(id), analysis: () => analysis(id), design: () => design(id), verification: () => verification(id), run: () => runTab(id) };
+    model: () => model(id), sections: () => sections(id), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
 
@@ -373,16 +374,6 @@ async function analysis(id: string) {
 }
 
 // ---------------- design ----------------
-interface GSum { g: string; u: number; what: string; uB: number; uS: number; uV: number; minFail: number }
-function girderSummary(gc: Record<string, any>): GSum[] {
-  return Object.keys(gc).filter((k) => gc[k]?.rows).sort().map((g) => {
-    let uB = 0, uS = 0, uV = 0, minFail = 0;
-    for (const r of gc[g].rows) { if (r.conf === "solid") { uV = Math.max(uV, r.shear?.u ?? 0); continue; } uB = Math.max(uB, r.sag?.uB ?? 0, r.hog?.uB ?? 0); uS = Math.max(uS, r.sag?.uS ?? 0, r.hog?.uS ?? 0); uV = Math.max(uV, r.shear?.u ?? 0); if (r.sag && r.sag.okMin === false) minFail++; }
-    const m = Math.max(uB, uS, uV);
-    return { g, u: m, what: m === uB ? "ULS bending" : m === uS ? "SLS stress" : "shear / torsion", uB, uS, uV, minFail };
-  });
-}
-
 async function design(id: string) {
   const r = await api.result<Record<string, any>>(id, "girder_checks.json");
   if (!r.data) return empty("No design checks", "Run the chain to check the girders.");

@@ -94,3 +94,12 @@ table.values td.mono { white-space: nowrap; }
 .sec-na { stroke: var(--bad-ink); stroke-width: 4; stroke-dasharray: 30 18; } .sec-na.g { stroke: var(--accent); }
 .sec-t { font-size: 60px; fill: var(--muted); font-family: system-ui, sans-serif; }
 pre.md { white-space: pre-wrap; font-size: 12px; background: var(--bg); padding: 10px; border-radius: 6px; max-height: 50vh; overflow: auto; }
+/* girder editor (P9.3) */
+table.edit input { width: 100%; min-width: 4.5em; padding: 2px 4px; font: inherit; }
+table.edit td { padding: 2px 4px; }
+.secsvg .st-on { fill: #e2762b; } .secsvg .st-deb { fill: #fff; stroke: #e2762b; stroke-width: 6; } .secsvg .st-off { fill: none; stroke: #9aa5af; stroke-width: 4; stroke-dasharray: 8 6; }
+.legend-dot::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.legend-dot.st-on::before { background: #e2762b; } .legend-dot.st-deb::before { border: 2px solid #e2762b; } .legend-dot.st-off::before { border: 2px dashed #9aa5af; }
+.legend-dot { margin-right: 14px; }
+.sticky-save { position: sticky; bottom: 0; z-index: 4; box-shadow: 0 -4px 16px rgba(0,0,0,.08); }
+.chip.st-done { color: var(--ok-ink); } .chip.st-running { color: var(--warn-ink); } .chip.st-failed { color: var(--bad-ink); }
