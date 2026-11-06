@@ -252,14 +252,23 @@ def _extract_job(pid, p, rid, page_range):
     try:
         pdfs = sorted(glob.glob(os.path.join(DATA, pid, "drawings", "*.pdf")))
         st["summary"] = read_set(pdfs, d, _api_key(), _settings().get("model") or "claude-opus-5-5", page_range, progress=prog)
+        from pdf2bim.extract.propose_missing import add_placeholders, propose_defaults
+        vj = os.path.join(d, "values.json")
+        v = json.load(open(vj)); v["values"] = add_placeholders(v["values"]); json.dump(v, open(vj, "w"), indent=1)
         desc = p["description"]
-        for f in (desc, desc[:-5] + ".new.md"):
+        for f in (desc, desc[:-5] + ".new.md", desc.replace(".bridge.0.2.json", ".decisions.jsonl")):
             if os.path.exists(f):
                 os.remove(f)
         shutil.rmtree(os.path.join(os.path.dirname(desc), "history"), ignore_errors=True)
-        r = subprocess.run([PY, "tools/new_description.py", os.path.join(d, "values.json"), "--out", desc], cwd=ROOT, capture_output=True, text=True)
+        r = subprocess.run([PY, "tools/new_description.py", vj, "--out", desc], cwd=ROOT, capture_output=True, text=True)
         prog((r.stdout or "") + (r.stderr or ""))
-        st["state"] = "done" if r.returncode == 0 and os.path.exists(desc) else "failed"
+        if r.returncode == 0 and os.path.exists(desc):
+            n = propose_defaults(desc)
+            prog(f"{n} development placeholders proposed as decision D-1 (Decisions tab): accept, change or reject them before relying on results")
+            st["proposed"] = n
+            st["state"] = "done"
+        else:
+            st["state"] = "failed"
     except Exception as e:
         prog(f"failed: {e}"); st["state"] = "failed"
     st["finished"] = _now(); save()
@@ -270,8 +279,9 @@ def api_extract(pid):
     p = project(pid)
     if p["origin"] != "uploaded":
         abort(409, "this bridge's data is kept in the repository; create a new bridge in the app to read drawings")
-    if (load_doc(p).get("revision") or {}).get("number", 1) > 1:
-        abort(409, "this bridge's data already has reviewed revisions; reading again would replace them. Create a new bridge instead.")
+    log = p["description"].replace(".bridge.0.2.json", ".decisions.jsonl")
+    if os.path.exists(log) and any(json.loads(l).get("status") != "proposed" for l in open(log) if l.strip()):
+        abort(409, "an engineer has already decided on this bridge's data; reading again would replace it. Create a new bridge instead.")
     if not _api_key():
         abort(400, "no Claude API key: add it on the Drawings tab (it is stored on this computer only)")
     if not glob.glob(os.path.join(DATA, pid, "drawings", "*.pdf")):

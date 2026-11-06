@@ -59,6 +59,11 @@ t("the saved key and model were used for the API call", seen.get("key") == KEY a
 V = {x["path"]: x for x in c.get("/api/projects/NEW1/values?allow_proposed=1").get_json()["rows"]}
 t("Bridge data now shows the printed value as Direct with its sheet; the invented one is absent",
   V["deck.slab_thickness"]["value"] == 200 and V["deck.slab_thickness"]["tag"] == "Direct" and V["deck.surfacing_thickness"]["tag"] == "Missing-Flagged")
+D = c.get("/api/projects/NEW1/decisions").get_json()
+t("missing inputs proposed as one decision D-1 for the engineer (not accepted)", st.get("proposed", 0) > 0 and [x["id"] for x in D["items"]] == ["D-1"]
+  and V["loads.traffic_surcharge"]["proposed"] and V["loads.traffic_surcharge"]["tag"] == "Assumed", f"{st.get('proposed')} placeholders")
+t("a field read from the drawings is never overwritten by a placeholder", V["deck.slab_thickness"]["tag"] == "Direct" and not V["deck.slab_thickness"]["proposed"])
+t("reading again is allowed while nothing has been decided", c.post("/api/projects/NEW1/extract", json={"pages": "1-1"}).status_code == 200)
 t("reading report lists the rejected proposal", "quote not found" in (st.get("report") or ""))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)
