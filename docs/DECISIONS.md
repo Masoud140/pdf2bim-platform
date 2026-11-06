@@ -584,3 +584,24 @@
 - **Fix:** the page index uses pdfium instead of pdfplumber. The 143-sheet SB02 set took over 100 s with pdfplumber and crashed the dev server; it now takes about 3 s.
 - **Not yet:** proposing the inputs drawings never give (soil, bearings, temperatures) as a D-n decision for engineer acceptance; a live run on a real set with the owner's key (no key in the cloud session).
 - **Tests:** `tests/extract/test_reader.py` 16/16, `tests/app/test_reader_app.py` 10/10 (fake API, no network).
+
+## ADR-058 From upload to design checks without a bridge script; Girder editor (P9.2 / P9.3, 2026-11-06)
+
+- **Owner request:** upload new drawings and have the platform build the model and run all the analysis and design checks, with the BR13A dashboard's girder editing (section, reinforcement, tendons) applied to any bridge.
+- **P9.2 `pdf2bim/extract/propose_missing.py`.** After a reading, every input the drawings did not give and the chain needs is proposed as ONE decision D-1 (AI, proposed, never accepted by AI):
+  - deck and girder placeholders, bearing elastomer, soil and rock springs, backfill;
+  - wind, temperature and gradient rows, earthquake Rf / damping, prestress-loss inputs;
+  - the same placeholders BR13A / B12626 / B12453 ran with, each Assumed (or Standard-verify with its key) with what should replace it.
+  - A value read from the drawings is never overwritten. Placeholder rows are added to tables so the proposal has a record.
+- **Proof on SB02.** Starting from SB02's extracted values with no SB02 script, the generic proposals (111) gave a full chain run (20261106-153555): geometry → model → actions → design → report.
+  - Against the report: girder SLS M −4.0 %, ULS M −11.4 %, bearing N max −8.2 %, pile SLS N +0.2 / −3.2 %.
+  - These are within about 1 % of the run with SB02's own development inputs.
+- **P9.3 Girder editor tab.** For each Super-T type:
+  - section and material values; tendons one row per strand (debond lengths, on / off); bars; fitments; zones; deck bars; shape keys;
+  - a preview of the entered tendon layout on the last computed outline (drawing only, no engineering numbers);
+  - last-run utilisation for the girders of that type.
+  - **Save** goes through `POST /values/batch`: one decision under the person's name, Input-user, proposed and accepted by the same person, one revision with history. New table rows are added as records; records are never deleted (switch a strand off).
+  - **Save and run** reruns the chain and opens Design checks.
+- **End-to-end check:** 4 bottom bonded strands switched off on the SB02 copy, then rerun → midspan φMu 14,002 → 12,858 kNm (−8.2 %, 4 / 48 strands) and ULS bending utilisation 0.98 → 1.07.
+- **Tests:** `tests/app/test_girder_edit.py` 8/8, `tests/app/test_reader_app.py` 13/13.
+- **Not yet:** the dashboard's hog calculator, Word / Excel exports and pile / bearing results views; editing on read-only copies.
