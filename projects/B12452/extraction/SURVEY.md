@@ -13,7 +13,7 @@ This is the same owner drawing set and report as SB02 (`projects/B12453/extracti
 | Setout | **straight bridge setout line on control line MC20**, end A (331496.102, 6245421.481) to end B (331471.822, 6245398.356), 33.530 long. Report Table 2-1x: "SB01 is setout as a straight bridge, mid-ordinate 78 mm" (accepted departure DD-3910) | 0703 table 1 / 2, report |
 | Alignments | MC20: HTP1 660.529 → HCEN R 1800 → HTP2 821.569; MC30: R 1300 (782.116 … 769.142); vertical MC30 IP 762.288 RL 11.496, +1.27 / −1.31 %; MC20 IP 721.022 RL 11.721, +1.48 / −1.31 % | 0111 |
 | Deck widths | W1 13.459 (13.400 square) setout line → median crown; W2 1.206–1.531 (varies along the span); W3 16.548–16.692 (varies) → deck ~31.0–31.3 m wide, **width varies along the span** (breakdown bay) | 0701 / 0703 table 1–2 |
-| Cross-section | two carriageways (eastern / western side), median cast-in-place barrier, 4 × 3 % falls (crown at the median), 75 asphalt, 200 min slab, safety screens, drainage pipe ∅225 | 0113 section 1 |
+| Cross-section | two carriageways (eastern / western side), median cast-in-place barrier type MCI (0706 detail B), **one-way 3 % fall to the west across the whole deck** (0701 section 1; 0703 RLs: 11.596 → 10.651 over 31.347 m; corrected 2026-11-06, earlier read as crowned), 75 asphalt, 200 min slab, safety screens, drainage pipe ∅225 | 0701 section 1, 0703 |
 | Lanes | 9 design lanes (0101); 6 marked lanes | 0101, report table 2-7 |
 | HLP400 | ±1 m about the centreline of any two marked lanes in each direction, or of the carriageway, whichever is worse; **0.5 × SM1600 on adjacent unoccupied lanes** | report table 2-7 |
 | Bearings | 14 per abutment, RL X A01-01 9.589 … A01-14 8.663; B01-01 9.740 … B01-14 8.839 (**B01-07 and B01-08 both 9.324: query**) | 0500 table 1 |
@@ -40,3 +40,9 @@ This is the same owner drawing set and report as SB02 (`projects/B12453/extracti
 - Stage 4a: engine support for (1) carriageway rows and per-carriageway lanes / HLP, and (2) edges and carriageway by chainage, or the mean with a flag. ADR first.
 - Stage 4b: `values.py` for SB01: setout line, 14 girders (offsets from 0600 / 0601 plan dims), 28 bearings, 22 piles, barriers (PB-1 + median), tables.
 - Stage 4c: chain run; compare girder results with report Tables 4-4 / 4-6 and pile results with drawing 0201.
+
+## 5. Stage 4b done (2026-11-06)
+
+- `values.py` + `build.sh`: setout line as the control line (chainage from end A), bearings / piles from the MC20 / MC30 SOP dimensions (0300 / 0301 / 0200), checks in the script: every girder bearing-to-bearing 32.641 + 0.8 = X1 33.441.
+- Missing inputs: the generic proposals D-1 (ADR-058), no SB01 dev script.
+- Findings: skew 5.433° is printed against MC20; against the straight setout line it is ~4.9° (bearing is used, so no effect). 01-06 / 01-07 X1 33,559 with the same bearing spacing (query). B01-08 RL 9.324 = B01-07 (query). Lanes counted per carriageway 4 + 5 = 9 = the 9 design lanes printed (0101). Median barrier slope-break heights scaled (not dimensioned).

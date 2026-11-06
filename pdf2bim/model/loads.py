@@ -271,6 +271,9 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1, part=None):
     if D.get("haunch_concrete") and part in (None, "SDLp"):
         gby = {g["id"]: g for g in geo["girders"]}
         for i, r in enumerate(rd.rows(D["haunch_concrete"], "deck.haunch_concrete")):
+            if r.get("w") is None:                     # Missing-Flagged row (girder listed, load not known): flagged, never assumed
+                not_applied.append({"path": f"deck.haunch_concrete.rows[{i}]", "tag": "Missing-Flagged", "reason": f"haunch load of {r.get('girder')} not known (not applied)"})
+                continue
             g = gby[r["girder"]]
             P0, P1 = (g["end_A"]["E"], g["end_A"]["N"]), (g["end_B"]["E"], g["end_B"]["N"])
             L = math.hypot(P1[0] - P0[0], P1[1] - P0[1]); n = max(1, math.ceil(L / dc))
