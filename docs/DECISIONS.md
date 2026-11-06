@@ -605,3 +605,19 @@
 - **End-to-end check:** 4 bottom bonded strands switched off on the SB02 copy, then rerun → midspan φMu 14,002 → 12,858 kNm (−8.2 %, 4 / 48 strands) and ULS bending utilisation 0.98 → 1.07.
 - **Tests:** `tests/app/test_girder_edit.py` 8/8, `tests/app/test_reader_app.py` 13/13.
 - **Not yet:** the dashboard's hog calculator, Word / Excel exports and pile / bearing results views; editing on read-only copies.
+
+
+## ADR-059 Dashboard exports, hog view and fuller pile results in the app (P9.4, 2026-11-06)
+
+- **Status:** done (agent decision, reversible).
+- **Hog.** `girder_design` results now carry `hog`: x (m) and the hog curve (mm, + up) at each reported time of the losses / camber analysis. The values were already computed; until now they were not saved.
+- **Design tab.** Adds a hog chart for each girder and a table of hog at mid-length and maximum hog.
+  - Hog values printed on the drawings (Direct rows whose path contains "hog") are listed beside it for comparison. The basis note says to check the drawing's load basis before comparing.
+  - No acceptance verdict is given. H-11 stays open.
+- **Exports step** (`app/export_files.py`, chain step `exports`) writes `workbook.xlsx` and `report.docx` from the description and the run outputs only. No value is computed.
+  - Workbook tabs: Read me, Bridge data (every record with its tag and source, colour-coded), Needs Review (every Missing-Flagged row), Girder checks, one Hog sheet per girder, Bearings, Piles.
+  - The Word report is a summary. The full calculation report stays `report.html`.
+- **Analysis tab, pile table:** adds the SLS N min and SLS moment columns, plus a note on the governing resultant.
+- **Dependency:** `python-docx` added to requirements.txt.
+- **Tests:** `tests/app/test_exports.py` 8/8. The `tests/app` suite all passes (girder_edit 8, reader 13, report 9, server 27).
+- **SB02-GEN check:** hog at transfer is 51 mm against 57 mm printed (DRG-0600, self-weight basis). The later times include the deck stages, so they do not compare directly with the printed table.

@@ -361,15 +361,16 @@ async function analysis(id: string) {
     h("div", { class: "card" }, h("h3", {}, "Bearings — vertical / transverse / longitudinal (kN)"), table(["Bearing", "ULS V max", "ULS V min", "SLS V max", "SLS V min", "ULS H transverse ±", "ULS H longitudinal ±"],
       Object.entries<any>(S.bearings).map(([k, v]) => [k, cell(v.ULS.v.max, gov(v.ULS.v, "gmax")), cell(v.ULS.v.min, gov(v.ULS.v, "gmin")), cell(v.SLS.v.max), cell(v.SLS.v.min),
         `${fmt(v.ULS.tr.max, 0)} / ${fmt(v.ULS.tr.min, 0)}`, `${fmt(v.ULS.lon.max, 0)} / ${fmt(v.ULS.lon.min, 0)}`]), "num")),
-    h("div", { class: "card" }, h("h3", {}, "Piles (kN, kN·m)"), table(["Pile", "ULS N max", "ULS N min", "SLS N max", "ULS M long.", "ULS M trans.", "ULS M resultant"],
-      Object.entries<any>(S.piles).map(([k, v]) => [k, cell(v.ULS.N.max, gov(v.ULS.N, "gmax")), cell(v.ULS.N.min), cell(v.SLS.N.max), cell(v.ULS.Ml.abs, gov(v.ULS.Ml, "gov")), cell(v.ULS.Mt.abs, gov(v.ULS.Mt, "gov")),
-        cell(ca.data.pile_resultants?.[k]?.resultant_upper)]), "num")),
+    h("div", { class: "card" }, h("h3", {}, "Piles (kN, kN·m)"), table(["Pile", "ULS N max", "ULS N min", "SLS N max", "SLS N min", "ULS M long.", "ULS M trans.", "ULS M resultant (upper)", "SLS M long.", "SLS M trans."],
+      Object.entries<any>(S.piles).map(([k, v]) => [k, cell(v.ULS.N.max, gov(v.ULS.N, "gmax")), cell(v.ULS.N.min, gov(v.ULS.N, "gmin")), cell(v.SLS.N.max), cell(v.SLS.N.min), cell(v.ULS.Ml.abs, gov(v.ULS.Ml, "gov")), cell(v.ULS.Mt.abs, gov(v.ULS.Mt, "gov")),
+        cell(ca.data.pile_resultants?.[k]?.resultant_upper), cell(v.SLS.Ml.abs), cell(v.SLS.Mt.abs)]), "num"),
+      h("p", { class: "small muted" }, "Resultant (upper) = the larger of the ellipse resultant and the non-concurrent bound of the two moments, as computed by the actions step.")),
     h("div", { class: "card" }, h("h3", {}, "Girders — design actions (kN, kN·m)"), table(["Girder", "ULS M sag", "ULS M hog", "ULS V", "ULS T", "SLS M sag"],
       Object.entries<any>(S.girders).sort().map(([k, v]) => [k, cell(v.ULS.M_sag.value, gov(v.ULS.M_sag, "gov")), cell(v.ULS.M_hog.value), cell(v.ULS.V.abs), cell(v.ULS.T.abs), cell(v.SLS.M_sag.value)]), "num")),
     h("div", { class: "card" }, h("h3", {}, "Sills / headstocks (kN·m, kN)"), table(["Support", "ULS My max", "ULS My min", "ULS Vz", "ULS T"],
       Object.entries<any>(S.sills).map(([k, v]) => [k, cell(v.ULS.My_max.value), cell(v.ULS.My_min.value), cell(v.ULS.Vz.abs), cell(v.ULS.T?.abs)]), "num")),
     h("p", { class: "small muted" }, `${ca.data.governing_rows?.length || 0} governing combination rows; ${ca.data.not_combined?.length || 0} actions not combined. Full schedule: `,
-      dl(api.fileUrl(id, "combined_actions.md"), "combined_actions.md")));
+      dl(api.fileUrl(id, "combined_actions.md"), "combined_actions.md"), " · ", dl(api.fileUrl(id, "workbook.xlsx"), "Excel workbook (bearings, piles, girders, bridge data)")));
   return out;
 }
 
@@ -391,6 +392,26 @@ async function design(id: string) {
     h("p", { class: "small muted" }, "Solid end zones: shear only (flexure / SLS not checked there)."));
   setTimeout(() => showG(gs[0]));
   const notes = (gc[gs[0]].notes || []) as string[];
+  const hogBox = h("div");
+  const hogSel = h("select", { onchange: (e: Event) => showHog((e.target as HTMLSelectElement).value) }, gs.map((g) => h("option", { value: g }, g)));
+  const showHog = (g: string) => {
+    const H = gc[g].hog; if (!H?.times?.length) { hogBox.replaceChildren(h("p", { class: "muted small" }, "No hog results in this run (re-run the chain).")); return; }
+    const all = H.times.flatMap((q: any) => q.hog_mm as number[]); const lo = Math.min(0, ...all), hi = Math.max(1, ...all);
+    const W = 640, Ht = 220, xs = (x: number) => 40 + (W - 60) * (x - H.x_m[0]) / (H.x_m[H.x_m.length - 1] - H.x_m[0] || 1), ys = (y: number) => 10 + (Ht - 40) * (hi - y) / (hi - lo);
+    const col = ["#1f6feb", "#2da44e", "#bf8700", "#cf222e", "#8250df", "#57606a"];
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${Ht}`); svg.setAttribute("class", "hogsvg");
+    svg.innerHTML = `<line x1="40" x2="${W - 20}" y1="${ys(0)}" y2="${ys(0)}" stroke="currentColor" stroke-opacity=".3"/>` +
+      `<text x="4" y="${ys(hi) + 4}" font-size="11" fill="currentColor">${fmt(hi, 0)}</text><text x="4" y="${ys(0) + 4}" font-size="11" fill="currentColor">0</text>` +
+      `<text x="${W - 20}" y="${Ht - 6}" font-size="11" text-anchor="end" fill="currentColor">${fmt(H.x_m[H.x_m.length - 1], 1)} m</text>` +
+      H.times.map((q: any, i: number) => `<polyline fill="none" stroke="${col[i % col.length]}" stroke-width="2" points="${q.hog_mm.map((y: number, k: number) => `${xs(H.x_m[k]).toFixed(1)},${ys(y).toFixed(1)}`).join(" ")}"/>`).join("");
+    const mid = Math.floor(H.x_m.length / 2);
+    hogBox.replaceChildren(svg, h("div", { class: "row wrap small" }, H.times.map((q: any, i: number) => h("span", { style: `color:${col[i % col.length]}` }, `■ ${q.label}`))),
+      table(["Time", "t (days)", "Hog at mid-length (mm)", "Max hog (mm)"], H.times.map((q: any) => [q.label, fmt(q.t, 0), fmt(q.hog_mm[mid], 1), fmt(Math.max(...q.hog_mm), 1)]), "num"));
+  };
+  setTimeout(() => showHog(gs[0]));
+  const drawn = h("div");
+  api.values(id, true).then((v) => { const rows = v.rows.filter((x) => /hog/i.test(x.path) && x.tag === "Direct"); if (rows.length) drawn.replaceChildren(h("h3", {}, "Hog printed on the drawings (for comparison)"),
+    table(["Field", "Value", "Source"], rows.map((x) => [x.path, typeof x.value === "object" ? Object.entries(x.value || {}).map(([k, w]) => `${k}: ${w}`).join("; ") : String(x.value), [x.sheet, x.view].filter(Boolean).join(", ")]))); }).catch(() => {});
   return h("div", {}, provenance(r.meta),
     h("div", { class: "card" }, h("h3", {}, "Summary — maximum utilisation per girder"), table(["Girder", "Governing", "ULS bending", "SLS stress", "Shear / torsion", "Minimum strength fails"],
       sum.map((s) => [s.g, h("td", { class: "left" }, h("b", {}, s.what)), uc(s.uB), uc(s.uS), uc(s.uV), s.minFail ? h("b", { class: "bad" }, String(s.minFail)) : "0"]), "num"),
@@ -398,8 +419,11 @@ async function design(id: string) {
     heat("uB", "ULS bending M*/φMu (sagging) along the girders", (x) => x.sag?.uB),
     heat("uV", "Shear / torsion utilisation along the girders", (x) => x.shear?.u),
     h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, "Station detail"), sel), detail),
+    h("div", { class: "card" }, h("div", { class: "row between" }, h("h3", {}, `Girder hog (camber) — ${gc[gs[0]].hog_method} losses method, + up`), hogSel), hogBox,
+      h("p", { class: "small muted" }, "From the prestress-loss / camber analysis of this run, at each reported time (transfer, erection, deck pour, final). Check the drawing's basis (e.g. self weight only) before comparing; whether a difference is acceptable is the engineer's call."), drawn),
     notes.length ? h("div", { class: "card small" }, h("h3", {}, "Method notes"), h("ul", {}, notes.map((n) => h("li", {}, n)))) : null,
-    h("p", { class: "small muted" }, "Full report: ", dl(api.fileUrl(id, "girder_checks.md"), "girder_checks.md")));
+    h("p", { class: "small muted" }, "Full report: ", dl(api.fileUrl(id, "girder_checks.md"), "girder_checks.md"), " · Exports: ",
+      dl(api.fileUrl(id, "workbook.xlsx"), "Excel workbook"), " · ", dl(api.fileUrl(id, "report.docx"), "Word report"), " · ", dl(api.fileUrl(id, "report.html"), "Calculation report")));
 }
 
 // ---------------- verification ----------------

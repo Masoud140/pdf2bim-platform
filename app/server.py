@@ -30,6 +30,7 @@ STEPS = [
     ("actions", "Loads, combinations and combined actions", lambda d, o, a: ["tools/combined_actions.py", d, "--out", f"{o}/combined_actions.md"] + a, "combined_actions.json"),
     ("design", "Girder design checks (SLS, ULS, shear / torsion)", lambda d, o, a: ["tools/girder_checks.py", d, "--out", f"{o}/girder_checks.md"] + a, "girder_checks.json"),
     ("report", "Calculation report", lambda d, o, a: ["app/report.py", d, o] + a, "report.html"),
+    ("exports", "Excel workbook and Word report", lambda d, o, a: ["app/export_files.py", d, o] + a, "workbook.xlsx"),
 ]
 JOBS = {}          # project id -> thread
 LOCK = threading.Lock()

@@ -103,3 +103,4 @@ table.edit td { padding: 2px 4px; }
 .legend-dot { margin-right: 14px; }
 .sticky-save { position: sticky; bottom: 0; z-index: 4; box-shadow: 0 -4px 16px rgba(0,0,0,.08); }
 .chip.st-done { color: var(--ok-ink); } .chip.st-running { color: var(--warn-ink); } .chip.st-failed { color: var(--bad-ink); }
+.hogsvg{width:100%;max-width:720px;height:auto;color:var(--fg,#333)}

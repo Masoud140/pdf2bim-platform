@@ -82,9 +82,14 @@ def flexure_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=
         raise MissingInput(f"girder {girder}: no open-section station")
     if p.get("mbl") and (doc.get("materials") or {}).get("strand"):
         notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa (MBL: {H['source'].get('mbl')})")
-    return {"girder": girder, "rows": rows, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"],
+    return {"girder": girder, "rows": rows, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r),
             "notes": notes + ["sagging only; hogging capacity, SLS staged stresses, minimum strength, shear / torsion and strand development not yet checked"],
             "provisional": H["provisional"], "standards_status": std.result_status()}
+
+
+def _hog(r):
+    """Girder hog (mm, + up) along the girder at each reported time of the losses analysis (transfer, erection, deck, final)."""
+    return {"x_m": [round(x / 1000, 3) for x in r["X"]], "times": [{"label": q["label"], "t": q["t"], "hog_mm": [round(v, 2) for v in q["hog"]]} for q in r["res"]]}
 
 
 def _option(doc, item, default):
@@ -263,5 +268,5 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
     notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")
     notes.append("shear / torsion: general method at each open station (closed-box geometry) and solid-end stations (rectangular approx, Assumed, ADR-039); governing |V*| row with concurrent T*, M*, N*; strand development in the end zone not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
-    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "useN": useN, "dsh": dsh,
+    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r), "useN": useN, "dsh": dsh,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

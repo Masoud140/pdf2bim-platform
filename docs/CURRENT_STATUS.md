@@ -1,4 +1,6 @@
-# Current status — 2026-11-04
+# Current status — 2026-11-06
+
+**2026-11-06 (P9.4, ADR-059):** in the app, for any bridge: hog (camber) curves per girder, an Excel workbook (bridge data with tags + Needs Review, girder checks, hog, bearings, piles) and a Word summary report from every run (chain step `exports`). P9.1–P9.3 (reader, D-1 proposals, Girder editor) done. Next: live reading test with the owner key (P9.1); SB01 (B12452) values. Open owner decision: P7.9 hosting.
 
 **2026-11-06 (ADR-058):** upload → read → proposed inputs → full chain works without a bridge script (SB02 proof); Girder editor tab. **(ADR-057):** owner approved the Claude API for drawings (P7.2 closed); "Read drawings" in the app with deterministic checks. **2026-11-05 (ADR-056):** divided decks (carriageway rows) for SB01; SB01 survey done. **(ADR-055):** barrier line load from the drawn section (SB02 11.47 kN/m); HLP + 0.5 M1600 in free lanes with accompanying lane factors (B12626 on, SB02 off). **(ADR-054):** haunch concrete as permanent SDL along each girder (owner rule); SB02 adds 0.18 kN/m per girder (crest curve cancels most of the precamber).
 
