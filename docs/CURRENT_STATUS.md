@@ -1,4 +1,6 @@
-# Current status — 2026-11-06
+# Current status — 2026-11-07
+
+**2026-11-07 (ADR-060):** SB01 (B12452) runs end to end on the unchanged chain from its drawings (generic D-1 proposals). Girder M* −6.5 % ULS / −7.4 % SLS against the report, V* +1.8 %, pile N within −15…+10 %; see projects/B12452/model/COMPARISON_REPORT.md. Influence-line cache bounded (actions step peak memory). Next: live reading test with the owner key (P9.1, needs the key); aggregate size / shear inputs for SB01 (shear not checked).
 
 **2026-11-06 (P9.4, ADR-059):** in the app, for any bridge: hog (camber) curves per girder, an Excel workbook (bridge data with tags + Needs Review, girder checks, hog, bearings, piles) and a Word summary report from every run (chain step `exports`). P9.1–P9.3 (reader, D-1 proposals, Girder editor) done. Next: live reading test with the owner key (P9.1); SB01 (B12452) values. Open owner decision: P7.9 hosting.
 

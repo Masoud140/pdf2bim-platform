@@ -621,3 +621,38 @@
 - **Dependency:** `python-docx` added to requirements.txt.
 - **Tests:** `tests/app/test_exports.py` 8/8. The `tests/app` suite all passes (girder_edit 8, reader 13, report 9, server 27).
 - **SB02-GEN check:** hog at transfer is 51 mm against 57 mm printed (DRG-0600, self-weight basis). The later times include the deck stages, so they do not compare directly with the printed table.
+
+## ADR-060 SB01 (B12452) through the unchanged chain; influence-line cache bounded (P8.4b/c, 2026-11-07)
+
+- **Status:** done (agent decision, reversible). Inputs come from the drawings; the missing inputs are the generic proposals D-1 (ADR-058), still PROPOSED.
+- **Control line.** The straight bridge setout line from 0703, with chainage measured from end of superstructure A.
+  - It is carried 10 m past the outermost printed points (Calculated, same line), so the skewed sills stay on the alignment.
+  - The vertical profile is one parabola through printed RL1 at 4 / 16 / 28 m. The other five printed points fit within 1 mm (tested).
+- **Bearings and piles.** Taken from the chained dimensions measured from the MC20 / MC30 SOP along the support lines (0300 / 0301 / 0200).
+  - Self-check: every bearing-to-bearing length + 0.8 equals X1 = 33.441.
+  - The support-line skew is computed against the chord (about 4.9°). The printed 5.433° is measured against MC20.
+- **Deck.** One-way 3 % fall (SURVEY corrected). Two carriageways either side of the median MCI barrier, giving 4 + 5 = 9 lanes, the same as the 9 printed on 0101.
+  - W2 / W3 taken at mid-length.
+  - The median barrier weight comes from the detail B outline. Two of its heights are scaled, not dimensioned.
+- **Haunch rows without a load** are reported as not applied (flagged), never assumed (loads.py).
+- **Memory.** `Influence.line` cache bounded at 1.5 GB (oldest lines dropped; results unchanged).
+  - Before the fix, SB01's actions step peaked at about 6 GB and was killed when another job ran at the same time.
+- **Benchmark** (`projects/B12452/model/COMPARISON_REPORT.md`):
+
+  | Result | Difference from report |
+  |---|---|
+  | Girder M* ULS | −6.5 % |
+  | Girder M* SLS | −7.4 % |
+  | Girder V* | +1.8 % |
+  | φMu | −16.2 % (same query as SB02) |
+  | Bearing N SLS | −8.3 % |
+  | Pile N ULS | +4.8 / +7.6 % |
+  | Pile N SLS | −15.0 / +9.8 % |
+  | Pile M | about −44 % (placeholder soil) |
+
+  The girder gaps are smaller than SB02's, which supports the reading that the report's critical girder is on SB01.
+- **Queries for the owner:**
+  - 01-06 / 01-07 X1 = 33,559 with the same bearing spacing.
+  - B01-08 RL 9.324 is the same as B01-07.
+  - Pile SLS on 0201 vs report 5-5.
+- **Tests:** `tests/model/test_b12452_chain.py` 14/14.

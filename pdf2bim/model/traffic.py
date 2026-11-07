@@ -66,6 +66,9 @@ def _response_matrix(m, R, idx, nd):
     return sp.csr_matrix((vals, (rows, cols)), shape=(len(R), nd))
 
 
+CACHE_BYTES = 1.5e9   # influence-line cache limit (oldest lines dropped first; results unchanged)
+
+
 class Influence:
     """dist = "triangles" (default: barycentric on the Delaunay triangulation of the deck nodes, as the SDL case) or
     "lines" (the dashboard's trW rule: interpolate between the two constant-offset node lines that bracket the offset,
@@ -157,7 +160,10 @@ class Influence:
         key = round(o * 1000)
         if key not in self.cache:
             P = np.column_stack([grid, np.full(len(grid), o)])
-            self.cache[key] = np.asarray(self.weights(P) @ self.IM.T)      # (grid points x responses)
+            v = self.cache[key] = np.asarray(self.weights(P) @ self.IM.T)      # (grid points x responses)
+            self.cache_bytes = getattr(self, "cache_bytes", 0) + v.nbytes
+            while self.cache_bytes > CACHE_BYTES and len(self.cache) > 1:  # wide decks: hundreds of lines would not fit in memory
+                self.cache_bytes -= self.cache.pop(next(iter(self.cache))).nbytes
         return self.cache[key]
 
 
