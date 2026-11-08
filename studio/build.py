@@ -8,7 +8,7 @@ import pathlib
 
 H = pathlib.Path(__file__).resolve().parent
 ENGINES = ["engines/seclib.js", "engines/hog_engine.js", "engines/dsg_engine.js", "engines/dsg_engine2.js", "src/core.js", "src/analysis.js"]
-UI = ["src/ui_base.js", "src/ui_app.js", "src/ui_tabs2.js", "src/ui3d.js", "src/ui_report.js", "src/ui_ai.js", "src/ui_main.js"]
+UI = ["src/ui_base.js", "src/ui_app.js", "src/ui_tabs2.js", "src/ui3d.js", "src/ui_report.js", "src/ui_ai.js", "src/ui_valid.js", "src/ui_main.js"]
 CDN = ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
        "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"]
 

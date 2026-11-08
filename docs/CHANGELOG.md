@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-09 — Bridge Studio: crack control and validation
+- Crack-control class per AS 5100.5 Cl 8.6.2.1 (u / a / b), staged cracked-section tendon stress increment, girder station table, anonymised Validation page (ADR-063).
+
 ## 2026-11-08 — Bridge Studio
 - New `studio/` application: generic case studies, grillage and moving loads, Super-T design checks, 3D model, dependency-tracked results, PDF/Excel/HTML reports, experimental AI assistant and optimiser (ADR-061).
 

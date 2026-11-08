@@ -62,6 +62,14 @@ var ANALYSIS = (function () {
       return { id: cb.id, ls: cb.ls, name: cb.name, max: mx, min: mn, used: used };
     });
   }
+  /* crack-control options for prestressed beams, AS 5100.5:2017 Cl 8.6.2.1, as the original dashboard codes them (values supplied by
+     the owner from the standard; tagged Standard - verify): u = tension <= 0.25 sqrt f'c, deemed controlled; a = Cl 8.6.2.1(a) tension
+     <= 0.5 sqrt f'c with bonded steel <= 200 mm near the tension face; b = Cl 8.6.2.1(b) steel stress increment <= Table 8.6.2.1. */
+  var CC = { u: { k: 0.25, spacing: false, label: 'Cl 8.6.2.1, tension ≤ 0.25√f\'c (deemed controlled)' },
+             a: { k: 0.5, spacing: true, label: 'Cl 8.6.2.1(a), tension ≤ 0.5√f\'c' },
+             b: { k: 0, spacing: true, label: 'Cl 8.6.2.1(b), steel stress increment ≤ Table 8.6.2.1' },
+             tendonInc: 200, table8621: [[12, 330], [16, 280], [20, 240], [24, 210]] };
+
   /* value of one response by key for a case or combination */
   function val(A, key, src, which) {
     var k = A.RS.idx[key]; if (k === undefined) return null;
@@ -112,6 +120,44 @@ var ANALYSIS = (function () {
     return h;
   }
 
+  /* ---------- staged cracked-section SLS (the dashboard's dgLC idea, simplified: no bars, no free strains) ----------
+     Girder alone carries prestress P (eccentricity e) and Mnc elastically; those strains are locked into the composite
+     section (girder strips e0, tendon prestrain = effective stress / Ep); the composite moment Mc is then added with
+     concrete tension cut off. Returns the composite moment at soffit decompression (Mdec, kNm, total = Mnc + Mc) and the
+     increment of stress in the lowest tendon from decompression to Mnc + Mc (dsp, MPa; 0 below decompression). */
+  function crackInc(S0, sc, p, ps, Mnc, Mc) {
+    var S = { conc: S0.conc.map(function (c) { return Object.assign({}, c); }), bars: [], tend: S0.tend.map(function (t) { return Object.assign({}, t, { pre: t.spe / t.E }); }) };
+    var yTop = p.slab, H = sc.H, P = ps.P * 1e3, e = ps.e;
+    S.conc.forEach(function (c) { if (c.y < yTop) { c.e0 = 0; return; } var ys = yTop + H - c.y, sg = -P / sc.A + (Mnc * 1e6 - P * e) * (sc.yb - ys) / sc.I; c.e0 = -sg / c.E; });
+    var r0 = DSG.respSLS(S, 0, 0, false), M0 = r0.M, N0 = r0.N;          /* resultants of the locked state (about the top) */
+    /* own Newton solve for N = N0, M = M0 + dM: DSG.solveSLS stops at 10 % of |M|, too loose for increments */
+    var solve = function (dM, crack) {
+      var e0 = 0, k = 0;
+      for (var it = 0; it < 100; it++) {
+        var r = DSG.respSLS(S, e0, k, crack), R1 = N0 - r.N, R2 = M0 + dM - r.M; if (Math.abs(R1) < 1 && Math.abs(R2) < 1e4) break;
+        var a = DSG.respSLS(S, e0 + 1e-7, k, crack), b = DSG.respSLS(S, e0, k + 1e-10, crack), J11 = (a.N - r.N) / 1e-7, J12 = (b.N - r.N) / 1e-10, J21 = (a.M - r.M) / 1e-7, J22 = (b.M - r.M) / 1e-10, D = J11 * J22 - J12 * J21;
+        if (!isFinite(D) || D === 0) break; e0 += (R1 * J22 - R2 * J12) / D; k += (J11 * R2 - J21 * R1) / D;
+      }
+      return { e0: e0, k: k };
+    };
+    var low = S.tend.reduce(function (b, t) { return !b || t.y > b.y ? t : b; }, null), yb = yTop + H;
+    var soffit = function (pl) { var c = S.conc.reduce(function (b, q) { return !b || q.y > b.y ? q : b; }, null); return c.E * (pl.e0 + pl.k * c.y - c.e0); };
+    var tst = function (pl) { return low.E * (pl.e0 + pl.k * low.y + low.pre); };
+    var s0 = soffit({ e0: 0, k: 0 }), ds = (soffit(solve(1e9, false)) - s0) / 1000;       /* soffit stress per kNm, uncracked (linear) */
+    var Mcd = ds !== 0 ? -s0 / ds : Infinity, Mdec = Mnc + Mcd;
+    if (Mc <= Mcd) return { Mdec: Mdec, dsp: 0 };
+    var pd = solve(Mcd * 1e6, false), pc = solve(Mc * 1e6, true);
+    return { Mdec: Mdec, dsp: Math.max(0, tst(pc) - tst(pd)) };
+  }
+
+  /* largest centre-to-centre spacing of bonded strands in the row nearest the tension face (dgNearFaceSp) */
+  function nearFaceSpacing(p) {
+    var on = p.strands.filter(function (q) { return q.on; }); if (!on.length) return null;
+    var y0 = Math.min.apply(null, on.map(function (q) { return q.y; })), xs = on.filter(function (q) { return q.y <= y0 + 60; }).map(function (q) { return q.x; }).sort(function (a, b) { return a - b; }), m = 0;
+    for (var i = 1; i < xs.length; i++) m = Math.max(m, xs[i] - xs[i - 1]);
+    return { s: m, n: xs.length, y0: y0 };
+  }
+
   /* ---------- Super-T design checks at stations along one girder ---------- */
   function design(p, A, tpl, gi, sk) {
     sk = sk || 0; var sc = A.sc, g = A.g, sp = g.spans[sk], h = hogInputs(p, A, tpl, sk), r = HOG.run(h), Lb = sp.L, n = A.m.n;
@@ -132,9 +178,10 @@ var ANALYSIS = (function () {
       var ps = cg(xg); st.P = ps.P; st.e = ps.e;
       var fp = function (Mnc, Mc) { return { bot: (-ps.P * 1e3 / sc.A - ps.P * 1e3 * ps.e / sc.Zb + Mnc * 1e6 / sc.Zb + Mc * 1e6 / sc.Zcb), top: (-ps.P * 1e3 / sc.A + ps.P * 1e3 * ps.e / sc.Zt - Mnc * 1e6 / sc.Zt - Mc * 1e6 / sc.Zct), deck: -Mc * 1e6 / sc.Zcd }; };
       st.sls = {};
+      var slsRows = [];
       A.CB.filter(function (c) { return c.ls === 'SLS'; }).forEach(function (c) {
         var k = A.RS.idx[key], Mt = c.max[k], Mnc = (c.used.indexOf('G1') >= 0 ? val(A, key, 'G1') * 1 : 0) + (c.used.indexOf('G2') >= 0 ? val(A, key, 'G2') : 0);
-        st.sls[c.id] = fp(Mnc, Mt - Mnc);
+        st.sls[c.id] = fp(Mnc, Mt - Mnc); slsRows.push([c.id, Mnc, Mt - Mnc]);
       });
       /* ULS bending: composite strain compatibility (DSG engine), strands effective by transmission / debonding */
       var S = { conc: DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10)), bars: [], tend: [] };
@@ -144,6 +191,8 @@ var ANALYSIS = (function () {
       var Mu = uls.reduce(function (m_, c) { return Math.max(m_, c.max[kU]); }, 0), Vu = 0, Tu = 0, govM = governing(A, key, 'ULS', 'max'), govV = governing(A, kv, 'ULS'), govT = governing(A, kt, 'ULS');
       uls.forEach(function (c) { Vu = Math.max(Vu, Math.abs(c.max[A.RS.idx[kv]]), Math.abs(c.min[A.RS.idx[kv]])); Tu = Math.max(Tu, Math.abs(c.max[A.RS.idx[kt]]), Math.abs(c.min[A.RS.idx[kt]])); });
       st.Mu = Mu; st.Vu = Vu; st.Tu = Tu; st.govM = govM; st.govV = govV; st.govT = govT;
+      /* crack control, AS 5100.5 Cl 8.6.2.1(b): tendon stress increment above decompression, cracked composite section (staged) */
+      if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; });
       if (S.tend.length) {
         var u = DSG.ulsBend(S, {}); st.phiMu = u.phiMu; st.dn = u.dn; st.kuo = u.kuo; st.phi = u.phi;
         /* minimum strength: Muo >= 1.2 Mcr (staged cracking moment, flexural tensile strength 0.6 sqrt f'c) */
@@ -185,11 +234,22 @@ var ANALYSIS = (function () {
     sls.forEach(function (id) {
       var worstB = st.reduce(function (b, s) { return s.sls[id] && s.sls[id].bot > b.v ? { v: s.sls[id].bot, x: s.x } : b; }, { v: -1e9, x: 0 });
       var worstC = st.reduce(function (b, s) { return s.sls[id] && Math.min(s.sls[id].top, s.sls[id].bot) < b.v ? { v: Math.min(s.sls[id].top, s.sls[id].bot), x: s.x } : b; }, { v: 1e9, x: 0 });
-      var tl = id === 'SLS-P' ? lim.tPerm : lim.tLive;
-      add('Service stresses (SLS)', id + ': soffit tension (x = ' + worstB.x.toFixed(1) + ' m)', Math.max(0, worstB.v), tl > 0 ? tl : null, 'MPa', id, 'limit ' + (tl > 0 ? tl.toFixed(2) + ' MPa' : 'no tension (decompression)'), tl > 0 ? '' : (worstB.v > 0 ? 'tension present where none is allowed' : ''));
-      if (!(tl > 0)) out[out.length - 1].ok = worstB.v <= 0;
+      var cc = CC[lim.cc] || CC.a;
+      if (id === 'SLS-P') {
+        var tl = lim.tPerm;
+        add('Service stresses (SLS)', id + ': soffit tension (x = ' + worstB.x.toFixed(1) + ' m)', Math.max(0, worstB.v), tl > 0 ? tl : null, 'MPa', id, 'permanent effects: limit ' + (tl > 0 ? tl.toFixed(2) + ' MPa' : 'no tension (decompression), an input'), tl > 0 ? '' : (worstB.v > 0 ? 'tension present where none is allowed' : ''));
+        if (!(tl > 0)) out[out.length - 1].ok = worstB.v <= 0;
+      } else if (cc.k) {
+        var tk = cc.k * Math.sqrt(p.fcG);
+        add('Service stresses (SLS)', id + ': soffit tension, uncracked (x = ' + worstB.x.toFixed(1) + ' m)', Math.max(0, worstB.v), tk, 'MPa', id, cc.label + ': ' + cc.k + '√f\'c = ' + tk.toFixed(2) + ' MPa');
+      } else {
+        var wd = st.reduce(function (b, s) { return s.sls[id] && s.sls[id].dsp !== undefined && s.sls[id].dsp > b.v ? { v: s.sls[id].dsp, x: s.x, s: s } : b; }, { v: 0, x: st[Math.round(st.length / 2)].x, s: null });
+        add('Service stresses (SLS)', id + ': tendon stress increment above decompression (x = ' + wd.x.toFixed(1) + ' m)', wd.v, CC.tendonInc, 'MPa', id, cc.label + ': cracked section, staged; Table 8.6.2.1 bonded tendons ' + CC.tendonInc + ' MPa (no girder bars modelled)');
+      }
       add('Service stresses (SLS)', id + ': compression (x = ' + worstC.x.toFixed(1) + ' m)', -worstC.v, lim.cS * p.fcG, 'MPa', id, lim.cS + ' f\'c');
     });
+    var nf = nearFaceSpacing(p), ccx = CC[lim.cc] || CC.a;
+    if (ccx.spacing && nf) add('Service stresses (SLS)', 'Spacing of bonded tendons near the tension face', nf.s, lim.ccSpacing, 'mm', '', ccx.label + ': c/c spacing in the lowest strand row (' + nf.n + ' strands at ' + nf.y0 + ' mm) ≤ ' + lim.ccSpacing + ' mm');
     add('Transfer (losses engine)', 'Compression at transfer', D.transfer.cMax, lim.cT * D.transfer.fcp, 'MPa', 'transfer', lim.cT + ' f\'cp, f\'cp = ' + D.transfer.fcp + ' MPa');
     var tlim = lim.tT * Math.sqrt(D.transfer.fcp); add('Transfer (losses engine)', 'Tension at transfer', Math.max(0, -D.transfer.tMin), tlim, 'MPa', 'transfer', lim.tT + '√f\'cp' + (lim.tT > 0.25 ? ' (bonded reinforcement near the tensile face assumed)' : ''));
     var hogF = D.hog[D.hog.length - 1].mid, hogE = D.hog.filter(function (q) { return q.t <= p.stage.pour; }).pop();
@@ -232,6 +292,6 @@ var ANALYSIS = (function () {
     return { y: y, by: out, curve: curve, worst: worst, util: util, S: S };
   }
 
-  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles };
+  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing };
 })();
 if (typeof module !== 'undefined') module.exports = ANALYSIS;

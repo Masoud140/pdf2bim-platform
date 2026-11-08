@@ -9,7 +9,7 @@ var U = {};
   U.deep = CORE.deep;
 
   /* ---------- application state ---------- */
-  var LIM0 = { tPerm: 0, tLive: 0.25, cS: 0.5, cT: 0.6, tT: 0.5, defl: 600, jackMax: 0.8, dbT: 25, dbR: 40, cover: 45 };
+  var LIM0 = { cc: 'u', exposure: 'B1', ccSpacing: 200, tPerm: 0, tLive: 0.25, cS: 0.5, cT: 0.6, tT: 0.5, defl: 600, jackMax: 0.8, dbT: 25, dbR: 40, cover: 45 };
   var ST = U.ST = { caseId: 'cs01', p: null, cases: null, combos: null, lim: null, tab: 'overview', sel: { gi: 0, sk: 0, src: 'ULS-1', kind: 'M', strand: null },
     R: { analysis: null, combos: null, design: null, piles: null }, running: null, log: '', auto: false, nid: 1, history: [] };
   U.TPL = null;   /* losses-engine template (set by the build) */

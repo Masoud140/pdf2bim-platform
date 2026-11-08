@@ -1,5 +1,7 @@
 # Current status — 2026-11-09
 
+**2026-11-09 (later):** Bridge Studio gained the crack-control class (AS 5100.5 Cl 8.6.2.1 u/a/b, unverified values), the staged cracked-section Δσp, a girder station table and an anonymised Validation page (ADR-063). Studio tests: engines 8/8, core 12/12; browser check all 11 tabs draw. Republished to artifact LPiMgACdEH2Wk3nuZXhkHA.
+
 **2026-11-09:** new owner drawing set (SGWS1-JHSW-2000, four bridges) and report RPT-410001 D. The owner chose SB42 (B12461) first.
 - Stage 1 survey: `projects/B12461/extraction/SURVEY.md`.
 - Stages 2–4 done the same day (ADR-062): one description per span, `projects/B12461-S1` / `-S2`. Both spans run through the chain.

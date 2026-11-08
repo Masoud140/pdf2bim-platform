@@ -12,6 +12,7 @@
     { id: 'analysis', t: 'Structural analysis', i: ic('<path d="M3 12h18"/><path d="M3 12c3 7 15 7 18 0"/>') },
     { id: 'checks', t: 'Design checks', i: ic('<path d="M4 12l5 5L20 6"/>') },
     { id: 'reports', t: 'Reports & export', i: ic('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>') },
+    { id: 'validation', t: 'Validation', i: ic('<path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/>') },
     { sep: 1 },
     { id: 'assistant', t: 'AI assistant', i: ic('<path d="M4 5h16v11H9l-5 4z"/><path d="M9 10h6"/>'), exp: 1 },
     { id: 'optimise', t: 'Optimise & sensitivity', i: ic('<path d="M4 20l6-8 4 4 6-10"/><circle cx="20" cy="6" r="1.5"/>'), exp: 1 }

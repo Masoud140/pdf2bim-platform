@@ -694,3 +694,16 @@
   - The pier blade wall above the pile heads: its weight and stiffness.
   - Pier pile actions. They are completed outside the chain (`compare_report.py`): the sum of the two spans' pile actions plus the wall weight. For traffic this sum is an upper bound.
 - **Alternatives considered.** Generalising the model to N spans touches geometry, builder, loads, traffic, design, substructure, MCT and the app. That is several sessions, with risk to the existing bridges. The per-span route is reversible once that work is done.
+
+## ADR-063 Bridge Studio: crack-control class (AS 5100.5 Cl 8.6.2.1), staged cracked section, validation page (2026-11-09)
+
+- **Status:** done (agent decision, reversible). Owner request: "add these results to the bridge studio … the full Super-T design option … choosing the class for crack control based on AS5100.5 Cl 8.6.2".
+- **Crack control.** New design input (`ST.lim.cc`), ported from the original dashboard (`src/dsg8.js`, values supplied by the owner from AS 5100.5:2017, tagged unverified):
+  - `u`: soffit tension ≤ 0.25√f'c, deemed controlled (default, the previous Studio rule);
+  - `a`: Cl 8.6.2.1(a), tension ≤ 0.5√f'c, plus bonded steel spacing ≤ 200 mm near the tension face;
+  - `b`: Cl 8.6.2.1(b), increment of tendon stress above soffit decompression ≤ 200 MPa (Table 8.6.2.1 for bonded tendons), plus the spacing check.
+  - Exposure classification is recorded; B2/C1/C2/U prompt the permanent-effects tension input (Item (c)(ii)).
+- **Staged cracked section** (`analysis.js crackInc`): girder-alone prestress and Mnc strains locked into the strips, tendon prestrain = effective stress / Ep, composite moment added with concrete tension cut off. Own Newton solve: `DSG.solveSLS` stops at 10 % of |M|, too loose for increments (engine left unchanged). Girder bars are not modelled. Test: decompression on a rectangle equals the transformed-section hand value within 0.5 % (`studio/tests/test_engines.js`).
+- **Consequence.** Mdec (transformed section incl. tendons) sits slightly above the gross-section decompression used for the soffit stress column; stated on the page.
+- **Design page:** station table and charts along the girder (Ms*, Mdec, soffit σ, Δσp, M*, φMu, Mcr, Muo, V*, shear utilisation).
+- **Validation page:** SB01 and SB42 comparison numbers, anonymised (Benchmark A / B; no bridge, drawing, report or client identifiers), imported from the comparison reports, not computed in the browser.

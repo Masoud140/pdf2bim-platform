@@ -1,6 +1,8 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-09 SB42 (B12461) stage 1 survey done (`projects/B12461/extraction/SURVEY.md`).
+**Last updated:** 2026-11-09 Studio ADR-063 done (crack control, station table, Validation page); republished. Next: SB01 haunch from levels (below), then owner queries.
+
+Earlier 2026-11-09: SB42 (B12461) stage 1 survey done (`projects/B12461/extraction/SURVEY.md`).
 - The owner PDF is at /mnt/user-data/uploads/SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf; the report docx is in the session attachments. Neither is committed.
 - Stages 2–4 done (ADR-062): rebuild with `sh projects/B12461/build.sh`.
 - Run the chain per span: steps geometry, sections, model, actions, design, each with `--allow-proposed`, about 5 min a span.
