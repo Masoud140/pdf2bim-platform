@@ -48,8 +48,23 @@ Owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED (255 sheets, design lot SB-151
 
 0702 (F1), 0704 (F4), 0705 (F5 / F6) girder geometry; 0804 / 0805 deck levels and thickness; 0405 / 0406 / 0457 / 0458 pier; 0200 / 0201 / 0251 piles; 1000 / 1100 barriers; 1150 / 1151 screens; bearing setout coordinates (0600 plan only shows positions; table 1 on 0601 gives levels only).
 
-## 5. Plan
+## 5. Plan and progress
 
-- Stage 2: engine support for multi-span decks: span rows, pier support lines, link slab, pier piles. ADR first.
-- Stage 3: `values.py` for SB42 from the sheets above, plus generic missing-input proposals (D-1).
-- Stage 4: chain run; compare girder 42-S1-05 with tables 4-29 / 4-30 and the Pier 1 pile axial loads.
+- Stage 2: one description per span (ADR-062).
+  - `projects/B12461-S1` covers A–P1 and `projects/B12461-S2` covers P1–B. Both are built by `projects/B12461/build.sh` from `extraction/values.py`.
+  - Shared-code fixes: no earth pressure at piers, and surcharge cases per abutment.
+- Stage 3: `values.py` done (2026-11-09).
+  - Control line MCR0 reproduces every printed point to < 1 mm.
+  - Bearing centres:
+    - Abutments A and B: setout tables (Direct).
+    - Pier: 0406 dimensions (Calculated). Cross-check against the girder lengths agrees to 19–29 mm.
+  - Barrier weight: from the 1006 section 1 polygon.
+  - Footpath concrete: from the 0805 RLs.
+- Stage 4: both spans run through the chain; comparison in `projects/B12461/model/COMPARISON_REPORT.md`.
+- Open items:
+  - Aggregate size (shear check).
+  - Screens and utilities SDL.
+  - Abutment B "PIER 4" heading in table 1 (query).
+  - Cross-girder width.
+  - Solid end length.
+  - The recurring φMu gap (also seen on SB01).

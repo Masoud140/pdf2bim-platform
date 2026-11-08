@@ -56,6 +56,8 @@ def horizontal_cases(doc, geo, mdl, std, allow_proposed=False):
     EP, EPT = {}, {}
     geom = {}
     for sid, S_ in mdl["supports"].items():
+        if str(((dsup[sid].get("kind") or {}).get("value")) or "").strip().lower() == "pier":
+            continue                                          # a pier retains no fill (ADR-062)
         bf = rd.rows(dsup[sid].get("backfill"), f"supports[{sid}].backfill")[0]
         used.append({"path": f"supports[{sid}].backfill", "value": bf, "tag": (dsup[sid]["backfill"]["rows"][0]).get("tag")})
         gam, phi, kk = float(bf["gamma"]), math.radians(float(bf["phi"])), str(bf.get("K") or "K0")

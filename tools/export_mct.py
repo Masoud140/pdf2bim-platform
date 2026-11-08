@@ -36,9 +36,9 @@ def main():
     cases = {"SDL": {"type": "D", "loads": sp["loads"]}}
     if "SDLs" in sp["barrier_actions"].values():   # barriers with drawing weights: SDL special case, ULS 1.4 (ADR-048)
         cases["SDLs"] = {"type": "D", "loads": sdl_case(doc, geo, M, allow_proposed=a.allow_proposed, part="SDLs")["loads"]}
-    typ = {"EP": "EP", "EPTA": "EP", "EPTB": "EP", "BRKp": "BRK", "BRKm": "BRK", "CEN": "USER"}
+    typ = {"EP": "EP", "BRKp": "BRK", "BRKm": "BRK", "CEN": "USER"}
     for k, v in horizontal_cases(doc, geo, M, Standards(), allow_proposed=a.allow_proposed)["cases"].items():
-        cases[k] = {"type": typ.get(k, "USER"), "loads": v["loads"]}
+        cases[k] = {"type": "EP" if k.startswith("EPT") else typ.get(k, "USER"), "loads": v["loads"]}
     for k, v in wind_cases(doc, geo, S, M, allow_proposed=a.allow_proposed)["cases"].items():
         cases[k] = {"type": "W", "loads": v["loads"]}
     # temperature / shrinkage as element temperatures (*ELTEMPER uniform, *BSTEMPER gradient band); alpha from the description
@@ -76,7 +76,7 @@ def main():
     if "SDLs" in cases:
         on.add("SDLs")
     rows = generate(Register(Standards(), on), None)["rows"]
-    combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"], eq_cases=True)
+    combos, skipped = midas_combinations(rows, Wsc["with_traffic"], Wsc["sls"], eq_cases=True, ept_cases=sorted(k for k in cases if k.startswith("EPT")))
     txt, rep = write_mct(M, doc, title=title, include_unverified=not a.verified_only, cases=cases, alpha=alpha, combos=combos, eq=eq)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write(txt)

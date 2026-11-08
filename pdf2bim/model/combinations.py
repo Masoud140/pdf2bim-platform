@@ -399,7 +399,8 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     prov.append({"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
                  "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"})
     z = np.zeros(len(RS.names))
-    P["EPT"] = {"max": np.maximum.reduce([hc["EPTA"], hc["EPTB"], z]), "min": np.minimum.reduce([hc["EPTA"], hc["EPTB"], z]), "parts": [hc["EPTA"], hc["EPTB"], z]}
+    ept = [hc[k] for k in sorted(hc) if k.startswith("EPT")]          # one surcharge case per abutment (none behind a pier)
+    P["EPT"] = {"max": np.maximum.reduce(ept + [z]), "min": np.minimum.reduce(ept + [z]), "parts": ept + [z]}
     src["EPT"] = "traffic surcharge behind A or behind B (envelope with zero)"
     P["BRKR"] = {"s": hc["BRKp"]}; src["BRKR"] = "braking toward B (negative factor = toward A)"
     P["CENR"] = {"s": hc["CEN"]}; src["CENR"] = "centrifugal, outward"

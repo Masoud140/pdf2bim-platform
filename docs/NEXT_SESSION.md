@@ -2,7 +2,13 @@
 
 **Last updated:** 2026-11-09 SB42 (B12461) stage 1 survey done (`projects/B12461/extraction/SURVEY.md`).
 - The owner PDF is at /mnt/user-data/uploads/SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf; the report docx is in the session attachments. Neither is committed.
-- Next: stage 2, multi-span model (span rows, pier supports, link slab, pier piles), then values.py.
+- Stages 2–4 done (ADR-062): rebuild with `sh projects/B12461/build.sh`.
+- Run the chain per span: steps geometry, sections, model, actions, design, each with `--allow-proposed`, about 5 min a span.
+- Compare: `python3 projects/B12461/compare_report.py RUN_S1 RUN_S2`.
+- Next: why the platform's φMu is about 16–19 % below the reports (SB01, SB42).
+  - Check deck effective width and f'c, kuo limit and φ, and the concurrent axial N*.
+  - Also check the SLS soffit stress definition against report table 4-30.
+- Do not run `git stash` while a chain runs: it swaps the shared code under the running process (it happened once on 2026-11-09).
 
 Earlier: 2026-11-08 ADR-061: Bridge Studio (`studio/`, README there).
 - Rebuild with `python3 studio/build.py`, then republish `studio/dist/bridge_studio.html` to artifact LPiMgACdEH2Wk3nuZXhkHA (same file path, or pass the URL).

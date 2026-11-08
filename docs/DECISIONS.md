@@ -678,3 +678,19 @@
   - Piles use a rigid cap with an illustrative eccentricity and lever arm, and no soil.
   - AI features are labelled experimental and can only propose changes.
 - **Alternatives considered.** Adding to the Flask app: rejected, because it needs a server and the owner wants a shareable, self-running demonstration.
+
+## ADR-062 Multi-span decks of simply supported girders: one description per span (2026-11-09)
+
+- **Status:** done (agent decision, reversible).
+- **Context.** SB42 (B12461) has two spans of simply supported Super-T girders on elastomeric bearings. The deck is continuous over the pier through a link slab with a debonding layer. The model is single-span: one span between the first and last support lines.
+- **Decision.** Each span is its own description: `projects/B12461-S1` (A–P1) and `projects/B12461-S2` (P1–B), both built from one `values.py`.
+  - Consequences for the engine: no change to the superstructure model.
+  - Two shared-code fixes:
+    - Earth pressure is skipped at a support of kind `pier`.
+    - The traffic-surcharge cases are read from whatever `EPT*` cases exist, not from the hard-coded EPTA / EPTB (`combinations.py`, `mct.py`, `export_mct.py`).
+- **Exact:** girder actions, for simply supported girders.
+- **Not modelled:**
+  - The link slab, and the deck continuity it gives over the pier.
+  - The pier blade wall above the pile heads: its weight and stiffness.
+  - Pier pile actions. They are completed outside the chain (`compare_report.py`): the sum of the two spans' pile actions plus the wall weight. For traffic this sum is an upper bound.
+- **Alternatives considered.** Generalising the model to N spans touches geometry, builder, loads, traffic, design, substructure, MCT and the app. That is several sessions, with risk to the existing bridges. The per-span route is reversible once that work is done.

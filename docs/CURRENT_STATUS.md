@@ -2,8 +2,25 @@
 
 **2026-11-09:** new owner drawing set (SGWS1-JHSW-2000, four bridges) and report RPT-410001 D. The owner chose SB42 (B12461) first.
 - Stage 1 survey: `projects/B12461/extraction/SURVEY.md`.
-- Main gap: the Python model is single-span. SB42 needs two spans, a pier and a link slab.
-- Next: stage 2, multi-span engine support (ADR first).
+- Stages 2–4 done the same day (ADR-062): one description per span, `projects/B12461-S1` / `-S2`. Both spans run through the chain.
+- `projects/B12461/model/COMPARISON_REPORT.md`, girder 42-S1-05:
+
+  | Item | Difference from the report |
+  |---|---|
+  | M* | −1.3 % |
+  | φMu | −19.4 % (recurring, SB01 −16 %) |
+  | SLS soffit | 7.6 vs 3.15 MPa |
+  | V* | +31 % (definition differs) |
+
+- Piles:
+  - Abutments: −20 to −35 % (0201 values cover the whole abutment).
+  - Pier: +47 % (sum of span envelopes; upper bound).
+- Shared-code fixes: no earth pressure at piers, and surcharge cases per abutment (`combinations.py`, `mct.py`, `export_mct.py`).
+- Tests:
+  - `test_b12461_values.py` 4/4.
+  - `test_horizontal` 22/22, `test_combinations` 35/35.
+  - `test_mct` 21/22: the known dashboard-parser failure, unchanged from before.
+- Next: investigate the φMu and SLS-stress gaps (common to SB01 and SB42) before more bridges.
 
 **2026-11-08 (ADR-061):** Bridge Studio built and published as a private claude.ai artifact.
 - What it is: an interactive Super-T analysis and design application on four generic case studies, in `studio/`. The existing apps are unchanged.

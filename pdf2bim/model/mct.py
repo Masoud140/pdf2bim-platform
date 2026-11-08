@@ -113,7 +113,7 @@ COMBO_CASE = {"DLc": "SW", "SDLp": "SDL", "SDLs": "SDLs", "SOo": "EP", "SOc": "E
               "TGP": "TGP", "TGN": "TGN", "SCR": "SCR"}
 
 
-def midas_combinations(rows, r35, rS, eq_cases=False):
+def midas_combinations(rows, r35, rS, eq_cases=False, ept_cases=("EPTA", "EPTB")):
     """Platform combination rows (combinations.generate) -> MIDAS *LOADCOMB entries, for rows whose actions are all exported.
     Wind as primitives(): WX = WL+ x r, WY = WT+ x r (+ WTV+ unscaled with traffic), r = 1 (_U), r35 (_35), rS (_S).
     Envelope actions are EXPANDED, never nested: a row with WZ (vertical wind up / down) or EPT (surcharge behind A / B / none)
@@ -131,7 +131,7 @@ def midas_combinations(rows, r35, rS, eq_cases=False):
             if aid in COMBO_CASE:
                 alts.append([[("ST", COMBO_CASE[aid], f)]])
             elif aid == "EPT":
-                alts.append([[("ST", "EPTA", f)], [("ST", "EPTB", f)], []])
+                alts.append([[("ST", c, f)] for c in ept_cases] + [[]])   # one surcharge per abutment (none behind a pier)
             elif base == "WX" and sx in r:
                 alts.append([[("ST", "WLp", f * r[sx])]])
             elif base == "WY" and sx in r:
