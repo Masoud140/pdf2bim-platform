@@ -20,7 +20,11 @@
   - `test_b12461_values.py` 4/4.
   - `test_horizontal` 22/22, `test_combinations` 35/35.
   - `test_mct` 21/22: the known dashboard-parser failure, unchanged from before.
-- Next: investigate the φMu and SLS-stress gaps (common to SB01 and SB42) before more bridges.
+- φMu / SLS investigation (`projects/B12461/model/PHIMU_SLS_NOTE.md`): the platform φMu agrees with an independent hand check (`tools/phimu_hand_check.py`) within 2–4 %.
+  - The report's 15,726 equals the nominal Mu: query to the owner whether table 4-29 is Mu or φMu. With φ = 0.8 the utilisation would be about 1.2.
+  - SLS: the report's combination and its 3.16 MPa limit are not stated (query).
+  - The haunch is a 0 mm placeholder on SB01 and SB42.
+- Next: read the haunch from the deck RLs against the girder levels, then re-run.
 
 **2026-11-08 (ADR-061):** Bridge Studio built and published as a private claude.ai artifact.
 - What it is: an interactive Super-T analysis and design application on four generic case studies, in `studio/`. The existing apps are unchanged.

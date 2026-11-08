@@ -8,6 +8,7 @@ Runs `runS1b, runS2b` (span 1, span 2; ADR-062). INDICATIVE: missing inputs are 
 | 42-S1-05 ULS M* (kNm) | 15,089 | report table 4-29 | 14,889 | ULS-B-0156 | -1.3 % |  |
 | 42-S1-05 ULS V* (kN) | 1,716 | report table 4-29 | 2,243 | platform: largest |V| along the girder | +30.7 % | report value is the design shear at its critical section; definition not stated |
 | 42-S1-05 φMu at mid-span (kNm) | 15,726 | report table 4-29 | 12,679 | t = 0.50, φ = 0.791, kuo 0.091 | -19.4 % | platform Muo (nominal, minimum-strength check) = 15,677 |
+| 42-S1-05 φMu, independent hand check (kNm) | 15,726 | report table 4-29 | 12,439 | AS 5100.5 Cl 8.1.8 approximate method, b 2.4 m, no haunch | -20.9 % | nominal Mu 15,549 kNm, phi 0.80 (tools/phimu_hand_check.py): see model/PHIMU_SLS_NOTE.md |
 | 42-S1-05 SLS soffit stress at Ms* (MPa) | 3.15 | report table 4-30 (tension; limit 3.16) | 7.61 | SLS-S-0073, Ms* 6,212 kNm | +141.7 % | platform: uncracked composite stress, tension + |
 | Pile SLS N max, abutment A (kN) | 4,686 | 0201 table 1 (design max for the abutment) | 3,056 | A-04 | -34.8 % | 0201 value covers the whole abutment (SB41 + SB42 piles) |
 | Pile ULS N max, abutment A (kN) | 6,606 | 0201 table 1 | 4,766 | A-04 | -27.9 % |  |

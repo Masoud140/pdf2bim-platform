@@ -5,9 +5,9 @@
 - Stages 2–4 done (ADR-062): rebuild with `sh projects/B12461/build.sh`.
 - Run the chain per span: steps geometry, sections, model, actions, design, each with `--allow-proposed`, about 5 min a span.
 - Compare: `python3 projects/B12461/compare_report.py RUN_S1 RUN_S2`.
-- Next: why the platform's φMu is about 16–19 % below the reports (SB01, SB42).
-  - Check deck effective width and f'c, kuo limit and φ, and the concurrent axial N*.
-  - Also check the SLS soffit stress definition against report table 4-30.
+- Done: the φMu gap is explained in `projects/B12461/model/PHIMU_SLS_NOTE.md`. The platform matches a hand check; the report value equals the nominal Mu.
+  - Two owner queries are open: whether report table 4-29 is Mu or φMu, and the SLS combination and limit.
+- Next: the haunch per girder from 0805 deck RLs less girder top levels (bearing RL + 1515 + hog at the deck pour), on SB42 and then SB01.
 - Do not run `git stash` while a chain runs: it swaps the shared code under the running process (it happened once on 2026-11-09).
 
 Earlier: 2026-11-08 ADR-061: Bridge Studio (`studio/`, README there).

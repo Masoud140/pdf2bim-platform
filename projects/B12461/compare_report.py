@@ -31,6 +31,11 @@ gr = GC[0]["42-S1-05"]["rows"]
 mid = min((r for r in gr if r.get("conf") == "open" and (r.get("sag") or {}).get("phiMu")), key=lambda r: abs(r["t"] - 0.5))
 add("42-S1-05 φMu at mid-span (kNm)", 15726, "report table 4-29", mid["sag"]["phiMu"], f"t = {mid['t']:.2f}, φ = {mid['sag']['phi']:.3f}, kuo {mid['sag']['kuo']:.3f}",
     f"platform Muo (nominal, minimum-strength check) = {mid['sag']['Muo']:,.0f}")
+sys.path.insert(0, os.path.join(H, "..", "..", "tools"))
+from phimu_hand_check import check as hand                    # noqa: E402
+hc = hand(os.path.join(H, "..", "B12461-S1", "B12461-S1.bridge.0.2.json"), 2.4, [0.0])[0]
+add("42-S1-05 φMu, independent hand check (kNm)", 15726, "report table 4-29", hc["phiMu"], "AS 5100.5 Cl 8.1.8 approximate method, b 2.4 m, no haunch",
+    f"nominal Mu {hc['Mu']:,.0f} kNm, phi {hc['phi']:.2f} (tools/phimu_hand_check.py): see model/PHIMU_SLS_NOTE.md")
 add("42-S1-05 SLS soffit stress at Ms* (MPa)", 3.15, "report table 4-30 (tension; limit 3.16)", mid["sag"]["soffit_sls"], f"{mid['sag']['row_sls']}, Ms* {mid['sag']['Ms']:,.0f} kNm",
     "platform: uncracked composite stress, tension +")
 hg = GC[0]["42-S1-05"].get("hog") or {}

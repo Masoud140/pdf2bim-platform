@@ -32,3 +32,11 @@ def test_span_values_files():
         assert sum(1 for p in paths if p.endswith(".line_offset_A")) == 5
         sups = [v["cells"]["support"] for v in d["values"] if v["path"].startswith("alignment.support_lines.rows[")]
         assert sups == (["A", "P1"] if s == 1 else ["P1", "B"])
+
+
+def test_hand_check_flexure_sb42():
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    from phimu_hand_check import check
+    r = check(os.path.join(ROOT, "projects", "B12461-S1", "B12461-S1.bridge.0.2.json"), 2.4, [0.0])[0]
+    assert r["n"] == 38 and r["block_in_slab"]
+    assert 15000 < r["Mu"] < 16000 and abs(r["phi"] - 0.8) < 1e-9     # 5700 mm2 x ~1800 MPa x ~1.55 m lever arm
