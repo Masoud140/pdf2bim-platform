@@ -9,3 +9,6 @@ __pycache__/
 tests/xlout/
 app_data/
 .venv/
+
+# Bridge Studio build output (rebuild: python3 studio/build.py)
+studio/dist/

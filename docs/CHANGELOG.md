@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-08 — Bridge Studio
+- New `studio/` application: generic case studies, grillage and moving loads, Super-T design checks, 3D model, dependency-tracked results, PDF/Excel/HTML reports, experimental AI assistant and optimiser (ADR-061).
+
 ## 2026-10-26 — MIDAS import feedback
 - `*SPRING` field order corrected from the engineer's MIDAS Civil import of BR13A revision 44 (1184 errors, all in the spring block: 6 YES/NO + 2 real-number errors per line). Lines now carry six YES/NO flags before the stiffnesses and DAMPING + six coefficients before GROUP. No errors were reported for `*ELASTICLINK`, nodes, elements, materials, sections, supports or self weight. Springs stay UNVERIFIED until a clean re-import.
 

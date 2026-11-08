@@ -656,3 +656,25 @@
   - B01-08 RL 9.324 is the same as B01-07.
   - Pile SLS on 0201 vs report 5-5.
 - **Tests:** `tests/model/test_b12452_chain.py` 14/14.
+
+## ADR-061 Bridge Studio: client-side application on generic case studies (2026-11-08)
+
+- **Status:** done (agent decision, reversible). The owner requested it on 2026-11-08 (an interactive engineering application with no project identifiers).
+- **Where it lives.** `studio/` is separate from the Flask app and the dashboard, which are unchanged. It is built to a single HTML page and published as a claude.ai artifact.
+- **Engines are reused, not rewritten.**
+  - DSG, DSG2, HOG and SECLIB are verbatim extractions from the original dashboard. Hog matches it to 1e-14.
+  - The moving-load code is a port of `lane_effect` / `combine_lanes`. It matches the Python engine to 1e-13.
+  - The new grillage solver uses 3 DOF per node with Cholesky, and is checked against beam theory, equilibrium and Maxwell reciprocity.
+- **Dependency system.**
+  - Every result stores a stamp of the input groups and upstream results it used.
+  - Any change marks dependants "out of date" and greys their views. Exports leave stale sections out.
+  - Order: analysis → combinations → design → piles.
+- **Generic data.**
+  - Four case studies with illustrative inputs. No bridge names, clients or project numbers (the output is scanned for them).
+  - Losses-engine template values are listed on the page as illustrative.
+- **Limits.**
+  - Code coefficients are unverified.
+  - Temperature and wind are not modelled.
+  - Piles use a rigid cap with an illustrative eccentricity and lever arm, and no soil.
+  - AI features are labelled experimental and can only propose changes.
+- **Alternatives considered.** Adding to the Flask app: rejected, because it needs a server and the owner wants a shareable, self-running demonstration.

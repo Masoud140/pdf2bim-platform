@@ -1,4 +1,11 @@
-# Current status — 2026-11-07
+# Current status — 2026-11-08
+
+**2026-11-08 (ADR-061):** Bridge Studio built and published as a private claude.ai artifact.
+- What it is: an interactive Super-T analysis and design application on four generic case studies, in `studio/`. The existing apps are unchanged.
+- What it covers: 8 pages plus the AI assistant and optimisation, the dependency/stale system, the three.js model, and PDF/Excel/HTML exports.
+- Tests: engine tests 5/5 and core tests 12/12. The browser check passed on all tabs and all four cases, with exports working.
+- Case 02 (24 m end spans) and Case 03 report NG checks. This is real output from the illustrative strand pattern, and it is left visible.
+- Next: the owner to try the AI features in claude.ai, then live reading test (P9.1).
 
 **2026-11-07 (ADR-060):** SB01 (B12452) runs end to end on the unchanged chain from its drawings (generic D-1 proposals). Girder M* −6.5 % ULS / −7.4 % SLS against the report, V* +1.8 %, pile N within −15…+10 %; see projects/B12452/model/COMPARISON_REPORT.md. Influence-line cache bounded (actions step peak memory). Next: live reading test with the owner key (P9.1, needs the key); aggregate size / shear inputs for SB01 (shear not checked).
 

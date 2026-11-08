@@ -1,5 +1,5 @@
 /* Prestress losses, camber / hog and transfer stresses along a pretensioned girder (AS 5100.5:2017).
-   Extracted verbatim from the BR13A dashboard (base v15, lines 3794-3798, 3887, 3930-4054); verified in tests/test_engines.js. */
+   Extracted verbatim from the platform's original grillage dashboard (base v15); verified in tests/test_engines.js. */
 var HOG=(function(){
 const T312=[[20,22,24000],[25,28,26700],[32,35,30100],[40,43,32800],[50,53,34800],[65,68,37400],[80,82,39600],[100,99,42200]];
 const t312=fc=>{const T=T312;if(fc<=T[0][0])return{fcmi:T[0][1],E:T[0][2]};for(let i=1;i<T.length;i++)if(fc<=T[i][0]){const r=(fc-T[i-1][0])/(T[i][0]-T[i-1][0]);return{fcmi:T[i-1][1]+r*(T[i][1]-T[i-1][1]),E:T[i-1][2]+r*(T[i][2]-T[i-1][2])}}return{fcmi:T[T.length-1][1],E:T[T.length-1][2]}};

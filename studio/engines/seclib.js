@@ -1,4 +1,4 @@
-/* Super-T section outlines and the standard strand grid, extracted from the BR13A dashboard (base v15, lines 3799-3804, 3815-3831).
+/* Super-T section outlines and the standard strand grid, extracted from the platform's original grillage dashboard (base v15).
    Change from the source: the top-flange width is an argument (fw, mm) instead of a page field. */
 var SECLIB=(function(){
 var SEC={

@@ -1,4 +1,4 @@
-// Engines extracted into the studio give the same results as the BR13A dashboard they came from.
+// Engines extracted into the studio give the same results as the original grillage dashboard they came from.
 const path = require('path'), fs = require('fs');
 const H = require('../engines/hog_engine.js'), L = require('../engines/seclib.js'), D = require('../engines/dsg_engine.js');
 let pass = 0, fail = 0; const t = (n, ok, info) => { ok ? pass++ : fail++; console.log((ok ? 'PASS ' : 'FAIL ') + n + (info ? '  [' + info + ']' : '')); };
