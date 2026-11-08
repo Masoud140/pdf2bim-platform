@@ -1,6 +1,10 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-08 ADR-061: Bridge Studio (`studio/`, README there).
+**Last updated:** 2026-11-09 SB42 (B12461) stage 1 survey done (`projects/B12461/extraction/SURVEY.md`).
+- The owner PDF is at /mnt/user-data/uploads/SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf; the report docx is in the session attachments. Neither is committed.
+- Next: stage 2, multi-span model (span rows, pier supports, link slab, pier piles), then values.py.
+
+Earlier: 2026-11-08 ADR-061: Bridge Studio (`studio/`, README there).
 - Rebuild with `python3 studio/build.py`, then republish `studio/dist/bridge_studio.html` to artifact LPiMgACdEH2Wk3nuZXhkHA (same file path, or pass the URL).
 - Not verified here: the `sample` (AI) and `downloads` capabilities inside claude.ai. The browser check used a local fallback download.
 - Next: owner feedback on the Studio, then P9.1 live reading test.

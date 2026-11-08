@@ -1,4 +1,9 @@
-# Current status — 2026-11-08
+# Current status — 2026-11-09
+
+**2026-11-09:** new owner drawing set (SGWS1-JHSW-2000, four bridges) and report RPT-410001 D. The owner chose SB42 (B12461) first.
+- Stage 1 survey: `projects/B12461/extraction/SURVEY.md`.
+- Main gap: the Python model is single-span. SB42 needs two spans, a pier and a link slab.
+- Next: stage 2, multi-span engine support (ADR first).
 
 **2026-11-08 (ADR-061):** Bridge Studio built and published as a private claude.ai artifact.
 - What it is: an interactive Super-T analysis and design application on four generic case studies, in `studio/`. The existing apps are unchanged.
