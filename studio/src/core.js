@@ -15,30 +15,29 @@ var CORE = (function () {
 
   /* ---------- generic case studies (illustrative data, not from any project) ---------- */
   var BASE = {
-    spans: [32.0], skew: 10, ng: 6, spacing: 2.4, girder: '1500 Super-T', slab: 200, overhang: 1.2, gap: 20,
+    spans: [28.0], skew: 10, ng: 6, spacing: 2.2, girder: '1500 Super-T', slab: 200, overhang: 1.2, gap: 20,
     barrierW: 0.5, barrierLoad: 10.0, surf: 75, gSurf: 22, gConc: 25, gGirder: 26, utilities: 1.0,
     endDist: 0.4, cgW: 0.8, kv: 1.0e6,
-    nEl: 12, nTrans: 0, constLL: 1.5,
-    fcG: 50, fcT: 40, fcD: 40, db: 15.2, jack: 0.75,
+    nEl: 12, nTrans: 0, constLL: 1.5, sweep: 0.2,
+    fcG: 50, fcT: 45, fcD: 40, db: 15.2, jack: 0.75,
     stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 },
-    fitD: 12, fitLegs: 2, fitS: 150, dg: 20, bars: 'N16 @ 150 top and bottom of deck',
+    fitD: 16, fitLegs: 2, fitS: 125, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
     vehicles: { M1600: true, S1600: true }, dlaUDL: false,
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3 },
     strands: null
   };
   function strandDefault(sec) {
     var g = SECLIB.grid(sec);
-    g.forEach(function (s) { s.on = s.y <= 160 || s.y > 1000; s.d = 0; s.d2 = 0; });
-    g.filter(function (s) { return s.y === 160 && Math.abs(s.x) <= 75; }).forEach(function (s) { s.d = 3000; s.d2 = 3000; });
-    g.filter(function (s) { return s.y === 110 && Math.abs(s.x) <= 75; }).forEach(function (s) { s.d = 1500; s.d2 = 1500; });
+    g.forEach(function (s) { s.on = true; s.d = 0; s.d2 = 0; });   /* illustrative: every standard location used, 10 strands debonded */
+    [[60, 25, 3000], [110, 75, 2000], [160, 75, 4000]].forEach(function (r) { g.filter(function (s) { return s.y === r[0] && Math.abs(s.x) <= r[1]; }).forEach(function (s) { s.d = r[2]; s.d2 = r[2]; }); });
     return g;
   }
   function mk(o) { var p = Object.assign(deep(BASE), o); p.strands = p.strands || strandDefault(p.girder); return p; }
   var CASES = {
-    cs01: { name: 'Case Study 01', title: 'Super-T girder bridge', focus: 'Single simply supported span, skewed, six 1500 Super-T girders.', p: mk({}) },
-    cs02: { name: 'Case Study 02', title: 'Multi-span bridge', focus: 'Three simply supported spans on two piers, five 1500 Super-T girders per span.', p: mk({ spans: [27, 32, 27], skew: 0, ng: 5, spacing: 2.6 }) },
-    cs03: { name: 'Case Study 03', title: 'Bridge deck and load distribution', focus: 'Wide skewed deck with eight 1200 Super-T girders; how traffic shares between girders.', p: mk({ spans: [24], skew: 20, ng: 8, spacing: 2.2, girder: '1200 Super-T', overhang: 1.1 }) },
-    cs04: { name: 'Case Study 04', title: 'Substructure and pile design', focus: 'Abutment bearing reactions taken into a single row of bored piles.', p: mk({ spans: [30], skew: 0, ng: 5, spacing: 2.5, piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 450, ecc: 0.3 } }) }
+    cs01: { name: 'Case Study 01', title: 'Super-T girder bridge', focus: 'Single simply supported 28 m span, 10° skew, six 1500 Super-T girders.', p: mk({}) },
+    cs02: { name: 'Case Study 02', title: 'Multi-span bridge', focus: 'Three simply supported spans (24 + 28 + 24 m) on two piers, six 1500 Super-T girders per span.', p: mk({ spans: [24, 28, 24], skew: 0, ng: 6, spacing: 2.2 }) },
+    cs03: { name: 'Case Study 03', title: 'Bridge deck and load distribution', focus: 'Wide 22 m span at 20° skew with eight 1200 Super-T girders: how traffic shares between girders.', p: mk({ spans: [22], skew: 20, ng: 8, spacing: 2.2, girder: '1200 Super-T', overhang: 1.1 }) },
+    cs04: { name: 'Case Study 04', title: 'Substructure and pile design', focus: 'A 28 m span; abutment bearing reactions taken into a single row of six bored piles.', p: mk({ spans: [28], skew: 0, ng: 6, spacing: 2.2, piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 450, ecc: 0.3 } }) }
   };
 
   /* ---------- dependency graph: which results depend on which input groups ---------- */
@@ -55,7 +54,7 @@ var CORE = (function () {
   var FIELD = { spans: 'geometry', skew: 'geometry', ng: 'geometry', spacing: 'geometry', overhang: 'geometry', barrierW: 'geometry', endDist: 'geometry', cgW: 'geometry', kv: 'geometry',
     girder: 'section', slab: 'section', gap: 'section',
     fcG: 'material', fcT: 'material', fcD: 'material', gConc: 'loads', gGirder: 'loads',
-    nEl: 'mesh', nTrans: 'mesh',
+    nEl: 'mesh', nTrans: 'mesh', Jf: 'mesh', sweep: 'loads',
     barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads',
     combos: 'combos',
     strands: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
@@ -108,7 +107,7 @@ var CORE = (function () {
       }
       var dL = sp.L / n, Gg = sc.Eg / 2.4, Gd = sc.Ed / 2.4;
       for (var i2 = 0; i2 < g.ng; i2++) for (var j2 = 0; j2 < n; j2++)
-        E.push({ id: E.length, type: 'girder', k: k, i: i2, j: j2, n1: id[k + ':' + i2 + ':' + j2], n2: id[k + ':' + i2 + ':' + (j2 + 1)], EI: sc.Eg * 1e3 * sc.Ic * 1e-12, GJ: Gg * 1e3 * sc.J * 1e-12, label: 'Super-T + deck (composite)' });
+        E.push({ id: E.length, type: 'girder', k: k, i: i2, j: j2, n1: id[k + ':' + i2 + ':' + j2], n2: id[k + ':' + i2 + ':' + (j2 + 1)], EI: sc.Eg * 1e3 * sc.Ic * 1e-12, GJ: (p.Jf || 1) * Gg * 1e3 * sc.J * 1e-12, label: 'Super-T + deck (composite)' });
       for (var j3 = 0; j3 <= n; j3++) for (var i3 = 0; i3 < g.ng - 1; i3++) {
         var end = j3 === 0 || j3 === n, b = end ? dL / 2 : dL;
         var EI = end ? sc.Ed * 1e3 * sc.cgI * 1e-12 : sc.Ed * 1e3 * sc.slabI1 * 1e-9 * b, GJ = end ? Gd * 1e3 * sc.cgJ * 1e-12 : Gd * 1e3 * sc.slabJ1 * 1e-9 * b;
@@ -175,13 +174,13 @@ var CORE = (function () {
   function responses(m) {
     var R = [], idx = {};
     m.els.filter(function (e) { return e.type === 'girder'; }).forEach(function (e) {
-      R.push({ key: 'M:' + e.k + ':' + e.i + ':' + e.j + ':a', kind: 'Mel', e: e.id, end: 1 });
-      R.push({ key: 'M:' + e.k + ':' + e.i + ':' + e.j + ':b', kind: 'Mel', e: e.id, end: 2 });
-      R.push({ key: 'V:' + e.k + ':' + e.i + ':' + e.j, kind: 'V', e: e.id });
-      R.push({ key: 'T:' + e.k + ':' + e.i + ':' + e.j, kind: 'T', e: e.id });
+      R.push({ key: 'M:' + e.k + ':' + e.i + ':' + e.j + ':a', kind: 'Mel', e: e.id, end: 1, k: e.k });
+      R.push({ key: 'M:' + e.k + ':' + e.i + ':' + e.j + ':b', kind: 'Mel', e: e.id, end: 2, k: e.k });
+      R.push({ key: 'V:' + e.k + ':' + e.i + ':' + e.j, kind: 'V', e: e.id, k: e.k });
+      R.push({ key: 'T:' + e.k + ':' + e.i + ':' + e.j, kind: 'T', e: e.id, k: e.k });
     });
-    m.nodes.forEach(function (n) { R.push({ key: 'w:' + n.id, kind: 'w', n: n.id }); });
-    m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q }); });
+    m.nodes.forEach(function (n) { R.push({ key: 'w:' + n.id, kind: 'w', n: n.id, k: n.k }); });
+    m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q, k: s.k }); });
     R.forEach(function (r, i) { idx[r.key] = i; });
     return { R: R, idx: idx };
   }
@@ -201,13 +200,14 @@ var CORE = (function () {
     return IM;   /* IM[node][response] */
   }
   /* bilinear weights of a point load at plan (X, Y) onto the grillage nodes */
-  function weights(m, g, X, Y) {
+  function weights(m, g, X, Y, only) {
     var ys = g.y, ng = g.ng, i0, wi;
     if (Y <= ys[0]) { i0 = 0; wi = 0; } else if (Y >= ys[ng - 1]) { i0 = ng - 2; wi = 1; } else { i0 = Math.min(ng - 2, Math.floor((Y - ys[0]) / g.s)); wi = (Y - ys[i0]) / g.s; }
     var out = [];
     [[i0, 1 - wi], [i0 + 1, wi]].forEach(function (q) {
       if (q[1] <= 0) return; var i = q[0];
       g.spans.forEach(function (sp, k) {
+        if (only !== undefined && k !== only) return;
         var f = (X - sp.x0 - ys[i] * g.t) / sp.L; if (f < -1e-9 || f > 1 + 1e-9) return;
         f = Math.max(0, Math.min(1, f)); var u = f * m.n, j = Math.min(m.n - 1, Math.floor(u)), r = u - j;
         out.push([m.id[k + ':' + i + ':' + j], q[1] * (1 - r)]); out.push([m.id[k + ':' + i + ':' + (j + 1)], q[1] * r]);
@@ -215,41 +215,40 @@ var CORE = (function () {
     });
     return out;
   }
-  function Inf(m, g, IM) {
-    this.m = m; this.g = g; this.IM = IM; this.nr = IM[0].length; this.cache = {};
+  function Inf(m, g, IM, cols, span) {   /* cols: response indices kept (one span), span: loads on that span only */
+    this.m = m; this.g = g; this.IM = IM; this.cols = cols || null; this.span = span; this.nr = cols ? cols.length : IM[0].length; this.cache = {};
   }
   Inf.prototype.line = function (o, grid) {   /* (grid points x responses): effect of 1 kN at (grid[x], o) */
     var key = Math.round(o * 1000); if (this.cache[key]) return this.cache[key];
     var nr = this.nr, out = [], self = this;
-    grid.forEach(function (X) { var row = new Float64Array(nr); weights(self.m, self.g, X, o).forEach(function (w) { var v = self.IM[w[0]]; for (var r = 0; r < nr; r++) row[r] += w[1] * v[r]; }); out.push(row); });
+    var cols = this.cols;
+    grid.forEach(function (X) { var row = new Float64Array(nr); weights(self.m, self.g, X, o, self.span).forEach(function (w) { var v = self.IM[w[0]]; if (cols) for (var r = 0; r < nr; r++) row[r] += w[1] * v[cols[r]]; else for (var r2 = 0; r2 < nr; r2++) row[r2] += w[1] * v[r2]; }); out.push(row); });
     return (this.cache[key] = out);
   };
   /* ---- port of pdf2bim/model/traffic.py lane_effect (tested in the platform) ---- */
-  function shiftUp(A, s, ln, nr) { var o = []; for (var i = 0; i < ln; i++) o.push(i + s < ln ? A[i + s] : new Float64Array(nr)); return o; }
-  function addM(A, B) { return A.map(function (r, i) { var o = new Float64Array(r.length); for (var k = 0; k < r.length; k++) o[k] = r[k] + B[i][k]; return o; }); }
-  function laneEffect(inf, grid, dc, veh, a, W, dlaUDL) {
-    var nr = inf.nr, N = grid.length, ns = 8, pos = new Float64Array(nr), neg = new Float64Array(nr);
-    var fu = (dlaUDL ? 1 + veh.dla : 1) * veh.udl_kN_per_m * dc / ns;
-    var F = []; for (var i = 0; i < N; i++) F.push(new Float64Array(nr));
-    for (var s = 0; s < ns; s++) { var Ls = inf.line(a + (s + 0.5) * W / ns, grid); for (var i2 = 0; i2 < N; i2++) for (var r = 0; r < nr; r++) F[i2][r] += Ls[i2][r] * fu; }
-    for (var i3 = 0; i3 < N; i3++) for (var r2 = 0; r2 < nr; r2++) { var v = F[i3][r2]; if (v > 0) pos[r2] += v; else neg[r2] += v; }
+  function laneEffect(inf, grid, dc, veh, a, W, dlaUDL) {   /* flat-array port of lane_effect: same arithmetic as the Python engine */
+    var nr = inf.nr, N = grid.length, ns = 8, pos = new Float64Array(nr), neg = new Float64Array(nr), i, r, s;
+    var fu = (dlaUDL ? 1 + veh.dla : 1) * veh.udl_kN_per_m * dc / ns, F = new Float64Array(N * nr);
+    for (s = 0; s < ns; s++) { var Ls = inf.line(a + (s + 0.5) * W / ns, grid); for (i = 0; i < N; i++) { var row = Ls[i], o = i * nr; for (r = 0; r < nr; r++) F[o + r] += row[r] * fu; } }
+    for (i = 0; i < N * nr; i++) { var v = F[i]; if (v > 0) pos[i % nr] += v; else neg[i % nr] += v; }
     var sa = Math.round(veh.axle_spacing_m / dc), s12 = Math.round((2 * veh.axle_spacing_m + veh.gap_12_m) / dc), s34 = Math.round((2 * veh.axle_spacing_m + veh.gap_34_m) / dc), sg = Math.round((2 * veh.axle_spacing_m + veh.gap_23_min_m) / dc);
-    var lat = []; for (var q = 0; q < 9; q++) lat.push(Math.round((-0.4 + 0.1 * q) * 1e10) / 1e10);
     var PAD = s12 + s34 + sg + 2 * sa + 4, ln = N + 2 * PAD, oc = a + W / 2, amp = veh.wheel_kN * (1 + veh.dla), vp = new Float64Array(nr), vn = new Float64Array(nr);
-    lat.forEach(function (dv) {
-      var Lw = inf.line(oc + dv - veh.track_m / 2, grid), Rw = inf.line(oc + dv + veh.track_m / 2, grid), A = [];
-      for (var i = 0; i < ln; i++) A.push(new Float64Array(nr));
-      for (var i4 = 0; i4 < N; i4++) for (var r3 = 0; r3 < nr; r3++) A[PAD + i4][r3] = amp * (Lw[i4][r3] + Rw[i4][r3]);
-      var Gg = addM(addM(A, shiftUp(A, sa, ln, nr)), shiftUp(A, 2 * sa, ln, nr));
+    var A = new Float64Array(ln * nr), G = new Float64Array(ln * nr), P1 = new Float64Array(ln * nr), P2 = new Float64Array(ln * nr), SMx = new Float64Array((ln + 1) * nr), SMn = new Float64Array((ln + 1) * nr);
+    var sh = function (X, k, q) { return k + q < ln ? X[(k + q) * nr + r] : 0; };
+    for (var q = 0; q < 9; q++) {
+      var dv = Math.round((-0.4 + 0.1 * q) * 1e10) / 1e10, Lw = inf.line(oc + dv - veh.track_m / 2, grid), Rw = inf.line(oc + dv + veh.track_m / 2, grid);
+      A.fill(0); for (i = 0; i < N; i++) { var o2 = (PAD + i) * nr, lw = Lw[i], rw = Rw[i]; for (r = 0; r < nr; r++) A[o2 + r] = amp * (lw[r] + rw[r]); }
+      for (i = 0; i < ln; i++) for (r = 0; r < nr; r++) G[i * nr + r] = A[i * nr + r] + sh(A, i, sa) + sh(A, i, 2 * sa);
       [[s12, s34], [s34, s12]].forEach(function (ff) {
-        var f1 = ff[0], f2 = ff[1], need = f1 + sg, P1 = addM(Gg, shiftUp(Gg, f1, ln, nr)), P2 = addM(Gg, shiftUp(Gg, f2, ln, nr));
-        var SMx = [], SMn = []; for (var i5 = 0; i5 <= ln; i5++) { SMx.push(new Float64Array(nr)); SMn.push(new Float64Array(nr)); }
-        for (var i6 = ln - 1; i6 >= 0; i6--) for (var r4 = 0; r4 < nr; r4++) { var x = P2[i6][r4]; SMx[i6][r4] = i6 === ln - 1 ? x : Math.max(x, SMx[i6 + 1][r4]); SMn[i6][r4] = i6 === ln - 1 ? x : Math.min(x, SMn[i6 + 1][r4]); }
-        for (var i7 = 0; i7 < ln; i7++) for (var r5 = 0; r5 < nr; r5++) { SMx[i7][r5] = Math.max(SMx[i7][r5], 0); SMn[i7][r5] = Math.min(SMn[i7][r5], 0); }
-        for (var i8 = 0; i8 < ln; i8++) { var j = i8 + need; for (var r6 = 0; r6 < nr; r6++) { var tx = P1[i8][r6] + (j < ln ? SMx[j][r6] : 0), tn = P1[i8][r6] + (j < ln ? SMn[j][r6] : 0); if (tx > vp[r6]) vp[r6] = tx; if (tn < vn[r6]) vn[r6] = tn; } }
+        var f1 = ff[0], f2 = ff[1], need = f1 + sg, k, rr;
+        for (k = 0; k < ln; k++) for (rr = 0; rr < nr; rr++) { var b = k * nr + rr; P1[b] = G[b] + (k + f1 < ln ? G[(k + f1) * nr + rr] : 0); P2[b] = G[b] + (k + f2 < ln ? G[(k + f2) * nr + rr] : 0); }
+        for (rr = 0; rr < nr; rr++) { SMx[ln * nr + rr] = 0; SMn[ln * nr + rr] = 0; }
+        for (k = ln - 1; k >= 0; k--) for (rr = 0; rr < nr; rr++) { var x = P2[k * nr + rr]; SMx[k * nr + rr] = k === ln - 1 ? x : Math.max(x, SMx[(k + 1) * nr + rr]); SMn[k * nr + rr] = k === ln - 1 ? x : Math.min(x, SMn[(k + 1) * nr + rr]); }
+        for (k = 0; k < ln; k++) for (rr = 0; rr < nr; rr++) { var c = k * nr + rr; if (SMx[c] < 0) SMx[c] = 0; if (SMn[c] > 0) SMn[c] = 0; }
+        for (k = 0; k < ln; k++) { var j = k + need; for (rr = 0; rr < nr; rr++) { var p1 = P1[k * nr + rr], tx = p1 + (j < ln ? SMx[j * nr + rr] : 0), tn = p1 + (j < ln ? SMn[j * nr + rr] : 0); if (tx > vp[rr]) vp[rr] = tx; if (tn < vn[rr]) vn[rr] = tn; } }
       });
-    });
-    for (var r7 = 0; r7 < nr; r7++) { vp[r7] = Math.max(vp[r7], 0); vn[r7] = Math.min(vn[r7], 0); pos[r7] += vp[r7]; neg[r7] += vn[r7]; }
+    }
+    for (r = 0; r < nr; r++) { pos[r] += Math.max(vp[r], 0); neg[r] += Math.min(vn[r], 0); }
     return [pos, neg];
   }
   function combineLanes(eff, lf) {   /* rank lane effects per response, largest adverse first, times the accompanying lane factors */
@@ -260,18 +259,24 @@ var CORE = (function () {
     }
     return [mx, mn];
   }
-  function trafficEnvelope(m, g, IM, veh, opt) {
-    opt = opt || {}; var dc = 0.25, x1 = -2, x2 = g.total + Math.abs(g.y[0] * g.t) * 2 + 2, grid = [];
-    for (var X = x1 + g.y[0] * Math.min(0, g.t) * 2; X <= x2; X += dc) grid.push(X);
-    var inf = new Inf(m, g, IM), W = STD.laneW, nl = g.lanes, slack = (g.cwR - g.cwL) - nl * W, nr = IM[0].length, best = null, lay = [];
-    if (nl < 1) return { max: new Float64Array(nr), min: new Float64Array(nr), layouts: 0, lanes: 0 };
-    for (var u = 0; u <= slack + 1e-9; u += 0.1) lay.push(g.cwL + u);
+  function trafficEnvelope(m, g, IM, veh, opt, RS) {
+    /* spans are simply supported, so each span's responses see only that span's loads: one envelope per span (exact) */
+    opt = opt || {}; var dc = 0.25, nrAll = IM[0].length, W = STD.laneW, nl = g.lanes, slack = (g.cwR - g.cwL) - nl * W, lay = [];
+    var mx = new Float64Array(nrAll), mn = new Float64Array(nrAll);
+    if (nl < 1) return { max: mx, min: mn, layouts: 0, lanes: 0 };
+    var stp = opt.step || 0.1; for (var u = 0; u <= slack + 1e-9; u += stp) lay.push(g.cwL + u);
     if (!lay.length) lay.push(g.cwL);
-    var mx = new Float64Array(nr).fill(-Infinity), mn = new Float64Array(nr).fill(Infinity);
-    lay.forEach(function (a0) {
-      var eff = []; for (var l = 0; l < nl; l++) eff.push(laneEffect(inf, grid, dc, veh, a0 + l * W, W, opt.dlaUDL));
-      var c = combineLanes(eff, STD.ALF);
-      for (var r = 0; r < nr; r++) { if (c[0][r] > mx[r]) mx[r] = c[0][r]; if (c[1][r] < mn[r]) mn[r] = c[1][r]; }
+    var skx = Math.abs(g.y[0] * g.t);
+    g.spans.forEach(function (sp, k) {
+      var cols = []; RS.R.forEach(function (r, q) { if (r.k === k) cols.push(q); });
+      var grid = []; for (var X = sp.x0 - skx - 1; X <= sp.x0 + sp.L + skx + 1; X += dc) grid.push(X);
+      var inf = new Inf(m, g, IM, cols, k), nr = cols.length, bx = new Float64Array(nr).fill(-Infinity), bn = new Float64Array(nr).fill(Infinity);
+      lay.forEach(function (a0) {
+        var eff = []; for (var l = 0; l < nl; l++) eff.push(laneEffect(inf, grid, dc, veh, a0 + l * W, W, opt.dlaUDL));
+        var c = combineLanes(eff, STD.ALF);
+        for (var r = 0; r < nr; r++) { if (c[0][r] > bx[r]) bx[r] = c[0][r]; if (c[1][r] < bn[r]) bn[r] = c[1][r]; }
+      });
+      cols.forEach(function (q, r) { mx[q] = bx[r]; mn[q] = bn[r]; });
     });
     return { max: mx, min: mn, layouts: lay.length, lanes: nl };
   }

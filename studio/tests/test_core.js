@@ -48,7 +48,7 @@ t('lane_effect port equals the Python engine (UDL + vehicle, both directions, la
 const cj = C.combineLanes(js, C.STD.ALF); let dc = 0; [0, 1].forEach(s => cj[s].forEach((v, k) => dc = Math.max(dc, Math.abs(v - py.comb[s][k]))));
 t('combine_lanes port equals the Python engine (accompanying lane factors)', dc < 1e-9);
 // 4. traffic envelope on Case 01 runs and gives positive mid-span moments in every girder
-const IMc = C.influence(M, SS, RS), env = C.trafficEnvelope(M, g, IMc, C.STD.M1600, {});
+const IMc = C.influence(M, SS, RS), env = C.trafficEnvelope(M, g, IMc, C.STD.M1600, {}, RS);
 const mids = [...Array(g.ng).keys()].map(i => env.max[RS.idx['M:0:' + i + ':' + (M.n / 2 - 1) + ':b']]);
 t('M1600 envelope: every girder has a positive mid-span moment; ' + env.lanes + ' lanes, ' + env.layouts + ' layouts', mids.every(v => v > 0), mids.map(v => v.toFixed(0)).join(' '));
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
