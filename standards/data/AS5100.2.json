@@ -2375,7 +2375,7 @@
    "context": "traffic (P8 HLP platform scan, pdf2bim/model/traffic.py platform_effect)",
    "implementation": {
     "used_by": [
-     "pdf2bim/model/traffic.py:232 (read here; platform_effect)"
+     "pdf2bim/model/traffic.py:239 (read here; platform_effect)"
     ],
     "version": "P8 (2026-11-04), no code source"
    },

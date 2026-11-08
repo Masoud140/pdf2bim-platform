@@ -1,6 +1,6 @@
 """Development placeholders for inputs the drawings never give (P9.2), proposed as ONE decision for the engineer.
 
-The same placeholders the three example bridges ran with (BR13A D-46, B12626 / B12453 D-1): each is tagged Assumed
+The same placeholders the example bridges in projects/ ran with (their D-46 / D-1 decisions): each is tagged Assumed
 (or Standard-verify with its standards key) with what should replace it. They are PROPOSED overrides: the extracted
 values stay the record; the chain uses them only with "use proposed inputs"; only a person can accept them (ADR-005).
 A field that the drawings did fill is never touched."""
@@ -16,7 +16,7 @@ RPT = "the design report / design criteria for this bridge"
 GEO = "the geotechnical report for this site"
 CAT = "the bearing manufacturer's data sheet"
 HOG = "the girder designer's prestress / hog calculation inputs"
-AS = "as the example bridges (BR13A / B12626 / B12453)"
+AS = "as the example bridges in the repository (projects/)"
 
 # (path with {support} / {bearing} / {supert} placeholders, value or row cells, unit, tag, why, replace_with or std ref)
 SCALARS = [
