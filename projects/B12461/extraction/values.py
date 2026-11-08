@@ -205,6 +205,34 @@ HOG = {1: [(44, 55, 59, 62, -20, 68.9), (43, 55, 59, 62, -24, 70.4), (44, 55, 60
 FIT = {1: ("F3", 32.199, 60, 35, "0751 girder type F3: 60 bundles G1 1-N16-BZ-150 from each end, 35 bundles G1 1-N16-BZ-300 between"),
        2: ("F6", 25.509, 45, 28, "0753 girder type F6: 45 bundles G1 1-N16-BZ-150 from each end, 28 bundles at 300 between")}
 
+# 0602 table 2 (SB42): epoxy mortar pad corners a1..a4 (east end: A for span 1, P1 for span 2) and b1..b4 (west end), in the row of the
+# measured hog equal to the 30-day hog of 0701 (S1: 55 / 55 / 55 / 56 / 56, S2: 37 / 38 / 39 / 40 / 42: the designer's erection hog)
+PAD = {1: {1: ((65, 46, 53, 73), (65, 45, 48, 68), 55), 2: ((69, 46, 52, 76), (68, 44, 47, 71), 55), 3: ((63, 46, 52, 69), (62, 44, 47, 64), 55),
+           4: ((63, 46, 51, 68), (62, 44, 46, 64), 56), 5: ((60, 46, 50, 65), (59, 44, 46, 61), 56)},
+       2: {1: ((66, 49, 44, 61), (73, 56, 46, 63), 37), 2: ((73, 50, 44, 68), (79, 56, 46, 69), 38), 3: ((67, 50, 44, 62), (73, 56, 46, 63), 39),
+           4: ((67, 49, 45, 62), (73, 56, 46, 63), 40), 5: ((64, 50, 44, 59), (70, 56, 46, 60), 42)}}
+HAUNCH_TXT = ("haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks "
+              "0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day "
+              "hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515")
+
+
+def haunch(span, k):
+    """Haunch (mm) at t = 0, 0.25, 0.5, 0.75, 1 along girder k of the span (chord between the bearing centres)."""
+    if span == 1:
+        Pa, Pb, ra, rb = (BA[k][1], BA[k][2]), pier_pt(k, 1), BRG_RL["A"][k], BRG_RL["P1-1"][k]
+    else:
+        Pa, Pb, ra, rb = pier_pt(k, 2), (BB[k][1], BB[k][2]), BRG_RL["P1-2"][k], BRG_RL["B"][k]
+    a, b, hog = PAD[span][k]
+    sa, sb = ra + sum(a) / 4000, rb + sum(b) / 4000
+    c = (hog + HOG[span][k - 1][4]) / 1000
+    out = []
+    for t in (0.0, 0.25, 0.5, 0.75, 1.0):
+        P = (Pa[0] + t * (Pb[0] - Pa[0]), Pa[1] + t * (Pb[1] - Pa[1]))
+        ch, off = station(P[0], P[1], 575 if span == 1 else 600)
+        deck = AL.vertical.rl(ch) - 0.075 + 0.03 * off
+        out.append((deck - 0.2 - (sa + t * (sb - sa) + c * 4 * t * (1 - t) + 1.515)) * 1000)
+    return out
+
 
 def build(span):
     out, docs = [], {}
@@ -273,9 +301,21 @@ def build(span):
     put("deck.surfacing_thickness", 75.0, unit="mm", sheet="0804", view="section 42", text="75 THICK BITUMINOUS WEARING SURFACE AND WATERPROOF MEMBRANE")
     put("deck.surfacing_density", 22.0, unit="kN/m3", sheet="RPT", view="table 2-5", text="asphalt surfacing 22 kN/m3")
     put("deck.girders_follow_crossfall", True, sheet="0804", view="section 11", text="girders shown square to the 3 % fall")
+    HN = {k: haunch(span, k) for k in range(1, 6)}
+    offA = {}
     for k in range(1, 6):
-        put(f"deck.haunch_concrete.rows[{k - 1}]", tag="Missing-Flagged", cells={"girder": f"42-S{span}-0{k}"},
-            note="haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)")
+        Pa = (BA[k][1], BA[k][2]) if span == 1 else pier_pt(k, 2)
+        offA[k] = station(Pa[0], Pa[1], 575 if span == 1 else 600)[1]
+    for k in range(1, 6):
+        h = HN[k]
+        hm = (h[0] + 4 * h[1] + 2 * h[2] + 4 * h[3] + h[4]) / 12          # Simpson over the 5 stations
+        sp = [abs(offA[k] - offA[j]) for j in (k - 1, k + 1) if 1 <= j <= 5]
+        bt = sum(sp) / len(sp)
+        w = round(hm / 1000 * bt * 25.0, 3)
+        put(f"deck.haunch_concrete.rows[{k - 1}]", tag="Calculated", cells={"girder": f"42-S{span}-0{k}", "w": w},
+            formula=HAUNCH_TXT + f"; haunch at t = 0 / .25 / .5 / .75 / 1: {' / '.join(f'{x:.0f}' for x in h)} mm, mean {hm:.0f} mm, over the girder spacing "
+                    f"{bt:.3f} m x 25 kN/m3 = {w} kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)")
+    HAUNCH_MID = {k: HN[k][2] for k in range(1, 6)}
     for b, face in (("left", CL), ("right", CR)):
         p = f"deck.barriers[barrier_{b}]"
         put(p + ".side", b, sheet="0804", view="section 11")
@@ -366,7 +406,10 @@ def build(span):
     for i, e in enumerate("AB"):
         put(T + f".zones.rows[{i}]", tag="Calculated", cells={"from": 0.0, "to": 1.5, "kind": "solid_end_" + e},
             formula="end of the void: 2000 to the first void diaphragm less 500 (0702 - 0705 plan); the solid end block is not dimensioned (query)")
-    put(T + ".haunch", tag="Missing-Flagged", unit="mm", note="girder top to deck soffit not dimensioned (deck '200 MIN', varies)")
+    kmin = min(HAUNCH_MID, key=HAUNCH_MID.get)
+    put(T + ".haunch", round(HAUNCH_MID[kmin]), unit="mm", tag="Calculated",
+        formula=HAUNCH_TXT + f"; one section type per span: the smallest mid-span haunch (girder 0{kmin}; all girders "
+                f"{', '.join(f'0{k} {v:.0f}' for k, v in HAUNCH_MID.items())} mm), conservative for strength")
     X = {kk: 25 + 50 * (6 - kk) for kk in range(1, 7)}           # 0724 strand layout: locations 1-6 at 25 + 5 x 50 each side of the CL
     Y = {"F": 60, "E": 110, "D": 160, "C": 210, "B": 260}
     st = [(1435.0, s * 495.0, 0.0, "A") for s in (-1, 1)]

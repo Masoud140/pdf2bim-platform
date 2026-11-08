@@ -1624,96 +1624,136 @@
    "rows": [
     {
      "cells": {
-      "girder": "42-S2-01"
+      "girder": "42-S2-01",
+      "w": 3.351
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 51 / 64 / 67 / 60 / 49 mm, mean 61 mm, over the girder spacing 2.192 m x 25 kN/m3 = 3.351 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "42-S2-01"
+       "girder": "42-S2-01",
+       "w": 3.351
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 51 / 64 / 67 / 60 / 49 mm, mean 61 mm, over the girder spacing 2.192 m x 25 kN/m3 = 3.351 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "42-S2-02"
+      "girder": "42-S2-02",
+      "w": 3.045
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 47 / 60 / 62 / 53 / 46 mm, mean 56 mm, over the girder spacing 2.178 m x 25 kN/m3 = 3.045 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "42-S2-02"
+       "girder": "42-S2-02",
+       "w": 3.045
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 47 / 60 / 62 / 53 / 46 mm, mean 56 mm, over the girder spacing 2.178 m x 25 kN/m3 = 3.045 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "42-S2-03"
+      "girder": "42-S2-03",
+      "w": 2.07
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 43 / 44 / 33 / 30 mm, mean 38 mm, over the girder spacing 2.175 m x 25 kN/m3 = 2.07 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "42-S2-03"
+       "girder": "42-S2-03",
+       "w": 2.07
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 43 / 44 / 33 / 30 mm, mean 38 mm, over the girder spacing 2.175 m x 25 kN/m3 = 2.07 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "42-S2-04"
+      "girder": "42-S2-04",
+      "w": 2.136
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 35 / 46 / 44 / 33 / 33 mm, mean 39 mm, over the girder spacing 2.184 m x 25 kN/m3 = 2.136 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "42-S2-04"
+       "girder": "42-S2-04",
+       "w": 2.136
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 35 / 46 / 44 / 33 / 33 mm, mean 39 mm, over the girder spacing 2.184 m x 25 kN/m3 = 2.136 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "42-S2-05"
+      "girder": "42-S2-05",
+      "w": 2.536
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 46 / 54 / 50 / 38 / 43 mm, mean 46 mm, over the girder spacing 2.183 m x 25 kN/m3 = 2.536 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "42-S2-05"
+       "girder": "42-S2-05",
+       "w": 2.536
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN', up to 335 incl. DWS on the crest, 0115); follows from the 0805 RLs and the girder hogs (0701)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 46 / 54 / 50 / 38 / 43 mm, mean 46 mm, over the girder spacing 2.183 m x 25 kN/m3 = 2.536 kN/m. Uncertainty: the hog at the deck pour (0701 gives 30 / 60 / 100 days; +/- about 5 mm)",
+       "inputs": []
+      }
      },
      "current": "original"
     }
@@ -3110,18 +3150,24 @@
      ]
     },
     "haunch": {
-     "note": "girder top to deck soffit not dimensioned (deck '200 MIN', varies)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 03; all girders 01 67, 02 62, 03 44, 04 44, 05 50 mm), conservative for strength",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "mm",
-     "value": null,
+     "value": 44,
      "original": {
-      "value": null,
+      "value": 44,
       "unit": "mm",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "girder top to deck soffit not dimensioned (deck '200 MIN', varies)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MCR0 design level (0117) - 75 DWS + 3 % x offset (crown right; checks 0805 RL 'A' within 2 mm). Girder top = bearing top RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 03; all girders 01 67, 02 62, 03 44, 04 44, 05 50 mm), conservative for strength",
+       "inputs": []
+      }
      },
      "current": "original"
     },
@@ -12122,7 +12168,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-08T22:16:34+00:00",
+  "created": "2026-11-08T22:33:37+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-09)",
   "decision_log_sha256": null
@@ -12131,6 +12177,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:9cf30f945aafe6060b35a69a7ec9860a1bf8874b4402e08afb1bb02e03743813"
+  "value": "sha256:a50752e5fa5049ddf3d8c601b4df0cbfd3f40695ea8b8200b15cb557f451948a"
  }
 }

@@ -7,7 +7,8 @@
 - Compare: `python3 projects/B12461/compare_report.py RUN_S1 RUN_S2`.
 - Done: the φMu gap is explained in `projects/B12461/model/PHIMU_SLS_NOTE.md`. The platform matches a hand check; the report value equals the nominal Mu.
   - Two owner queries are open: whether report table 4-29 is Mu or φMu, and the SLS combination and limit.
-- Next: the haunch per girder from 0805 deck RLs less girder top levels (bearing RL + 1515 + hog at the deck pour), on SB42 and then SB01.
+- Done: SB42 haunch from levels (`values.py haunch()`).
+- Next: apply the same method to SB01. Its inputs are 0703 table 2 RLs, 0500 bearing RLs, 0502 pads and the 0600 hog table.
 - Do not run `git stash` while a chain runs: it swaps the shared code under the running process (it happened once on 2026-11-09).
 
 Earlier: 2026-11-08 ADR-061: Bridge Studio (`studio/`, README there).

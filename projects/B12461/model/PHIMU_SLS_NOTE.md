@@ -44,4 +44,26 @@
 
 - Nothing in the platform's flexure engine is changed: it is confirmed by an independent calculation.
 - The two report items are recorded as queries for the owner.
-- The haunch on SB01 and SB42 should be read from the drawings: deck RLs (0805) against girder levels and hogs (0701). Today it is a 0 mm placeholder.
+- The haunch should be read from the drawings: deck RLs against girder levels and hogs. Done for SB42 (§4); SB01 still uses the 0 mm placeholder.
+
+## 4. Update the same day: haunch from the drawings
+
+- **How the haunch is now calculated.** The haunch per girder is no longer a 0 mm placeholder (values.py `haunch()`). It is Calculated from:
+  - the MCR0 design level less 75 DWS, plus the 3 % crossfall (this matches 0805 RL 'A' within 2 mm);
+  - bearing top RL 'X' (0601) plus the epoxy pads (0602, in the row of the 30-day hog);
+  - the 0701 hog and deck deflection.
+- **Results.**
+  - Span 1: 26–111 mm. At mid-span: 111 / 96 / 85 / 85 / 97 mm for girders 01–05.
+  - Span 2: 30–67 mm.
+  - The section type uses the smallest mid-span value: 85 mm for span 1.
+- **Re-run on 42-S1-05.**
+
+  | Item | Platform | Report | Difference |
+  |---|---|---|---|
+  | φMu | 13,484 kNm | 15,726 kNm | −14 % |
+  | Nominal Mu | 16,660 kNm | | |
+  | Hand check φMu at 85 mm haunch | 13,158 kNm (nominal 16,448) | | within 2.5 % of the platform |
+  | ULS M* | 16,354 kNm | 15,089 kNm | +8.4 % |
+
+  - ULS M* rose because ADR-054 applies haunch concrete as SDL with a ULS factor of 2.0.
+- **The Mu-or-φMu query stands.** At this haunch the report's 15,726 is still 6 % below the platform's *nominal* Mu, and 17 % above φMu.

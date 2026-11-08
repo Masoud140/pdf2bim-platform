@@ -40,3 +40,12 @@ def test_hand_check_flexure_sb42():
     r = check(os.path.join(ROOT, "projects", "B12461-S1", "B12461-S1.bridge.0.2.json"), 2.4, [0.0])[0]
     assert r["n"] == 38 and r["block_in_slab"]
     assert 15000 < r["Mu"] < 16000 and abs(r["phi"] - 0.8) < 1e-9     # 5700 mm2 x ~1800 MPa x ~1.55 m lever arm
+
+
+def test_deck_top_matches_0805_and_haunch_positive():
+    for ch, rl in ((560.0, 10.289), (575.0, 10.509), (590.0, 10.518), (605.0, 10.314)):   # 0805 RL 'A' (deck concrete top on MCR0)
+        assert abs(V.AL.vertical.rl(ch) - 0.075 - rl) < 0.002
+    for s in (1, 2):
+        for k in range(1, 6):
+            h = V.haunch(s, k)
+            assert all(0 < x < 150 for x in h), (s, k, h)

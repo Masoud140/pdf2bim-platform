@@ -24,7 +24,9 @@
   - The report's 15,726 equals the nominal Mu: query to the owner whether table 4-29 is Mu or φMu. With φ = 0.8 the utilisation would be about 1.2.
   - SLS: the report's combination and its 3.16 MPa limit are not stated (query).
   - The haunch is a 0 mm placeholder on SB01 and SB42.
-- Next: read the haunch from the deck RLs against the girder levels, then re-run.
+- Haunch (2026-11-09): SB42 haunch is now Calculated from levels (26–111 mm; section 85 mm for span 1).
+  - Re-run on 42-S1-05: M* 16,354 (+8.4 %), because haunch concrete is SDL at 2.0 under ADR-054. φMu 13,484 (−14 %); the hand check gives 13,158.
+- Next: the same haunch method for SB01 (B12452), then the owner queries.
 
 **2026-11-08 (ADR-061):** Bridge Studio built and published as a private claude.ai artifact.
 - What it is: an interactive Super-T analysis and design application on four generic case studies, in `studio/`. The existing apps are unchanged.

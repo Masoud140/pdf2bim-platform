@@ -33,8 +33,10 @@ add("42-S1-05 φMu at mid-span (kNm)", 15726, "report table 4-29", mid["sag"]["p
     f"platform Muo (nominal, minimum-strength check) = {mid['sag']['Muo']:,.0f}")
 sys.path.insert(0, os.path.join(H, "..", "..", "tools"))
 from phimu_hand_check import check as hand                    # noqa: E402
-hc = hand(os.path.join(H, "..", "B12461-S1", "B12461-S1.bridge.0.2.json"), 2.4, [0.0])[0]
-add("42-S1-05 φMu, independent hand check (kNm)", 15726, "report table 4-29", hc["phiMu"], "AS 5100.5 Cl 8.1.8 approximate method, b 2.4 m, no haunch",
+DS1 = os.path.join(H, "..", "B12461-S1", "B12461-S1.bridge.0.2.json")
+hh = float(json.load(open(DS1))["superstructure"]["supert_types"][0]["haunch"]["value"])
+hc = hand(DS1, 2.4, [hh])[0]
+add("42-S1-05 φMu, independent hand check (kNm)", 15726, "report table 4-29", hc["phiMu"], f"AS 5100.5 Cl 8.1.8 approximate method, b 2.4 m, haunch {hh:.0f} mm",
     f"nominal Mu {hc['Mu']:,.0f} kNm, phi {hc['phi']:.2f} (tools/phimu_hand_check.py): see model/PHIMU_SLS_NOTE.md")
 add("42-S1-05 SLS soffit stress at Ms* (MPa)", 3.15, "report table 4-30 (tension; limit 3.16)", mid["sag"]["soffit_sls"], f"{mid['sag']['row_sls']}, Ms* {mid['sag']['Ms']:,.0f} kNm",
     "platform: uncracked composite stress, tension +")
@@ -77,6 +79,8 @@ L += ["", "Whether a difference is acceptable is the engineer's call. Known limi
       "- each span is a separate model (ADR-062): the link slab over the pier is not modelled; pier piles are the sum of the two spans' envelopes plus the wall;",
       "- deck widths vary along the spans (0805); the platform takes the widest station on each side (edge girders slightly conservative);",
       "- abutment A is curved (R 154.089); a straight support line through its end bearings is used (middle bearings up to ~80 mm off it, girder lines kept);",
+      "- haunch concrete (Calculated from the deck levels, bearing RLs, pads and hogs: 26 - 111 mm) is SDL at ULS 2.0 (owner rule, ADR-054); the report probably "
+      "treats it as dead load (1.2), which alone is worth about 1,000 kNm of M* on 42-S1-05;",
       "- the raised footpath concrete is in the SDL (Calculated from the 0805 RLs); safety / headlight screens and utilities are not yet (Missing-Flagged);",
       "- wind on the screens in the report's critical combination (PE + HLP400 + 35 m/s wind) uses generic coefficients (D-1);",
       "- shear / torsion is not checked: the aggregate size is not on the drawings (0700 refers to TfNSW B80);",
