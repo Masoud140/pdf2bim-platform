@@ -77,7 +77,6 @@
     var abut = [g.spans[0].x0, g.spans[g.spans.length - 1].x0 + g.spans[g.spans.length - 1].L];
     abut.forEach(function (xa, q) {
       var dir = q ? 1 : -1, hs = line(xa + dir * 0.2, 0.9, zh, zb, cSub); hs.visible = SHOW.sub; root.add(hs);
-      var wall = line(xa + dir * 0.9, 0.35, zg, zh, cSub); wall.visible = SHOW.sub; root.add(wall);
       var P = p.piles; for (var i = 0; i < P.n; i++) { var y = (i - (P.n - 1) / 2) * P.s, cy = new THREE.Mesh(new THREE.CylinderGeometry(P.D / 2000, P.D / 2000, P.Lf + 6, 20), cPile); cy.position.copy(P3(xa + dir * 0.2 + y * T2, y, zh - (P.Lf + 6) / 2)); cy.visible = SHOW.piles; root.add(cy); }
       V.labels.push({ p: P3(xa + dir * 0.2 + eR2 * T2, eR2 + 0.8, zh), t: 'Abutment ' + (q ? 'B' : 'A'), on: true });
     });
