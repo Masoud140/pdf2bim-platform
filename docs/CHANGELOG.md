@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-10 — Prestress rules
+- Fact-checked prestress/debonding rules (`docs/PRESTRESS_DESIGN_RULES.md`); Studio: TfNSW debonding rule with adjacency, transfer stress distribution choice, development-length flag (ADR-064); SB01 haunch from levels.
+
 ## 2026-11-09 — Bridge Studio: crack control and validation
 - Crack-control class per AS 5100.5 Cl 8.6.2.1 (u / a / b), staged cracked-section tendon stress increment, girder station table, anonymised Validation page (ADR-063).
 

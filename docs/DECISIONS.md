@@ -707,3 +707,11 @@
 - **Consequence.** Mdec (transformed section incl. tendons) sits slightly above the gross-section decompression used for the soffit stress column; stated on the page.
 - **Design page:** station table and charts along the girder (Ms*, Mdec, soffit σ, Δσp, M*, φMu, Mcr, Muo, V*, shear utilisation).
 - **Validation page:** SB01 and SB42 comparison numbers, anonymised (Benchmark A / B; no bridge, drawing, report or client identifiers), imported from the comparison reports, not computed in the browser.
+
+## ADR-064 Studio detailing rules from the fact-checked prestress note (2026-11-10)
+
+- **Status:** done (agent decision, reversible). Source: `docs/PRESTRESS_DESIGN_RULES.md`.
+- **Debonding:** new rule selector `lim.debRule`, default TfNSW BTD 2011/06 Rev 1 (confirmed): ≤ 50 % of strands debonded at any section, and no debonded strand horizontally or vertically next to another (`debAdj`, unit-tested). The previous 25 % / 40 % rule stays as an option, labelled AASHTO-style.
+- **Transfer compression:** `lim.cT` is now a choice: 0.6 f'cp (triangular) or 0.5 f'cp (rectangular), AS 5100.5 Cl 8.1.6.2 (verify).
+- **Development length:** an information row flags stations where M* acts on strands shorter than Lp = 0.145 (σpu − 0.67 σpe) db ≥ 60 db (2 Lp if debonded, conservatively; σpu = fpb, an upper bound). φMu is not reduced: the flag asks for a hand check.
+- **Consequence:** the illustrative strand patterns (from the original dashboard) fail the TfNSW adjacency rule (13 pairs) in all four case studies. This is reported, not hidden; the patterns are generic examples.

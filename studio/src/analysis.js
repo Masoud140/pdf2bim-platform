@@ -150,6 +150,18 @@ var ANALYSIS = (function () {
     return { Mdec: Mdec, dsp: Math.max(0, tst(pc) - tst(pd)) };
   }
 
+  /* pairs of debonded strands next to each other on the strand grid, horizontally (same row, next position) or vertically
+     (same x, next row): TfNSW BTD 2011/06 Rev 1 forbids both */
+  function debAdj(fs) {
+    var deb = function (q) { return (q.d || 0) + (q.d2 || 0) > 0; }, ys = fs.map(function (q) { return q.y; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; });
+    var xs = fs.map(function (q) { return Math.abs(q.x); }).filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; }), dx = Infinity, dy = Infinity, out = [];
+    for (var i = 1; i < xs.length; i++) dx = Math.min(dx, xs[i] - xs[i - 1]); for (i = 1; i < ys.length; i++) dy = Math.min(dy, ys[i] - ys[i - 1]);
+    if (xs.length && xs[0] > 0) dx = Math.min(dx, 2 * xs[0]);
+    fs.forEach(function (a, i) { if (!deb(a)) return; fs.forEach(function (b, j) { if (j <= i || !deb(b)) return;
+      if ((a.y === b.y && Math.abs(Math.abs(a.x - b.x) - dx) < 1) || (a.x === b.x && Math.abs(Math.abs(a.y - b.y) - dy) < 1)) out.push([a, b]); }); });
+    return out;
+  }
+
   /* largest centre-to-centre spacing of bonded strands in the row nearest the tension face (dgNearFaceSp) */
   function nearFaceSpacing(p) {
     var on = p.strands.filter(function (q) { return q.on; }); if (!on.length) return null;
@@ -191,6 +203,13 @@ var ANALYSIS = (function () {
       var Mu = uls.reduce(function (m_, c) { return Math.max(m_, c.max[kU]); }, 0), Vu = 0, Tu = 0, govM = governing(A, key, 'ULS', 'max'), govV = governing(A, kv, 'ULS'), govT = governing(A, kt, 'ULS');
       uls.forEach(function (c) { Vu = Math.max(Vu, Math.abs(c.max[A.RS.idx[kv]]), Math.abs(c.min[A.RS.idx[kv]])); Tu = Math.max(Tu, Math.abs(c.max[A.RS.idx[kt]]), Math.abs(c.min[A.RS.idx[kt]])); });
       st.Mu = Mu; st.Vu = Vu; st.Tu = Tu; st.govM = govM; st.govV = govV; st.govT = govT;
+      /* development length, AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu - 0.67 σpe) db >= 60 db; 2 Lp for a debonded strand
+         (conservative: tension within that length assumed). σpu taken as fpb (upper bound, longer Lp). Strands short of Lp are counted. */
+      var dev = { n: 0, A: 0, At: 0 };
+      fs.forEach(function (q, k) { var lb = Math.min(xg - (q.d || 0), h.L - xg - (q.d2 || 0)); if (lb <= 0) return;
+        var spe = PmF[k] * 1e3 / Ap, Lp = Math.max(60 * p.db, 0.145 * (h.mbl * 1e3 / Ap - 0.67 * spe) * p.db) * ((q.d || q.d2) ? 2 : 1);
+        dev.At += Ap; if (lb < Lp) { dev.n++; dev.A += Ap; } });
+      st.dev = dev;
       /* crack control, AS 5100.5 Cl 8.6.2.1(b): tendon stress increment above decompression, cracked composite section (staged) */
       if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; });
       if (S.tend.length) {
@@ -217,7 +236,7 @@ var ANALYSIS = (function () {
     var debT = 100 * fs.filter(function (q) { return q.d || q.d2; }).length / fs.length, rows = {}; fs.forEach(function (q) { var o = rows[q.y] = rows[q.y] || { n: 0, d: 0 }; o.n++; if (q.d || q.d2) o.d++; });
     var debR = Math.max.apply(null, Object.keys(rows).map(function (y) { return 100 * rows[y].d / rows[y].n; })), mxd = Math.max.apply(null, fs.map(function (q) { return (q.d || 0) + (q.d2 || 0); }));
     return { h: h, r: r, stations: stations, transfer: { cMax: cMax, tMin: tMin, fcp: fcp, along: r.st, X: r.X, mi: r.mi }, hog: hog, Pi: h.ji * h.mbl * fs.length, P0: r.P0 * fs.length, Pfinal: PmF.reduce(function (a_, b_) { return a_ + b_; }, 0), Ptr: Pm0.reduce(function (a_, b_) { return a_ + b_; }, 0),
-      detail: { n: fs.length, debT: debT, debR: debR, mxd: mxd, lt: lt, Lg: h.L, cgs: fs.reduce(function (a_, q) { return a_ + q.y; }, 0) / fs.length, minCover: Math.min.apply(null, fs.map(function (q) { return q.y; })) - p.db / 2 } };
+      detail: { adj: debAdj(fs), n: fs.length, debT: debT, debR: debR, mxd: mxd, lt: lt, Lg: h.L, cgs: fs.reduce(function (a_, q) { return a_ + q.y; }, 0) / fs.length, minCover: Math.min.apply(null, fs.map(function (q) { return q.y; })) - p.db / 2 } };
   }
 
   /* summary checks for one girder: demand, capacity, utilisation, status, governing combination */
@@ -250,7 +269,7 @@ var ANALYSIS = (function () {
     });
     var nf = nearFaceSpacing(p), ccx = CC[lim.cc] || CC.a;
     if (ccx.spacing && nf) add('Service stresses (SLS)', 'Spacing of bonded tendons near the tension face', nf.s, lim.ccSpacing, 'mm', '', ccx.label + ': c/c spacing in the lowest strand row (' + nf.n + ' strands at ' + nf.y0 + ' mm) ≤ ' + lim.ccSpacing + ' mm');
-    add('Transfer (losses engine)', 'Compression at transfer', D.transfer.cMax, lim.cT * D.transfer.fcp, 'MPa', 'transfer', lim.cT + ' f\'cp, f\'cp = ' + D.transfer.fcp + ' MPa');
+    add('Transfer (losses engine)', 'Compression at transfer', D.transfer.cMax, lim.cT * D.transfer.fcp, 'MPa', 'transfer', lim.cT + ' f\'cp (' + (lim.cT >= 0.6 ? 'triangular' : 'rectangular') + ' stress distribution, AS 5100.5 Cl 8.1.6.2, verify), f\'cp = ' + D.transfer.fcp + ' MPa');
     var tlim = lim.tT * Math.sqrt(D.transfer.fcp); add('Transfer (losses engine)', 'Tension at transfer', Math.max(0, -D.transfer.tMin), tlim, 'MPa', 'transfer', lim.tT + '√f\'cp' + (lim.tT > 0.25 ? ' (bonded reinforcement near the tensile face assumed)' : ''));
     var hogF = D.hog[D.hog.length - 1].mid, hogE = D.hog.filter(function (q) { return q.t <= p.stage.pour; }).pop();
     add('Deflection and camber', 'Hog at deck pour (mid-span)', hogE ? hogE.mid : null, null, 'mm', '', 'for deck levels and haunch; losses engine');
@@ -259,8 +278,20 @@ var ANALYSIS = (function () {
     if (isFinite(wl)) add('Deflection and camber', 'Traffic deflection at mid-span vs span / ' + lim.defl, wl, Lmm / lim.defl, 'mm', 'M1600 / S1600', 'criterion is an input (illustrative)');
     add('Prestress', 'Jacking force per strand / MBL', D.h.ji, lim.jackMax, '–', '', 'limit ' + lim.jackMax);
     add('Prestress', 'Loss of prestress (transfer to final, mid-span)', 100 * (1 - D.Pfinal / D.P0), null, '%', '', 'initial ' + D.P0.toFixed(0) + ' kN after release, final ' + D.Pfinal.toFixed(0) + ' kN');
-    add('Detailing', 'Debonded strands, total', D.detail.debT, lim.dbT, '%', '', 'limit ' + lim.dbT + ' % (input)');
-    add('Detailing', 'Debonded strands, worst row', D.detail.debR, lim.dbR, '%', '', 'limit ' + lim.dbR + ' % (input)');
+    if (lim.debRule === 'tfnsw') {
+      add('Detailing', 'Debonded strands at any section (girder end)', D.detail.debT, 50, '%', '', 'TfNSW BTD 2011/06 Rev 1: ≤ 50 % of the strands at any section');
+      var adj = D.detail.adj || [];
+      add('Detailing', 'Debonded strands next to a debonded strand', adj.length, null, 'pairs', '', 'TfNSW BTD 2011/06 Rev 1: strands horizontally or vertically adjacent to a debonded strand must not be debonded',
+        adj.length ? 'adjacent debonded pairs: ' + adj.slice(0, 4).map(function (pr) { return '(' + pr[0].x + ', ' + pr[0].y + ')-(' + pr[1].x + ', ' + pr[1].y + ')'; }).join(', ') + (adj.length > 4 ? ' …' : '') : '');
+      out[out.length - 1].ok = adj.length === 0;
+    } else {
+      add('Detailing', 'Debonded strands, total', D.detail.debT, lim.dbT, '%', '', 'limit ' + lim.dbT + ' % (input; AASHTO-style rule, not AS 5100.5 or TfNSW)');
+      add('Detailing', 'Debonded strands, worst row', D.detail.debR, lim.dbR, '%', '', 'limit ' + lim.dbR + ' % (input; AASHTO-style rule)');
+    }
+    var dv = st.filter(function (s) { return s.dev && s.dev.n && s.Mu > 0 && s.phiMu; }).reduce(function (b, s) { return !b || s.Mu / s.phiMu > b.Mu / b.phiMu ? s : b; }, null);
+    add('Detailing', 'Strands within their development length where M* acts', dv ? 100 * dv.dev.A / dv.dev.At : 0, null, '%', '', 'AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu − 0.67 σpe) db ≥ 60 db, 2 Lp for debonded strands; φMu assumes full development',
+      dv ? 'x = ' + dv.x.toFixed(1) + ' m: ' + dv.dev.n + ' strands not fully developed (M*/φMu ' + (dv.Mu / dv.phiMu).toFixed(2) + '); φMu there is unconservative: check by hand' : '');
+    out[out.length - 1].ok = dv ? null : true;
     add('Detailing', 'Debond + 2 × transmission length vs girder length', D.detail.mxd + 2 * D.detail.lt, D.detail.Lg, 'mm', '', 'transmission length ' + D.detail.lt.toFixed(0) + ' mm');
     add('Detailing', 'Cover to the lowest strands', lim.cover, Math.max(1e-6, D.detail.minCover), 'mm', '', 'required ' + lim.cover + ' mm, provided ' + D.detail.minCover.toFixed(0) + ' mm (demand = required)');
     return out;
@@ -292,6 +323,6 @@ var ANALYSIS = (function () {
     return { y: y, by: out, curve: curve, worst: worst, util: util, S: S };
   }
 
-  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing };
+  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
 })();
 if (typeof module !== 'undefined') module.exports = ANALYSIS;

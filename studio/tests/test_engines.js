@@ -27,4 +27,11 @@ const S = D.stripsFromPolygon ? null : null;
   t('crack control: tendon stress increment is 0 below decompression', AN.crackInc(S, sc, { slab: 0 }, { P: P, e: yb - yp }, Mnc, (Mdec - Mnc) * 0.9).dsp === 0);
   t('crack control: increment above decompression is positive and below the steel stress for full-depth cracking', o2.dsp > 0 && o2.dsp < 400, o2.dsp.toFixed(1));
 }
+// TfNSW BTD 2011/06 adjacency: debonded neighbours on the grid are found horizontally and vertically, not diagonally
+{
+  const AN = require('../src/analysis.js'), q = (x, y, d) => ({ x, y, d, d2: 0, on: true });
+  const fs = [q(-75, 60, 2000), q(-25, 60, 0), q(25, 60, 2000), q(75, 60, 2000), q(-75, 110, 0), q(-25, 110, 2000), q(25, 110, 0), q(75, 110, 0), q(25, 160, 2000)];
+  const adj = AN.debAdj(fs).map(p => p.map(s => s.x + ',' + s.y).join(' '));
+  t('debonding adjacency: (25,60)-(75,60) horizontal found, diagonals ignored, gap across the centreline counted', adj.length === 1 && adj[0] === '25,60 75,60', JSON.stringify(adj));
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);
