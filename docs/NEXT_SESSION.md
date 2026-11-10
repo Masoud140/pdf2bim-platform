@@ -1,6 +1,14 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-10 prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md` (backlog: transfer 0.5/0.6 f'cp by distribution, TfNSW 50 % + adjacency debonding, development length Lp / 2Lp, placement cover). Then SB01 haunch.
+**Last updated:** 2026-11-10.
+- SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
+- `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).
+- Next: the Python platform checks from `docs/PRESTRESS_DESIGN_RULES.md` "Rules for the next calculation" items 1–3 (transfer 0.5 / 0.6 f'cp, TfNSW debonding with adjacency, development length).
+- Open owner queries:
+  - report table 4-29: Mu or φMu;
+  - the SLS combination and its limit;
+  - the B01-08 RL;
+  - the A01-14 pad of 43 mm.
 
 Earlier: 2026-11-09 Studio ADR-063 done (crack control, station table, Validation page); republished. Next: SB01 haunch from levels (below), then owner queries.
 

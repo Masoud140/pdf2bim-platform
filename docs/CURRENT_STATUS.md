@@ -1,4 +1,17 @@
-# Current status — 2026-11-09
+# Current status — 2026-11-10
+
+**2026-11-10:**
+- Prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md`.
+  - Studio (ADR-064): TfNSW 50 % + adjacency debonding rule, transfer limit 0.5 / 0.6 f'cp chosen by stress distribution, development-length information row.
+- SB01 haunch Calculated from levels: 18–38 mm.
+  - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
+  - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- Speed fix in `traffic.py` (single-response lines and a per-lane memo in `governing_state`): the SB01 actions step went from more than 2 h to about 10 min.
+- Tests:
+  - `test_b12452_chain` 16/16.
+  - `test_concurrent` 17/17.
+  - Studio engines 9/9.
+
 
 **2026-11-09 (later):** Bridge Studio gained the crack-control class (AS 5100.5 Cl 8.6.2.1 u/a/b, unverified values), the staged cracked-section Δσp, a girder station table and an anonymised Validation page (ADR-063). Studio tests: engines 8/8, core 12/12; browser check all 11 tabs draw. Republished to artifact LPiMgACdEH2Wk3nuZXhkHA.
 
