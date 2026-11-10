@@ -1,6 +1,8 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-09 Studio ADR-063 done (crack control, station table, Validation page); republished. Next: SB01 haunch from levels (below), then owner queries.
+**Last updated:** 2026-11-10 prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md` (backlog: transfer 0.5/0.6 f'cp by distribution, TfNSW 50 % + adjacency debonding, development length Lp / 2Lp, placement cover). Then SB01 haunch.
+
+Earlier: 2026-11-09 Studio ADR-063 done (crack control, station table, Validation page); republished. Next: SB01 haunch from levels (below), then owner queries.
 
 Earlier 2026-11-09: SB42 (B12461) stage 1 survey done (`projects/B12461/extraction/SURVEY.md`).
 - The owner PDF is at /mnt/user-data/uploads/SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf; the report docx is in the session attachments. Neither is committed.
