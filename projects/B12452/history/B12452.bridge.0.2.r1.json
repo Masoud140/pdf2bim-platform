@@ -1819,267 +1819,379 @@
    "rows": [
     {
      "cells": {
-      "girder": "G01-01"
+      "girder": "G01-01",
+      "w": 1.629
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 35 / 27 / 24 / 27 / 36 mm, mean 28 mm, over the girder spacing 2.322 m x 25 kN/m3 = 1.629 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-01"
+       "girder": "G01-01",
+       "w": 1.629
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 35 / 27 / 24 / 27 / 36 mm, mean 28 mm, over the girder spacing 2.322 m x 25 kN/m3 = 1.629 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-02"
+      "girder": "G01-02",
+      "w": 1.273
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 29 / 21 / 18 / 21 / 30 mm, mean 22 mm, over the girder spacing 2.326 m x 25 kN/m3 = 1.273 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-02"
+       "girder": "G01-02",
+       "w": 1.273
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 29 / 21 / 18 / 21 / 30 mm, mean 22 mm, over the girder spacing 2.326 m x 25 kN/m3 = 1.273 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-03"
+      "girder": "G01-03",
+      "w": 1.345
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 30 / 22 / 19 / 22 / 31 mm, mean 23 mm, over the girder spacing 2.330 m x 25 kN/m3 = 1.345 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-03"
+       "girder": "G01-03",
+       "w": 1.345
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 30 / 22 / 19 / 22 / 31 mm, mean 23 mm, over the girder spacing 2.330 m x 25 kN/m3 = 1.345 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-04"
+      "girder": "G01-04",
+      "w": 1.417
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 31 / 23 / 21 / 24 / 32 mm, mean 24 mm, over the girder spacing 2.330 m x 25 kN/m3 = 1.417 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-04"
+       "girder": "G01-04",
+       "w": 1.417
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 31 / 23 / 21 / 24 / 32 mm, mean 24 mm, over the girder spacing 2.330 m x 25 kN/m3 = 1.417 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-05"
+      "girder": "G01-05",
+      "w": 1.457
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 24 / 21 / 24 / 32 mm, mean 25 mm, over the girder spacing 2.331 m x 25 kN/m3 = 1.457 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-05"
+       "girder": "G01-05",
+       "w": 1.457
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 24 / 21 / 24 / 32 mm, mean 25 mm, over the girder spacing 2.331 m x 25 kN/m3 = 1.457 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-06"
+      "girder": "G01-06",
+      "w": 1.556
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 36 / 26 / 23 / 25 / 34 mm, mean 27 mm, over the girder spacing 2.323 m x 25 kN/m3 = 1.556 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-06"
+       "girder": "G01-06",
+       "w": 1.556
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 36 / 26 / 23 / 25 / 34 mm, mean 27 mm, over the girder spacing 2.323 m x 25 kN/m3 = 1.556 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-07"
+      "girder": "G01-07",
+      "w": 1.439
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 34 / 24 / 21 / 24 / 32 mm, mean 25 mm, over the girder spacing 2.307 m x 25 kN/m3 = 1.439 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-07"
+       "girder": "G01-07",
+       "w": 1.439
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 34 / 24 / 21 / 24 / 32 mm, mean 25 mm, over the girder spacing 2.307 m x 25 kN/m3 = 1.439 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-08"
+      "girder": "G01-08",
+      "w": 1.377
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 23 / 32 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.377 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). B01-08 RL 'X' is printed 9.324, equal to B01-07 (query): the mean of B01-07 / B01-09 (9.2555) is used for the haunch only. ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-08"
+       "girder": "G01-08",
+       "w": 1.377
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 23 / 32 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.377 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). B01-08 RL 'X' is printed 9.324, equal to B01-07 (query): the mean of B01-07 / B01-09 (9.2555) is used for the haunch only. ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-09"
+      "girder": "G01-09",
+      "w": 1.36
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.301 m x 25 kN/m3 = 1.36 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-09"
+       "girder": "G01-09",
+       "w": 1.36
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.301 m x 25 kN/m3 = 1.36 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-10"
+      "girder": "G01-10",
+      "w": 1.363
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.363 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-10"
+       "girder": "G01-10",
+       "w": 1.363
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 32 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.363 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-11"
+      "girder": "G01-11",
+      "w": 1.366
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.366 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-11"
+       "girder": "G01-11",
+       "w": 1.366
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.366 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-12"
+      "girder": "G01-12",
+      "w": 1.37
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.37 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-12"
+       "girder": "G01-12",
+       "w": 1.37
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 23 / 20 / 22 / 31 mm, mean 24 mm, over the girder spacing 2.300 m x 25 kN/m3 = 1.37 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-13"
+      "girder": "G01-13",
+      "w": 1.402
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 24 / 20 / 23 / 32 mm, mean 24 mm, over the girder spacing 2.305 m x 25 kN/m3 = 1.402 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-13"
+       "girder": "G01-13",
+       "w": 1.402
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 33 / 24 / 20 / 23 / 32 mm, mean 24 mm, over the girder spacing 2.305 m x 25 kN/m3 = 1.402 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). ",
+       "inputs": []
+      }
      },
      "current": "original"
     },
     {
      "cells": {
-      "girder": "G01-14"
+      "girder": "G01-14",
+      "w": 1.569
      },
-     "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 38 / 28 / 23 / 25 / 32 mm, mean 27 mm, over the girder spacing 2.309 m x 25 kN/m3 = 1.569 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). A01-14 'a1' 43 at the 66 mm row looks like a typo for 53 (neighbouring rows 54 / 38): used as printed (query). ",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "original": {
       "cells": {
-       "girder": "G01-14"
+       "girder": "G01-14",
+       "w": 1.569
       },
       "unit": null,
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); haunch at t = 0 / .25 / .5 / .75 / 1: 38 / 28 / 23 / 25 / 32 mm, mean 27 mm, over the girder spacing 2.309 m x 25 kN/m3 = 1.569 kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). A01-14 'a1' 43 at the 66 mm row looks like a typo for 53 (neighbouring rows 54 / 38): used as printed (query). ",
+       "inputs": []
+      }
      },
      "current": "original"
     }
@@ -5239,18 +5351,24 @@
      ]
     },
     "haunch": {
-     "note": "girder top to deck soffit not dimensioned (deck '200 MIN', varies)",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "derivation": {
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); one section type for all girders: the smallest mid-span haunch (G01-02; all girders 01 24, 02 18, 03 19, 04 21, 05 21, 06 23, 07 21, 08 20, 09 20, 10 20, 11 20, 12 20, 13 20, 14 23 mm), conservative for strength",
+      "inputs": []
+     },
+     "tag": "Calculated",
+     "status": "accepted",
      "unit": "mm",
-     "value": null,
+     "value": 18,
      "original": {
-      "value": null,
+      "value": 18,
       "unit": "mm",
-      "tag": "Missing-Flagged",
+      "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "girder top to deck soffit not dimensioned (deck '200 MIN', varies)"
+      "derivation": {
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) - 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606); one section type for all girders: the smallest mid-span haunch (G01-02; all girders 01 24, 02 18, 03 19, 04 21, 05 21, 06 23, 07 21, 08 20, 09 20, 10 20, 11 20, 12 20, 13 20, 14 23 mm), conservative for strength",
+       "inputs": []
+      }
      },
      "current": "original"
     },
@@ -23441,7 +23559,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-06T05:59:11+00:00",
+  "created": "2026-11-10T05:31:25+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-1000-BR-DRG-COMBINED.pdf (143 sheets) + report RPT-000001 rev E, 2026-11-06)",
   "decision_log_sha256": null
@@ -23450,6 +23568,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:71741c4c0b4718db4f2a29f2c1bf8b157729925074904d7fd3373d3bba9d4608"
+  "value": "sha256:9375e67e2223ca436709d9136f3f3010a07010f296f6196508491675bed887cc"
  }
 }

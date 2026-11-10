@@ -57,4 +57,10 @@ T = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True)
 t("lanes per carriageway, never across the median: 4 (13.400) + 5 (17.295) = 9 design lanes printed on 0101", T["lanes"] == 9, str(T["lanes"]))
 t("HLP400 with 0.5 M1600 alongside switched on from report table 2-7", "HLP" in T["env"] and T.get("hlp_accompany"))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
+sys.path.insert(0, os.path.join(R, "projects", "B12452", "extraction"))
+import values as V                                                 # noqa: E402 (asserts the 0703 table 2 check on import)
+t("haunch from levels: deck top reproduces 0703 RL 3 at 16.000 within 3 mm", abs(V.DECK(16.0, 16.591) + 0.075 - 10.651) < 0.003)
+t("haunch from levels: every girder 10 - 60 mm at all stations (0500 RLs, 0502 pads, 0600 hogs)", all(10 < x < 60 for h in V.HN for x in h),
+  f"mid-span min {min(h[2] for h in V.HN):.0f} mm")
 sys.exit(0 if all(res) else 1)
+

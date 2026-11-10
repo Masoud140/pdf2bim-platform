@@ -109,6 +109,50 @@ for s, c in SUP.items():
 GIRDER_GAP = [math.dist(SUP["A"]["at"](SUP["A"]["brgs"][k]), SUP["B"]["at"](SUP["B"]["brgs"][k])) for k in range(14)]
 assert all(abs(g + 0.8 - 33.441) < 0.003 for g in GIRDER_GAP), GIRDER_GAP     # bearing-to-bearing + 2 x 400 = X1 33441 (0601-0604)
 
+# ---------------- haunch from levels (as SB42, ADR-062 note §4) ----------------
+# 0703 table 2: (ch, W1+W2, W3, RL 1 setout line, RL 2 left barrier face, RL 3 right barrier face): rows with no upstand (triangle) RL
+T2 = [(4.0, 14.641, 16.562, 11.074, 11.516, 10.574), (8.0, 14.680, 16.572, 11.104, 11.548, 10.605), (12.0, 14.718, 16.581, 11.129, 11.571, 10.631),
+      (16.0, 14.756, 16.591, 11.151, 11.596, 10.651), (20.0, 14.795, 16.601, 11.168, 11.613, 10.668), (24.0, 14.833, 16.611, 11.181, 11.627, 10.683),
+      (28.0, 14.872, 16.621, 11.190, 11.640, 10.690)]
+X3, R3 = (4.0, 16.0, 28.0), (11.074, 11.151, 11.190)
+_a2, _b1 = (R3[2] - 2 * R3[1] + R3[0]) / (2 * 12.0 ** 2), (R3[2] - R3[0]) / 24.0
+RL1 = lambda x: R3[1] + _b1 * (x - 16) + _a2 * (x - 16) ** 2        # design surface on the setout line (parabola through RL 1 at 4 / 16 / 28)
+DECK = lambda x, off: RL1(x) - 0.03 * off - 0.075                    # concrete top: 3 % one-way fall to the right (0701), less 75 surfacing (0701)
+assert all(abs(RL1(c) + 0.03 * wl - r2) < 0.004 and abs(RL1(c) - 0.03 * wr - r3) < 0.004 for c, wl, wr, _, r2, r3 in T2), "0703 table 2 check"
+# 0600 table 1: 28-day hog and mid-span deflection due to the deck slab, per girder 01..14
+HOG28 = [75, 75, 75, 75, 75, 76, 75, 75, 75, 75, 75, 75, 75, 74]
+DEFL = [-29] * 6 + [-28] * 7 + [-27]
+# 0502 table 2 (SB01): epoxy mortar pad corners at measured hog 66 / 77 mm, ends A ('a1'-'a4') and B ('b1'-'b4'), bearings 01..14
+PA66 = [(54, 71, 76, 58)] + [(56, 73, 77, 60)] * 6 + [(55, 72, 78, 61), (56, 73, 77, 60)] + [(56, 73, 77, 60)] * 4 + [(43, 71, 76, 59)]
+PA77 = [(45, 63, 67, 50)] + [(47, 64, 69, 52)] * 5 + [(46, 63, 68, 51), (45, 63, 68, 51), (46, 63, 68, 51)] + [(46, 63, 68, 51)] * 4 + [(38, 60, 66, 49)]
+PB66 = [(54, 71, 71, 54)] + [(56, 73, 73, 56)] * 6 + [(55, 72, 74, 56)] + [(56, 73, 73, 56)] * 6
+PB77 = [(46, 63, 63, 46)] + [(48, 65, 64, 47)] * 5 + [(47, 64, 63, 46), (46, 63, 64, 47)] + [(47, 64, 63, 46)] * 6
+pad = lambda r66, r77, h: (sum(r66) + (sum(r77) - sum(r66)) * (h - 66) / 11) / 4 / 1000   # mean of the 4 corners, interpolated at the hog (0502 note)
+HAUNCH_TXT = ("haunch = deck concrete top - 200 slab - girder top. Deck concrete top = design surface RL 1 on the setout line (0703 table 2; parabola "
+              "through 4 / 16 / 28 m, checks RL 1-3 of every table 2 row without an upstand mark within 4 mm) - 3 % x offset (one-way fall to the west, 0701) "
+              "- 75 surfacing (0701). Girder top = top of bearing RL 'X' (0500 table 1, 0503) + epoxy mortar pad (mean of the 4 corners, 0502 table 2, "
+              "interpolated between the 66 / 77 mm rows at the 28-day hog of 0600 table 1, as the 0502 note directs) at each end, straight between "
+              "the ends, + (28-day hog + deck-slab deflection, 0600 table 1) x 4t(1-t), + 1515 (0606)")
+
+
+def haunch(k):
+    """Haunch (mm) at t = 0, .25, .5, .75, 1 along girder k (0-based) between its bearings (A01 -> B01)."""
+    Pa, Pb = SUP["A"]["at"](SUP["A"]["brgs"][k]), SUP["B"]["at"](SUP["B"]["brgs"][k])
+    sa = SUP["A"]["rl_brg"][k] + pad(PA66[k], PA77[k], HOG28[k])
+    rb = SUP["B"]["rl_brg"][k]
+    if k == 7:   # B01-08 is printed 9.324 = B01-07 (query); every other step along B is -0.065 .. -0.071: use the mean of its neighbours
+        rb = (SUP["B"]["rl_brg"][6] + SUP["B"]["rl_brg"][8]) / 2
+    sb = rb + pad(PB66[k], PB77[k], HOG28[k])
+    c = (HOG28[k] + DEFL[k]) / 1000
+    out = []
+    for t in (0.0, 0.25, 0.5, 0.75, 1.0):
+        ch, off = along((Pa[0] + t * (Pb[0] - Pa[0]), Pa[1] + t * (Pb[1] - Pa[1])))
+        out.append((DECK(ch, off) - 0.2 - (sa + t * (sb - sa) + c * 4 * t * (1 - t) + 1.515)) * 1000)
+    return out
+
+
+HN = [haunch(k) for k in range(14)]
+
 # ---------------- project ----------------
 put("project.name", "Sydney Gateway Stage 1 - three bridges on Airport Drive over Main Road No 183: SB01", sheet="0101", view="title block")
 put("project.bridge_id", "B12452", sheet="0101", view="title block", text="SB01 BRIDGE No: B12452")
@@ -181,9 +225,18 @@ put("deck.slab_thickness", 200.0, unit="mm", sheet="0701", view="section 1 bridg
 put("deck.surfacing_thickness", 75.0, unit="mm", sheet="0701", view="section 1 bridge SB01", text="75 THICK BITUMINOUS WEARING SURFACE AND WATERPROOF MEMBRANE")
 put("deck.surfacing_density", 22.0, unit="kN/m3", sheet="RPT", view="table 2-5", text="asphalt surfacing 22 kN/m3")
 put("deck.girders_follow_crossfall", True, sheet="0701", view="section 1 bridge SB01", text="girders shown square to the 3% fall")
+OFFA = [along(SUP["A"]["at"](SUP["A"]["brgs"][k]))[1] for k in range(14)]
 for i in range(14):
-    put(f"deck.haunch_concrete.rows[{i}]", tag="Missing-Flagged", cells={"girder": f"G01-{i + 1:02d}"},
-        note="haunch over the girder not dimensioned (deck '200 MIN'); follows from the deck RLs (0703), girder hog at deck pour (0600) and pour age (not printed)")
+    h = HN[i]
+    hm = (h[0] + 4 * h[1] + 2 * h[2] + 4 * h[3] + h[4]) / 12          # Simpson over the 5 stations
+    sp = [abs(OFFA[i] - OFFA[j]) for j in (i - 1, i + 1) if 0 <= j < 14]
+    bt = sum(sp) / len(sp)
+    w = round(hm / 1000 * bt * 25.0, 3)
+    put(f"deck.haunch_concrete.rows[{i}]", tag="Calculated", cells={"girder": f"G01-{i + 1:02d}", "w": w},
+        formula=HAUNCH_TXT + f"; haunch at t = 0 / .25 / .5 / .75 / 1: {' / '.join(f'{x:.0f}' for x in h)} mm, mean {hm:.0f} mm, over the girder spacing "
+                f"{bt:.3f} m x 25 kN/m3 = {w} kN/m. Uncertainty: the hog at the deck pour (0600 gives 28 / 60 / 100 days; +/- about 5 mm). "
+                + ("B01-08 RL 'X' is printed 9.324, equal to B01-07 (query): the mean of B01-07 / B01-09 (9.2555) is used for the haunch only. " if i == 7 else "")
+                + ("A01-14 'a1' 43 at the 66 mm row looks like a typo for 53 (neighbouring rows 54 / 38): used as printed (query). " if i == 13 else ""))
 # external barriers: PB-1 precast + stitch pour, as SB02 (0909 section 1); median: cast-in-place type MCI (0706 detail B, 1:10)
 PRE = [(-561, 0), (-441, 0), (-396, 445), (-225, 445), (-225, 600), (0, 760), (-53, 1250), (-436, 1250)]
 STI = [(-225, 425), (125, 425), (125, 577), (0, 760), (-225, 600)]
@@ -262,7 +315,11 @@ put(T + ".concrete_28d", 50, unit="MPa", sheet="0600", view="general notes", tex
 put(T + ".concrete_transfer", 40, unit="MPa", sheet="0600", view="general notes", text="MINIMUM COMPRESSIVE STRENGTH OF CONCRETE SHALL BE 40 MPa AT TRANSFER")
 for i, e in enumerate("AB"):
     put(T + f".zones.rows[{i}]", sheet="0601", view="plan girder type F1", text="1500 end diaphragm", cells={"from": 0.0, "to": 1.5, "kind": "solid_end_" + e})
-put(T + ".haunch", tag="Missing-Flagged", unit="mm", note="girder top to deck soffit not dimensioned (deck '200 MIN', varies)")
+HMID = [h[2] for h in HN]
+kmin = min(range(14), key=lambda k: HMID[k])
+put(T + ".haunch", round(HMID[kmin]), unit="mm", tag="Calculated",
+    formula=HAUNCH_TXT + f"; one section type for all girders: the smallest mid-span haunch (G01-{kmin + 1:02d}; all girders "
+            f"{', '.join(f'{k + 1:02d} {v:.0f}' for k, v in enumerate(HMID))} mm), conservative for strength")
 X = {k: 25 + 50 * (6 - k) for k in range(1, 7)}
 ROWS = {"B": (260, {1: 0}), "C": (210, {1: 8000, 2: 0, 3: 2000, 4: 0, 5: 12000, 6: 0}), "D": (160, {1: 0, 2: 6000, 3: 0, 4: 4000, 5: 0, 6: 0}),
         "E": (110, {1: 2000, 2: 0, 3: 2000, 4: 0, 5: 4000, 6: 0}), "F": (60, {2: 2000, 4: 2000, 5: 0, 6: 0})}
