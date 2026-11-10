@@ -166,6 +166,16 @@ class Influence:
                 self.cache_bytes -= self.cache.pop(next(iter(self.cache))).nbytes
         return self.cache[key]
 
+    def line_r(self, o, grid, r):
+        """Column r of line(o, grid) without building (or evicting for) the whole line: concurrent-state rebuilds need one response."""
+        key = round(o * 1000)
+        if key in self.cache:
+            return self.cache[key][:, r]
+        wc = self.__dict__.setdefault("wcache", {})
+        if key not in wc:
+            wc[key] = self.weights(np.column_stack([grid, np.full(len(grid), o)]))
+        return np.asarray(wc[key] @ self.IM[r]).ravel()
+
 
 def _shift(A, s):
     if s <= 0:
@@ -433,7 +443,7 @@ def _lane_state(inf, grid, dc, veh, a, W, r, sign, pattern=True, lateral=True, d
     ns = 8
     fu = (1 + veh["dla"] if dla_on_udl else 1.0) * veh["udl_kN_per_m"] * dc / ns
     offs = [a + (s_ + 0.5) * W / ns for s_ in range(ns)]
-    f = sum(inf.line(o, grid)[:, r] for o in offs) * fu
+    f = sum(inf.line_r(o, grid, r) for o in offs) * fu
     loads = []
     if pattern:
         on = sign * f > 0
@@ -457,7 +467,7 @@ def _lane_state(inf, grid, dc, veh, a, W, r, sign, pattern=True, lateral=True, d
     amp = veh["wheel_kN"] * (1 + veh["dla"])
     best, bstate = 0.0, None
     for dv in lat:
-        Lw = inf.line(oc + dv - veh["track_m"] / 2, grid)[:, r]; Rw = inf.line(oc + dv + veh["track_m"] / 2, grid)[:, r]
+        Lw = inf.line_r(oc + dv - veh["track_m"] / 2, grid, r); Rw = inf.line_r(oc + dv + veh["track_m"] / 2, grid, r)
         A = np.zeros(ln); A[PAD:PAD + N] = amp * (Lw + Rw)
         sh = lambda X, k: X if k <= 0 else np.concatenate([X[k:], np.zeros(k)])
         Gg = A + sh(A, sa) + sh(A, 2 * sa)
@@ -493,9 +503,12 @@ def governing_state(T, model, r, sign=1):
         return _platform_state(T, r, sign)
     inf, grid, st = T["influence"], T["grid"], T["settings"]
     veh, W, lf = T["vehicles"][model], T["lane_width"], T["lane_factors"]
-    best = None
+    best, memo = None, {}
     for Lay in T["layouts"]:
-        eff = [_lane_state(inf, grid, st["dc_m"], veh, a, W, r, sign, st["pattern_udl"], st["lateral_shift"], st["dla_on_udl"]) for a in Lay]
+        for a in Lay:                                   # lanes repeat across the sweep layouts
+            if a not in memo:
+                memo[a] = _lane_state(inf, grid, st["dc_m"], veh, a, W, r, sign, st["pattern_udl"], st["lateral_shift"], st["dla_on_udl"])
+        eff = [memo[a] for a in Lay]
         order = sorted(range(len(eff)), key=lambda k: -sign * eff[k][0])
         val, loads, fac = 0.0, [], []
         for rank, k in enumerate(order):
