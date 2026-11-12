@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- Backlog added 2026-11-13: P9.6 Loads tab in the app (full case list with on/off, read-only combination matrix); details in `NEXT_SESSION.md`.
 - Speed fix in `traffic.py` (single-response lines and a per-lane memo in `governing_state`): the SB01 actions step went from more than 2 h to about 10 min.
 - Tests:
   - `test_b12452_chain` 16/16.

@@ -4,6 +4,10 @@
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
 - `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).
 - Next: the Python platform checks from `docs/PRESTRESS_DESIGN_RULES.md` "Rules for the next calculation" items 1–3 (transfer 0.5 / 0.6 f'cp, TfNSW debonding with adjacency, development length).
+- Then P9.6 (owner request 2026-11-13): a **Loads** tab in the app, like the Studio Loads page but over the full platform case set.
+  - List every case (permanent, SDLs / SDLp, M1600, S1600, HLP, pedestrian, temperature, shrinkage, earth pressure, surcharge, braking, centrifugal, wind, earthquake, flood, collision) with on/off and intensity records read from `loads.*` in the description; edits go through `propose_override` (history and tags kept); a change marks the run stale as the Girder editor does.
+  - Show the generated combination matrix (`combinations.py`) read-only: factors are standards-inventory entries, not per-project edits.
+  - Server: one `loads` view; no engine change. Check first that every `loads.*` record has a `propose_override` path.
 - Open owner queries:
   - report table 4-29: Mu or φMu;
   - the SLS combination and its limit;
