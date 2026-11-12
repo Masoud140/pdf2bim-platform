@@ -715,3 +715,9 @@
 - **Transfer compression:** `lim.cT` is now a choice: 0.6 f'cp (triangular) or 0.5 f'cp (rectangular), AS 5100.5 Cl 8.1.6.2 (verify).
 - **Development length:** an information row flags stations where M* acts on strands shorter than Lp = 0.145 (σpu − 0.67 σpe) db ≥ 60 db (2 Lp if debonded, conservatively; σpu = fpb, an upper bound). φMu is not reduced: the flag asks for a hand check.
 - **Consequence:** the illustrative strand patterns (from the original dashboard) fail the TfNSW adjacency rule (13 pairs) in all four case studies. This is reported, not hidden; the patterns are generic examples.
+
+## ADR-065 Standards Agent as a separate project, merged later
+- **Date:** 2026-11-13. **Status:** approved by the owner (direction given in chat).
+- **Decision:** the clause-retrieval / design-basis agent is developed in its own claude.ai Project and repository (`standards-agent`), under the interface in `docs/STANDARDS_AGENT_CONTRACT.md`; it joins this repo as `standards_agent/` later, writing `standards/data/` entries at most `transcribed-unverified`.
+- **Why:** different corpus (licensed standards, never in git), different licence risk, independent pace; the register format already fixes the join.
+- **Consequence:** this repo adds a profile exporter and a Design-basis app tab at merge time; nothing changes now.

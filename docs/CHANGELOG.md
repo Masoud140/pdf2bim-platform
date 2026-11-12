@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-13 — Standards Agent handoff
+- ADR-065: the Standards Agent starts as a separate project; interface in `docs/STANDARDS_AGENT_CONTRACT.md`.
+
 ## 2026-11-10 — Prestress rules
 - Fact-checked prestress/debonding rules (`docs/PRESTRESS_DESIGN_RULES.md`); Studio: TfNSW debonding rule with adjacency, transfer stress distribution choice, development-length flag (ADR-064); SB01 haunch from levels (18–38 mm; re-run: M* −2.1 %, φMu −15.1 % against the report); traffic concurrent-state speed fix (SB01 actions step from more than 2 h to about 10 min).
 
