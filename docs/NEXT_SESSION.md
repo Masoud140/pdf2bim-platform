@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-10.
+**Last updated:** 2026-11-16.
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
 - `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).
 - Next: the Python platform checks from `docs/PRESTRESS_DESIGN_RULES.md` "Rules for the next calculation" items 1–3 (transfer 0.5 / 0.6 f'cp, TfNSW debonding with adjacency, development length).
@@ -13,6 +13,12 @@
   - Results: influence lines for any response; the governing lane layout, lane ranking (accompanying lane factors) and vehicle / patterned-UDL positions behind each envelope value (`traffic.governing_state` already exists in the engine).
   - Pick any member in the model view and see the load position that gives its maximum bending and shear, drawn on the plan.
   - Studio showcase of the same (Moving loads tab) built 2026-11-16 as the reference for the app's UI.
+- Studio items S-1…S-4 (owner questions 2026-11-16), small, do together:
+  - S-1 lane editor on the typical cross-section (type or drag lane left edges; feeds the Moving loads manual layouts).
+  - S-2 Materials card on the design page: concrete grades and Ec (AS 5100.5 table), densities, strand area / MBL / Ep, fitment steel grade, each with its source; make the steel properties visible inputs.
+  - S-3 Loads page note + per-girder G2 weight: deck weight acts on the bare girders by tributary width (non-composite), so slab strips carry stiffness only.
+  - S-4 Mesh member table: add section geometry columns (b × h: deck strip = element spacing × slab; end cross girder = cgW × (H + slab); girder = composite Super-T + deck strip one spacing wide).
+- Not brought across from the BR13A dashboard section view (optional): girder bars, deck bars, ligature outline, zoom.
 - Open owner queries:
   - report table 4-29: Mu or φMu;
   - the SLS combination and its limit;
