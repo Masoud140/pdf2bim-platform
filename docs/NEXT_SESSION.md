@@ -18,6 +18,11 @@
   - S-2 Materials card on the design page: concrete grades and Ec (AS 5100.5 table), densities, strand area / MBL / Ep, fitment steel grade, each with its source; make the steel properties visible inputs.
   - S-3 Loads page note + per-girder G2 weight: deck weight acts on the bare girders by tributary width (non-composite), so slab strips carry stiffness only.
   - S-4 Mesh member table: add section geometry columns (b × h: deck strip = element spacing × slab; end cross girder = cgW × (H + slab); girder = composite Super-T + deck strip one spacing wide).
+- **P8.x Verify the remaining bridges of the latest drawing set** (owner request 2026-11-16): set SGWS1-JHSW-2000-BR-DRG-COMBINED (design lot SB-1510, report RPT-410001 rev D) holds four bridges; SB42 (B12461) is done. Still to do, each as SB42 was (survey → values.py → description → chain → COMPARISON_REPORT against the report, haunch from levels):
+  - SB41 EB (B12460) and SB41 WB (B12459) — note end skews above 35° on some ends (survey §3 item 3), so expect a FE-deck flag per BTD 2011/06;
+  - SB43 (B12468).
+  - From the earlier set SGWS1-JHSW-1000-BR-DRG-COMBINED: SB01 (B12452) and SB02 (B12453) done; check the set's bridge list for any third bridge not yet surveyed.
+  - Owner PDFs and the report stay uncommitted; page indices are 0-based into the combined PDF.
 - Not brought across from the BR13A dashboard section view (optional): girder bars, deck bars, ligature outline, zoom.
 - Open owner queries:
   - report table 4-29: Mu or φMu;
