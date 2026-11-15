@@ -104,3 +104,7 @@ table.edit td { padding: 2px 4px; }
 .sticky-save { position: sticky; bottom: 0; z-index: 4; box-shadow: 0 -4px 16px rgba(0,0,0,.08); }
 .chip.st-done { color: var(--ok-ink); } .chip.st-running { color: var(--warn-ink); } .chip.st-failed { color: var(--bad-ink); }
 .hogsvg{width:100%;max-width:720px;height:auto;color:var(--fg,#333)}
+/* Loads tab (P9.6) */
+.term { display: inline-block; margin: 1px 6px 1px 0; padding: 0 6px; border: 1px solid var(--line, #d7dde3); border-radius: 4px; font-family: ui-monospace, monospace; font-size: 12px; }
+.chipline { display: inline-block; margin-right: 6px; white-space: nowrap; }
+tr.muted td { opacity: .6; }

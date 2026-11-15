@@ -120,5 +120,19 @@ t("revision history lists the kept revisions with the current one first", RV[0][
 DF = c.get(f"/api/projects/COPY1/revisions/{rev0}/{rev0 + 1}").get_json()["rows"]
 t("diff of the D-1 acceptance shows the surfacing density 22 Standard-verify", any(r["path"] == "deck.surfacing_density" and r["to"] == 22 and r["to_tag"] == "Standard-verify" for r in DF), f"{len(DF)} changed")
 
+# loads tab (P9.6)
+LD = c.get("/api/projects/BR13A/loads").get_json()
+ids = [a["id"] for a in LD["actions"]]
+t("loads: every register action listed once with factors from the standards entries and their status",
+  len(ids) == len(set(ids)) == 52 and all(a["status"] and set(a["factors"]) == {"uls", "uls_relieving", "sls"} for a in LD["actions"]))
+on = [a for a in LD["actions"] if a["on"]]
+t("loads: actions in the latest run carry the load-case source; PED is 'not combined' with the reason", len(on) >= 10 and all(a["source"] for a in on)
+  and next(a for a in LD["actions"] if a["id"] == "PED")["not_combined"].startswith("loads.pedestrian"), f"{len(on)} on")
+t("loads: generated rows equal the run's row count and every term names a register action",
+  LD["n_rows"] == sum(json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.combined_actions.json")))["run"]["rows"].values())
+  and all(tm[0].split("_")[0] in ids for r in LD["rows"] for tm in r["terms"]), f"{LD['n_rows']} rows")
+LN = c.get("/api/projects/TESTBR/loads").get_json()
+t("loads: a new bridge without a run lists the register with no rows and no action on", LN["n_rows"] == 0 and not any(a["on"] for a in LN["actions"]) and len(LN["actions"]) == 52)
+
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

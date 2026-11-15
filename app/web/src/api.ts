@@ -52,6 +52,7 @@ export const api = {
     to: unknown; to_tag: string | null; to_status: string | null; proposals_added: number; decision: string | null }[] }>(r)),
   saveBatch: (id: string, body: { by: string; reason: string; items: { path: string; value: unknown }[]; new_rows: { table: string; cells: Record<string, unknown> }[] }) =>
     fetch(`${base(id)}/values/batch`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<{ decision: string; changed: number; message: string }>(r)),
+  loads: (id: string) => fetch(`${base(id)}/loads`).then((r) => j<Loads>(r)),
   settings: () => fetch("/api/settings").then((r) => j<Settings>(r)),
   saveSettings: (body: { api_key?: string; model?: string }) => fetch("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => j<Settings>(r)),
   extract: (id: string, pages?: string) => fetch(`${base(id)}/extract`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pages ? { pages } : {}) }).then((r) => j<{ id: string }>(r)),
@@ -59,3 +60,11 @@ export const api = {
   fileUrl: (id: string, name: string): string | null => (STATIC ? null : `${base(id)}/files/${encodeURIComponent(name)}`),
   descUrl: (id: string): string | null => (STATIC ? null : `${base(id)}/description.json`),
 };
+
+export interface Loads {
+  meta: Meta | null;
+  actions: { id: string; group: string; group_name: string; name: string; clause: string | null; factors: { uls: number; uls_relieving: number; sls: number }; status: string;
+    on: boolean; not_combined: string | null; source: string | null; inputs: { path: string; state: { n: number; tags: Record<string, number> } | null }[] }[];
+  rows: { name: string; ls: string; col: string; clause: string; type: string; pe: string; terms: [string, number][] }[];
+  n_rows: number; types: Record<string, { clause: string; title: string }>; standards_status: string | null;
+}

@@ -572,6 +572,55 @@ def api_result(pid, name):
     return app.response_class('{"meta": %s, "data": %s}' % (json.dumps(meta), open(f).read()), mimetype="application/json")
 
 
+# ---------------- loads (P9.6) ----------------
+# which description records feed each register action (for the Loads tab's "input" column)
+ACTION_INPUTS = {"M1600": ["loads.traffic_models"], "S1600": ["loads.traffic_models"], "HLP": ["loads.traffic_models"], "BRKR": ["loads.braking_force", "loads.design_speed"],
+                 "CENR": ["loads.design_speed"], "EPT": ["loads.traffic_surcharge"], "PED": ["loads.pedestrian"], "WX": ["loads.wind"], "WY": ["loads.wind"], "WZ": ["loads.wind"],
+                 "TUW": ["loads.temperature"], "TUC": ["loads.temperature"], "TGP": ["loads.gradient_positive"], "TGN": ["loads.gradient_negative"],
+                 "SCR": ["loads.shrinkage_creep_shortening"], "EQX": ["loads.earthquake"], "EQY": ["loads.earthquake"], "FLH": ["loads.flood"], "FLVU": ["loads.flood"], "FLVD": ["loads.flood"],
+                 "COLX": ["loads.collision"], "COLY": ["loads.collision"], "DLc": ["superstructure", "deck", "supports", "materials"], "SDLp": ["deck.surfacing_thickness", "deck.surfacing_density", "deck.barriers"], "SDLs": ["deck.barriers"],
+                 "SOo": ["supports (fill category: provisional)"], "SOc": ["supports (fill category: provisional)"]}
+GROUPS = {"P": "Permanent", "RT": "Road traffic", "RL": "Rail traffic", "PD": "Pedestrian", "MR": "Minimum restraint", "CO": "Collision", "BA": "Barrier", "EP": "Earth pressure from traffic",
+          "EQ": "Earthquake", "FL": "Water flow", "WN": "Wind", "TH": "Thermal"}
+
+
+@app.get("/api/projects/<pid>/loads")
+def api_loads(pid):
+    """Every register action with its factors (standards entries, status shown), the description records that feed it, whether
+    the latest run combined it, and the generated AS 5100.2 combination rows for the actions on in that run (read-only)."""
+    from pdf2bim.model.combinations import ACTIONS, Register, generate, TYP
+    from standards.accessor import Standards
+    p = project(pid); doc = load_doc(p); std = Standards()
+    f, meta = _result_file(pid, "combined_actions.json")
+    run = json.load(open(f)) if f else None
+    on = set((run or {}).get("run", {}).get("on") or [])
+    notc = {a: why for a, why in ((run or {}).get("not_combined") or [])}
+    srcs = (run or {}).get("sources") or {}
+    recs = {path: r for path, r in records(doc)}
+    def rec_state(prefix):
+        rows = [(path, r) for path, r in recs.items() if path == prefix or path.startswith(prefix + ".") or path.startswith(prefix + "[")]
+        if not rows:
+            return None
+        tags = {}
+        for path, r in rows:
+            v, tag, ov = effective(r, True); tags[tag] = tags.get(tag, 0) + 1
+        return {"n": len(rows), "tags": tags}
+    acts = []
+    for aid, g in ACTIONS:
+        e = std.entries[f"AS5100.2:load_factor:{aid}"]
+        ref = e.get("reference") or {}
+        acts.append({"id": aid, "group": g, "group_name": GROUPS.get(g, g), "name": (e.get("quantity") or "").replace("load factors for ", "").split(" (")[0].strip("'"),
+                     "clause": ref.get("clause"), "factors": e["value"], "status": e["status"], "on": aid in on, "not_combined": notc.get(aid),
+                     "source": srcs.get(aid), "inputs": [{"path": q, "state": rec_state(q.split(" (")[0])} for q in ACTION_INPUTS.get(aid, [])]})
+    rows = []
+    if run:
+        reg = Register(std, on); G = generate(reg, (run.get("run") or {}).get("options"))
+        for r in G["rows"]:
+            rows.append({"name": r["name"], "ls": r["ls"], "col": r["col"], "clause": r.get("clause"), "type": r.get("type"), "pe": r.get("pe"), "terms": r["t"]})
+    typ = {k: {"clause": v[0], "title": v[1]} for k, v in TYP.items()}
+    return jsonify({"meta": meta, "actions": acts, "rows": rows[:3000], "n_rows": len(rows), "types": typ, "standards_status": std.result_status() if hasattr(std, "result_status") else None})
+
+
 @app.get("/api/projects/<pid>/files/<name>")
 def api_file(pid, name):
     project(pid)

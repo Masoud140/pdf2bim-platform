@@ -1,12 +1,12 @@
 // PDF2BIM web app: projects, drawings, description values, model, analysis, design, run log.
-import { api, type Extraction, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
+import { api, type Extraction, type Loads, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
 import { girderEditor, girderSummary } from "./girder";
 
 const app = document.getElementById("app")!;
 const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections"],
-  ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
+  ["loads", "Loads"], ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
 const dl = (href: string | null, text: string, cls = "") => href ? h("a", { href, class: cls }, text) : h("span", { class: cls + " muted", title: "Download in the app on your computer" }, text);
@@ -68,7 +68,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
     h("div", { class: "row" }, STATIC ? null : h("a", { class: "btn primary", href: `/api/projects/${encodeURIComponent(id)}/report`, target: "_blank" }, "Calculation report"), dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
   const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
-    model: () => model(id), sections: () => sections(id), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
+    model: () => model(id), sections: () => sections(id), loads: () => loads(id), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
 
@@ -371,6 +371,52 @@ async function analysis(id: string) {
       Object.entries<any>(S.sills).map(([k, v]) => [k, cell(v.ULS.My_max.value), cell(v.ULS.My_min.value), cell(v.ULS.Vz.abs), cell(v.ULS.T?.abs)]), "num")),
     h("p", { class: "small muted" }, `${ca.data.governing_rows?.length || 0} governing combination rows; ${ca.data.not_combined?.length || 0} actions not combined. Full schedule: `,
       dl(api.fileUrl(id, "combined_actions.md"), "combined_actions.md"), " · ", dl(api.fileUrl(id, "workbook.xlsx"), "Excel workbook (bearings, piles, girders, bridge data)")));
+  return out;
+}
+
+// ---------------- loads (P9.6) ----------------
+async function loads(id: string) {
+  const [L, { rows: vals }] = await Promise.all([api.loads(id), api.values(id, true)]);
+  const out = h("div", {}, provenance(L.meta));
+  const state = { group: "", onOnly: false };
+  const tagsOf = (t: Record<string, number>) => Object.entries(t).map(([k, n]) => h("span", { class: "chipline", title: k }, tagChip(k), ` ${n}`));
+  const stateCell = (a: Loads["actions"][number]) => a.on ? h("span", { class: "pill ok" }, "in the latest run") : a.not_combined ? h("span", { class: "pill warn", title: a.not_combined }, "not combined")
+    : L.meta ? h("span", { class: "pill" }, "no load case") : h("span", { class: "muted small" }, "no run yet");
+  const tbody = h("tbody");
+  const draw = () => tbody.replaceChildren(...L.actions.filter((a) => (!state.group || a.group === state.group) && (!state.onOnly || a.on)).map((a) =>
+    h("tr", { class: a.on ? "" : "muted" }, h("td", { class: "mono" }, a.id), h("td", {}, a.name, h("div", { class: "small muted" }, a.group_name)), h("td", {}, stateCell(a), a.not_combined ? h("div", { class: "small muted" }, a.not_combined) : null),
+      h("td", { class: "small" }, a.source || ""),
+      h("td", { class: "small" }, a.inputs.map((i) => h("div", {}, h("a", { href: `#/p/${id}/values?q=${encodeURIComponent(i.path.split(" (")[0])}`, class: "mono" }, i.path), " ", i.state ? tagsOf(i.state.tags) : h("span", { class: "muted" }, "no record")))),
+      h("td", { class: "num" }, fmt(a.factors.uls, 2)), h("td", { class: "num" }, fmt(a.factors.uls_relieving, 2)), h("td", { class: "num" }, fmt(a.factors.sls, 2)),
+      h("td", { class: "small" }, a.clause ? `Cl ${a.clause}` : "", h("div", { class: "muted" }, a.status)))));
+  const groups = [...new Map(L.actions.map((a) => [a.group, a.group_name])).entries()];
+  out.append(h("div", { class: "card" }, h("h3", {}, "Load cases — AS 5100.2 action register"),
+    h("p", { class: "small muted" }, "Every action the combination generator knows. \"In the latest run\" = the chain built a load case for it and combined it; \"not combined\" = the description has no usable input for it (enter the value on Bridge data and re-run). Load factors are standards entries with their verification status; they are not edited per project."),
+    h("div", { class: "row wrap" }, h("select", { onchange: (e: Event) => { state.group = (e.target as HTMLSelectElement).value; draw(); } }, h("option", { value: "" }, "All groups"), groups.map(([g, n]) => h("option", { value: g }, n))),
+      h("label", { class: "small" }, h("input", { type: "checkbox", onchange: (e: Event) => { state.onOnly = (e.target as HTMLInputElement).checked; draw(); } }), " In the run only"),
+      h("span", { class: "small muted" }, `${L.actions.filter((a) => a.on).length} of ${L.actions.length} actions in the latest run`)),
+    h("div", { class: "tablewrap" }, h("table", { class: "values" }, h("thead", {}, h("tr", {}, ["Action", "Name", "State", "Load case built", "Inputs (description)", "γ ULS", "γ relieving", "γ SLS", "Clause / status"].map((x) => h("th", {}, x)))), tbody))));
+  // intensities: the loads.* records, editable on Bridge data
+  const lv = vals.filter((r) => r.path.startsWith("loads."));
+  out.append(h("div", { class: "card" }, h("h3", {}, "Load intensities (description records)"),
+    h("p", { class: "small muted" }, `${lv.length} records under loads.*; `, h("a", { href: `#/p/${id}/values` }, "edit on Bridge data"), " (each edit is a decision with history; a change marks the run stale)."),
+    table(["Path", "Value", "Unit", "Data source", "Note"], lv.map((r) => [h("td", { class: "mono" }, r.path), fmt(r.value), r.unit || "", h("td", {}, tagChip(r.tag)), h("td", { class: "small" }, r.note || "")]), "values")));
+  // combination matrix
+  if (L.rows.length) {
+    const cs = { ls: "ULS", col: "" };
+    const cb = h("tbody"); const cnt = h("span", { class: "small muted" });
+    const drawC = () => { const f = L.rows.filter((r) => r.ls === cs.ls && (!cs.col || r.col === cs.col)); cnt.textContent = `${f.length} rows`;
+      cb.replaceChildren(...f.slice(0, 600).map((r) => h("tr", {}, h("td", { class: "mono" }, r.name), h("td", { class: "small" }, `Cl ${r.clause} — ${r.type}`, h("div", { class: "muted" }, r.pe)),
+        h("td", { class: "small" }, r.terms.map(([a, f_]) => h("span", { class: "term" }, `${fmt(f_, 2)} × ${a}`)))))); };
+    const cols = [...new Set(L.rows.map((r) => r.col))];
+    out.append(h("div", { class: "card" }, h("h3", {}, `Combination matrix — ${L.n_rows} generated rows (read-only)`),
+      h("p", { class: "small muted" }, "Generated by the AS 5100.2 Cl 23 rules from the actions in the latest run. The governing rows per response are on the Analysis tab. Factors: ", L.standards_status || "", "."),
+      h("div", { class: "row wrap" }, ["ULS", "SLS"].map((l) => h("button", { class: "chip" + (cs.ls === l ? " on" : ""), onclick: (e: Event) => { cs.ls = l; (e.currentTarget as HTMLElement).parentElement!.querySelectorAll(".chip").forEach((c, i) => c.classList.toggle("on", i === (l === "ULS" ? 0 : 1))); drawC(); } }, l)),
+        h("select", { onchange: (e: Event) => { cs.col = (e.target as HTMLSelectElement).value; drawC(); } }, h("option", { value: "" }, "All types"), cols.map((c) => h("option", { value: c }, `${L.types[c]?.clause || c} ${L.types[c]?.title || ""}`))), cnt),
+      h("div", { class: "tablewrap tall" }, h("table", { class: "values" }, h("thead", {}, h("tr", {}, ["Row", "Type", "Terms (factor × action)"].map((x) => h("th", {}, x)))), cb))));
+    setTimeout(drawC);
+  } else out.append(empty("No combinations yet", "Run the chain; the combination rows are generated from the actions the run builds."));
+  setTimeout(draw);
   return out;
 }
 
