@@ -1,6 +1,27 @@
 # Next session — resume here
 
 **Last updated:** 2026-11-16.
+
+## Priority order (owner-agreed list, 2026-11-16) — work top to bottom
+Tier 1 — engineering trust on real bridges
+1. Platform prestress checks (transfer 0.5 / 0.6 f'cp, TfNSW debonding + adjacency, development length).
+2. Verify SB41 EB, SB41 WB, SB43 from the 2000 set (each as SB42: survey → values → chain → comparison, haunch from levels).
+3. Owner queries that gate the benchmarks: table 4-29 Mu vs φMu; SLS combination and limit; SB01 drawing items. (Owner.)
+4. Standards verification against licensed editions; Standards Agent S0 licence check and corpus list. (Owner.)
+Tier 2 — the app as the one tool
+5. P9.6 Loads tab (full case list, read-only combination matrix).
+6. P9.7 Moving-load lanes in the app (lane layouts in the description, influence lines, governing positions, member pick).
+7. App: Materials and member-properties transparency pages (dashboard parity M-1, M-3) and Needs-review roll-up as a first-class page (W-1).
+8. App: per-girder definition — strands, debonding, bars, fitments (M-4) — with the Studio's editable design and rerun.
+Tier 3 — Studio showcase
+9. S-1…S-4 (lane editor on the cross-section, Materials card, deck-weight note, member b × h).
+10. Dashboard parity in the Studio, in this order: L-6 construction stages page, D-5 hog page, L-8 full combinations, L-1 wind, L-2 temperature, D-1 bearings, M-5 bars on the section; then M-4 per-girder definition.
+11. Optional: section-drawing zoom; generated live-load model page.
+Tier 4 — platform scope
+12. Pile moments with real soil springs (needs the geotechnical appendix); D-2 / D-3 views in the Studio only after that.
+13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results.
+14. Moving-load MIDAS export; planks; continuous spans; Revit output; hosted app with log-in.
+15. Merge `p4-verification` to main (owner).
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
 - `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).
 - Next: the Python platform checks from `docs/PRESTRESS_DESIGN_RULES.md` "Rules for the next calculation" items 1–3 (transfer 0.5 / 0.6 f'cp, TfNSW debonding with adjacency, development length).
