@@ -93,7 +93,7 @@
     m.quality.forEach(function (q) { if (!q.ok) w.push(['warn', 'Mesh: ' + q.k + ' ' + q.v + '. ' + q.note]); });
     if (g.lanes < 1) w.push(['bad', 'The carriageway is narrower than one 3.2 m lane: no traffic is applied.']);
     U.ORDER.forEach(function (n) { var s = U.status(n); if (s.s === 'out') w.push(['stale', U.DEP[n].label + ' is out of date (' + s.why.join(', ') + ').']); });
-    if (d.checks) d.checks.filter(function (c) { return c.ok === false; }).slice(0, 6).forEach(function (c) { w.push(['bad', 'G' + (c.gi + 1) + (g.spans.length > 1 ? ' span ' + (c.sk + 1) : '') + ': ' + c.name + ' – utilisation ' + (isFinite(c.u) ? c.u.toFixed(2) : '∞') + (c.why ? ' (' + c.why + ')' : '')]); });
+    if (d.checks) d.checks.filter(function (c) { return c.ok === false; }).slice(0, 6).forEach(function (c) { w.push(['bad', 'G' + (c.gi + 1) + (g.spans.length > 1 ? ' span ' + (c.sk + 1) : '') + ': ' + c.name + (c.u === null || c.u === undefined ? '' : ' – utilisation ' + (isFinite(c.u) ? c.u.toFixed(2) : '∞')) + (c.why ? ' (' + c.why + ')' : '')]); });
     if (d.piles) ['A', 'B'].forEach(function (s) { var wv = d.piles[s].worst; if (wv && wv.u > 1) w.push(['bad', 'Abutment ' + s + ' piles: bending utilisation ' + wv.u.toFixed(2) + ' (' + wv.id + ').']); });
     ST.cases.filter(function (c) { return c.proposed; }).forEach(function (c) { w.push(['info', c.name + ' – ' + c.note]); });
     ST.combos.filter(function (c) { return c.illustrative; }).forEach(function (c) { w.push(['info', c.id + ' (' + c.name + ') uses an illustrative construction load factor.']); });
