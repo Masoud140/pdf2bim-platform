@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-16 — Studio Moving loads page
+- ADR-066: AS 5100.2 design lanes (sweep or manual), influence lines, governing lane layout and vehicle / UDL positions behind any envelope value; pick a member on the plan. Studio tests 14/14. App version is backlog P9.7.
+
 ## 2026-11-13 — Standards Agent handoff
 - ADR-065: the Standards Agent starts as a separate project; interface in `docs/STANDARDS_AGENT_CONTRACT.md`.
 

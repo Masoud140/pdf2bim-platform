@@ -22,7 +22,7 @@ var CORE = (function () {
     fcG: 50, fcT: 45, fcD: 40, db: 15.2, jack: 0.75,
     stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 },
     fitD: 16, fitLegs: 2, fitS: 125, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
-    vehicles: { M1600: true, S1600: true }, dlaUDL: false,
+    vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3 },
     strands: null
   };
@@ -55,7 +55,7 @@ var CORE = (function () {
     girder: 'section', slab: 'section', gap: 'section',
     fcG: 'material', fcT: 'material', fcD: 'material', gConc: 'loads', gGirder: 'loads',
     nEl: 'mesh', nTrans: 'mesh', Jf: 'mesh', sweep: 'loads',
-    barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads',
+    barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads',
     combos: 'combos',
     strands: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', dg: 'detailing',
@@ -259,26 +259,81 @@ var CORE = (function () {
     }
     return [mx, mn];
   }
+  /* lane layouts (arrays of lane left edges, m): AS 5100.2 standard design lanes of STD.laneW across the carriageway.
+     'sweep' = every transverse position at the sweep step (the platform engine's rule); 'manual' = the offsets the engineer typed */
+  function laneLayouts(g, p) {
+    var W = STD.laneW, nl = g.lanes, out = [];
+    if ((p.laneMode || 'sweep') === 'manual') {
+      var a = (p.laneOffs || []).filter(function (x) { return isFinite(x) && x >= g.cwL - 1e-6 && x + W <= g.cwR + 1e-6; }).sort(function (x, y) { return x - y; });
+      a = a.filter(function (x, i) { return i === 0 || x - a[i - 1] >= W - 1e-6; });   /* lanes may not overlap */
+      if (a.length) return [a];
+    }
+    if (nl < 1) return [];
+    var slack = (g.cwR - g.cwL) - nl * W, stp = p.sweep || 0.1;
+    for (var u = 0; u <= slack + 1e-9; u += stp) { var L = []; for (var l = 0; l < nl; l++) L.push(g.cwL + u + l * W); out.push(L); }
+    return out.length ? out : [[g.cwL]];
+  }
+  function spanGrid(g, sp, dc) { var skx = Math.abs(g.y[0] * g.t), grid = []; for (var X = sp.x0 - skx - 1; X <= sp.x0 + sp.L + skx + 1; X += dc) grid.push(X); return grid; }
   function trafficEnvelope(m, g, IM, veh, opt, RS) {
     /* spans are simply supported, so each span's responses see only that span's loads: one envelope per span (exact) */
-    opt = opt || {}; var dc = 0.25, nrAll = IM[0].length, W = STD.laneW, nl = g.lanes, slack = (g.cwR - g.cwL) - nl * W, lay = [];
+    opt = opt || {}; var dc = 0.25, nrAll = IM[0].length, W = STD.laneW, lays = opt.layouts || laneLayouts(g, { sweep: opt.step });
     var mx = new Float64Array(nrAll), mn = new Float64Array(nrAll);
-    if (nl < 1) return { max: mx, min: mn, layouts: 0, lanes: 0 };
-    var stp = opt.step || 0.1; for (var u = 0; u <= slack + 1e-9; u += stp) lay.push(g.cwL + u);
-    if (!lay.length) lay.push(g.cwL);
-    var skx = Math.abs(g.y[0] * g.t);
+    if (!lays.length) return { max: mx, min: mn, layouts: 0, lanes: 0, lays: [] };
     g.spans.forEach(function (sp, k) {
       var cols = []; RS.R.forEach(function (r, q) { if (r.k === k) cols.push(q); });
-      var grid = []; for (var X = sp.x0 - skx - 1; X <= sp.x0 + sp.L + skx + 1; X += dc) grid.push(X);
-      var inf = new Inf(m, g, IM, cols, k), nr = cols.length, bx = new Float64Array(nr).fill(-Infinity), bn = new Float64Array(nr).fill(Infinity);
-      lay.forEach(function (a0) {
-        var eff = []; for (var l = 0; l < nl; l++) eff.push(laneEffect(inf, grid, dc, veh, a0 + l * W, W, opt.dlaUDL));
+      var grid = spanGrid(g, sp, dc);
+      var inf = new Inf(m, g, IM, cols, k), nr = cols.length, bx = new Float64Array(nr).fill(-Infinity), bn = new Float64Array(nr).fill(Infinity), memo = {};
+      lays.forEach(function (Lay) {
+        var eff = Lay.map(function (a) { var key = Math.round(a * 1000); if (!memo[key]) memo[key] = laneEffect(inf, grid, dc, veh, a, W, opt.dlaUDL); return memo[key]; });
         var c = combineLanes(eff, STD.ALF);
         for (var r = 0; r < nr; r++) { if (c[0][r] > bx[r]) bx[r] = c[0][r]; if (c[1][r] < bn[r]) bn[r] = c[1][r]; }
       });
       cols.forEach(function (q, r) { mx[q] = bx[r]; mn[q] = bn[r]; });
     });
-    return { max: mx, min: mn, layouts: lay.length, lanes: nl };
+    return { max: mx, min: mn, layouts: lays.length, lanes: lays[0].length, lays: lays };
+  }
+  /* ---- port of traffic.py _lane_state / governing_state: the load position behind one envelope value ---- */
+  function laneState(inf, grid, dc, veh, a, W, sign, dlaUDL) {   /* inf holds ONE response; returns {v, loads: [[x, y, P kN]]} */
+    var N = grid.length, ns = 8, fu = (dlaUDL ? 1 + veh.dla : 1) * veh.udl_kN_per_m * dc / ns, offs = [], f = new Float64Array(N), i, s;
+    for (s = 0; s < ns; s++) { var o = a + (s + 0.5) * W / ns, L = inf.line(o, grid); offs.push(o); for (i = 0; i < N; i++) f[i] += L[i][0] * fu; }
+    var loads = [], udl = 0, on = [];
+    for (i = 0; i < N; i++) if (sign * f[i] > 0) { udl += f[i]; on.push(i); }
+    offs.forEach(function (o) { on.forEach(function (k) { loads.push([grid[k], o, fu]); }); });
+    var sa = Math.round(veh.axle_spacing_m / dc), s12 = Math.round((2 * veh.axle_spacing_m + veh.gap_12_m) / dc), s34 = Math.round((2 * veh.axle_spacing_m + veh.gap_34_m) / dc), sg = Math.round((2 * veh.axle_spacing_m + veh.gap_23_min_m) / dc);
+    var PAD = s12 + s34 + sg + 2 * sa + 4, ln = N + 2 * PAD, oc = a + W / 2, amp = veh.wheel_kN * (1 + veh.dla), best = 0, bs = null;
+    var sh = function (X, k) { var o = new Float64Array(ln); for (var q = 0; q + k < ln; q++) o[q] = X[q + k]; return o; };
+    var add = function (X, Y, c) { var o = new Float64Array(ln); for (var q = 0; q < ln; q++) o[q] = c * (X[q] + Y[q]); return o; };
+    for (var q = 0; q < 9; q++) {
+      var dv = Math.round((-0.4 + 0.1 * q) * 1e10) / 1e10, Lw = inf.line(oc + dv - veh.track_m / 2, grid), Rw = inf.line(oc + dv + veh.track_m / 2, grid), A = new Float64Array(ln);
+      for (i = 0; i < N; i++) A[PAD + i] = amp * (Lw[i][0] + Rw[i][0]);
+      var Gg = add(add(A, sh(A, sa), 1), sh(A, 2 * sa), 1);
+      [[s12, s34], [s34, s12]].forEach(function (ff) {
+        var f1 = ff[0], f2 = ff[1], need = f1 + sg, P1 = add(Gg, sh(Gg, f1), sign), P2 = add(Gg, sh(Gg, f2), sign), SM = new Float64Array(ln + 1), k;
+        for (k = ln - 1; k >= 0; k--) SM[k] = Math.max(P2[k], SM[k + 1]);   /* optional second pair ahead, never adverse */
+        var bi = -1, bv = -Infinity;
+        for (k = 0; k < ln; k++) { var tot = P1[k] + SM[Math.min(k + need, ln)]; if (tot > bv) { bv = tot; bi = k; } }
+        if (bv > best) { var j = bi + need, jb = null; if (j < ln && SM[j] > 0) { var m_ = -Infinity, mi = j; for (k = j; k < ln; k++) if (P2[k] > m_) { m_ = P2[k]; mi = k; } jb = mi; } best = bv; bs = [dv, f1, f2, bi, jb]; }
+      });
+    }
+    var axles = [];
+    if (bs) { var groups = [bs[3], bs[3] + bs[1]].concat(bs[4] === null ? [] : [bs[4], bs[4] + bs[2]]);
+      groups.forEach(function (g0) { [g0, g0 + sa, g0 + 2 * sa].forEach(function (ax) { var k = ax - PAD; if (k >= 0 && k < N) [-1, 1].forEach(function (side) { loads.push([grid[k], oc + bs[0] + side * veh.track_m / 2, amp]); axles.push(grid[k]); }); }); }); }
+    return { v: udl + sign * best, loads: loads, udl: on.map(function (k) { return grid[k]; }), axles: axles, dv: bs ? bs[0] : 0 };
+  }
+  function governingState(m, g, IM, RS, veh, opt, key, sign) {   /* the lane layout, lane ranking and load positions behind env[key] (max: sign +1, min: -1) */
+    var q = RS.idx[key], r = RS.R[q], k = r.k, dc = 0.25, W = STD.laneW, grid = spanGrid(g, g.spans[k], dc), inf = new Inf(m, g, IM, [q], k), memo = {}, best = null;
+    (opt.layouts || laneLayouts(g, { sweep: opt.step })).forEach(function (Lay) {
+      var eff = Lay.map(function (a) { var kk = Math.round(a * 1000); if (!memo[kk]) memo[kk] = laneState(inf, grid, dc, veh, a, W, sign, opt.dlaUDL); return memo[kk]; });
+      var order = eff.map(function (e, i) { return i; }).sort(function (x, y) { return sign * eff[y].v - sign * eff[x].v; }), val = 0, loads = [], lanes = [];
+      order.forEach(function (i, rank) { var fk = STD.ALF[Math.min(rank, STD.ALF.length - 1)], e = eff[i]; if (sign * e.v > 0) { val += fk * e.v; e.loads.forEach(function (L) { loads.push([L[0], L[1], L[2] * fk]); }); lanes.push({ a: Lay[i], f: fk, v: e.v, udl: e.udl, axles: e.axles, dv: e.dv }); } else lanes.push({ a: Lay[i], f: 0, v: e.v, udl: [], axles: [], dv: 0 }); });
+      loads = loads.filter(function (L) { return weights(m, g, L[0], L[1], k).length; });   /* grid points beyond the span carry nothing */
+      if (!best || sign * val > sign * best.value) best = { value: val, loads: loads, layout: Lay, lanes: lanes, grid: grid };
+    });
+    return best;
+  }
+  function influenceLine(m, g, IM, RS, key, o) {   /* response per 1 kN at (x, o) along the response's span */
+    var q = RS.idx[key], k = RS.R[q].k, grid = spanGrid(g, g.spans[k], 0.25), inf = new Inf(m, g, IM, [q], k);
+    return inf.line(o, grid).map(function (row, i) { return [grid[i], row[0]]; });
   }
 
   /* ---------- static load cases on the grillage (SDL) and on the girder alone (DL, construction) ---------- */
@@ -346,7 +401,7 @@ var CORE = (function () {
 
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
-    influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope,
+    influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
     sdlLoads: sdlLoads, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

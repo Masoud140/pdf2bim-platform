@@ -34,4 +34,20 @@ const S = D.stripsFromPolygon ? null : null;
   const adj = AN.debAdj(fs).map(p => p.map(s => s.x + ',' + s.y).join(' '));
   t('debonding adjacency: (25,60)-(75,60) horizontal found, diagonals ignored, gap across the centreline counted', adj.length === 1 && adj[0] === '25,60 75,60', JSON.stringify(adj));
 }
+// moving loads: the governing lane state (lane layout + vehicle / UDL positions) reproduces the envelope value it explains
+{
+  const C = global.CORE, p = C.CASES.cs01.p, g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), RS = C.responses(m);
+  const IM = C.influence(m, S, RS), lays = C.laneLayouts(g, p), opt = { dlaUDL: p.dlaUDL, layouts: lays };
+  const e = C.trafficEnvelope(m, g, IM, C.STD.M1600, opt, RS);
+  t('moving loads: sweep layouts cover the carriageway at the sweep step', lays.length > 1 && lays.every(L => L.length === g.lanes), lays.length + ' layouts');
+  const keys = ['M:0:2:' + (m.n / 2) + ':a', 'V:0:0:0', 'Rb:0'];
+  const worst = Math.max(...keys.map(k => { const q = RS.idx[k], gs = C.governingState(m, g, IM, RS, C.STD.M1600, opt, k, 1); const sum = gs.loads.reduce((a, L) => a + L[2] * C.weights(m, g, L[0], L[1], 0).reduce((b, w) => b + w[1] * IM[w[0]][q], 0), 0); return Math.max(Math.abs(gs.value - e.max[q]), Math.abs(sum - e.max[q])) / Math.abs(e.max[q]); }));
+  t('moving loads: governing state value = envelope max, and re-applying its loads to the influence surface gives the same (1e-9)', worst < 1e-9, worst.toExponential(1));
+  const gn = C.governingState(m, g, IM, RS, C.STD.M1600, opt, 'Rb:0', -1);
+  t('moving loads: governing state for the minimum equals the envelope min', Math.abs(gn.value - e.min[RS.idx['Rb:0']]) < 1e-9);
+  const pm = Object.assign({}, p, { laneMode: 'manual', laneOffs: [g.cwL + 0.5, g.cwL + 0.5 + 3.2, g.cwL + 20] });
+  t('moving loads: manual layout keeps only lanes inside the carriageway and not overlapping', C.laneLayouts(g, pm).length === 1 && C.laneLayouts(g, pm)[0].length === 2);
+  const il = C.influenceLine(m, g, IM, RS, keys[0], g.y[2]);
+  t('moving loads: influence line of mid-span moment peaks near mid-span and is zero at the supports', il[0][1] === 0 && Math.abs(il.reduce((b, q) => q[1] > b[1] ? q : b)[0] - g.spans[0].L / 2 - g.y[2] * g.t) < 0.6);
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

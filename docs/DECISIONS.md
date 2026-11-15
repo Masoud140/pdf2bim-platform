@@ -721,3 +721,9 @@
 - **Decision:** the clause-retrieval / design-basis agent is developed in its own claude.ai Project and repository (`standards-agent`), under the interface in `docs/STANDARDS_AGENT_CONTRACT.md`; it joins this repo as `standards_agent/` later, writing `standards/data/` entries at most `transcribed-unverified`.
 - **Why:** different corpus (licensed standards, never in git), different licence risk, independent pace; the register format already fixes the join.
 - **Consequence:** this repo adds a profile exporter and a Design-basis app tab at merge time; nothing changes now.
+
+## ADR-066 Studio Moving loads page: AS 5100.2 lanes, influence lines, governing load positions (2026-11-16)
+- **Status:** done in the Studio; the app version is backlog P9.7 (owner request 2026-11-13).
+- **Decision:** `CORE.laneLayouts` (automatic sweep of standard design lanes, or engineer-defined lane offsets), `CORE.governingState` and `CORE.influenceLine` — JS ports of the platform's `traffic.py` `_lane_state` / `governing_state`. The envelope now runs over the chosen layouts, so manual lanes change the design results, as a MIDAS lane set does.
+- **Verification:** `studio/tests/test_engines.js` (14/14): the governing state's loads re-applied to the influence surface reproduce the envelope to 1e-15; manual layouts keep only in-carriageway, non-overlapping lanes.
+- **Consequence:** the Studio page is the UI reference for P9.7; the app will store layouts in the description (`loads.lane_layouts`).

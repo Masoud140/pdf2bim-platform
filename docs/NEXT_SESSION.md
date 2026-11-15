@@ -8,6 +8,11 @@
   - List every case (permanent, SDLs / SDLp, M1600, S1600, HLP, pedestrian, temperature, shrinkage, earth pressure, surcharge, braking, centrifugal, wind, earthquake, flood, collision) with on/off and intensity records read from `loads.*` in the description; edits go through `propose_override` (history and tags kept); a change marks the run stale as the Girder editor does.
   - Show the generated combination matrix (`combinations.py`) read-only: factors are standards-inventory entries, not per-project edits.
   - Server: one `loads` view; no engine change. Check first that every `loads.*` record has a `propose_override` path.
+- Then P9.7 (owner request 2026-11-13): **moving-load lanes in the app, MIDAS-Civil style, to AS 5100.2.**
+  - Engineers or the agent define lane layouts for every case to check (AS 5100.2 standard design lanes 3.2 m; automatic sweep across the carriageway, or named manual layouts), stored in the description (`loads.lane_layouts`) with tags and history.
+  - Results: influence lines for any response; the governing lane layout, lane ranking (accompanying lane factors) and vehicle / patterned-UDL positions behind each envelope value (`traffic.governing_state` already exists in the engine).
+  - Pick any member in the model view and see the load position that gives its maximum bending and shear, drawn on the plan.
+  - Studio showcase of the same (Moving loads tab) built 2026-11-16 as the reference for the app's UI.
 - Open owner queries:
   - report table 4-29: Mu or φMu;
   - the SLS combination and its limit;

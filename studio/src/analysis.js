@@ -42,12 +42,12 @@ var ANALYSIS = (function () {
       if (!on[vk]) return;
       if (!IM) { log('Influence surfaces (' + m.nodes.length + ' unit loads)'); IM = C.influence(m, S, RS); }
       log(vk + ' moving-load envelope (' + g.lanes + ' lanes)');
-      var e = C.trafficEnvelope(m, g, IM, C.STD[vk], { dlaUDL: p.dlaUDL, step: p.sweep }, RS); V[vk] = { max: e.max, min: e.min }; env[vk] = e;
+      var e = C.trafficEnvelope(m, g, IM, C.STD[vk], { dlaUDL: p.dlaUDL, step: p.sweep, layouts: C.laneLayouts(g, p) }, RS); V[vk] = { max: e.max, min: e.min }; env[vk] = e;
     });
     log('Combinations');
     var CB = combine(V, combos, cases, nr);
     log('Done');
-    return { g: g, sc: sc, m: m, RS: RS, V: V, CB: CB, env: env, ms: Date.now() - t0, nd: S.nd };
+    return { g: g, sc: sc, m: m, RS: RS, V: V, CB: CB, env: env, IM: IM, ms: Date.now() - t0, nd: S.nd };
   }
   /* combinations: each response maximised and minimised; traffic picks its adverse envelope */
   function combine(V, combos, cases, nr) {

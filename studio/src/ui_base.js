@@ -57,7 +57,7 @@ var U = {};
       if (workerOK && typeof Worker !== 'undefined') {
         try {
           if (!worker) {
-            var src = document.getElementById('bs-engines').textContent + '\nself.onmessage=function(e){try{var d=e.data,A=ANALYSIS.run(d.p,d.cases,d.combos,function(s){self.postMessage({log:s})});self.postMessage({done:1,V:A.V,env:A.env,ms:A.ms,nd:A.nd})}catch(err){self.postMessage({err:String(err&&err.message||err)})}};';
+            var src = document.getElementById('bs-engines').textContent + '\nself.onmessage=function(e){try{var d=e.data,A=ANALYSIS.run(d.p,d.cases,d.combos,function(s){self.postMessage({log:s})});self.postMessage({done:1,V:A.V,env:A.env,IM:A.IM,ms:A.ms,nd:A.nd})}catch(err){self.postMessage({err:String(err&&err.message||err)})}};';
             worker = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
           }
           var t = setTimeout(function () { worker.onmessage = null; workerOK = false; worker.terminate(); worker = null; analyse(p, cases, combos, log).then(res, rej); }, 120000);
@@ -68,7 +68,7 @@ var U = {};
         } catch (e) { workerOK = false; worker = null; }
       }
       log('Running on the page (background worker unavailable)');
-      setTimeout(function () { try { var A = ANALYSIS.run(p, cases, combos, log); res({ V: A.V, env: A.env, ms: A.ms, nd: A.nd }); } catch (e) { rej(e); } }, 40);
+      setTimeout(function () { try { var A = ANALYSIS.run(p, cases, combos, log); res({ V: A.V, env: A.env, IM: A.IM, ms: A.ms, nd: A.nd }); } catch (e) { rej(e); } }, 40);
     });
   }
   var tick = function () { return new Promise(function (r) { setTimeout(r, 0); }); };
@@ -82,7 +82,7 @@ var U = {};
         if (node === 'analysis') {
           var d = await analyse(p, ST.cases, ST.combos, function (s) { ST.log = s; U.paintDeps(); });
           var g = CORE.geometry(p), sc = CORE.sections(p, g), m = CORE.mesh(p, g, sc), RS = CORE.responses(m);
-          keep('analysis', { p: p, g: g, sc: sc, m: m, RS: RS, V: d.V, env: d.env, ms: d.ms, nd: d.nd, cases: U.deep(ST.cases) }, d.ms);
+          keep('analysis', { p: p, g: g, sc: sc, m: m, RS: RS, V: d.V, env: d.env, IM: d.IM, ms: d.ms, nd: d.nd, cases: U.deep(ST.cases) }, d.ms);
         } else if (node === 'combos') {
           var a = ST.R.analysis.data; keep('combos', ANALYSIS.combine(a.V, ST.combos, ST.cases, a.RS.R.length), performance.now() - t0);
         } else if (node === 'design') {
@@ -123,7 +123,7 @@ var U = {};
   document.addEventListener('change', function (e) {
     var t = e.target, path = t.getAttribute && t.getAttribute('data-path'); if (!path) return;
     var v = t.value;
-    if (t.getAttribute('data-list')) { v = v.split(/[,\s+]+/).map(Number).filter(function (x) { return isFinite(x) && x > 0; }); if (!v.length) { U.toast('Enter at least one span length in metres, separated by commas'); U.paint(); return; } }
+    if (t.getAttribute('data-list')) { var any = path === 'laneOffs'; v = v.split(/[,\s]+/).filter(Boolean).map(Number).filter(function (x) { return isFinite(x) && (any || x > 0); }); if (!v.length && !any) { U.toast('Enter at least one span length in metres, separated by commas'); U.paint(); return; } }
     else if (t.type === 'number' || t.getAttribute('data-num')) { v = Number(v); if (!isFinite(v)) { U.toast('Enter a number'); U.paint(); return; } if (t.min !== '' && v < Number(t.min)) v = Number(t.min); if (t.max !== '' && v > Number(t.max)) v = Number(t.max); }
     if (v === 'true') v = true; else if (v === 'false') v = false;
     U.set(path, v); U.changed();

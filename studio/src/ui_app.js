@@ -6,6 +6,7 @@
   U.TABS = [
     { id: 'overview', t: 'Project overview', i: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/>') },
     { id: 'loads', t: 'Loads & combinations', i: ic('<path d="M12 3v10M8 9l4 4 4-4M4 17h16M4 21h16"/>') },
+    { id: 'moving', t: 'Moving loads', i: ic('<path d="M3 17h18M5 17V9h9l4 4v4"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/><path d="M3 5h18"/>') },
     { id: 'mesh', t: 'Finite element mesh', i: ic('<path d="M3 6h18M3 12h18M3 18h18M7 3l-2 18M12 3v18M17 3l2 18"/>') },
     { id: 'model', t: '3D bridge model', i: ic('<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>') },
     { id: 'design', t: 'Super-T girder design', i: ic('<path d="M3 5h18l-4 2-1.5 11h-7L7 7z"/><circle cx="10" cy="16" r=".8"/><circle cx="14" cy="16" r=".8"/>') },
