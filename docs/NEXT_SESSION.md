@@ -23,6 +23,24 @@
   - SB43 (B12468).
   - From the earlier set SGWS1-JHSW-1000-BR-DRG-COMBINED: SB01 (B12452) and SB02 (B12453) done; check the set's bridge list for any third bridge not yet surveyed.
   - Owner PDFs and the report stay uncommitted; page indices are 0-based into the combined PDF.
+- **Studio parity with the BR13A design dashboard** (owner request 2026-11-16; inventory of `BR13A_Design_Dashboard.html`, 23 tabs in 7 groups, against the Studio). Generic, anonymised versions only. Not in the Studio yet:
+  - D-1 **Materials tab**: one source of truth — concrete grades, AS 5100.5 Table 3.1.2 values, derived constants (Ec, f'ct, εcs…), steel and strand data, "where each material is used". (absorbs S-2)
+  - D-2 **Member properties tab**: consolidated member table with b × h and sketches, girder segmentation (solid end blocks, diaphragms), transverse members grouped by width, edge-girder flange taper, tributary closure check. (absorbs S-4)
+  - D-3 **AS 5100.2 combination builder**: full case register with directions (±X / ±Y / up / down), adverse and beneficial permanent factors, every ULS / SLS combination generated as its own row; export to Excel, MIDAS, SPACE GASS, Strand7. Studio has a 6-row editable matrix only.
+  - D-4 **Environmental and horizontal loads**: wind (AS 5100.2 Section 17), uniform and differential temperature, shrinkage, earthquake response spectrum. Needs the 6-DOF grillage (Studio is 3-DOF vertical). Listed as "proposed" on the Loads page.
+  - D-5 **Construction stages**: MIDAS-style stage groups (structure / boundary / load), cumulative girder moment and deflection by stage, time-dependent creep and shrinkage per stage, bearing and pile forces by stage. Studio has hog stages only.
+  - D-6 **Bearings and supports**: elastic links sill-to-girder, support conditions, boundary changes during construction, bearing design.
+  - D-7 **Pile results with soil springs**: pile deflection, moment, shear and axial along the pile. Studio piles are a rigid-cap distribution.
+  - D-8 **Stiffness-matrix inspector and MIDAS export** of the Studio grillage: member 12 × 12 matrices, validation, model totals, connectivity, .mct download.
+  - D-9 **Traffic extras**: lane packing presets (pack from left / right barrier, centre), envelope CSV download. (manual lanes exist since ADR-066)
+  - D-10 **Super-T design extras**: "materials and derived parameters" step; N–M interaction diagram; V–M diagram; solid end-block sections with their own fitments and sections along the girder; deck width and flange width along each girder (edge taper); engine benchmark step; calculation report with formula / substitution / clause per check.
+  - D-11 **Hog calculator extras**: rule-based debond editor (rules applied in order, TfNSW defaults), longitudinal reinforcement in the detailed method, Stage D deflection contributions, "effect of each item on hog", review verification (stage table, tendon-force reconciliation, creep build-up, section equilibrium), sensitivity table, Word hog report.
+  - D-12 **Barrier bolts check** (anchorage: load case, bolt group, materials, coefficients as inputs, capacity, needs-review).
+  - D-13 **Section designer**: editable outline vertices and derived properties; Studio uses library shapes only.
+  - D-14 **Needs review roll-up**: counts by tag and every flagged / proposed / unverified item on one page (Studio tags: Calculated / Illustrative / Unverified / Experimental).
+  - D-15 **More export formats**: MIDAS .mct, SPACE GASS, Strand7, long-format CSV (Studio: PDF, Excel, HTML).
+  - Project-specific dashboard tabs (horizontal / vertical alignment, deck section, abutments, pile data, drawing-tag padlocks) belong to the app, not the generic Studio; the app already has their equivalents.
+  - Suggested order: D-1, D-2 (small, with S-1/S-3) → D-10 → D-14 → D-3 → D-9 → D-11 → D-13 → D-8/D-15 → D-5/D-6 → D-4 (needs the 6-DOF grillage) → D-7 → D-12.
 - Not brought across from the BR13A dashboard section view (optional): girder bars, deck bars, ligature outline, zoom.
 - Open owner queries:
   - report table 4-29: Mu or φMu;
