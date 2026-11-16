@@ -6,7 +6,7 @@ import { modelViewer, ModelView } from "./model3d";
 import { girderEditor, girderSummary } from "./girder";
 
 const app = document.getElementById("app")!;
-const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections"],
+const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["review", "Needs review"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections & materials"],
   ["loads", "Loads"], ["moving", "Moving loads"], ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
@@ -68,7 +68,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   const body = h("section", { class: "tabbody" }, h("div", { class: "muted" }, "Loading…"));
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
     h("div", { class: "row" }, STATIC ? null : h("a", { class: "btn primary", href: `/api/projects/${encodeURIComponent(id)}/report`, target: "_blank" }, "Calculation report"), dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
-  const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
+  const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), review: () => values(id, true), decisions: () => decisions(id),
     model: () => model(id), sections: () => sections(id), loads: () => loads(id), moving: () => movingLoads(id, provenance, who, nameInput, route), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
@@ -193,13 +193,13 @@ async function readerPanel(id: string): Promise<HTMLElement> {
 }
 
 // ---------------- bridge data (description values) ----------------
-async function values(id: string) {
+async function values(id: string, reviewOnly = false) {
   const params = new URLSearchParams(location.hash.split("?")[1] || "");
   const [{ rows, revision: rv }, dr] = await Promise.all([api.values(id, true), api.drawings(id)]);
   const revision = (rv as any)?.number ?? rv;
   const docFor = (s: string | null) => s ? dr.documents.find((d) => d.id === s || d.id.endsWith(s) || d.number?.endsWith(s))?.id : undefined;
   const groups = [...new Set(rows.map((r) => r.path.split(/[.[]/)[0]))];
-  const state = { q: "", tag: "", group: "", review: params.get("review") === "1" };
+  const state = { q: (params.get("q") || "").toLowerCase(), tag: "", group: "", review: reviewOnly || params.get("review") === "1" };
   const counts: Record<string, number> = {}; rows.forEach((r) => (counts[r.tag] = (counts[r.tag] || 0) + 1));
   const tbody = h("tbody"); const cnt = h("span", { class: "small muted" });
   const draw = () => {
@@ -243,7 +243,7 @@ async function values(id: string) {
   };
   setTimeout(draw);
   return h("div", {}, h("div", { class: "card filters" }, chips, h("div", { class: "row wrap" },
-      h("input", { type: "search", placeholder: "Search path, value or note", oninput: (e: Event) => { state.q = (e.target as HTMLInputElement).value.toLowerCase(); draw(); } }),
+      h("input", { type: "search", placeholder: "Search path, value or note", value: state.q, oninput: (e: Event) => { state.q = (e.target as HTMLInputElement).value.toLowerCase(); draw(); } }),
       h("select", { onchange: (e: Event) => { state.group = (e.target as HTMLSelectElement).value; draw(); } }, h("option", { value: "" }, "All sections"), groups.map((g) => h("option", { value: g }, g))),
       h("label", { class: "small" }, rev, " Needs review only"), cnt)),
     h("div", { class: "tablewrap tall" }, h("table", { class: "values" }, h("thead", {}, h("tr", {}, ["Path", "Value", "Unit", "Data source", "Sheet", "Note / derivation", "Decision"].map((x) => h("th", {}, x)))), tbody)));
@@ -334,7 +334,22 @@ async function sections(id: string) {
           (r.data.notes || []).join(" "))));
   };
   setTimeout(() => show(gs[0]));
-  return h("div", {}, provenance(r.meta), h("div", { class: "row between" }, h("span", { class: "small muted" }, `E girder ${r.data.E_girder_MPa} MPa · E deck ${r.data.E_deck_MPa} MPa · modular ratio ${fmt(r.data.modular_ratio_deck, 4)} · deck ${r.data.deck_thickness} mm`), sel), box);
+  const extra = h("div");
+  Promise.all([api.values(id, true), api.result<any>(id, "model_view.json")]).then(([v, mv]) => {
+    const mats = v.rows.filter((x) => x.path.startsWith("materials."));
+    const sig = (x: number, d: number) => (x !== 0 && Math.abs(x) < 0.01 ? x.toExponential(2) : fmt(x, d));   // dummy members have tiny properties: show them, not 0.000
+    const rng = (a?: [number | null, number | null], k = 1, d = 3) => !a || a[0] === null ? "—" : Math.abs(a[0]! - a[1]!) < 1e-9 * Math.abs(a[1]!) ? sig(a[0]! * k, d) : `${sig(a[0]! * k, d)} – ${sig(a[1]! * k, d)}`;
+    const P = (mv.data?.member_props || {}) as Record<string, any>;
+    extra.append(h("div", { class: "card" }, h("h3", {}, "Materials (description records)"),
+      h("p", { class: "small muted" }, `${mats.length} records under materials.*; `, h("a", { href: `#/p/${id}/values?q=materials` }, "edit on Bridge data"), ". The engines read these; nothing is defaulted silently."),
+      table(["Path", "Value", "Unit", "Data source", "Note"], mats.map((x) => [h("td", { class: "mono" }, x.path), typeof x.value === "object" && x.value ? Object.entries(x.value as object).map(([a, b]) => `${a} ${fmt(b)}`).join(" · ") : fmt(x.value), x.unit || "", h("td", {}, tagChip(x.tag)), h("td", { class: "small" }, x.note || "")]), "values")),
+      Object.keys(P).length ? h("div", { class: "card" }, h("h3", {}, "Member properties in the analysis model, by member type"),
+        h("p", { class: "small muted" }, "Stiffness and self weight each member type carries. Weight 0 means the member is stiffness-only: the deck slab's weight is carried on the girder lines (wet concrete on the bare girders), so the transverse slab strips, dummies and rigid arms add no weight."),
+        table(["Member type", "Count", "Total length (m)", "E (GPa)", "A (m²)", "Iy (m⁴)", "Iz (m⁴)", "J (m⁴)", "Weight (kN/m)", "Total weight (kN)"],
+          Object.entries(P).map(([role, q]) => [role, q.n, fmt(q.length_m, 1), rng(q.E, 1e-6, 1), rng(q.A), rng(q.Iy, 1, 4), rng(q.Iz, 1, 4), rng(q.J, 1, 4), rng(q.w, 1, 2), q.weight_kN ? fmt(q.weight_kN, 0) : h("span", { class: "muted" }, "0 (stiffness only)")]), "num"))
+        : h("p", { class: "small muted" }, "Member properties appear after the next run (the model step now records them)."));
+  }).catch(() => undefined);
+  return h("div", {}, provenance(r.meta), h("div", { class: "row between" }, h("span", { class: "small muted" }, `E girder ${r.data.E_girder_MPa} MPa · E deck ${r.data.E_deck_MPa} MPa · modular ratio ${fmt(r.data.modular_ratio_deck, 4)} · deck ${r.data.deck_thickness} mm`), sel), box, extra);
 }
 
 // ---------------- analysis ----------------

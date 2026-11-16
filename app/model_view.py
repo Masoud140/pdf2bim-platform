@@ -40,6 +40,18 @@ def main():
     nodes = {str(k): [round(float(v[0] - o[0]), 4), round(float(v[1] - o[1]), 4), round(float(v[2]), 4), (M["nodes"].get(k) or {}).get("role", "")]
              for k, v in m.nodes.items()}
     beams = [[str(b["n1"]), str(b["n2"]), b.get("role", "")] for b in m.beams.values()]
+    props = {}                                   # member properties by role (transparency: what stiffness and weight each member type carries)
+    for x in M["members"]:
+        if x["n1"] not in m.nodes or x["n2"] not in m.nodes:
+            continue
+        L = float(((m.nodes[x["n1"]] - m.nodes[x["n2"]]) ** 2).sum() ** 0.5)
+        r = props.setdefault(x["role"], {"n": 0, "length_m": 0.0, "weight_kN": 0.0, **{k: [None, None] for k in ("E", "A", "Iy", "Iz", "J", "w")}})
+        r["n"] += 1; r["length_m"] += L; r["weight_kN"] += L * float(x.get("w") or 0.0)
+        for k in ("E", "A", "Iy", "Iz", "J", "w"):
+            v = x.get(k)
+            if v is not None:
+                v = float(v); lo, hi = r[k]
+                r[k] = [v if lo is None else min(lo, v), v if hi is None else max(hi, v)]
     links = [[str(l["n1"]), str(l["n2"]), l.get("role", "link")] for l in m.links.values()]
     sw = solve_view(m, m.solve())
     sd = sdl_case(doc, geo, M, allow_proposed=ap)
@@ -57,7 +69,7 @@ def main():
     except MissingInput as e:
         note = f"modes not computed: {e}"
     prov = sorted({str(q.get("decision")) for q in M["provisional"] + S["provisional"] + geo["provisional"] if q.get("decision")})
-    json.dump({"origin": o, "nodes": nodes, "beams": beams, "links": links, "springs": [str(n) for n in m.springs],
+    json.dump({"origin": o, "nodes": nodes, "beams": beams, "member_props": props, "links": links, "springs": [str(n) for n in m.springs],
                "fixed": [str(n) for n in m.fixed], "cases": mv_cases, "modes": modes, "modes_note": note, "mass_rule": "ADR-046 lumped member weight + SDL (X Y Z)", "geometry_checks": geo["checks"],
                "provisional_decisions": prov, "allow_proposed": ap}, open(out, "w"), default=str)
     print(f"model view: {len(nodes)} nodes, {len(beams)} members, {len(links)} links; SW applied {sw['applied_kN'][2]} kN, "
