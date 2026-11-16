@@ -7,7 +7,7 @@ var ANALYSIS = (function () {
   function run(p, cases, combos, progress) {
     var t0 = Date.now(), log = function (s) { if (progress) progress(s); };
     var g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc);
-    log('Assembling stiffness (' + 3 * m.nodes.length + ' degrees of freedom)');
+    log('Assembling stiffness (' + C.ND * m.nodes.length + ' degrees of freedom)');
     var S = C.build(m), RS = C.responses(m), nr = RS.R.length, on = {};
     cases.forEach(function (c) { on[c.id] = c.on && !c.proposed; });
     var V = {};                                   /* case id -> Float64Array of responses (static) or {max, min} (traffic) */

@@ -25,7 +25,8 @@ var CORE = (function () {
     vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     windVu: 1.0, windVs: 0.5, dTtop: 20, dTdepth: 300, alphaT: 11, dTuni: 25, gbars: '',
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3, gl: 1.5, L: 18 },
-    eq: { kp: 1.0, Z: 0.08, site: 'Ce', Rf: 1.0 }   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
+    eq: { kp: 1.0, Z: 0.08, site: 'Ce', Rf: 1.0 },
+    brg: { start: 'fixed', end: 'free' }, brgKe: 3000   /* bearing type at each end of every span; brgKe: shear stiffness of one elastomeric bearing, kN/m */   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
     strands: null, gStr: {}   /* gStr: {girder index: own strand pattern}; girders not listed use `strands` */
   };
   function strandDefault(sec) {
@@ -61,7 +62,7 @@ var CORE = (function () {
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
-    piles: 'substructure', eq: 'seismic' };
+    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgKe: 'mesh' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);
   }
@@ -104,16 +105,18 @@ var CORE = (function () {
     g.spans.forEach(function (sp, k) {
       for (var i = 0; i < g.ng; i++) for (var j = 0; j <= n; j++) {
         var f = j / n; id[k + ':' + i + ':' + j] = N.length;
-        N.push({ id: N.length, k: k, i: i, j: j, f: f, x: g.xAt(k, i, f), y: g.y[i] });
-        if (j === 0 || j === n) sup.push({ node: N.length - 1, k: k, i: i, end: j === 0 ? 'start' : 'end', kv: p.kv });
+        N.push({ id: N.length, k: k, i: i, j: j, f: f, x: g.xAt(k, i, f), y: g.y[i], z: 0 });
+        if (j === 0 || j === n) { var bt = (p.brg || {})[j === 0 ? 'start' : 'end'] || (j === 0 ? 'fixed' : 'free'), kh = bt === 'elastomeric' ? p.brgKe : p.kv;   /* fixed: held both ways; free: slides along the bridge, guided across; elastomeric: shear stiffness both ways */
+          sup.push({ node: N.length - 1, k: k, i: i, end: j === 0 ? 'start' : 'end', kv: p.kv, type: bt, kx: bt === 'free' ? 0 : kh, ky: kh }); }
       }
       var dL = sp.L / n, Gg = sc.Eg / 2.4, Gd = sc.Ed / 2.4;
       for (var i2 = 0; i2 < g.ng; i2++) for (var j2 = 0; j2 < n; j2++)
-        E.push({ id: E.length, type: 'girder', k: k, i: i2, j: j2, n1: id[k + ':' + i2 + ':' + j2], n2: id[k + ':' + i2 + ':' + (j2 + 1)], EI: sc.Eg * 1e3 * sc.Ic * 1e-12, GJ: (p.Jf || 1) * Gg * 1e3 * sc.J * 1e-12, label: 'Super-T + deck (composite)' });
+        E.push({ id: E.length, type: 'girder', k: k, i: i2, j: j2, n1: id[k + ':' + i2 + ':' + j2], n2: id[k + ':' + i2 + ':' + (j2 + 1)], EI: sc.Eg * 1e3 * sc.Ic * 1e-12, GJ: (p.Jf || 1) * Gg * 1e3 * sc.J * 1e-12, EA: sc.Eg * 1e3 * sc.Ac * 1e-6, EIz: sc.Ed * 1e3 * (p.slab / 1000) * Math.pow(g.s, 3) / 12, label: 'Super-T + deck (composite)' });
       for (var j3 = 0; j3 <= n; j3++) for (var i3 = 0; i3 < g.ng - 1; i3++) {
         var end = j3 === 0 || j3 === n, b = end ? dL / 2 : dL;
         var EI = end ? sc.Ed * 1e3 * sc.cgI * 1e-12 : sc.Ed * 1e3 * sc.slabI1 * 1e-9 * b, GJ = end ? Gd * 1e3 * sc.cgJ * 1e-12 : Gd * 1e3 * sc.slabJ1 * 1e-9 * b;
-        E.push({ id: E.length, type: end ? 'diaphragm' : 'slab', k: k, i: i3, j: j3, n1: id[k + ':' + i3 + ':' + j3], n2: id[k + ':' + (i3 + 1) + ':' + j3], EI: EI, GJ: GJ, b: b, label: end ? 'end cross girder' : 'deck slab strip ' + b.toFixed(2) + ' m' });
+        var t_ = p.slab / 1000, EA = end ? sc.Ed * 1e3 * p.cgW * sc.cgD / 1000 : sc.Ed * 1e3 * t_ * b, EIz = end ? sc.Ed * 1e3 * (sc.cgD / 1000) * Math.pow(p.cgW, 3) / 12 : sc.Ed * 1e3 * t_ * Math.pow(b, 3) / 12;   /* in-plane: the deck as a frame of strips */
+        E.push({ id: E.length, type: end ? 'diaphragm' : 'slab', k: k, i: i3, j: j3, n1: id[k + ':' + i3 + ':' + j3], n2: id[k + ':' + (i3 + 1) + ':' + j3], EI: EI, GJ: GJ, EA: EA, EIz: EIz, b: b, label: end ? 'end cross girder' : 'deck slab strip ' + b.toFixed(2) + ' m' });
       }
     });
     E.forEach(function (e) { var a = N[e.n1], c = N[e.n2]; e.L = Math.hypot(c.x - a.x, c.y - a.y); e.c = (c.x - a.x) / e.L; e.s = (c.y - a.y) / e.L; });
@@ -126,7 +129,12 @@ var CORE = (function () {
     return { n: n, nodes: N, els: E, sup: sup, id: id, quality: Q, dL: dL };
   }
 
-  /* ---------- grillage solver: 3 dof per node (w up, rX, rY), dense Cholesky ---------- */
+  /* ---------- space-frame solver: 6 freedoms per node [w up, rX, rY, uX, uY, rZ] ----------
+     The first three are the grillage freedoms (vertical deflection and the two bending rotations); the last three are the
+     in-plane ones (movement along and across the bridge, rotation in plan). A flat deck with no offsets keeps the two
+     sets uncoupled, so vertical results are those of the grillage; bearings with eccentricity and the substructure couple them.
+     Skyline (variable-band) Cholesky with the nodes numbered along the bridge. */
+  var ND = 6;
   function kLocal(e) {   /* dofs (w1, rx1, ry1, w2, rx2, ry2); ry = -dw/dx */
     var L = e.L, a = e.EI / (L * L * L), k = [];
     for (var i = 0; i < 6; i++) k.push([0, 0, 0, 0, 0, 0]);
@@ -137,30 +145,56 @@ var CORE = (function () {
   }
   function Tm(e) { var c = e.c, s = e.s, T = []; for (var i = 0; i < 6; i++) T.push([0, 0, 0, 0, 0, 0]);
     [0, 3].forEach(function (o) { T[o][o] = 1; T[o + 1][o + 1] = c; T[o + 1][o + 2] = s; T[o + 2][o + 1] = -s; T[o + 2][o + 2] = c; }); return T; }
-  function dofs(e) { return [3 * e.n1, 3 * e.n1 + 1, 3 * e.n1 + 2, 3 * e.n2, 3 * e.n2 + 1, 3 * e.n2 + 2]; }
+  function dofs(e) { return [ND * e.n1, ND * e.n1 + 1, ND * e.n1 + 2, ND * e.n2, ND * e.n2 + 1, ND * e.n2 + 2]; }
+  /* in-plane part of a horizontal member: local (u1, v1, rz1, u2, v2, rz2), u along the member, v across it in plan, rz = dv/ds */
+  function kPlane(e) {
+    var L = e.L, a = e.EIz / (L * L * L), k = [], x = e.EA / L; for (var i = 0; i < 6; i++) k.push([0, 0, 0, 0, 0, 0]);
+    k[0][0] = x; k[3][3] = x; k[0][3] = -x; k[3][0] = -x;
+    var B = [[12, 6 * L, -12, 6 * L], [6 * L, 4 * L * L, -6 * L, 2 * L * L], [-12, -6 * L, 12, -6 * L], [6 * L, 2 * L * L, -6 * L, 4 * L * L]], m = [1, 2, 4, 5];
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) k[m[r]][m[c]] = a * B[r][c];
+    return k;
+  }
+  function TmP(e) { var c = e.c, s = e.s, T = []; for (var i = 0; i < 6; i++) T.push([0, 0, 0, 0, 0, 0]);
+    [0, 3].forEach(function (o) { T[o][o] = c; T[o][o + 1] = s; T[o + 1][o] = -s; T[o + 1][o + 1] = c; T[o + 2][o + 2] = 1; }); return T; }
+  function dofsP(e) { return [ND * e.n1 + 3, ND * e.n1 + 4, ND * e.n1 + 5, ND * e.n2 + 3, ND * e.n2 + 4, ND * e.n2 + 5]; }
+  function toGlobal(kl, T) { var n = kl.length, kg = []; for (var i = 0; i < n; i++) { kg.push([]); for (var j = 0; j < n; j++) { var s = 0; for (var a = 0; a < n; a++) for (var b = 0; b < n; b++) s += T[a][i] * kl[a][b] * T[b][j]; kg[i].push(s); } } return kg; }
   function build(m) {
-    var nd = 3 * m.nodes.length, K = new Float64Array(nd * nd);
+    var N = m.nodes, nn = N.length, nd = ND * nn, items = [], i, j, k;
+    /* number the nodes along the bridge so each row of the matrix only reaches back to nearby nodes */
+    var order = N.map(function (n) { return n.id; }).sort(function (a, b) { return (N[a].x - N[b].x) || (N[a].y - N[b].y) || ((N[b].z || 0) - (N[a].z || 0)) || (a - b); }), pos = new Int32Array(nn);
+    order.forEach(function (id, q) { pos[id] = q; });
+    var P = new Int32Array(nd); for (i = 0; i < nd; i++) P[i] = ND * pos[(i / ND) | 0] + i % ND;
     m.els.forEach(function (e) {
-      var kl = kLocal(e), T = Tm(e), kg = [], d = dofs(e);
-      for (var i = 0; i < 6; i++) { kg.push([]); for (var j = 0; j < 6; j++) { var s = 0; for (var a = 0; a < 6; a++) for (var b = 0; b < 6; b++) s += T[a][i] * kl[a][b] * T[b][j]; kg[i].push(s); } }
-      e.kl = kl; e.T = T;
-      for (var i2 = 0; i2 < 6; i2++) for (var j2 = 0; j2 < 6; j2++) K[d[i2] * nd + d[j2]] += kg[i2][j2];
+      if (e.kg) { items.push({ d: e.d, k: e.kg }); return; }                 /* a member that brings its own global stiffness (substructure) */
+      e.kl = kLocal(e); e.T = Tm(e); items.push({ d: dofs(e), k: toGlobal(e.kl, e.T) });
+      e.klP = kPlane(e); e.TP = TmP(e); items.push({ d: dofsP(e), k: toGlobal(e.klP, e.TP) });
     });
-    m.sup.forEach(function (s) { K[3 * s.node * nd + 3 * s.node] += s.kv; if (s.krx) K[(3 * s.node + 1) * nd + 3 * s.node + 1] += s.krx; });
-    /* Cholesky (lower), in place */
-    var Lc = new Float64Array(K);
-    for (var j = 0; j < nd; j++) {
-      var sum = Lc[j * nd + j]; for (var k = 0; k < j; k++) sum -= Lc[j * nd + k] * Lc[j * nd + k];
-      if (sum <= 0) throw new Error('model is unstable (stiffness matrix not positive definite at dof ' + j + ')');
-      var dj = Math.sqrt(sum); Lc[j * nd + j] = dj;
-      for (var i = j + 1; i < nd; i++) { var s2 = Lc[i * nd + j]; for (var k2 = 0; k2 < j; k2++) s2 -= Lc[i * nd + k2] * Lc[j * nd + k2]; Lc[i * nd + j] = s2 / dj; }
+    m.sup.forEach(function (s) {
+      if (s.link) { items.push(s.link); return; }                            /* bearing as a spring between the deck and the substructure */
+      items.push({ d: [ND * s.node], k: [[s.kv]] }); if (s.krx) items.push({ d: [ND * s.node + 1], k: [[s.krx]] });
+      if (s.kx) items.push({ d: [ND * s.node + 3], k: [[s.kx]] }); if (s.ky) items.push({ d: [ND * s.node + 4], k: [[s.ky]] });
+    });
+    (m.springs || []).forEach(function (sp) { items.push(sp); });            /* springs to ground: {d: [dof...], k: matrix} */
+    var fi = new Int32Array(nd); for (i = 0; i < nd; i++) fi[i] = i;
+    items.forEach(function (it) { it.q = it.d.map(function (d) { return P[d]; }); var mn = Math.min.apply(null, it.q); it.q.forEach(function (r) { if (mn < fi[r]) fi[r] = mn; }); });
+    var ptr = new Int32Array(nd + 1); for (i = 0; i < nd; i++) ptr[i + 1] = ptr[i] + (i - fi[i] + 1);
+    var A = new Float64Array(ptr[nd]);
+    items.forEach(function (it) { for (var a = 0; a < it.q.length; a++) for (var b = 0; b < it.q.length; b++) { var r = it.q[a], c = it.q[b]; if (c <= r) A[ptr[r] + c - fi[r]] += it.k[a][b]; } });
+    for (i = 0; i < nd; i++) {                                              /* Cholesky inside the skyline, row by row */
+      var f0 = fi[i], pi = ptr[i] - f0;
+      for (j = f0; j < i; j++) { var fj = fi[j], pj = ptr[j] - fj, s = A[pi + j]; for (k = f0 > fj ? f0 : fj; k < j; k++) s -= A[pi + k] * A[pj + k]; A[pi + j] = s / A[pj + j]; }
+      var sum = A[pi + i]; for (k = f0; k < i; k++) sum -= A[pi + k] * A[pi + k];
+      if (!(sum > 0)) { var dn = order[(i / ND) | 0]; throw new Error('model is unstable: node ' + dn + ' is free to move in freedom ' + ['w', 'rX', 'rY', 'uX', 'uY', 'rZ'][i % ND] + ' (check the bearing types and supports)'); }
+      A[pi + i] = Math.sqrt(sum);
     }
-    return { nd: nd, L: Lc };
+    return { nd: nd, L: A, fi: fi, ptr: ptr, P: P, stored: A.length };
   }
   function solve(S, F) {
-    var nd = S.nd, L = S.L, y = new Float64Array(nd), x = new Float64Array(nd);
-    for (var i = 0; i < nd; i++) { var s = F[i]; for (var k = 0; k < i; k++) s -= L[i * nd + k] * y[k]; y[i] = s / L[i * nd + i]; }
-    for (var i2 = nd - 1; i2 >= 0; i2--) { var s2 = y[i2]; for (var k2 = i2 + 1; k2 < nd; k2++) s2 -= L[k2 * nd + i2] * x[k2]; x[i2] = s2 / L[i2 * nd + i2]; }
+    var nd = S.nd, L = S.L, fi = S.fi, ptr = S.ptr, P = S.P, y = new Float64Array(nd), x = new Float64Array(nd), i, k;
+    for (i = 0; i < nd; i++) y[P[i]] = F[i];
+    for (i = 0; i < nd; i++) { var pi = ptr[i] - fi[i], s = y[i]; for (k = fi[i]; k < i; k++) s -= L[pi + k] * y[k]; y[i] = s / L[pi + i]; }
+    for (i = nd - 1; i >= 0; i--) { var pj = ptr[i] - fi[i], v = y[i] / L[pj + i]; y[i] = v; for (k = fi[i]; k < i; k++) y[k] -= L[pj + k] * v; }
+    for (i = 0; i < nd; i++) x[i] = y[P[i]];
     return x;
   }
   /* element end forces in local axes; returns sagging moment at both ends, shear and torsion (kN, kNm) */
@@ -189,8 +223,8 @@ var CORE = (function () {
   function evalResponses(m, RS, U) {
     var out = new Float64Array(RS.R.length), cache = {};
     RS.R.forEach(function (r, i) {
-      if (r.kind === 'w') out[i] = U[3 * r.n] * 1000;    /* mm, + up */
-      else if (r.kind === 'R') { var s = m.sup[r.s]; out[i] = -s.kv * U[3 * s.node]; }   /* kN, + = compression on the bearing */
+      if (r.kind === 'w') out[i] = U[ND * r.n] * 1000;    /* mm, + up */
+      else if (r.kind === 'R') { var s = m.sup[r.s]; out[i] = -s.kv * U[ND * s.node]; }   /* kN, + = compression on the bearing */
       else { var f = cache[r.e] || (cache[r.e] = elForces(m.els[r.e], U)); out[i] = r.kind === 'Mel' ? (r.end === 1 ? f.M1 : f.M2) : r.kind === 'V' ? f.V : f.T; }
     });
     return out;
@@ -198,7 +232,7 @@ var CORE = (function () {
   /* influence: response per unit downward load (1 kN) at each node */
   function influence(m, S, RS) {
     var nn = m.nodes.length, IM = [];
-    for (var n = 0; n < nn; n++) { var F = new Float64Array(S.nd); F[3 * n] = -1; IM.push(evalResponses(m, RS, solve(S, F))); }
+    for (var n = 0; n < nn; n++) { var F = new Float64Array(S.nd); F[ND * n] = -1; IM.push(evalResponses(m, RS, solve(S, F))); }
     return IM;   /* IM[node][response] */
   }
   /* bilinear weights of a point load at plan (X, Y) onto the grillage nodes */
@@ -340,8 +374,8 @@ var CORE = (function () {
 
   /* ---------- static load cases on the grillage (SDL) and on the girder alone (DL, construction) ---------- */
   function windLoads(m, g, p, q) {   /* uniform vertical pressure q (kPa, + down) over the whole deck plan, to the girder lines by tributary width */
-    var F = new Float64Array(3 * m.nodes.length);
-    m.nodes.forEach(function (n) { F[3 * n.id] -= q * ((n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s) * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; });
+    var F = new Float64Array(ND * m.nodes.length);
+    m.nodes.forEach(function (n) { F[ND * n.id] -= q * ((n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s) * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; });
     return F;
   }
   /* ---------- dynamics: lumped vertical mass and vibration modes of the deck grillage ---------- */
@@ -349,7 +383,7 @@ var CORE = (function () {
   function nodalMass(p, m, g, sc) {   /* tonnes at each node: girder + deck (tributary width) + superimposed dead load (barriers, surfacing, utilities) */
     var M = new Float64Array(m.nodes.length), F = sdlLoads(p, m, g);
     m.nodes.forEach(function (n) { var trib = (n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s, w = sc.A * 1e-6 * p.gGirder + (trib * p.slab / 1000 + 0.0375) * p.gConc;
-      M[n.id] = (w * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL - F[3 * n.id]) / G_ACC; });
+      M[n.id] = (w * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL - F[ND * n.id]) / G_ACC; });
     return M;
   }
   function jacobi(A) {   /* eigenvalues / vectors of a small symmetric matrix (cyclic Jacobi); returns {val, vec} with vec[i][k] = component i of vector k */
@@ -366,7 +400,7 @@ var CORE = (function () {
     var nd = S.nd, nn = M.length, q = Math.min(nn, (nm || 6) + 6), X = [], i, j, k, lam = [], tot = 0; for (i = 0; i < nn; i++) tot += M[i];
     for (j = 0; j < q; j++) { var v = new Float64Array(nn); for (i = 0; i < nn; i++) v[i] = Math.sin((j + 1) * (i + 1) * 0.7391) + (j === 0 ? 1 : 0); X.push(v); }
     for (var it = 0; it < 40; it++) {
-      var Y = X.map(function (x) { var F = new Float64Array(nd); for (var a = 0; a < nn; a++) F[3 * a] = M[a] * x[a]; var u = solve(S, F), y = new Float64Array(nn); for (var b = 0; b < nn; b++) y[b] = u[3 * b]; return y; });
+      var Y = X.map(function (x) { var F = new Float64Array(nd); for (var a = 0; a < nn; a++) F[ND * a] = M[a] * x[a]; var u = solve(S, F), y = new Float64Array(nn); for (var b = 0; b < nn; b++) y[b] = u[ND * b]; return y; });
       var Kr = [], Mr = []; for (j = 0; j < q; j++) { Kr.push(new Array(q)); Mr.push(new Array(q)); }
       for (j = 0; j < q; j++) for (k = j; k < q; k++) { var a1 = 0, b1 = 0; for (i = 0; i < nn; i++) { a1 += Y[j][i] * M[i] * X[k][i]; b1 += Y[j][i] * M[i] * Y[k][i]; } Kr[j][k] = Kr[k][j] = a1; Mr[j][k] = Mr[k][j] = b1; }   /* Y'KY = Y'MX because KY = MX */
       var Gc = []; for (j = 0; j < q; j++) { Gc.push(new Array(q).fill(0)); for (k = 0; k <= j; k++) { var sm = Mr[j][k]; for (i = 0; i < k; i++) sm -= Gc[j][i] * Gc[k][i]; Gc[j][k] = j === k ? Math.sqrt(Math.max(sm, 1e-300)) : sm / Gc[k][k]; } }
@@ -382,14 +416,14 @@ var CORE = (function () {
     return lam.slice(0, nm || 6).map(function (l, c) { var Gm = 0; for (i = 0; i < nn; i++) Gm += M[i] * X[c][i]; return { w2: l, f: Math.sqrt(l) / (2 * Math.PI), T: 2 * Math.PI / Math.sqrt(l), phi: X[c], part: Gm * Gm / tot }; });
   }
   function sdlLoads(p, m, g) {
-    var F = new Float64Array(3 * m.nodes.length), nodeTrib = function (n) { return (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; };
+    var F = new Float64Array(ND * m.nodes.length), nodeTrib = function (n) { return (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; };
     var surfW = (g.cwR - g.cwL) * p.surf / 1000 * p.gSurf + p.utilities;   /* kN/m over the carriageway, spread to girders by tributary width */
     m.nodes.forEach(function (n) {
       var trib = (n.i === 0 || n.i === g.ng - 1) ? (g.s / 2 + (p.overhang - p.barrierW)) : g.s, share = surfW * trib / (g.cwR - g.cwL);
-      F[3 * n.id] -= share * nodeTrib(n);
+      F[ND * n.id] -= share * nodeTrib(n);
       if (n.i === 0 || n.i === g.ng - 1) {   /* barrier line load at the deck edge: vertical load plus torque about the girder line */
         var e = (p.overhang - p.barrierW / 2) * (n.i === 0 ? -1 : 1), P = p.barrierLoad * nodeTrib(n);
-        F[3 * n.id] -= P; F[3 * n.id + 1] -= P * e;   /* moment about +X of a downward load at +Y offset e is -P e */
+        F[ND * n.id] -= P; F[ND * n.id + 1] -= P * e;   /* moment about +X of a downward load at +Y offset e is -P e */
       }
     });
     return F;
@@ -461,6 +495,6 @@ var CORE = (function () {
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
     influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
-    sdlLoads: sdlLoads, windLoads: windLoads, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
+    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

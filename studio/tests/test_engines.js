@@ -81,7 +81,7 @@ const S = D.stripsFromPolygon ? null : null;
   t('modes: first vertical mode of the square deck = simply supported beam formula with the total EI and mass (3 %)', Math.abs(md[0].f / f1 - 1) < 0.03, md[0].f.toFixed(3) + ' Hz vs ' + f1.toFixed(3));
   t('modes: frequencies ascend; first mode carries most of the vertical mass (8/pi^2 = 81 % for a beam)', md.every((q, i) => !i || q.f >= md[i - 1].f - 1e-9) && Math.abs(md[0].part - 8 / Math.PI ** 2) < 0.03, (100 * md[0].part).toFixed(1) + ' %');
   let orth = 0; for (let i = 0; i < M.length; i++) orth += md[0].phi[i] * M[i] * md[1].phi[i];
-  let res = 0; { const F = new Float64Array(S.nd); for (let i = 0; i < M.length; i++) F[3 * i] = M[i] * md[0].phi[i] * md[0].w2; const u = C.solve(S, F); for (let i = 0; i < M.length; i++) res = Math.max(res, Math.abs(u[3 * i] - md[0].phi[i])); }
+  let res = 0; { const F = new Float64Array(S.nd); for (let i = 0; i < M.length; i++) F[C.ND * i] = M[i] * md[0].phi[i] * md[0].w2; const u = C.solve(S, F); for (let i = 0; i < M.length; i++) res = Math.max(res, Math.abs(u[C.ND * i] - md[0].phi[i])); }
   t('modes: mass-orthogonal, and mode 1 satisfies K phi = w2 M phi', Math.abs(orth) < 1e-8 && res < 1e-8 * Math.max(...md[0].phi.map(Math.abs)), orth.toExponential(1) + ', ' + res.toExponential(1));
   const W = tot * C.G_ACC, Q = AN.quake(p, W, null, 0), P = p.piles, kp = 12 * H.t312(P.fc).E * 1e3 * Math.PI * (P.D / 1000) ** 4 / 64 / P.Lf ** 3;
   t('earthquake: T = 2 pi sqrt(m / K) with K = n x 12 EI / Lf^3; transverse (both abutments) is stiffer; F = Sa W', Math.abs(Q.L.T - 2 * Math.PI * Math.sqrt(tot / (P.n * kp))) < 1e-12 && Q.T.T < Q.L.T && Math.abs(Q.L.F - Q.L.Sa * W) < 1e-9, 'T_L ' + Q.L.T.toFixed(3) + ' s');
