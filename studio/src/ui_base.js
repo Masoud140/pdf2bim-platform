@@ -91,7 +91,7 @@ var U = {};
             D.push([]); CK.push([]);
             for (var gi = 0; gi < A.g.ng; gi++) {
               ST.log = 'Super-T design: span ' + (sk + 1) + ', girder G' + (gi + 1); U.paintDeps(); await tick();
-              try { var dd = ANALYSIS.design(p, A, U.TPL, gi, sk); D[sk].push(dd); CK[sk].push(ANALYSIS.checks(p, A, dd, Object.assign({}, lim, { tLive: lim.tLive * Math.sqrt(p.fcG), gi: gi, sk: sk }))); }
+              try { var pg = p.gStr && p.gStr[gi] ? Object.assign({}, p, { strands: p.gStr[gi] }) : p, dd = ANALYSIS.design(pg, A, U.TPL, gi, sk); D[sk].push(dd); CK[sk].push(ANALYSIS.checks(pg, A, dd, Object.assign({}, lim, { tLive: lim.tLive * Math.sqrt(p.fcG), gi: gi, sk: sk }))); }
               catch (e) { D[sk].push({ err: e.message }); CK[sk].push([]); }
             }
           }
@@ -117,7 +117,7 @@ var U = {};
     var root = path.indexOf('lim.') === 0 ? ST : ST.p, ks = path.split('.'), o = root;
     for (var i = 0; i < ks.length - 1; i++) o = o[ks[i]];
     o[ks[ks.length - 1]] = v;
-    if (path === 'girder') { ST.p.strands = CORE.strandDefault(v); ST.sel.strand = null; }
+    if (path === 'girder') { ST.p.strands = CORE.strandDefault(v); ST.p.gStr = {}; ST.sel.strand = null; }
     ST.history.push({ t: Date.now(), what: 'Set ' + path + ' = ' + (Array.isArray(v) ? v.join(', ') : v) });
   };
   document.addEventListener('change', function (e) {

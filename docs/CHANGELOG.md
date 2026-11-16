@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-16 — Studio Tier 3 (ADR-068)
+- Stages, hog & temperature page; Bearing actions page; vertical wind cases and combinations; girder bars in ULS bending and on the section; per-girder strand patterns; S-1…S-4.
+
 ## 2026-11-16 — App Tier 2 (ADR-067)
 - Loads tab (P9.6); Moving loads tab with engineer-defined lane layouts, governing load positions and influence lines (P9.7); Needs review tab; Materials and Member properties cards; per-girder design by copying a Super-T type.
 

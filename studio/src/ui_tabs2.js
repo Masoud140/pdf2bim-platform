@@ -20,6 +20,10 @@
       var deb = (q.d || q.d2), sel = ST.sel.strand === i;
       s += '<circle ' + (opt.print ? '' : 'data-act="strand" data-k="' + i + '" tabindex="0" ') + 'cx="' + X(q.x).toFixed(1) + '" cy="' + Y(q.y).toFixed(1) + '" r="' + r.toFixed(1) + '" style="fill:' + (q.on ? (deb ? ld : acc) : bg) + ';stroke:' + (sel ? ink : q.on ? (deb ? ld : acc) : mut) + ';stroke-width:' + (sel ? 2.6 : 1.2) + '"><title>' + esc('x = ' + q.x + ', y = ' + q.y + ' mm' + (q.on ? (deb ? ', debonded ' + q.d + ' mm each end' : ', fully bonded') : ', not used')) + '</title></circle>';
     });
+    /* girder bars (M-5): each group as a row of squares at its height; positions across the width are schematic */
+    ANALYSIS.parseBars(p.gbars).forEach(function (b) { var xsAt = [], yy = Math.min(H - 1, Math.max(1, b.y)); for (var e = 0; e < P.length; e++) { var a_ = P[e], c_ = P[(e + 1) % P.length]; if ((a_[1] <= yy && c_[1] > yy) || (c_[1] <= yy && a_[1] > yy)) xsAt.push(a_[0] + (c_[0] - a_[0]) * (yy - a_[1]) / (c_[1] - a_[1])); }
+      var x0 = Math.min.apply(null, xsAt) + 50, x1 = Math.max.apply(null, xsAt) - 50, sz = Math.max(4, b.d * k * 1.2);
+      for (var q_ = 0; q_ < b.n; q_++) { var xx = b.n === 1 ? 0 : x0 + (x1 - x0) * q_ / (b.n - 1); s += '<rect x="' + (X(xx) - sz / 2).toFixed(1) + '" y="' + (Y(b.y) - sz / 2).toFixed(1) + '" width="' + sz.toFixed(1) + '" height="' + sz.toFixed(1) + '" style="fill:none;stroke:' + ink + ';stroke-width:1.4"><title>N' + b.d + ' bar at y ' + b.y + ' mm</title></rect>'; } });
     if (!opt.nodim) { var dm = function (x1, x2, y, txt) { var yy = Y(y); s += '<line x1="' + X(x1) + '" x2="' + X(x2) + '" y1="' + yy + '" y2="' + yy + '" style="stroke:' + ink + ';stroke-width:.8"/><line x1="' + X(x1) + '" x2="' + X(x1) + '" y1="' + (yy - 4) + '" y2="' + (yy + 4) + '" style="stroke:' + ink + '"/><line x1="' + X(x2) + '" x2="' + X(x2) + '" y1="' + (yy - 4) + '" y2="' + (yy + 4) + '" style="stroke:' + ink + '"/><text x="' + ((X(x1) + X(x2)) / 2) + '" y="' + (yy + 12) + '" text-anchor="middle">' + txt + '</text>'; };
       var xs = P.map(function (q) { return q[0]; }), sof = P.filter(function (q) { return q[1] < 1; }).map(function (q) { return q[0]; });
       dm(Math.min.apply(null, xs), Math.max.apply(null, xs), H + t + 60, 'top flange ' + f(sc.fw) + ' mm'); if (sof.length) dm(Math.min.apply(null, sof), Math.max.apply(null, sof), -40, 'soffit ' + f(Math.max.apply(null, sof) - Math.min.apply(null, sof)) + ' mm');
@@ -54,7 +58,7 @@
 
   /* ---------- 5. Super-T design ---------- */
   U.RENDER.design = function () {
-    var p = ST.p, g = U.clampSel(), sc = CORE.sections(p, g), ss = U.strandStats(p, sc), q = ST.sel.strand !== null ? p.strands[ST.sel.strand] : null;
+    var g = U.clampSel(), p = U.pv(), sc = CORE.sections(p, g), ss = U.strandStats(p, sc), q = ST.sel.strand !== null ? p.strands[ST.sel.strand] : null, own = !!(ST.p.gStr && ST.p.gStr[ST.sel.gi]);
     var sec = SECLIB.SEC[p.girder];
     var h = '<div><h1 class="h1">Super-T girder design</h1><p class="lede">Section, materials and strands for every girder of the bridge (one strand pattern for all girders). The losses, transfer and strength engines run when you press Run.</p></div>';
     h += '<div class="row">' + U.selBox('sk', U.spanOpts(g.spans.length), 'Span') + U.selBox('gi', U.girderOpts(g.ng), 'Girder') + '</div>';
@@ -73,7 +77,7 @@
       U.fld('fcG', "Girder f'c at 28 days", 'MPa', { options: [40, 50, 65, 80], num: true }) + U.fld('fcT', "Girder f'cp at transfer", 'MPa', { min: 25, max: 65 }) + U.fld('fcD', "Deck f'c", 'MPa', { options: [32, 40, 50], num: true }) +
       U.fld('db', 'Strand diameter', 'mm', { options: Object.keys(HOG.STR), num: true }) + U.fld('jack', 'Jacking stress / MBL', '', { min: 0.5, max: 0.85 }) +
       U.fld('stage.tau', 'Transfer age', 'days', { min: 1, max: 28 }) + U.fld('stage.pour', 'Deck pour age', 'days', { min: 14, max: 365 }) + U.fld('stage.sidlA', 'Superimposed dead load at', 'days', { min: 30, max: 1000 }) + U.fld('stage.final', 'Long-term age', 'days', { min: 365, max: 36500 }) +
-      U.fld('fitD', 'Shear ligature diameter', 'mm', { options: [12, 16, 20], num: true }) + U.fld('fitLegs', 'Ligature legs per web', '', { min: 1, max: 4, step: 1 }) + U.fld('fitS', 'Ligature spacing', 'mm', { min: 75, max: 400 }) + U.fld('fsyf', 'Fitment yield strength fsy.f', 'MPa', { options: [250, 500], num: true }) + U.fld('dg', 'Aggregate size', 'mm', { min: 10, max: 40 }) + '</div></section>';
+      U.fld('fitD', 'Shear ligature diameter', 'mm', { options: [12, 16, 20], num: true }) + U.fld('fitLegs', 'Ligature legs per web', '', { min: 1, max: 4, step: 1 }) + U.fld('fitS', 'Ligature spacing', 'mm', { min: 75, max: 400 }) + U.fld('fsyf', 'Fitment yield strength fsy.f', 'MPa', { options: [250, 500], num: true }) + U.fld('dg', 'Aggregate size', 'mm', { min: 10, max: 40 }) + U.fld('gbars', 'Girder longitudinal bars', '', { text: true, tip: 'Groups as height:diameter x number, e.g. 60:16x4, 1400:12x6 (height in mm above the soffit). Included in ULS bending (fsy 500 MPa) and drawn on the section as squares.' }) + '</div></section>';
     h += '<section class="card"><h3>Section properties ' + U.tag('calc') + '</h3><div class="tbox"><table class="t"><tbody>' +
       [['Depth H', f(sc.H), 'mm'], ['Top flange width', f(sc.fw), 'mm'], ['Area A', f(sc.A / 1e3, 1), '×10³ mm²'], ['Centroid above soffit yb', f(sc.yb, 1), 'mm'], ['Second moment I', f(sc.I / 1e9, 1), '×10⁹ mm⁴'], ['Ec girder / deck', f(sc.Eg) + ' / ' + f(sc.Ed), 'MPa'],
         ['Composite centroid yc', f(sc.yc, 1), 'mm'], ['Composite Ic', f(sc.Ic / 1e9, 1), '×10⁹ mm⁴'], ['Section moduli Zb / Zt', f(sc.Zb / 1e6) + ' / ' + f(sc.Zt / 1e6), '×10⁶ mm³'], ['Composite Zb / Zt girder / Zt deck', f(sc.Zcb / 1e6) + ' / ' + f(sc.Zct / 1e6) + ' / ' + f(sc.Zcd / 1e6), '×10⁶ mm³'], ['Torsion constant J (closed cell)', f(sc.J / 1e9, 1), '×10⁹ mm⁴'], ['Girder weight', f(sc.A * 1e-6 * p.gGirder, 2), 'kN/m']]
@@ -82,6 +86,7 @@
     h += '<section class="card"><h3>Strand layout <span class="sub">' + (SM.mode === 'toggle' ? 'click a strand to add or remove it' : 'click a strand to select it, then set its debonding') + '</span></h3>' +
       '<div class="row"><div class="seg" role="group" aria-label="Click action"><button data-act="sm" data-k="mode" data-v="toggle" aria-pressed="' + (SM.mode === 'toggle') + '">Add / remove</button><button data-act="sm" data-k="mode" data-v="select" aria-pressed="' + (SM.mode === 'select') + '">Select for debonding</button></div>' +
       '<label class="row" style="gap:6px"><input type="checkbox" data-act="sm" data-k="sym"' + (SM.sym ? ' checked' : '') + '> Mirror about the centreline</label><button class="btn" data-act="st-all">All locations</button><button class="btn" data-act="st-def">Default pattern</button><button class="btn ghost" data-act="st-nodeb">Remove all debonding</button></div>' +
+      '<div class="row" style="margin-top:8px"><span class="note">' + (own ? '<b>G' + (ST.sel.gi + 1) + ' has its own strand pattern.</b> ' : 'G' + (ST.sel.gi + 1) + ' uses the shared pattern' + (Object.keys(ST.p.gStr || {}).length ? ' (own patterns: ' + Object.keys(ST.p.gStr).map(function (k) { return 'G' + (+k + 1); }).join(', ') + ')' : ' (all girders do)') + '. ') + '</span>' + (own ? '<button class="btn ghost" data-act="st-shared">Use the shared pattern for G' + (ST.sel.gi + 1) + '</button>' : '<button class="btn" data-act="st-own">Give G' + (ST.sel.gi + 1) + ' its own pattern</button>') + '</div>' +
       '<div class="grid2" style="align-items:start"><div class="tbox" style="border:0">' + U.strandSVG(p, sc) + '</div><div style="display:grid;gap:10px">' +
       '<div class="kpis"><div class="kpi"><span class="l">Strands</span><span class="v">' + ss.n + '</span><span class="s">' + ss.deb + ' debonded</span></div><div class="kpi"><span class="l">Area Ap</span><span class="v">' + f(ss.Ap) + '<small>mm²</small></span><span class="s">' + p.db + ' mm strand</span></div><div class="kpi"><span class="l">Eccentricity</span><span class="v">' + f(ss.e) + '<small>mm</small></span><span class="s">composite ' + f(ss.ec) + ' mm</span></div><div class="kpi"><span class="l">Jacking force</span><span class="v">' + f(ss.Pj) + '<small>kN</small></span><span class="s">' + p.jack + ' × MBL</span></div></div>' +
       (q ? '<div class="card" style="box-shadow:none"><h3>Selected strand <span class="sub mono">x = ' + q.x + ', y = ' + q.y + ' mm</span></h3><div class="row"><label class="row" style="gap:6px"><input type="checkbox" data-act="st-on"' + (q.on ? ' checked' : '') + '> Used</label><label class="row" style="gap:6px">Debond each end <select class="sm" data-act="st-deb" id="st-deb">' + DEB.map(function (d) { return '<option value="' + d + '"' + ((q.d || 0) === d ? ' selected' : '') + '>' + (d ? d + ' mm' : 'none') + '</option>'; }).join('') + '</select></label></div></div>' : '<p class="note">Switch to "Select for debonding" and click a strand to set its debond length.</p>') +
@@ -119,19 +124,24 @@
     else h += '<div class="empty">Press Run to calculate losses, camber, transfer stresses and strength for this girder.</div>';
     return h + '</div>';
   };
-  function mirror(i) { var q = ST.p.strands[i]; for (var k = 0; k < ST.p.strands.length; k++) { var o = ST.p.strands[k]; if (k !== i && o.y === q.y && o.x === -q.x) return k; } return -1; }
+  /* per-girder strand patterns (M-4): the girder selected edits its own pattern when it has one, else the shared one */
+  U.strs = function () { return (ST.p.gStr && ST.p.gStr[ST.sel.gi]) || ST.p.strands; };
+  U.pv = function () { var o = ST.p.gStr && ST.p.gStr[ST.sel.gi]; return o ? Object.assign({}, ST.p, { strands: o }) : ST.p; };
+  U.ACT['st-own'] = function () { ST.p.gStr = ST.p.gStr || {}; ST.p.gStr[ST.sel.gi] = U.deep(ST.p.strands); U.changed(); };
+  U.ACT['st-shared'] = function () { delete ST.p.gStr[ST.sel.gi]; ST.sel.strand = null; U.changed(); };
+  function mirror(i) { var q = U.strs()[i]; for (var k = 0; k < U.strs().length; k++) { var o = U.strs()[k]; if (k !== i && o.y === q.y && o.x === -q.x) return k; } return -1; }
   U.ACT.strand = function (a) {
-    var i = Number(a.getAttribute('data-k')), q = ST.p.strands[i], j = SM.sym ? mirror(i) : -1;
+    var i = Number(a.getAttribute('data-k')), q = U.strs()[i], j = SM.sym ? mirror(i) : -1;
     if (SM.mode === 'select') { ST.sel.strand = i; U.paint(); return; }
-    q.on = !q.on; if (j >= 0) ST.p.strands[j].on = q.on; ST.sel.strand = i;
+    q.on = !q.on; if (j >= 0) U.strs()[j].on = q.on; ST.sel.strand = i;
     ST.history.push({ t: Date.now(), what: (q.on ? 'Added' : 'Removed') + ' strand at x ' + q.x + ', y ' + q.y + (j >= 0 ? ' (and mirror)' : '') }); U.changed();
   };
   U.ACT.sm = function (a) { var k = a.getAttribute('data-k'); SM[k] = k === 'sym' ? a.checked : a.getAttribute('data-v'); U.paint(); };
-  U.ACT['st-on'] = function (a) { var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1; ST.p.strands[i].on = a.checked; if (j >= 0) ST.p.strands[j].on = a.checked; U.changed(); };
-  U.ACT['st-all'] = function () { ST.p.strands.forEach(function (q) { q.on = true; }); U.changed(); };
-  U.ACT['st-def'] = function () { ST.p.strands = CORE.strandDefault(ST.p.girder); ST.sel.strand = null; U.changed(); };
-  U.ACT['st-nodeb'] = function () { ST.p.strands.forEach(function (q) { q.d = 0; q.d2 = 0; }); U.changed(); };
-  document.addEventListener('change', function (e) { if (e.target.id !== 'st-deb') return; var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1, v = Number(e.target.value); [i, j].forEach(function (k) { if (k >= 0) { ST.p.strands[k].d = v; ST.p.strands[k].d2 = v; } }); ST.history.push({ t: Date.now(), what: 'Debond ' + v + ' mm on strand ' + i }); U.changed(); });
+  U.ACT['st-on'] = function (a) { var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1; U.strs()[i].on = a.checked; if (j >= 0) U.strs()[j].on = a.checked; U.changed(); };
+  U.ACT['st-all'] = function () { U.strs().forEach(function (q) { q.on = true; }); U.changed(); };
+  U.ACT['st-def'] = function () { if (ST.p.gStr && ST.p.gStr[ST.sel.gi]) ST.p.gStr[ST.sel.gi] = CORE.strandDefault(ST.p.girder); else U.strs() = CORE.strandDefault(ST.p.girder); ST.sel.strand = null; U.changed(); };
+  U.ACT['st-nodeb'] = function () { U.strs().forEach(function (q) { q.d = 0; q.d2 = 0; }); U.changed(); };
+  document.addEventListener('change', function (e) { if (e.target.id !== 'st-deb') return; var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1, v = Number(e.target.value); [i, j].forEach(function (k) { if (k >= 0) { U.strs()[k].d = v; U.strs()[k].d2 = v; } }); ST.history.push({ t: Date.now(), what: 'Debond ' + v + ' mm on strand ' + i }); U.changed(); });
 
   /* ---------- check table (one girder or worst across girders) ---------- */
   U.checkTable = function (ck, showG) {

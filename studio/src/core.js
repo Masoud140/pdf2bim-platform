@@ -23,8 +23,9 @@ var CORE = (function () {
     stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 },
     fitD: 16, fitLegs: 2, fitS: 125, fsyf: 500, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
     vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
+    windVu: 1.0, windVs: 0.5, dTtop: 20, dTdepth: 300, alphaT: 11, dTuni: 25, gbars: '',
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3 },
-    strands: null
+    strands: null, gStr: {}   /* gStr: {girder index: own strand pattern}; girders not listed use `strands` */
   };
   function strandDefault(sec) {
     var g = SECLIB.grid(sec);
@@ -55,10 +56,10 @@ var CORE = (function () {
     girder: 'section', slab: 'section', gap: 'section',
     fcG: 'material', fcT: 'material', fcD: 'material', gConc: 'loads', gGirder: 'loads',
     nEl: 'mesh', nTrans: 'mesh', Jf: 'mesh', sweep: 'loads',
-    barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads',
+    barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads', windVu: 'loads', windVs: 'loads', dTtop: 'thermal', dTdepth: 'thermal', alphaT: 'thermal', dTuni: 'thermal',
     combos: 'combos',
-    strands: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
-    fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing',
+    strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
+    fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
     piles: 'substructure' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);
@@ -337,6 +338,11 @@ var CORE = (function () {
   }
 
   /* ---------- static load cases on the grillage (SDL) and on the girder alone (DL, construction) ---------- */
+  function windLoads(m, g, p, q) {   /* uniform vertical pressure q (kPa, + down) over the whole deck plan, to the girder lines by tributary width */
+    var F = new Float64Array(3 * m.nodes.length);
+    m.nodes.forEach(function (n) { F[3 * n.id] -= q * ((n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s) * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; });
+    return F;
+  }
   function sdlLoads(p, m, g) {
     var F = new Float64Array(3 * m.nodes.length), nodeTrib = function (n) { return (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; };
     var surfW = (g.cwR - g.cwL) * p.surf / 1000 * p.gSurf + p.utilities;   /* kN/m over the carriageway, spread to girders by tributary width */
@@ -365,8 +371,9 @@ var CORE = (function () {
     { id: 'C', name: 'Construction live load', cls: 'Construction', act: 'CON', on: true, on_girder: true },
     { id: 'M1600', name: 'M1600 moving traffic', cls: 'Traffic', act: 'M1600', on: true },
     { id: 'S1600', name: 'S1600 stationary traffic', cls: 'Traffic', act: 'S1600', on: true },
-    { id: 'TEMP', name: 'Temperature', cls: 'Environmental', act: 'T', on: false, proposed: true, note: 'Not modelled: simply supported girders carry no restraint moment from uniform temperature; differential temperature stresses are a proposed addition.' },
-    { id: 'WIND', name: 'Wind', cls: 'Environmental', act: 'W', on: false, proposed: true, note: 'Not modelled in this vertical-load grillage (affects bearings and substructure).' }
+    { id: 'WVu', name: 'Wind, vertical on the deck (ultimate)', cls: 'Wind', act: 'W', on: false, note: 'Vertical wind pressure on the deck plan, upward or downward (enveloped). Transverse wind is not modelled in this vertical-load grillage.' },
+    { id: 'WVs', name: 'Wind, vertical on the deck (serviceability)', cls: 'Wind', act: 'W', on: false },
+    { id: 'TEMP', name: 'Temperature', cls: 'Environmental', act: 'T', on: false, proposed: true, note: 'Not a grillage case: simply supported girders carry no restraint moment. Differential-temperature stresses and bearing movements are on the Stages and Bearings pages.' }
   ];
   function defaultCombos() {   /* factors from the standards inventory (DLc 1.2/0.85/1.0, SDLs 1.4/1.0, SDLp 2.0/1.3, traffic 1.8/1.0), construction illustrative */
     return [
@@ -384,6 +391,9 @@ var CORE = (function () {
     tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls); f[t.id] = ls === 'ULS' ? 1.8 : 1.0; out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id, f: f }); }); });
     if (on.some(function (c) { return c.id === 'C'; })) out.push({ id: 'ULS-C', ls: 'ULS', name: 'Construction (girder alone)', f: { G1: 1.2, G2: 1.2, C: 1.5 }, illustrative: true });
     var fp = {}; on.forEach(function (c) { if (c.cls === 'Permanent' || c.cls === 'Superimposed dead') fp[c.id] = 1.0; }); out.push({ id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: fp });
+    /* wind: permanent + wind at its own limit-state pressure, factor 1.0 (the ultimate and serviceability pressures are separate inputs); unverified */
+    if (on.some(function (c) { return c.id === 'WVu'; })) { var fu = perm('ULS'); fu.WVu = 1.0; out.push({ id: 'ULS-W', ls: 'ULS', name: 'Permanent + vertical wind', f: fu }); }
+    if (on.some(function (c) { return c.id === 'WVs'; })) { var fw = perm('SLS'); fw.WVs = 1.0; out.push({ id: 'SLS-W', ls: 'SLS', name: 'Permanent + vertical wind', f: fw }); }
     return out;
   }
 
@@ -402,6 +412,6 @@ var CORE = (function () {
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
     influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
-    sdlLoads: sdlLoads, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
+    sdlLoads: sdlLoads, windLoads: windLoads, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

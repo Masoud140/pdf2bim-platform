@@ -50,4 +50,27 @@ const S = D.stripsFromPolygon ? null : null;
   const il = C.influenceLine(m, g, IM, RS, keys[0], g.y[2]);
   t('moving loads: influence line of mid-span moment peaks near mid-span and is zero at the supports', il[0][1] === 0 && Math.abs(il.reduce((b, q) => q[1] > b[1] ? q : b)[0] - g.spans[0].L / 2 - g.y[2] * g.t) < 0.6);
 }
+// differential temperature: self-equilibrating; a uniform temperature gives no stress; a hot top hogs the span
+{
+  const C = global.CORE, p = Object.assign({}, C.CASES.cs01.p), g = C.geometry(p), sc = C.sections(p, g), tg = require('../src/analysis.js').tempGrad(p, sc, g);
+  t('temperature gradient: stresses carry no axial force and no moment', Math.abs(tg.resN) < 1e-3 && Math.abs(tg.resM) < 1, tg.resN.toExponential(1) + ' N, ' + tg.resM.toExponential(1) + ' Nmm');
+  t('temperature gradient: hot deck top is in compression, the span hogs (curvature < 0)', tg.deckTop < 0 && tg.k < 0, tg.deckTop.toFixed(2) + ' MPa');
+  const tu = require('../src/analysis.js').tempGrad(Object.assign({}, p, { dTdepth: 1e9 }), sc, g);
+  t('temperature: a uniform rise gives zero stress everywhere', Math.max(...tu.prof.map(r => Math.abs(r[2]))) < 1e-6);
+  const pb = require('../src/analysis.js').parseBars('60:16x4, 1400:N12 x 6; junk');
+  t('girder bars parse: two groups, junk ignored', pb.length === 2 && pb[0].y === 60 && pb[0].d === 16 && pb[0].n === 4 && pb[1].n === 6);
+  const F = C.windLoads(C.mesh(p, g, sc), g, p, 1), tot = -F.reduce((a, v, i) => a + (i % 3 === 0 ? v : 0), 0);
+  t('vertical wind: total load = pressure x deck plan area', Math.abs(tot - (g.edgeR - g.edgeL) * g.spans[0].L) < 1e-6 * tot, tot.toFixed(1) + ' kN at 1 kPa');
+}
+// bearings schedule and combination generator with wind
+{
+  const C = global.CORE, AN = require('../src/analysis.js'), p = Object.assign({}, C.CASES.cs01.p), cases = C.CASES_DEF.map(c => Object.assign({}, c, { on: c.proposed ? false : true }));
+  const cb = C.generateCombos(cases);
+  t('combinations: switching vertical wind on adds one ULS and one SLS wind row with the permanent factors', cb.filter(c => c.id === 'ULS-W' || c.id === 'SLS-W').length === 2 && cb.find(c => c.id === 'ULS-W').f.WVu === 1 && cb.find(c => c.id === 'ULS-W').f.G1 === cb.find(c => c.id === 'ULS-1').f.G1);
+  const A0 = AN.run(p, cases, cb, () => {}), A = Object.assign({}, A0, { CB: AN.combine(A0.V, cb, cases, A0.RS.R.length) }), B = AN.bearings(p, A, 0);
+  const perm = B.rows.reduce((a, r) => a + r.perm, 0), g = A.g, sc = A.sc;
+  const W = g.ng * sc.A * 1e-6 * p.gGirder * g.spans[0].Lg;
+  t('bearings: one row per bearing; ULS max >= SLS max >= permanent > 0; permanent reactions sum above the girder weight alone', B.rows.length === 2 * g.ng && B.rows.every(r => r.by.ULS.max >= r.by.SLS.max && r.by.SLS.max >= r.perm - 1e-6 && r.perm > 0) && perm > W, perm.toFixed(0) + ' kN vs girders ' + W.toFixed(0));
+  t('bearings: thermal movement = alpha x dT x L', Math.abs(B.dTmove - p.alphaT * 1e-6 * p.dTuni * g.spans[0].L * 1000) < 1e-9, B.dTmove.toFixed(2) + ' mm');
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

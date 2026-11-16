@@ -11,6 +11,8 @@
     { id: 'model', t: '3D bridge model', i: ic('<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>') },
     { id: 'design', t: 'Super-T girder design', i: ic('<path d="M3 5h18l-4 2-1.5 11h-7L7 7z"/><circle cx="10" cy="16" r=".8"/><circle cx="14" cy="16" r=".8"/>') },
     { id: 'analysis', t: 'Structural analysis', i: ic('<path d="M3 12h18"/><path d="M3 12c3 7 15 7 18 0"/>') },
+    { id: 'stages', t: 'Stages, hog & temperature', i: ic('<path d="M3 18h18M5 18V9h4v9M11 18V5h4v13M17 18v-6h3"/>') },
+    { id: 'bearings', t: 'Bearing actions', i: ic('<path d="M4 8h16v4H4zM7 12v4M17 12v4M3 20h18"/>') },
     { id: 'checks', t: 'Design checks', i: ic('<path d="M4 12l5 5L20 6"/>') },
     { id: 'reports', t: 'Reports & export', i: ic('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>') },
     { id: 'validation', t: 'Validation', i: ic('<path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/>') },
@@ -154,12 +156,13 @@
   /* ---------- 2. Loads and combinations ---------- */
   U.RENDER.loads = function () {
     var p = ST.p, g = CORE.geometry(p);
-    var applied = function (c) { return c.on_girder ? 'Girder alone (non-composite)' : c.cls === 'Traffic' ? 'Composite grillage, influence surfaces' : c.proposed ? '–' : 'Composite grillage'; };
-    var intensity = { G1: f(CORE.sections(p, g).A * 1e-6 * p.gGirder, 2) + ' kN/m per girder', G2: f((g.s * p.slab / 1000 + 0.0375) * p.gConc, 2) + ' kN/m per internal girder', SDLs: p.barrierLoad + ' kN/m per barrier at the deck edge', SDLp: p.surf + ' mm × ' + p.gSurf + ' kN/m³ + ' + p.utilities + ' kN/m utilities', C: p.constLL + ' kPa on the girder spacing', M1600: 'wheel 60 kN, UDL 6 kN/m, DLA 0.3', S1600: 'wheel 40 kN, UDL 24 kN/m, DLA 0' };
+    var applied = function (c) { return c.on_girder ? 'Girder alone (non-composite)' : c.cls === 'Traffic' ? 'Composite grillage, influence surfaces' : c.cls === 'Wind' ? 'Composite grillage, up and down enveloped' : c.proposed ? '–' : 'Composite grillage'; };
+    var intensity = { WVu: p.windVu + ' kPa over the deck plan (± )', WVs: p.windVs + ' kPa over the deck plan (± )', G1: f(CORE.sections(p, g).A * 1e-6 * p.gGirder, 2) + ' kN/m per girder', G2: f((g.s * p.slab / 1000 + 0.0375) * p.gConc, 2) + ' kN/m per internal girder', SDLs: p.barrierLoad + ' kN/m per barrier at the deck edge', SDLp: p.surf + ' mm × ' + p.gSurf + ' kN/m³ + ' + p.utilities + ' kN/m utilities', C: p.constLL + ' kPa on the girder spacing', M1600: 'wheel 60 kN, UDL 6 kN/m, DLA 0.3', S1600: 'wheel 40 kN, UDL 24 kN/m, DLA 0' };
     var h = '<div><h1 class="h1">Loads and combinations</h1><p class="lede">Load cases feed the grillage analysis; combinations are re-formed from the stored case results without re-solving.</p></div>';
     h += '<section class="card"><h3>Load cases ' + U.tag('ill') + U.tag('unv') + '</h3><div class="tbox"><table class="t"><thead><tr><th>On</th><th>Case</th><th>Description</th><th>Class</th><th>Applied to</th><th>Intensity</th></tr></thead><tbody>' +
       ST.cases.map(function (c) { return '<tr' + (c.proposed ? ' style="opacity:.75"' : '') + '><td><input type="checkbox" data-act="case-on" data-id="' + c.id + '"' + (c.on ? ' checked' : '') + (c.proposed ? ' disabled title="Proposed: not modelled yet"' : '') + ' aria-label="Include ' + esc(c.name) + '"></td><td class="mono"><b>' + c.id + '</b></td><td>' + esc(c.name) + (c.proposed ? ' <span class="tg">proposed, not modelled</span><div class="note">' + esc(c.note) + '</div>' : '') + '</td><td>' + esc(c.cls) + '</td><td class="note">' + applied(c) + '</td><td class="note">' + esc(intensity[c.id] || '–') + '</td></tr>'; }).join('') + '</tbody></table></div></section>';
     h += '<section class="card"><h3>Load intensities ' + U.tag('ill') + '</h3><div class="form">' + U.fld('barrierLoad', 'Barrier weight', 'kN/m') + U.fld('surf', 'Surfacing thickness', 'mm') + U.fld('gSurf', 'Surfacing density', 'kN/m³') + U.fld('utilities', 'Utilities', 'kN/m') +
+      U.fld('windVu', 'Vertical wind pressure, ultimate', 'kPa', { min: 0, max: 10 }) + U.fld('windVs', 'Vertical wind pressure, serviceability', 'kPa', { min: 0, max: 10 }) +
       U.fld('gConc', 'Deck concrete density', 'kN/m³') + U.fld('gGirder', 'Girder concrete density', 'kN/m³') + U.fld('constLL', 'Construction live load', 'kPa') + U.fld('dlaUDL', 'Dynamic allowance on UDL', '', { options: [['false', 'No (point loads only)'], ['true', 'Yes']] }) + U.fld('sweep', 'Lane sweep step', 'm', { min: 0.05, max: 1 }) + '</div>' +
       '<p class="note">Traffic: ' + g.lanes + ' lane' + (g.lanes === 1 ? '' : 's') + ' of 3.2 m on a ' + f(g.cwR - g.cwL, 2) + ' m carriageway, accompanying lane factors 1.0 / 0.8 / 0.4. Vehicle data from the platform standards inventory (' + esc(CORE.STD.status) + ').</p></section>';
     var sc_ = CORE.sections(p, g), wD_ = (g.s * p.slab / 1000 + 0.0375) * p.gConc, wE_ = (g.s / 2 + p.overhang) / g.s * wD_;

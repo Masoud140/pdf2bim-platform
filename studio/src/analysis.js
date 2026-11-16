@@ -37,6 +37,10 @@ var ANALYSIS = (function () {
     var pB = C.deep(p); pB.surf = 0; pB.utilities = 0; var pS = C.deep(p); pS.barrierLoad = 0;
     V.SDLs = C.evalResponses(m, RS, C.solve(S, C.sdlLoads(pB, m, g)));
     V.SDLp = C.evalResponses(m, RS, C.solve(S, C.sdlLoads(pS, m, g)));
+    ['WVu', 'WVs'].forEach(function (id) {   /* vertical wind: one solve at 1 kPa down, enveloped up / down at the input pressure */
+      if (!on[id]) return; var w1 = C.evalResponses(m, RS, C.solve(S, C.windLoads(m, g, p, 1))), q = Math.abs(id === 'WVu' ? p.windVu : p.windVs) || 0, mx = new Float64Array(nr), mn = new Float64Array(nr);
+      for (var k = 0; k < nr; k++) { mx[k] = Math.abs(w1[k]) * q; mn[k] = -mx[k]; } V[id] = { max: mx, min: mn };
+    });
     var env = {}, IM = null;
     ['M1600', 'S1600'].forEach(function (vk) {
       if (!on[vk]) return;
@@ -196,7 +200,7 @@ var ANALYSIS = (function () {
         st.sls[c.id] = fp(Mnc, Mt - Mnc); slsRows.push([c.id, Mnc, Mt - Mnc]);
       });
       /* ULS bending: composite strain compatibility (DSG engine), strands effective by transmission / debonding */
-      var S = { conc: DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10)), bars: [], tend: [] };
+      var S = { conc: DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10)), bars: parseBars(p.gbars).map(function (b) { return { y: p.slab + sc.H - b.y, A: b.n * Math.PI * b.d * b.d / 4, E: 200000, fsy: 500 }; }), tend: [] };
       fs.forEach(function (q, k) { var ef = Math.max(0, Math.min(1, (xg - (q.d || 0)) / lt, (h.L - xg - (q.d2 || 0)) / lt)); if (ef <= 0) return;
         var sp_ = PmF[k] * 1e3 / Ap; S.tend.push({ y: p.slab + sc.H - q.y, A: Ap * ef, E: Ep, fpb: h.mbl * 1e3 / Ap, eu: 0.035, spe: sp_, epe: sp_ / Ep + (ps.P * 1e3 / sc.A + ps.P * 1e3 * ps.e * ps.e / sc.I) / sc.Eg }); });
       var kU = A.RS.idx[key], uls = A.CB.filter(function (c) { return c.ls === 'ULS'; });
@@ -239,6 +243,37 @@ var ANALYSIS = (function () {
       detail: { adj: debAdj(fs), n: fs.length, debT: debT, debR: debR, mxd: mxd, lt: lt, Lg: h.L, cgs: fs.reduce(function (a_, q) { return a_ + q.y; }, 0) / fs.length, minCover: Math.min.apply(null, fs.map(function (q) { return q.y; })) - p.db / 2 } };
   }
 
+  /* girder longitudinal bars typed as "y:dia x n" groups, e.g. "60:16x4, 1400:12x6" (y mm above the soffit) */
+  function parseBars(s) {
+    return String(s || '').split(/[,;]+/).map(function (t) { var m = /^\s*(\d+(?:\.\d+)?)\s*:\s*N?(\d+(?:\.\d+)?)\s*[x×*]\s*(\d+)\s*$/i.exec(t); return m ? { y: +m[1], d: +m[2], n: +m[3] } : null; }).filter(Boolean);
+  }
+  /* differential temperature on an unrestrained composite section (simply supported span): the section takes a free strain
+     e0 + k y; the remainder E (e0 + k y - a T(y)) is self-equilibrating (no axial force, no moment). Profile: linear from dTtop
+     at the deck surface to zero at dTdepth (simplified input; replace with the AS 5100.2 Cl 18.3 profile values). y: mm below the deck top. */
+  function tempGrad(p, sc, g) {
+    var S = DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10));
+    var a = (p.alphaT || 0) * 1e-6, T = function (y) { return y < p.dTdepth ? p.dTtop * (1 - y / p.dTdepth) : 0; }, EA = 0, EAy = 0, EAyy = 0, N0 = 0, M0 = 0;
+    S.forEach(function (c) { var ea = c.E * c.b * c.h; EA += ea; EAy += ea * c.y; EAyy += ea * c.y * c.y; N0 += ea * a * T(c.y); M0 += ea * a * T(c.y) * c.y; });
+    var det = EA * EAyy - EAy * EAy, e0 = (N0 * EAyy - M0 * EAy) / det, k = (M0 * EA - N0 * EAy) / det, D = p.slab + sc.H;
+    var sig = function (y, E) { return E * (e0 + k * y - a * T(y)); };   /* MPa, tension + */
+    var prof = []; for (var y = 0; y <= D + 1e-9; y += D / 60) prof.push([y, T(y), sig(y, y < p.slab ? sc.Ed : sc.Eg)]);
+    var N = 0, M = 0; S.forEach(function (c) { var f = sig(c.y, c.E) * c.b * c.h; N += f; M += f * c.y; });
+    return { e0: e0, k: k, deckTop: sig(0, sc.Ed), deckBot: sig(p.slab, sc.Ed), girTop: sig(p.slab, sc.Eg), girBot: sig(D, sc.Eg), prof: prof, resN: N, resM: M, D: D };
+  }
+  /* bearing actions schedule: reactions per combination, end rotations and movements (no capacity check: bearing design is not in the Studio) */
+  function bearings(p, A, sk) {
+    var g = A.g, m = A.m, L = g.spans[sk].L, tg = tempGrad(p, A.sc, g), rows = [];
+    m.sup.forEach(function (s, q) {
+      if (s.k !== sk) return; var kR = A.RS.idx['Rb:' + q], r = { id: 'G' + (s.i + 1) + ' ' + s.end, i: s.i, end: s.end, perm: 0, by: {} };
+      ['G1', 'G2', 'SDLs', 'SDLp'].forEach(function (c) { r.perm += val(A, 'Rb:' + q, c); });
+      ['ULS', 'SLS'].forEach(function (ls) { var mx = -Infinity, mn = Infinity, gx = '', gn = ''; A.CB.forEach(function (c) { if (c.ls !== ls) return; if (c.max[kR] > mx) { mx = c.max[kR]; gx = c.id; } if (c.min[kR] < mn) { mn = c.min[kR]; gn = c.id; } }); r.by[ls] = { max: mx, min: mn, gmax: gx, gmin: gn }; });
+      /* end rotation from the SLS deflection envelope: slope of the first element next to the support (mrad) */
+      var n0 = m.nodes.filter(function (n) { return n.k === sk && n.i === s.i && n.j === (s.end === 'start' ? 1 : m.n - 1); })[0], rot = 0;
+      if (n0) A.CB.forEach(function (c) { if (c.ls === 'SLS') rot = Math.max(rot, Math.abs(c.min[A.RS.idx['w:' + n0.id]]) / (m.dL * 1000) * 1000); });
+      r.rot = rot; rows.push(r);
+    });
+    return { rows: rows, dTmove: (p.alphaT || 0) * 1e-6 * (p.dTuni || 0) * L * 1000, rotT: Math.abs(tg.k) * L * 1000 / 2 * 1000, hogT: -tg.k * Math.pow(L * 1000, 2) / 8, L: L };
+  }
   /* summary checks for one girder: demand, capacity, utilisation, status, governing combination */
   function checks(p, A, D, lim) {
     var out = [], st = D.stations, add = function (grp, name, dem, cap, unit, gov, note, why) { var u = cap ? dem / cap : null; out.push({ grp: grp, name: name, dem: dem, cap: cap, unit: unit, u: u, ok: u === null ? null : u <= 1, gov: gov || '', note: note || '', why: why || '' }); };
@@ -323,6 +358,6 @@ var ANALYSIS = (function () {
     return { y: y, by: out, curve: curve, worst: worst, util: util, S: S };
   }
 
-  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
+  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
 })();
 if (typeof module !== 'undefined') module.exports = ANALYSIS;

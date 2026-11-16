@@ -736,3 +736,13 @@
 - **Item 8 per-girder design:** girders already point at a Super-T type (`members[].type_ref`); the batch save takes `copy_types` so the editor can copy a type under a new id and point chosen girders at it in one decision. No new data model.
 - **Alternatives rejected:** storing strands on each member (duplicates the type record, breaks "one Super-T definition used everywhere"); editing load factors in the app.
 - **Not done:** member pick in the 3D model view (the plan pick on the Moving loads tab covers girders and bearings); traffic states for headstocks and piles; the read-only online copy does not include `traffic.json`.
+
+## ADR-068 Studio Tier 3: stages, hog, temperature, wind, bearings, bars, per-girder strands (2026-11-16)
+- **Status:** done (owner request "do the Tier 3 category"). S-1…S-4 were committed earlier the same day (f3bfc89).
+- **Stages, hog & temperature page:** stage table at mid-span (transfer, girder erected, wet deck on the bare girder, composite permanent, each SLS combination); hog and prestress with time from the losses engine; differential temperature as self-equilibrating stresses on the free composite section (`ANALYSIS.tempGrad`), simplified linear profile, inputs illustrative, not added to the SLS checks.
+- **Vertical wind:** cases WVu / WVs (pressure over the deck plan, up and down enveloped) with ULS-W / SLS-W rows at factor 1.0 on separate ultimate and serviceability pressures; unverified. Transverse wind, braking, earthquake and restraint temperature stay platform-only: the Studio grillage has vertical degrees of freedom only, so "full AS 5100.2 combinations" (L-8) is not possible there.
+- **Bearing actions page:** reactions per combination, SLS end rotation, thermal movement (`ANALYSIS.bearings`). A schedule only; no bearing capacity check.
+- **Girder bars (M-5):** typed as `height:diameter x number`; included in ULS bending and drawn on the section.
+- **Per-girder strands (M-4):** `p.gStr[girder index]` overrides the shared pattern for that girder in the design run, the editor and the report export.
+- **Tests:** `studio/tests/test_engines.js` 22/22; browser check of all 14 tabs before and after a run.
+- **Not done:** section-drawing zoom; generated live-load model page; own patterns in the AI assistant / optimiser (they act on the shared pattern).

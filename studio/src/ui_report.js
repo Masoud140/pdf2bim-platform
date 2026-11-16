@@ -100,7 +100,7 @@
       add('Girder results', rows);
     }
     if (M.cur.d) { var ck = [['Span', 'Girder', 'Group', 'Check', 'Demand', 'Capacity / limit', 'Unit', 'Utilisation', 'Status', 'Governing', 'Basis']]; ST.R.design.data.CK.forEach(function (row, k) { row.forEach(function (list, i) { list.forEach(function (c) { ck.push([k + 1, 'G' + (i + 1), c.grp, c.name, c.dem, c.cap, c.unit, c.u, c.ok === null ? 'info' : c.ok ? 'OK' : 'NG', c.gov, c.note]); }); }); }); add('All checks', ck); }
-    var st = [['x (mm)', 'y above soffit (mm)', 'Used', 'Debond start (mm)', 'Debond end (mm)']].concat(ST.p.strands.map(function (q) { return [q.x, q.y, q.on ? 'yes' : 'no', q.d || 0, q.d2 || 0]; })); add('Strands', st);
+    var st = [['x (mm)', 'y above soffit (mm)', 'Used', 'Debond start (mm)', 'Debond end (mm)']].concat(ST.p.strands.map(function (q) { return [q.x, q.y, q.on ? 'yes' : 'no', q.d || 0, q.d2 || 0]; })); add('Strands', st); Object.keys(ST.p.gStr || {}).forEach(function (k) { add('Strands G' + (+k + 1), [st[0]].concat(ST.p.gStr[k].map(function (q) { return [q.x, q.y, q.on ? 'yes' : 'no', q.d || 0, q.d2 || 0]; }))); });   /* girders with their own pattern */
     add('Change log', [['When', 'Action']].concat(ST.history.map(function (h) { return [new Date(h.t).toLocaleString('en-AU'), h.what]; })));
     var out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     await save(fname('xlsx'), new Blob([out], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
