@@ -15,6 +15,7 @@
     { id: 'analysis', t: 'Structural analysis', i: ic('<path d="M3 12h18"/><path d="M3 12c3 7 15 7 18 0"/>') },
     { id: 'stages', t: 'Stages, hog & temperature', i: ic('<path d="M3 18h18M5 18V9h4v9M11 18V5h4v13M17 18v-6h3"/>') },
     { id: 'bearings', t: 'Bearing actions', i: ic('<path d="M4 8h16v4H4zM7 12v4M17 12v4M3 20h18"/>') },
+    { id: 'dynamics', t: 'Earthquake & modes', i: ic('<path d="M2 12h3l2-7 3 14 3-10 2 6 2-3h5"/>') },
     { id: 'checks', t: 'Design checks', i: ic('<path d="M4 12l5 5L20 6"/>') },
     { id: 'reports', t: 'Reports & export', i: ic('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>') },
     { id: 'validation', t: 'Validation', i: ic('<path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/>') },

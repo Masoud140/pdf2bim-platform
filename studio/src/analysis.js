@@ -336,6 +336,28 @@ var ANALYSIS = (function () {
   }
 
   /* ---------- substructure: bearing reactions to a row of piles; pile N-M check (DSG2 engine) ---------- */
+  function capAt(curve, N) {   /* factored moment capacity at compression N (kN) on a pile N-M curve, linear between points */
+    var c = curve.slice().sort(function (u, v) { return u.phiN - v.phiN; });
+    for (var i = 0; i < c.length - 1; i++) if (N >= c[i].phiN && N <= c[i + 1].phiN) { var t = (N - c[i].phiN) / (c[i + 1].phiN - c[i].phiN || 1); return c[i].phiM + t * (c[i + 1].phiM - c[i].phiM); }
+    return 0;
+  }
+  /* spectral shape factor Ch(T): platform rule (pdf2bim/model/earthquake.py ch_factor) on the standards entry AS1170.4:spectral_shape:Ch (code-extracted, UNVERIFIED) */
+  var CH = { Ae: [0.8, 15.5, 2.35, 0.704, 1.056], Be: [1.0, 19.4, 2.94, 0.882, 1.32], Ce: [1.3, 23.8, 3.68, 1.25, 1.874], De: [1.1, 25.8, 3.68, 1.98, 2.97], Ee: [1.1, 25.8, 3.68, 3.08, 4.62] };
+  function chFactor(T, site) { var r = CH[site]; if (!r) throw new Error('site class must be one of ' + Object.keys(CH).join(', ')); return T <= 0 ? r[0] : T <= 0.1 ? Math.min(r[0] + r[1] * T, r[2]) : T <= 0.3 ? r[2] : T <= 1.5 ? Math.min(r[2], r[3] / T) : r[4] / (T * T); }
+  /* earthquake, equivalent static: the superstructure mass on the abutment pile groups as one mass per direction.
+     Stiffness: fixed-head piles fixed at the depth of fixity, 12 EI / Lf^3 each; longitudinal on ONE abutment (fixed bearings at
+     one end, free at the other), transverse on both. Sa = kp Z Ch(T) / Rf (g); directions combined 100 % + 30 %.
+     Wt: seismic weight (kN); PR: pile results per abutment (N-M curve) or null; Nperm: permanent axial load per pile (kN). */
+  function quake(p, Wt, PR, Nperm) {
+    var P = p.piles, q = p.eq, Ec = HOG.t312(P.fc).E * 1e3, I = Math.PI * Math.pow(P.D / 1000, 4) / 64, kp1 = 12 * Ec * I / Math.pow(P.Lf, 3), mass = Wt / C.G_ACC;
+    var dir = function (name, nP, share) { var K = nP * kp1, T = 2 * Math.PI * Math.sqrt(mass / K), ch = chFactor(T, q.site), Sa = q.kp * q.Z * ch / q.Rf, F = Sa * Wt, H = F * share / P.n;
+      return { name: name, piles: nP, K: K, T: T, f: 1 / T, Ch: ch, Sa: Sa, F: F, H: H, M: H * P.Lf / 2, d: F / K * 1000 }; };
+    var L = dir('Longitudinal', P.n, 1), Tt = dir('Transverse', 2 * P.n, 0.5), combos = [['EQ-L: 1.0 longitudinal + 0.3 transverse', 1, 0.3], ['EQ-T: 0.3 longitudinal + 1.0 transverse', 0.3, 1]].map(function (c) {
+      var M = Math.hypot(c[1] * L.M, c[2] * Tt.M), H = Math.hypot(c[1] * L.H, c[2] * Tt.H), cap = PR ? capAt(PR.curve, Nperm) : null;
+      return { name: c[0], H: H, M: M, N: Nperm, cap: cap, u: cap ? M / cap : null }; });
+    var spec = []; for (var t = 0; t <= 3.0001; t += 0.02) spec.push([t, q.kp * q.Z * chFactor(t, q.site) / q.Rf]);
+    return { W: Wt, mass: mass, kPile: kp1, EI: Ec * I, L: L, T: Tt, combos: combos, spec: spec };
+  }
   function piles(p, A, sup) {
     var P = p.piles, g = A.g, b = A.m.sup.map(function (s, q) { return { q: q, s: s }; }).filter(function (o) { return o.s.k === 0 && o.s.end === (sup === 'B' ? 'end' : 'start'); });
     var y = []; for (var i = 0; i < P.n; i++) y.push((i - (P.n - 1) / 2) * P.s);
@@ -351,16 +373,12 @@ var ANALYSIS = (function () {
     var Ec = HOG.t312(P.fc).E, S = { conc: DSG.stripsFromPolygon(poly, D, 0, Ec, P.fc, 'p', 10), bars: [], tend: [] }, rb = Rr - P.cover - 12 - P.dBar / 2;
     for (var q = 0; q < P.nBar; q++) { var a2 = 2 * Math.PI * q / P.nBar; S.bars.push({ y: Rr - rb * Math.sin(a2), A: Math.PI * P.dBar * P.dBar / 4, E: 200000, fsy: 500 }); }
     var nm = DSG2.nm(S, 'top', Rr), curve = nm.pts.map(function (pt) { return { N: -pt.N, M: Math.abs(pt.M), phiN: -pt.N * pt.phi, phiM: Math.abs(pt.M) * pt.phi }; });
-    var phiMuAt = function (N) {   /* factored moment capacity at compression N (kN, + compression), linear on the curve */
-      var c = curve.slice().sort(function (u, v) { return u.phiN - v.phiN; });
-      for (var i2 = 0; i2 < c.length - 1; i2++) if (N >= c[i2].phiN && N <= c[i2 + 1].phiN) { var t = (N - c[i2].phiN) / (c[i2 + 1].phiN - c[i2].phiN || 1); return c[i2].phiM + t * (c[i2 + 1].phiM - c[i2].phiM); }
-      return 0;
-    };
+    var phiMuAt = function (N) { return capAt(curve, N); };
     var util = []; Object.keys(out).forEach(function (id) { if (out[id].ls !== 'ULS') return; out[id].pile.forEach(function (pl, i3) { var cap = phiMuAt(pl.N); util.push({ id: id, i: i3, N: pl.N, M: pl.M, cap: cap, u: cap > 0 ? pl.M / cap : Infinity }); }); });
     var worst = util.reduce(function (b2, u) { return !b2 || u.u > b2.u ? u : b2; }, null);
     return { y: y, by: out, curve: curve, worst: worst, util: util, S: S };
   }
 
-  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
+  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, quake: quake, chFactor: chFactor, capAt: capAt, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
 })();
 if (typeof module !== 'undefined') module.exports = ANALYSIS;

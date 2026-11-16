@@ -756,3 +756,11 @@
 - **Super-T design, point of interest:** pick girder, section and SLS combination; staged stress diagram through the section (Super-T alone, composite increment, total) against the limits; the Check limits card is repeated on the design page.
 - **Added the same day:** ULS strain and force diagrams at the point of interest (`st.uls` from `DSG.ulsBend`: neutral axis, stress block, steel layers with strain, stress and force, lever arm).
 - **Not done:** cracked-section stage; shear and torsion detail at the point; stage list with user-added stages (the four stages are fixed, their inputs editable).
+
+## ADR-070 Studio: vibration modes and equivalent-static earthquake (2026-11-16)
+- **Status:** done in the Studio (owner request). Provisional engineering method: a first estimate, not a design check.
+- **Modes:** `CORE.nodalMass` (girder + deck by tributary width + SDL, divided by g, lumped on the vertical freedoms) and `CORE.modes` (subspace iteration with the existing factorised stiffness). Vertical bending and torsion modes of the deck only: the grillage has no horizontal freedoms.
+- **Earthquake:** `ANALYSIS.quake`: the superstructure as one mass per direction on the abutment pile groups; pile stiffness 12 EI / Lf³ (fixed head, fixed at the depth of fixity); longitudinal on one abutment, transverse on both; Sa = kp Z Ch(T) / Rf with Ch(T) the platform's rule on `AS1170.4:spectral_shape:Ch` (code-extracted, unverified); 100 % + 30 % directions; pile moment H Lf / 2 against the pile N-M curve at the permanent axial load.
+- **Inputs** `p.eq` (Z 0.08, kp 1.0, site Ce, Rf 1.0) are illustrative and tagged so; Rf 1.0 = elastic, so no ductility is assumed.
+- **Not included:** substructure and soil mass, soil springs, bearing flexibility, vertical earthquake, multi-mode combination, earth pressure under earthquake, piers of multi-span bridges (flagged on the page). The platform's response spectrum analysis (`pdf2bim/model/earthquake.py`) covers these.
+- **Tests:** `studio/tests/test_engines.js` 28/28: first mode within 3 % of the simply supported beam formula and 81 % mass participation; mass-orthogonality and K φ = ω² M φ to 1e-16; period, force and spectral-shape formulas.

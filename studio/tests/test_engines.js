@@ -73,4 +73,20 @@ const S = D.stripsFromPolygon ? null : null;
   t('bearings: one row per bearing; ULS max >= SLS max >= permanent > 0; permanent reactions sum above the girder weight alone', B.rows.length === 2 * g.ng && B.rows.every(r => r.by.ULS.max >= r.by.SLS.max && r.by.SLS.max >= r.perm - 1e-6 && r.perm > 0) && perm > W, perm.toFixed(0) + ' kN vs girders ' + W.toFixed(0));
   t('bearings: thermal movement = alpha x dT x L', Math.abs(B.dTmove - p.alphaT * 1e-6 * p.dTuni * g.spans[0].L * 1000) < 1e-9, B.dTmove.toFixed(2) + ' mm');
 }
+// vibration modes and earthquake
+{
+  const C = global.CORE, AN = require('../src/analysis.js'), p = Object.assign({}, C.CASES.cs01.p, { skew: 0 }), g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), M = C.nodalMass(p, m, g, sc);
+  const md = C.modes(S, M, 6), L = g.spans[0].L, tot = M.reduce((a, v) => a + v, 0), EI = m.els.filter(e => e.type === 'girder' && e.j === 0).reduce((a, e) => a + e.EI, 0);
+  const f1 = Math.PI / (2 * L * L) * Math.sqrt(EI / (tot / L));
+  t('modes: first vertical mode of the square deck = simply supported beam formula with the total EI and mass (3 %)', Math.abs(md[0].f / f1 - 1) < 0.03, md[0].f.toFixed(3) + ' Hz vs ' + f1.toFixed(3));
+  t('modes: frequencies ascend; first mode carries most of the vertical mass (8/pi^2 = 81 % for a beam)', md.every((q, i) => !i || q.f >= md[i - 1].f - 1e-9) && Math.abs(md[0].part - 8 / Math.PI ** 2) < 0.03, (100 * md[0].part).toFixed(1) + ' %');
+  let orth = 0; for (let i = 0; i < M.length; i++) orth += md[0].phi[i] * M[i] * md[1].phi[i];
+  let res = 0; { const F = new Float64Array(S.nd); for (let i = 0; i < M.length; i++) F[3 * i] = M[i] * md[0].phi[i] * md[0].w2; const u = C.solve(S, F); for (let i = 0; i < M.length; i++) res = Math.max(res, Math.abs(u[3 * i] - md[0].phi[i])); }
+  t('modes: mass-orthogonal, and mode 1 satisfies K phi = w2 M phi', Math.abs(orth) < 1e-8 && res < 1e-8 * Math.max(...md[0].phi.map(Math.abs)), orth.toExponential(1) + ', ' + res.toExponential(1));
+  const W = tot * C.G_ACC, Q = AN.quake(p, W, null, 0), P = p.piles, kp = 12 * H.t312(P.fc).E * 1e3 * Math.PI * (P.D / 1000) ** 4 / 64 / P.Lf ** 3;
+  t('earthquake: T = 2 pi sqrt(m / K) with K = n x 12 EI / Lf^3; transverse (both abutments) is stiffer; F = Sa W', Math.abs(Q.L.T - 2 * Math.PI * Math.sqrt(tot / (P.n * kp))) < 1e-12 && Q.T.T < Q.L.T && Math.abs(Q.L.F - Q.L.Sa * W) < 1e-9, 'T_L ' + Q.L.T.toFixed(3) + ' s');
+  t('earthquake: spectral shape is the platform rule (Ce: 1.3 at T = 0, plateau 3.68, 1.25 / T, 1.874 / T^2)', AN.chFactor(0, 'Ce') === 1.3 && AN.chFactor(0.2, 'Ce') === 3.68 && Math.abs(AN.chFactor(1, 'Ce') - 1.25) < 1e-12 && Math.abs(AN.chFactor(2, 'Ce') - 1.874 / 4) < 1e-12);
+  const Q2 = AN.quake(Object.assign({}, p, { eq: Object.assign({}, p.eq, { Rf: 2 }) }), W, null, 0);
+  t('earthquake: Rf divides the force; pile moment = H Lf / 2', Math.abs(Q2.L.F - Q.L.F / 2) < 1e-9 && Math.abs(Q.L.M - Q.L.H * P.Lf / 2) < 1e-12);
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

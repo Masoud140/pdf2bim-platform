@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-16: Studio parity pass (ADR-069: Properties, Boundary conditions, all loads listed, point-of-interest SLS and ULS diagrams) and Earthquake & modes page (ADR-070). Studio tests 28/28.
 - 2026-11-16: Studio Tier 3 done (ADR-068): stages / hog / temperature and bearing pages, vertical wind, girder bars, per-girder strands. Studio tests 22/22.
 - 2026-11-16: App Tier 2 items 5–8 done (ADR-067): Loads, Moving loads, Needs review tabs; Materials / Member properties; per-girder design. Tests: test_server 31/31, test_girder_edit 11/11, test_traffic 23/23, schema 48/48.
 - 2026-11-16: Studio Moving loads page (ADR-066).

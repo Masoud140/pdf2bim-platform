@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-16 — Studio earthquake and vibration modes (ADR-070)
+- Earthquake & modes page: six vertical modes of the deck (frequency, period, mass participation, shape plot); equivalent-static earthquake forces on the abutment pile groups with the design spectrum and a pile moment check.
+
 ## 2026-11-16 — Studio dashboard parity, second pass (ADR-069)
 - Properties and Boundary conditions pages; all loads listed (greyed where not applicable); editable construction stages; point-of-interest staged SLS stress diagram on the Super-T design page.
 
