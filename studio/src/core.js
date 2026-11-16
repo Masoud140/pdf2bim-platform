@@ -21,7 +21,7 @@ var CORE = (function () {
     nEl: 12, nTrans: 0, constLL: 1.5, sweep: 0.2,
     fcG: 50, fcT: 45, fcD: 40, db: 15.2, jack: 0.75,
     stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 },
-    fitD: 16, fitLegs: 2, fitS: 125, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
+    fitD: 16, fitLegs: 2, fitS: 125, fsyf: 500, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
     vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3 },
     strands: null
@@ -58,7 +58,7 @@ var CORE = (function () {
     barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads',
     combos: 'combos',
     strands: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
-    fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', dg: 'detailing',
+    fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing',
     piles: 'substructure' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);

@@ -223,7 +223,7 @@ var ANALYSIS = (function () {
       var Apt = 0, spo = 0, Act = 0; S.tend.forEach(function (t_) { if (t_.y > D / 2) { Apt += t_.A; spo += t_.A * t_.spe; } }); spo = Apt ? spo / Apt : 0;
       S.conc.forEach(function (c_) { if (c_.y > D / 2) Act += c_.b * c_.h; });
       var J = sc.Jcell, uh = 2 * (J.bt + J.bb) / 2 + 2 * Math.hypot((J.bt - J.bb) / 2, J.h), Acp = sc.A + g.s * 1000 * p.slab, uc = sc.ue + 2 * g.s * 1000;
-      var Q = { bv: bv, dv: Math.max(0.72 * D, 0.9 * dp), fc: p.fcG, Ec: sc.Eg, Es: 200000, Ep: Ep, Ast: 0, Apt: Apt, spo: spo, Act: Act, fsyf: 500, fsy: 500, fpb: h.mbl * 1e3 / Ap,
+      var Q = { bv: bv, dv: Math.max(0.72 * D, 0.9 * dp), fc: p.fcG, Ec: sc.Eg, Es: 200000, Ep: Ep, Ast: 0, Apt: Apt, spo: spo, Act: Act, fsyf: p.fsyf || 500, fsy: 500, fpb: h.mbl * 1e3 / Ap,
         AsvS: Math.max(0, 2 * p.fitLegs - 2) * Ab / p.fitS, AswS: Ab / p.fitS, dg: p.dg, Pv: 0, uh: uh, Ao: J.A0, Aoh: J.A0 / 0.85, Acp: Acp, uc: uc, y1: Math.max(J.h, J.bt) };
       st.shear = Apt > 0 ? DSG2.shear(Q, { V: Vu, T: Tu, M: Mu, N: 0 }) : null; st.Q = Q;
       stations.push(st);
