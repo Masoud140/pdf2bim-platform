@@ -179,7 +179,7 @@ var CORE = (function () {
         } else {        /* pile: vertical members from the sill down to the toe; lateral soil springs below the ground level; toe held vertically */
           var top = pt.n, x0 = subN[top - N.length].x, kg = pileK(Ec * Ap, Ec * Ip, Gc * 2 * Ip, dz);
           for (var e = 1; e <= nseg; e++) { var nb2 = node(x0, pt.y, zs - e * dz, ab.k), depth = e * dz;
-            subE.push({ type: 'pile', ab: ab.name, q: pt.pile, e: e, n1: top, n2: nb2, L: dz, kg: kg, d: dofs6(top).concat(dofs6(nb2)), EI: Ec * Ip, EA: Ec * Ap, label: 'pile D' + P.D });
+            subE.push({ type: 'pile', ab: ab.name, k: ab.k, q: pt.pile, e: e, n1: top, n2: nb2, L: dz, kg: kg, d: dofs6(top).concat(dofs6(nb2)), EI: Ec * Ip, EA: Ec * Ap, label: 'pile D' + P.D });
             if (depth > P.gl + 1e-9) { var kh = Sb.ks * D * (e === nseg ? dz / 2 : dz) * Math.min(1, (depth - P.gl + dz / 2) / dz); springs.push({ d: [ND * nb2 + 3], k: [[kh]], soil: nb2, kh: kh }); springs.push({ d: [ND * nb2 + 4], k: [[kh]] }); }
             if (e === nseg) springs.push({ d: [ND * nb2], k: [[Sb.kToe || 1e7]] });
             top = nb2; }
@@ -281,9 +281,9 @@ var CORE = (function () {
     m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q, k: s.k }); });
     m.sup.forEach(function (s, q) { R.push({ key: 'Hx:' + q, kind: 'Hx', s: q, k: s.k }); R.push({ key: 'Hy:' + q, kind: 'Hy', s: q, k: s.k }); });   /* horizontal force on the bearing from the deck, kN, + along x / y */
     m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'ux:' + n.id, kind: 'ux', n: n.id, k: n.k }); R.push({ key: 'uy:' + n.id, kind: 'uy', n: n.id, k: n.k }); });   /* deck movement, mm */
-    (m.subE || []).forEach(function (e, q) { if (e.type !== 'pile') return; var id = e.ab + ':' + e.q;   /* pile: axial force and head shears at the top member; moments at the top of every member */
-      if (e.e === 1) { R.push({ key: 'pN:' + id, kind: 'pile', se: q, c: 0, sg: -1, k: -1 }); R.push({ key: 'pVx:' + id, kind: 'pile', se: q, c: 3, sg: 1, k: -1 }); R.push({ key: 'pVy:' + id, kind: 'pile', se: q, c: 4, sg: 1, k: -1 }); }
-      R.push({ key: 'pMx:' + id + ':' + e.e, kind: 'pile', se: q, c: 1, sg: 1, k: -1 }); R.push({ key: 'pMy:' + id + ':' + e.e, kind: 'pile', se: q, c: 2, sg: 1, k: -1 }); });
+    (m.subE || []).forEach(function (e, q) { if (e.type !== 'pile') return; var id = e.ab + ':' + e.q;   /* pile: axial force and head shears at the top member; moments at the top of every member. k = the span the abutment carries, so the traffic envelope of that span includes them */
+      if (e.e === 1) { R.push({ key: 'pN:' + id, kind: 'pile', se: q, c: 0, sg: -1, k: e.k }); R.push({ key: 'pVx:' + id, kind: 'pile', se: q, c: 3, sg: 1, k: e.k }); R.push({ key: 'pVy:' + id, kind: 'pile', se: q, c: 4, sg: 1, k: e.k }); }
+      R.push({ key: 'pMx:' + id + ':' + e.e, kind: 'pile', se: q, c: 1, sg: 1, k: e.k }); R.push({ key: 'pMy:' + id + ':' + e.e, kind: 'pile', se: q, c: 2, sg: 1, k: e.k }); });
     R.forEach(function (r, i) { idx[r.key] = i; });
     return { R: R, idx: idx };
   }

@@ -26,6 +26,10 @@ var ANALYSIS = (function () {
           v[k] = -wOf(n.i) * x3 * (Math.pow(L2, 3) - 2 * L2 * x3 * x3 + Math.pow(x3, 3)) / (24 * EI) * 1000;
         } else if (r.kind === 'R') { var s = m.sup[r.s]; v[k] = wOf(s.i) * g.spans[s.k].L / 2; }
       });
+      if (m.piles) {   /* the girder ends rest on the abutments: their reactions go down through the sill and piles of the frame */
+        var F = new Float64Array(S.nd); m.sup.forEach(function (s) { if (s.below !== undefined) F[C.ND * s.below] -= wOf(s.i) * g.spans[s.k].L / 2; });
+        var sv = C.evalResponses(m, RS, C.solve(S, F)); RS.R.forEach(function (r, k) { if (r.kind === 'pile') v[k] = sv[k]; });
+      }
       return v;
     }
     log('Girder-alone load cases');
@@ -376,15 +380,23 @@ var ANALYSIS = (function () {
       var Mp = (Ptot * P.ecc + H * P.Lf / 2) / P.n;
       out[c.id] = { ls: c.ls, Ptot: Ptot, Mx: Mx, H: H, pile: y.map(function (yi) { return { y: yi, N: Ptot / P.n + Mx * yi / Sy2, M: Mp }; }) };
     });
+    if (A.m.piles) {   /* piles are in the frame: axial force and moments straight from the model, per combination (envelopes: the largest moment is paired with both the largest and the smallest axial force) */
+      var ab = sup === 'B' ? 'B' : 'A', mine = A.m.piles.filter(function (q) { return q.ab === ab; }).sort(function (u, v) { return u.q - v.q; }), idx = A.RS.idx, ns = A.m.subLev.nseg;
+      y = mine.map(function (q) { return q.y; });
+      A.CB.forEach(function (c) { var amp = function (key) { var r = idx[key]; return Math.max(Math.abs(c.max[r]), Math.abs(c.min[r])); };
+        var pl = mine.map(function (q) { var id = ab + ':' + q.q, mx = 0, my = 0; for (var e = 1; e <= ns; e++) { mx = Math.max(mx, amp('pMx:' + id + ':' + e)); my = Math.max(my, amp('pMy:' + id + ':' + e)); }
+          return { y: q.y, N: c.max[idx['pN:' + id]], Nmin: c.min[idx['pN:' + id]], M: Math.hypot(mx, my), Mx: mx, My: my, V: Math.hypot(amp('pVx:' + id), amp('pVy:' + id)) }; });
+        out[c.id] = { ls: c.ls, Ptot: pl.reduce(function (a, q) { return a + q.N; }, 0), frame: true, pile: pl }; });
+    }
     /* pile section: circular, bars evenly spaced */
     var D = P.D, Rr = D / 2, poly = []; for (var k = 0; k < 72; k++) { var a = 2 * Math.PI * k / 72; poly.push([Rr * Math.cos(a), Rr + Rr * Math.sin(a)]); }
     var Ec = HOG.t312(P.fc).E, S = { conc: DSG.stripsFromPolygon(poly, D, 0, Ec, P.fc, 'p', 10), bars: [], tend: [] }, rb = Rr - P.cover - 12 - P.dBar / 2;
     for (var q = 0; q < P.nBar; q++) { var a2 = 2 * Math.PI * q / P.nBar; S.bars.push({ y: Rr - rb * Math.sin(a2), A: Math.PI * P.dBar * P.dBar / 4, E: 200000, fsy: 500 }); }
     var nm = DSG2.nm(S, 'top', Rr), curve = nm.pts.map(function (pt) { return { N: -pt.N, M: Math.abs(pt.M), phiN: -pt.N * pt.phi, phiM: Math.abs(pt.M) * pt.phi }; });
     var phiMuAt = function (N) { return capAt(curve, N); };
-    var util = []; Object.keys(out).forEach(function (id) { if (out[id].ls !== 'ULS') return; out[id].pile.forEach(function (pl, i3) { var cap = phiMuAt(pl.N); util.push({ id: id, i: i3, N: pl.N, M: pl.M, cap: cap, u: cap > 0 ? pl.M / cap : Infinity }); }); });
+    var util = []; Object.keys(out).forEach(function (id) { if (out[id].ls !== 'ULS') return; out[id].pile.forEach(function (pl, i3) { [pl.N].concat(pl.Nmin === undefined ? [] : [pl.Nmin]).forEach(function (Nn) { var cap = phiMuAt(Nn); util.push({ id: id, i: i3, N: Nn, M: pl.M, cap: cap, u: cap > 0 ? pl.M / cap : Infinity }); }); }); });
     var worst = util.reduce(function (b2, u) { return !b2 || u.u > b2.u ? u : b2; }, null);
-    return { y: y, by: out, curve: curve, worst: worst, util: util, S: S };
+    return { y: y, by: out, curve: curve, worst: worst, util: util, S: S, frame: !!A.m.piles };
   }
 
   return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, quake: quake, chFactor: chFactor, capAt: capAt, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
