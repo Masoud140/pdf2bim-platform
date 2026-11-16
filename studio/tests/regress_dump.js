@@ -1,5 +1,6 @@
 // Dump every case study's analysis (all load cases x all responses) to JSON: `node tests/regress_dump.js out.json`.
-// Used to prove an engine change leaves the vertical results unchanged (compare two dumps with regress_cmp below).
+// Used to prove an engine change leaves the vertical results unchanged: `node tests/regress_dump.js new.json old.json` compares.
+// SUB=0 switches the substructure off (rigid supports), which is the model the three-freedom grillage baseline had.
 const fs = require('fs');
 global.HOG = require('../engines/hog_engine.js'); global.SECLIB = require('../engines/seclib.js'); global.DSG = require('../engines/dsg_engine.js');
 global.DSG2 = require('../engines/dsg_engine2.js');
@@ -10,6 +11,6 @@ if (process.argv[3]) {   // compare: node regress_dump.js new.json old.json
   console.log(n + ' values compared; worst relative difference ' + (worst).toExponential(2) + ' at ' + where); process.exit(worst < 1e-7 ? 0 : 1);
 }
 const out = {};
-for (const cs of Object.keys(C.CASES)) { const p = C.CASES[cs].p, cases = C.CASES_DEF.map(c => Object.assign({}, c)), cb = C.generateCombos(cases), A = AN.run(p, cases, cb, () => {}); out[cs] = {};
+for (const cs of Object.keys(C.CASES)) { const p = Object.assign({}, C.CASES[cs].p, process.env.SUB === '0' ? { sub: Object.assign({}, C.CASES[cs].p.sub, { on: false }) } : {}), cases = C.CASES_DEF.map(c => Object.assign({}, c)), cb = C.generateCombos(cases), A = AN.run(p, cases, cb, () => {}); out[cs] = {};
   for (const lc in A.V) { const v0 = A.V[lc], v = v0.max ? v0 : { max: v0, min: v0 }, o = { max: {}, min: {}, scale: 0 }; A.RS.R.forEach((r, i) => { o.max[r.key] = v.max[i]; o.min[r.key] = v.min[i]; o.scale = Math.max(o.scale, Math.abs(v.max[i]), Math.abs(v.min[i])); }); out[cs][lc] = o; } }
 fs.writeFileSync(process.argv[2], JSON.stringify(out)); console.log('wrote', process.argv[2], Object.keys(out).join(', '));

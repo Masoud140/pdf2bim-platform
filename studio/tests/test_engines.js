@@ -91,7 +91,7 @@ const S = D.stripsFromPolygon ? null : null;
 }
 // six-freedom frame: horizontal actions (statics and closed forms)
 {
-  const C = global.CORE, base = Object.assign({}, C.CASES.cs01.p, { skew: 0 });
+  const C = global.CORE, base = Object.assign({}, C.CASES.cs01.p, { skew: 0, sub: Object.assign({}, C.CASES.cs01.p.sub, { on: false }) });   // deck and bearings on rigid ground: the closed forms below assume it
   const run = (over, F) => { const p = Object.assign({}, base, over), g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), RS = C.responses(m); return { p, g, m, RS, v: C.evalResponses(m, RS, C.solve(S, F(m, g, p))) }; };
   const sum = (o, kind, f) => o.m.sup.reduce((a, s, q) => a + (f && !f(s) ? 0 : o.v[o.RS.idx[kind + ':' + q]]), 0);
   let o = run({}, (m, g, p) => C.hzLoads(m, g, p, 'x', () => 500));
@@ -114,5 +114,21 @@ const S = D.stripsFromPolygon ? null : null;
   t('free bearings at both ends: refused as unstable, naming the freedom', /unstable/.test(msg) && /uX/.test(msg), msg.slice(0, 70));
   const cb = C.generateCombos(C.CASES_DEF.map(c => Object.assign({}, c)));
   t('combinations: braking rides with traffic at its factor; wind and temperature rows exist', cb.find(c => c.id === 'ULS-1').f.BRK === 1.8 && cb.find(c => c.id === 'SLS-1').f.BRK === 1.0 && cb.find(c => c.id === 'ULS-W').f.WTu === 1 && cb.find(c => c.id === 'ULS-T').f.TU === 1.25 && cb.find(c => c.id === 'SLS-T').f.TU === 1);
+}
+// substructure in the frame: sill, piles with soil springs, bearings as eccentric springs
+{
+  const C = global.CORE, p = Object.assign({}, C.CASES.cs01.p, { skew: 0 }), g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), RS = C.responses(m), ND = C.ND;
+  const ev = F => C.evalResponses(m, RS, C.solve(S, F)), keys = pre => RS.R.filter(r => r.key.startsWith(pre)).map(r => r.key), tot = (v, pre, f) => keys(pre).filter(k => !f || f(k)).reduce((a, k) => a + v[RS.idx[k]], 0);
+  t('substructure: ' + m.subN.length + ' nodes, a sill and ' + p.piles.n + ' piles at each abutment, soil springs only below the ground level', m.piles.length === 2 * p.piles.n && m.subE.filter(e => e.type === 'sill').length > 0 && m.springs.filter(s => s.soil !== undefined).every(s => -m.subN[s.soil - m.nodes.length].z + m.subLev.zs > p.piles.gl - 1e-9));
+  const Fs = C.sdlLoads(p, m, g), W = -m.nodes.reduce((a, n) => a + Fs[ND * n.id], 0), v = ev(Fs);
+  t('vertical load path: superimposed dead load = sum of bearing reactions = sum of pile axial forces', Math.abs(tot(v, 'Rb:') - W) < 1e-6 * W && Math.abs(tot(v, 'pN:') - W) < 1e-6 * W, W.toFixed(1) + ' kN');
+  const vb = ev(C.hzLoads(m, g, p, 'x', () => 500));
+  t('braking 500 kN: bearings of the fixed line pass it to the piles of abutment A; abutment B piles carry none', Math.abs(tot(vb, 'Hx:') - 500) < 1e-6 && Math.abs(tot(vb, 'pVx:A') - 500) < 1e-6 && Math.abs(tot(vb, 'pVx:B')) < 1e-6, tot(vb, 'pVx:A').toFixed(3));
+  const M1 = Math.max(...keys('pMy:A:0:').map(k => Math.abs(vb[RS.idx[k]]))), Hp = 500 / p.piles.n;
+  t('braking: pile moment lies between a pile fixed at the ground level and one fixed 6 diameters below it (head held by the sill)', M1 > Hp * p.piles.gl / 2 && M1 < Hp * (p.piles.gl + 6 * p.piles.D / 1000) / 2 * 1.5, M1.toFixed(0) + ' kNm for ' + Hp.toFixed(0) + ' kN per pile');
+  const vw = ev(C.hzLoads(m, g, p, 'y', k => 6 * g.spans[k].L));
+  t('transverse wind: carried by the piles of both abutments', Math.abs(tot(vw, 'pVy:') - 6 * g.spans[0].L) < 1e-6 && Math.abs(tot(vw, 'pVy:A')) > 10 && Math.abs(tot(vw, 'pVy:B')) > 10);
+  const p0 = Object.assign({}, p, { sub: Object.assign({}, p.sub, { on: false }) }), m0 = C.mesh(p0, g, sc);
+  t('substructure off: no extra nodes, bearings on rigid ground', !m0.subN && m0.sup.every(s => s.below === undefined));
 }
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

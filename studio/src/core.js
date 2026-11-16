@@ -27,7 +27,8 @@ var CORE = (function () {
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3, gl: 1.5, L: 18 },
     eq: { kp: 1.0, Z: 0.08, site: 'Ce', Rf: 1.0 },
     brg: { start: 'fixed', end: 'free' }, brgT: 'centre', brgKe: 3000,
-    hBrake: 500, hCent: 0, windTu: 6, windTs: 3   /* horizontal actions: braking and centrifugal force per span (kN); transverse wind per metre of bridge (kN/m), ultimate and serviceability */   /* bearing type at each end of every span; brgKe: shear stiffness of one elastomeric bearing, kN/m */   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
+    hBrake: 500, hCent: 0, windTu: 6, windTs: 3,
+    sub: { on: true, capW: 1.5, capD: 1.2, ks: 20000, seg: 2, kToe: 1e7 }   /* horizontal actions: braking and centrifugal force per span (kN); transverse wind per metre of bridge (kN/m), ultimate and serviceability */   /* bearing type at each end of every span; brgKe: shear stiffness of one elastomeric bearing, kN/m */   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
     strands: null, gStr: {}   /* gStr: {girder index: own strand pattern}; girders not listed use `strands` */
   };
   function strandDefault(sec) {
@@ -36,22 +37,23 @@ var CORE = (function () {
     [[60, 25, 3000], [110, 75, 2000], [160, 75, 4000]].forEach(function (r) { g.filter(function (s) { return s.y === r[0] && Math.abs(s.x) <= r[1]; }).forEach(function (s) { s.d = r[2]; s.d2 = r[2]; }); });
     return g;
   }
-  function mk(o) { var p = Object.assign(deep(BASE), o); p.strands = p.strands || strandDefault(p.girder); return p; }
+  function mk(o) { var p = Object.assign(deep(BASE), o); ['piles', 'sub', 'eq', 'brg', 'stage'].forEach(function (k) { if (o[k] && BASE[k]) p[k] = Object.assign(deep(BASE[k]), o[k]); });   /* a case that sets part of a group keeps the other defaults */
+    p.strands = p.strands || strandDefault(p.girder); return p; }
   var CASES = {
     cs01: { name: 'Case Study 01', title: 'Super-T girder bridge', focus: 'Single simply supported 28 m span, 10° skew, six 1500 Super-T girders.', p: mk({}) },
     cs02: { name: 'Case Study 02', title: 'Multi-span bridge', focus: 'Three simply supported spans (24 + 28 + 24 m) on two piers, six 1500 Super-T girders per span.', p: mk({ spans: [24, 28, 24], skew: 0, ng: 6, spacing: 2.2 }) },
-    cs03: { name: 'Case Study 03', title: 'Bridge deck and load distribution', focus: 'Wide 22 m span at 20° skew with eight 1200 Super-T girders: how traffic shares between girders.', p: mk({ spans: [22], skew: 20, ng: 8, spacing: 2.2, girder: '1200 Super-T', overhang: 1.1 }) },
+    cs03: { name: 'Case Study 03', title: 'Bridge deck and load distribution', focus: 'Wide 22 m span at 20° skew with eight 1200 Super-T girders: how traffic shares between girders.', p: mk({ spans: [22], skew: 20, ng: 8, spacing: 2.2, girder: '1200 Super-T', overhang: 1.1, piles: { n: 8 } }) },   /* eight piles under the wider deck */
     cs04: { name: 'Case Study 04', title: 'Substructure and pile design', focus: 'A 28 m span; abutment bearing reactions taken into a single row of six bored piles.', p: mk({ spans: [28], skew: 0, ng: 6, spacing: 2.2, piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 450, ecc: 0.3 } }) }
   };
 
   /* ---------- dependency graph: which results depend on which input groups ---------- */
   var GROUPS = { geometry: 'Geometry', section: 'Girder section', material: 'Materials', mesh: 'Mesh', loads: 'Loads', combos: 'Combinations', prestress: 'Prestress and strands', detailing: 'Reinforcement', substructure: 'Substructure' };
   var NODES = {
-    mesh: ['geometry', 'section', 'mesh'],
-    model: ['geometry', 'section', 'material', 'mesh'],
-    loads: ['geometry', 'section', 'material', 'mesh', 'loads'],
+    mesh: ['geometry', 'section', 'mesh', 'substructure'],
+    model: ['geometry', 'section', 'material', 'mesh', 'substructure'],
+    loads: ['geometry', 'section', 'material', 'mesh', 'loads', 'substructure'],
     losses: ['geometry', 'section', 'material', 'prestress', 'loads'],
-    design: ['geometry', 'section', 'material', 'mesh', 'loads', 'combos', 'prestress', 'detailing'],
+    design: ['geometry', 'section', 'material', 'mesh', 'loads', 'combos', 'prestress', 'detailing', 'substructure'],
     piles: ['geometry', 'section', 'material', 'mesh', 'loads', 'combos', 'substructure']
   };
   /* input field -> group */
@@ -63,7 +65,7 @@ var CORE = (function () {
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
-    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgT: 'mesh', brgKe: 'mesh', hBrake: 'loads', hCent: 'loads', windTu: 'loads', windTs: 'loads', dTuni: 'loads', alphaT: 'loads' };
+    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgT: 'mesh', brgKe: 'mesh', sub: 'mesh', hBrake: 'loads', hCent: 'loads', windTu: 'loads', windTs: 'loads', dTuni: 'loads', alphaT: 'loads' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);
   }
@@ -134,7 +136,58 @@ var CORE = (function () {
     Q.push({ k: 'Elements per span', v: n, ok: n >= 8, note: n >= 8 ? 'at least 8 longitudinal elements per span' : 'fewer than 8 elements: moments under point loads under-estimated' });
     Q.push({ k: 'Longitudinal / transverse spacing', v: ratio.toFixed(2), ok: ratio >= 0.5 && ratio <= 2.5, note: 'transverse member spacing close to the girder spacing gives a well-conditioned grillage (0.5 – 2.5 here)' });
     Q.push({ k: 'Smallest element', v: Math.min.apply(null, E.map(function (e) { return e.L; })).toFixed(2) + ' m', ok: true, note: '' });
-    return { n: n, nodes: N, els: E, sup: sup, braces: braces, id: id, quality: Q, dL: dL };
+    var M_ = { n: n, nodes: N, els: E, sup: sup, braces: braces, id: id, quality: Q, dL: dL };
+    if (p.sub && p.sub.on) substructure(p, g, sc, M_);
+    return M_;
+  }
+
+  /* ---------- substructure: abutment sill beams on piles with soil springs, bearings as springs between deck and sill ----------
+     Added to the mesh as m.subN (nodes, ids following the deck nodes), m.subE (sill and pile members) and m.springs (soil and toe).
+     Levels (z up, deck nodes at z = 0 = composite centroid): bearing at -yc, sill axis half a cap depth below it. */
+  function pileK(EA, EI, GJ, L) {   /* 12 x 12 of a VERTICAL member, node 1 above node 2, node freedoms [w, rX, rY, uX, uY, rZ] */
+    var k = [], i; for (i = 0; i < 12; i++) k.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    var B = [[12, 6 * L, -12, 6 * L], [6 * L, 4 * L * L, -6 * L, 2 * L * L], [-12, -6 * L, 12, -6 * L], [6 * L, 2 * L * L, -6 * L, 4 * L * L]], a = EI / (L * L * L);
+    var put = function (ix, sg) { for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) k[ix[r]][ix[c]] += a * B[r][c] * sg[r] * sg[c]; };
+    var x = EA / L; k[0][0] += x; k[6][6] += x; k[0][6] -= x; k[6][0] -= x;
+    var t = GJ / L; k[5][5] += t; k[11][11] += t; k[5][11] -= t; k[11][5] -= t;
+    put([3, 2, 9, 8], [1, -1, 1, -1]);   /* bending in the x-z plane: slope along the pile (downwards) = -rY */
+    put([4, 1, 10, 7], [1, 1, 1, 1]);    /* bending in the y-z plane: slope along the pile = +rX */
+    return k;
+  }
+  function substructure(p, g, sc, m) {
+    var P = p.piles, Sb = p.sub, N = m.nodes, nid = N.length, subN = [], subE = [], springs = [], Ec = HOG.t312(P.fc).E * 1e3, Gc = Ec / 2.4;
+    var a1 = sc.yc / 1000, a2 = Sb.capD / 2, zs = -(a1 + a2), D = P.D / 1000, Ap = Math.PI * D * D / 4, Ip = Math.PI * Math.pow(D, 4) / 64;
+    var b = Sb.capW, d = Sb.capD, la = Math.max(b, d), sm = Math.min(b, d), Jc = la * Math.pow(sm, 3) * (1 / 3 - 0.21 * sm / la * (1 - Math.pow(sm, 4) / (12 * Math.pow(la, 4))));
+    var node = function (x, y, z, k) { subN.push({ id: nid, x: x, y: y, z: z, k: k, sub: true }); return nid++; };
+    var dofs6 = function (n) { return [0, 1, 2, 3, 4, 5].map(function (c) { return ND * n + c; }); };
+    if (!(P.L > P.gl)) throw new Error('piles: the pile length must be greater than the depth of the ground level below the cap');
+    var nseg = Math.max(3, Math.ceil(P.L / (Sb.seg || 2))), dz = P.L / nseg, info = [];
+    [{ k: 0, end: 'start', name: 'A' }, { k: g.spans.length - 1, end: 'end', name: 'B' }].forEach(function (ab) {
+      var sups = m.sup.filter(function (s) { return s.k === ab.k && s.end === ab.end; }).sort(function (u, v) { return N[u.node].y - N[v.node].y; });
+      var A0 = N[sups[0].node], B0 = N[sups[sups.length - 1].node], xAt = function (y) { return A0.x + (y - A0.y) * (B0.x - A0.x) / ((B0.y - A0.y) || 1); };
+      var pts = sups.map(function (s) { return { y: N[s.node].y, sup: s }; }); for (var q = 0; q < P.n; q++) pts.push({ y: (q - (P.n - 1) / 2) * P.s, pile: q });
+      pts.sort(function (u, v) { return u.y - v.y; });
+      var line = [], last = null; pts.forEach(function (pt) { if (!last || pt.y - last.y > 1e-3) { last = { y: pt.y, n: node(xAt(pt.y), pt.y, zs, ab.k) }; line.push(last); } pt.n = last.n; });
+      for (var i = 0; i < line.length - 1; i++) { var n1 = line[i].n, n2 = line[i + 1].n, na = subN[n1 - N.length], nb = subN[n2 - N.length], L = Math.hypot(nb.x - na.x, nb.y - na.y);
+        subE.push({ type: 'sill', ab: ab.name, n1: n1, n2: n2, L: L, c: (nb.x - na.x) / L, s: (nb.y - na.y) / L, EI: Ec * b * d * d * d / 12, GJ: Gc * Jc, EA: Ec * b * d, EIz: Ec * d * b * b * b / 12, label: 'abutment sill ' + b + ' x ' + d + ' m' }); }
+      pts.forEach(function (pt) {
+        if (pt.sup) {   /* bearing: springs between the deck node and the sill node, acting at bearing level through rigid arms a1 (deck side) and a2 (sill side) */
+          var s = pt.sup, ld = [0, 1, 2, 3, 4].map(function (c) { return ND * s.node + c; }).concat([0, 1, 2, 3, 4].map(function (c) { return ND * pt.n + c; }));
+          s.below = pt.n; s.ld = ld; s.rows = { R: { k: s.kv, b: [1, 0, 0, 0, 0, -1, 0, 0, 0, 0] }, Hx: { k: s.kx || 0, b: [0, 0, -a1, 1, 0, 0, 0, -a2, -1, 0] }, Hy: { k: s.ky || 0, b: [0, a1, 0, 0, 1, 0, a2, 0, 0, -1] } };
+          var K = ld.map(function () { return ld.map(function () { return 0; }); }); ['R', 'Hx', 'Hy'].forEach(function (c) { var r = s.rows[c]; if (!r.k) return; for (var u = 0; u < 10; u++) for (var v = 0; v < 10; v++) K[u][v] += r.k * r.b[u] * r.b[v]; });
+          s.link = { d: ld, k: K };
+        } else {        /* pile: vertical members from the sill down to the toe; lateral soil springs below the ground level; toe held vertically */
+          var top = pt.n, x0 = subN[top - N.length].x, kg = pileK(Ec * Ap, Ec * Ip, Gc * 2 * Ip, dz);
+          for (var e = 1; e <= nseg; e++) { var nb2 = node(x0, pt.y, zs - e * dz, ab.k), depth = e * dz;
+            subE.push({ type: 'pile', ab: ab.name, q: pt.pile, e: e, n1: top, n2: nb2, L: dz, kg: kg, d: dofs6(top).concat(dofs6(nb2)), EI: Ec * Ip, EA: Ec * Ap, label: 'pile D' + P.D });
+            if (depth > P.gl + 1e-9) { var kh = Sb.ks * D * (e === nseg ? dz / 2 : dz) * Math.min(1, (depth - P.gl + dz / 2) / dz); springs.push({ d: [ND * nb2 + 3], k: [[kh]], soil: nb2, kh: kh }); springs.push({ d: [ND * nb2 + 4], k: [[kh]] }); }
+            if (e === nseg) springs.push({ d: [ND * nb2], k: [[Sb.kToe || 1e7]] });
+            top = nb2; }
+          info.push({ ab: ab.name, q: pt.pile, y: pt.y, head: pt.n });
+        }
+      });
+    });
+    m.subN = subN; m.subE = subE; m.springs = springs; m.piles = info; m.subLev = { a1: a1, a2: a2, zs: zs, dz: dz, nseg: nseg };
   }
 
   /* ---------- space-frame solver: 6 freedoms per node [w up, rX, rY, uX, uY, rZ] ----------
@@ -167,12 +220,12 @@ var CORE = (function () {
   function dofsP(e) { return [ND * e.n1 + 3, ND * e.n1 + 4, ND * e.n1 + 5, ND * e.n2 + 3, ND * e.n2 + 4, ND * e.n2 + 5]; }
   function toGlobal(kl, T) { var n = kl.length, kg = []; for (var i = 0; i < n; i++) { kg.push([]); for (var j = 0; j < n; j++) { var s = 0; for (var a = 0; a < n; a++) for (var b = 0; b < n; b++) s += T[a][i] * kl[a][b] * T[b][j]; kg[i].push(s); } } return kg; }
   function build(m) {
-    var N = m.nodes, nn = N.length, nd = ND * nn, items = [], i, j, k;
+    var N = m.nodes.concat(m.subN || []), nn = N.length, nd = ND * nn, items = [], i, j, k;
     /* number the nodes along the bridge so each row of the matrix only reaches back to nearby nodes */
     var order = N.map(function (n) { return n.id; }).sort(function (a, b) { return (N[a].x - N[b].x) || (N[a].y - N[b].y) || ((N[b].z || 0) - (N[a].z || 0)) || (a - b); }), pos = new Int32Array(nn);
     order.forEach(function (id, q) { pos[id] = q; });
     var P = new Int32Array(nd); for (i = 0; i < nd; i++) P[i] = ND * pos[(i / ND) | 0] + i % ND;
-    m.els.forEach(function (e) {
+    m.els.concat(m.subE || []).forEach(function (e) {
       if (e.kg) { items.push({ d: e.d, k: e.kg }); return; }                 /* a member that brings its own global stiffness (substructure) */
       e.kl = kLocal(e); e.T = Tm(e); items.push({ d: dofs(e), k: toGlobal(e.kl, e.T) });
       e.klP = kPlane(e); e.TP = TmP(e); items.push({ d: dofsP(e), k: toGlobal(e.klP, e.TP) });
@@ -200,7 +253,7 @@ var CORE = (function () {
   }
   function solve(S, F) {
     var nd = S.nd, L = S.L, fi = S.fi, ptr = S.ptr, P = S.P, y = new Float64Array(nd), x = new Float64Array(nd), i, k;
-    for (i = 0; i < nd; i++) y[P[i]] = F[i];
+    for (i = 0; i < nd; i++) y[P[i]] = F[i] || 0;   /* load vectors may cover the deck nodes only */
     for (i = 0; i < nd; i++) { var pi = ptr[i] - fi[i], s = y[i]; for (k = fi[i]; k < i; k++) s -= L[pi + k] * y[k]; y[i] = s / L[pi + i]; }
     for (i = nd - 1; i >= 0; i--) { var pj = ptr[i] - fi[i], v = y[i] / L[pj + i]; y[i] = v; for (k = fi[i]; k < i; k++) y[k] -= L[pj + k] * v; }
     for (i = 0; i < nd; i++) x[i] = y[P[i]];
@@ -228,6 +281,9 @@ var CORE = (function () {
     m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q, k: s.k }); });
     m.sup.forEach(function (s, q) { R.push({ key: 'Hx:' + q, kind: 'Hx', s: q, k: s.k }); R.push({ key: 'Hy:' + q, kind: 'Hy', s: q, k: s.k }); });   /* horizontal force on the bearing from the deck, kN, + along x / y */
     m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'ux:' + n.id, kind: 'ux', n: n.id, k: n.k }); R.push({ key: 'uy:' + n.id, kind: 'uy', n: n.id, k: n.k }); });   /* deck movement, mm */
+    (m.subE || []).forEach(function (e, q) { if (e.type !== 'pile') return; var id = e.ab + ':' + e.q;   /* pile: axial force and head shears at the top member; moments at the top of every member */
+      if (e.e === 1) { R.push({ key: 'pN:' + id, kind: 'pile', se: q, c: 0, sg: -1, k: -1 }); R.push({ key: 'pVx:' + id, kind: 'pile', se: q, c: 3, sg: 1, k: -1 }); R.push({ key: 'pVy:' + id, kind: 'pile', se: q, c: 4, sg: 1, k: -1 }); }
+      R.push({ key: 'pMx:' + id + ':' + e.e, kind: 'pile', se: q, c: 1, sg: 1, k: -1 }); R.push({ key: 'pMy:' + id + ':' + e.e, kind: 'pile', se: q, c: 2, sg: 1, k: -1 }); });
     R.forEach(function (r, i) { idx[r.key] = i; });
     return { R: R, idx: idx };
   }
@@ -235,8 +291,10 @@ var CORE = (function () {
     var out = new Float64Array(RS.R.length), cache = {};
     RS.R.forEach(function (r, i) {
       if (r.kind === 'w') out[i] = U[ND * r.n] * 1000;    /* mm, + up */
+      else if (r.kind === 'pile') { var pe = m.subE[r.se], fv = 0; for (var c2 = 0; c2 < 12; c2++) fv += pe.kg[r.c][c2] * U[pe.d[c2]]; out[i] = r.sg * fv; }   /* member end force at its top node: axial kN (compression +), shear kN, moment kNm */
       else if (r.kind === 'ux' || r.kind === 'uy') out[i] = U[ND * r.n + (r.kind === 'ux' ? 3 : 4)] * 1000;
-      else if (r.kind === 'R' || r.kind === 'Hx' || r.kind === 'Hy') { var s = m.sup[r.s], c = r.kind === 'R' ? 0 : r.kind === 'Hx' ? 3 : 4, kk = r.kind === 'R' ? s.kv : r.kind === 'Hx' ? s.kx : s.ky, rel = U[ND * s.node + c] - (s.below === undefined ? 0 : U[ND * s.below + c]);
+      else if (r.kind === 'R' || r.kind === 'Hx' || r.kind === 'Hy') { var s = m.sup[r.s], c = r.kind === 'R' ? 0 : r.kind === 'Hx' ? 3 : 4, kk = r.kind === 'R' ? s.kv : r.kind === 'Hx' ? s.kx : s.ky, rel = U[ND * s.node + c];
+        if (s.rows) { var rw = s.rows[r.kind]; rel = 0; for (var u = 0; u < 10; u++) rel += rw.b[u] * U[s.ld[u]]; }   /* relative movement across the bearing, at bearing level */
         out[i] = (r.kind === 'R' ? -1 : 1) * (kk || 0) * rel; }   /* vertical: kN, + = compression on the bearing; `below` = the substructure node under the bearing, if modelled */
       else { var f = cache[r.e] || (cache[r.e] = elForces(m.els[r.e], U)); out[i] = r.kind === 'Mel' ? (r.end === 1 ? f.M1 : f.M2) : r.kind === 'V' ? f.V : f.T; }
     });
@@ -531,6 +589,6 @@ var CORE = (function () {
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
     influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
-    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
+    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, pileK: pileK, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;
