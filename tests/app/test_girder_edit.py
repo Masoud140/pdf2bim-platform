@@ -57,5 +57,16 @@ cur = rowsL and next(o for o in rowsL[0]["overrides"] if o["id"] == rowsL[0]["cu
 t("lane layout saved: loads.lane_layouts created, one row, current value Input-user and accepted (rule errors would refuse the save)",
   r.status_code == 200 and len(rowsL) == 1 and rowsL[0]["cells"] == {"name": "two left", "lanes": "-5.0, -1.8"} and rowsL[0]["tag"] == "Input-user" and cur["approval"]["status"] == "accepted"
   and docL["revision"]["number"] > revL, f"{r.status_code} rev {revL}->{docL['revision']['number']} {rowsL[0]['tag'] if rowsL else ''} {cur and cur['approval']['status']}")
+# P9.8 per-girder design: copy the type under a new id and point one girder at it, in one decision
+d0 = json.load(open(F)); g0 = d0["superstructure"]["members"][0]["id"]; n_t = len(d0["superstructure"]["supert_types"])
+r = c.post("/api/projects/ED1/values/batch", json={"by": "Masoud", "reason": "outer girder gets its own strand pattern", "copy_types": [{"from": "ST1", "id": "ST1-outer"}],
+                                                   "items": [{"path": f"superstructure.members[{g0}].type_ref", "value": "ST1-outer"}]})
+d1 = json.load(open(F)); T1 = d1["superstructure"]["supert_types"]
+t("per-girder design: type copied under the new id with the same strand rows, the girder points at it (Input-user), the others keep ST1",
+  r.status_code == 200 and len(T1) == n_t + 1 and T1[-1]["id"] == "ST1-outer" and len(T1[-1]["strand_pattern"]["rows"]) == len(T1[0]["strand_pattern"]["rows"])
+  and d1["superstructure"]["members"][0]["type_ref"]["value"] == "ST1-outer" and d1["superstructure"]["members"][0]["type_ref"]["tag"] == "Input-user"
+  and d1["superstructure"]["members"][1]["type_ref"]["value"] == "ST1", r.get_data(as_text=True)[-300:] if r.status_code != 200 else "")
+r = c.post("/api/projects/ED1/values/batch", json={"by": "Masoud", "reason": "x", "copy_types": [{"from": "ST1", "id": "ST1-outer"}]})
+t("per-girder design: an id already in use is refused", r.status_code == 400)
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

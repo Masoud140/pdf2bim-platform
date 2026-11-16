@@ -416,14 +416,23 @@ def api_enter_batch(pid):
     by, reason = _person(b.get("by")), (b.get("reason") or "").strip()
     if not reason:
         abort(400, "give the reason for the change (e.g. design option 2: 44 strands)")
-    items, new_rows = b.get("items") or [], b.get("new_rows") or []
-    if not items and not new_rows:
+    items, new_rows, copies = b.get("items") or [], b.get("new_rows") or [], b.get("copy_types") or []
+    if not items and not new_rows and not copies:
         abort(400, "nothing changed")
     if len(items) + len(new_rows) > 500:
         abort(400, "too many changes in one save")
     prev = load_doc(p)
     doc = json.loads(json.dumps(prev))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    for cp in copies:                                    # per-girder design: copy a Super-T type under a new id; members are then pointed at it by items
+        src, nid = str(cp.get("from") or ""), str(cp.get("id") or "").strip()
+        T = doc["superstructure"].get("supert_types") or []
+        if not re.fullmatch(r"[A-Za-z0-9_-]{1,24}", nid) or any(t.get("id") == nid for t in T):
+            abort(400, f"new type id '{nid}' must be 1-24 letters, digits, - or _ and not already used")
+        base = next((t for t in T if t.get("id") == src), None)
+        if base is None:
+            abort(400, f"no Super-T type {src}")
+        T.append(dict(json.loads(json.dumps(base)), id=nid))
     R = dict(records(doc))
     for nr in new_rows:                                  # append an empty row record to the table, then propose its cells
         t, cells = str(nr.get("table") or ""), nr.get("cells")

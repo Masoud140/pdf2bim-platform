@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-16 — App Tier 2 (ADR-067)
+- Loads tab (P9.6); Moving loads tab with engineer-defined lane layouts, governing load positions and influence lines (P9.7); Needs review tab; Materials and Member properties cards; per-girder design by copying a Super-T type.
+
 ## 2026-11-16 — Studio Moving loads page
 - Studio: typical deck cross-section (all girders to scale, barriers, carriageway, design lanes; click to select a girder) on the Super-T design page; dimensions on the girder section; fixed Overview / Reports crash on check rows without a utilisation (ADR-064 information rows).
 - ADR-066: AS 5100.2 design lanes (sweep or manual), influence lines, governing lane layout and vehicle / UDL positions behind any envelope value; pick a member on the plan. Studio tests 14/14. App version is backlog P9.7.

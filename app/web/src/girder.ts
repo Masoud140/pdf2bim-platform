@@ -141,6 +141,21 @@ export async function girderEditor(id: string, rerender: () => void): Promise<HT
         else setTimeout(rerender, 900);
       } catch (e) { msg.textContent = (e as Error).message; }
     };
+    // per-girder design (P9.8): copy this type under a new id and point the ticked girders at it; then edit the new type
+    const split = () => {
+      const picks = usedBy.map((m) => ({ m, box: h("input", { type: "checkbox" }) as HTMLInputElement }));
+      const nid = h("input", { placeholder: "new type id, e.g. " + cur + "-outer", size: 22 }) as HTMLInputElement, sm = h("div", { class: "small" });
+      const go = async () => {
+        const gs = picks.filter((x) => x.box.checked).map((x) => x.m);
+        if (!gs.length || gs.length === usedBy.length) { sm.textContent = "Tick some, not all, of the girders (to change every girder, edit this type)."; return; }
+        try { const r = await api.saveBatch(id, { by: by.value, reason: why.value || `separate design for ${gs.join(", ")}`, items: gs.map((m) => ({ path: `superstructure.members[${m}].type_ref`, value: nid.value.trim() })), new_rows: [], copy_types: [{ from: cur, id: nid.value.trim() }] });
+          sm.textContent = `Saved as ${r.decision}: ${gs.join(", ")} now use ${nid.value.trim()}. Opening it…`; setTimeout(rerender, 900);
+        } catch (e) { sm.textContent = (e as Error).message; }
+      };
+      return h("div", { class: "card" }, h("h3", {}, "Different design for some girders"),
+        h("p", { class: "small muted" }, `All of ${usedBy.join(", ")} share type ${cur}. To give some girders their own strands, debonding, bars or fitments, tick them: the type is copied under a new id and those girders point at it (one decision under your name). Then pick the new type above and edit it.`),
+        h("div", { class: "row wrap" }, picks.map((x) => h("label", { class: "small" }, x.box, " ", x.m)), nid, h("button", { class: "btn", onclick: go }, "Create type for the ticked girders")), sm);
+    };
     const runBox = h("div", { class: "small" });
     const watch = async () => {
       const r = await api.latest(id);
@@ -154,6 +169,7 @@ export async function girderEditor(id: string, rerender: () => void): Promise<HT
       h("div", { class: "grid two" }, h("div", {}, h("div", { class: "card" }, h("h3", {}, "Section and materials"), scal), last.length ? h("div", { class: "card" }, h("h3", {}, "Last run: maximum utilisation"),
         table(["Girder", "ULS bending", "SLS stress", "Shear / torsion"], last)) : null), prev),
       ...tables,
+      ...(STATIC || usedBy.length < 2 ? [] : [split()]),
       STATIC ? h("p", { class: "small muted" }, "Read-only copy: edit and run in the app on your computer.")
         : h("div", { class: "card sticky-save" }, h("div", { class: "row wrap" }, by, why, h("button", { class: "btn", onclick: () => save(false) }, "Save"), h("button", { class: "btn primary", onclick: () => save(true) }, "Save and run")),
           h("p", { class: "small muted" }, "Saving records every changed value under your name as one decision (tag Input-user) and keeps the previous revision. The drawing values stay in the record’s history."), msg, runBox));

@@ -727,3 +727,12 @@
 - **Decision:** `CORE.laneLayouts` (automatic sweep of standard design lanes, or engineer-defined lane offsets), `CORE.governingState` and `CORE.influenceLine` — JS ports of the platform's `traffic.py` `_lane_state` / `governing_state`. The envelope now runs over the chosen layouts, so manual lanes change the design results, as a MIDAS lane set does.
 - **Verification:** `studio/tests/test_engines.js` (14/14): the governing state's loads re-applied to the influence surface reproduce the envelope to 1e-15; manual layouts keep only in-carriageway, non-overlapping lanes.
 - **Consequence:** the Studio page is the UI reference for P9.7; the app will store layouts in the description (`loads.lane_layouts`).
+
+## ADR-067 App Tier 2: Loads tab, Moving loads tab, materials / member transparency, per-girder design (2026-11-16)
+- **Status:** done (owner request "start Tier 2 number 5 to 8").
+- **P9.6 Loads tab:** every AS 5100.2 register action with its run state, the description records that feed it, and its factors with their standards status; the generated combination matrix read-only (factors are standards entries, never per-project edits).
+- **P9.7 Moving loads tab:** `loads.lane_layouts` (optional table; rows replace the AS 5100.2 sweep, each row one lane set); the actions step writes `traffic.json` (`pdf2bim/model/traffic_states.py`): the governing lane layout, lane ranking and load positions behind every girder M / V and bearing envelope value, from `traffic.governing_state`, plus influence lines along the lane centres. `traffic.json` is a run output (about 8 MB on a 10-girder deck) and is not committed.
+- **Item 7:** Needs review tab; Materials and Member properties cards on Sections & materials. The model step records properties and weight by member type; weight 0 = stiffness only (the deck weight is carried on the girder lines).
+- **Item 8 per-girder design:** girders already point at a Super-T type (`members[].type_ref`); the batch save takes `copy_types` so the editor can copy a type under a new id and point chosen girders at it in one decision. No new data model.
+- **Alternatives rejected:** storing strands on each member (duplicates the type record, breaks "one Super-T definition used everywhere"); editing load factors in the app.
+- **Not done:** member pick in the 3D model view (the plan pick on the Moving loads tab covers girders and bearings); traffic states for headstocks and piles; the read-only online copy does not include `traffic.json`.
