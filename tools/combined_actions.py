@@ -105,6 +105,12 @@ def main():
         L += ["", f"**Bearing uplift in a combined minimum:** {', '.join(Z['uplift'])} (finding M-4: reported, not resolved)."]
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")
+    try:   # moving-load states for the app (P9.7): what lane layout and load positions sit behind every traffic envelope value
+        from pdf2bim.model.traffic_states import export as traffic_export
+        TS = traffic_export(CA["primitives"]["cases"]["traffic"], CA["primitives"]["response_set"], M)
+        json.dump(TS, open(os.path.join(os.path.dirname(a.out), "traffic.json"), "w"), separators=(",", ":"))
+    except Exception as e:   # never fail the actions step for the app view
+        print(f"traffic.json not written: {e}", file=sys.stderr)
     rows_used = sorted({v for blk in Z.values() if isinstance(blk, dict) for e in blk.values() for ls in e.values() for q in ls.values()
                         for k_, v in q.items() if k_ in ("gov", "gmax", "gmin") and v})
     from pdf2bim.runrecord import make as run_record

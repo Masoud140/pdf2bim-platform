@@ -433,7 +433,7 @@ def primitives(doc, geo, S, mdl, std, allow_proposed=False, soil_action="SOo", t
     return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc,
             "provisional": rd.provisional + prov + list(H.get("provisional") or []) + list(W.get("provisional") or []) + list(Q.get("provisional") or [])
                            + list(Tr.get("provisional") or []) + list(T.get("provisional") or []) + list(C.get("provisional") or []),
-            "cases": {"horizontal": H, "thermal": T, "wind": W, "earthquake": Q, "traffic": Tr, "sdl": C}}
+            "cases": {"horizontal": H, "thermal": T, "wind": W, "earthquake": Q, "traffic": Tr, "sdl": C}, "response_set": RS}
 
 
 def available_actions(prim):

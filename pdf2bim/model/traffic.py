@@ -266,7 +266,24 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
         else:
             raise ValueError(f"layout {layout!r}: 'left' or 'sweep'")
     lays = [sum(c, []) for c in itertools.product(*per)]   # every combination of the carriageways' layouts
-    n = len(lays[0])
+    manual = rd.rows((doc.get("loads") or {}).get("lane_layouts"), "loads.lane_layouts", required=False)
+    if manual:   # engineer-defined lane layouts (P9.7): rows {name, lanes}: lane left edges, m, in the carriageway frame; every row is one layout
+        lays = []
+        for row in manual:
+            a = row.get("lanes")
+            a = [float(x) for x in (a.replace(";", ",").split(",") if isinstance(a, str) else a or []) if str(x).strip()]
+            a.sort()
+            for x in a:
+                if not any(c0 - 1e-6 <= x and x + W <= c1 + 1e-6 for c0, c1 in cws):
+                    raise MissingInput(f"loads.lane_layouts '{row.get('name')}': lane at {x} m is outside every carriageway {cws} (lane width {W})")
+            if any(a[i + 1] - a[i] < W - 1e-6 for i in range(len(a) - 1)):
+                raise MissingInput(f"loads.lane_layouts '{row.get('name')}': lanes overlap")
+            if a:
+                lays.append([round(x, 6) for x in a])
+        if not lays:
+            raise MissingInput("loads.lane_layouts: rows present but no lanes")
+        layout = "manual"
+    n = max(len(L) for L in lays)
     inf = inf or Influence(mdl)
     N = int(math.floor((inf.c1 - inf.c0) / dc)) + 1
     grid = inf.c0 + dc * np.arange(N)

@@ -203,6 +203,7 @@ MATERIALS = {
 
 LOADS = {
     'traffic_models': ('table', '', 'Traffic load models applied', {'model': ('enum', ''), 'on': ('bool', '')}),
+    'lane_layouts': ('table', '', 'Engineer-defined moving-load lane layouts (one row per layout; lanes = left edges in m, carriageway frame). Empty: AS 5100.2 lanes swept across the carriageway', {'name': ('str', ''), 'lanes': ('str', 'm')}),
     'design_speed': ('num', 'km/h', 'Design speed (centrifugal)'),
     'braking_force': ('num', 'kN', 'Braking force on the bridge'),
     'traffic_surcharge': ('num', 'kPa', 'Earth pressure from traffic surcharge'),

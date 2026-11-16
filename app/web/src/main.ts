@@ -1,4 +1,5 @@
 // PDF2BIM web app: projects, drawings, description values, model, analysis, design, run log.
+import { movingLoads } from "./moving";
 import { api, type Extraction, type Loads, STATIC, Decision, Project, Run, ValueRow, Drawings, Meta } from "./api";
 import { h, fmt, TAGS, tagChip, utilClass, table, empty } from "./dom";
 import { modelViewer, ModelView } from "./model3d";
@@ -6,7 +7,7 @@ import { girderEditor, girderSummary } from "./girder";
 
 const app = document.getElementById("app")!;
 const TABS: [string, string][] = [["overview", "Overview"], ["drawings", "Drawings"], ["values", "Bridge data"], ["decisions", "Decisions"], ["model", "Model 3D"], ["sections", "Sections"],
-  ["loads", "Loads"], ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
+  ["loads", "Loads"], ["moving", "Moving loads"], ["analysis", "Analysis"], ["design", "Design checks"], ["girder", "Girder editor"], ["verification", "Verification"], ["run", "Run log & files"]];
 let poll: number | undefined;
 // download link, or plain text in the read-only online copy (downloads are local-app only)
 const dl = (href: string | null, text: string, cls = "") => href ? h("a", { href, class: cls }, text) : h("span", { class: cls + " muted", title: "Download in the app on your computer" }, text);
@@ -68,7 +69,7 @@ async function projectPage(id: string, tab: string, params: URLSearchParams) {
   app.replaceChildren(topbar(id), h("main", { class: "page wide" }, h("div", { class: "row between" }, h("div", {}, h("h1", {}, id), h("p", { class: "muted" }, p.name || "")),
     h("div", { class: "row" }, STATIC ? null : h("a", { class: "btn primary", href: `/api/projects/${encodeURIComponent(id)}/report`, target: "_blank" }, "Calculation report"), dl(api.descUrl(id), "Description JSON", "btn ghost"))), nav, body));
   const views: Record<string, () => Promise<HTMLElement>> = { overview: () => overview(id), drawings: () => drawings(id, params), values: () => values(id), decisions: () => decisions(id),
-    model: () => model(id), sections: () => sections(id), loads: () => loads(id), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
+    model: () => model(id), sections: () => sections(id), loads: () => loads(id), moving: () => movingLoads(id, provenance, who, nameInput, route), analysis: () => analysis(id), design: () => design(id), girder: () => girderEditor(id, route), verification: () => verification(id), run: () => runTab(id) };
   body.replaceChildren(await (views[tab] || views.overview)());
 }
 

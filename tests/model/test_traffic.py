@@ -159,6 +159,26 @@ d2 = copy.deepcopy(doc)
 for r in d2["loads"]["traffic_models"]["rows"]:
     r["cells"]["on"] = False
 t("no traffic model switched on: refused with the field name", raises(lambda: traffic_envelope(d2, geo, M, Standards(), allow_proposed=True, inf=Ts["influence"]), MissingInput, "traffic_models"))
+# engineer-defined lane layouts (P9.7): rows of loads.lane_layouts replace the sweep; a manual copy of one sweep layout is bounded by the sweep
+def _lay(rows):
+    d = copy.deepcopy(doc)
+    d["loads"]["lane_layouts"] = {"rows": [{"cells": {"name": n, "lanes": l}, "tag": "Input-User", "status": "accepted", "current": "original",
+                                            "original": {"cells": {"name": n, "lanes": l}, "tag": "Input-User"}} for n, l in rows]}
+    return d
+L0 = Ts["layouts"][0]
+Tm = traffic_envelope(_lay([("as swept 1", ", ".join(str(a) for a in L0))]), geo, M, Standards(), allow_proposed=True, inf=Ts["influence"])
+t("manual lane layout: mode 'manual', one layout equal to the typed lanes; envelope within the sweep's and equal to it where layout 1 governs",
+  Tm["layout_mode"] == "manual" and Tm["layouts"] == [[round(a, 6) for a in L0]]
+  and all((Tm["env"][m]["max"] <= Ts["env"][m]["max"] + 1e-9).all() and (Tm["env"][m]["min"] >= Ts["env"][m]["min"] - 1e-9).all() for m in Tm["env"])
+  and any(np.isclose(Tm["env"][m]["max"], Ts["env"][m]["max"]).any() for m in Tm["env"]))
+t("manual lane layout: a lane outside the carriageway and overlapping lanes are refused with the layout name",
+  raises(lambda: traffic_envelope(_lay([("bad", "99")]), geo, M, Standards(), allow_proposed=True, inf=Ts["influence"]), MissingInput, "bad")
+  and raises(lambda: traffic_envelope(_lay([("clash", f"{L0[0]}, {L0[0] + 1.0}")]), geo, M, Standards(), allow_proposed=True, inf=Ts["influence"]), MissingInput, "overlap"))
+from pdf2bim.model.traffic_states import _runs
+_ld = [(5.5 + 0.25 * k, -9.5 + (s_ + .5) * 0.4, 0.1875) for s_ in range(8) for k in range(7)] + [(6.0, -8.8, 78.0), (6.0, -7.0, 78.0)]
+_rr = _runs(_ld, 0.25, 3.2)
+t("traffic states: UDL strips merge into one band over the lane, wheels stay points, total load kept",
+  len(_rr) == 3 and [-9.5, -6.3, 0.188, 5.5, 7.0] in _rr and abs(sum(P * (1 if o0 == o1 else round((o1 - o0) / 0.4) * round((c1 - c0) / 0.25 + 1)) for o0, o1, P, c0, c1 in _rr) - (sum(x[2] for x in _ld) + 56 * 0.0005)) < 0.05)
 
 # ---------- vs the dashboard (recorded comparison, V5) ----------
 z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.traffic_vs_frozen.json")))

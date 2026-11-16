@@ -430,6 +430,8 @@ def api_enter_batch(pid):
         if not isinstance(cells, dict) or not cells:
             abort(400, "a new row needs its cells")
         node = doc
+        if t == "loads.lane_layouts" and isinstance(doc.get("loads"), dict) and "lane_layouts" not in doc["loads"]:
+            doc["loads"]["lane_layouts"] = {"rows": []}      # shortcut: only this optional table is created on demand; older descriptions predate it
         for name, idx in re.findall(r"([^.\[\]]+)(?:\[([^\]]+)\])?", t):
             node = node.get(name) if isinstance(node, dict) else None
             if idx is not None and isinstance(node, list):
@@ -554,7 +556,7 @@ def _result_file(pid, name):
             return f, {"source": "run", "run": st["id"], "allow_proposed": st["allow_proposed"], "engine_commit": st.get("engine_commit")}
     p = project(pid)
     if p["repo_outputs"]:
-        alias = {"combined_actions.json": f"{pid}.combined_actions.json", "girder_checks.json": f"{pid}.girder_checks.json",
+        alias = {"combined_actions.json": f"{pid}.combined_actions.json", "girder_checks.json": f"{pid}.girder_checks.json", "traffic.json": f"{pid}.traffic.json",
                  "model.mct": f"{pid}.integrated.mct"}.get(name)
         f = alias and os.path.join(p["repo_outputs"], alias)
         if f and os.path.exists(f):
@@ -564,7 +566,7 @@ def _result_file(pid, name):
 
 @app.get("/api/projects/<pid>/results/<name>")
 def api_result(pid, name):
-    if name not in ("model_view.json", "combined_actions.json", "girder_checks.json", "geometry.json", "sections.json"):
+    if name not in ("model_view.json", "combined_actions.json", "girder_checks.json", "geometry.json", "sections.json", "traffic.json"):
         abort(404)
     f, meta = _result_file(pid, name)
     if not f:

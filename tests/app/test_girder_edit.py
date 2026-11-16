@@ -49,5 +49,13 @@ t("description still passes the format rules; revisions kept in history", not ch
   and os.path.exists(os.path.join(d, "history", f"ED1.bridge.0.2.r{rev0}.json")))
 r = c.post("/api/projects/ED1/values/batch", json={"by": "Masoud", "reason": "x", "items": [{"path": "deck.nope", "value": 1}]})
 t("unknown path refused, nothing written", r.status_code == 400 and json.load(open(F))["revision"]["number"] == rev0 + 2)
+# P9.7: lane layouts entered on the Moving loads tab: the optional table is created on demand, the row is an accepted Input-user record
+revL = json.load(open(F))["revision"]["number"]
+r = c.post("/api/projects/ED1/values/batch", json={"by": "Masoud", "reason": "two lanes left", "items": [], "new_rows": [{"table": "loads.lane_layouts", "cells": {"name": "two left", "lanes": "-5.0, -1.8"}}]})
+docL = json.load(open(F)); rowsL = docL["loads"].get("lane_layouts", {}).get("rows", [])
+cur = rowsL and next(o for o in rowsL[0]["overrides"] if o["id"] == rowsL[0]["current"])
+t("lane layout saved: loads.lane_layouts created, one row, current value Input-user and accepted (rule errors would refuse the save)",
+  r.status_code == 200 and len(rowsL) == 1 and rowsL[0]["cells"] == {"name": "two left", "lanes": "-5.0, -1.8"} and rowsL[0]["tag"] == "Input-user" and cur["approval"]["status"] == "accepted"
+  and docL["revision"]["number"] > revL, f"{r.status_code} rev {revL}->{docL['revision']['number']} {rowsL[0]['tag'] if rowsL else ''} {cur and cur['approval']['status']}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

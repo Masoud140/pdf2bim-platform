@@ -12,3 +12,4 @@ app_data/
 
 # Bridge Studio build output (rebuild: python3 studio/build.py)
 studio/dist/
+projects/*/model/*.traffic.json
