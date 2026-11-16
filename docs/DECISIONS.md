@@ -754,4 +754,5 @@
 - **Loads:** every AS 5100.2 action is listed; the twelve the vertical-load grillage cannot carry are greyed with the reason (HLP, pedestrian, braking, centrifugal, transverse wind, uniform and differential temperature, shrinkage / creep, earth pressure, earthquake, flood, collision).
 - **Boundary conditions page:** bearing springs per girder end; piles with ground level, pile length and depth to fixity, drawn in elevation. The pile check still uses the fixity depth: soil springs along the pile stay in the platform.
 - **Super-T design, point of interest:** pick girder, section and SLS combination; staged stress diagram through the section (Super-T alone, composite increment, total) against the limits; the Check limits card is repeated on the design page.
-- **Not done:** ULS strain / force diagram at the point of interest; cracked-section stage; shear and torsion detail at the point; stage list with user-added stages (the four stages are fixed, their inputs editable).
+- **Added the same day:** ULS strain and force diagrams at the point of interest (`st.uls` from `DSG.ulsBend`: neutral axis, stress block, steel layers with strain, stress and force, lever arm).
+- **Not done:** cracked-section stage; shear and torsion detail at the point; stage list with user-added stages (the four stages are fixed, their inputs editable).

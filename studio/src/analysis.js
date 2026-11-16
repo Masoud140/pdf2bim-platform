@@ -218,6 +218,9 @@ var ANALYSIS = (function () {
       if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; });
       if (S.tend.length) {
         var u = DSG.ulsBend(S, {}); st.phiMu = u.phiMu; st.dn = u.dn; st.kuo = u.kuo; st.phi = u.phi;
+        /* ULS state for the strain and force diagrams: steel layers merged by depth (y mm below the deck top, stress MPa, force kN, tension +) */
+        var lay = {}; u.det.forEach(function (d_, q) { var src = q < S.bars.length ? S.bars[q] : S.tend[q - S.bars.length], kk = d_.t + ':' + Math.round(d_.y), o = lay[kk] || (lay[kk] = { t: d_.t, y: d_.y, s: d_.s, e: d_.e, F: 0, A: 0 }); o.F += d_.s * src.A / 1e3; o.A += src.A; });
+        st.uls = { dn: u.dn, gamma: u.gamma, C: u.C / 1e3, Mu: u.Mu, phi: u.phi, ecu: 0.003, lay: Object.keys(lay).map(function (kk) { return lay[kk]; }).sort(function (x, y) { return x.y - y.y; }) };
         /* minimum strength: Muo >= 1.2 Mcr (staged cracking moment, flexural tensile strength 0.6 sqrt f'c) */
         var fcf = 0.6 * Math.sqrt(p.fcG), Mcr = ((fcf + ps.P * 1e3 / sc.A + ps.P * 1e3 * ps.e / sc.Zb) - Mg * 1e6 / sc.Zb) * sc.Zcb / 1e6 + Mg; st.Mcr = Mcr; st.Muo = u.Mu;
       } else { st.phiMu = 0; st.why = 'no effective strands at this station'; }

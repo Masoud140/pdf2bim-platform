@@ -17,7 +17,7 @@ Tier 2 — the app as the one tool
 7. App: Materials and member-properties transparency pages (dashboard parity M-1, M-3) and Needs-review roll-up as a first-class page (W-1).
 8. App: per-girder definition — strands, debonding, bars, fitments (M-4) — with the Studio's editable design and rerun.
 Tier 3 — Studio showcase
-**Dashboard parity second pass done 2026-11-16 (ADR-069).** Still missing against the BR13A dashboard design tab: ULS strain / force diagram at the point of interest, cracked-section stage, shear / torsion detail at the point, user-added construction stages. Ask the owner which of the dashboard's design-tab panels matter most before building more.
+**Dashboard parity second pass done 2026-11-16 (ADR-069).** ULS strain / force diagrams added. Still missing against the BR13A dashboard design tab: cracked-section stage, shear / torsion detail at the point, user-added construction stages. Ask the owner which of the dashboard's design-tab panels matter most before building more.
 **Items 9–10 done 2026-11-16 (ADR-068).** Left over: zoom on the section drawing; generated live-load model page; own strand patterns in the AI assistant / optimiser; the temperature-gradient stresses are shown but not added to the SLS checks; L-8 full combinations is not possible in the vertical-only Studio grillage.
 9. S-1…S-4 (lane editor on the cross-section, Materials card, deck-weight note, member b × h).
 10. Dashboard parity in the Studio, in this order: L-6 construction stages page, D-5 hog page, L-8 full combinations, L-1 wind, L-2 temperature, D-1 bearings, M-5 bars on the section; then M-4 per-girder definition.
