@@ -26,7 +26,8 @@ var CORE = (function () {
     windVu: 1.0, windVs: 0.5, dTtop: 20, dTdepth: 300, alphaT: 11, dTuni: 25, gbars: '',
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3, gl: 1.5, L: 18 },
     eq: { kp: 1.0, Z: 0.08, site: 'Ce', Rf: 1.0 },
-    brg: { start: 'fixed', end: 'free' }, brgKe: 3000   /* bearing type at each end of every span; brgKe: shear stiffness of one elastomeric bearing, kN/m */   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
+    brg: { start: 'fixed', end: 'free' }, brgT: 'centre', brgKe: 3000,
+    hBrake: 500, hCent: 0, windTu: 6, windTs: 3   /* horizontal actions: braking and centrifugal force per span (kN); transverse wind per metre of bridge (kN/m), ultimate and serviceability */   /* bearing type at each end of every span; brgKe: shear stiffness of one elastomeric bearing, kN/m */   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
     strands: null, gStr: {}   /* gStr: {girder index: own strand pattern}; girders not listed use `strands` */
   };
   function strandDefault(sec) {
@@ -62,7 +63,7 @@ var CORE = (function () {
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
-    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgKe: 'mesh' };
+    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgT: 'mesh', brgKe: 'mesh', hBrake: 'loads', hCent: 'loads', windTu: 'loads', windTs: 'loads', dTuni: 'loads', alphaT: 'loads' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);
   }
@@ -107,7 +108,8 @@ var CORE = (function () {
         var f = j / n; id[k + ':' + i + ':' + j] = N.length;
         N.push({ id: N.length, k: k, i: i, j: j, f: f, x: g.xAt(k, i, f), y: g.y[i], z: 0 });
         if (j === 0 || j === n) { var bt = (p.brg || {})[j === 0 ? 'start' : 'end'] || (j === 0 ? 'fixed' : 'free'), kh = bt === 'elastomeric' ? p.brgKe : p.kv;   /* fixed: held both ways; free: slides along the bridge, guided across; elastomeric: shear stiffness both ways */
-          sup.push({ node: N.length - 1, k: k, i: i, end: j === 0 ? 'start' : 'end', kv: p.kv, type: bt, kx: bt === 'free' ? 0 : kh, ky: kh }); }
+          var guide = bt === 'elastomeric' || p.brgT === 'all' || i === Math.floor((g.ng - 1) / 2);   /* rigid bearings: one transverse guide per support line, so the deck can breathe across its width */
+          sup.push({ node: N.length - 1, k: k, i: i, end: j === 0 ? 'start' : 'end', kv: p.kv, type: bt, kx: bt === 'free' ? 0 : kh, ky: guide ? kh : 0 }); }
       }
       var dL = sp.L / n, Gg = sc.Eg / 2.4, Gd = sc.Ed / 2.4;
       for (var i2 = 0; i2 < g.ng; i2++) for (var j2 = 0; j2 < n; j2++)
@@ -120,13 +122,19 @@ var CORE = (function () {
       }
     });
     E.forEach(function (e) { var a = N[e.n1], c = N[e.n2]; e.L = Math.hypot(c.x - a.x, c.y - a.y); e.c = (c.x - a.x) / e.L; e.s = (c.y - a.y) / e.L; });
+    /* in-plane shear of the deck slab: a frame of strips alone is far too soft in plan, so each deck panel gets two diagonal ties
+       sized to the slab's shear stiffness G t (area = G t d^3 / (2 E a b) for a panel a x b with diagonal d). They act on the in-plane freedoms only. */
+    var braces = [], tS = p.slab / 1000;
+    g.spans.forEach(function (sp, k) { for (var i = 0; i < g.ng - 1; i++) for (var j = 0; j < n; j++) {
+      var q = [id[k + ':' + i + ':' + j], id[k + ':' + (i + 1) + ':' + j], id[k + ':' + i + ':' + (j + 1)], id[k + ':' + (i + 1) + ':' + (j + 1)]], a = sp.L / n, b = g.s;
+      [[q[0], q[3]], [q[1], q[2]]].forEach(function (d) { var A = N[d[0]], B = N[d[1]], L = Math.hypot(B.x - A.x, B.y - A.y); braces.push({ n1: d[0], n2: d[1], L: L, c: (B.x - A.x) / L, s: (B.y - A.y) / L, EA: sc.Ed * 1e3 / 2.4 * tS * Math.pow(L, 3) / (2 * a * b) }); }); } });
     /* quality indicators (grillage practice, Hambly / Austroads guidance as summarised in the project reference) */
     var dL = g.spans[0].L / n, ratio = dL / g.s, Q = [];
     Q.push({ k: 'Skew angle', v: p.skew.toFixed(1) + '°', ok: p.skew <= 25, note: p.skew <= 25 ? 'skew mesh (transverse members parallel to supports) acceptable below about 25°' : 'above about 25° use an orthogonal mesh; results here are indicative only' });
     Q.push({ k: 'Elements per span', v: n, ok: n >= 8, note: n >= 8 ? 'at least 8 longitudinal elements per span' : 'fewer than 8 elements: moments under point loads under-estimated' });
     Q.push({ k: 'Longitudinal / transverse spacing', v: ratio.toFixed(2), ok: ratio >= 0.5 && ratio <= 2.5, note: 'transverse member spacing close to the girder spacing gives a well-conditioned grillage (0.5 – 2.5 here)' });
     Q.push({ k: 'Smallest element', v: Math.min.apply(null, E.map(function (e) { return e.L; })).toFixed(2) + ' m', ok: true, note: '' });
-    return { n: n, nodes: N, els: E, sup: sup, id: id, quality: Q, dL: dL };
+    return { n: n, nodes: N, els: E, sup: sup, braces: braces, id: id, quality: Q, dL: dL };
   }
 
   /* ---------- space-frame solver: 6 freedoms per node [w up, rX, rY, uX, uY, rZ] ----------
@@ -174,6 +182,7 @@ var CORE = (function () {
       items.push({ d: [ND * s.node], k: [[s.kv]] }); if (s.krx) items.push({ d: [ND * s.node + 1], k: [[s.krx]] });
       if (s.kx) items.push({ d: [ND * s.node + 3], k: [[s.kx]] }); if (s.ky) items.push({ d: [ND * s.node + 4], k: [[s.ky]] });
     });
+    (m.braces || []).forEach(function (b) { var x = b.EA / b.L, c = b.c, sn = b.s, v = [c, sn, -c, -sn], kk = v.map(function (a) { return v.map(function (q) { return x * a * q; }); }); items.push({ d: [ND * b.n1 + 3, ND * b.n1 + 4, ND * b.n2 + 3, ND * b.n2 + 4], k: kk }); });
     (m.springs || []).forEach(function (sp) { items.push(sp); });            /* springs to ground: {d: [dof...], k: matrix} */
     var fi = new Int32Array(nd); for (i = 0; i < nd; i++) fi[i] = i;
     items.forEach(function (it) { it.q = it.d.map(function (d) { return P[d]; }); var mn = Math.min.apply(null, it.q); it.q.forEach(function (r) { if (mn < fi[r]) fi[r] = mn; }); });
@@ -183,8 +192,8 @@ var CORE = (function () {
     for (i = 0; i < nd; i++) {                                              /* Cholesky inside the skyline, row by row */
       var f0 = fi[i], pi = ptr[i] - f0;
       for (j = f0; j < i; j++) { var fj = fi[j], pj = ptr[j] - fj, s = A[pi + j]; for (k = f0 > fj ? f0 : fj; k < j; k++) s -= A[pi + k] * A[pj + k]; A[pi + j] = s / A[pj + j]; }
-      var sum = A[pi + i]; for (k = f0; k < i; k++) sum -= A[pi + k] * A[pi + k];
-      if (!(sum > 0)) { var dn = order[(i / ND) | 0]; throw new Error('model is unstable: node ' + dn + ' is free to move in freedom ' + ['w', 'rX', 'rY', 'uX', 'uY', 'rZ'][i % ND] + ' (check the bearing types and supports)'); }
+      var d0 = A[pi + i], sum = d0; for (k = f0; k < i; k++) sum -= A[pi + k] * A[pi + k];
+      if (!(sum > 1e-10 * d0)) {   /* a pivot that cancels to rounding is a mechanism, not a stiffness */ var dn = order[(i / ND) | 0]; throw new Error('model is unstable: node ' + dn + ' is free to move in freedom ' + ['w', 'rX', 'rY', 'uX', 'uY', 'rZ'][i % ND] + ' (check the bearing types and supports)'); }
       A[pi + i] = Math.sqrt(sum);
     }
     return { nd: nd, L: A, fi: fi, ptr: ptr, P: P, stored: A.length };
@@ -215,8 +224,10 @@ var CORE = (function () {
       R.push({ key: 'V:' + e.k + ':' + e.i + ':' + e.j, kind: 'V', e: e.id, k: e.k });
       R.push({ key: 'T:' + e.k + ':' + e.i + ':' + e.j, kind: 'T', e: e.id, k: e.k });
     });
-    m.nodes.forEach(function (n) { R.push({ key: 'w:' + n.id, kind: 'w', n: n.id, k: n.k }); });
+    m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'w:' + n.id, kind: 'w', n: n.id, k: n.k }); });
     m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q, k: s.k }); });
+    m.sup.forEach(function (s, q) { R.push({ key: 'Hx:' + q, kind: 'Hx', s: q, k: s.k }); R.push({ key: 'Hy:' + q, kind: 'Hy', s: q, k: s.k }); });   /* horizontal force on the bearing from the deck, kN, + along x / y */
+    m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'ux:' + n.id, kind: 'ux', n: n.id, k: n.k }); R.push({ key: 'uy:' + n.id, kind: 'uy', n: n.id, k: n.k }); });   /* deck movement, mm */
     R.forEach(function (r, i) { idx[r.key] = i; });
     return { R: R, idx: idx };
   }
@@ -224,7 +235,9 @@ var CORE = (function () {
     var out = new Float64Array(RS.R.length), cache = {};
     RS.R.forEach(function (r, i) {
       if (r.kind === 'w') out[i] = U[ND * r.n] * 1000;    /* mm, + up */
-      else if (r.kind === 'R') { var s = m.sup[r.s]; out[i] = -s.kv * U[ND * s.node]; }   /* kN, + = compression on the bearing */
+      else if (r.kind === 'ux' || r.kind === 'uy') out[i] = U[ND * r.n + (r.kind === 'ux' ? 3 : 4)] * 1000;
+      else if (r.kind === 'R' || r.kind === 'Hx' || r.kind === 'Hy') { var s = m.sup[r.s], c = r.kind === 'R' ? 0 : r.kind === 'Hx' ? 3 : 4, kk = r.kind === 'R' ? s.kv : r.kind === 'Hx' ? s.kx : s.ky, rel = U[ND * s.node + c] - (s.below === undefined ? 0 : U[ND * s.below + c]);
+        out[i] = (r.kind === 'R' ? -1 : 1) * (kk || 0) * rel; }   /* vertical: kN, + = compression on the bearing; `below` = the substructure node under the bearing, if modelled */
       else { var f = cache[r.e] || (cache[r.e] = elForces(m.els[r.e], U)); out[i] = r.kind === 'Mel' ? (r.end === 1 ? f.M1 : f.M2) : r.kind === 'V' ? f.V : f.T; }
     });
     return out;
@@ -378,6 +391,23 @@ var CORE = (function () {
     m.nodes.forEach(function (n) { F[ND * n.id] -= q * ((n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s) * (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; });
     return F;
   }
+  /* ---------- horizontal actions on the deck (the in-plane freedoms) ---------- */
+  function deckShare(m, g, p) {   /* share of a span's deck plan area at each deck node (sums to 1 per span) */
+    var w = new Float64Array(m.nodes.length), tot = {};
+    m.nodes.forEach(function (n) { if (n.sub) return; w[n.id] = ((n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s) * (n.j === 0 || n.j === m.n ? 0.5 : 1); tot[n.k] = (tot[n.k] || 0) + w[n.id]; });
+    m.nodes.forEach(function (n) { if (!n.sub) w[n.id] /= tot[n.k]; });
+    return w;
+  }
+  function hzLoads(m, g, p, dir, perSpan) {   /* dir 'x' (along the bridge) or 'y' (across): perSpan(k) kN on each span, spread over the deck plan */
+    var F = new Float64Array(ND * m.nodes.length), w = deckShare(m, g, p), c = dir === 'x' ? 3 : 4;
+    m.nodes.forEach(function (n) { if (!n.sub) F[ND * n.id + c] += w[n.id] * perSpan(n.k); });
+    return F;
+  }
+  function thermalLoads(m, p, dT) {   /* uniform temperature change dT (deg C) of the deck: each member tries to lengthen by alpha dT L; equivalent end forces EA alpha dT */
+    var F = new Float64Array(ND * m.nodes.length), a = p.alphaT * 1e-6 * dT;
+    m.els.filter(function (e) { return e.EA && !e.kg; }).concat(m.braces || []).forEach(function (e) { var N0 = e.EA * a; F[ND * e.n1 + 3] -= N0 * e.c; F[ND * e.n1 + 4] -= N0 * e.s; F[ND * e.n2 + 3] += N0 * e.c; F[ND * e.n2 + 4] += N0 * e.s; });
+    return F;
+  }
   /* ---------- dynamics: lumped vertical mass and vibration modes of the deck grillage ---------- */
   var G_ACC = 9.80665;
   function nodalMass(p, m, g, sc) {   /* tonnes at each node: girder + deck (tributary width) + superimposed dead load (barriers, surfacing, utilities) */
@@ -447,10 +477,11 @@ var CORE = (function () {
     { id: 'WVs', name: 'Wind, vertical on the deck (serviceability)', cls: 'Wind', act: 'W', on: false },
     { id: 'HLP', name: 'HLP 320 / 400 heavy load platform', cls: 'Traffic', act: 'HLP', on: false, proposed: true, note: 'Platform app only: needs the platform vehicle, its lane rules and co-existing half M1600.' },
     { id: 'PED', name: 'Pedestrian load', cls: 'Traffic', act: 'PED', on: false, proposed: true, note: 'Platform app only: no footpath in the Studio deck.' },
-    { id: 'BRK', name: 'Braking force', cls: 'Horizontal', act: 'BRKR', on: false, proposed: true, note: 'Horizontal: this grillage has vertical degrees of freedom only. A braking force for the pile check is an input on the Boundary conditions page.' },
-    { id: 'CEN', name: 'Centrifugal force', cls: 'Horizontal', act: 'CENR', on: false, proposed: true, note: 'Horizontal: needs the full platform model.' },
-    { id: 'WT', name: 'Wind, transverse and longitudinal', cls: 'Wind', act: 'W', on: false, proposed: true, note: 'Horizontal: needs the full platform model. Vertical wind is modelled above.' },
-    { id: 'TU', name: 'Temperature, uniform', cls: 'Thermal', act: 'TU', on: false, proposed: true, note: 'No restraint force in simply supported spans on free bearings; the movement is on the Bearing actions page.' },
+    { id: 'BRK', name: 'Braking force', cls: 'Horizontal', act: 'BRKR', on: true, note: 'Along the bridge, either direction, on each span; goes with the traffic models.' },
+    { id: 'CEN', name: 'Centrifugal force', cls: 'Horizontal', act: 'CENR', on: false, note: 'Across the bridge, either direction, on each span; goes with the traffic models.' },
+    { id: 'WTu', name: 'Wind, transverse (ultimate)', cls: 'Wind', act: 'W', on: true, note: 'Line load across the bridge at deck level, either direction.' },
+    { id: 'WTs', name: 'Wind, transverse (serviceability)', cls: 'Wind', act: 'W', on: true },
+    { id: 'TU', name: 'Temperature, uniform', cls: 'Thermal', act: 'TU', on: true, note: 'Rise and fall of the deck temperature by the uniform range: bearing movement, and bearing force where the articulation restrains it.' },
     { id: 'TEMP', name: 'Temperature, differential (gradient)', cls: 'Thermal', act: 'TG', on: false, proposed: true, note: 'Not a grillage case: self-equilibrating stresses are on the Stages page; not yet added to the checks.' },
     { id: 'SCR', name: 'Shrinkage and creep shortening', cls: 'Thermal', act: 'SCR', on: false, proposed: true, note: 'Prestress losses and hog are in the losses engine; restraint effects need the full platform model.' },
     { id: 'EP', name: 'Earth pressure and traffic surcharge on abutments', cls: 'Horizontal', act: 'EP', on: false, proposed: true, note: 'Substructure: needs the full platform model.' },
@@ -471,17 +502,22 @@ var CORE = (function () {
   function generateCombos(cases) {   /* automated generation: every enabled traffic model with all permanent cases at default factors */
     var on = cases.filter(function (c) { return c.on && !c.proposed; }), tr = on.filter(function (c) { return c.cls === 'Traffic'; }), out = [];
     var perm = function (ls) { var f = {}; on.forEach(function (c) { if (c.cls === 'Permanent') f[c.id] = ls === 'ULS' ? 1.2 : 1.0; if (c.id === 'SDLs') f[c.id] = ls === 'ULS' ? 1.4 : 1.0; if (c.id === 'SDLp') f[c.id] = ls === 'ULS' ? 2.0 : 1.3; }); return f; };
-    tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls); f[t.id] = ls === 'ULS' ? 1.8 : 1.0; out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id, f: f }); }); });
+    var has = function (id) { return on.some(function (c) { return c.id === id; }); };
+    tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls), tf = ls === 'ULS' ? 1.8 : 1.0, hz = []; f[t.id] = tf; ['BRK', 'CEN'].forEach(function (h) { if (has(h)) { f[h] = tf; hz.push(h === 'BRK' ? 'braking' : 'centrifugal'); } });   /* braking and centrifugal are traffic actions: same factor */
+      out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id + (hz.length ? ' + ' + hz.join(' + ') : ''), f: f }); }); });
     if (on.some(function (c) { return c.id === 'C'; })) out.push({ id: 'ULS-C', ls: 'ULS', name: 'Construction (girder alone)', f: { G1: 1.2, G2: 1.2, C: 1.5 }, illustrative: true });
     var fp = {}; on.forEach(function (c) { if (c.cls === 'Permanent' || c.cls === 'Superimposed dead') fp[c.id] = 1.0; }); out.push({ id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: fp });
     /* wind: permanent + wind at its own limit-state pressure, factor 1.0 (the ultimate and serviceability pressures are separate inputs); unverified */
-    if (on.some(function (c) { return c.id === 'WVu'; })) { var fu = perm('ULS'); fu.WVu = 1.0; out.push({ id: 'ULS-W', ls: 'ULS', name: 'Permanent + vertical wind', f: fu }); }
-    if (on.some(function (c) { return c.id === 'WVs'; })) { var fw = perm('SLS'); fw.WVs = 1.0; out.push({ id: 'SLS-W', ls: 'SLS', name: 'Permanent + vertical wind', f: fw }); }
+    if (has('WVu') || has('WTu')) { var fu = perm('ULS'); if (has('WVu')) fu.WVu = 1.0; if (has('WTu')) fu.WTu = 1.0; out.push({ id: 'ULS-W', ls: 'ULS', name: 'Permanent + wind', f: fu }); }
+    if (has('WVs') || has('WTs')) { var fw = perm('SLS'); if (has('WVs')) fw.WVs = 1.0; if (has('WTs')) fw.WTs = 1.0; out.push({ id: 'SLS-W', ls: 'SLS', name: 'Permanent + wind', f: fw }); }
+    /* uniform temperature: 1.25 ultimate, 1.0 serviceability (platform standards inventory, unverified) */
+    if (has('TU')) { var ft = perm('ULS'); ft.TU = 1.25; out.push({ id: 'ULS-T', ls: 'ULS', name: 'Permanent + uniform temperature', f: ft }); var fs = perm('SLS'); fs.TU = 1.0; out.push({ id: 'SLS-T', ls: 'SLS', name: 'Permanent + uniform temperature', f: fs }); }
     return out;
   }
 
   var METHOD = [
-    'Deck: grillage of composite Super-T + deck slab longitudinal members, deck slab strips as transverse members, end cross girders on the support lines; vertical loads only (3 degrees of freedom per node).',
+    'Deck: grillage of composite Super-T + deck slab longitudinal members, deck slab strips as transverse members, end cross girders on the support lines; with six freedoms per node (vertical deflection, two bending rotations, movement along and across the bridge, rotation in plan).',
+    'Horizontal actions (braking, centrifugal force, transverse wind, uniform temperature) act on the in-plane freedoms of the deck, which is modelled as a frame of the girders and deck strips; bearings are fixed, free (sliding along the bridge) or elastomeric.',
     'Each span is simply supported (girders and deck discontinuous over piers).',
     'Girder and wet-deck weight and construction load act on the girder alone (non-composite), computed as a simply supported beam.',
     'Superimposed dead load and traffic act on the composite grillage. Barrier weight is applied at the deck edge as a line load plus its torque on the edge girder.',
@@ -495,6 +531,6 @@ var CORE = (function () {
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
     influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
-    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
+    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

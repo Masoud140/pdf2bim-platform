@@ -89,4 +89,30 @@ const S = D.stripsFromPolygon ? null : null;
   const Q2 = AN.quake(Object.assign({}, p, { eq: Object.assign({}, p.eq, { Rf: 2 }) }), W, null, 0);
   t('earthquake: Rf divides the force; pile moment = H Lf / 2', Math.abs(Q2.L.F - Q.L.F / 2) < 1e-9 && Math.abs(Q.L.M - Q.L.H * P.Lf / 2) < 1e-12);
 }
+// six-freedom frame: horizontal actions (statics and closed forms)
+{
+  const C = global.CORE, base = Object.assign({}, C.CASES.cs01.p, { skew: 0 });
+  const run = (over, F) => { const p = Object.assign({}, base, over), g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), RS = C.responses(m); return { p, g, m, RS, v: C.evalResponses(m, RS, C.solve(S, F(m, g, p))) }; };
+  const sum = (o, kind, f) => o.m.sup.reduce((a, s, q) => a + (f && !f(s) ? 0 : o.v[o.RS.idx[kind + ':' + q]]), 0);
+  let o = run({}, (m, g, p) => C.hzLoads(m, g, p, 'x', () => 500));
+  t('braking 500 kN, fixed / free bearings: all of it at the fixed line, shared equally; nothing vertical or transverse', Math.abs(sum(o, 'Hx', s => s.end === 'start') - 500) < 1e-6 && Math.abs(sum(o, 'Hx', s => s.end === 'end')) < 1e-9 && Math.abs(sum(o, 'Hy')) < 1e-6 && Math.abs(sum(o, 'Rb')) < 1e-6
+    && o.m.sup.filter(s => s.end === 'start').every((s, q) => Math.abs(o.v[o.RS.idx['Hx:' + o.m.sup.indexOf(s)]] - 500 / o.g.ng) < 1), sum(o, 'Hx', s => s.end === 'start').toFixed(3));
+  o = run({}, (m, g, p) => C.hzLoads(m, g, p, 'y', k => 6 * g.spans[k].L)); const L = o.g.spans[0].L;
+  const hs = sum(o, 'Hy', s => s.end === 'start'), Fw = C.hzLoads(o.m, o.g, o.p, 'y', k => 6 * o.g.spans[k].L);
+  const Mload = o.m.nodes.reduce((a, n) => a + n.x * Fw[C.ND * n.id + 4], 0), Mbrg = o.m.sup.reduce((a, s, q) => a + o.m.nodes[s.node].x * o.v[o.RS.idx['Hy:' + q]] - o.m.nodes[s.node].y * o.v[o.RS.idx['Hx:' + q]], 0);
+  t('transverse wind 6 kN/m: force and moment in plan balance; two guided bearings carry it; the fixed line, which also resists turning in plan, takes between 1/2 and 5/8', Math.abs(sum(o, 'Hy') - 6 * L) < 1e-6 && Math.abs(Mbrg - Mload) < 1e-6 * Math.abs(Mload) && hs / (6 * L) > 0.5 && hs / (6 * L) < 0.625 && o.m.sup.filter(s => s.ky).length === 2 && Math.abs(sum(o, 'Hx')) < 1e-6, (100 * hs / (6 * L)).toFixed(1) + ' % at the fixed line');
+  o = run({}, (m, g, p) => C.thermalLoads(m, p, 25)); const far = o.m.sup.filter(s => s.end === 'end')[0], dl = o.p.alphaT * 1e-6 * 25 * L * 1000;
+  t('uniform temperature, fixed / free with one transverse guide per line: free expansion alpha dT L at the free end and no bearing force', Math.abs(o.v[o.RS.idx['ux:' + far.node]] - dl) < 1e-6 * dl && o.m.sup.every((s, q) => Math.abs(o.v[o.RS.idx['Hx:' + q]]) < 1e-6 && Math.abs(o.v[o.RS.idx['Hy:' + q]]) < 1e-6), dl.toFixed(3) + ' mm');
+  o = run({ brgT: 'all' }, (m, g, p) => C.thermalLoads(m, p, 25));
+  t('uniform temperature with every bearing held transversely: the deck width is restrained and the bearings take transverse force (self-balancing)', Math.max(...o.m.sup.map((s, q) => Math.abs(o.v[o.RS.idx['Hy:' + q]]))) > 10 && Math.abs(sum(o, 'Hy')) < 1e-6);
+  const ke = 3000; o = run({ brg: { start: 'elastomeric', end: 'elastomeric' }, brgKe: ke }, (m, g, p) => C.thermalLoads(m, p, 25));
+  const EA = o.m.els.filter(e => e.type === 'girder' && e.i === 0 && e.j === 0)[0].EA, d2 = dl / 1000 / 2 / (1 + ke * L / (2 * EA)), h0 = o.v[o.RS.idx['Hx:' + o.m.sup.indexOf(o.m.sup.filter(s => s.end === 'start' && s.i === 2)[0])]];
+  t('elastomeric bearings both ends: each end moves about half the free expansion, bearing force = shear stiffness x movement (bar on two springs, 1 %)', Math.abs(Math.abs(h0) / (ke * d2) - 1) < 0.01 && Math.abs(sum(o, 'Hx')) < 1e-6, Math.abs(h0).toFixed(2) + ' kN vs ' + (ke * d2).toFixed(2));
+  o = run({ brg: { start: 'elastomeric', end: 'elastomeric' } }, (m, g, p) => C.hzLoads(m, g, p, 'x', () => 500));
+  t('elastomeric both ends: braking shared by both lines', Math.abs(sum(o, 'Hx', s => s.end === 'start') - 250) < 1 && Math.abs(sum(o, 'Hx') - 500) < 1e-6);
+  let msg = ''; try { run({ brg: { start: 'free', end: 'free' } }, (m, g, p) => C.hzLoads(m, g, p, 'x', () => 1)); } catch (e) { msg = e.message; }
+  t('free bearings at both ends: refused as unstable, naming the freedom', /unstable/.test(msg) && /uX/.test(msg), msg.slice(0, 70));
+  const cb = C.generateCombos(C.CASES_DEF.map(c => Object.assign({}, c)));
+  t('combinations: braking rides with traffic at its factor; wind and temperature rows exist', cb.find(c => c.id === 'ULS-1').f.BRK === 1.8 && cb.find(c => c.id === 'SLS-1').f.BRK === 1.0 && cb.find(c => c.id === 'ULS-W').f.WTu === 1 && cb.find(c => c.id === 'ULS-T').f.TU === 1.25 && cb.find(c => c.id === 'SLS-T').f.TU === 1);
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

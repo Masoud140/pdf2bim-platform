@@ -41,6 +41,14 @@ var ANALYSIS = (function () {
       if (!on[id]) return; var w1 = C.evalResponses(m, RS, C.solve(S, C.windLoads(m, g, p, 1))), q = Math.abs(id === 'WVu' ? p.windVu : p.windVs) || 0, mx = new Float64Array(nr), mn = new Float64Array(nr);
       for (var k = 0; k < nr; k++) { mx[k] = Math.abs(w1[k]) * q; mn[k] = -mx[k]; } V[id] = { max: mx, min: mn };
     });
+    /* horizontal actions: one solve each, enveloped in both directions */
+    var pm = function (v) { var mx = new Float64Array(nr), mn = new Float64Array(nr); for (var k = 0; k < nr; k++) { mx[k] = Math.abs(v[k]); mn[k] = -mx[k]; } return { max: mx, min: mn }; };
+    var Lsp = function (k) { return g.spans[k].L; };
+    if (on.BRK) { log('Braking'); V.BRK = pm(C.evalResponses(m, RS, C.solve(S, C.hzLoads(m, g, p, 'x', function () { return p.hBrake || 0; })))); }
+    if (on.CEN) V.CEN = pm(C.evalResponses(m, RS, C.solve(S, C.hzLoads(m, g, p, 'y', function () { return p.hCent || 0; }))));
+    if (on.WTu || on.WTs) { log('Transverse wind'); var wt = C.evalResponses(m, RS, C.solve(S, C.hzLoads(m, g, p, 'y', Lsp)));   /* 1 kN/m */
+      ['WTu', 'WTs'].forEach(function (id) { if (on[id]) { var q = Math.abs(id === 'WTu' ? p.windTu : p.windTs) || 0, e = pm(wt); for (var k = 0; k < nr; k++) { e.max[k] *= q; e.min[k] *= q; } V[id] = e; } }); }
+    if (on.TU) { log('Uniform temperature'); V.TU = pm(C.evalResponses(m, RS, C.solve(S, C.thermalLoads(m, p, p.dTuni || 0)))); }
     var env = {}, IM = null;
     ['M1600', 'S1600'].forEach(function (vk) {
       if (!on[vk]) return;
