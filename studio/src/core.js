@@ -24,7 +24,7 @@ var CORE = (function () {
     fitD: 16, fitLegs: 2, fitS: 125, fsyf: 500, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
     vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     windVu: 1.0, windVs: 0.5, dTtop: 20, dTdepth: 300, alphaT: 11, dTuni: 25, gbars: '',
-    piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3 },
+    piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3, gl: 1.5, L: 18 }   /* gl: ground level below the cap soffit (m); L: pile length (m): drawn and reported, the pile check uses Lf */,
     strands: null, gStr: {}   /* gStr: {girder index: own strand pattern}; girders not listed use `strands` */
   };
   function strandDefault(sec) {
@@ -373,7 +373,18 @@ var CORE = (function () {
     { id: 'S1600', name: 'S1600 stationary traffic', cls: 'Traffic', act: 'S1600', on: true },
     { id: 'WVu', name: 'Wind, vertical on the deck (ultimate)', cls: 'Wind', act: 'W', on: false, note: 'Vertical wind pressure on the deck plan, upward or downward (enveloped). Transverse wind is not modelled in this vertical-load grillage.' },
     { id: 'WVs', name: 'Wind, vertical on the deck (serviceability)', cls: 'Wind', act: 'W', on: false },
-    { id: 'TEMP', name: 'Temperature', cls: 'Environmental', act: 'T', on: false, proposed: true, note: 'Not a grillage case: simply supported girders carry no restraint moment. Differential-temperature stresses and bearing movements are on the Stages and Bearings pages.' }
+    { id: 'HLP', name: 'HLP 320 / 400 heavy load platform', cls: 'Traffic', act: 'HLP', on: false, proposed: true, note: 'Platform app only: needs the platform vehicle, its lane rules and co-existing half M1600.' },
+    { id: 'PED', name: 'Pedestrian load', cls: 'Traffic', act: 'PED', on: false, proposed: true, note: 'Platform app only: no footpath in the Studio deck.' },
+    { id: 'BRK', name: 'Braking force', cls: 'Horizontal', act: 'BRKR', on: false, proposed: true, note: 'Horizontal: this grillage has vertical degrees of freedom only. A braking force for the pile check is an input on the Boundary conditions page.' },
+    { id: 'CEN', name: 'Centrifugal force', cls: 'Horizontal', act: 'CENR', on: false, proposed: true, note: 'Horizontal: needs the full platform model.' },
+    { id: 'WT', name: 'Wind, transverse and longitudinal', cls: 'Wind', act: 'W', on: false, proposed: true, note: 'Horizontal: needs the full platform model. Vertical wind is modelled above.' },
+    { id: 'TU', name: 'Temperature, uniform', cls: 'Thermal', act: 'TU', on: false, proposed: true, note: 'No restraint force in simply supported spans on free bearings; the movement is on the Bearing actions page.' },
+    { id: 'TEMP', name: 'Temperature, differential (gradient)', cls: 'Thermal', act: 'TG', on: false, proposed: true, note: 'Not a grillage case: self-equilibrating stresses are on the Stages page; not yet added to the checks.' },
+    { id: 'SCR', name: 'Shrinkage and creep shortening', cls: 'Thermal', act: 'SCR', on: false, proposed: true, note: 'Prestress losses and hog are in the losses engine; restraint effects need the full platform model.' },
+    { id: 'EP', name: 'Earth pressure and traffic surcharge on abutments', cls: 'Horizontal', act: 'EP', on: false, proposed: true, note: 'Substructure: needs the full platform model.' },
+    { id: 'EQ', name: 'Earthquake', cls: 'Horizontal', act: 'EQ', on: false, proposed: true, note: 'Needs mass, horizontal stiffness and the substructure: full platform model.' },
+    { id: 'FL', name: 'Water flow and debris', cls: 'Horizontal', act: 'FL', on: false, proposed: true, note: 'Platform app only.' },
+    { id: 'COL', name: 'Collision loads (barrier, pier)', cls: 'Horizontal', act: 'COL', on: false, proposed: true, note: 'Platform app only.' }
   ];
   function defaultCombos() {   /* factors from the standards inventory (DLc 1.2/0.85/1.0, SDLs 1.4/1.0, SDLp 2.0/1.3, traffic 1.8/1.0), construction illustrative */
     return [

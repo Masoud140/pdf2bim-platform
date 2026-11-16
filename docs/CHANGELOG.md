@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-16 — Studio dashboard parity, second pass (ADR-069)
+- Properties and Boundary conditions pages; all loads listed (greyed where not applicable); editable construction stages; point-of-interest staged SLS stress diagram on the Super-T design page.
+
 ## 2026-11-16 — Studio Tier 3 (ADR-068)
 - Stages, hog & temperature page; Bearing actions page; vertical wind cases and combinations; girder bars in ULS bending and on the section; per-girder strand patterns; S-1…S-4.
 

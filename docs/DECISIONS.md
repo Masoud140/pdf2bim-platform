@@ -746,3 +746,12 @@
 - **Per-girder strands (M-4):** `p.gStr[girder index]` overrides the shared pattern for that girder in the design run, the editor and the report export.
 - **Tests:** `studio/tests/test_engines.js` 22/22; browser check of all 14 tabs before and after a run.
 - **Not done:** section-drawing zoom; generated live-load model page; own patterns in the AI assistant / optimiser (they act on the shared pattern).
+
+## ADR-069 Studio parity with the BR13A dashboard, second pass (2026-11-16)
+- **Status:** done (owner list of five gaps).
+- **Construction stages:** editable stage inputs (ages, transfer strength, support position, construction live load) on the Stages page.
+- **Properties page:** materials, girder definition (cross-section, section properties, a per-girder table) and member properties in one place. Cards are taken from the pages that own them (`U.pick`), so each has one definition.
+- **Loads:** every AS 5100.2 action is listed; the twelve the vertical-load grillage cannot carry are greyed with the reason (HLP, pedestrian, braking, centrifugal, transverse wind, uniform and differential temperature, shrinkage / creep, earth pressure, earthquake, flood, collision).
+- **Boundary conditions page:** bearing springs per girder end; piles with ground level, pile length and depth to fixity, drawn in elevation. The pile check still uses the fixity depth: soil springs along the pile stay in the platform.
+- **Super-T design, point of interest:** pick girder, section and SLS combination; staged stress diagram through the section (Super-T alone, composite increment, total) against the limits; the Check limits card is repeated on the design page.
+- **Not done:** ULS strain / force diagram at the point of interest; cracked-section stage; shear and torsion detail at the point; stage list with user-added stages (the four stages are fixed, their inputs editable).

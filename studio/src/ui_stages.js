@@ -12,6 +12,10 @@
     var p = ST.p, g = CORE.geometry(p); U.clampSel(); var sc = CORE.sections(p, g), R = ST.R.design, fresh = U.fresh(['design']);
     var h = '<div><h1 class="h1">Stages, hog and temperature</h1><p class="lede">How the girder is loaded through its life: transfer, wet deck on the bare girder, composite action, service. Then the hog and prestress with time, and the stresses from a temperature difference through the depth.</p></div>';
     h += '<section class="card"><div class="row">' + girderSeg(g) + '</div></section>';
+    h += '<section class="card"><h3>Construction stages ' + U.tag('ill') + '<span class="sub">editable: the ages drive the losses, the hog history and the stage stresses; a change marks the design out of date</span></h3><div class="form">' +
+      U.fld('stage.tau', '1. Transfer: girder age', 'days', { min: 1, max: 28 }) + U.fld('fcT', "Concrete strength at transfer f'cp", 'MPa', { min: 25, max: 65 }) + U.fld('endDist', 'Support from the girder end at transfer and erection', 'm', { min: 0.1, max: 1.5 }) +
+      U.fld('stage.pour', '2. Deck poured: girder age', 'days', { min: 14, max: 365 }) + U.fld('stage.dhard', 'Days until the deck acts compositely', 'days', { min: 1, max: 28 }) + U.fld('constLL', 'Construction live load during the pour', 'kPa', { min: 0, max: 5 }) +
+      U.fld('stage.sidlA', '3. Barriers and surfacing placed: girder age', 'days', { min: 30, max: 1000 }) + U.fld('stage.final', '4. Long term: age for final losses', 'days', { min: 365, max: 36500 }) + '</div></section>';
     h += '<div class="' + (fresh ? '' : 'is-stale') + '" style="display:grid;gap:14px">' + U.staleBox(['design'], 'stage results');
     var D = R && R.data.D[ST.sel.sk] && R.data.D[ST.sel.sk][ST.sel.gi];
     if (D && !D.err) {
