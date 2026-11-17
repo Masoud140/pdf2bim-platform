@@ -137,6 +137,9 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     ix = {n: i for i, n in enumerate(CA["names"])}
     byname = {q["name"]: q for q in rows}
     fpb_tab = p["mbl"] * 1e3 / p["Ap"]
+    from .prestress_checks import _development, strand_stress_cap
+    dev = _development(p, r, std, None)["strands"]
+    Lt = p["lt"] * p["db"]
     out, notes = [], []
     th = CA["primitives"]["cases"]["thermal"]["inputs"]
     alpha, prof = th["temperature"]["alpha"], th["profiles"]
@@ -191,10 +194,14 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
             continue
         sec = st["section"]
         F = strand_forces_at(r, st["x_m"] * 1000.0, time)
+        n_cap = 0
         for td in sec.tend:
             td["sp"] = F[td["k_on"]] * 1e3 / td["A"]
             if td.get("fpb") is None:
                 td["fpb"] = fpb_tab
+            cap = strand_stress_cap(dev[td["k_on"]], st["x_m"] * 1000.0, td["fpb"], Lt)
+            if cap < td["fpb"] and td["sp"] > 0:
+                td["fpb"] = max(cap, td["sp"]); n_cap += 1
         sec.tend = [td for td in sec.tend if td["sp"] > 0]
         x0 = st["x_m"]
         lo = max((q for q in ends if q[0] <= x0), key=lambda q: q[0], default=None)
@@ -207,7 +214,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         mt = st["materials"]
         lv = {"y_deck_bot": S["deck_thickness"], "y_gir_top": st["y_girder_top"], "Dtot": st["Dtot"], "Eg": mt["E_girder"], "Ed": mt["E_deck"], "fcg": mt["fc_girder"], "fcd": mt["fc_deck"]}
         lim = crack_limits(sec, std)
-        res = {"t": t, "x_m": x0, "conf": st["conf"], "element": near[2][1], "end": near[3], "n_strands": len(sec.tend), "Mnc": Mnc, "limits": lim}
+        res = {"t": t, "x_m": x0, "conf": st["conf"], "element": near[2][1], "end": near[3], "n_strands": len(sec.tend), "n_dev_capped": n_cap, "Mnc": Mnc, "limits": lim}
         if st["conf"] == "open":
             for side, Es_k, Eu_k, which in (("sag", "max", "max", "max"), ("hog", "min", "min", "min")):
                 Ms = interp(E_s, Es_k, lo, hi, w); Mu = interp(E_u, Eu_k, lo, hi, w)
@@ -271,6 +278,7 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     from .prestress_checks import prestress_checks
     client = rd_.value((doc.get("project") or {}).get("client"), "project.client", required=False)
     pc = prestress_checks(p, r, std, client, [q["x_m"] for q in out if q["conf"] == "open"])
-    notes.append("prestress checks (transfer stresses, debonding, development length): see 'prestress'; ULS bending at stations inside a strand's development length uses that strand at full capacity" if pc["development"]["flagged_stations"] else "prestress checks: see 'prestress'")
+    notes.append("prestress checks (transfer stresses, debonding, development length): see 'prestress'; ULS bending caps strands inside their development length "
+                 "(sigma_pe at the transmission length rising linearly to fpb at Lp; 'n_dev_capped' per station)")
     return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r), "useN": useN, "dsh": dsh, "prestress": pc,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

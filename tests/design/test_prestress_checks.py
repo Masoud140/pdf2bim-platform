@@ -48,6 +48,12 @@ s0 = V["strands"][0]; s1 = V["strands"][1]
 t("development: Lp = 0.145 (fpb - 0.67 sigma_pe) db, doubled for a debonded strand", abs(s1["Lp"] - Lp) < 1e-9 and abs(s1["devA"] - Lp) < 1e-9 and abs(s0["devA"] - (2000 + 2 * Lp)) < 1e-9, f"Lp {Lp:.0f} mm")
 fl = {q["x_m"]: q["n_partial"] for q in V["flagged_stations"]}
 t("development: stations inside a development length are flagged with the right strand count", fl.get(1.0) == 4 and fl.get(5.0) == 2 and 10.0 not in fl, str(fl))
+from pdf2bim.design.prestress_checks import strand_stress_cap
+Lt = 60 * 15.2
+c = [strand_stress_cap(s1, x, fpb, Lt) for x in (Lt / 2, Lt, (Lt + Lp) / 2, Lp + 1, 10000.0)]
+t("capacity cap: sigma_pe within the transmission length, linear to fpb at Lp, fpb beyond",
+  abs(c[0] - spe) < 1e-9 and abs(c[1] - spe) < 1e-9 and abs(c[2] - (spe + fpb) / 2) < 1e-6 and c[3] == fpb and c[4] == fpb, str([round(v) for v in c]))
+t("capacity cap: debonded strand measured from its bond start, over 2 Lp", abs(strand_stress_cap(s0, 2000 + Lt + (2 * Lp - Lt) / 2, fpb, Lt) - (spe + fpb) / 2) < 1e-6)
 t("results carry the unverified-standards status", o["standards_status"].startswith("UNVERIFIED"))
 
 # real description: B12452 debonding count from its strand pattern

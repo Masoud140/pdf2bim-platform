@@ -30,7 +30,7 @@
 | 6 | Debonded strands, NSW Super-T | ≤ 50 % of the strands debonded at any section. A strand horizontally or vertically adjacent to a debonded strand must not be debonded. | TfNSW BTD 2011/06 Rev 1 | **confirmed** (same source). **Platform: implemented 2026-11-17 (ADR-072)** when the client is TfNSW. Studio still uses 25 % / 40 % per row with no adjacency check. |
 | 6a | Debonding, AS 5100.5 | No percentage limit. Length and arrangement follow from the design checks. | — | consistent |
 | 7 | Transmission length | Ordinary and compact 7-wire strand: Lpt = 60 db (912 mm for 15.2 mm). Unstressed end zone 0.1 Lpt. | AS 5100.5 Cl 13.3.2.1 (verify) | matches `AS5100.5:prestress:transmission_length`. The 0.1 Lpt dead zone is not modelled (the engines ramp linearly from the end). |
-| 7a | Development length | Lp = 0.145 (σpu − 0.67 σp.ef) db ≥ 60 db. Debonded strand: 2 Lp where the design allows tension (Cl 8.6.2 / 9.4.2) within that length. | AS 5100.5 Cl 13.3.2.2 (verify) | **Platform: flagged 2026-11-17 (ADR-072)**: ULS stations inside a development length are listed; capacity not yet reduced. Studio: not checked. |
+| 7a | Development length | Lp = 0.145 (σpu − 0.67 σp.ef) db ≥ 60 db. Debonded strand: 2 Lp where the design allows tension (Cl 8.6.2 / 9.4.2) within that length. | AS 5100.5 Cl 13.3.2.2 (verify) | **Platform and Studio: capacity reduced 2026-11-18 (ADR-073)**: inside Lp the strand stress is capped at σpe (to the transmission length) rising linearly to fpb at Lp; stations still listed (ADR-072). |
 
 ## Corrections to the owner note
 

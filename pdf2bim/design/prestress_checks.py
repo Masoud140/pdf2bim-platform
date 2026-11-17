@@ -89,13 +89,26 @@ def _development(p, r, std, stations_m):
     flagged = []
     for x_m in stations_m or []:
         x = x_m * 1000.0
-        part = [s["i"] for s in strands if (s["startA"] < x < s["devA"]) or (s["devB"] < x < s["startB"])]   # any force at all is counted at full fpb by uls_bend
+        part = [s["i"] for s in strands if (s["startA"] < x < s["devA"]) or (s["devB"] < x < s["startB"])]
         if part:
             flagged.append({"x_m": x_m, "n_partial": len(part), "strands": part})
     return {"fpb": fpb, "db": db, "Lp_min": min(s["Lp"] for s in strands), "Lp_max": max(s["Lp"] for s in strands),
             "full_from_A_m": max(s["devA"] for s in strands) / 1000.0, "full_from_B_m": (L - min(s["devB"] for s in strands)) / 1000.0,
             "strands": strands, "flagged_stations": flagged,
-            "note": "a flagged station counts strands at full capacity in ULS bending inside their development length: capacity there is overstated"}
+            "note": "at a flagged station ULS bending caps those strands at strand_stress_cap (sigma_pe at the transmission length rising linearly to fpb at Lp)"}
+
+
+def strand_stress_cap(s, x, fpb, Lt):
+    """Largest stress strand s (a _development strand) can develop at x (mm from end A): sigma_pe up to the transmission
+    length Lt from the bonded start, rising linearly to fpb at the development length, fpb beyond (AS 5100.5 Cl 13.3.2.2,
+    verify). Inside Lt the force itself is already reduced by the transmission (strand_forces_at)."""
+    Ld = s["Lp"] * s["factor"]                                     # debonded strands: debonded_factor x Lp
+    xb = min(x - s["startA"], s["startB"] - x)                     # bonded length to the nearer bond start
+    if xb >= Ld:
+        return fpb
+    if xb <= Lt or Ld <= Lt:
+        return s["sigma_pe"]
+    return s["sigma_pe"] + (fpb - s["sigma_pe"]) * (xb - Lt) / (Ld - Lt)
 
 
 def prestress_checks(p, r, std, client=None, stations_m=None):

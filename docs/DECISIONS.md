@@ -785,3 +785,9 @@
 - **Alternatives:** AASHTO-style 25 % / 40 % debonding (Studio) not ported; reduced φMu inside Lp (bilinear stress) not done: flagging first, reduction needs the clause text.
 - **Findings for the owner:** B12452 transfer compression u = 1.09 (bottom 25.2 MPa at midspan region, f'cp 40). SB42 42-S1-05: platform transfer compression about 20.5–21.8 MPa vs the report's 19.3 MPa (limit 24 = 0.6 f'cp); report tension 3.15 MPa (limit 3.16 = 0.5 √40) vs platform about 1.0 MPa. The report's transfer basis (support positions, losses at transfer) is unknown.
 - **Tests:** `tests/design/test_prestress_checks.py` 13/13; `tests/standards/test_standards.py` 30/30; `tools/girder_checks.py` run on B12452 (both girders) end to end.
+
+## ADR-073 Strand capacity reduced inside the development length (2026-11-18)
+- **Decision:** ULS bending caps each strand's stress inside its development length: σpe up to the transmission length from the bonded start, rising linearly to fpb at Lp (2 Lp for debonded strands), fpb beyond. Platform: `prestress_checks.strand_stress_cap`, applied as the tendon's `fpb` in `girder_design.checks_along` (`n_dev_capped` per station). Studio: the same cap in `analysis.js` design().
+- **Status:** PROVISIONAL. Linear-rise form as commonly applied with AS 5100.5 Cl 13.3.2.2 / AS 3600; the clause wording is not yet checked against the licensed edition (register entry stays transcribed-unverified). Supersedes ADR-072's "flag only".
+- **Effect:** Studio example girder: φMu at 4.67 m 13,519 → 12,561 kNm (−7 %), at the end 4,829 → 2,522. Mid-span values (the benchmarks) unchanged.
+- **Tests:** test_prestress_checks 15/15 (two cap tests added); test_girder_checks 8/8, test_girder_flexure 8/8, test_girder_sls 11/11, test_girder_shear 5/5, test_benchmark 4/4, standards 30/30; Studio test_engines 47/47, test_core 12/12, headless run of the published build with no page errors.

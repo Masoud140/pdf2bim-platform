@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Strand capacity inside the development length (ADR-073)
+- ULS bending caps strand stress inside Lp (σpe at the transmission length rising to fpb at Lp) in the platform and the Studio; Studio artifact republished.
+
 ## 2026-11-18 — SB41 WB (B12459) indicative run
 - Drawing values for two spans (`projects/B12459/extraction/values.py`), descriptions, chain runs and an indicative comparison with report tables 4-27 / 4-28 (continuity not modelled). SB41 EB values: girder_options row order fixed (one value had been refused).
 

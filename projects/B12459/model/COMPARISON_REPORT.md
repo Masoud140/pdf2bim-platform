@@ -26,7 +26,7 @@ Known limits of this run (whether a difference is acceptable is the engineer's c
 - the girder ends stop short of the single pier bearing (X1 - chord = -180 .. -490 mm): the pier end is modelled 100 mm past the bearing (Model);
 - abutment B girder end distance taken 400 as abutment A (0709 dims at 44°: query);
 - deck taken at the widest 0801 W1 / W2 station in each span (the deck tapers 18.1 -> 15.0 m in span 1): the south edge girder 41B-S1-01 carries a 3.9 m overhang at the pier end that does not exist, so its M* / V* (largest of the bridge) are not comparable — compare girder 09;
-- SLS soffit tension 9.7 MPa vs 3.06: simply supported SDL + traffic (the report's are continuous) and generic losses (D-1); transfer compression +20 % with f'cp 40 — check the 0724 strand reading for S1-07..09 (52 strands) before drawing conclusions;
+- SLS soffit tension 9.7 MPa vs 3.06: simply supported SDL + traffic (the report's are continuous) and generic losses (D-1); transfer compression +20 % with f'cp 40; the 0724 strand reading for S1-07..09 (52 strands) was re-checked: the difference is the basis, not the reading;
 - one Super-T type per span (strands of the 07-09 group, fitments of girder 09);
 - headstock ends of the shared abutments = end bearings ± 1 m (Model); barrier section as SB41 EB (query);
 - skew above 35° at abutment B; HLP400 placed by the platform's rule, not the two-marked-lanes position.

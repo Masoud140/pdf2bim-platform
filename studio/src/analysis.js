@@ -217,18 +217,19 @@ var ANALYSIS = (function () {
       });
       /* ULS bending: composite strain compatibility (DSG engine), strands effective by transmission / debonding */
       var S = { conc: DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10)), bars: parseBars(p.gbars).map(function (b) { return { y: p.slab + sc.H - b.y, A: b.n * Math.PI * b.d * b.d / 4, E: 200000, fsy: 500 }; }), tend: [] };
-      fs.forEach(function (q, k) { var ef = Math.max(0, Math.min(1, (xg - (q.d || 0)) / lt, (h.L - xg - (q.d2 || 0)) / lt)); if (ef <= 0) return;
-        var sp_ = PmF[k] * 1e3 / Ap; S.tend.push({ y: p.slab + sc.H - q.y, A: Ap * ef, E: Ep, fpb: h.mbl * 1e3 / Ap, eu: 0.035, spe: sp_, epe: sp_ / Ep + (ps.P * 1e3 / sc.A + ps.P * 1e3 * ps.e * ps.e / sc.I) / sc.Eg }); });
+      var fpbT = h.mbl * 1e3 / Ap, dev = { n: 0, A: 0, At: 0 };
+      fs.forEach(function (q, k) { var lb = Math.min(xg - (q.d || 0), h.L - xg - (q.d2 || 0)); if (lb <= 0) return;
+        var sp_ = PmF[k] * 1e3 / Ap, ef = Math.min(1, lb / lt);
+        /* development length, AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu - 0.67 σpe) db >= 60 db, 2 Lp for a debonded strand; σpu taken as fpb.
+           Capacity cap inside Lp (as the platform's strand_stress_cap): σpe up to the transmission length, rising linearly to fpb at Lp. */
+        var Lp = Math.max(60 * p.db, 0.145 * (fpbT - 0.67 * sp_) * p.db) * ((q.d || q.d2) ? 2 : 1);
+        var cap = lb >= Lp ? fpbT : (lb <= lt || Lp <= lt ? sp_ : sp_ + (fpbT - sp_) * (lb - lt) / (Lp - lt));
+        dev.At += Ap; if (lb < Lp) { dev.n++; dev.A += Ap; }
+        S.tend.push({ y: p.slab + sc.H - q.y, A: Ap * ef, E: Ep, fpb: cap, eu: 0.035, spe: sp_, epe: sp_ / Ep + (ps.P * 1e3 / sc.A + ps.P * 1e3 * ps.e * ps.e / sc.I) / sc.Eg }); });
       var kU = A.RS.idx[key], uls = A.CB.filter(function (c) { return c.ls === 'ULS'; });
       var Mu = uls.reduce(function (m_, c) { return Math.max(m_, c.max[kU]); }, 0), Vu = 0, Tu = 0, govM = governing(A, key, 'ULS', 'max'), govV = governing(A, kv, 'ULS'), govT = governing(A, kt, 'ULS');
       uls.forEach(function (c) { Vu = Math.max(Vu, Math.abs(c.max[A.RS.idx[kv]]), Math.abs(c.min[A.RS.idx[kv]])); Tu = Math.max(Tu, Math.abs(c.max[A.RS.idx[kt]]), Math.abs(c.min[A.RS.idx[kt]])); });
       st.Mu = Mu; st.Vu = Vu; st.Tu = Tu; st.govM = govM; st.govV = govV; st.govT = govT;
-      /* development length, AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu - 0.67 σpe) db >= 60 db; 2 Lp for a debonded strand
-         (conservative: tension within that length assumed). σpu taken as fpb (upper bound, longer Lp). Strands short of Lp are counted. */
-      var dev = { n: 0, A: 0, At: 0 };
-      fs.forEach(function (q, k) { var lb = Math.min(xg - (q.d || 0), h.L - xg - (q.d2 || 0)); if (lb <= 0) return;
-        var spe = PmF[k] * 1e3 / Ap, Lp = Math.max(60 * p.db, 0.145 * (h.mbl * 1e3 / Ap - 0.67 * spe) * p.db) * ((q.d || q.d2) ? 2 : 1);
-        dev.At += Ap; if (lb < Lp) { dev.n++; dev.A += Ap; } });
       st.dev = dev;
       /* crack control, AS 5100.5 Cl 8.6.2.1(b): tendon stress increment above decompression, cracked composite section (staged) */
       if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; });
@@ -343,7 +344,7 @@ var ANALYSIS = (function () {
       add('Detailing', 'Debonded strands, worst row', D.detail.debR, lim.dbR, '%', '', 'limit ' + lim.dbR + ' % (input; AASHTO-style rule)');
     }
     var dv = st.filter(function (s) { return s.dev && s.dev.n && s.Mu > 0 && s.phiMu; }).reduce(function (b, s) { return !b || s.Mu / s.phiMu > b.Mu / b.phiMu ? s : b; }, null);
-    add('Detailing', 'Strands within their development length where M* acts', dv ? 100 * dv.dev.A / dv.dev.At : 0, null, '%', '', 'AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu − 0.67 σpe) db ≥ 60 db, 2 Lp for debonded strands; φMu assumes full development',
+    add('Detailing', 'Strands within their development length where M* acts', dv ? 100 * dv.dev.A / dv.dev.At : 0, null, '%', '', 'AS 5100.5 Cl 13.3.2.2 (verify): Lp = 0.145 (σpu − 0.67 σpe) db ≥ 60 db, 2 Lp for debonded strands; φMu caps these strands (σpe at the transmission length rising to fpb at Lp)',
       dv ? 'x = ' + dv.x.toFixed(1) + ' m: ' + dv.dev.n + ' strands not fully developed (M*/φMu ' + (dv.Mu / dv.phiMu).toFixed(2) + '); φMu there is unconservative: check by hand' : '');
     out[out.length - 1].ok = dv ? null : true;
     add('Detailing', 'Debond + 2 × transmission length vs girder length', D.detail.mxd + 2 * D.detail.lt, D.detail.Lg, 'mm', '', 'transmission length ' + D.detail.lt.toFixed(0) + ' mm');
