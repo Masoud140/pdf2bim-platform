@@ -57,4 +57,4 @@ Note: the limits 3.16 and 24 MPa are 0.5 √f'cp and 0.6 f'cp **for f'cp 40**, t
 
 1. Stage 2: `projects/B12460/extraction/values.py` → four span descriptions `projects/B12460-S1 … S4` (ADR-062 pattern), with the MC80 bearing flag. **Done 2026-11-17.**
 2. Stage 3: run the chain per span; `projects/B12460/model/COMPARISON_REPORT.md` against tables 4-31 / 4-32 and the pier pile tables.
-3. Then SB41 WB as an indicative, simply supported comparison (continuity not modelled).
+3. Then SB41 WB as an indicative, simply supported comparison (continuity not modelled). **Done 2026-11-18**: `projects/B12459/`.
