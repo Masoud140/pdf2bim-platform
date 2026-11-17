@@ -175,7 +175,7 @@ BW_TXT = (f"1006 section 1 (precast PB, edge-mounted) polygon as read for SB42 (
 BRG_RL = {("A", "B"): {1: 8.720, 2: 8.652, 3: 8.579, 4: 8.505}, ("P1", "A"): {1: 8.611, 2: 8.535, 3: 8.455, 4: 8.372},
           ("P1", "B"): {1: 8.608, 2: 8.531, 3: 8.450, 4: 8.369}, ("P2", "A"): {1: 8.441, 2: 8.365, 3: 8.285, 4: 8.204},
           ("P2", "B"): {1: 8.443, 2: 8.366, 3: 8.285, 4: 8.203}, ("P3", "A"): {1: 8.264, 2: 8.188, 3: 8.107, 4: 8.026},
-          ("P3", "B"): {1: 8.265, 2: 8.187, 3: 8.100, 4: 8.008}}
+          ("P3", "B"): {1: 8.265, 2: 8.187, 3: 8.100, 4: 8.008}, ("B", "A"): {1: 8.159, 2: 8.004, 3: 7.818, 4: 7.649}}
 BRG_ID = {("A", "B"): "41A-A-0{k}", ("P1", "A"): "41A-P1-0{k}", ("P1", "B"): "41A-P1-0{k4}", ("P2", "A"): "41A-P2-0{k}", ("P2", "B"): "41A-P2-0{k4}",
           ("P3", "A"): "41A-P3-0{k}", ("P3", "B"): "41A-P3-0{k4}", ("B", "A"): "41A-B-0{k}"}
 HOG = {1: [(10, 15, 16, 17, -1, 39.8), (12, 17, 18, 19, -2, 41.4), (13, 19, 21, 22, -2, 43.5), (15, 21, 23, 24, -3, 45.9)],
@@ -210,8 +210,6 @@ def haunch(span, k):
     c = (hog + HOG[span][k - 1][4]) / 1000
     out = []
     for t in (0.0, 0.25, 0.5, 0.75, 1.0):
-        if rb is None and t > 0:
-            continue                      # abutment B bearing levels not in 0601 table 1: span 4 haunch at the P3 end only
         P = (Pa[0] + t * (Pb[0] - Pa[0]), Pa[1] + t * (Pb[1] - Pa[1]))
         ch, off = station(P[0], P[1], 500)
         sa, sb = ra + sum(a) / 4000, (rb + sum(b) / 4000) if rb is not None else None
@@ -279,6 +277,8 @@ def build(span):
     put = put_factory(out, docs)
     s1, s2 = SPANS[span]
     pid = f"B12460-S{span}"
+
+    put("project.client", "Transport for NSW", sheet="0101", view="title block", text="CLIENT: Transport for NSW")
 
     # alignment
     names = ("HTP5 -> HTP6", "HTP6 -> HTP7", "HTP7 -> HTP8")
@@ -455,7 +455,7 @@ def build(span):
             put(p + ".bearing_height", 157, unit="mm", sheet="0603", view="elevation", text="157")
             rl = BRG_RL.get((sid, side), {}).get(k)
             if rl is None:
-                put(p + ".top_rl", tag="Missing-Flagged", unit="m", note="abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query")
+                put(p + ".top_rl", tag="Missing-Flagged", unit="m", note="not in 0601 table 1")
             else:
                 put(p + ".top_rl", rl, unit="m", sheet="0601", view="table 1 bridge No B12460 (SB41 - eastbound) bearing levels", text=f"{bid} type A RL 'X' {rl}")
             for f in ("elastomer_thickness", "layer_thickness", "shear_modulus"):

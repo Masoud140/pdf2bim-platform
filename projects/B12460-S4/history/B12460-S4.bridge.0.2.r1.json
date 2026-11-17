@@ -434,17 +434,25 @@
    "current": "original"
   },
   "client": {
-   "value": null,
-   "tag": "Missing-Flagged",
-   "status": "open",
-   "note": "not extracted",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block",
+    "text": "CLIENT: Transport for NSW"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": "Transport for NSW",
    "original": {
-    "value": null,
+    "value": "Transport for NSW",
     "unit": null,
-    "tag": "Missing-Flagged",
+    "tag": "Direct",
     "recorded_by": "AI (extraction)",
     "recorded_at": null,
-    "note": "not extracted"
+    "source": {
+     "doc": "DRG-0101",
+     "view": "title block",
+     "text": "CLIENT: Transport for NSW"
+    }
    },
    "current": "original"
   },
@@ -1409,10 +1417,10 @@
     {
      "cells": {
       "girder": "41A-S4-01",
-      "w": 1.5
+      "w": 1.991
      },
      "derivation": {
-      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 25 mm, used along the girder, over the girder spacing 2.448 m x 25 kN/m3 = 1.5 kN/m",
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 25 / 26 / 30 / 38 / 50 mm, mean 33 mm, over the girder spacing 2.448 m x 25 kN/m3 = 1.991 kN/m",
       "inputs": []
      },
      "tag": "Calculated",
@@ -1420,14 +1428,14 @@
      "original": {
       "cells": {
        "girder": "41A-S4-01",
-       "w": 1.5
+       "w": 1.991
       },
       "unit": null,
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 25 mm, used along the girder, over the girder spacing 2.448 m x 25 kN/m3 = 1.5 kN/m",
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 25 / 26 / 30 / 38 / 50 mm, mean 33 mm, over the girder spacing 2.448 m x 25 kN/m3 = 1.991 kN/m",
        "inputs": []
       }
      },
@@ -1436,10 +1444,10 @@
     {
      "cells": {
       "girder": "41A-S4-02",
-      "w": 1.434
+      "w": 3.792
      },
      "derivation": {
-      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 23 mm, used along the girder, over the girder spacing 2.451 m x 25 kN/m3 = 1.434 kN/m",
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 23 / 39 / 59 / 83 / 112 mm, mean 62 mm, over the girder spacing 2.451 m x 25 kN/m3 = 3.792 kN/m",
       "inputs": []
      },
      "tag": "Calculated",
@@ -1447,14 +1455,14 @@
      "original": {
       "cells": {
        "girder": "41A-S4-02",
-       "w": 1.434
+       "w": 3.792
       },
       "unit": null,
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 23 mm, used along the girder, over the girder spacing 2.451 m x 25 kN/m3 = 1.434 kN/m",
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 23 / 39 / 59 / 83 / 112 mm, mean 62 mm, over the girder spacing 2.451 m x 25 kN/m3 = 3.792 kN/m",
        "inputs": []
       }
      },
@@ -1463,10 +1471,10 @@
     {
      "cells": {
       "girder": "41A-S4-03",
-      "w": 1.879
+      "w": 6.802
      },
      "derivation": {
-      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 31 mm, used along the girder, over the girder spacing 2.458 m x 25 kN/m3 = 1.879 kN/m",
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 31 / 66 / 107 / 154 / 207 mm, mean 111 mm, over the girder spacing 2.458 m x 25 kN/m3 = 6.802 kN/m",
       "inputs": []
      },
      "tag": "Calculated",
@@ -1474,14 +1482,14 @@
      "original": {
       "cells": {
        "girder": "41A-S4-03",
-       "w": 1.879
+       "w": 6.802
       },
       "unit": null,
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 31 mm, used along the girder, over the girder spacing 2.458 m x 25 kN/m3 = 1.879 kN/m",
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 31 / 66 / 107 / 154 / 207 mm, mean 111 mm, over the girder spacing 2.458 m x 25 kN/m3 = 6.802 kN/m",
        "inputs": []
       }
      },
@@ -1490,10 +1498,10 @@
     {
      "cells": {
       "girder": "41A-S4-04",
-      "w": 2.723
+      "w": 9.535
      },
      "derivation": {
-      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 44 mm, used along the girder, over the girder spacing 2.463 m x 25 kN/m3 = 2.723 kN/m",
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 44 / 93 / 150 / 214 / 286 mm, mean 155 mm, over the girder spacing 2.463 m x 25 kN/m3 = 9.535 kN/m",
       "inputs": []
      },
      "tag": "Calculated",
@@ -1501,14 +1509,14 @@
      "original": {
       "cells": {
        "girder": "41A-S4-04",
-       "w": 2.723
+       "w": 9.535
       },
       "unit": null,
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; abutment B bearing levels are not in 0601 table 1 (query): haunch at the P3 end only, 44 mm, used along the girder, over the girder spacing 2.463 m x 25 kN/m3 = 2.723 kN/m",
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; haunch at t = 0 / .25 / .5 / .75 / 1: 44 / 93 / 150 / 214 / 286 mm, mean 155 mm, over the girder spacing 2.463 m x 25 kN/m3 = 9.535 kN/m",
        "inputs": []
       }
      },
@@ -2725,21 +2733,21 @@
     },
     "haunch": {
      "derivation": {
-      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 02; all girders 01 25, 02 23, 03 31, 04 44 mm), conservative for strength",
+      "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 01; all girders 01 30, 02 59, 03 107, 04 150 mm), conservative for strength",
       "inputs": []
      },
      "tag": "Calculated",
      "status": "accepted",
      "unit": "mm",
-     "value": 23,
+     "value": 30,
      "original": {
-      "value": 23,
+      "value": 30,
       "unit": "mm",
       "tag": "Calculated",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
       "derivation": {
-       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 02; all girders 01 25, 02 23, 03 31, 04 44 mm), conservative for strength",
+       "formula": "haunch = deck concrete top - 200 slab - girder top. Deck concrete top = MC80 design level (0110 grade) - 75 + offset x 3 % falling to the north (checks 0803 RL 'A'). Girder top = bearing RL 'X' (0601 table 1) + epoxy pad (mean of the 4 corners, 0602 table 2, row of the 30-day hog of 0701) at each end, straight between the ends, + (30-day hog + deck-slab deflection, 0701) x 4t(1-t), + 1515; one section type per span: the smallest mid-span haunch (girder 01; all girders 01 30, 02 59, 03 107, 04 150 mm), conservative for strength",
        "inputs": []
       }
      },
@@ -5540,18 +5548,26 @@
      "current": "original"
     },
     "top_rl": {
-     "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "source": {
+      "doc": "DRG-0601",
+      "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+      "text": "41A-B-01 type A RL 'X' 8.159"
+     },
+     "tag": "Direct",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 8.159,
      "original": {
-      "value": null,
+      "value": 8.159,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Direct",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query"
+      "source": {
+       "doc": "DRG-0601",
+       "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+       "text": "41A-B-01 type A RL 'X' 8.159"
+      }
      },
      "current": "original"
     },
@@ -5806,18 +5822,26 @@
      "current": "original"
     },
     "top_rl": {
-     "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "source": {
+      "doc": "DRG-0601",
+      "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+      "text": "41A-B-02 type A RL 'X' 8.004"
+     },
+     "tag": "Direct",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 8.004,
      "original": {
-      "value": null,
+      "value": 8.004,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Direct",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query"
+      "source": {
+       "doc": "DRG-0601",
+       "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+       "text": "41A-B-02 type A RL 'X' 8.004"
+      }
      },
      "current": "original"
     },
@@ -6072,18 +6096,26 @@
      "current": "original"
     },
     "top_rl": {
-     "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "source": {
+      "doc": "DRG-0601",
+      "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+      "text": "41A-B-03 type A RL 'X' 7.818"
+     },
+     "tag": "Direct",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 7.818,
      "original": {
-      "value": null,
+      "value": 7.818,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Direct",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query"
+      "source": {
+       "doc": "DRG-0601",
+       "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+       "text": "41A-B-03 type A RL 'X' 7.818"
+      }
      },
      "current": "original"
     },
@@ -6338,18 +6370,26 @@
      "current": "original"
     },
     "top_rl": {
-     "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query",
-     "tag": "Missing-Flagged",
-     "status": "open",
+     "source": {
+      "doc": "DRG-0601",
+      "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+      "text": "41A-B-04 type A RL 'X' 7.649"
+     },
+     "tag": "Direct",
+     "status": "accepted",
      "unit": "m",
-     "value": null,
+     "value": 7.649,
      "original": {
-      "value": null,
+      "value": 7.649,
       "unit": "m",
-      "tag": "Missing-Flagged",
+      "tag": "Direct",
       "recorded_by": "AI (extraction)",
       "recorded_at": null,
-      "note": "abutment B bearing levels for SB41 EB are not in 0601 table 1 (columns A, P1, P2, P3 only): query"
+      "source": {
+       "doc": "DRG-0601",
+       "view": "table 1 bridge No B12460 (SB41 - eastbound) bearing levels",
+       "text": "41A-B-04 type A RL 'X' 7.649"
+      }
      },
      "current": "original"
     },
@@ -10524,7 +10564,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-17T09:45:36+00:00",
+  "created": "2026-11-17T09:52:00+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-17)",
   "decision_log_sha256": null
@@ -10533,6 +10573,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:310a1d632e0cac380963f7d7d4e73eab87a14e98afc6f4c2574e04cc80d11bea"
+  "value": "sha256:7988b4a9a82ecbed3b8d01efd026dbbaf64b19dad941f7a7a6a302f348a9f4d8"
  }
 }

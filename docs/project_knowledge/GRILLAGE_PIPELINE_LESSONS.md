@@ -57,6 +57,9 @@ table uses flange width" is still open. ANALYSIS_METHOD supersedes the "design, 
 - Material grades per member (girder 50 MPa from DRG 202300 notes; deck and cast-in-place members need their own sheet; cross girder grade still assumed 40 MPa).
 - Cross girder / diaphragm size on the support line (BR13A 800 x 1065, DRG 202011; a second dimension 420 not used).
 - Girder plan geometry: chord vs curve, edge girder flange taper (precast taper vs in-situ overhang is unresolved).
+- Shared supports (added 2026-11-17, SB41 EB): an abutment or pier carrying several bridges numbers its bearings in one table (SB-1510 abutment A: B1-B4 SB41 EB, B5-B13 SB41 WB, B14-B18 SB42). Never assume which rows belong to the bridge: station every bearing on the bridge's control line and keep the ones inside its deck.
+- Pier bearings are often only dimensioned along the headstock from a datum on the control line (CH, E, N printed): compute them, then check each girder's chord + end distances against the printed girder length X1 (SB41 EB: all 16 girders consistent).
+- Girder numbering across the deck follows the drawings, not the alignment side: confirm with the bearing levels and the crossfall (SB41 EB: 01 next to MC80, 04 the low north edge).
 - Prestress per girder type (added 2026-11-17): release strength f'cp, strand pattern with x / y and debond lengths, jacking or after-release force, hog table; the platform checks transfer stresses, debonding (TfNSW) and development length from these.
 
 ## 5. Engineer preferences observed

@@ -434,17 +434,25 @@
    "current": "original"
   },
   "client": {
-   "value": null,
-   "tag": "Missing-Flagged",
-   "status": "open",
-   "note": "not extracted",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block",
+    "text": "CLIENT: Transport for NSW"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": "Transport for NSW",
    "original": {
-    "value": null,
+    "value": "Transport for NSW",
     "unit": null,
-    "tag": "Missing-Flagged",
+    "tag": "Direct",
     "recorded_by": "AI (extraction)",
     "recorded_at": null,
-    "note": "not extracted"
+    "source": {
+     "doc": "DRG-0101",
+     "view": "title block",
+     "text": "CLIENT: Transport for NSW"
+    }
    },
    "current": "original"
   },
@@ -10932,7 +10940,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-17T09:45:31+00:00",
+  "created": "2026-11-17T09:51:55+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-17)",
   "decision_log_sha256": null
@@ -10941,6 +10949,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:d70598ded6ce3c8e7f67074b4e8c1ac29b7112c93d601741de308aadb9506b36"
+  "value": "sha256:3e10b092595efd07d203021a82f68211321ff392cedb2b6a8df6bcf9fcf64647"
  }
 }

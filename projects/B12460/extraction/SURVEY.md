@@ -45,8 +45,16 @@ Note: the limits 3.16 and 24 MPa are 0.5 √f'cp and 0.6 f'cp **for f'cp 40**, t
 - Piles (0200–0252, p13–18).
 - Vertical alignment of MC80 (only levels at supports read so far); MC80 chainages of the support lines (plan on 0110 / 0117).
 
+## 4a. Read in stage 2 (2026-11-17), now in `values.py`
+
+- MC80 vertical: one grade (-0.7036 %) through the 0110 design levels at the deck ends; 0803 RL 'A' + 75 agrees within 0.5 mm from CH 458 to 543.
+- Bearings: abutment A = 0301 table 2 **B1-B4** (not B10-B13: those are SB41 WB; found by stationing every bearing on MC80); piers from the 0401 / 0403 / 0404 headstock dimensions; abutment B = 0303 table 3 B34-B37. Girder chords + (X1 - chord) reproduce every printed X1, and chord directions match the bearing angles 'a' (240.776° span 1, 244.07° span 4).
+- Deck: carriageway -1.000 / +8.000 radial, 400 barriers (0802 section 5); one-way 3 % fall to the north; 200 slab, 75 surfacing, 1515 Super-T (0113).
+- Girders, hogs (0701), pads (0602 table 2), strands (0724: S1 / S4 30 strands, S2 / S3 38), fitments (0759, 0761, 0763), piles (0201), pier sills (0400 / 0404), materials (0700, report table 2-1).
+- Queries added: SB41 EB barrier section; abutment B CL for the EB part; pier 3 pile-cap width.
+
 ## 5. Plan
 
-1. Stage 2: `projects/B12460/extraction/values.py` → four span descriptions `projects/B12460-S1 … S4` (ADR-062 pattern), with the MC80 bearing flag.
+1. Stage 2: `projects/B12460/extraction/values.py` → four span descriptions `projects/B12460-S1 … S4` (ADR-062 pattern), with the MC80 bearing flag. **Done 2026-11-17.**
 2. Stage 3: run the chain per span; `projects/B12460/model/COMPARISON_REPORT.md` against tables 4-31 / 4-32 and the pier pile tables.
 3. Then SB41 WB as an indicative, simply supported comparison (continuity not modelled).

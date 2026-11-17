@@ -137,6 +137,16 @@
  ],
  "values": [
   {
+   "path": "project.client",
+   "tag": "Direct",
+   "value": "Transport for NSW",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block",
+    "text": "CLIENT: Transport for NSW"
+   }
+  },
+  {
    "path": "alignment.horizontal.rows[0]",
    "tag": "Direct",
    "cells": {

@@ -434,17 +434,25 @@
    "current": "original"
   },
   "client": {
-   "value": null,
-   "tag": "Missing-Flagged",
-   "status": "open",
-   "note": "not extracted",
+   "source": {
+    "doc": "DRG-0101",
+    "view": "title block",
+    "text": "CLIENT: Transport for NSW"
+   },
+   "tag": "Direct",
+   "status": "accepted",
+   "value": "Transport for NSW",
    "original": {
-    "value": null,
+    "value": "Transport for NSW",
     "unit": null,
-    "tag": "Missing-Flagged",
+    "tag": "Direct",
     "recorded_by": "AI (extraction)",
     "recorded_at": null,
-    "note": "not extracted"
+    "source": {
+     "doc": "DRG-0101",
+     "view": "title block",
+     "text": "CLIENT: Transport for NSW"
+    }
    },
    "current": "original"
   },
@@ -2369,7 +2377,7 @@
       "pdf2bim/extract/propose_missing.py"
      ],
      "author": "AI",
-     "timestamp": "2026-11-17T09:45:34+00:00",
+     "timestamp": "2026-11-17T09:51:57+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -4612,7 +4620,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -4669,7 +4677,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -4831,7 +4839,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -4872,7 +4880,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -4912,7 +4920,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -4952,7 +4960,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5073,7 +5081,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5230,7 +5238,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5271,7 +5279,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5311,7 +5319,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5351,7 +5359,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5472,7 +5480,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5629,7 +5637,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5670,7 +5678,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5710,7 +5718,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5750,7 +5758,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -5871,7 +5879,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6028,7 +6036,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6069,7 +6077,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6109,7 +6117,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6149,7 +6157,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6270,7 +6278,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6427,7 +6435,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6468,7 +6476,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6508,7 +6516,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6548,7 +6556,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6669,7 +6677,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6826,7 +6834,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6867,7 +6875,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6907,7 +6915,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -6947,7 +6955,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7068,7 +7076,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7225,7 +7233,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7266,7 +7274,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7306,7 +7314,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7346,7 +7354,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7467,7 +7475,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7624,7 +7632,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7665,7 +7673,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7705,7 +7713,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7745,7 +7753,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -7866,7 +7874,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -8597,7 +8605,7 @@
          "pdf2bim/extract/propose_missing.py"
         ],
         "author": "AI",
-        "timestamp": "2026-11-17T09:45:34+00:00",
+        "timestamp": "2026-11-17T09:51:57+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -8640,7 +8648,7 @@
        "pdf2bim/extract/propose_missing.py"
       ],
       "author": "AI",
-      "timestamp": "2026-11-17T09:45:34+00:00",
+      "timestamp": "2026-11-17T09:51:57+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -8686,7 +8694,7 @@
          "pdf2bim/extract/propose_missing.py"
         ],
         "author": "AI",
-        "timestamp": "2026-11-17T09:45:34+00:00",
+        "timestamp": "2026-11-17T09:51:57+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9657,7 +9665,7 @@
          "pdf2bim/extract/propose_missing.py"
         ],
         "author": "AI",
-        "timestamp": "2026-11-17T09:45:34+00:00",
+        "timestamp": "2026-11-17T09:51:57+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -9700,7 +9708,7 @@
        "pdf2bim/extract/propose_missing.py"
       ],
       "author": "AI",
-      "timestamp": "2026-11-17T09:45:34+00:00",
+      "timestamp": "2026-11-17T09:51:57+00:00",
       "approval": {
        "status": "proposed"
       },
@@ -9746,7 +9754,7 @@
          "pdf2bim/extract/propose_missing.py"
         ],
         "author": "AI",
-        "timestamp": "2026-11-17T09:45:34+00:00",
+        "timestamp": "2026-11-17T09:51:57+00:00",
         "approval": {
          "status": "proposed"
         },
@@ -10158,7 +10166,7 @@
       "pdf2bim/extract/propose_missing.py"
      ],
      "author": "AI",
-     "timestamp": "2026-11-17T09:45:34+00:00",
+     "timestamp": "2026-11-17T09:51:57+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -10199,7 +10207,7 @@
       "pdf2bim/extract/propose_missing.py"
      ],
      "author": "AI",
-     "timestamp": "2026-11-17T09:45:34+00:00",
+     "timestamp": "2026-11-17T09:51:57+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -10358,7 +10366,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10409,7 +10417,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10459,7 +10467,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10509,7 +10517,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10559,7 +10567,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10609,7 +10617,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10659,7 +10667,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10713,7 +10721,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10763,7 +10771,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10813,7 +10821,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10863,7 +10871,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10916,7 +10924,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -10965,7 +10973,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11014,7 +11022,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11063,7 +11071,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11112,7 +11120,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11161,7 +11169,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11210,7 +11218,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11259,7 +11267,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11308,7 +11316,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11357,7 +11365,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11406,7 +11414,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11455,7 +11463,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11504,7 +11512,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11557,7 +11565,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11606,7 +11614,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11655,7 +11663,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11704,7 +11712,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11753,7 +11761,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11802,7 +11810,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11851,7 +11859,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11900,7 +11908,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11949,7 +11957,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -11998,7 +12006,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12047,7 +12055,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12096,7 +12104,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12145,7 +12153,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12188,7 +12196,7 @@
       "pdf2bim/extract/propose_missing.py"
      ],
      "author": "AI",
-     "timestamp": "2026-11-17T09:45:34+00:00",
+     "timestamp": "2026-11-17T09:51:57+00:00",
      "approval": {
       "status": "proposed"
      },
@@ -12326,7 +12334,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12374,7 +12382,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -12424,7 +12432,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13035,7 +13043,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13085,7 +13093,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13135,7 +13143,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13185,7 +13193,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13235,7 +13243,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13285,7 +13293,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13335,7 +13343,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13385,7 +13393,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13435,7 +13443,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13485,7 +13493,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13535,7 +13543,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13585,7 +13593,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13635,7 +13643,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13685,7 +13693,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13735,7 +13743,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13785,7 +13793,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13835,7 +13843,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -13885,7 +13893,7 @@
         "pdf2bim/extract/propose_missing.py"
        ],
        "author": "AI",
-       "timestamp": "2026-11-17T09:45:34+00:00",
+       "timestamp": "2026-11-17T09:51:57+00:00",
        "approval": {
         "status": "proposed"
        },
@@ -14022,8 +14030,8 @@
  },
  "revision": {
   "number": 2,
-  "parent_hash": "sha256:d09c0532a940a53ff6a57f20c6d7d5facfaca657f96dc01bf8c588010fa440c6",
-  "created": "2026-11-17T09:45:34+00:00",
+  "parent_hash": "sha256:5e6e504caa64041a717af048838a5c87df554637d93ea157db858eec07481431",
+  "created": "2026-11-17T09:51:57+00:00",
   "author": "AI",
   "note": "110 development placeholders proposed under D-1",
   "decision_log_sha256": null
@@ -14032,6 +14040,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:14afee59ec508b7b08ce159e627768be01fb5a08bd9cbbdf85d74c4a9472e587"
+  "value": "sha256:59ffa99b617c625f036bd6cb4492350aec417569ecfe2452ab02f1acf7660103"
  }
 }
