@@ -25,6 +25,7 @@ var ANALYSIS = (function () {
           var n = m.nodes[r.n], L2 = g.spans[n.k].L, x3 = n.f * L2, EI = sc.Eg * 1e3 * sc.I * 1e-12;
           v[k] = -wOf(n.i) * x3 * (Math.pow(L2, 3) - 2 * L2 * x3 * x3 + Math.pow(x3, 3)) / (24 * EI) * 1000;
         } else if (r.kind === 'R') { var s = m.sup[r.s]; v[k] = wOf(s.i) * g.spans[s.k].L / 2; }
+        else if (r.kind === 'rot') { var s4 = m.sup[r.s], L4 = g.spans[s4.k].L; v[k] = (s4.end === 'start' ? 1 : -1) * wOf(s4.i) * Math.pow(L4, 3) / (24 * sc.Eg * 1e3 * sc.I * 1e-12) * 1000; }   /* end slope of the simply supported girder alone */
       });
       if (m.piles) {   /* the girder ends rest on the abutments: their reactions go down through the sill and piles of the frame */
         var F = new Float64Array(S.nd); m.sup.forEach(function (s) { if (s.below !== undefined) F[C.ND * s.below] -= wOf(s.i) * g.spans[s.k].L / 2; });
@@ -282,9 +283,9 @@ var ANALYSIS = (function () {
       if (s.k !== sk) return; var kR = A.RS.idx['Rb:' + q], r = { id: 'G' + (s.i + 1) + ' ' + s.end, i: s.i, end: s.end, perm: 0, by: {} };
       ['G1', 'G2', 'SDLs', 'SDLp'].forEach(function (c) { r.perm += val(A, 'Rb:' + q, c); });
       ['ULS', 'SLS'].forEach(function (ls) { var mx = -Infinity, mn = Infinity, gx = '', gn = ''; A.CB.forEach(function (c) { if (c.ls !== ls) return; if (c.max[kR] > mx) { mx = c.max[kR]; gx = c.id; } if (c.min[kR] < mn) { mn = c.min[kR]; gn = c.id; } }); r.by[ls] = { max: mx, min: mn, gmax: gx, gmin: gn }; });
-      /* end rotation from the SLS deflection envelope: slope of the first element next to the support (mrad) */
-      var n0 = m.nodes.filter(function (n) { return n.k === sk && n.i === s.i && n.j === (s.end === 'start' ? 1 : m.n - 1); })[0], rot = 0;
-      if (n0) A.CB.forEach(function (c) { if (c.ls === 'SLS') rot = Math.max(rot, Math.abs(c.min[A.RS.idx['w:' + n0.id]]) / (m.dL * 1000) * 1000); });
+      /* end rotation (mrad), horizontal forces (kN) and movement along the bridge (mm): largest magnitude over the combinations of each limit state */
+      var amp = function (key, ls) { var k2 = A.RS.idx[key], v = 0; A.CB.forEach(function (c) { if (c.ls === ls) v = Math.max(v, Math.abs(c.max[k2]), Math.abs(c.min[k2])); }); return v; };
+      var rot = amp('rot:' + q, 'SLS'); r.type = s.type; r.Hx = amp('Hx:' + q, 'ULS'); r.Hy = amp('Hy:' + q, 'ULS'); r.ux = amp('ux:' + s.node, 'SLS'); r.uy = amp('uy:' + s.node, 'SLS');
       r.rot = rot; rows.push(r);
     });
     return { rows: rows, dTmove: (p.alphaT || 0) * 1e-6 * (p.dTuni || 0) * L * 1000, rotT: Math.abs(tg.k) * L * 1000 / 2 * 1000, hogT: -tg.k * Math.pow(L * 1000, 2) / 8, L: L };

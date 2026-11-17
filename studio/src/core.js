@@ -279,6 +279,7 @@ var CORE = (function () {
     });
     m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'w:' + n.id, kind: 'w', n: n.id, k: n.k }); });
     m.sup.forEach(function (s, q) { R.push({ key: 'Rb:' + q, kind: 'R', s: q, k: s.k }); });
+    m.sup.forEach(function (s, q) { R.push({ key: 'rot:' + q, kind: 'rot', s: q, k: s.k }); });   /* girder end rotation about the transverse axis, mrad */
     m.sup.forEach(function (s, q) { R.push({ key: 'Hx:' + q, kind: 'Hx', s: q, k: s.k }); R.push({ key: 'Hy:' + q, kind: 'Hy', s: q, k: s.k }); });   /* horizontal force on the bearing from the deck, kN, + along x / y */
     m.nodes.forEach(function (n) { if (n.sub) return; R.push({ key: 'ux:' + n.id, kind: 'ux', n: n.id, k: n.k }); R.push({ key: 'uy:' + n.id, kind: 'uy', n: n.id, k: n.k }); });   /* deck movement, mm */
     (m.subE || []).forEach(function (e, q) { if (e.type !== 'pile') return; var id = e.ab + ':' + e.q;   /* pile: axial force and head shears at the top member; moments at the top of every member. k = the span the abutment carries, so the traffic envelope of that span includes them */
@@ -292,6 +293,7 @@ var CORE = (function () {
     RS.R.forEach(function (r, i) {
       if (r.kind === 'w') out[i] = U[ND * r.n] * 1000;    /* mm, + up */
       else if (r.kind === 'pile') { var pe = m.subE[r.se], fv = 0; for (var c2 = 0; c2 < 12; c2++) fv += pe.kg[r.c][c2] * U[pe.d[c2]]; out[i] = r.sg * fv; }   /* member end force at its top node: axial kN (compression +), shear kN, moment kNm */
+      else if (r.kind === 'rot') out[i] = U[ND * m.sup[r.s].node + 2] * 1000;
       else if (r.kind === 'ux' || r.kind === 'uy') out[i] = U[ND * r.n + (r.kind === 'ux' ? 3 : 4)] * 1000;
       else if (r.kind === 'R' || r.kind === 'Hx' || r.kind === 'Hy') { var s = m.sup[r.s], c = r.kind === 'R' ? 0 : r.kind === 'Hx' ? 3 : 4, kk = r.kind === 'R' ? s.kv : r.kind === 'Hx' ? s.kx : s.ky, rel = U[ND * s.node + c];
         if (s.rows) { var rw = s.rows[r.kind]; rel = 0; for (var u = 0; u < 10; u++) rel += rw.b[u] * U[s.ld[u]]; }   /* relative movement across the bearing, at bearing level */
