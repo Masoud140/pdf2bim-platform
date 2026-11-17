@@ -1,0 +1,45 @@
+{
+ "format": "pdf2bim.standards/0.1",
+ "group": "TfNSW",
+ "note": "Inventory of values hard-coded in the software. NOT verified. See docs/STANDARDS_DATA_SPEC.md.",
+ "entries": [
+  {
+   "id": "TfNSW:BTD2011-06:debonding",
+   "standard": "TfNSW BTD 2011/06 Rev 1",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Provisions for the design of Super-T girder bridges (verify)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "debonded strands: at most max_fraction of the strands at any section; a strand horizontally or vertically adjacent to a debonded strand is not debonded",
+   "units": "fraction",
+   "value": {
+    "max_fraction": 0.5,
+    "no_adjacent": true
+   },
+   "applicability": "NSW Super-T girders (authority rule: applies when the authority is TfNSW)",
+   "context": "prestress_checks debonding",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/design/prestress_checks.py:50"
+    ],
+    "version": "Tier 1 item 1 (2026-11-17), no code source"
+   },
+   "status": "transcribed-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. Rule confirmed against a public copy of BTD 2011/06 Rev 1, not against a TfNSW-issued copy.",
+    "specialist_review": true
+   }
+  }
+ ]
+}

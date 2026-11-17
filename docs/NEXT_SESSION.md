@@ -4,7 +4,7 @@
 
 ## Priority order (owner-agreed list, 2026-11-16) — work top to bottom
 Tier 1 — engineering trust on real bridges
-1. Platform prestress checks (transfer 0.5 / 0.6 f'cp, TfNSW debonding + adjacency, development length).
+1. Platform prestress checks (transfer 0.5 / 0.6 f'cp, TfNSW debonding + adjacency, development length). **Done 2026-11-17 (ADR-072).** Left: reduced capacity inside Lp; placement cover check (aggregate size usually missing); owner query on the transfer basis (report vs platform).
 2. Verify SB41 EB, SB41 WB, SB43 from the 2000 set (each as SB42: survey → values → chain → comparison, haunch from levels).
 3. Owner queries that gate the benchmarks: table 4-29 Mu vs φMu; SLS combination and limit; SB01 drawing items. (Owner.)
 4. Standards verification against licensed editions; Standards Agent S0 licence check and corpus list. (Owner.)

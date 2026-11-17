@@ -55,7 +55,7 @@ class Standards:
     def __init__(self, folder=None, entries=None):
         self.entries = {}
         self.used = {}
-        src = entries if entries is not None else [x for f in sorted(glob.glob(os.path.join(folder or os.path.join(HERE, "data"), "AS*.json"))) for x in json.load(open(f))["entries"]]
+        src = entries if entries is not None else [x for f in sorted(glob.glob(os.path.join(folder or os.path.join(HERE, "data"), "[!_]*.json"))) for x in json.load(open(f))["entries"]]
         errs = []
         for e in src:
             if e["id"] in self.entries:

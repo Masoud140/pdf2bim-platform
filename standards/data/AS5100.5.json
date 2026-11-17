@@ -360,6 +360,41 @@
    }
   },
   {
+   "id": "AS5100.5:crack_control:tension_limit_bonded_steel",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 8.6.2.1(a) (verify)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "concrete tensile stress k sqrt(f'c) (at transfer k sqrt(f'cp)) allowed when bonded reinforcement or tendons lie within 200 mm of the tension face",
+   "units": "MPa (k in sqrt MPa)",
+   "value": 0.5,
+   "applicability": "crack control with bonded steel near the tension face; transfer stresses of pretensioned girders",
+   "context": "prestress_checks transfer",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/design/prestress_checks.py:29"
+    ],
+    "version": "Tier 1 item 1 (2026-11-17), no code source"
+   },
+   "status": "transcribed-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. The software applies it at transfer only as a second, labelled limit; whether the top-flange bars qualify is the engineer's call.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:crack_control:uncracked_tension_limit",
    "standard": "AS 5100.5",
    "edition": null,
@@ -627,6 +662,46 @@
    "interpretation": {
     "open": true,
     "note": "Edition and amendment not recorded in the code; value not checked against an authorised copy.",
+    "specialist_review": true
+   }
+  },
+  {
+   "id": "AS5100.5:prestress:development_length",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 13.3.2.2 (verify)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "development length of 7-wire strand Lp = k (fpb - kpe sigma_pe) db, >= min_db db; debonded strand x debonded_factor",
+   "units": "mm (stresses MPa, db mm)",
+   "value": {
+    "k": 0.145,
+    "kpe": 0.67,
+    "min_db": 60,
+    "debonded_factor": 2
+   },
+   "applicability": "pretensioned 7-wire strand",
+   "context": "prestress_checks development length",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/design/prestress_checks.py:77"
+    ],
+    "version": "Tier 1 item 1 (2026-11-17), no code source"
+   },
+   "status": "transcribed-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. The doubled length applies to debonded strands where tension is allowed in the precompressed tensile zone within that length.",
     "specialist_review": true
    }
   },
@@ -1123,6 +1198,44 @@
     "open": true,
     "note": "Form and limits as coded; engine discrepancy E-1 open.",
     "specialist_review": false
+   }
+  },
+  {
+   "id": "AS5100.5:transfer:compression_limit",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 8.1.6.2 (verify)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "maximum concrete compressive stress at transfer k f'cp",
+   "units": "x f'cp",
+   "value": {
+    "uniform": 0.5,
+    "triangular": 0.6
+   },
+   "applicability": "pretensioned girder at transfer",
+   "context": "prestress_checks transfer",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/design/prestress_checks.py:27"
+    ],
+    "version": "Tier 1 item 1 (2026-11-17), no code source"
+   },
+   "status": "transcribed-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. Linear interpolation between uniform and triangular on the face-stress ratio is the software's reading: confirm the clause's wording.",
+    "specialist_review": true
    }
   }
  ]

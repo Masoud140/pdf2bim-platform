@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-17 — Platform prestress checks (ADR-072)
+- Transfer stresses (0.5–0.6 f'cp; 0.25 / 0.5 √f'cp), TfNSW BTD 2011/06 debonding (50 %, adjacency), development length (flags ULS stations). New register entries and `standards/data/TfNSW.json`.
+
 ## 2026-11-17 — Studio 3D frame (ADR-071)
 - 3D bridge model page: animated deflected shape of the analysis frame: dead load (girder alone + composite SDL), braking, transverse wind, uniform temperature, the 12 frame modes, and an M1600 truck (wheel loads, static) crossing, alone or on top of dead load. Exaggeration and largest movements shown on screen.
 - Six freedoms per node; bearings as 3D springs; abutment sill beams, piles and soil springs; braking, centrifugal, transverse wind and uniform temperature cases; frame modes and response spectrum earthquake (EQx / EQy) with combinations. Rigid-support option reproduces the old grillage to 4.6e-11.

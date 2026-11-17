@@ -329,6 +329,31 @@ def prestress_losses():
     return e
 
 
+def transcribed_prestress():
+    """Tier 1 item 1 (2026-11-17): prestress checks with no code source in the dashboard. Values transcribed from the owner's
+    reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy."""
+    src = "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. "
+    P = "pdf2bim/design/prestress_checks.py"
+    out = [entry("AS5100.5:transfer:compression_limit", "AS 5100.5", "Cl 8.1.6.2 (verify)", "maximum concrete compressive stress at transfer k f'cp", "x f'cp",
+                 {"uniform": 0.5, "triangular": 0.6}, "pretensioned girder at transfer", "prestress_checks transfer", [f"{P}:27"], specialist=True,
+                 interp=src + "Linear interpolation between uniform and triangular on the face-stress ratio is the software's reading: confirm the clause's wording."),
+           entry("AS5100.5:crack_control:tension_limit_bonded_steel", "AS 5100.5", "Cl 8.6.2.1(a) (verify)",
+                 "concrete tensile stress k sqrt(f'c) (at transfer k sqrt(f'cp)) allowed when bonded reinforcement or tendons lie within 200 mm of the tension face", "MPa (k in sqrt MPa)",
+                 0.5, "crack control with bonded steel near the tension face; transfer stresses of pretensioned girders", "prestress_checks transfer", [f"{P}:29"], specialist=True,
+                 interp=src + "The software applies it at transfer only as a second, labelled limit; whether the top-flange bars qualify is the engineer's call."),
+           entry("AS5100.5:prestress:development_length", "AS 5100.5", "Cl 13.3.2.2 (verify)",
+                 "development length of 7-wire strand Lp = k (fpb - kpe sigma_pe) db, >= min_db db; debonded strand x debonded_factor", "mm (stresses MPa, db mm)",
+                 {"k": 0.145, "kpe": 0.67, "min_db": 60, "debonded_factor": 2}, "pretensioned 7-wire strand", "prestress_checks development length", [f"{P}:77"], specialist=True,
+                 interp=src + "The doubled length applies to debonded strands where tension is allowed in the precompressed tensile zone within that length."),
+           entry("TfNSW:BTD2011-06:debonding", "TfNSW BTD 2011/06 Rev 1", "Provisions for the design of Super-T girder bridges (verify)",
+                 "debonded strands: at most max_fraction of the strands at any section; a strand horizontally or vertically adjacent to a debonded strand is not debonded", "fraction",
+                 {"max_fraction": 0.5, "no_adjacent": True}, "NSW Super-T girders (authority rule: applies when the authority is TfNSW)", "prestress_checks debonding", [f"{P}:50"], specialist=True,
+                 interp=src + "Rule confirmed against a public copy of BTD 2011/06 Rev 1, not against a TfNSW-issued copy.")]
+    for x in out:
+        x["status"] = "transcribed-unverified"; x["implementation"]["version"] = "Tier 1 item 1 (2026-11-17), no code source"
+    return out
+
+
 # project inputs found next to the standards values: NOT standards data (they belong in the bridge description)
 PROJECT_DEFAULTS = [
     ("src/sub4.js", "WD.V = 45 m/s", "design wind speed — site-specific (region, terrain, return period)"),
@@ -342,7 +367,8 @@ PROJECT_DEFAULTS = [
 def main():
     groups = {"AS5100.2": load_factors() + [x for x in environment() if x["standard"] == "AS 5100.2"] + traffic() + placeholders() + combinations(),
               "AS1170.4": earthquake(),
-              "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"] + prestress_losses(),
+              "AS5100.5": design() + [x for x in environment() if x["standard"] == "AS 5100.5"] + prestress_losses() + [x for x in transcribed_prestress() if x["standard"] == "AS 5100.5"],
+              "TfNSW": [x for x in transcribed_prestress() if x["standard"].startswith("TfNSW")],
               "AS1170.2": [x for x in environment() if x["standard"] == "AS/NZS 1170.2"],
               "AS5100.4": bearings()}
     os.makedirs(OUT, exist_ok=True)

@@ -13,6 +13,26 @@ def f0(v):
     return "—" if v is None else f"{v:.0f}"
 
 
+def prestress_md(pc):
+    """Markdown of pdf2bim.design.prestress_checks: transfer stresses, debonding, development length (limits Standard - verify)."""
+    T, D, V = pc["transfer"], pc["debonding"], pc["development"]
+    w = T["worst"]
+    L = ["### Prestress checks (transfer, debonding, development length) — limits transcribed, Standard - verify", "",
+         f"- **Transfer** (f'cp {T['fci']:g} MPa; {T['note']}): compression u = **{w['uC']:.2f}** at x = {w.get('uC_x_m', 0):.2f} m; "
+         f"tension u = **{w['uT']:.2f}** at x = {w.get('uT_x_m', 0):.2f} m against {T['ft']:.2f} MPa (0.25 sqrt f'cp), "
+         f"**{w['uTa']:.2f}** against {T['fta']:.2f} MPa (0.5 sqrt f'cp, bonded steel within 200 mm of the tension face)" + ("" if T["ok_bonded"] else " — **EXCEEDS**")]
+    if "ends" in D:
+        L.append(f"- **Debonding** (TfNSW BTD 2011/06: <= {100 * D['max_fraction']:.0f} % per section, no adjacent debonded strands; "
+                 + ("applies: client " + str(D["client"]) if D["applies"] else "not applicable unless the authority is TfNSW: client " + str(D["client"])) + "): "
+                 + "; ".join(f"end {e}: {q['n_debonded']} of {q['n']} ({100 * q['worst_fraction']:.0f} %), adjacent pairs {len(q['adjacent_pairs'])}" + ("" if q["ok"] else " **FAIL**") for e, q in D["ends"].items()))
+    else:
+        L.append(f"- **Debonding**: not checked ({D['why']})")
+    fl = V["flagged_stations"]
+    L.append(f"- **Development length** Lp {V['Lp_min']:.0f}–{V['Lp_max']:.0f} mm (x2 for debonded strands); every strand fully developed beyond {V['full_from_A_m']:.2f} m from end A and {V['full_from_B_m']:.2f} m from end B. "
+             + (("ULS stations inside a development length (strands counted at full capacity, capacity overstated): " + ", ".join(f"{q['x_m']:.2f} m ({q['n_partial']})" for q in fl)) if fl else "No ULS station inside a development length."))
+    return L + [""]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("description"); ap.add_argument("--allow-proposed", action="store_true"); ap.add_argument("--out", required=True)
@@ -77,6 +97,7 @@ def main():
         L += ["", f"- crack-control limits (Table 8.6.2.1 as coded): fscr {lim['fscr']:g} MPa ({lim['why']['fscr']}), fscrT {lim['fscrT']:g} MPa ({lim['why']['fscrT']}), ftcr {lim['ftcr']:g} MPa",
               f"- axial force with the moments: {'concurrent N of the governing row (useN)' if R['useN'] else 'not used (useN false)'}; losses method {R['hog_method']}, time {R['time_days']:g} d"]
         L += [f"- {n}" for n in R["notes"]] + [""]
+        L += prestress_md(R["prestress"])
     S_ = ["## Summary (largest utilisation along each girder)", "", "| Girder | Ms*/Mal (SLS) | M*/phi Mu (ULS) | shear / torsion u | Muo < 1.2 Mcr |", "|---|---|---|---|---|"]
     for g, R in out.items():
         fl = [r for r in R["rows"] if r.get("conf") != "solid"]

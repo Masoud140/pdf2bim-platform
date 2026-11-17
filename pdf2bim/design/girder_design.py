@@ -268,5 +268,9 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
     notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")
     notes.append("shear / torsion: general method at each open station (closed-box geometry) and solid-end stations (rectangular approx, Assumed, ADR-039); governing |V*| row with concurrent T*, M*, N*; strand development in the end zone not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
-    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r), "useN": useN, "dsh": dsh,
+    from .prestress_checks import prestress_checks
+    client = rd_.value((doc.get("project") or {}).get("client"), "project.client", required=False)
+    pc = prestress_checks(p, r, std, client, [q["x_m"] for q in out if q["conf"] == "open"])
+    notes.append("prestress checks (transfer stresses, debonding, development length): see 'prestress'; ULS bending at stations inside a strand's development length uses that strand at full capacity" if pc["development"]["flagged_stations"] else "prestress checks: see 'prestress'")
+    return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r), "useN": useN, "dsh": dsh, "prestress": pc,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}
