@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Benchmarks re-run with the cap
+- SB42, SB41 EB, SB41 WB chains re-run; comparison reports regenerated (values unchanged).
+
 ## 2026-11-18 — Strand capacity inside the development length (ADR-073)
 - ULS bending caps strand stress inside Lp (σpe at the transmission length rising to fpb at Lp) in the platform and the Studio; Studio artifact republished.
 

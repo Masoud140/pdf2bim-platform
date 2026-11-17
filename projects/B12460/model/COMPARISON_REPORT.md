@@ -1,6 +1,6 @@
 # B12460 (SB41 EB) — platform vs design report RPT-410001 rev D
 
-Runs `S1, S2, S3, S4` (spans 1-4; ADR-062). INDICATIVE: missing inputs are the generic proposals D-1 (soil springs, bearing elastomer, temperatures, wind, losses); standards entries unverified; HLP400 transcribed-unverified.
+Runs `E1, E2, E3, E4` (spans 1-4; ADR-062). INDICATIVE: missing inputs are the generic proposals D-1 (soil springs, bearing elastomer, temperatures, wind, losses); standards entries unverified; HLP400 transcribed-unverified.
 
 | Item | Report / drawing | Source | Platform | Where | Difference | Note |
 |---|---|---|---|---|---|---|

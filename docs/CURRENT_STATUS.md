@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-18: SB42, SB41 EB and SB41 WB re-run with the development-length cap: comparison reports unchanged (only run names); see VERIFICATION_STRATEGY.
 - 2026-11-18: Strand capacity reduced inside the development length (ADR-073), platform and Studio; Studio republished (v13). Tests: prestress checks 15/15, girder design suites pass, Studio 47/47 + 12/12.
 - 2026-11-18: SB41 WB (B12459) indicative run (continuity not modelled): two spans through the chain; 41B-S1-09 vs report table 4-27: sagging M* −2 %, V* +7 %, φMu −15 %; SLS tension and transfer compression higher (strand reading to re-check). `projects/B12459/model/COMPARISON_REPORT.md`.
 - 2026-11-17: SB41 EB (B12460) verified as SB42: four spans through the chain; vs report tables 4-31 / 4-32: M* +14 %, V* +2 %, φMu −14 %, transfer compression +12 % (`projects/B12460/model/COMPARISON_REPORT.md`).
