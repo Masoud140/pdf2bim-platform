@@ -131,4 +131,17 @@ const S = D.stripsFromPolygon ? null : null;
   const p0 = Object.assign({}, p, { sub: Object.assign({}, p.sub, { on: false }) }), m0 = C.mesh(p0, g, sc);
   t('substructure off: no extra nodes, bearings on rigid ground', !m0.subN && m0.sup.every(s => s.below === undefined));
 }
+// frame modes and response spectrum analysis
+{
+  const C = global.CORE, AN = require('../src/analysis.js'), p = Object.assign({}, C.CASES.cs01.p, { skew: 0 }), g = C.geometry(p), sc = C.sections(p, g), m = C.mesh(p, g, sc), S = C.build(m), RS = C.responses(m);
+  const D = AN.rsa(p, m, S, RS, g, sc, 12), mx = D.modes[D.dir.x.lead], my = D.modes[D.dir.y.lead];
+  t('frame modes: ascending; the leading longitudinal and transverse modes carry most of the mass in their direction', D.modes.every((q, i) => !i || q.f >= D.modes[i - 1].f - 1e-9) && mx.part[0] > 0.5 && my.part[1] > 0.5, 'x: mode ' + (D.dir.x.lead + 1) + ' T ' + mx.T.toFixed(3) + ' s ' + (100 * mx.part[0]).toFixed(0) + ' %; y: mode ' + (D.dir.y.lead + 1) + ' T ' + my.T.toFixed(3) + ' s ' + (100 * my.part[1]).toFixed(0) + ' %');
+  const Q = AN.quake(p, D.mass.deck * C.G_ACC, null, 0);
+  t('earthquake along the bridge: base shear cannot exceed total mass x peak spectrum, and is at least the leading mode alone', D.dir.x.V <= D.mass.total * C.G_ACC * p.eq.kp * p.eq.Z * 3.68 / p.eq.Rf * 1.0001 && D.dir.x.V >= 0.99 * mx.part[0] * D.mass.total * C.G_ACC * D.dir.x.Sa[D.dir.x.lead], D.dir.x.V.toFixed(0) + ' kN; single-mass hand estimate ' + Q.L.F.toFixed(0) + ' kN at T ' + Q.L.T.toFixed(2) + ' s');
+  const pv = k => RS.R.filter(r => r.key.startsWith(k)).reduce((a, r) => a + D.dir.x.R[RS.idx[r.key]], 0);
+  t('earthquake along the bridge: bearing forces at the fixed line and pile shears at abutment A are of the order of the base shear of the deck', pv('Hx:') > 0.5 * mx.part[0] * D.mass.deck * C.G_ACC * D.dir.x.Sa[D.dir.x.lead] && pv('pVx:A') > 0 && D.dir.x.R.every(v => v >= 0 && isFinite(v)), 'sum |Hx| ' + pv('Hx:').toFixed(0) + ' kN, pile shears A ' + pv('pVx:A').toFixed(0) + ' kN, B ' + pv('pVx:B').toFixed(0) + ' kN');
+  t('mass captured by 12 modes is reported per direction', D.dir.x.captured > 0 && D.dir.x.captured <= 1.0001 && D.dir.y.captured <= 1.0001, 'x ' + (100 * D.dir.x.captured).toFixed(0) + ' %, y ' + (100 * D.dir.y.captured).toFixed(0) + ' %');
+  const cb = C.generateCombos(C.CASES_DEF.map(c => Object.assign({}, c))), e = cb.find(c => c.id === 'ULS-EQx');
+  t('earthquake combinations: permanent at 1.0 with 100 % + 30 %', e && e.f.EQx === 1 && e.f.EQy === 0.3 && e.f.G1 === 1 && cb.find(c => c.id === 'ULS-EQy').f.EQx === 0.3);
+}
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

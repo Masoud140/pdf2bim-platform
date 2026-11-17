@@ -65,7 +65,7 @@ var CORE = (function () {
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
-    piles: 'substructure', eq: 'seismic', brg: 'mesh', brgT: 'mesh', brgKe: 'mesh', sub: 'mesh', hBrake: 'loads', hCent: 'loads', windTu: 'loads', windTs: 'loads', dTuni: 'loads', alphaT: 'loads' };
+    piles: 'substructure', eq: 'loads', brg: 'mesh', brgT: 'mesh', brgKe: 'mesh', sub: 'mesh', hBrake: 'loads', hCent: 'loads', windTu: 'loads', windTs: 'loads', dTuni: 'loads', alphaT: 'loads' };
   function stamp(p, groups) {   /* the part of the inputs a result depends on, as a string */
     var o = {}; Object.keys(p).forEach(function (k) { if (groups.indexOf(FIELD[k] || 'other') >= 0) o[k] = p[k]; }); return JSON.stringify(o);
   }
@@ -486,11 +486,15 @@ var CORE = (function () {
     return { val: A.map(function (r, q) { return r[q]; }), vec: V };
   }
   /* lowest vertical modes by subspace iteration on K phi = w^2 M phi (mass on the vertical freedoms only; S = the factorised stiffness from build) */
-  function modes(S, M, nm) {
-    var nd = S.nd, nn = M.length, q = Math.min(nn, (nm || 6) + 6), X = [], i, j, k, lam = [], tot = 0; for (i = 0; i < nn; i++) tot += M[i];
+  /* general form: Md = mass on each freedom of the frame (tonnes; zero where there is none). Returns for each mode the full
+     displacement shape `u` (all freedoms, mass-normalised) and the participation factor in each direction. */
+  function modesF(S, Md, nm) {
+    var nd = S.nd, act = [], ii; for (ii = 0; ii < nd; ii++) if (Md[ii] > 0) act.push(ii);
+    var nn = act.length, M = new Float64Array(nn); for (ii = 0; ii < nn; ii++) M[ii] = Md[act[ii]];
+    var q = Math.min(nn, (nm || 6) + 6), X = [], i, j, k, lam = [];
     for (j = 0; j < q; j++) { var v = new Float64Array(nn); for (i = 0; i < nn; i++) v[i] = Math.sin((j + 1) * (i + 1) * 0.7391) + (j === 0 ? 1 : 0); X.push(v); }
     for (var it = 0; it < 40; it++) {
-      var Y = X.map(function (x) { var F = new Float64Array(nd); for (var a = 0; a < nn; a++) F[ND * a] = M[a] * x[a]; var u = solve(S, F), y = new Float64Array(nn); for (var b = 0; b < nn; b++) y[b] = u[ND * b]; return y; });
+      var Y = X.map(function (x) { var F = new Float64Array(nd); for (var a = 0; a < nn; a++) F[act[a]] = M[a] * x[a]; var u = solve(S, F), y = new Float64Array(nn); for (var b = 0; b < nn; b++) y[b] = u[act[b]]; return y; });
       var Kr = [], Mr = []; for (j = 0; j < q; j++) { Kr.push(new Array(q)); Mr.push(new Array(q)); }
       for (j = 0; j < q; j++) for (k = j; k < q; k++) { var a1 = 0, b1 = 0; for (i = 0; i < nn; i++) { a1 += Y[j][i] * M[i] * X[k][i]; b1 += Y[j][i] * M[i] * Y[k][i]; } Kr[j][k] = Kr[k][j] = a1; Mr[j][k] = Mr[k][j] = b1; }   /* Y'KY = Y'MX because KY = MX */
       var Gc = []; for (j = 0; j < q; j++) { Gc.push(new Array(q).fill(0)); for (k = 0; k <= j; k++) { var sm = Mr[j][k]; for (i = 0; i < k; i++) sm -= Gc[j][i] * Gc[k][i]; Gc[j][k] = j === k ? Math.sqrt(Math.max(sm, 1e-300)) : sm / Gc[k][k]; } }
@@ -503,7 +507,21 @@ var CORE = (function () {
       X = ord.map(function (c) { var x = new Float64Array(nn); for (j = 0; j < q; j++) { var zj = Z[c][j], yj = Y[j]; for (i = 0; i < nn; i++) x[i] += zj * yj[i]; } return x; });
       if (prev.length && lam.slice(0, nm || 6).every(function (l, c) { return Math.abs(l - prev[c]) <= 1e-10 * Math.abs(l); })) break;
     }
-    return lam.slice(0, nm || 6).map(function (l, c) { var Gm = 0; for (i = 0; i < nn; i++) Gm += M[i] * X[c][i]; return { w2: l, f: Math.sqrt(l) / (2 * Math.PI), T: 2 * Math.PI / Math.sqrt(l), phi: X[c], part: Gm * Gm / tot }; });
+    return lam.slice(0, nm || 6).map(function (l, c) { var F = new Float64Array(nd), G = [0, 0, 0], dirOf = { 0: 2, 3: 0, 4: 1 }, a;
+      for (a = 0; a < nn; a++) { F[act[a]] = M[a] * X[c][a] * l; var d = dirOf[act[a] % ND]; if (d !== undefined) G[d] += M[a] * X[c][a]; }
+      return { w2: l, f: Math.sqrt(l) / (2 * Math.PI), T: 2 * Math.PI / Math.sqrt(l), phiA: X[c], u: solve(S, F), G: G }; });   /* K u = w2 M phi, so u is the shape on every freedom; G = participation factors along x, y, z */
+  }
+  /* vertical modes of the deck alone (mass per deck node on the vertical freedom) */
+  function modes(S, M, nm) {
+    var Md = new Float64Array(S.nd), tot = 0, i; for (i = 0; i < M.length; i++) { Md[ND * i] = M[i]; tot += M[i]; }
+    return modesF(S, Md, nm).map(function (r) { return { w2: r.w2, f: r.f, T: r.T, phi: r.phiA, part: r.G[2] * r.G[2] / tot }; });
+  }
+  /* mass on every translational freedom of the frame: the deck's dead load, plus the weight of the sill and piles */
+  function frameMass(p, m, g, sc) {
+    var nd = ND * (m.nodes.length + (m.subN || []).length), Md = new Float64Array(nd), Mn = nodalMass(p, m, g, sc), tot = { deck: 0, sub: 0 }, put = function (n, v) { Md[ND * n] += v; Md[ND * n + 3] += v; Md[ND * n + 4] += v; };
+    m.nodes.forEach(function (n) { put(n.id, Mn[n.id]); tot.deck += Mn[n.id]; });
+    (m.subE || []).forEach(function (e) { var A = e.type === 'pile' ? Math.PI * Math.pow(p.piles.D / 1000, 2) / 4 : p.sub.capW * p.sub.capD, mh = A * e.L * p.gConc / G_ACC / 2; put(e.n1, mh); put(e.n2, mh); tot.sub += 2 * mh; });
+    return { Md: Md, deck: tot.deck, sub: tot.sub };
   }
   function sdlLoads(p, m, g) {
     var F = new Float64Array(ND * m.nodes.length), nodeTrib = function (n) { return (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; };
@@ -545,7 +563,8 @@ var CORE = (function () {
     { id: 'TEMP', name: 'Temperature, differential (gradient)', cls: 'Thermal', act: 'TG', on: false, proposed: true, note: 'Not a grillage case: self-equilibrating stresses are on the Stages page; not yet added to the checks.' },
     { id: 'SCR', name: 'Shrinkage and creep shortening', cls: 'Thermal', act: 'SCR', on: false, proposed: true, note: 'Prestress losses and hog are in the losses engine; restraint effects need the full platform model.' },
     { id: 'EP', name: 'Earth pressure and traffic surcharge on abutments', cls: 'Horizontal', act: 'EP', on: false, proposed: true, note: 'Substructure: needs the full platform model.' },
-    { id: 'EQ', name: 'Earthquake', cls: 'Horizontal', act: 'EQ', on: false, proposed: true, note: 'Not a grillage case. Equivalent static earthquake forces on the abutment pile groups and the vibration modes are on the Earthquake & modes page; the response spectrum analysis of the whole structure is in the platform model.' },
+    { id: 'EQx', name: 'Earthquake along the bridge', cls: 'Earthquake', act: 'EQ', on: true, note: 'Response spectrum analysis of the frame, modes combined by CQC; either direction.' },
+    { id: 'EQy', name: 'Earthquake across the bridge', cls: 'Earthquake', act: 'EQ', on: true },
     { id: 'FL', name: 'Water flow and debris', cls: 'Horizontal', act: 'FL', on: false, proposed: true, note: 'Platform app only.' },
     { id: 'COL', name: 'Collision loads (barrier, pier)', cls: 'Horizontal', act: 'COL', on: false, proposed: true, note: 'Platform app only.' }
   ];
@@ -570,6 +589,8 @@ var CORE = (function () {
     /* wind: permanent + wind at its own limit-state pressure, factor 1.0 (the ultimate and serviceability pressures are separate inputs); unverified */
     if (has('WVu') || has('WTu')) { var fu = perm('ULS'); if (has('WVu')) fu.WVu = 1.0; if (has('WTu')) fu.WTu = 1.0; out.push({ id: 'ULS-W', ls: 'ULS', name: 'Permanent + wind', f: fu }); }
     if (has('WVs') || has('WTs')) { var fw = perm('SLS'); if (has('WVs')) fw.WVs = 1.0; if (has('WTs')) fw.WTs = 1.0; out.push({ id: 'SLS-W', ls: 'SLS', name: 'Permanent + wind', f: fw }); }
+    /* earthquake: permanent actions at 1.0 with 100 % of one direction and 30 % of the other (platform standards inventory, unverified) */
+    if (has('EQx') || has('EQy')) [['x', 1, 0.3], ['y', 0.3, 1]].forEach(function (c) { if (!has('EQ' + c[0])) return; var fe = perm('SLS'); if (has('EQx')) fe.EQx = c[1]; if (has('EQy')) fe.EQy = c[2]; out.push({ id: 'ULS-EQ' + c[0], ls: 'ULS', name: 'Permanent + earthquake ' + (c[0] === 'x' ? 'along' : 'across') + ' the bridge (100 % + 30 %)', f: fe }); });
     /* uniform temperature: 1.25 ultimate, 1.0 serviceability (platform standards inventory, unverified) */
     if (has('TU')) { var ft = perm('ULS'); ft.TU = 1.25; out.push({ id: 'ULS-T', ls: 'ULS', name: 'Permanent + uniform temperature', f: ft }); var fs = perm('SLS'); fs.TU = 1.0; out.push({ id: 'SLS-T', ls: 'SLS', name: 'Permanent + uniform temperature', f: fs }); }
     return out;
@@ -591,6 +612,6 @@ var CORE = (function () {
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
     influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
-    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, pileK: pileK, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
+    sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, pileK: pileK, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, modesF: modesF, frameMass: frameMass, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

@@ -2,6 +2,10 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-17 — Studio 3D frame (ADR-071)
+- Six freedoms per node; bearings as 3D springs; abutment sill beams, piles and soil springs; braking, centrifugal, transverse wind and uniform temperature cases; frame modes and response spectrum earthquake (EQx / EQy) with combinations. Rigid-support option reproduces the old grillage to 4.6e-11.
+- `docs/STANDARDS_CLAUSE_CAPTURE_PROMPT.md`: prompt for capturing standard clauses into a library with Claude in Chrome.
+
 ## 2026-11-16 — Studio earthquake and vibration modes (ADR-070)
 - Earthquake & modes page: six vertical modes of the deck (frequency, period, mass participation, shape plot); equivalent-static earthquake forces on the abutment pile groups with the design spectrum and a pile moment check.
 

@@ -111,6 +111,8 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 ## 1. Last verified checkpoint
 
+**2026-11-17 stop point:** Studio 3D frame finished and published (ADR-071). Commands run: `node studio/tests/test_engines.js` 47/47, `node studio/tests/test_core.js` 12/12, `SUB=0 node studio/tests/regress_dump.js new.json` compared with the three-freedom baseline (4.6e-11; the baseline JSON was a scratch file, regenerate from commit before the frame work if needed), browser check of every tab with no errors. Follow-ups, not started: more modes or a static correction so the earthquake captures 90 % of the mass; substructure in the 3D view; piers of multi-span bridges as members. Next task: Tier 1 item 1 (platform prestress checks).
+
 | Item | Value | Verified by |
 |---|---|---|
 | Working branch | `p4-verification` (from `p3-model` @ `c378d73`); `p3-model` is closed (fixes only) | `git branch -vv` |

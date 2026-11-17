@@ -54,6 +54,9 @@ var ANALYSIS = (function () {
     if (on.WTu || on.WTs) { log('Transverse wind'); var wt = C.evalResponses(m, RS, C.solve(S, C.hzLoads(m, g, p, 'y', Lsp)));   /* 1 kN/m */
       ['WTu', 'WTs'].forEach(function (id) { if (on[id]) { var q = Math.abs(id === 'WTu' ? p.windTu : p.windTs) || 0, e = pm(wt); for (var k = 0; k < nr; k++) { e.max[k] *= q; e.min[k] *= q; } V[id] = e; } }); }
     if (on.TU) { log('Uniform temperature'); V.TU = pm(C.evalResponses(m, RS, C.solve(S, C.thermalLoads(m, p, p.dTuni || 0)))); }
+    var dynR = null;
+    if (on.EQx || on.EQy) { log('Vibration modes and earthquake response spectrum'); dynR = rsa(p, m, S, RS, g, sc, 12);
+      ['x', 'y'].forEach(function (d) { if (on['EQ' + d]) { var R = dynR.dir[d].R, mn = new Float64Array(nr); for (var k = 0; k < nr; k++) mn[k] = -R[k]; V['EQ' + d] = { max: R, min: mn }; } }); }
     var env = {}, IM = null;
     ['M1600', 'S1600'].forEach(function (vk) {
       if (!on[vk]) return;
@@ -64,7 +67,7 @@ var ANALYSIS = (function () {
     log('Combinations');
     var CB = combine(V, combos, cases, nr);
     log('Done');
-    return { g: g, sc: sc, m: m, RS: RS, V: V, CB: CB, env: env, IM: IM, ms: Date.now() - t0, nd: S.nd };
+    return { g: g, sc: sc, m: m, RS: RS, V: V, CB: CB, env: env, IM: IM, dyn: dynR, ms: Date.now() - t0, nd: S.nd };
   }
   /* combinations: each response maximised and minimised; traffic picks its adverse envelope */
   function combine(V, combos, cases, nr) {
@@ -371,6 +374,23 @@ var ANALYSIS = (function () {
     var spec = []; for (var t = 0; t <= 3.0001; t += 0.02) spec.push([t, q.kp * q.Z * chFactor(t, q.site) / q.Rf]);
     return { W: Wt, mass: mass, kPile: kp1, EI: Ec * I, L: L, T: Tt, combos: combos, spec: spec };
   }
+  /* response spectrum analysis on the frame: modes with mass on every translational freedom, design spectrum
+     Sa(T) = kp Z Ch(T) / Rf (g) along x and along y, modal responses combined by CQC (5 % damping).
+     Returns the modes, the mass captured in each direction, the base shear and, per direction, every response's magnitude. */
+  function rsa(p, m, S, RS, g, sc, nm) {
+    var fm = C.frameMass(p, m, g, sc), md = C.modesF(S, fm.Md, nm || 12), q = p.eq, tot = fm.deck + fm.sub, z = 0.05, nr = RS.R.length, n = md.length, i, j, k;
+    var resp = md.map(function (mo) { return C.evalResponses(m, RS, mo.u); });
+    var rho = md.map(function (a) { return md.map(function (b) { var r = Math.sqrt(b.w2 / a.w2); return 8 * z * z * (1 + r) * Math.pow(r, 1.5) / (Math.pow(1 - r * r, 2) + 4 * z * z * r * Math.pow(1 + r, 2)); }); });
+    var out = { mass: { deck: fm.deck, sub: fm.sub, total: tot }, modes: md.map(function (mo) { return { f: mo.f, T: mo.T, w2: mo.w2, u: mo.u, part: mo.G.map(function (G) { return G * G / tot; }) }; }), dir: {} };
+    ['x', 'y'].forEach(function (d, di) {
+      var Sa = md.map(function (mo) { return q.kp * q.Z * chFactor(mo.T, q.site) / q.Rf; }), amp = md.map(function (mo, a) { return mo.G[di] * Sa[a] * C.G_ACC / mo.w2; }), Vm = md.map(function (mo, a) { return mo.G[di] * mo.G[di] * Sa[a] * C.G_ACC; });
+      var R = new Float64Array(nr), V = 0;
+      for (i = 0; i < n; i++) for (j = 0; j < n; j++) { var c = rho[i][j] * amp[i] * amp[j], ri = resp[i], rj = resp[j]; for (k = 0; k < nr; k++) R[k] += c * ri[k] * rj[k]; V += rho[i][j] * Vm[i] * Vm[j]; }
+      for (k = 0; k < nr; k++) R[k] = Math.sqrt(Math.max(R[k], 0));
+      out.dir[d] = { R: R, V: Math.sqrt(V), Sa: Sa, captured: md.reduce(function (a, mo) { return a + mo.G[di] * mo.G[di]; }, 0) / tot, lead: md.map(function (mo, a) { return a; }).sort(function (a, b) { return md[b].G[di] * md[b].G[di] - md[a].G[di] * md[a].G[di]; })[0] };
+    });
+    return out;
+  }
   function piles(p, A, sup) {
     var P = p.piles, g = A.g, b = A.m.sup.map(function (s, q) { return { q: q, s: s }; }).filter(function (o) { return o.s.k === 0 && o.s.end === (sup === 'B' ? 'end' : 'start'); });
     var y = []; for (var i = 0; i < P.n; i++) y.push((i - (P.n - 1) / 2) * P.s);
@@ -400,6 +420,6 @@ var ANALYSIS = (function () {
     return { y: y, by: out, curve: curve, worst: worst, util: util, S: S, frame: !!A.m.piles };
   }
 
-  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, quake: quake, chFactor: chFactor, capAt: capAt, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
+  return { run: run, combine: combine, val: val, line: line, governing: governing, hogInputs: hogInputs, design: design, checks: checks, piles: piles, tempGrad: tempGrad, bearings: bearings, rsa: rsa, quake: quake, chFactor: chFactor, capAt: capAt, parseBars: parseBars, CC: CC, crackInc: crackInc, nearFaceSpacing: nearFaceSpacing, debAdj: debAdj };
 })();
 if (typeof module !== 'undefined') module.exports = ANALYSIS;
