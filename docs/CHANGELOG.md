@@ -3,6 +3,7 @@
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
 ## 2026-11-17 — Rules kept in both places
+- Housekeeping: all Project knowledge docs now have repository copies (seven older docs added with status notes); outdated Tier 3 note in NEXT_SESSION corrected.
 - Owner instruction: every rule change goes to the repository and the Project knowledge in the same session (`DEVELOPMENT_PRINCIPLES.md` §5 item 8). New `docs/project_knowledge/` holds repository copies of the Project-only rule docs; prestress rules, verification strategy, control-line method (§2a back-bearing lesson) and tagging standard (platform tags) updated in both places.
 
 ## 2026-11-17 — Platform prestress checks (ADR-072)

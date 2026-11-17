@@ -11,7 +11,7 @@
   - `app/` — local web app (`start_app.sh`): projects, runs, Loads, Moving loads, Needs review, design.
   - `studio/` — Bridge Studio (single-file showcase, `python3 studio/build.py`; published as a claude.ai artifact).
   - `projects/<id>/` — one folder per bridge: `extraction/values.py` (drawing values with sources), descriptions, comparison reports. Owner PDFs and reports are never committed.
-- **Key docs (repo `docs/`):** NEXT_SESSION, CURRENT_STATUS, CHANGELOG, DECISIONS (ADR-001…072), ARCHITECTURE, DEVELOPMENT_PRINCIPLES, VERIFICATION_STRATEGY, ROADMAP, method notes (P1–P5), FORMAT_0_2_SPEC, STANDARDS_DATA_SPEC, PRESTRESS_DESIGN_RULES, STANDARDS_AGENT_CONTRACT, STANDARDS_CLAUSE_CAPTURE_PROMPT, and `docs/project_knowledge/` (repository copies of the Project-only rule docs).
+- **Key docs (repo `docs/`):** NEXT_SESSION, CURRENT_STATUS, CHANGELOG, DECISIONS (ADR-001…072), ARCHITECTURE, DEVELOPMENT_PRINCIPLES, VERIFICATION_STRATEGY, ROADMAP, method notes (P1–P5), FORMAT_0_2_SPEC, STANDARDS_DATA_SPEC, PRESTRESS_DESIGN_RULES, STANDARDS_AGENT_CONTRACT, STANDARDS_CLAUSE_CAPTURE_PROMPT, and `docs/project_knowledge/` (repository copies of every Project knowledge doc that has no other repo copy; index `README_PROJECT_INDEX.md`).
 - **Rules:**
   - Autonomous mode (ADR-018); small checkpointed stages.
   - Feature branches; never merge, force-push or overwrite.

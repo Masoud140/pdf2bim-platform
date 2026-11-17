@@ -1,6 +1,6 @@
 # Project index - PDF 2 BIM (updated 2026-11-17)
 
-**The platform repository is now the authoritative record** (Masoud140/pdf2bim-platform, branch `p4-verification`; read `claude/SOURCE_REPOSITORY.md`, then the repo's `docs/NEXT_SESSION.md`). Every rule doc below is kept in two places: the Project knowledge and the repository (`docs/` or `docs/project_knowledge/`). Change both in the same session.
+**The platform repository is now the authoritative record** (Masoud140/pdf2bim-platform, branch `p4-verification`; read `claude/SOURCE_REPOSITORY.md`, then the repo's `docs/NEXT_SESSION.md`). Every doc below is kept in two places: the Project knowledge and the repository (`docs/` or `docs/project_knowledge/`). Change both in the same session.
 
 ## Current rules and methods
 
@@ -16,12 +16,12 @@
 | Standards Agent interface | claude/STANDARDS_AGENT_CONTRACT.md | docs/STANDARDS_AGENT_CONTRACT.md |
 | Capturing standard clauses with Claude in Chrome | claude/STANDARDS_CLAUSE_CAPTURE_PROMPT.md | docs/STANDARDS_CLAUSE_CAPTURE_PROMPT.md |
 | Lessons from the BR13A pipeline | claude/GRILLAGE_PIPELINE_LESSONS.md | docs/project_knowledge/ |
-| Grillage conventions (Hambly) | grillage_modelling_reference.md | Project only (reference) |
-| Extraction agent specs | pdf-ga-extractor.md, control-line-dxf-builder.md | Project only (agent specs) |
+| Grillage conventions (Hambly) | grillage_modelling_reference.md | docs/project_knowledge/ (figures: Project only) |
+| Extraction agent specs | pdf-ga-extractor.md, control-line-dxf-builder.md | docs/project_knowledge/ |
 
 ## Historical (BR13A dashboard era, October 2026)
 
-Superseded by the platform; kept for the record. Project only.
+Superseded by the platform; kept for the record. Repository copies in docs/project_knowledge/ (the code files stay Project only).
 
 - claude/MEMBER_PROPERTIES_METHOD.md, claude/MCT_EXPORT_METHOD.md, claude/ANALYSIS_METHOD.md, claude/BARRIER_BOLT_BASIS.md (parked), with code `torsion_fd.py`, `analysis_*.js`, `analysis_ref_solver.py`. Their platform successors: repo `docs/P2_SECTIONS_METHOD.md`, `docs/P3_MODEL_METHOD.md`, `docs/P4_VERIFICATION_METHOD.md`.
 - claude/OPEN_ITEMS_AND_READINESS.md (2026-10-13 review): open items now live in the repo's `docs/NEXT_SESSION.md`.
