@@ -86,3 +86,4 @@ A module is done when:
    - No `reset --hard`, no force-push, no deleting branches.
    - Unfinished work is committed on its branch with "WIP:" in the message rather than lost.
 7. **Long runs:** results of long test runs are written to files in the repository (for example `baseline/BR13A/test_run.md`) and committed, so they survive the session.
+8. **Rules are kept in both places** (owner instruction 2026-11-17). Whenever a rule, method, standard value or working convention changes, update it in the repository (`docs/`) **and** in the claude.ai Project knowledge copy (`claude/<NAME>.md`) in the same session. The repository is authoritative; the Project copy is replaced with the repository file. Docs that exist only in the Project (`SOURCE_REPOSITORY.md`, `OPEN_ITEMS_AND_READINESS.md`, `README_PROJECT_INDEX.md`) are edited there directly.

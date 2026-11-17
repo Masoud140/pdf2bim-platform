@@ -2,6 +2,8 @@
 
 **Last updated:** 2026-11-16.
 
+**Standing rule (owner, 2026-11-17):** update every rule in both the repository and the Project knowledge in the same session (`DEVELOPMENT_PRINCIPLES.md` §5 item 8; index: `docs/project_knowledge/README_PROJECT_INDEX.md`).
+
 ## Priority order (owner-agreed list, 2026-11-16) — work top to bottom
 Tier 1 — engineering trust on real bridges
 1. Platform prestress checks (transfer 0.5 / 0.6 f'cp, TfNSW debonding + adjacency, development length). **Done 2026-11-17 (ADR-072).** Left: reduced capacity inside Lp; placement cover check (aggregate size usually missing); owner query on the transfer basis (report vs platform).

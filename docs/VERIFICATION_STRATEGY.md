@@ -98,6 +98,8 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - Independent brute force of the vehicle placement is equal to 1e-6; UDL and patterning by closed form / exact grid sum; lane factors.
   - Engine vs the dashboard with the dashboard's own distribution rule: 0.01 % (V5).
   - Standards values unverified. **No independent MIDAS moving-load check yet.**
+- **Prestress checks** (2026-11-17, `p4-verification`, ADR-072): `tests/design/test_prestress_checks.py` 13 / 13 (hand cases: 0.5 / 0.6 f'cp, 0.25 / 0.5 √f'cp, debonding fraction steps, horizontal / vertical adjacency, Lp formula and 2 Lp, flagged stations; B12452 debond count from the drawing pattern); standards 30 / 30. **Engineering verification not done:** limits are transcribed-unverified; against the SB42 report the transfer stresses differ (report 19.3 / 3.15 MPa, platform about 21 / 1.0 MPa) and the report's basis is an open owner query.
+- **Studio 3D frame** (2026-11-17, ADR-071): with rigid supports the frame equals the old grillage to 4.6e-11 over 33,516 values; Studio tests 47 / 47 + 12 / 12. Software checks only: soil stiffness, spectrum and combination factors are illustrative and unverified.
 - **P3b SDL / .mct / modes** (2026-10-24, branch `p3-model`):
   - loads 25 / 25: exact clipping, survey-coordinate precision, conservation of force and first moments, independent area and length integrations, T4 equilibrium; vs the dashboard total +0.3 %, distribution alone ≤ 8 %;
   - mct 16 / 16: round trip and dashboard parser. **No MIDAS import yet.**

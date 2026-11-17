@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-17 — Rules kept in both places
+- Owner instruction: every rule change goes to the repository and the Project knowledge in the same session (`DEVELOPMENT_PRINCIPLES.md` §5 item 8). New `docs/project_knowledge/` holds repository copies of the Project-only rule docs; prestress rules, verification strategy, control-line method (§2a back-bearing lesson) and tagging standard (platform tags) updated in both places.
+
 ## 2026-11-17 — Platform prestress checks (ADR-072)
 - Transfer stresses (0.5–0.6 f'cp; 0.25 / 0.5 √f'cp), TfNSW BTD 2011/06 debonding (50 %, adjacency), development length (flags ULS stations). New register entries and `standards/data/TfNSW.json`.
 
