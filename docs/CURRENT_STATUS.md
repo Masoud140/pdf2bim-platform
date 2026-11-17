@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-18: SB41 WB (B12459) indicative run (continuity not modelled): two spans through the chain; 41B-S1-09 vs report table 4-27: sagging M* −2 %, V* +7 %, φMu −15 %; SLS tension and transfer compression higher (strand reading to re-check). `projects/B12459/model/COMPARISON_REPORT.md`.
 - 2026-11-17: SB41 EB (B12460) verified as SB42: four spans through the chain; vs report tables 4-31 / 4-32: M* +14 %, V* +2 %, φMu −14 %, transfer compression +12 % (`projects/B12460/model/COMPARISON_REPORT.md`).
 - 2026-11-17: SB41 / SB43 survey (`projects/B12460/extraction/SURVEY.md`): SB41 EB next; SB41 WB indicative only (continuity); SB43 out of scope (planks).
 - 2026-11-17: Platform prestress checks (ADR-072): transfer, debonding (TfNSW), development length; tests 13/13, standards 30/30. Finding: B12452 transfer compression u 1.09; SB42 transfer basis differs from the report (owner query).

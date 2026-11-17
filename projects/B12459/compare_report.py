@@ -38,9 +38,7 @@ if pc:
     add("41B-S1-09 transfer compression (MPa)", 23.54, "report table 4-28 (compression; limit 24)", max(top["top"], top["bot"]), f"x = {top['x_m']:.2f} m, limit {top['limitC']:.1f}",
         "girder alone at transfer, f'cp 40 (0700)")
 P = [Z["piles"] for Z in CA]
-for s, grp in (("A-", (("A-05", "A-06", "A-07", "A-08"), 4686, 6606), (("A-09", "A-10"), 3702, 4931)),
-               ("B-", (("B-05", "B-06", "B-07", "B-08"), 5189, 7840),)):
-    for ids, sls, uls in grp:
+for ids, sls, uls in ((("A-05", "A-06", "A-07", "A-08"), 4686, 6606), (("A-09", "A-10"), 3702, 4931), (("B-05", "B-06", "B-07", "B-08"), 5189, 7840)):
         Q = {k: v for d in P for k, v in d.items() if k in ids}
         if Q:
             k1 = max(Q, key=lambda q: Q[q]["SLS"]["N"]["max"]); add(f"Pile SLS N max, {'/'.join(ids)} (kN)", sls, "0201 table 1", Q[k1]["SLS"]["N"]["max"], k1)
@@ -67,7 +65,10 @@ L += ["", "Known limits of this run (whether a difference is acceptable is the e
       "- continuity over the pier not modelled (Tier 4 'continuous spans'): not a verification of SB41 WB;",
       "- the girder ends stop short of the single pier bearing (X1 - chord = -180 .. -490 mm): the pier end is modelled 100 mm past the bearing (Model);",
       "- abutment B girder end distance taken 400 as abutment A (0709 dims at 44°: query);",
-      "- deck taken at the widest 0801 W1 / W2 station in each span (the deck tapers 18.1 -> 15.0 m in span 1);",
+      "- deck taken at the widest 0801 W1 / W2 station in each span (the deck tapers 18.1 -> 15.0 m in span 1): the south edge girder 41B-S1-01 carries a "
+      "3.9 m overhang at the pier end that does not exist, so its M* / V* (largest of the bridge) are not comparable — compare girder 09;",
+      "- SLS soffit tension 9.7 MPa vs 3.06: simply supported SDL + traffic (the report's are continuous) and generic losses (D-1); transfer compression "
+      "+20 % with f'cp 40 — check the 0724 strand reading for S1-07..09 (52 strands) before drawing conclusions;",
       "- one Super-T type per span (strands of the 07-09 group, fitments of girder 09);",
       "- headstock ends of the shared abutments = end bearings ± 1 m (Model); barrier section as SB41 EB (query);",
       "- skew above 35° at abutment B; HLP400 placed by the platform's rule, not the two-marked-lanes position."]

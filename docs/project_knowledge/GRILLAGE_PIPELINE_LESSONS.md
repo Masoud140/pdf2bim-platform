@@ -60,6 +60,8 @@ table uses flange width" is still open. ANALYSIS_METHOD supersedes the "design, 
 - Shared supports (added 2026-11-17, SB41 EB): an abutment or pier carrying several bridges numbers its bearings in one table (SB-1510 abutment A: B1-B4 SB41 EB, B5-B13 SB41 WB, B14-B18 SB42). Never assume which rows belong to the bridge: station every bearing on the bridge's control line and keep the ones inside its deck.
 - Pier bearings are often only dimensioned along the headstock from a datum on the control line (CH, E, N printed): compute them, then check each girder's chord + end distances against the printed girder length X1 (SB41 EB: all 16 girders consistent).
 - Girder numbering across the deck follows the drawings, not the alignment side: confirm with the bearing levels and the crossfall (SB41 EB: 01 next to MC80, 04 the low north edge).
+- Girders made continuous over a pier (added 2026-11-18, SB41 WB): the precast ends can stop SHORT of a single pier bearing (X1 - chord negative, -180 .. -490 mm); the in-situ diaphragm carries them. A negative X1 - chord is a sign of continuity detailing, not a reading error.
+- Tapered decks: a constant deck width taken at the widest station puts a phantom overhang on the edge girder where the deck narrows (SB41 WB span 1: 3.9 m) - compare the girder the report names, not the platform's largest.
 - Prestress per girder type (added 2026-11-17): release strength f'cp, strand pattern with x / y and debond lengths, jacking or after-release force, hog table; the platform checks transfer stresses, debonding (TfNSW) and development length from these.
 
 ## 5. Engineer preferences observed

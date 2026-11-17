@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — SB41 WB (B12459) indicative run
+- Drawing values for two spans (`projects/B12459/extraction/values.py`), descriptions, chain runs and an indicative comparison with report tables 4-27 / 4-28 (continuity not modelled). SB41 EB values: girder_options row order fixed (one value had been refused).
+
 ## 2026-11-17 — SB41 EB (B12460) verified
 - Drawing values for four spans (`projects/B12460/extraction/values.py`), span descriptions, chain runs and the comparison with design report RPT-410001 tables 4-31 / 4-32 and pile table 0201.
 
