@@ -94,6 +94,7 @@
     }
     V.labels.push({ p: P3(g.total + g.edgeR * g.t + 1.5, 0, 0.3), t: 'Deck ' + f(g.W, 2) + ' m wide', on: true });
     V.labels.push({ p: P3(g.edgeL * g.t - 2, 0, zs), t: 'Skew ' + p.skew + '°', on: true });
+    if (DF.G) root.visible = false;   /* the deflected shape replaces the solid model while it is shown */
     V.scene.add(root);
     V.box = { c: new THREE.Vector3(g.total / 2, zs / 2, 0), L: g.total, W: g.W, zg: zg };
     if (first) frame(V.view); else render();
@@ -107,7 +108,7 @@
   function render() {
     if (!V) return; V.R.render(V.scene, V.cam);
     var w = V.el.clientWidth, h = V.el.clientHeight, html = '';
-    if (SHOW.labels) V.labels.forEach(function (l) { if (!l.on) return; var q = l.p.clone().project(V.cam); if (q.z > 1 || q.x < -1.1 || q.x > 1.1 || q.y < -1.1 || q.y > 1.1) return; html += '<span class="lbl" style="left:' + ((q.x + 1) / 2 * w).toFixed(0) + 'px;top:' + ((1 - q.y) / 2 * h).toFixed(0) + 'px">' + esc(l.t) + '</span>'; });
+    if (SHOW.labels && !DF.G) V.labels.forEach(function (l) { if (!l.on) return; var q = l.p.clone().project(V.cam); if (q.z > 1 || q.x < -1.1 || q.x > 1.1 || q.y < -1.1 || q.y > 1.1) return; html += '<span class="lbl" style="left:' + ((q.x + 1) / 2 * w).toFixed(0) + 'px;top:' + ((1 - q.y) / 2 * h).toFixed(0) + 'px">' + esc(l.t) + '</span>'; });
     V.lbl.innerHTML = html;
   }
   function pickAt(e) {
@@ -125,6 +126,126 @@
       '<div class="row" style="margin-top:6px;gap:6px"><button class="chip" data-tab="design">Design</button><button class="chip" data-tab="analysis">Results</button></div>';
     V.pick.hidden = false;
   }
+
+
+  /* ===== Deflected shape animation: static cases, vibration modes, an M1600 truck crossing. Drawn on the analysis frame
+     (deck grillage, sill beams, piles), translations only, exaggerated by a scale shown on screen. ===== */
+  var DF = { src: '', play: true, mul: 1, key: '', F: null, G: null, raf: 0, busy: false };
+  var SRC = [['', 'Off'], ['DL', 'Dead load: girder + wet deck, then barriers + surfacing'], ['G12', 'Girder + wet deck (girder alone)'], ['SDL', 'Barriers + surfacing (composite)'],
+    ['MV', 'M1600 truck crossing'], ['MVD', 'Dead load + M1600 truck crossing'], ['BRK', 'Braking (±)'], ['WT', 'Transverse wind, serviceability (±)'], ['TU', 'Uniform temperature (±)'], ['MODE', 'Vibration modes']];
+  function frameModel() {   /* the analysis frame and its factorised stiffness, kept until any input changes */
+    var p = ST.p, key = JSON.stringify(p); if (DF.F && DF.F.key === key) return DF.F;
+    var g = CORE.geometry(p), sc = CORE.sections(p, g), m = CORE.mesh(p, g, sc), S = CORE.build(m), N = m.nodes.concat(m.subN || []);
+    DF.F = { key: key, p: p, g: g, sc: sc, m: m, S: S, N: N, cache: {} }; return DF.F;
+  }
+  function vehicle(F, Xf) {   /* M1600 wheel loads [x, y, P] with the front axle at Xf, in the lane against the left kerb; minimum gap between groups 2 and 3 */
+    var v = CORE.STD.M1600, a = v.axle_spacing_m, y0 = F.g.cwL + CORE.STD.laneW / 2, out = [], g0 = [0, 2 * a + v.gap_12_m], x;
+    g0.push(g0[1] + 2 * a + v.gap_23_min_m); g0.push(g0[2] + 2 * a + v.gap_34_m);
+    g0.forEach(function (q) { for (var i = 0; i < 3; i++) { x = Xf - q - i * a; [-1, 1].forEach(function (sd) { out.push([x, y0 + sd * v.track_m / 2, v.wheel_kN]); }); } });
+    return out;
+  }
+  function solveLoads(F, wheels) {
+    var R = new Float64Array(CORE.ND * F.m.nodes.length);
+    wheels.forEach(function (w) { CORE.weights(F.m, F.g, w[0], w[1]).forEach(function (q) { R[CORE.ND * q[0]] -= w[2] * q[1]; }); });
+    return CORE.solve(F.S, R);
+  }
+  function caseU(F, id) {   /* displacement vector of one static case */
+    if (F.cache[id]) return F.cache[id];
+    var p = F.p, g = F.g, m = F.m, u;
+    if (id === 'G12') {   /* simply supported girder under its own weight and the wet slab, before the deck is composite: 5-term beam formula at each girder node */
+      u = new Float64Array(F.S.nd);
+      g.spans.forEach(function (sp, k) { var ga = CORE.girderAlone(p, g, F.sc, sp), w = ga.wG + ga.wD, L = ga.L, EI = F.sc.Eg * 1e3 * F.sc.I * 1e-12;
+        m.nodes.forEach(function (n) { if (n.k !== k) return; var x = n.j / m.n * L; u[CORE.ND * n.id] = -w * x * (L * L * L - 2 * L * x * x + x * x * x) / (24 * EI); }); });
+    } else if (id === 'SDL') u = CORE.solve(F.S, CORE.sdlLoads(p, m, g));
+    else if (id === 'DL') { var a = caseU(F, 'G12'), b = caseU(F, 'SDL'); u = new Float64Array(F.S.nd); for (var i = 0; i < u.length; i++) u[i] = a[i] + (b[i] || 0); }
+    else if (id === 'BRK') u = CORE.solve(F.S, CORE.hzLoads(m, g, p, 'x', function () { return p.hBrake || 0; }));
+    else if (id === 'WT') u = CORE.solve(F.S, CORE.hzLoads(m, g, p, 'y', function (k) { return g.spans[k].L * (p.windTs || 0); }));
+    else if (id === 'TU') u = CORE.solve(F.S, CORE.thermalLoads(m, p, p.dTuni || 0));
+    return (F.cache[id] = u);
+  }
+  function compute(id) {   /* returns { frames: [U], kind, period (s of animation), info } */
+    var F = frameModel(), ND = CORE.ND;
+    if (id === 'MODE') {
+      if (!F.cache.modes) F.cache.modes = CORE.modesF(F.S, CORE.frameMass(F.p, F.m, F.g, F.sc).Md, 12);
+      var md = F.cache.modes[Math.min(DF.mode || 0, F.cache.modes.length - 1)], u = md.u, mx = 0;
+      for (var i = 0; i < u.length; i++) if (i % ND === 0 || i % ND === 3 || i % ND === 4) mx = Math.max(mx, Math.abs(u[i]));
+      return { frames: [u], kind: 'mode', period: 2, unit: 1 / mx, md: md };
+    }
+    if (id === 'MV' || id === 'MVD') {
+      var base = id === 'MVD' ? caseU(F, 'DL') : null, fr = [], ax = [], len = F.g.total + 30;
+      for (var X = -0.5; X <= len; X += 0.5) { var wh = vehicle(F, X), U2 = solveLoads(F, wh); if (base) for (var j = 0; j < U2.length; j++) U2[j] += base[j] || 0; fr.push(U2); ax.push(wh); }
+      return { frames: fr, axles: ax, kind: 'moving', period: len / 6 };   /* about 6 m/s on screen */
+    }
+    return { frames: [caseU(F, id)], kind: id === 'BRK' || id === 'WT' || id === 'TU' ? 'pm' : 'ramp', period: 3 };
+  }
+  function vertexColour(c, r) { c.setHSL(0.62 * (1 - Math.min(1, r)), 0.85, 0.52); }
+  function defDrop() { if (DF.G) { V.scene.remove(DF.G.grp); DF.G.grp.traverse(function (o) { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); DF.G = null; } }
+  function defBuild() {
+    defDrop(); if (!DF.src) { if (V.root) V.root.visible = true; defHud(); render(); return; }
+    DF.busy = true; defHud();
+    setTimeout(function () {
+      var F, R; try { F = frameModel(); R = compute(DF.src); } catch (e) { DF.busy = false; DF.err = e.message; defHud(); return; }
+      DF.busy = false; DF.err = '';
+      var N = F.N, ND = CORE.ND, nv = N.length, base = new Float32Array(3 * nv), pos = new Float32Array(3 * nv), col = new Float32Array(3 * nv), byId = [];
+      N.forEach(function (n) { byId[n.id] = n; });
+      for (var i = 0; i < nv; i++) { var n = byId[i], q = P3(n.x, n.y, n.z || 0); base[3 * i] = q.x; base[3 * i + 1] = q.y; base[3 * i + 2] = q.z; }
+      pos.set(base);
+      var tri = [], lin = [], ghost;
+      F.g.spans.forEach(function (sp, k) { for (var a = 0; a < F.g.ng - 1; a++) for (var j = 0; j < F.m.n; j++) { var id = function (ii, jj) { return F.m.id[k + ':' + ii + ':' + jj]; }; tri.push(id(a, j), id(a + 1, j), id(a + 1, j + 1), id(a, j), id(a + 1, j + 1), id(a, j + 1)); } });
+      F.m.els.concat(F.m.subE || []).forEach(function (e) { lin.push(e.n1, e.n2); });
+      F.m.sup.forEach(function (s) { if (s.below !== undefined) lin.push(s.node, s.below); });
+      var PA = new THREE.BufferAttribute(pos, 3), CA = new THREE.BufferAttribute(col, 3), grp = new THREE.Group();
+      var gs = new THREE.BufferGeometry(); gs.setAttribute('position', PA); gs.setAttribute('color', CA); gs.setIndex(tri); gs.computeVertexNormals();
+      grp.add(new THREE.Mesh(gs, new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })));
+      var gl = new THREE.BufferGeometry(); gl.setAttribute('position', PA); gl.setAttribute('color', CA); gl.setIndex(lin);
+      grp.add(new THREE.LineSegments(gl, new THREE.LineBasicMaterial({ vertexColors: true })));
+      var g0 = new THREE.BufferGeometry(); g0.setAttribute('position', new THREE.BufferAttribute(base, 3)); g0.setIndex(lin);
+      ghost = new THREE.LineSegments(g0, new THREE.LineBasicMaterial({ color: 0x8899aa, transparent: true, opacity: 0.35 })); grp.add(ghost);
+      var wheels = [];
+      if (R.axles) { var wm = new THREE.MeshStandardMaterial({ color: 0xf0b030, emissive: 0x553300 }); R.axles[0].forEach(function () { var b = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.35, 0.5), wm); grp.add(b); wheels.push(b); }); }
+      /* scale: the largest translation over all frames drawn as 3 % of the longest span */
+      var mx = 0, mw = 0, comp = [0, 0, 0];
+      R.frames.forEach(function (u) { for (var i2 = 0; i2 < nv; i2++) { var w = Math.abs(u[ND * i2] || 0), ux = Math.abs(u[ND * i2 + 3] || 0), uy = Math.abs(u[ND * i2 + 4] || 0); mw = Math.max(mw, w); comp[0] = Math.max(comp[0], ux); comp[1] = Math.max(comp[1], uy); comp[2] = Math.max(comp[2], w); mx = Math.max(mx, w, ux, uy); } });
+      var Lmax = Math.max.apply(null, F.g.spans.map(function (s2) { return s2.L; }));
+      DF.G = { grp: grp, R: R, F: F, base: base, pos: pos, col: col, PA: PA, CA: CA, gs: gs, wheels: wheels, mx: mx, comp: comp, auto: mx > 0 ? 0.03 * Lmax / mx : 1, t0: performance.now() };
+      if (V.root) V.root.visible = false; V.scene.add(grp); defHud(); tick();
+    }, 20);
+  }
+  function tick() {
+    cancelAnimationFrame(DF.raf); var G = DF.G; if (!G || !V.el.isConnected) return;
+    var R = G.R, ND = CORE.ND, t = (performance.now() - G.t0) / 1000, ph = (t % R.period) / R.period, u, amp, c = new THREE.Color(), nv = G.pos.length / 3;
+    if (!DF.play) ph = DF.ph || 0.25; else DF.ph = ph;
+    if (R.kind === 'moving') { var k = Math.min(R.frames.length - 1, Math.floor(ph * R.frames.length)); u = R.frames[k]; amp = 1; G.k = k; }
+    else { u = R.frames[0]; amp = R.kind === 'ramp' ? (1 - Math.cos(2 * Math.PI * ph)) / 2 : Math.sin(2 * Math.PI * ph); }
+    var s = G.auto * DF.mul * amp, mw = G.mx || 1;
+    for (var i = 0; i < nv; i++) { var w = u[ND * i] || 0, ux = u[ND * i + 3] || 0, uy = u[ND * i + 4] || 0, q = P3(ux * s, uy * s, w * s);
+      G.pos[3 * i] = G.base[3 * i] + q.x; G.pos[3 * i + 1] = G.base[3 * i + 1] + q.y; G.pos[3 * i + 2] = G.base[3 * i + 2] + q.z;
+      vertexColour(c, Math.sqrt(w * w + ux * ux + uy * uy) * Math.abs(amp) / mw); G.col[3 * i] = c.r; G.col[3 * i + 1] = c.g; G.col[3 * i + 2] = c.b; }
+    G.PA.needsUpdate = true; G.CA.needsUpdate = true; G.gs.computeVertexNormals();
+    if (G.wheels.length) R.axles[G.k].forEach(function (wl, j) { var z = 0; CORE.weights(G.F.m, G.F.g, wl[0], wl[1]).forEach(function (q) { z += q[1] * (u[ND * q[0]] || 0); }); var on = wl[0] >= -1 && wl[0] <= G.F.g.total + Math.abs(G.F.g.t) * G.F.g.W + 1; G.wheels[j].visible = on; G.wheels[j].position.copy(P3(wl[0], wl[1], z * s + 0.25)); });
+    V.R.render(V.scene, V.cam); V.lbl.innerHTML = '';
+    if (R.kind === 'moving' && DF.play && (t | 0) !== DF.lastT) { DF.lastT = t | 0; defHud(); }
+    if (DF.play) DF.raf = requestAnimationFrame(tick);
+  }
+  function defHud() {
+    if (!V.dh) { V.dh = document.createElement('div'); V.dh.className = 'pick'; V.dh.style.cssText = 'left:10px;right:auto;max-width:min(470px,62%)'; V.el.appendChild(V.dh);
+      V.dh.addEventListener('change', function (e) { if (e.target.name === 'dsrc') { DF.src = e.target.value; defBuild(); } else if (e.target.name === 'dmode') { DF.mode = +e.target.value; defBuild(); } });
+      V.dh.addEventListener('click', function (e) { var b = e.target.closest('[data-df]'); if (!b) return; var k = b.getAttribute('data-df'); if (k === 'play') { DF.play = !DF.play; if (DF.G) DF.G.t0 = performance.now() - (DF.ph || 0) * DF.G.R.period * 1000; tick(); } else DF.mul = +b.getAttribute('data-x'); defHud(); if (!DF.play) tick(); }); }
+    var G = DF.G, h = '<b>Deflected shape</b> <select name="dsrc" aria-label="Load case to animate" style="margin-left:6px;max-width:100%">' + SRC.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === DF.src ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+    if (DF.src === 'MODE') { var md = DF.F && DF.F.cache.modes; h += ' <select name="dmode" aria-label="Mode">' + (md || new Array(12).fill(0)).map(function (q, i) { return '<option value="' + i + '"' + (i === (DF.mode || 0) ? ' selected' : '') + '>Mode ' + (i + 1) + (md ? ' – ' + f(q.f, 2) + ' Hz' : '') + '</option>'; }).join('') + '</select>'; }
+    if (DF.busy) h += '<div>Solving the frame…</div>';
+    else if (DF.err) h += '<div style="color:#ff9b8f">' + esc(DF.err) + '</div>';
+    else if (G) {
+      var mm = function (v) { return f(v * 1000, 1) + ' mm'; }, R = G.R;
+      h += '<div class="row" style="gap:6px;margin:6px 0"><button class="chip" data-df="play">' + (DF.play ? 'Pause' : 'Play') + '</button>' + [0.5, 1, 2, 5].map(function (x) { return '<button class="chip" data-df="mul" data-x="' + x + '" aria-pressed="' + (DF.mul === x) + '">×' + x + '</button>'; }).join('') + '<span style="opacity:.75">exaggeration ' + f(G.auto * DF.mul, 0) + '×</span></div>';
+      if (R.kind === 'mode') h += '<div>Mode ' + ((DF.mode || 0) + 1) + ': ' + f(R.md.f, 3) + ' Hz, period ' + f(R.md.T, 3) + ' s. Shape normalised: amplitude has no physical size. Animation slowed to 2 s per cycle.</div>';
+      else h += '<div>Largest movement: vertical ' + mm(G.comp[2]) + ', along ' + mm(G.comp[0]) + ', across ' + mm(G.comp[1]) + (R.kind === 'pm' ? ' (either direction)' : '') + '</div>';
+      if (R.kind === 'moving') { var k = G.k || 0, X = R.axles[k][0][0], U2 = R.frames[k], wmin = 0; G.F.m.nodes.forEach(function (n) { wmin = Math.min(wmin, U2[CORE.ND * n.id]); }); h += '<div>Front axle at x = ' + f(X, 1) + ' m; deflection now ' + mm(-wmin) + '</div>'; }
+      h += '<div style="opacity:.75;margin-top:4px">' + ({ G12: 'Short-term modulus, before composite action. Prestress camber is not included: see Stages, hog & temperature.', DL: 'Girder + wet deck on the girder alone, then barriers and surfacing on the composite frame. No prestress camber, creep or shrinkage.', SDL: 'On the composite frame with the bearings, sill beams, piles and soil springs.', MV: 'Wheel loads only (4 tri-axle groups, 60 kN wheels), lane against the left kerb, static: no dynamic allowance, no lane UDL.', MVD: 'Dead load as above, plus the M1600 wheel loads (static, no lane UDL).', BRK: p_('hBrake', 'kN per span along the bridge.'), WT: p_('windTs', 'kN/m across the bridge.'), TU: p_('dTuni', '°C uniform change of the deck.'), MODE: 'Modes of the whole frame with the deck and substructure mass (as on the Earthquake & modes page).' }[DF.src] || '') + ' Colour: size of the movement, blue small to red largest.</div>';
+    } else h += '<div style="opacity:.75;margin-top:4px">Animate the deflected shape of the analysis frame under a load case, a vibration mode or a truck crossing.</div>';
+    V.dh.innerHTML = h;
+  }
+  function p_(k, t) { return f(ST.p[k] || 0, 1) + ' ' + t; }
 
   U.V3 = { theme: function () {} };
   U.V3.snapshot = function (w, h) {   /* PNG data URL of the iso view; builds an off-screen viewer when the 3D page has not been opened */
@@ -149,5 +270,6 @@
     var slot = U.$('#v3slot'); if (!slot || typeof THREE === 'undefined') return;
     if (!V && !make()) return;
     slot.appendChild(V.el); hudPaint(); size(); build(false); if (V.pick && !V.pick.hidden) pickPaint();
+    if (DF.src && (!DF.F || DF.F.key !== JSON.stringify(ST.p))) defBuild(); else { defHud(); if (DF.G) { V.root.visible = false; tick(); } }
   };
 })();

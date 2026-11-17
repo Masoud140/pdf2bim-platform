@@ -111,7 +111,7 @@ If this file and the repository disagree, the repository wins: fix this file. **
 
 ## 1. Last verified checkpoint
 
-**2026-11-17 stop point:** Studio 3D frame finished and published (ADR-071). Commands run: `node studio/tests/test_engines.js` 47/47, `node studio/tests/test_core.js` 12/12, `SUB=0 node studio/tests/regress_dump.js new.json` compared with the three-freedom baseline (4.6e-11; the baseline JSON was a scratch file, regenerate from commit before the frame work if needed), browser check of every tab with no errors. Follow-ups, not started: more modes or a static correction so the earthquake captures 90 % of the mass; substructure in the 3D view; piers of multi-span bridges as members. Next task: Tier 1 item 1 (platform prestress checks).
+**2026-11-17 stop point:** Studio 3D frame finished and published (ADR-071). Commands run: `node studio/tests/test_engines.js` 47/47, `node studio/tests/test_core.js` 12/12, `SUB=0 node studio/tests/regress_dump.js new.json` compared with the three-freedom baseline (4.6e-11; the baseline JSON was a scratch file, regenerate from commit before the frame work if needed), browser check of every tab with no errors. Follow-ups, not started: more modes or a static correction so the earthquake captures 90 % of the mass; substructure in the 3D view; piers of multi-span bridges as members. Deflection animation added to the 3D page (`studio/src/ui3d.js`, UI only; browser-checked every source, 0 errors; girder-alone mid-span 37.6 mm equals 5wL⁴/384EI). Limits: no prestress camber/creep in the dead-load shape; truck is wheel loads only (no lane UDL, no DLA), lane against the left kerb. Next task: Tier 1 item 1 (platform prestress checks).
 
 | Item | Value | Verified by |
 |---|---|---|

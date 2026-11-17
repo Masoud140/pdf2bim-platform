@@ -3,6 +3,7 @@
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
 ## 2026-11-17 — Studio 3D frame (ADR-071)
+- 3D bridge model page: animated deflected shape of the analysis frame: dead load (girder alone + composite SDL), braking, transverse wind, uniform temperature, the 12 frame modes, and an M1600 truck (wheel loads, static) crossing, alone or on top of dead load. Exaggeration and largest movements shown on screen.
 - Six freedoms per node; bearings as 3D springs; abutment sill beams, piles and soil springs; braking, centrifugal, transverse wind and uniform temperature cases; frame modes and response spectrum earthquake (EQx / EQy) with combinations. Rigid-support option reproduces the old grillage to 4.6e-11.
 - `docs/STANDARDS_CLAUSE_CAPTURE_PROMPT.md`: prompt for capturing standard clauses into a library with Claude in Chrome.
 
