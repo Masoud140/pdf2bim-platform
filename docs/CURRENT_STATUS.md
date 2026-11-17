@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-17: SB41 / SB43 survey (`projects/B12460/extraction/SURVEY.md`): SB41 EB next; SB41 WB indicative only (continuity); SB43 out of scope (planks).
 - 2026-11-17: Platform prestress checks (ADR-072): transfer, debonding (TfNSW), development length; tests 13/13, standards 30/30. Finding: B12452 transfer compression u 1.09; SB42 transfer basis differs from the report (owner query).
 - 2026-11-17: Studio is now a 3D frame (ADR-071): horizontal loads, bearings as 3D springs, piles with soil springs, frame modes, response spectrum earthquake. Studio tests 47/47 + 12/12; rigid-support regression 4.6e-11. Limit: 12 modes capture 73–78 % of the mass. Clause capture prompt: `docs/STANDARDS_CLAUSE_CAPTURE_PROMPT.md`.
 - 2026-11-16: Studio parity pass (ADR-069: Properties, Boundary conditions, all loads listed, point-of-interest SLS and ULS diagrams) and Earthquake & modes page (ADR-070). Studio tests 28/28.
