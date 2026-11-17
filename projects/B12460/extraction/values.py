@@ -595,10 +595,10 @@ def build(span):
         i_ += 1
     put("design.girder_options.rows[0]", sheet="0768", view="general notes", text="INTERNAL SURFACE: 30mm, EXTERNAL SURFACE: 35mm", cells={"item": "fitment_cover_side", "value": "35"})
     put("design.girder_options.rows[1]", sheet="0768", view="general notes", text="INTERNAL SURFACE: 30mm", cells={"item": "fitment_cover_top", "value": "30"})
-    put("design.girder_options.rows[8]", tag="Missing-Flagged", cells={"item": "aggregate_size"},
-        note="0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)")
     for i, (it, v_) in enumerate((("useN", "true"), ("kuoLim", "true"), ("tend", '"sc"'), ("k1p", "0.4"), ("dsh", "true"), ("torsion_tie_legs", "1")), 2):
         put(f"design.girder_options.rows[{i}]", tag="Model", cells={"item": it, "value": v_}, note="design option, as SB42")
+    put("design.girder_options.rows[8]", tag="Missing-Flagged", cells={"item": "aggregate_size"},
+        note="0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)")
     for i, (it, v, why) in enumerate((("tgt", "2.8", "transverse member spacing target (m)"), ("merge", "0.4", "node merge tolerance (m)"), ("midgap", "1", "mid-gap lines"),
                                       ("model", "2", "integrated model"), ("girder_J_factor", "1.0", "Super-T torsion factor (ADR-041)"),
                                       ("deck_top_reference", "1", "nodes at the deck top (ADR-043)"))):

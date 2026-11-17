@@ -4319,15 +4319,6 @@
    }
   },
   {
-   "path": "design.girder_options.rows[8]",
-   "tag": "Missing-Flagged",
-   "cells": {
-    "item": "aggregate_size"
-   },
-   "value": null,
-   "note": "0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)"
-  },
-  {
    "path": "design.girder_options.rows[2]",
    "tag": "Model",
    "cells": {
@@ -4398,6 +4389,15 @@
     "note": "design option, as SB42"
    },
    "note": "design option, as SB42"
+  },
+  {
+   "path": "design.girder_options.rows[8]",
+   "tag": "Missing-Flagged",
+   "cells": {
+    "item": "aggregate_size"
+   },
+   "value": null,
+   "note": "0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)"
   },
   {
    "path": "analysis.grillage.rows[0]",

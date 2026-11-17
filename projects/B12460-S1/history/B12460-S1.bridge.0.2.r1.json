@@ -10323,6 +10323,25 @@
       "note": "design option, as SB42"
      },
      "current": "original"
+    },
+    {
+     "cells": {
+      "item": "aggregate_size"
+     },
+     "note": "0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)",
+     "tag": "Missing-Flagged",
+     "status": "open",
+     "original": {
+      "cells": {
+       "item": "aggregate_size"
+      },
+      "unit": null,
+      "tag": "Missing-Flagged",
+      "recorded_by": "AI (extraction)",
+      "recorded_at": null,
+      "note": "0700: 'MINIMUM AGGREGATE SIZE IN ACCORDANCE WITH TfNSW SPECIFICATION D&C B80' - no number on the drawings (shear / torsion needs it)"
+     },
+     "current": "original"
     }
    ]
   },
@@ -10799,7 +10818,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-17T09:51:52+00:00",
+  "created": "2026-11-17T20:26:39+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-17)",
   "decision_log_sha256": null
@@ -10808,6 +10827,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:c3cd2f16bf3fa5cdce47c1dc8ff98d1658565a192784fc8e6c4fe557bbb5b132"
+  "value": "sha256:92ef448dfc8d5e5dfb513656ba2524765b2a5bc0d807a98564555c68d1beb20d"
  }
 }
