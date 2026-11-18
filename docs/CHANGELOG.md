@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Studio ULS combinations and negative gradient (ADR-080)
+- Generate adds ULS traffic + thermal / wind-with-traffic rows, wind-with-traffic + traffic, thermal at 1.25; negative gradient case and inputs.
+
 ## 2026-11-19 — Per-girder strand patterns in the optimiser and assistant (ADR-079)
 - Strand search on a chosen pattern; assistant can list patterns and propose strand changes to one of them.
 

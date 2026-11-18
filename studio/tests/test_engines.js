@@ -131,9 +131,12 @@ const S = D.stripsFromPolygon ? null : null;
   let msg = ''; try { run({ brg: { start: 'free', end: 'free' } }, (m, g, p) => C.hzLoads(m, g, p, 'x', () => 1)); } catch (e) { msg = e.message; }
   t('free bearings at both ends: refused as unstable, naming the freedom', /unstable/.test(msg) && /uX/.test(msg), msg.slice(0, 70));
   const cb = C.generateCombos(C.CASES_DEF.map(c => Object.assign({}, c)));
-  t('combinations: braking rides with traffic at its factor; wind and temperature rows exist', cb.find(c => c.id === 'ULS-1').f.BRK === 1.8 && cb.find(c => c.id === 'SLS-1').f.BRK === 1.0 && cb.find(c => c.id === 'ULS-W').f.WTu === 1 && cb.find(c => c.id === 'ULS-T').f.TU === 1.25 && cb.find(c => c.id === 'SLS-T').f.TU === 1);
+  t('combinations: braking rides with traffic at its factor; wind and temperature rows exist', cb.find(c => c.id === 'ULS-1').f.BRK === 1.8 && cb.find(c => c.id === 'SLS-1').f.BRK === 1.0 && cb.find(c => c.id === 'ULS-W').f.WTu === 1 && cb.find(c => c.id === 'ULS-T').f.TU === 1.25 && cb.find(c => c.id === 'SLS-T').f.TU === 1 && cb.find(c => c.id === 'SLS-Tn').f.TEMPN === 1);
   t('combinations: SLS lead groups with companions at 0.7 / 0.5 (traffic, temperature incl. gradient, wind)', cb.find(c => c.id === 'SLS-1+T').f.TEMP === 0.7 && cb.find(c => c.id === 'SLS-T+1').f.M1600 === 0.7 && cb.find(c => c.id === 'SLS-1+T+W').f.WTs === 0.5 && cb.find(c => c.id === 'SLS-T').f.TEMP === 1,
     cb.filter(c => c.ls === 'SLS').length + ' SLS rows');
+  const cbp = C.generateCombos(C.CASES_DEF.map(c => Object.assign({}, c)), { windTu: 6, windT35: 3 });
+  t('combinations: ULS traffic with thermal at 1.0 (one gradient at a time) and wind with traffic; thermal ULS at 1.25 per gradient', cbp.find(c => c.id === 'ULS-1+Tn+W').f.TEMPN === 1 && !cbp.find(c => c.id === 'ULS-1+Tn+W').f.TEMP && cbp.find(c => c.id === 'ULS-1+T+W').f.WTu === 0.5 && cbp.find(c => c.id === 'ULS-1+T').f.M1600 === 1.8 && cbp.find(c => c.id === 'ULS-W+1').f.M1600 === 1 && cbp.find(c => c.id === 'ULS-Tn').f.TEMPN === 1.25 && cbp.find(c => c.id === 'ULS-T').f.TU === 1.25,
+    cbp.filter(c => c.ls === 'ULS').length + ' ULS rows');
 }
 // substructure in the frame: sill, piles with soil springs, bearings as eccentric springs
 {
