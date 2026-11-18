@@ -99,6 +99,23 @@ def _ray_to_line(P, n, A, B):
     return ((A[0] - P[0]) * e[1] - (A[1] - P[1]) * e[0]) / den
 
 
+def _samples(al, chs, pad=5.0, n=200):
+    """Control line over the bridge (+/- pad m) for views: ch, E, N, bearing (deg) and design RL where a vertical alignment exists."""
+    a, b = min(chs) - pad, max(chs) + pad
+    out = []
+    for i in range(n + 1):
+        ch = a + (b - a) * i / n
+        try:
+            E, N, br = al.point(ch)
+        except Exception:                                     # outside the tabulated alignment: skip the point
+            continue
+        q = {"ch": round(ch, 4), "E": round(E, 4), "N": round(N, 4), "bearing": round(br, 6)}
+        if al.vertical is not None:
+            q["RL"] = round(al.vertical.rl(ch), 4)
+        out.append(q)
+    return out
+
+
 def build_geometry(doc, allow_proposed=False, stations=(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0)):
     rd = Reader(doc, allow_proposed)
     A = doc.get("alignment") or {}
@@ -224,6 +241,8 @@ def build_geometry(doc, allow_proposed=False, stations=(0, 0.1, 0.2, 0.3, 0.4, 0
     return {"format": "pdf2bim.geometry/0.1", "coordinates": "MGA (as in the description), metres; offsets + right of increasing chainage",
             "input_hash": content_hash(doc), "input_format": doc.get("format"), "allow_proposed": allow_proposed,
             "provisional": rd.provisional,
-            "alignment": {"seed_bearing": al.seed_bearing, "seed_derivation": al.seed_derivation, "misclosure": al.misclosure()},
+            "alignment": {"seed_bearing": al.seed_bearing, "seed_derivation": al.seed_derivation, "misclosure": al.misclosure(),
+                          "samples": _samples(al, [sup[k]["ch"] for k in ids]),
+                          "crossfall": rd.rows(A["crossfall"], "alignment.crossfall") if A.get("crossfall") else None},
             "supports": [{k: v for k, v in sup[k].items() if k != "u"} for k in ids], "girders": girders, "deck": deck, "checks": checks,
             "_alignment": al}

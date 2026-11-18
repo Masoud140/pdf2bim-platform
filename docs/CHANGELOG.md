@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Alignment views (ADR-081)
+- Platform geometry.json carries control-line samples and crossfall; Studio tab shows plan (MGA), profile, crossfall and set-out from it.
+
 ## 2026-11-19 — Studio ULS combinations and negative gradient (ADR-080)
 - Generate adds ULS traffic + thermal / wind-with-traffic rows, wind-with-traffic + traffic, thermal at 1.25; negative gradient case and inputs.
 

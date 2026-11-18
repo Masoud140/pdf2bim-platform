@@ -26,7 +26,7 @@ Tier 3 — Studio showcase
 11. Optional: section-drawing zoom; generated live-load model page.
 Tier 4 — platform scope
 12. Pile moments with real soil springs (needs the geotechnical appendix); D-2 / D-3 views in the Studio only after that.
-13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results.
+13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results. **Done 2026-11-19 (ADR-081)**: tab "Alignment (platform)" loads a platform `geometry.json` — plan in MGA, vertical profile, crossfall at each support, support and bearing set-out, checks. Left: sill / headstock geometry (G-4 sills, RLs, toe) needs `model_view.json`, not yet read by the Studio.
 14. Moving-load MIDAS export; planks; continuous spans; Revit output; hosted app with log-in.
 15. Merge `p4-verification` to main (owner).
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).

@@ -110,6 +110,10 @@ sag = lambda o: (Rc + o) * (1 - math.cos((sB - sA) / (2 * Rc)))
 t("case 3: chord sits inside the curve by the sagitta at mid-chord", all(abs((G[gid]["midchord_station"][1] - o) + sag(o)) < MM for gid, o in zip(("G1", "G2"), offs)),
   str([(G[g]["midchord_station"][1], sag(o)) for g, o in zip(("G1", "G2"), offs)]))
 t("case 3: alignment misclosure at the tabulated end of the arc < 1e-6 m", all(m["dist"] < 1e-6 for m in g3["alignment"]["misclosure"]))
+S3 = g3["alignment"]["samples"]; chs3 = [q["ch"] for q in g3["supports"]]
+t("case 3: control-line samples cover the supports +/- 5 m, on the arc (point spacing = chord of the chainage step)",
+  abs(S3[0]["ch"] - (min(chs3) - 5)) < 1e-9 and abs(S3[-1]["ch"] - (max(chs3) + 5)) < 1e-9
+  and all(abs(math.hypot(b["E"] - a["E"], b["N"] - a["N"]) - 2 * Rc * math.sin((b["ch"] - a["ch"]) / (2 * Rc))) < 2e-4 for a, b in zip(S3, S3[1:])))
 
 # ---------------- case 4: curved alignment, skewed supports (20 deg from radial) ----------------
 skew4 = 20.0
