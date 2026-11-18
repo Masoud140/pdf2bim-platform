@@ -277,8 +277,8 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     notes.append("shear / torsion: general method at each open station (closed-box geometry) and solid-end stations (rectangular approx, Assumed, ADR-039); governing |V*| row with concurrent T*, M*, N*; strand development in the end zone not checked" if shear_why is None else "shear / torsion not checked: " + shear_why)
     from .prestress_checks import prestress_checks
     client = rd_.value((doc.get("project") or {}).get("client"), "project.client", required=False)
-    pc = prestress_checks(p, r, std, client, [q["x_m"] for q in out if q["conf"] == "open"])
-    notes.append("prestress checks (transfer stresses, debonding, development length): see 'prestress'; ULS bending caps strands inside their development length "
+    pc = prestress_checks(p, r, std, client, [q["x_m"] for q in out if q["conf"] == "open"], aggregate=opts.get("aggregate_size") or None)
+    notes.append("prestress checks (transfer stresses, debonding, development length, strand placement cover): see 'prestress'; ULS bending caps strands inside their development length "
                  "(sigma_pe at the transmission length rising linearly to fpb at Lp; 'n_dev_capped' per station)")
     return {"girder": girder, "rows": out, "time_days": r["res"][-1]["t"] if time is None else time, "hog_method": r["method"], "hog": _hog(r), "useN": useN, "dsh": dsh, "prestress": pc,
             "notes": notes, "provisional": H["provisional"], "standards_status": std.result_status()}

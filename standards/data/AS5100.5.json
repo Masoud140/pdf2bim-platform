@@ -301,6 +301,45 @@
    }
   },
   {
+   "id": "AS5100.5:cover:placement_tendons",
+   "standard": "AS 5100.5",
+   "edition": null,
+   "amendment": null,
+   "reference": {
+    "clause": "Cl 4.14.2 (verify)",
+    "table": null,
+    "figure": null,
+    "authorised_source": null
+   },
+   "quantity": "clear cover to a pretensioned tendon for placement of concrete: at least the greatest of aggregate_factor x maximum aggregate, bar_factor x db and minimum_mm",
+   "units": "mm",
+   "value": {
+    "aggregate_factor": 1.5,
+    "bar_factor": 2,
+    "minimum_mm": 40
+   },
+   "applicability": "pretensioned tendons (placement, not durability)",
+   "context": "prestress_checks cover",
+   "implementation": {
+    "used_by": [
+     "pdf2bim/design/prestress_checks.py:133"
+    ],
+    "version": "Tier 1 item 1 (2026-11-17), no code source"
+   },
+   "status": "transcribed-unverified",
+   "review": {
+    "reviewer": null,
+    "date": null,
+    "method": null,
+    "notes": null
+   },
+   "interpretation": {
+    "open": true,
+    "note": "Transcribed from the owner's reference note via PRESTRESS_DESIGN_RULES.md (2026-11-10); not checked against a licensed copy. The 40 mm absolute minimum is not confirmed (owner note). Durability cover (Cl 4.14.3) is a separate check.",
+    "specialist_review": true
+   }
+  },
+  {
    "id": "AS5100.5:crack_control:table_8_6_2_1",
    "standard": "AS 5100.5",
    "edition": null,

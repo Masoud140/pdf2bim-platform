@@ -29,7 +29,13 @@ def prestress_md(pc):
         L.append(f"- **Debonding**: not checked ({D['why']})")
     fl = V["flagged_stations"]
     L.append(f"- **Development length** Lp {V['Lp_min']:.0f}–{V['Lp_max']:.0f} mm (x2 for debonded strands); every strand fully developed beyond {V['full_from_A_m']:.2f} m from end A and {V['full_from_B_m']:.2f} m from end B. "
-             + (("ULS stations inside a development length (strands counted at full capacity, capacity overstated): " + ", ".join(f"{q['x_m']:.2f} m ({q['n_partial']})" for q in fl)) if fl else "No ULS station inside a development length."))
+             + (("ULS stations inside a development length (those strands capped, ADR-073): " + ", ".join(f"{q['x_m']:.2f} m ({q['n_partial']})" for q in fl)) if fl else "No ULS station inside a development length."))
+    C = pc.get("cover") or {}
+    if C.get("rows"):
+        bad = [q for q in C["rows"] if not q["ok"]]
+        L.append(f"- Placement cover (AS 5100.5 Cl 4.14.2, verify): least clear cover {C['min_clear']:.0f} mm vs required {C['required']:.0f} mm "
+                 f"({', '.join(f'{k} {v:.0f}' for k, v in C['terms'].items())}): " + ("OK" if not bad else f"**{len(bad)} strands short**")
+                 + ("; maximum aggregate missing, 1.5 x aggregate not checked" if C["aggregate_missing"] else ""))
     return L + [""]
 
 

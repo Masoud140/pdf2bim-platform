@@ -111,8 +111,47 @@ def strand_stress_cap(s, x, fpb, Lt):
     return s["sigma_pe"] + (fpb - s["sigma_pe"]) * (xb - Lt) / (Ld - Lt)
 
 
-def prestress_checks(p, r, std, client=None, stations_m=None):
+def _seg_dist(P, A, B):
+    ax, ay, bx, by = A[0], A[1], B[0], B[1]
+    L2 = (bx - ax) ** 2 + (by - ay) ** 2
+    t = 0.0 if L2 == 0 else max(0.0, min(1.0, ((P[0] - ax) * (bx - ax) + (P[1] - ay) * (by - ay)) / L2))
+    return math.hypot(P[0] - ax - t * (bx - ax), P[1] - ay - t * (by - ay))
+
+
+def _inside(P, o):
+    c = False
+    for i in range(len(o)):
+        (x1, y1), (x2, y2) = o[i], o[i - 1]
+        if (y1 > P[1]) != (y2 > P[1]) and P[0] < x1 + (P[1] - y1) * (x2 - x1) / (y2 - y1):
+            c = not c
+    return c
+
+
+def _cover(p, std, aggregate):
+    """Placement cover of each strand: clear distance from the strand surface to the nearest face of the girder outline
+    (midspan open section) >= max(agg x aggregate, bar x db, minimum). Aggregate missing -> checked without that term, flagged."""
+    rule = std.get("AS5100.5:cover:placement_tendons").value
+    o, db = p.get("outline"), p["db"]
+    if not o:
+        return {"rows": [], "ok": None, "note": "girder outline not available"}
+    terms = {"bar": rule["bar_factor"] * db, "minimum": rule["minimum_mm"]}
+    if aggregate:
+        terms["aggregate"] = rule["aggregate_factor"] * float(aggregate)
+    req = max(terms.values())
+    rows = []
+    for i, (x, y) in enumerate(zip(p["sx"], p["sy"])):
+        P = (float(x or 0.0), float(y))
+        clear = (min(_seg_dist(P, o[j], o[j - 1]) for j in range(len(o))) if _inside(P, o) else -1.0) - db / 2
+        rows.append({"i": i, "x": P[0], "y": P[1], "clear": clear, "ok": clear >= req})
+    return {"rows": rows, "required": req, "terms": terms, "ok": all(r["ok"] for r in rows), "min_clear": min((r["clear"] for r in rows), default=None),
+            "aggregate_missing": not aggregate,
+            "note": "clear cover to the open girder outline (deck interface counted as a face); durability cover (Cl 4.14.3) not checked"
+                    + ("; maximum aggregate size missing: the 1.5 x aggregate term is not checked" if not aggregate else "")}
+
+
+def prestress_checks(p, r, std, client=None, stations_m=None, aggregate=None):
     tr = _transfer(p, r, std)
     deb = _debonding(p, std, client)
     dev = _development(p, r, std, stations_m)
-    return {"transfer": tr, "debonding": deb, "development": dev, "standards_status": std.result_status()}
+    cov = _cover(p, std, aggregate)
+    return {"transfer": tr, "debonding": deb, "development": dev, "cover": cov, "standards_status": std.result_status()}

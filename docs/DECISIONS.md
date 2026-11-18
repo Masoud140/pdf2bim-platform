@@ -786,6 +786,12 @@
 - **Findings for the owner:** B12452 transfer compression u = 1.09 (bottom 25.2 MPa at midspan region, f'cp 40). SB42 42-S1-05: platform transfer compression about 20.5–21.8 MPa vs the report's 19.3 MPa (limit 24 = 0.6 f'cp); report tension 3.15 MPa (limit 3.16 = 0.5 √40) vs platform about 1.0 MPa. The report's transfer basis (support positions, losses at transfer) is unknown.
 - **Tests:** `tests/design/test_prestress_checks.py` 13/13; `tests/standards/test_standards.py` 30/30; `tools/girder_checks.py` run on B12452 (both girders) end to end.
 
+## ADR-074 Strand placement cover check (2026-11-18)
+- **Decision:** `prestress_checks._cover`: clear cover from each strand surface to the nearest face of the open girder outline (midspan) ≥ max(1.5 × maximum aggregate, 2 db, 40 mm), standards entry `AS5100.5:cover:placement_tendons` (transcribed-unverified). Aggregate missing → checked without that term and flagged. Studio: the "cover to the lowest strands" requirement is max(durability input `lim.cover`, the same placement rule) to the soffit.
+- **Status:** PROVISIONAL (40 mm minimum not confirmed; durability cover Cl 4.14.3 not checked by the platform).
+- **Effect:** SB42: least clear cover 52 mm (60 − db/2) vs 40 required; it passes for any aggregate up to 34 mm.
+- **Tests:** test_prestress_checks 19/19 (4 cover tests); standards 30/30 (101 entries); test_girder_checks 8/8, test_girder_flexure 8/8, test_benchmark 4/4; Studio 47/47 + 12/12, headless run without page errors.
+
 ## ADR-073 Strand capacity reduced inside the development length (2026-11-18)
 - **Decision:** ULS bending caps each strand's stress inside its development length: σpe up to the transmission length from the bonded start, rising linearly to fpb at Lp (2 Lp for debonded strands), fpb beyond. Platform: `prestress_checks.strand_stress_cap`, applied as the tendon's `fpb` in `girder_design.checks_along` (`n_dev_capped` per station). Studio: the same cap in `analysis.js` design().
 - **Status:** PROVISIONAL. Linear-rise form as commonly applied with AS 5100.5 Cl 13.3.2.2 / AS 3600; the clause wording is not yet checked against the licensed edition (register entry stays transcribed-unverified). Supersedes ADR-072's "flag only".

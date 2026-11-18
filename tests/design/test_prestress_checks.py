@@ -54,6 +54,16 @@ c = [strand_stress_cap(s1, x, fpb, Lt) for x in (Lt / 2, Lt, (Lt + Lp) / 2, Lp +
 t("capacity cap: sigma_pe within the transmission length, linear to fpb at Lp, fpb beyond",
   abs(c[0] - spe) < 1e-9 and abs(c[1] - spe) < 1e-9 and abs(c[2] - (spe + fpb) / 2) < 1e-6 and c[3] == fpb and c[4] == fpb, str([round(v) for v in c]))
 t("capacity cap: debonded strand measured from its bond start, over 2 Lp", abs(strand_stress_cap(s0, 2000 + Lt + (2 * Lp - Lt) / 2, fpb, Lt) - (spe + fpb) / 2) < 1e-6)
+C = o["cover"]
+t("cover: no outline -> not checked", C["ok"] is None)
+pc_ = dict(p, outline=[[-200, 0], [200, 0], [200, 300], [-200, 300]])        # 400 x 300 rectangle, strands 60 above the soffit
+C = prestress_checks(pc_, r, std)["cover"]
+t("cover: clear = 60 - db/2 to the soffit; required max(2 db, 40) without aggregate, flagged", abs(C["min_clear"] - (60 - 7.6)) < 1e-9 and C["required"] == 40
+  and C["ok"] and C["aggregate_missing"], f"{C['min_clear']:.1f} >= {C['required']}")
+C = prestress_checks(pc_, r, std, aggregate=40)["cover"]
+t("cover: 1.5 x 40 mm aggregate = 60 governs and fails", C["required"] == 60 and not C["ok"])
+pc2 = dict(pc_, sx=[-195] + sx[1:])
+t("cover: strand 5 mm from a side face fails", not prestress_checks(pc2, r, std)["cover"]["rows"][0]["ok"])
 t("results carry the unverified-standards status", o["standards_status"].startswith("UNVERIFIED"))
 
 # real description: B12452 debonding count from its strand pattern

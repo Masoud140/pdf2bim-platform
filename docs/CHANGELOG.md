@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Strand placement cover check (ADR-074)
+- Platform prestress checks report clear cover per strand vs max(1.5 aggregate, 2 db, 40); Studio requirement aligned; Studio republished.
+
 ## 2026-11-18 — Benchmarks re-run with the cap
 - SB42, SB41 EB, SB41 WB chains re-run; comparison reports regenerated (values unchanged).
 

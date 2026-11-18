@@ -348,7 +348,9 @@ var ANALYSIS = (function () {
       dv ? 'x = ' + dv.x.toFixed(1) + ' m: ' + dv.dev.n + ' strands not fully developed (M*/φMu ' + (dv.Mu / dv.phiMu).toFixed(2) + '); φMu there is unconservative: check by hand' : '');
     out[out.length - 1].ok = dv ? null : true;
     add('Detailing', 'Debond + 2 × transmission length vs girder length', D.detail.mxd + 2 * D.detail.lt, D.detail.Lg, 'mm', '', 'transmission length ' + D.detail.lt.toFixed(0) + ' mm');
-    add('Detailing', 'Cover to the lowest strands', lim.cover, Math.max(1e-6, D.detail.minCover), 'mm', '', 'required ' + lim.cover + ' mm, provided ' + D.detail.minCover.toFixed(0) + ' mm (demand = required)');
+    /* placement cover, AS 5100.5 Cl 4.14.2 (verify): max(1.5 x aggregate, 2 db, 40 mm), as the platform's prestress_checks; lim.cover is the durability input */
+    var cvP = Math.max(1.5 * p.dg, 2 * p.db, 40), cvR = Math.max(lim.cover, cvP);
+    add('Detailing', 'Cover to the lowest strands', cvR, Math.max(1e-6, D.detail.minCover), 'mm', '', 'required ' + cvR.toFixed(0) + ' mm (durability input ' + lim.cover + '; placement max(1.5 × ' + p.dg + ', 2 × ' + p.db + ', 40) = ' + cvP.toFixed(0) + '), provided ' + D.detail.minCover.toFixed(0) + ' mm to the soffit (demand = required)');
     return out;
   }
 

@@ -348,7 +348,11 @@ def transcribed_prestress():
            entry("TfNSW:BTD2011-06:debonding", "TfNSW BTD 2011/06 Rev 1", "Provisions for the design of Super-T girder bridges (verify)",
                  "debonded strands: at most max_fraction of the strands at any section; a strand horizontally or vertically adjacent to a debonded strand is not debonded", "fraction",
                  {"max_fraction": 0.5, "no_adjacent": True}, "NSW Super-T girders (authority rule: applies when the authority is TfNSW)", "prestress_checks debonding", [f"{P}:50"], specialist=True,
-                 interp=src + "Rule confirmed against a public copy of BTD 2011/06 Rev 1, not against a TfNSW-issued copy.")]
+                 interp=src + "Rule confirmed against a public copy of BTD 2011/06 Rev 1, not against a TfNSW-issued copy."),
+           entry("AS5100.5:cover:placement_tendons", "AS 5100.5", "Cl 4.14.2 (verify)",
+                 "clear cover to a pretensioned tendon for placement of concrete: at least the greatest of aggregate_factor x maximum aggregate, bar_factor x db and minimum_mm", "mm",
+                 {"aggregate_factor": 1.5, "bar_factor": 2, "minimum_mm": 40}, "pretensioned tendons (placement, not durability)", "prestress_checks cover", [f"{P}:133"], specialist=True,
+                 interp=src + "The 40 mm absolute minimum is not confirmed (owner note). Durability cover (Cl 4.14.3) is a separate check.")]
     for x in out:
         x["status"] = "transcribed-unverified"; x["implementation"]["version"] = "Tier 1 item 1 (2026-11-17), no code source"
     return out

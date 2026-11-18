@@ -83,6 +83,7 @@ def hog_inputs(doc, geo, S, girder, std, allow_proposed=False, partial=False):
     sec = supert_section(G["params"], row["w_left"], row["w_right"], "open")
     put("A", sec["A"], "P2 girder section (open, midspan)"); put("yb", sec["yc"], "P2"); put("I", sec["Ix"], "P2"); put("H", G["params"]["D"], "P2 depth D")
     o = sec["outline"]
+    put("outline", [list(q) for q in o], "P2 girder outline (open, midspan; x centred, y from soffit)")
     ue = sum(math.dist(o[i], o[(i + 1) % len(o)]) for i in range(len(o)))
     put("ue", ue, "Calculated: P2 outline perimeter")
     put("ueC", _ueC(o, G["params"]["D"], ue), "Calculated: perimeter - flange tops - half the trough interior (as the dashboard)")

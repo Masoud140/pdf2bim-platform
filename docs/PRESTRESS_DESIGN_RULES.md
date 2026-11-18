@@ -50,4 +50,4 @@
 4. Placement cover: check max(1.5 × aggregate, 2 db, 40 mm). The aggregate size is often Missing-Flagged (SB42: TfNSW B80 reference only).
 5. Cite each limit with its clause or authority document and the tag `Standard - verify`, until it has been checked against the licensed edition.
 
-Items 1–3 are done in the platform (ADR-072, `pdf2bim/design/prestress_checks.py`); the Studio still differs on 1–3. Item 4 (placement cover) is open. Status in `docs/NEXT_SESSION.md`.
+Items 1–3 are done in the platform (ADR-072, `pdf2bim/design/prestress_checks.py`); the Studio still differs on 1–3. Item 4 (placement cover) done 2026-11-18 (ADR-074), platform and Studio; aggregate size usually Missing-Flagged, then that term is not checked. Status in `docs/NEXT_SESSION.md`.
