@@ -72,4 +72,44 @@
   U.ACT.ms = function (a) { var k = a.getAttribute('data-k'), v = a.getAttribute('data-v'); MS[k] = (k === 'gi' || k === 'sk') ? Number(v) : v; if (k === 'kind' || k === 'sk') MS.j = null; U.paint(); };
   U.ACT['ms-show'] = function (a) { var k = a.getAttribute('data-k'); MS.show[k] = !MS.show[k]; U.paint(); };
   U.ACT['ms-pick'] = function (a) { MS.sk = Number(a.getAttribute('data-k')); MS.gi = Number(a.getAttribute('data-i')); MS.j = Number(a.getAttribute('data-j')); if (a.getAttribute('data-r')) MS.kind = 'R'; else if (MS.kind === 'R') MS.kind = 'M'; U.paint(); };
+  /* Live-load model page: generated from the current inputs, it states exactly what the moving-load analysis applies
+     (vehicles, lanes, factors, where traffic enters the combinations), with drawings; nothing here is editable. */
+  U.RENDER.liveload = function () {
+    var p = ST.p, g = CORE.geometry(p), S = CORE.STD, W = S.laneW, lays = CORE.laneLayouts(g, p), on = ST.cases.filter(function (c) { return c.on; }).map(function (c) { return c.id; });
+    var veh = ['M1600', 'S1600'].filter(function (v) { return p.vehicles[v] && on.indexOf(v) >= 0; });
+    var h = '<div class="card"><h2>Live-load model <span class="sub">generated from the current inputs: what the moving-load analysis applies</span></h2><p class="note">Vehicle data, lane width and accompanying lane factors: ' + esc(S.status) + '. Change the inputs on Loads & combinations and Moving loads; this page follows.</p></div>';
+    /* 1. lanes across the carriageway */
+    var cw = g.cwR - g.cwL, Wd = 960, k = (Wd - 80) / (g.edgeR - g.edgeL), X = function (y) { return 40 + (y - g.edgeL) * k; }, L0 = lays[0] || [];
+    var sv = '<svg class="plot big" viewBox="0 0 ' + Wd + ' 170" role="img" aria-label="Design lanes across the carriageway">';
+    sv += '<rect x="' + X(g.edgeL) + '" y="96" width="' + ((g.edgeR - g.edgeL) * k) + '" height="14" style="fill:var(--axis);fill-opacity:.35;stroke:var(--ink)"/>';
+    sv += '<line x1="' + X(g.cwL) + '" x2="' + X(g.cwR) + '" y1="96" y2="96" style="stroke:var(--ink);stroke-width:2"/>';
+    L0.forEach(function (a, i) { sv += '<rect x="' + X(a) + '" y="40" width="' + (W * k) + '" height="56" style="fill:var(--acc);fill-opacity:' + (0.28 - 0.06 * Math.min(i, 3)) + ';stroke:var(--acc)"/><text x="' + (X(a + W / 2)) + '" y="62" text-anchor="middle" style="font-weight:600">Lane ' + (i + 1) + '</text><text x="' + X(a + W / 2) + '" y="86" text-anchor="middle" style="fill:var(--mut)">' + f(a, 2) + ' … ' + f(a + W, 2) + '</text>'; });
+    sv += '<text x="' + X(g.cwL) + '" y="134" text-anchor="middle">' + f(g.cwL, 2) + '</text><text x="' + X(g.cwR) + '" y="134" text-anchor="middle">' + f(g.cwR, 2) + '</text><text x="' + X((g.cwL + g.cwR) / 2) + '" y="150" text-anchor="middle" style="fill:var(--mut)">carriageway ' + f(cw, 2) + ' m, offsets from the deck centreline</text></svg>';
+    h += '<div class="grid2"><section class="card"><h3>1. Design lanes</h3><div class="kpis"><div class="kpi"><span class="l">Carriageway</span><span class="v">' + f(cw, 2) + ' m</span><span class="s">' + f(g.cwL, 2) + ' to ' + f(g.cwR, 2) + ' m</span></div><div class="kpi"><span class="l">Standard design lanes</span><span class="v">' + g.lanes + ' × ' + W + ' m</span><span class="s">floor(' + f(cw, 2) + ' / ' + W + ')</span></div><div class="kpi"><span class="l">Layouts analysed</span><span class="v">' + lays.length + '</span><span class="s">' + ((p.laneMode || 'sweep') === 'manual' ? 'engineer-defined positions' : 'lane group swept at ' + f(p.sweep || 0.1, 2) + ' m') + '</span></div></div>' + sv +
+      '<table class="t"><thead><tr><th>Lane rank (by effect, per response)</th><th class="n">Accompanying lane factor</th></tr></thead><tbody>' + S.ALF.map(function (v, i) { return '<tr><td>' + (i + 1) + (i === S.ALF.length - 1 ? ' and beyond' : '') + '</td><td class="n">' + v.toFixed(1) + '</td></tr>'; }).join('') + '</tbody></table><p class="note">For every response the lanes are ranked by their own effect; the largest takes 1.0, the next 0.8, the rest 0.4. Lanes with a relieving effect are left empty. The drawing shows the first layout' + (lays.length > 1 ? ' of the sweep' : '') + '.</p></section>';
+    /* 2. vehicles */
+    var vc = '';
+    veh.forEach(function (id) {
+      var v = S[id], sa = v.axle_spacing_m, g12 = v.gap_12_m, g23 = v.gap_23_min_m, g34 = v.gap_34_m, grp = [0, 2 * sa + g12, 4 * sa + g12 + g23, 6 * sa + g12 + g23 + g34];
+      var Lt = grp[3] + 2 * sa, kx = 820 / (Lt + 4), XX = function (x) { return 70 + (x + 2) * kx; }, amp = v.wheel_kN * (1 + v.dla);
+      var q = '<svg class="plot big" viewBox="0 0 960 200" role="img" aria-label="' + id + ' axle layout">';
+      q += '<rect x="' + XX(-2) + '" y="104" width="' + ((Lt + 4) * kx) + '" height="10" style="fill:var(--load);fill-opacity:.35"/><text x="' + XX(-2) + '" y="132" style="fill:var(--mut)">UDL ' + v.udl_kN_per_m + ' kN/m over the lane length, ' + f(v.udl_kN_per_m / W, 2) + ' kPa over ' + W + ' m' + (p.dlaUDL ? ', × (1 + DLA)' : ', no DLA') + '</text>';
+      grp.forEach(function (g0, gi) { [0, sa, 2 * sa].forEach(function (d) { var x = XX(g0 + d); q += '<line x1="' + x + '" x2="' + x + '" y1="36" y2="100" style="stroke:var(--ink);stroke-width:2"/><path d="M' + (x - 5) + ' 92l5 8l5-8z" style="fill:var(--ink)"/>'; }); q += '<text x="' + XX(g0 + sa) + '" y="26" text-anchor="middle">' + (2 * v.wheel_kN) + ' kN</text>'; });
+      [[grp[0] + 2 * sa, grp[1], f(g12, 2)], [grp[1] + 2 * sa, grp[2], '≥ ' + f(g23, 2) + ' (varied)'], [grp[2] + 2 * sa, grp[3], f(g34, 2)], [grp[0], grp[0] + sa, f(sa, 2)]].forEach(function (d) { q += '<line x1="' + XX(d[0]) + '" x2="' + XX(d[1]) + '" y1="160" y2="160" style="stroke:var(--mut)"/><line x1="' + XX(d[0]) + '" x2="' + XX(d[0]) + '" y1="154" y2="166" style="stroke:var(--mut)"/><line x1="' + XX(d[1]) + '" x2="' + XX(d[1]) + '" y1="154" y2="166" style="stroke:var(--mut)"/><text x="' + XX((d[0] + d[1]) / 2) + '" y="182" text-anchor="middle">' + d[2] + ' m</text>'; });
+      q += '</svg>';
+      vc += '<section class="card"><h3>2. ' + id + ' <span class="sub">' + (id === 'M1600' ? 'moving traffic' : 'stationary traffic') + '</span></h3>' + q +
+        '<table class="t"><tbody><tr><td>Axle groups</td><td class="n">4 × 3 axles at ' + f(sa, 2) + ' m</td></tr><tr><td>Wheel load (2 wheels per axle, track ' + f(v.track_m, 1) + ' m)</td><td class="n">' + v.wheel_kN + ' kN</td></tr>' +
+        '<tr><td>Vehicle total</td><td class="n">' + (24 * v.wheel_kN) + ' kN</td></tr><tr><td>Dynamic load allowance on the wheels</td><td class="n">' + v.dla.toFixed(2) + ' → ' + f(amp, 1) + ' kN per wheel</td></tr>' +
+        '<tr><td>Uniform load with the vehicle</td><td class="n">' + v.udl_kN_per_m + ' kN/m' + (p.dlaUDL && v.dla ? ' × ' + (1 + v.dla).toFixed(2) : '') + '</td></tr><tr><td>Gap between groups 2 and 3</td><td class="n">varied from ' + f(g23, 2) + ' m to fit the influence surface</td></tr></tbody></table></section>';
+    });
+    h += veh.length ? vc + '</div>' : '<section class="card"><h3>2. Vehicles</h3><p class="note">No traffic model is switched on.</p></section></div>';
+    /* 3. where traffic enters the design */
+    var rows = ST.combos.filter(function (c) { return veh.some(function (v) { return c.f[v]; }); });
+    var hz = ['BRK', 'CEN'].filter(function (c) { return on.indexOf(c) >= 0; });
+    h += '<div class="grid2"><section class="card"><h3>3. In the combinations</h3><div class="tbox"><table class="t"><thead><tr><th>Combination</th><th>Name</th>' + veh.map(function (v) { return '<th class="n">' + v + '</th>'; }).join('') + '<th class="n">Braking</th></tr></thead><tbody>' +
+      rows.map(function (c) { return '<tr><td>' + esc(c.id) + '</td><td>' + esc(c.name) + '</td>' + veh.map(function (v) { return '<td class="n">' + (c.f[v] ? c.f[v].toFixed(2) : '–') + '</td>'; }).join('') + '<td class="n">' + (c.f.BRK ? c.f.BRK.toFixed(2) : '–') + '</td></tr>'; }).join('') + '</tbody></table></div></section>' +
+      '<section class="card"><h3>4. With the traffic</h3><table class="t"><tbody><tr><td>Braking force per span (horizontal frame)</td><td class="n">' + (hz.indexOf('BRK') >= 0 ? f(p.hBrake, 0) + ' kN' : 'off') + '</td></tr><tr><td>Centrifugal force per span</td><td class="n">' + (hz.indexOf('CEN') >= 0 ? f(p.hCent, 0) + ' kN' : 'off') + '</td></tr><tr><td>Construction live load (stage checks only, not with traffic)</td><td class="n">' + (p.constLL ? f(p.constLL, 2) + ' kPa' : 'none') + '</td></tr></tbody></table>' +
+      '<p class="note">Not in the Studio: HLP heavy load platforms, pedestrian crowd loading on footpaths, fatigue vehicles (the platform carries HLP400 for real bridges).</p></section></div>';
+    return h;
+  };
 })();

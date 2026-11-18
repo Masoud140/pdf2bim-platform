@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Studio live-load model page
+- New tab stating what the moving-load analysis applies: design lanes and layouts, M1600 / S1600 axle drawings and data, DLA, UDL, accompanying lane factors, where traffic enters the combinations.
+
 ## 2026-11-18 — Studio drawing zoom
 - Wheel zoom, drag pan and double-click reset on the section drawings.
 

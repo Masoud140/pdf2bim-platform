@@ -6,6 +6,7 @@
   U.TABS = [
     { id: 'overview', t: 'Project overview', i: ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/>') },
     { id: 'loads', t: 'Loads & combinations', i: ic('<path d="M12 3v10M8 9l4 4 4-4M4 17h16M4 21h16"/>') },
+    { id: 'liveload', t: 'Live-load model', i: ic('<path d="M3 18h18M6 18V8M10 18V8M14 18V8M18 18V8M4 6h16"/>') },
     { id: 'moving', t: 'Moving loads', i: ic('<path d="M3 17h18M5 17V9h9l4 4v4"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/><path d="M3 5h18"/>') },
     { id: 'properties', t: 'Properties', i: ic('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>') },
     { id: 'boundary', t: 'Boundary conditions', i: ic('<path d="M4 6h16M8 6v6M16 6v6M6 12h4M14 12h4M8 12v8M16 12v8M3 16h18"/>') },
