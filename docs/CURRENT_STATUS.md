@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-18: Example bridges re-run in the app (B12626, B12453, BR13A, SB02-GEN): runs carry traffic.json and member properties. Tier 2 leftovers closed.
 - 2026-11-18: Moving-load states for headstocks and piles; static online copy carries traffic.json and loads (ADR-076).
 - 2026-11-18: App Model 3D member pick (ADR-075). Standards verification against licensed editions removed from the to-do list: the owner holds the codes and will point to them when a clause needs checking.
 - 2026-11-18: Strand placement cover check (ADR-074), platform and Studio (v14).
