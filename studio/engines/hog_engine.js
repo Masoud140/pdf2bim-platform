@@ -32,10 +32,10 @@ function run(p){const N=100,xa=p.a,xb=p.L-p.a;
   for(let it=0;it<40;it++){s0=gsec(p);const T=Pr.reduce((a,b)=>a+b,0),Mn=M-Pr.reduce((a,b,i)=>a+b*(s0.y-p.sy[i]),0)/1e3;
    Pr=P.map((v,i)=>w[i]?v-w[i]*p.Ep/p.Ect*(T*1e3/s0.A+Mn*1e6*(p.sy[i]-s0.y)/s0.I)/1e3:0)}
   const T=Pr.reduce((a,b)=>a+b,0),Mn=M-Pr.reduce((a,b,i)=>a+b*(s0.y-p.sy[i]),0)/1e3;
-  return{x,w,Pr,M,Mst:Mb(p.rho*p.A/1e6,x,sas),Md:Mw(p.wd,x),Ms:Mw(p.sidl,x),s0,Mn,T,Ti:P.reduce((a,b)=>a+b,0),top:T*1e3/s0.A+Mn*1e6*(p.H-s0.y)/s0.I,bot:T*1e3/s0.A-Mn*1e6*s0.y/s0.I}});
+  return{x,w,Pr,M,Mst:Mb(p.rho*p.A/1e6,x,sas),Md:Mw(p.wd,x),Ms:Mw(p.sidl,x),Mx:(p.extra||[]).map(e=>Mw(e.w,x)),s0,Mn,T,Ti:P.reduce((a,b)=>a+b,0),top:T*1e3/s0.A+Mn*1e6*(p.H-s0.y)/s0.I,bot:T*1e3/s0.A-Mn*1e6*s0.y/s0.I}});
  const mi=X.indexOf(p.L/2),ia=X.indexOf(xa),ib=X.indexOf(xb);
  const defl=kap=>{let th=0,d=0;const D=[0];for(let i=1;i<X.length;i++){const h=X[i]-X[i-1],th1=th+(kap[i]+kap[i-1])/2*h;d+=(th+th1)/2*h;th=th1;D.push(d)}return D.map((v,i)=>v-D[ia]-(D[ib]-D[ia])*(X[i]-xa)/(xb-xa))};
- if(p.meth)return runDet(p,{X,st,mi,defl,P0});
+ if(p.meth||(p.extra&&p.extra.length))return runDet(p,{X,st,mi,defl,P0}); // added stage loads need the time-step method
  const m0=st[mi],res=[{label:'Transfer',t:0,phi:0,hog:defl(st.map(s=>s.Mn*1e6/(p.Ect*s.s0.I))),mid:{T:m0.T,M:m0.Mn,A:m0.s0.A,y:m0.s0.y,I:m0.s0.I,Ee:p.Ect,kap:m0.Mn*1e6/(p.Ect*m0.s0.I)*1e6,Ti:m0.Ti}}];
  let prev=st.map(s=>({P:s.Pr.slice(),s:s.s0})),eS=0,ph0=0,rP=relax(p,0),sciMax=0;const sh0=shrink(p.tau,p),es0=p.fl.sh*sh0.v,R0=relax(p,0);eS=es0;
  let sigo=0;st.forEach(s=>{const W=s.w.reduce((a,b)=>a+b,0);if(W){const y=s.w.reduce((a,b,i)=>a+b*p.sy[i],0)/W;sigo=Math.max(sigo,s.T*1e3/p.A+s.Mn*1e6*(y-p.yb)/p.I)}});const k9=k9f(sigo,p.fcmi); // σo = max sustained stress at tendon centroid at transfer
@@ -84,7 +84,7 @@ function runDet(p,C){const {X,st,mi,defl,P0}=C,N=X.length,cp=!!(p.deck&&p.fl.dk)
  const sA=p.sy.reduce((a,y)=>a+p.Ap,0)+(p.fl.bar===0?0:(p.bars||[]).reduce((a,b)=>a+b.A,0)),sB=p.sy.reduce((a,y)=>a+p.Ap*y,0)+(p.fl.bar===0?0:(p.bars||[]).reduce((a,b)=>a+b.A*b.y,0)),sI=p.sy.reduce((a,y)=>a+p.Ap*y*y,0)+(p.fl.bar===0?0:(p.bars||[]).reduce((a,b)=>a+b.A*b.y*b.y,0));
  const Ag=p.A-sA,yb=(p.A*p.yb-sB)/Ag,Ig=p.I+p.A*p.yb*p.yb-sI-Ag*yb*yb,Adk=cp?p.beff*p.dth:0,ydk=cp?p.H+p.dgap+p.dth/2:0,Idk=cp?p.beff*p.dth**3/12:0;
  const pd=cp?{...p,A:Adk,ue:p.ued,fc:p.fcd,ts:p.tsd}:null,bars=p.fl.bar===0?[]:(p.bars||[]);
- const keys=new Set([0,...p.times]);if(cp){keys.add(p.pour);keys.add(tcR);keys.add(p.sidlA)}const tmax=Math.max(...keys);for(let t=0.25;t<tmax;t*=(p.subr||1.15))keys.add(+t.toFixed(3));
+ const XE=p.extra||[];const keys=new Set([0,...p.times]);if(cp){keys.add(p.pour);keys.add(tcR);keys.add(p.sidlA)}XE.forEach(e=>keys.add(e.t));const tmax=Math.max(...keys);for(let t=0.25;t<tmax;t*=(p.subr||1.15))keys.add(+t.toFixed(3));
  const T=[...keys].filter(t=>t>=0&&t<=tmax).sort((a,b)=>a-b),K=T.length,age=t=>p.tau+t;
  // girder modulus vs age: knots (τ, Ect), (28 d, Ec), (pour, Ecp), (SIDL, Ecs); log-linear between knots (development curve not codified)
  const kn=[[p.tau,p.Ect]];if(p.tau<28)kn.push([28,p.Ec]);if(cp){kn.push([age(p.pour),p.Ecp]);kn.push([age(p.sidlA),p.Ecs])}kn.sort((a,b)=>a[0]-b[0]);
@@ -92,7 +92,7 @@ function runDet(p,C){const {X,st,mi,defl,P0}=C,N=X.length,cp=!!(p.deck&&p.fl.dk)
  const Eg=a=>{if(p.emodel===2){const s_=p.mcs||0.25;return p.Ec*Math.pow(Math.exp(s_*(1-Math.sqrt(28/a))),0.3)}if(p.emodel===1){let e=kn[0][1];for(const[ka,ke]of kn)if(a>=ka)e=ke;return e}return Eg0(a)}; // emodel 1 = stepped, 2 = fib MC2010 E(t)=Ec·βcc^0.3 (sensitivity checks only)
  const shGa=T.map(t=>p.fl.sh*shG(age(t),p)),shD=T.map(t=>cp&&t>=tcR?p.fl.sh*(p.fl.shd===0?0:1)*shrink(t-p.pour,pd).v/(1+15*(p.rd||0)):0); // deck bars restrain free shrinkage: 1/(1+15ρd), Eq. 3.4.3.2 form
  const Rc=T.map(t=>Math.max(relax(p,t)-relax(p,0),0)*p.fl.rl*p.rlx);
- const tE=isFinite(p.terec)?p.terec:-1,Msag=(s,k)=>(T[k]>=tE?s.M:s.Mst)+(cp&&T[k]>=p.pour?s.Md:0)+(cp&&T[k]>=p.sidlA?s.Ms:0); // storage support until erection
+ const tE=isFinite(p.terec)?p.terec:-1,Msag=(s,k)=>(T[k]>=tE?s.M:s.Mst)+(cp&&T[k]>=p.pour?s.Md:0)+(cp&&T[k]>=p.sidlA?s.Ms:0)+XE.reduce((u,e,i)=>u+(T[k]>=e.t?s.Mx[i]:0),0); // storage support until erection; added stage loads (p.extra: +/- w at day t) from their day
  // transfer pre-pass for k9 (σo = max sustained compression at the tendon centroid at transfer)
  const steel=s=>{const o=[];p.sy.forEach((y,i)=>{if(s.w[i])o.push({y,k:p.Ep*s.w[i],F0:P0*1e3*s.w[i]/p.Ap,i,A:s.w[i],x:p.sx?p.sx[i]:NaN})});bars.forEach(b=>o.push({y:b.y,k:p.Es*b.A,F0:0,bar:1,A:b.A,x:b.x,d:b.d}));return o};
  const sol=(a,b,c,r1,r2)=>{const D=a*c-b*b;return[(r1*c-r2*b)/D,(a*r2-b*r1)/D]};
@@ -125,7 +125,7 @@ function runDet(p,C){const {X,st,mi,defl,P0}=C,N=X.length,cp=!!(p.deck&&p.fl.dk)
     top:-(sn+sm*(p.H-yb)),bot:-(sn-sm*yb),sci:-(sn+sm*(yg-yb)),dtop:on?-(tn+tm*(p.dth/2)):NaN,e0,ps,eqN:(sn*Ag+tn*Adk+F.reduce((u,v)=>u+v,0))/1e3,eqM:(sn*Ag*yb+sm*Ig+tn*Adk*ydk+tm*Idk+F.reduce((u,v,i)=>u+v*S[i].y,0))/1e6+Msag(s,k),E:Ek,Ed:Edk,Nc:sn*Ag/1e3,Nd:tn*Adk/1e3,Ns:F.reduce((u,v,i)=>S[i].bar?u:u+v,0)/1e3,Mc:(sn*Ag*yb+sm*Ig)/1e6,Mdk:(tn*Adk*ydk+tm*Idk)/1e6,Msn:F.reduce((u,v,i)=>S[i].bar?u:u+v*S[i].y,0)/1e6,Mbr:F.reduce((u,v,i)=>S[i].bar?u+v*S[i].y:u,0)/1e6,Mext:Msag(s,k),Ti:S.filter(q=>!q.bar).reduce((u,q)=>u+q.F0,0)/1e3}}}});
  const res=[],e0s=p.fl.sh*shrink(p.tau,p).v;let eP=e0s,phP=0;
  T.forEach((t,k)=>{if(k&&!p.times.includes(t))return;const ag_=age(t),sh=shrink(ag_,p),cr=creep(ag_,p),ph=k?p.fl.cr*k9s[mi]*cr.v:0,es=p.fl.sh*sh.v,m=MS[k],Md=cp&&t>=p.pour?st[mi].Md:0,Ms=cp&&t>=p.sidlA?st[mi].Ms:0;
-  const mid={...m,M:(t>=(isFinite(p.terec)?p.terec:-1)?st[mi].M:st[mi].Mst)+Md+Ms,Md,Ms,kap:m.ps*-1e6,comp:dOn[k],lcs:MS[0].T-m.T-m.rel,lrl:m.rel,Pr:MS[0].T,A:Ag,y:yb,I:Ig,M0:st[mi].Mn};
+  const Mxt=XE.reduce((u,e,i)=>u+(t>=e.t?st[mi].Mx[i]:0),0),mid={...m,M:(t>=(isFinite(p.terec)?p.terec:-1)?st[mi].M:st[mi].Mst)+Md+Ms+Mxt,Md,Ms,Mx:Mxt,kap:m.ps*-1e6,comp:dOn[k],lcs:MS[0].T-m.T-m.rel,lrl:m.rel,Pr:MS[0].T,A:Ag,y:yb,I:Ig,M0:st[mi].Mn};
   res.push({label:k?t+' d':'Transfer',t,phi:ph,eps:k?p.fl.sh*shG(ag_,p):undefined,hog:defl(kap[k]),sh,cr,dEs:k?es-eP:0,dPh:ph-phP,mid,Pm:m.Pm,rl:{...relaxD(p,t),dR:0,dRc:Rc[k]},det:1});eP=es;phP=ph});
  return{X,st,res,mi,P0,tcR,Adk,ydk,sciMax,sigo,k9,k9mid:k9s[mi],somid:sos[mi],net:{A:Ag,y:yb,I:Ig,sA},SX,det:1,nsub:K,sw:defl(st.map(s=>s.M*1e6/(p.Ect*p.I)))}}
 // ===================== Word (.docx) calculation report =====================

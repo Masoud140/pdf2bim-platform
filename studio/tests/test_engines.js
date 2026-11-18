@@ -27,6 +27,24 @@ const S = D.stripsFromPolygon ? null : null;
   t('crack control: tendon stress increment is 0 below decompression', AN.crackInc(S, sc, { slab: 0 }, { P: P, e: yb - yp }, Mnc, (Mdec - Mnc) * 0.9).dsp === 0);
   t('crack control: increment above decompression is positive and below the steel stress for full-depth cracking', o2.dsp > 0 && o2.dsp < 400, o2.dsp.toFixed(1));
 }
+// added construction stages (p.extra load events) in the time-step losses method
+{
+  const base = Object.assign({}, snap.p, { meth: 1 }), r0 = H.run(base), mid = (r) => r.res[r.res.length - 1].hog[r.mi];
+  const tOn = base.pour + base.dhard + 10, w = 5;
+  const rStay = H.run(Object.assign({}, base, { extra: [{ t: tOn, w: w }], times: base.times.concat([tOn]).sort((a, b) => a - b) }));
+  const rTemp = H.run(Object.assign({}, base, { extra: [{ t: tOn, w: w }, { t: tOn + 1, w: -w }], times: base.times.concat([tOn, tOn + 1]).sort((a, b) => a - b) }));
+  const rZero = H.run(Object.assign({}, base, { extra: [{ t: tOn, w: 0 }], times: base.times.concat([tOn]).sort((a, b) => a - b) }));
+  t('added stages: a zero load changes nothing beyond the extra time step (0.01 mm)', Math.abs(mid(rZero) - mid(r0)) < 0.01, mid(rZero).toFixed(3) + ' vs ' + mid(r0).toFixed(3));
+  t('added stages: a staying load lowers the long-term hog; the same load removed a day later lowers it far less', mid(rStay) < mid(rTemp) - 1 && mid(rTemp) <= mid(r0) + 1e-6 && mid(r0) - mid(rTemp) < 0.2 * (mid(r0) - mid(rStay)),
+    [mid(r0), mid(rTemp), mid(rStay)].map(v => v.toFixed(2)).join(' / '));
+  t('added stages: without meth the engine switches to the time-step method', H.run(Object.assign({}, snap.p, { extra: [{ t: tOn, w: w }] })).det === 1);
+}
+// cracked-state output of crackInc: tension cut off, neutral axis inside the section
+{
+  const AN = require('../src/analysis.js'), b = 500, Hh = 1000, E = 30000, S = { conc: D.stripsFromLayers([{ h: Hh, b1: b, b2: b, E: E, fc: 50 }], 5), bars: [], tend: [{ y: 900, A: 1000, E: 195000, spe: 1000 }] };
+  const o = AN.crackInc(S, { H: Hh, A: b * Hh, yb: 500, I: b * Hh ** 3 / 12 }, { slab: 0 }, { P: 1000, e: 400 }, 300, 1200);
+  t('cracked state: no tensile concrete stress, neutral axis between the top and the tendon', o.cracked && Math.max(...o.prof.map(q => q[1])) <= 0 && o.na > 0 && o.na < 900, 'na ' + o.na);
+}
 // TfNSW BTD 2011/06 adjacency: debonded neighbours on the grid are found horizontally and vertically, not diagonally
 {
   const AN = require('../src/analysis.js'), q = (x, y, d) => ({ x, y, d, d2: 0, on: true });

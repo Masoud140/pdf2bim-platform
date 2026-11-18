@@ -39,7 +39,7 @@ var ANALYSIS = (function () {
     V.C = alone(function (i) { return (i === 0 || i === g.ng - 1 ? (g.s / 2 + p.overhang) / g.s : 1) * ga.wC; });
     /* composite cases on the grillage */
     log('Superimposed dead load on the grillage');
-    var pB = C.deep(p); pB.surf = 0; pB.utilities = 0; var pS = C.deep(p); pS.barrierLoad = 0;
+    var pB = C.deep(p); pB.surf = 0; pB.utilities = 0; pB.stageLoads = []; var pS = C.deep(p); pS.barrierLoad = 0;
     V.SDLs = C.evalResponses(m, RS, C.solve(S, C.sdlLoads(pB, m, g)));
     V.SDLp = C.evalResponses(m, RS, C.solve(S, C.sdlLoads(pS, m, g)));
     ['WVu', 'WVs'].forEach(function (id) {   /* vertical wind: one solve at 1 kPa down, enveloped up / down at the input pressure */
@@ -135,7 +135,9 @@ var ANALYSIS = (function () {
     h.wd = h.dth * h.dbw * h.dgam / 1e6 + h.dform;
     var nd = h.Ed / h.Ecs, da = h.beff * h.dth * nd, yd = h.H + h.dgap + h.dth / 2, yc = (h.A * h.yb + da * yd) / (h.A + da);
     h.Ac = h.A + da; h.yc = yc; h.Ic = h.I + h.A * Math.pow(h.yb - yc, 2) + h.beff * nd * Math.pow(h.dth, 3) / 12 + da * Math.pow(yd - yc, 2);
-    h.times = [7, 14, 28, h.pour, h.pour + h.dhard, h.sidlA, 365, p.stage.final].filter(function (v, k, arr) { return v > 0 && arr.indexOf(v) === k; }).sort(function (x, y) { return x - y; });
+    /* added construction stages (p.stageLoads: {name, t on, t off (0 = stays), w kN/m per girder}) as load events for the time-step method */
+    h.extra = []; (p.stageLoads || []).forEach(function (q) { if (!q || !q.w || !(q.t >= 0)) return; h.extra.push({ t: q.t, w: q.w }); if (q.off > q.t) h.extra.push({ t: q.off, w: -q.w }); });
+    h.times = [7, 14, 28, h.pour, h.pour + h.dhard, h.sidlA, 365, p.stage.final].concat(h.extra.map(function (e) { return e.t; })).filter(function (v, k, arr) { return v > 0 && arr.indexOf(v) === k; }).sort(function (x, y) { return x - y; });
     h.fl = { rl: 1, sh: 1, cr: 1, dk: 1, bar: 1 };
     return h;
   }

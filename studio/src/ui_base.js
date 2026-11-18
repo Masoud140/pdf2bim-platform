@@ -109,7 +109,7 @@ var U = {};
   U.fld = function (path, label, unit, o) {
     o = o || {}; var v = U.get(path), id = 'f-' + path.replace(/[^a-z0-9]/gi, '_'), grp = CORE.FIELD[path.split('.')[0]] || o.grp;
     var inp = o.options ? '<select id="' + id + '" data-path="' + esc(path) + '"' + (o.num ? ' data-num="1"' : '') + '>' + o.options.map(function (x) { var val = Array.isArray(x) ? x[0] : x, lab = Array.isArray(x) ? x[1] : x; return '<option value="' + esc(val) + '"' + (String(val) === String(v) ? ' selected' : '') + '>' + esc(lab) + '</option>'; }).join('') + '</select>'
-      : '<input id="' + id + '" data-path="' + esc(path) + '" type="' + (o.text ? 'text' : 'number') + '" value="' + esc(o.text && Array.isArray(v) ? v.join(', ') : v) + '"' + (o.step ? ' step="' + o.step + '"' : ' step="any"') + (o.min !== undefined ? ' min="' + o.min + '"' : '') + (o.max !== undefined ? ' max="' + o.max + '"' : '') + (o.text ? ' data-list="1"' : '') + '>';
+      : '<input id="' + id + '" data-path="' + esc(path) + '" type="' + (o.text || o.plain ? 'text' : 'number') + '" value="' + esc(o.text && Array.isArray(v) ? v.join(', ') : v) + '"' + (o.step ? ' step="' + o.step + '"' : ' step="any"') + (o.min !== undefined ? ' min="' + o.min + '"' : '') + (o.max !== undefined ? ' max="' + o.max + '"' : '') + (o.text && !o.plain ? ' data-list="1"' : '') + '>';
     return '<div class="fld" title="' + esc(o.tip || (grp ? 'Input group: ' + (GRP[grp] || grp) : '')) + '"><label for="' + id + '">' + esc(label) + (unit ? '<span class="u">' + esc(unit) + '</span>' : '') + '</label>' + inp + '</div>';
   };
   U.get = function (path) { return path.split('.').reduce(function (o, k) { return o === undefined ? undefined : o[k]; }, path.indexOf('lim.') === 0 ? ST : ST.p) ; };

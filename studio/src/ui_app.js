@@ -67,7 +67,10 @@
     auto: function (a) { ST.auto = a.checked; if (ST.auto) U.changed(); },
     theme: function () { var r = document.documentElement, cur = r.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), nx = cur === 'dark' ? 'light' : 'dark'; r.setAttribute('data-theme', nx); try { localStorage.setItem('bs-theme', nx); } catch (x) {} if (U.V3) U.V3.theme(); U.paint(); },
     case: function (a) { U.loadCase(a.getAttribute('data-id')); U.paint(); U.run(); },
-    sel: function (a) { var k = a.getAttribute('data-k'), v = a.getAttribute('data-v'); ST.sel[k] = isNaN(Number(v)) || v === '' ? v : Number(v); U.paint(); }
+    sel: function (a) { var k = a.getAttribute('data-k'), v = a.getAttribute('data-v'); ST.sel[k] = isNaN(Number(v)) || v === '' ? v : Number(v); U.paint(); },
+    /* added construction stages (Stages page): {name, t: day after transfer, off: day removed (0 = stays), w: kN/m per girder} */
+    'stl-add': function () { var L = ST.p.stageLoads = ST.p.stageLoads || []; L.push({ name: 'Stage ' + (L.length + 1), t: ST.p.stage.pour + ST.p.stage.dhard + 7, off: 0, w: 1.0 }); ST.history.push({ t: Date.now(), what: 'Added construction stage ' + L.length }); U.changed(); U.paint(); },
+    'stl-del': function (a) { var i = +a.getAttribute('data-i'); ST.p.stageLoads.splice(i, 1); ST.history.push({ t: Date.now(), what: 'Removed construction stage ' + (i + 1) }); U.changed(); U.paint(); }
   };
   document.addEventListener('change', function (e) {   /* selection controls (not inputs) */
     var t = e.target; if (!t.getAttribute) return; var k = t.getAttribute('data-sel'); if (!k) return;

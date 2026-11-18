@@ -20,7 +20,7 @@ var CORE = (function () {
     endDist: 0.4, cgW: 0.8, kv: 1.0e6,
     nEl: 12, nTrans: 0, constLL: 1.5, sweep: 0.2,
     fcG: 50, fcT: 45, fcD: 40, db: 15.2, jack: 0.75,
-    stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 },
+    stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 }, stageLoads: [],
     fitD: 16, fitLegs: 2, fitS: 125, fsyf: 500, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
     vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     windVu: 1.0, windVs: 0.5, dTtop: 20, dTdepth: 300, alphaT: 11, dTuni: 25, gbars: '',
@@ -61,7 +61,7 @@ var CORE = (function () {
     girder: 'section', slab: 'section', gap: 'section',
     fcG: 'material', fcT: 'material', fcD: 'material', gConc: 'loads', gGirder: 'loads',
     nEl: 'mesh', nTrans: 'mesh', Jf: 'mesh', sweep: 'loads',
-    barrierLoad: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads', windVu: 'loads', windVs: 'loads', dTtop: 'thermal', dTdepth: 'thermal', alphaT: 'thermal', dTuni: 'thermal',
+    barrierLoad: 'loads', stageLoads: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads', windVu: 'loads', windVs: 'loads', dTtop: 'thermal', dTdepth: 'thermal', alphaT: 'thermal', dTuni: 'thermal',
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
@@ -470,6 +470,7 @@ var CORE = (function () {
   }
   /* ---------- dynamics: lumped vertical mass and vibration modes of the deck grillage ---------- */
   var G_ACC = 9.80665;
+  function permStage(p) { return (p.stageLoads || []).reduce(function (a, q) { return a + (q && q.w && !(q.off > q.t) ? q.w : 0); }, 0); }   /* kN/m per girder */
   function nodalMass(p, m, g, sc) {   /* tonnes at each node: girder + deck (tributary width) + superimposed dead load (barriers, surfacing, utilities) */
     var M = new Float64Array(m.nodes.length), F = sdlLoads(p, m, g);
     m.nodes.forEach(function (n) { var trib = (n.i === 0 || n.i === g.ng - 1) ? g.s / 2 + p.overhang : g.s, w = sc.A * 1e-6 * p.gGirder + (trib * p.slab / 1000 + 0.0375) * p.gConc;
@@ -525,7 +526,8 @@ var CORE = (function () {
   }
   function sdlLoads(p, m, g) {
     var F = new Float64Array(ND * m.nodes.length), nodeTrib = function (n) { return (n.j === 0 || n.j === m.n ? 0.5 : 1) * m.dL; };
-    var surfW = (g.cwR - g.cwL) * p.surf / 1000 * p.gSurf + p.utilities;   /* kN/m over the carriageway, spread to girders by tributary width */
+    /* kN/m over the carriageway, spread to girders by tributary width; added construction stages that stay (no removal age) join this case */
+    var surfW = (g.cwR - g.cwL) * p.surf / 1000 * p.gSurf + p.utilities + permStage(p) * g.ng;
     m.nodes.forEach(function (n) {
       var trib = (n.i === 0 || n.i === g.ng - 1) ? (g.s / 2 + (p.overhang - p.barrierW)) : g.s, share = surfW * trib / (g.cwR - g.cwL);
       F[ND * n.id] -= share * nodeTrib(n);

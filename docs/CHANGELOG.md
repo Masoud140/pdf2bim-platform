@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Studio design tab complete (ADR-077)
+- Point of interest: cracked-section stage and shear / torsion detail with V–M interaction; Stages page: add your own construction stages (temporary or staying loads), used by losses, hog, stage stresses and (staying loads) the grillage SDL.
+
 ## 2026-11-18 — Moving loads for headstocks and piles (ADR-076)
 - Moving loads tab shows the governing lane layout and load positions for headstock moments and pile-head axial forces; the read-only online copy includes traffic.json and the Loads tab.
 
