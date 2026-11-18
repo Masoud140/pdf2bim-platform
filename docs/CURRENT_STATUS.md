@@ -6,6 +6,7 @@
 - SB01 haunch Calculated from levels: 18–38 mm.
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
+- 2026-11-19: Studio optimiser and AI assistant work on per-girder strand patterns (ADR-079).
 - 2026-11-19: Studio "Live-load model" page generated from the inputs.
 - 2026-11-18: Studio section drawings zoom / pan.
 - 2026-11-18: Studio temperature gradient in the SLS checks; SLS combinations generated as the platform (ADR-078).

@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Per-girder strand patterns in the optimiser and assistant (ADR-079)
+- Strand search on a chosen pattern; assistant can list patterns and propose strand changes to one of them.
+
 ## 2026-11-19 — Studio live-load model page
 - New tab stating what the moving-load analysis applies: design lanes and layouts, M1600 / S1600 axle drawings and data, DLA, UDL, accompanying lane factors, where traffic enters the combinations.
 

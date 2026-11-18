@@ -23,10 +23,26 @@
     { name: 'get_girder_results', description: 'Results along one girder for a load case or combination id: quantity M (kNm), V (kN), T (kNm) or w (mm). Returns stations with max and min.',
       inputSchema: { type: 'object', properties: { girder: { type: 'integer' }, span: { type: 'integer' }, source: { type: 'string' }, quantity: { type: 'string', enum: ['M', 'V', 'T', 'w'] } }, required: ['girder', 'source', 'quantity'] },
       execute: function (a) { var A = U.A(); if (!A) return { error: 'analysis has not been run' }; var k = (a.span || 1) - 1, i = a.girder - 1; if (!A.g.spans[k] || i < 0 || i >= A.g.ng) throw new Error('no such girder or span'); var mx = ANALYSIS.line(A, k, i, a.quantity, a.source, 'max'), mn = ANALYSIS.line(A, k, i, a.quantity, a.source, 'min'); if (mx.every(function (q) { return q.v === null; })) throw new Error('unknown source ' + a.source); return { current: U.ok('analysis') && U.ok('combos'), stations: mx.map(function (q, j) { return { x_m: +q.x.toFixed(2), max: +(+q.v).toPrecision(4), min: +(+mn[j].v).toPrecision(4) }; }) }; } },
+    { name: 'get_strand_patterns', description: 'Strand patterns: the shared one and any girder\'s own pattern (girders not listed use the shared one). Each strand: index, x and y (mm, y above the soffit), on, debond lengths at both ends (mm).',
+      execute: function () { var pat = function (S) { return S.map(function (q, i) { return { i: i, x: q.x, y: q.y, on: !!q.on, debond_start: q.d || 0, debond_end: q.d2 || 0 }; }); };
+        var o = { shared: { girders_using_it: [], strands_on: ST.p.strands.filter(function (q) { return q.on; }).length, strands: pat(ST.p.strands) } }, ng = CORE.geometry(ST.p).ng;
+        for (var i = 0; i < ng; i++) if (ST.p.gStr && ST.p.gStr[i]) o['G' + (i + 1)] = { strands_on: ST.p.gStr[i].filter(function (q) { return q.on; }).length, strands: pat(ST.p.gStr[i]) }; else o.shared.girders_using_it.push('G' + (i + 1));
+        return o; } },
+    { name: 'propose_strand_change', description: 'Propose switching strands on or off, or changing their debond lengths, in ONE pattern ("shared" or "G<n>" for a girder with its own pattern). Strand indices from get_strand_patterns. NOT applied: the engineer presses Apply.',
+      inputSchema: { type: 'object', properties: { pattern: { type: 'string' }, strands: { type: 'array', items: { type: 'integer' } }, on: { type: 'boolean' }, debond_start: { type: 'number' }, debond_end: { type: 'number' }, reason: { type: 'string' } }, required: ['pattern', 'strands', 'reason'] },
+      execute: function (a) {
+        var t = a.pattern === 'shared' ? 'shared' : +String(a.pattern).replace(/^G/i, '') - 1, S = t === 'shared' ? ST.p.strands : ST.p.gStr && ST.p.gStr[t];
+        if (!S) throw new Error('no such pattern: ' + a.pattern + ' (give the girder its own pattern on the design page first)');
+        var N = U.deep(S), idx = (a.strands || []).map(Number);
+        idx.forEach(function (i) { if (!N[i]) throw new Error('no strand ' + i); if (typeof a.on === 'boolean') N[i].on = a.on; if (isFinite(a.debond_start)) N[i].d = Math.max(0, +a.debond_start); if (isFinite(a.debond_end)) N[i].d2 = Math.max(0, +a.debond_end); });
+        var n = function (L) { return L.filter(function (q) { return q.on; }).length; }, path = t === 'shared' ? 'strands' : 'gStr.' + t;
+        AI.props.push({ path: path, value: N, from: n(S) + ' strands on', show: n(N) + ' strands on (' + idx.length + ' changed' + (typeof a.on === 'boolean' ? ', ' + (a.on ? 'on' : 'off') : '') + (isFinite(a.debond_start) || isFinite(a.debond_end) ? ', debond ' + (a.debond_start || 0) + ' / ' + (a.debond_end || 0) + ' mm' : '') + ')', label: patName(t), reason: String(a.reason || ''), state: 'open' });
+        U.paintSoon(); return { recorded: true, note: 'Shown to the engineer with an Apply button. Results go out of date when applied.' }; } },
     { name: 'propose_input_change', description: 'Propose a change to one input for the engineer to review. It is NOT applied: the engineer presses Apply. Allowed paths: ' + Object.keys(EDIT).join(', ') + '.',
       inputSchema: { type: 'object', properties: { path: { type: 'string' }, value: {}, reason: { type: 'string' } }, required: ['path', 'value', 'reason'] },
       execute: function (a) { if (!EDIT.hasOwnProperty(a.path)) throw new Error('path not allowed: ' + a.path); var v = a.path === 'spans' ? (Array.isArray(a.value) ? a.value : String(a.value).split(/[,\s+]+/)).map(Number).filter(function (x) { return x > 0; }) : a.path === 'girder' ? String(a.value) : Number(a.value); if (a.path === 'girder' && !SECLIB.SEC[v]) throw new Error('unknown girder ' + v); if (a.path !== 'spans' && a.path !== 'girder' && !isFinite(v)) throw new Error('value must be a number'); AI.props.push({ path: a.path, value: v, from: U.get(a.path), reason: String(a.reason || ''), state: 'open' }); U.paintSoon(); return { recorded: true, note: 'Shown to the engineer with an Apply button. Results go out of date when applied.' }; } }
   ];
+  U.AI_TOOLS = TOOLS;   /* for the headless tests */
   U.paintSoon = function () { clearTimeout(U._ps); U._ps = setTimeout(function () { if (ST.tab === 'assistant') U.paint(); }, 60); };
   var RULES = 'You are the engineering assistant inside Bridge Studio, a teaching and demonstration application for Super-T girder bridges (generic case studies with illustrative inputs). Rules: (1) Every number you state must come from a tool result in this conversation; call get_model_state first. Never compute structural results yourself and never invent capacities, code clauses or coefficients. (2) Say whether results are current; if a step is out of date, say so and suggest pressing Run. (3) Code coefficients in the app are unverified transcriptions; never state or imply that a design complies with a standard. (4) To suggest a design change, call propose_input_change; the engineer decides. (5) Be brief: short paragraphs or a few bullets, units always given.';
 
@@ -59,7 +75,7 @@
     h += '<div class="grid2" style="align-items:start"><section class="card"><h3>Conversation</h3><div class="chat" id="ai-chat">' + (AI.turns.length ? '' : '<div class="msg sys">Try one of the questions below.</div>') + AI.turns.map(function (t) { return '<div class="msg ' + (t.role === 'user' ? 'u' : 'a') + '">' + esc(t.content) + '</div>'; }).join('') + (AI.busy ? '<div class="msg a" id="ai-live">' + esc(AI.live) + '</div>' : '') + '</div>' +
       '<div class="row">' + ['Which check governs the design and by how much?', 'Why does the edge girder carry more moment than the internal girders?', 'Is transfer stress a problem? Suggest one change to fix it.', 'Summarise the results for a design review.'].map(function (q) { return '<button class="btn ghost" data-act="ai-q" data-q="' + esc(q) + '"' + (AI.busy ? ' disabled' : '') + '>' + esc(q) + '</button>'; }).join('') + '</div>' +
       '<label for="ai-in" class="note">Your question</label><textarea class="ask" id="ai-in" placeholder="Ask about loads, results or checks"></textarea><div class="row"><button class="btn pri" data-act="ai-send"' + (AI.busy ? ' disabled' : '') + '>Ask</button>' + (AI.busy ? '<button class="btn" data-act="ai-stop">Stop</button>' : '') + '<button class="btn ghost" data-act="ai-clear"' + (AI.busy ? ' disabled' : '') + '>Clear conversation</button><span class="note">Each question uses your Claude usage.</span></div></section>';
-    h += '<section class="card"><h3>Proposed changes <span class="sub">from the assistant; nothing changes until you apply it</span></h3>' + (AI.props.length ? '<div class="tbox"><table class="t"><thead><tr><th>Input</th><th>Now</th><th>Proposed</th><th>Reason</th><th></th></tr></thead><tbody>' + AI.props.map(function (q, i) { return '<tr><td class="mono">' + esc(q.path) + '</td><td class="n">' + esc(q.from) + '</td><td class="n"><b>' + esc(q.value) + '</b></td><td class="note">' + esc(q.reason) + '</td><td>' + (q.state === 'open' ? '<button class="btn pri" data-act="ai-apply" data-i="' + i + '">Apply</button> <button class="btn ghost" data-act="ai-dismiss" data-i="' + i + '">Dismiss</button>' : '<span class="note">' + q.state + '</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<p class="note">None yet.</p>') + '</section></div>';
+    h += '<section class="card"><h3>Proposed changes <span class="sub">from the assistant; nothing changes until you apply it</span></h3>' + (AI.props.length ? '<div class="tbox"><table class="t"><thead><tr><th>Input</th><th>Now</th><th>Proposed</th><th>Reason</th><th></th></tr></thead><tbody>' + AI.props.map(function (q, i) { return '<tr><td class="mono">' + esc(q.label || q.path) + '</td><td class="n">' + esc(q.from) + '</td><td class="n"><b>' + esc(q.show || q.value) + '</b></td><td class="note">' + esc(q.reason) + '</td><td>' + (q.state === 'open' ? '<button class="btn pri" data-act="ai-apply" data-i="' + i + '">Apply</button> <button class="btn ghost" data-act="ai-dismiss" data-i="' + i + '">Dismiss</button>' : '<span class="note">' + q.state + '</span>') + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<p class="note">None yet.</p>') + '</section></div>';
     h += '<section class="card"><h3>Drawing interpretation ' + U.tag('exp') + '<span class="sub">read key dimensions from an image of a general-arrangement drawing</span></h3>' + (AI.images ? '<div class="row"><input type="file" id="ai-file" accept="image/png,image/jpeg,image/webp" aria-label="Drawing image"><button class="btn pri" data-act="ai-draw"' + (AI.draw && !AI.drawBusy ? '' : ' disabled') + '>Read drawing</button><span class="note">' + esc(AI.drawMsg) + '</span></div>' +
       (AI.drawRows && AI.drawRows.length ? '<div class="tbox"><table class="t"><thead><tr><th>Apply</th><th>Input</th><th>Value read</th><th>Current</th><th>Text on the drawing</th><th>Confidence</th></tr></thead><tbody>' + AI.drawRows.map(function (r, i) { return '<tr><td><input type="checkbox" data-act="ai-dpick" data-i="' + i + '"' + (r.pick ? ' checked' : '') + ' aria-label="Apply ' + esc(r.field) + '"></td><td class="mono">' + esc(r.field) + '</td><td class="n"><b>' + esc(Array.isArray(r.value) ? r.value.join(', ') : r.value) + '</b> ' + esc(r.unit || '') + '</td><td class="n">' + esc(U.get(r.field)) + '</td><td class="mono note">' + esc(r.quote) + '</td><td>' + esc(r.confidence) + '</td></tr>'; }).join('') + '</tbody></table></div><div class="row"><button class="btn pri" data-act="ai-dapply">Apply selected values</button><span class="note">Applied values are AI-read: confirm each one against the drawing. This replaces no other input.</span></div>' : '') : '<p class="note">Image input is not available in this view.</p>') + '</section>';
     return h;
@@ -73,7 +89,7 @@
   U.ACT['ai-send'] = function () { var t = U.$('#ai-in'); ask(t ? t.value : ''); };
   U.ACT['ai-stop'] = function () { if (AI.ctl) AI.ctl.abort(); };
   U.ACT['ai-clear'] = function () { AI.turns = []; U.paint(); };
-  U.ACT['ai-apply'] = function (a) { var q = AI.props[+a.getAttribute('data-i')]; U.set(q.path, q.value); q.state = 'applied'; U.changed(); };
+  U.ACT['ai-apply'] = function (a) { var q = AI.props[+a.getAttribute('data-i')]; if (q.path.indexOf('gStr.') === 0) ST.p.gStr[+q.path.slice(5)] = U.deep(q.value); else U.set(q.path, q.value); q.state = 'applied'; U.changed(); };
   U.ACT['ai-dismiss'] = function (a) { AI.props[+a.getAttribute('data-i')].state = 'dismissed'; U.paint(); };
   U.ACT['ai-draw'] = function () { readDrawing(); };
   U.ACT['ai-dpick'] = function (a) { AI.drawRows[+a.getAttribute('data-i')].pick = a.checked; };
@@ -83,10 +99,16 @@
   };
 
   /* ---------- optimisation and sensitivity (deterministic engines; the grillage result is reused) ---------- */
-  var OP = { busy: false, opt: null, sens: null, msg: '' };
-  function evalStrands(strands, girders, pOver) {
-    var p = Object.assign(U.deep(ST.p), pOver || {}); p.strands = strands; var A = U.A(), worst = { u: 0 }, by = {};
-    girders.forEach(function (gs) { var D = ANALYSIS.design(p, A, U.TPL, gs[1], gs[0]), ck = ANALYSIS.checks(p, A, D, Object.assign({}, ST.lim, { tLive: ST.lim.tLive * Math.sqrt(p.fcG), gi: gs[1], sk: gs[0] }));
+  var OP = { busy: false, opt: null, sens: null, msg: '', target: 'shared' };
+  /* strand patterns: 'shared' (girders without their own) or a girder index with its own pattern (p.gStr, M-4) */
+  var own = function () { return Object.keys(ST.p.gStr || {}).map(Number); };
+  var patOf = function (t) { return t === 'shared' ? ST.p.strands : ST.p.gStr[t]; };
+  var usersOf = function (t) { var A = U.A(), o = []; A.g.spans.forEach(function (_, k) { for (var i = 0; i < A.g.ng; i++) if (t === 'shared' ? own().indexOf(i) < 0 : i === t) o.push([k, i]); }); return o; };
+  var patName = function (t) { return t === 'shared' ? 'shared pattern' : 'G' + (t + 1) + "'s own pattern"; };
+  function evalStrands(strands, girders, pOver, target) {
+    var p = Object.assign(U.deep(ST.p), pOver || {}), A = U.A(), worst = { u: 0 }, by = {};
+    if (strands) { if (target === undefined || target === 'shared') p.strands = strands; else p.gStr[target] = strands; }
+    girders.forEach(function (gs) { var pg = p.gStr && p.gStr[gs[1]] ? Object.assign({}, p, { strands: p.gStr[gs[1]] }) : p, D = ANALYSIS.design(pg, A, U.TPL, gs[1], gs[0]), ck = ANALYSIS.checks(pg, A, D, Object.assign({}, ST.lim, { tLive: ST.lim.tLive * Math.sqrt(p.fcG), gi: gs[1], sk: gs[0] }));
       ck.forEach(function (c) { if (c.ok === null || c.u === null) return; var u = isFinite(c.u) ? c.u : 99; if (!by[c.grp] || u > by[c.grp]) by[c.grp] = u; if (u > worst.u) worst = { u: u, name: c.name, g: gs }; }); });
     return { worst: worst, by: by, pass: worst.u <= 1 };
   }
@@ -94,29 +116,31 @@
   var tick = function () { return new Promise(function (r) { setTimeout(r, 0); }); };
   async function optimise() {
     if (!U.fresh(['analysis', 'combos'])) { U.toast('Run the analysis first'); return; }
-    OP.busy = true; OP.opt = null; var H = CORE.sections(ST.p, CORE.geometry(ST.p)).H, base = U.deep(ST.p.strands), gl = allGirders(), rows = [];
+    var tg = OP.target === 'shared' || patOf(OP.target) ? OP.target : (OP.target = 'shared');
+    OP.busy = true; OP.opt = null; var H = CORE.sections(ST.p, CORE.geometry(ST.p)).H, base = U.deep(patOf(tg)), gl = usersOf(tg), rows = [];
+    if (!gl.length) { OP.busy = false; U.toast('No girder uses the ' + patName(tg)); U.paint(); return; }
     var order = base.map(function (q, i) { return [q, i]; }).filter(function (x) { return x[0].on && x[0].y < H / 2 && x[0].x > 0; }).sort(function (a, b) { return b[0].y - a[0].y || b[0].x - a[0].x; });
     var cur = U.deep(base), fails = 0;
     for (var step = 0; step <= order.length; step++) {
       if (step > 0) { var q = order[step - 1][0]; cur.forEach(function (s) { if (s.y === q.y && Math.abs(s.x) === q.x) s.on = false; }); }
       OP.msg = 'Evaluating ' + cur.filter(function (s) { return s.on; }).length + ' strands on ' + gl.length + ' girders'; U.paint(); await tick();
-      var r = evalStrands(U.deep(cur), gl); rows.push({ n: cur.filter(function (s) { return s.on; }).length, r: r, strands: U.deep(cur) });
+      var r = evalStrands(U.deep(cur), gl, null, tg); rows.push({ n: cur.filter(function (s) { return s.on; }).length, r: r, strands: U.deep(cur) });
       if (!r.pass) { if (++fails >= 2) break; } else fails = 0;
     }
     var ok = rows.filter(function (x) { return x.r.pass; }), best = ok.reduce(function (b, x) { return !b || x.n < b.n ? x : b; }, null);
-    OP.opt = { rows: rows, best: best, at: U.ORDER.map(function (n) { return ST.R[n] ? ST.R[n].id : 0; }).join(',') }; OP.busy = false; OP.msg = ''; U.paint();
+    OP.opt = { rows: rows, best: best, target: tg, gl: gl.length, at: U.ORDER.map(function (n) { return ST.R[n] ? ST.R[n].id : 0; }).join(',') }; OP.busy = false; OP.msg = ''; U.paint();
   }
   var SENS = [['fcG', "Girder f'c", 0.1, 'MPa'], ['fcT', "Transfer f'cp", 0.1, 'MPa'], ['jack', 'Jacking stress / MBL', 0.05, ''], ['fitS', 'Ligature spacing', 0.25, 'mm'], ['stage.pour', 'Deck pour age', 0.5, 'days'], ['dg', 'Aggregate size', 0.25, 'mm']];
   async function sensitivity() {
     if (!U.fresh(['analysis', 'combos'])) { U.toast('Run the analysis first'); return; }
-    OP.busy = true; OP.sens = null; var d = U.digest(), gs = d.worst ? [[d.worst.sk, d.worst.gi]] : [[ST.sel.sk, ST.sel.gi]], base = evalStrands(U.deep(ST.p.strands), gs), out = [];
+    OP.busy = true; OP.sens = null; var d = U.digest(), gs = d.worst ? [[d.worst.sk, d.worst.gi]] : [[ST.sel.sk, ST.sel.gi]], base = evalStrands(null, gs), out = [];
     for (var i = 0; i < SENS.length; i++) {
       var s = SENS[i], v0 = U.get(s[0]), res = [];
       for (var sg = -1; sg <= 1; sg += 2) {
         OP.msg = 'Varying ' + s[1]; U.paint(); await tick();
         var o = {}, v = s[0] === 'jack' ? +(v0 + sg * s[2]).toFixed(3) : v0 * (1 + sg * s[2]);
         if (s[0].indexOf('.') > 0) { var st = U.deep(ST.p.stage); st[s[0].split('.')[1]] = v; o.stage = st; } else o[s[0]] = v;
-        res.push({ v: v, r: evalStrands(U.deep(ST.p.strands), gs, o) });
+        res.push({ v: v, r: evalStrands(null, gs, o) });
       }
       out.push({ s: s, v0: v0, lo: res[0], hi: res[1] });
     }
@@ -126,12 +150,12 @@
     var at = U.ORDER.map(function (n) { return ST.R[n] ? ST.R[n].id : 0; }).join(','), ready = U.fresh(['analysis', 'combos']);
     var h = '<div><h1 class="h1">Optimisation and sensitivity ' + U.tag('exp') + '</h1><p class="lede">Deterministic searches that re-run the losses, transfer and strength engines on every girder while reusing the grillage results (strands do not change the grillage stiffness in this model). Use them to explore; confirm any change with a full run.</p></div>';
     if (!ready) h += U.staleBox(['analysis', 'combos'], 'analysis results the searches need');
-    h += '<section class="card"><h3>Minimum strands that pass every check</h3><p class="note">Removes mirrored pairs of bottom-flange strands, highest row and outermost first, from the current pattern, and stops after two failing steps. Debonding is kept.</p><div class="row"><button class="btn pri" data-act="op-run"' + (OP.busy || !ready ? ' disabled' : '') + '>Search strand count</button><span class="prog">' + esc(OP.msg) + '</span></div>';
+    h += '<section class="card"><h3>Minimum strands that pass every check</h3><p class="note">Removes mirrored pairs of bottom-flange strands, highest row and outermost first, from the chosen pattern, and stops after two failing steps. Debonding is kept. Only the girders that use the chosen pattern are checked; the others keep theirs.</p><div class="row"><label class="note" for="op-tg">Pattern</label><select id="op-tg">' + ['shared'].concat(own()).map(function (t) { return '<option value="' + t + '"' + (String(OP.target) === String(t) ? ' selected' : '') + '>' + (t === 'shared' ? 'Shared pattern' : 'G' + (t + 1) + ' own pattern') + '</option>'; }).join('') + '</select><button class="btn pri" data-act="op-run"' + (OP.busy || !ready ? ' disabled' : '') + '>Search strand count</button><span class="prog">' + esc(OP.msg) + '</span></div>';
     if (OP.opt) {
       var o = OP.opt, old = o.at !== at;
       h += (old ? '<div class="stalebox">Inputs or results changed since this search. Search again for current numbers.</div>' : '') + '<div class="' + (old ? 'is-stale' : '') + '"><div class="grid2"><div class="plotwrap-host">' + U.chart({ series: [{ name: 'highest utilisation', pts: o.rows.map(function (x) { return [x.n, x.r.worst.u]; }), dots: 1 }], hlines: [{ y: 1, label: 'limit' }], xl: 'number of strands', yl: 'highest utilisation', h: 220, xfmt: function (v) { return Number.isInteger(v) ? String(v) : ''; } }) + '</div>' +
         '<div class="tbox"><table class="t"><thead><tr><th class="n">Strands</th><th class="n">Highest u</th><th>Governing check</th><th>Status</th></tr></thead><tbody>' + o.rows.map(function (x) { return '<tr' + (o.best && x.n === o.best.n ? ' class="sel"' : '') + '><td class="n">' + x.n + '</td><td class="n">' + x.r.worst.u.toFixed(2) + '</td><td class="note">' + esc((x.r.worst.name || '').replace(/\s*\(.*?\)/g, '')) + ' (G' + ((x.r.worst.g || [0, 0])[1] + 1) + ')</td><td>' + U.stat(x.r.pass) + '</td></tr>'; }).join('') + '</tbody></table></div></div>' +
-        (o.best ? '<div class="row"><b>' + o.best.n + ' strands</b><span class="note">pass every computed check on every girder (highest utilisation ' + o.best.r.worst.u.toFixed(2) + ').</span><button class="btn pri" data-act="op-apply"' + (old ? ' disabled' : '') + '>Use this layout</button></div>' : '<p class="note">No layout in the search passes every check. Change the section, concrete strength or debonding and search again.</p>') + '</div>';
+        (o.best ? '<div class="row"><b>' + o.best.n + ' strands</b><span class="note">pass every computed check on the ' + o.gl + ' girder(s) using the ' + patName(o.target) + ' (highest utilisation ' + o.best.r.worst.u.toFixed(2) + ').</span><button class="btn pri" data-act="op-apply"' + (old ? ' disabled' : '') + '>Use this layout</button></div>' : '<p class="note">No layout in the search passes every check. Change the section, concrete strength or debonding and search again.</p>') + '</div>';
     }
     h += '</section><section class="card"><h3>Sensitivity of the governing girder</h3><p class="note">Each design parameter moved down and up by the step shown; bars show the highest utilisation of the governing girder. Concrete strength changes are applied to the section engines only (the grillage is not re-solved).</p><div class="row"><button class="btn pri" data-act="op-sens"' + (OP.busy || !ready ? ' disabled' : '') + '>Run sensitivity</button></div>';
     if (OP.sens) {
@@ -143,6 +167,7 @@
     return h + '</section>';
   };
   U.ACT['op-run'] = function () { optimise(); };
+  document.addEventListener('change', function (e) { if (e.target && e.target.id === 'op-tg') { var v = e.target.value; OP.target = v === 'shared' ? 'shared' : +v; OP.opt = null; U.paint(); } });
   U.ACT['op-sens'] = function () { sensitivity(); };
-  U.ACT['op-apply'] = function () { ST.p.strands = U.deep(OP.opt.best.strands); ST.history.push({ t: Date.now(), what: 'Applied optimised strand layout (' + OP.opt.best.n + ' strands)' }); U.toast('Strand layout applied; the design is now out of date'); U.changed(); };
+  U.ACT['op-apply'] = function () { var t = OP.opt.target; if (t === 'shared') ST.p.strands = U.deep(OP.opt.best.strands); else ST.p.gStr[t] = U.deep(OP.opt.best.strands); ST.history.push({ t: Date.now(), what: 'Applied optimised strand layout to the ' + patName(t) + ' (' + OP.opt.best.n + ' strands)' }); U.toast('Strand layout applied; the design is now out of date'); U.changed(); };
 })();

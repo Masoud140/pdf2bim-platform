@@ -141,7 +141,7 @@
   U.ACT.sm = function (a) { var k = a.getAttribute('data-k'); SM[k] = k === 'sym' ? a.checked : a.getAttribute('data-v'); U.paint(); };
   U.ACT['st-on'] = function (a) { var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1; U.strs()[i].on = a.checked; if (j >= 0) U.strs()[j].on = a.checked; U.changed(); };
   U.ACT['st-all'] = function () { U.strs().forEach(function (q) { q.on = true; }); U.changed(); };
-  U.ACT['st-def'] = function () { if (ST.p.gStr && ST.p.gStr[ST.sel.gi]) ST.p.gStr[ST.sel.gi] = CORE.strandDefault(ST.p.girder); else U.strs() = CORE.strandDefault(ST.p.girder); ST.sel.strand = null; U.changed(); };
+  U.ACT['st-def'] = function () { if (ST.p.gStr && ST.p.gStr[ST.sel.gi]) ST.p.gStr[ST.sel.gi] = CORE.strandDefault(ST.p.girder); else ST.p.strands = CORE.strandDefault(ST.p.girder); ST.sel.strand = null; U.changed(); };
   U.ACT['st-nodeb'] = function () { U.strs().forEach(function (q) { q.d = 0; q.d2 = 0; }); U.changed(); };
   document.addEventListener('change', function (e) { if (e.target.id !== 'st-deb') return; var i = ST.sel.strand, j = SM.sym ? mirror(i) : -1, v = Number(e.target.value); [i, j].forEach(function (k) { if (k >= 0) { U.strs()[k].d = v; U.strs()[k].d2 = v; } }); ST.history.push({ t: Date.now(), what: 'Debond ' + v + ' mm on strand ' + i }); U.changed(); });
 
