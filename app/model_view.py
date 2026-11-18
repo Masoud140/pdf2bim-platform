@@ -39,7 +39,9 @@ def main():
     o = [round(float(first[0])), round(float(first[1])), 0.0]
     nodes = {str(k): [round(float(v[0] - o[0]), 4), round(float(v[1] - o[1]), 4), round(float(v[2]), 4), (M["nodes"].get(k) or {}).get("role", "")]
              for k, v in m.nodes.items()}
-    beams = [[str(b["n1"]), str(b["n2"]), b.get("role", "")] for b in m.beams.values()]
+    g4 = lambda v: None if v is None else float(f"{float(v):.4g}")
+    # [n1, n2, role, member id, [E kN/m2, A m2, Iy m4, Iz m4, J m4, w kN/m]] - the 3D view's member pick shows these
+    beams = [[str(b["n1"]), str(b["n2"]), b.get("role", ""), str(k), [g4(b.get(q)) for q in ("E", "A", "Iy", "Iz", "J", "w")]] for k, b in m.beams.items()]
     props = {}                                   # member properties by role (transparency: what stiffness and weight each member type carries)
     for x in M["members"]:
         if x["n1"] not in m.nodes or x["n2"] not in m.nodes:

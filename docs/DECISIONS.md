@@ -786,6 +786,10 @@
 - **Findings for the owner:** B12452 transfer compression u = 1.09 (bottom 25.2 MPa at midspan region, f'cp 40). SB42 42-S1-05: platform transfer compression about 20.5–21.8 MPa vs the report's 19.3 MPa (limit 24 = 0.6 f'cp); report tension 3.15 MPa (limit 3.16 = 0.5 √40) vs platform about 1.0 MPa. The report's transfer basis (support positions, losses at transfer) is unknown.
 - **Tests:** `tests/design/test_prestress_checks.py` 13/13; `tests/standards/test_standards.py` 30/30; `tools/girder_checks.py` run on B12452 (both girders) end to end.
 
+## ADR-075 Member pick in the app's 3D model view (2026-11-18)
+- **Decision:** `model_view.json` beams carry the member id and [E, A, Iy, Iz, J, w] (4 significant figures); clicking a member in Model 3D (a click, not a drag) highlights it and lists its nodes, length, properties and the vertical displacement of its ends under the SW / SDL case shown. Read-only; Iy as the solver / MIDAS local axis.
+- **Tests:** app tests 72/72 (exports 8, girder edit 11, reader app 13, report 9, server 31); `npm run build` (tsc + esbuild) clean; Playwright pick on B12626 (Member 410 midgap, properties shown, no page errors). Older runs' `model_view.json` lack the new fields: the pick then shows nodes and length only.
+
 ## ADR-074 Strand placement cover check (2026-11-18)
 - **Decision:** `prestress_checks._cover`: clear cover from each strand surface to the nearest face of the open girder outline (midspan) ≥ max(1.5 × maximum aggregate, 2 db, 40 mm), standards entry `AS5100.5:cover:placement_tendons` (transcribed-unverified). Aggregate missing → checked without that term and flagged. Studio: the "cover to the lowest strands" requirement is max(durability input `lim.cover`, the same placement rule) to the soffit.
 - **Status:** PROVISIONAL (40 mm minimum not confirmed; durability cover Cl 4.14.3 not checked by the platform).

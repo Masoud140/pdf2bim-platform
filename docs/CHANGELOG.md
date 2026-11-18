@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Member pick in the 3D model view (ADR-075)
+- Click a member in the app's Model 3D tab to see its nodes, length, E / A / I / J / w and end displacements.
+
 ## 2026-11-18 — Strand placement cover check (ADR-074)
 - Platform prestress checks report clear cover per strand vs max(1.5 aggregate, 2 db, 40); Studio requirement aligned; Studio republished.
 
