@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Moving loads for headstocks and piles (ADR-076)
+- Moving loads tab shows the governing lane layout and load positions for headstock moments and pile-head axial forces; the read-only online copy includes traffic.json and the Loads tab.
+
 ## 2026-11-18 — Member pick in the 3D model view (ADR-075)
 - Click a member in the app's Model 3D tab to see its nodes, length, E / A / I / J / w and end displacements.
 

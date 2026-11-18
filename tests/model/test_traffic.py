@@ -180,6 +180,22 @@ _rr = _runs(_ld, 0.25, 3.2)
 t("traffic states: UDL strips merge into one band over the lane, wheels stay points, total load kept",
   len(_rr) == 3 and [-9.5, -6.3, 0.188, 5.5, 7.0] in _rr and abs(sum(P * (1 if o0 == o1 else round((o1 - o0) / 0.4) * round((c1 - c0) / 0.25 + 1)) for o0, o1, P, c0, c1 in _rr) - (sum(x[2] for x in _ld) + 56 * 0.0005)) < 0.05)
 
+# substructure traffic states (headstock My, pile-head N): each state rebuilds its envelope value, plan positions on the support line
+from pdf2bim.model.responses import ResponseSet
+from pdf2bim.model.traffic_states import export as _export
+RS_ = ResponseSet(M)
+Tx = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True, models=["M1600"], inf=Influence(M, responses=RS_))
+X_ = _export(Tx, RS_, M)
+sub = [r for r in X_["responses"] if r["kind"] in ("H", "N")]
+idx = {f"{n[1][0]}:{n[1][1]}:{n[2]}" if n[0] == "HS" else f"{n[1][0]}:N": i for i, n in enumerate(RS_.names) if n[0] in ("HS", "P") and n[2] in ("My1", "My2", "N1", "N2")}
+gap = max(abs(X_["states"]["M1600"][r["key"]]["max"]["value"] - Tx["env"]["M1600"]["max"][idx[r["key"]]]) for r in sub)
+sups = {r["girder"] for r in sub}
+t("traffic states: headstock My and pile-head N for every support, each state equal to its envelope value",
+  {k for k in sups if k.startswith("headstock")} and {k for k in sups if k.startswith("piles")} and gap < 1e-6 * max(1.0, max(abs(Tx["env"]["M1600"]["max"][idx[r["key"]]]) for r in sub)),
+  f"{len(sub)} responses, {sorted(sups)}, max gap {gap:.2e}")
+t("traffic states: substructure plan position on the support line (BR13A skewed: ch from the bearing fit)",
+  all(min(abs(r["ch"] - M["nodes"][b["girder_node"]]["ch"]) for b in M["bearings"].values() if r["girder"].endswith(" " + b["support"])) < 15 for r in sub))
+
 # ---------- vs the dashboard (recorded comparison, V5) ----------
 z = json.load(open(os.path.join(R, "projects/BR13A/model/BR13A.traffic_vs_frozen.json")))
 rep = z["engine_check"]["replica"]

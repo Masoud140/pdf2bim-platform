@@ -1,4 +1,4 @@
-"""Moving-load states for the app (P9.7): for every girder moment / shear response and bearing reaction, the lane
+"""Moving-load states for the app (P9.7): for every girder moment / shear response, bearing reaction, headstock moment and pile-head axial force, the lane
 layout, lane ranking and load positions behind the traffic envelope's max and min, plus influence lines along the lane
 centres of the governing layout. Uses traffic.governing_state (the engine's own rebuild of an envelope value), so what
 the app draws is exactly what the combination used. Output is plain JSON for app/static (traffic.json in the run)."""
@@ -68,6 +68,36 @@ def export(Tr, RS, mdl, models=None):
             b = mdl["bearings"][nm[1]]; node = N.get(b.get("girder_node"), {})
             if "ch" in node:
                 sel.append((i, f"{nm[1]}:R", "R", float(node["ch"]), float(node.get("o", 0.0)), b.get("girder")))
+    # substructure (sill My along each headstock, pile-head axial force): substructure nodes carry u (distance along the
+    # support line) only, so the plan position comes from straight-line fits of the support's bearings u -> (ch, o)
+    fit = {}
+    for b in mdl["bearings"].values():
+        g = N.get(b.get("girder_node"), {})
+        if "ch" in g and b.get("u") is not None:
+            fit.setdefault(b["support"], []).append((float(b["u"]), float(g["ch"]), float(g.get("o", 0.0))))
+    def at(sid, u):
+        q = fit.get(sid) or []
+        if len({a for a, _, _ in q}) < 2:
+            return None
+        U = [a for a, _, _ in q]
+        return tuple(float(np.polyval(np.polyfit(U, [r[j] for r in q], 1), u)) for j in (1, 2))
+    heads = {pl["id"]: (sid, pl["head"], pl.get("u", 0.0)) for sid, sup in mdl["supports"].items() for pl in sup["piles"]}
+    elem = {x["id"]: x for x in mdl["members"]}
+    for i, nm in enumerate(names):
+        if nm[0] == "HS" and nm[2] in ("My1", "My2"):
+            sid, eid = nm[1]; x = elem.get(eid)
+            if x is None or (nm[2] == "My2" and any(y["role"] == x["role"] and y["n1"] == x["n2"] for y in mdl["members"])):
+                continue                                     # interior end 2 repeats the next element's end 1
+            pos = at(sid, float(N[x["n1" if nm[2] == "My1" else "n2"]].get("u", 0.0)))
+            if pos:
+                sel.append((i, f"{sid}:{eid}:{nm[2]}", "H", pos[0], pos[1], f"headstock {sid}"))
+        elif nm[0] == "P" and nm[2] in ("N1", "N2"):
+            pid, eid = nm[1]; sid, head, u = heads.get(pid, (None, None, 0.0)); x = elem.get(eid)
+            if x is None or x[{"N1": "n1", "N2": "n2"}[nm[2]]] != head:
+                continue                                     # pile-head end only
+            pos = at(sid, float(u))
+            if pos:
+                sel.append((i, f"{pid}:N", "N", pos[0], pos[1], f"piles {sid}"))
     models = models or [m for m in Tr["env"]]
     states, il = {}, {}
     for m in models:

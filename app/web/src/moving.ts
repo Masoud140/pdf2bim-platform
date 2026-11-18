@@ -11,7 +11,8 @@ interface Traffic {
   states: Record<string, Record<string, { max: State | null; min: State | null }>>; il: Record<string, number[][]>;
   plan: { girders: Record<string, { id: number; a: [number, number]; b: [number, number] }[]>; bearings: { id: string; ch: number; o: number; girder: string }[]; deck: [number, number][] };
 }
-const KIND: Record<string, [string, string]> = { M: ["Bending moment", "kN·m"], V: ["Shear force", "kN"], R: ["Bearing reaction", "kN"] };
+const KIND: Record<string, [string, string]> = { M: ["Bending moment", "kN·m"], V: ["Shear force", "kN"], R: ["Bearing reaction", "kN"], H: ["Headstock moment My", "kN·m"], N: ["Pile-head axial force", "kN"] };
+const SUB = (k: string) => k === "H" || k === "N";   // substructure: positions along the support line (offset), not chainage
 const sel = { model: "", key: "", side: "max" as "max" | "min" };
 
 export async function movingLoads(id: string, provenance: (m: Meta | null) => HTMLElement | null, who: () => string, nameInput: () => HTMLElement, rerender: () => void): Promise<HTMLElement> {
@@ -54,15 +55,16 @@ export async function movingLoads(id: string, provenance: (m: Meta | null) => HT
     const R = keys.find((r) => r.key === sel.key)!, st = D.states[sel.model]?.[sel.key]?.[sel.side];
     const seg = (name: string, opts: [string, string][], cur: string, on: (v: string) => void) => h("div", { class: "row wrap small" }, h("span", { class: "muted" }, name), opts.map(([v, l]) => h("button", { class: "chip" + (v === cur ? " on" : ""), onclick: () => { on(v); draw(); } }, l)));
     const girders = [...new Set(keys.map((r) => r.girder))];
-    const ofG = keys.filter((r) => r.girder === R.girder && r.kind === R.kind).sort((a, b) => a.ch - b.ch);
-    const what = `${KIND[R.kind][0]} ${R.kind === "R" ? "at bearing " + R.key.replace(":R", "") : "of " + R.girder + " at ch " + fmt(R.ch, 2)}`;
+    const ofG = keys.filter((r) => r.girder === R.girder && r.kind === R.kind).sort((a, b) => (SUB(R.kind) ? a.o - b.o : a.ch - b.ch));
+    const what = `${KIND[R.kind][0]} ${R.kind === "R" ? "at bearing " + R.key.replace(":R", "") : R.kind === "N" ? "of pile " + R.key.replace(":N", "") : SUB(R.kind) ? "of " + R.girder + " at offset " + fmt(R.o, 2) : "of " + R.girder + " at ch " + fmt(R.ch, 2)}`;
     const head = h("div", { class: "card" }, h("h3", {}, "Governing load position"),
       seg("Vehicle", D.models.map((m) => [m, m]), sel.model, (v) => (sel.model = v)),
-      seg("Quantity", Object.keys(KIND).filter((k) => keys.some((r) => r.kind === k)).map((k) => [k, KIND[k][0]]), R.kind, (v) => { sel.key = (keys.find((r) => r.kind === v && r.girder === R.girder) || keys.find((r) => r.kind === v))!.key; }),
+      seg("Quantity", Object.keys(KIND).filter((k) => keys.some((r) => r.kind === k)).map((k) => [k, KIND[k][0]]), R.kind, (v) => { const big = (r: { key: string }) => Math.abs(D.states[sel.model]?.[r.key]?.[sel.side]?.value ?? 0);   // open on the largest value of that quantity
+        sel.key = keys.filter((r) => r.kind === v).reduce((b, r) => (big(r) > big(b) ? r : b)).key; }),
       seg("Side", [["max", "Maximum"], ["min", "Minimum"]], sel.side, (v) => (sel.side = v as "max")),
-      seg("Girder", girders.map((g) => [g, g]), R.girder, (v) => { sel.key = (keys.find((r) => r.girder === v && r.kind === R.kind) || keys.find((r) => r.girder === v))!.key; }),
-      R.kind !== "R" ? h("div", { class: "row wrap small" }, h("span", { class: "muted" }, "Station"), h("select", { onchange: (e: Event) => { sel.key = (e.target as HTMLSelectElement).value; draw(); } },
-        ofG.map((r) => h("option", { value: r.key, selected: r.key === sel.key }, `ch ${fmt(r.ch, 2)} (${r.key.split(":")[1]})`)))) : null);
+      seg("Member", girders.filter((g) => keys.some((r) => r.girder === g && r.kind === R.kind)).map((g) => [g, g]), R.girder, (v) => { sel.key = (keys.find((r) => r.girder === v && r.kind === R.kind) || keys.find((r) => r.girder === v))!.key; }),
+      R.kind !== "R" ? h("div", { class: "row wrap small" }, h("span", { class: "muted" }, R.kind === "N" ? "Pile" : "Station"), h("select", { onchange: (e: Event) => { sel.key = (e.target as HTMLSelectElement).value; draw(); } },
+        ofG.map((r) => h("option", { value: r.key, selected: r.key === sel.key }, R.kind === "N" ? `${r.key.replace(":N", "")} (offset ${fmt(r.o, 2)})` : SUB(R.kind) ? `offset ${fmt(r.o, 2)} (${r.key.split(":")[1]})` : `ch ${fmt(r.ch, 2)} (${r.key.split(":")[1]})`)))) : null);
     if (!st) { body.replaceChildren(head, empty("No state", `The run has no ${sel.side} state for ${what}.`)); return; }
     const kpi = (l: string, v: string, s: string) => h("div", { class: "card tile" }, h("div", { class: "small muted" }, l), h("div", { class: "big" }, v), h("div", { class: "small muted" }, s));
     const nWheel = st.loads.filter((L) => L[2] > 1).length;
@@ -94,6 +96,7 @@ function plan(D: Traffic, R: Traffic["responses"][number], st: State): HTMLEleme
   for (const [g, mem] of Object.entries(D.plan.girders)) for (const m of mem) { const on = g === R.girder && R.kind !== "R" && Math.abs(m.a[0] - R.ch) < 1e-6 || g === R.girder && R.kind !== "R" && Math.abs(m.b[0] - R.ch) < 1e-6;
     el("line", { x1: X(m.a[0]), y1: Y(m.a[1]), x2: X(m.b[0]), y2: Y(m.b[1]), stroke: on ? "#13202c" : "#0b7aa3", "stroke-width": on ? 5 : 2.5 }, `${g} member ${m.id}`); }
   for (const b of D.plan.bearings) { const on = R.kind === "R" && R.key.startsWith(b.id + ":"); el("path", { d: `M${X(b.ch)} ${Y(b.o) + 3}l-6 10h12z`, fill: on ? "#13202c" : "#b3261e" }, `bearing ${b.id}`); }
+  if (SUB(R.kind)) el("path", { d: `M${X(R.ch)} ${Y(R.o) - 8}l8 8l-8 8l-8 -8z`, fill: "#13202c", stroke: "#fff" }, R.kind === "N" ? `pile ${R.key.replace(":N", "")} (head, plan position on the support line)` : `${R.girder} at offset ${R.o}`);
   for (const L of st.loads) if (L[2] > 1) el("circle", { cx: X(L[3]), cy: Y(L[0]), r: 3 + 2 * Math.sqrt(L[2] / 60), fill: "#b3261e", opacity: 0.85, stroke: "#fff" }, `${L[2]} kN at ch ${L[3]}, offset ${L[0]}`);
   for (const [g, mem] of Object.entries(D.plan.girders)) { const m = mem[0]; const t = el("text", { x: 4, y: Y(m.a[1]) + 4, "font-size": 11 }); t.textContent = g; }
   const foot = el("text", { x: W - 8, y: H - 6, "text-anchor": "end", "font-size": 11, fill: "#5b6770" }); foot.textContent = `chainage along the bridge, m · offsets from the control line (right +)${ex !== 1 ? " · transverse scale × " + ex.toFixed(2) : ""} · red dots: wheel loads (size ∝ load) · bands: patterned UDL`;
