@@ -164,10 +164,15 @@ var ANALYSIS = (function () {
     var soffit = function (pl) { var c = S.conc.reduce(function (b, q) { return !b || q.y > b.y ? q : b; }, null); return c.E * (pl.e0 + pl.k * c.y - c.e0); };
     var tst = function (pl) { return low.E * (pl.e0 + pl.k * low.y + low.pre); };
     var s0 = soffit({ e0: 0, k: 0 }), ds = (soffit(solve(1e9, false)) - s0) / 1000;       /* soffit stress per kNm, uncracked (linear) */
-    var Mcd = ds !== 0 ? -s0 / ds : Infinity, Mdec = Mnc + Mcd;
-    if (Mc <= Mcd) return { Mdec: Mdec, dsp: 0 };
-    var pd = solve(Mcd * 1e6, false), pc = solve(Mc * 1e6, true);
-    return { Mdec: Mdec, dsp: Math.max(0, tst(pc) - tst(pd)) };
+    var Mcd = ds !== 0 ? -s0 / ds : Infinity, Mdec = Mnc + Mcd, cracked = Mc > Mcd;
+    var pd = isFinite(Mcd) ? solve(Mcd * 1e6, false) : null, pc = solve(Mc * 1e6, cracked);
+    /* stress state at Mnc + Mc for the cracked-section panel: concrete profile (y mm below the deck top, MPa, tension +;
+       tension cut off when cracked), neutral axis, and per tendon layer the stress at decompression and now */
+    var prof = {}; S.conc.forEach(function (c) { var v = c.E * (pc.e0 + pc.k * c.y - c.e0); if (cracked && v > 0) v = 0; var y = Math.round(c.y / 10) * 10; if (!(y in prof) || Math.abs(v) > Math.abs(prof[y])) prof[y] = v; });
+    var pts = Object.keys(prof).map(Number).sort(function (a, b) { return a - b; }).map(function (y) { return [y, prof[y]]; });
+    var na = null; for (var i = 1; i < pts.length; i++) if (pts[i - 1][1] < 0 && pts[i][1] >= 0) { na = pts[i][0]; break; }
+    var lay = {}; S.tend.forEach(function (t) { var y = Math.round(t.y), o = lay[y] || (lay[y] = { y: t.y, A: 0, s0: pd ? t.E * (pd.e0 + pd.k * t.y + t.pre) : null, s: t.E * (pc.e0 + pc.k * t.y + t.pre), spe: t.spe }); o.A += t.A; });
+    return { Mdec: Mdec, dsp: cracked && pd ? Math.max(0, tst(pc) - tst(pd)) : 0, cracked: cracked, na: cracked ? na : null, prof: pts, tend: Object.keys(lay).map(function (k) { return lay[k]; }).sort(function (a, b) { return a.y - b.y; }), Mnc: Mnc, Mc: Mc };
   }
 
   /* pairs of debonded strands next to each other on the strand grid, horizontally (same row, next position) or vertically
@@ -232,7 +237,7 @@ var ANALYSIS = (function () {
       st.Mu = Mu; st.Vu = Vu; st.Tu = Tu; st.govM = govM; st.govV = govV; st.govT = govT;
       st.dev = dev;
       /* crack control, AS 5100.5 Cl 8.6.2.1(b): tendon stress increment above decompression, cracked composite section (staged) */
-      if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; });
+      if (S.tend.length) slsRows.forEach(function (rw) { var o = crackInc(S, sc, p, ps, rw[1], rw[2]); st.sls[rw[0]].Mdec = o.Mdec; st.sls[rw[0]].dsp = o.dsp; st.sls[rw[0]].Ms = rw[1] + rw[2]; st.sls[rw[0]].cr = o; });
       if (S.tend.length) {
         var u = DSG.ulsBend(S, {}); st.phiMu = u.phiMu; st.dn = u.dn; st.kuo = u.kuo; st.phi = u.phi;
         /* ULS state for the strain and force diagrams: steel layers merged by depth (y mm below the deck top, stress MPa, force kN, tension +) */
