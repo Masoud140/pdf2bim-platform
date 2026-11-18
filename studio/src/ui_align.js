@@ -62,9 +62,45 @@
     return '<div><h4 style="margin:6px 0">Support ' + esc(sp.id) + ' — crossfall left ' + xf.left + ' %, right ' + xf.right + ' %, crown at ' + f(xf.crown_offset, 2) + ' m</h4>' + s + '</div>';
   }
 
+  /* G-4: each support's substructure from the platform model (model_view.json): sill, bearing seats, pile heads to toes,
+     drawn as an elevation along the support line with RLs. Supports are found as connected sill members; named by the
+     nearest support of the loaded geometry file (MGA = local + origin). */
+  function subs(M, G) {
+    var N = M.nodes, adj = {}, add = function (a, b, r) { (adj[a] = adj[a] || []).push([b, r]); (adj[b] = adj[b] || []).push([a, r]); };
+    M.beams.forEach(function (b) { add(b[0], b[1], b[2]); });
+    var seen = {}, out = [];
+    Object.keys(N).forEach(function (id) {
+      if (seen[id] || N[id][3] !== 'sill') return;
+      var comp = [], st = [id]; seen[id] = 1;
+      while (st.length) { var a = st.pop(); comp.push(a); (adj[a] || []).forEach(function (q) { if (q[1] === 'sill' && !seen[q[0]]) { seen[q[0]] = 1; st.push(q[0]); } }); }
+      var reach = function (from, roles) { var o = {}, s2 = from.slice(); from.forEach(function (x) { o[x] = 1; }); while (s2.length) { var a2 = s2.pop(); (adj[a2] || []).forEach(function (q) { if (roles.indexOf(q[1]) >= 0 && !o[q[0]]) { o[q[0]] = 1; s2.push(q[0]); } }); } return Object.keys(o).filter(function (x) { return from.indexOf(x) < 0; }); };
+      var heads = reach(comp, ['rigid_sill_pile']), seats = reach(comp, ['rigid_sill_seat']);
+      var piles = heads.map(function (h0) { var ch = [h0].concat(reach([h0], ['pile'])).map(function (x) { return N[x]; }); return { head: N[h0], top: Math.max.apply(null, ch.map(function (q) { return q[2]; })), toe: Math.min.apply(null, ch.map(function (q) { return q[2]; })) }; });
+      var P = comp.map(function (x) { return N[x]; }), cx = P.reduce(function (a2, q) { return a2 + q[0]; }, 0) / P.length, cy = P.reduce(function (a2, q) { return a2 + q[1]; }, 0) / P.length;
+      var far = P.reduce(function (b, q) { return Math.hypot(q[0] - cx, q[1] - cy) > Math.hypot(b[0] - cx, b[1] - cy) ? q : b; }, P[0]), d = [far[0] - cx, far[1] - cy], L = Math.hypot(d[0], d[1]) || 1; d = [d[0] / L, d[1] / L];
+      var u = function (q) { return (q[0] - cx) * d[0] + (q[1] - cy) * d[1]; }, E = cx + M.origin[0], Nn = cy + M.origin[1];
+      var nm = '?'; if (G) { var best = G.supports.reduce(function (b, sp) { var dd = Math.hypot(sp.E - E, sp.N - Nn); return !b || dd < b[0] ? [dd, sp.id] : b; }, null); if (best && best[0] < 30) nm = best[1]; }
+      out.push({ name: nm, E: E, N: Nn, sill: P.map(function (q) { return [u(q), q[2]]; }).sort(function (a2, b2) { return a2[0] - b2[0]; }), seats: seats.map(function (x) { return [u(N[x]), N[x][2]]; }), piles: piles.map(function (q) { return { u: u(q.head), top: q.top, toe: q.toe }; }).sort(function (a2, b2) { return a2.u - b2.u; }) });
+    });
+    return out;
+  }
+  function subSvg(S) {
+    var us = S.sill.map(function (q) { return q[0]; }).concat(S.piles.map(function (q) { return q.u; })), zs = S.sill.map(function (q) { return q[1]; }).concat(S.seats.map(function (q) { return q[1]; })).concat(S.piles.map(function (q) { return q.toe; }));
+    var u0 = Math.min.apply(null, us) - 1, u1 = Math.max.apply(null, us) + 1, z0 = Math.min.apply(null, zs) - 1, z1 = Math.max.apply(null, zs) + 1.5, W = 460, H = 320;
+    var k = Math.min((W - 80) / (u1 - u0), (H - 50) / (z1 - z0)), X = function (v) { return 60 + (v - u0) * k; }, Y = function (z) { return 20 + (z1 - z) * k; };
+    var s = '<svg class="plot" data-zoom="1" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Substructure ' + esc(S.name) + '">';
+    S.piles.forEach(function (p) { s += '<line x1="' + X(p.u) + '" x2="' + X(p.u) + '" y1="' + Y(p.top) + '" y2="' + Y(p.toe) + '" style="stroke:var(--mut);stroke-width:3"><title>pile at ' + f(p.u, 2) + ' m: RL ' + f(p.top, 3) + ' to toe RL ' + f(p.toe, 3) + '</title></line><text x="' + X(p.u) + '" y="' + (Y(p.toe) + 12) + '" text-anchor="middle">' + f(p.toe, 2) + '</text>'; });
+    s += '<path d="' + S.sill.map(function (q, i) { return (i ? 'L' : 'M') + X(q[0]).toFixed(1) + ' ' + Y(q[1]).toFixed(1); }).join('') + '" style="stroke:var(--ink);stroke-width:5;fill:none"><title>sill (member axis)</title></path>';
+    S.seats.forEach(function (q) { s += '<rect x="' + (X(q[0]) - 4) + '" y="' + (Y(q[1]) - 4) + '" width="8" height="8" style="fill:var(--acc)"><title>bearing seat RL ' + f(q[1], 3) + '</title></rect>'; });
+    var zs2 = S.sill.map(function (q) { return q[1]; });
+    s += '<text x="' + X(u0) + '" y="' + (Y(Math.max.apply(null, zs2)) - 10) + '">sill axis RL ' + f(Math.min.apply(null, zs2), 3) + (Math.max.apply(null, zs2) - Math.min.apply(null, zs2) > 0.001 ? ' … ' + f(Math.max.apply(null, zs2), 3) : '') + '</text></svg>';
+    return s;
+  }
+
   U.RENDER.alignment = function () {
     var h = '<div><h1 class="h1">Alignment and set-out <span class="sub">views of a platform geometry file</span></h1><p class="lede">Load <span class="mono">geometry.json</span> from a platform run (the app\'s run folder, or <span class="mono">tools/build_geometry.py</span>). The Studio\'s own case studies are straight and level; real alignments, MGA set-out and levels come from the platform. The file stays in this browser.</p></div>';
-    h += '<section class="card"><div class="row"><label class="btn" for="al-file">Load geometry.json</label><input type="file" id="al-file" accept=".json,application/json" style="display:none">' + (AL.geo ? '<span class="note">' + esc(AL.name) + ' · ' + AL.geo.supports.length + ' supports · ' + AL.geo.girders.length + ' girders</span><button class="btn ghost" data-act="al-clear">Clear</button>' : '<span class="note">No file loaded.</span>') + (AL.err ? '<span class="bad">' + esc(AL.err) + '</span>' : '') + '</div></section>';
+    h += '<section class="card"><div class="row"><label class="btn" for="al-file">Load geometry.json</label><input type="file" id="al-file" accept=".json,application/json" style="display:none"><label class="btn ghost" for="al-mv">Load model_view.json (substructure)</label><input type="file" id="al-mv" accept=".json,application/json" style="display:none">' + (AL.mv ? '<span class="note">' + esc(AL.mvName) + '</span>' : '') + (AL.geo ? '<span class="note">' + esc(AL.name) + ' · ' + AL.geo.supports.length + ' supports · ' + AL.geo.girders.length + ' girders</span><button class="btn ghost" data-act="al-clear">Clear</button>' : '<span class="note">No file loaded.</span>') + (AL.err ? '<span class="bad">' + esc(AL.err) + '</span>' : '') + '</div></section>';
+    if (AL.mv) { var SB = subs(AL.mv, AL.geo); h += '<section class="card"><h3>Substructure (from the platform model) <span class="sub">elevation along each support line: sill axis, bearing seats (blue), piles to the toe (toe RL under each)</span></h3>' + (SB.length ? '<div class="grid2">' + SB.map(function (S) { return '<div><h4 style="margin:6px 0">Support ' + esc(S.name) + ' — ' + S.piles.length + ' piles, ' + S.seats.length + ' bearing seats</h4>' + subSvg(S) + '</div>'; }).join('') + '</div>' : '<p class="note">No sill members in this model.</p>') + '<p class="note">Levels are the model\'s member axes (MGA = local + origin ' + AL.mv.origin.slice(0, 2).join(', ') + '); headstock and pile sizes are on the platform\'s member properties.</p></section>'; }
     var G = AL.geo; if (!G) return h;
     h += '<section class="card"><h3>Plan (MGA, north up) <span class="sub">control line dashed, girders between bearings, support lines red; scroll to zoom, hover for coordinates</span></h3>' + plan(G) + '<p class="note">' + esc(G.coordinates) + '. Girders are straight chords between bearings; the shaded bar is the girder end to end.</p></section>';
     h += '<section class="card"><h3>Vertical profile and crossfall</h3>' + profile(G) + '<div class="grid2">' + G.supports.map(function (sp) { return section(G, sp); }).join('') + '</div></section>';
@@ -86,5 +122,11 @@
     };
     rd.readAsText(fl);
   });
-  U.ACT['al-clear'] = function () { AL.geo = null; AL.name = ''; AL.err = ''; U.paint(); };
+  U.ACT['al-clear'] = function () { AL.geo = null; AL.name = ''; AL.err = ''; AL.mv = null; U.paint(); };
+  document.addEventListener('change', function (e) {
+    if (!e.target || e.target.id !== 'al-mv' || !e.target.files[0]) return;
+    var fl = e.target.files[0], rd = new FileReader();
+    rd.onload = function () { try { var M = JSON.parse(rd.result); if (!M.nodes || !M.beams || !M.origin) throw new Error('not a platform model_view.json'); AL.mv = M; AL.mvName = fl.name; AL.err = ''; } catch (x) { AL.err = x.message; } U.paint(); };
+    rd.readAsText(fl);
+  });
 })();

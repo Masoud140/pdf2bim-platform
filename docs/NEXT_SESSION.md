@@ -26,8 +26,8 @@ Tier 3 — Studio showcase
 11. Optional: section-drawing zoom; generated live-load model page.
 Tier 4 — platform scope
 12. Pile moments with real soil springs (needs the geotechnical appendix); D-2 / D-3 views in the Studio only after that.
-13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results. **Done 2026-11-19 (ADR-081)**: tab "Alignment (platform)" loads a platform `geometry.json` — plan in MGA, vertical profile, crossfall at each support, support and bearing set-out, checks. Left: sill / headstock geometry (G-4 sills, RLs, toe) needs `model_view.json`, not yet read by the Studio.
-14. Moving-load MIDAS export; planks; continuous spans; Revit output; hosted app with log-in.
+13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results. **Done 2026-11-19 (ADR-081)**: tab "Alignment (platform)" loads a platform `geometry.json` — plan in MGA, vertical profile, crossfall at each support, support and bearing set-out, checks. G-4 substructure added the same day: the tab also loads `model_view.json` and draws each support as an elevation (sill axis, bearing seats, piles to the toe with RLs).
+14. Moving-load MIDAS export (**blocked 2026-11-19: needs one native MIDAS .mct with a moving-load definition — `*LINELANE` / `*VEHICLE` / `*MVLDCASE` / `*MOVE-CTRL` field syntax is not published in the online MCT command list; MCT_EXPORT_METHOD §0: ask for a native export, never guess**); planks; continuous spans; Revit output; hosted app with log-in.
 15. Merge `p4-verification` to main (owner).
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
 - `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).
