@@ -1,6 +1,6 @@
 # Next session — resume here
 
-**Last updated:** 2026-11-16.
+**Last updated:** 2026-11-19.
 
 **Standing rule (owner, 2026-11-17):** update every rule in both the repository and the Project knowledge in the same session (`DEVELOPMENT_PRINCIPLES.md` §5 item 8; index: `docs/project_knowledge/README_PROJECT_INDEX.md`).
 
@@ -27,7 +27,7 @@ Tier 3 — Studio showcase
 Tier 4 — platform scope
 12. Pile moments with real soil springs (needs the geotechnical appendix); D-2 / D-3 views in the Studio only after that.
 13. Alignment views in the Studio (G-1, G-2, G-4) as views of platform results. **Done 2026-11-19 (ADR-081)**: tab "Alignment (platform)" loads a platform `geometry.json` — plan in MGA, vertical profile, crossfall at each support, support and bearing set-out, checks. G-4 substructure added the same day: the tab also loads `model_view.json` and draws each support as an elevation (sill axis, bearing seats, piles to the toe with RLs).
-14. Moving-load MIDAS export (**blocked 2026-11-19: needs one native MIDAS .mct with a moving-load definition — `*LINELANE` / `*VEHICLE` / `*MVLDCASE` / `*MOVE-CTRL` field syntax is not published in the online MCT command list; MCT_EXPORT_METHOD §0: ask for a native export, never guess**); planks; continuous spans; Revit output; hosted app with log-in.
+14. Moving-load MIDAS export (**blocked 2026-11-19: needs one native MIDAS .mct with a moving-load definition — `*LINELANE` / `*VEHICLE` / `*MVLDCASE` / `*MOVE-CTRL` field syntax is not published in the online MCT command list; MCT_EXPORT_METHOD §0: ask for a native export, never guess**); planks; continuous spans (**stage 1 done 2026-11-19, ADR-082**: `model/continuous.py` `join`; next stage 2 — construction staging: loads before continuity on the span models, after on the joined model, in `combined_actions`); Revit output; hosted app with log-in.
 15. Merge `p4-verification` to main (owner).
 - SB01 haunch done; re-run and comparison updated (φMu −15 %, M* −2 %).
 - `traffic.py` speed fix: the full SB01 chain now takes about 30 min (actions 10, design 18).

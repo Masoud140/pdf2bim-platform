@@ -7,6 +7,7 @@
   - Re-run `runSB01h` (`projects/B12452/model/COMPARISON_REPORT.md`): M* −2.1 %, SLS −3.3 %, φMu −15.1 %, V* +5.8 %.
   - Note: `projects/B12461/model/PHIMU_SLS_NOTE.md` §5.
 - 2026-11-19: Studio substructure elevations from model_view.json (G-4). MIDAS moving-load export blocked on a native .mct sample.
+- 2026-11-19: Continuous spans stage 1 — `model/continuous.py` `join` (ADR-082); test_continuous 8/8. Next: stage 2 construction staging.
 - 2026-11-19: Alignment views in the Studio from platform geometry.json (ADR-081).
 - 2026-11-19: Studio ULS combinations as the platform and the negative temperature gradient (ADR-080). Tier 3 complete.
 - 2026-11-19: Studio optimiser and AI assistant work on per-girder strand patterns (ADR-079).
