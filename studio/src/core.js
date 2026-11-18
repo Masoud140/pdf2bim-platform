@@ -47,7 +47,7 @@ var CORE = (function () {
   };
 
   /* ---------- dependency graph: which results depend on which input groups ---------- */
-  var GROUPS = { geometry: 'Geometry', section: 'Girder section', material: 'Materials', mesh: 'Mesh', loads: 'Loads', combos: 'Combinations', prestress: 'Prestress and strands', detailing: 'Reinforcement', substructure: 'Substructure' };
+  var GROUPS = { geometry: 'Geometry', section: 'Girder section', material: 'Materials', mesh: 'Mesh', loads: 'Loads', combos: 'Combinations', prestress: 'Prestress and strands', detailing: 'Reinforcement', substructure: 'Substructure', thermal: 'Temperature gradient' };
   var NODES = {
     mesh: ['geometry', 'section', 'mesh', 'substructure'],
     model: ['geometry', 'section', 'material', 'mesh', 'substructure'],
@@ -562,7 +562,7 @@ var CORE = (function () {
     { id: 'WTu', name: 'Wind, transverse (ultimate)', cls: 'Wind', act: 'W', on: true, note: 'Line load across the bridge at deck level, either direction.' },
     { id: 'WTs', name: 'Wind, transverse (serviceability)', cls: 'Wind', act: 'W', on: true },
     { id: 'TU', name: 'Temperature, uniform', cls: 'Thermal', act: 'TU', on: true, note: 'Rise and fall of the deck temperature by the uniform range: bearing movement, and bearing force where the articulation restrains it.' },
-    { id: 'TEMP', name: 'Temperature, differential (gradient)', cls: 'Thermal', act: 'TG', on: false, proposed: true, note: 'Not a grillage case: self-equilibrating stresses are on the Stages page; not yet added to the checks.' },
+    { id: 'TEMP', name: 'Temperature, differential (gradient)', cls: 'Thermal', act: 'TG', on: true, note: 'Positive gradient (Stages page profile): self-equilibrating stresses added to the service stresses of every combination that includes it (simply supported spans: no secondary moments; the negative gradient is not modelled).' },
     { id: 'SCR', name: 'Shrinkage and creep shortening', cls: 'Thermal', act: 'SCR', on: false, proposed: true, note: 'Prestress losses and hog are in the losses engine; restraint effects need the full platform model.' },
     { id: 'EP', name: 'Earth pressure and traffic surcharge on abutments', cls: 'Horizontal', act: 'EP', on: false, proposed: true, note: 'Substructure: needs the full platform model.' },
     { id: 'EQx', name: 'Earthquake along the bridge', cls: 'Earthquake', act: 'EQ', on: true, note: 'Response spectrum analysis of the frame, modes combined by CQC; either direction.' },
@@ -577,7 +577,10 @@ var CORE = (function () {
       { id: 'ULS-C', ls: 'ULS', name: 'Construction (girder alone)', f: { G1: 1.2, G2: 1.2, C: 1.5 }, illustrative: true },
       { id: 'SLS-1', ls: 'SLS', name: 'Permanent + M1600', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.3, M1600: 1.0 } },
       { id: 'SLS-2', ls: 'SLS', name: 'Permanent + S1600', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.3, S1600: 1.0 } },
-      { id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.0 } }
+      { id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.0 } },
+      /* temperature (uniform + positive gradient) leading, and as the 0.7 companion of M1600 (AS 5100.2 Cl 23.4 companions, unverified) */
+      { id: 'SLS-1+T', ls: 'SLS', name: 'Permanent + M1600 + 0.7 × temperature', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.3, M1600: 1.0, TU: 0.7, TEMP: 0.7 } },
+      { id: 'SLS-T', ls: 'SLS', name: 'Permanent + temperature', f: { G1: 1.0, G2: 1.0, SDLs: 1.0, SDLp: 1.3, TU: 1.0, TEMP: 1.0 } }
     ];
   }
   function generateCombos(cases) {   /* automated generation: every enabled traffic model with all permanent cases at default factors */
@@ -585,16 +588,35 @@ var CORE = (function () {
     var perm = function (ls) { var f = {}; on.forEach(function (c) { if (c.cls === 'Permanent') f[c.id] = ls === 'ULS' ? 1.2 : 1.0; if (c.id === 'SDLs') f[c.id] = ls === 'ULS' ? 1.4 : 1.0; if (c.id === 'SDLp') f[c.id] = ls === 'ULS' ? 2.0 : 1.3; }); return f; };
     var has = function (id) { return on.some(function (c) { return c.id === id; }); };
     tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls), tf = ls === 'ULS' ? 1.8 : 1.0, hz = []; f[t.id] = tf; ['BRK', 'CEN'].forEach(function (h) { if (has(h)) { f[h] = tf; hz.push(h === 'BRK' ? 'braking' : 'centrifugal'); } });   /* braking and centrifugal are traffic actions: same factor */
-      out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id + (hz.length ? ' + ' + hz.join(' + ') : ''), f: f }); }); });
+      if (ls === 'ULS') out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id + (hz.length ? ' + ' + hz.join(' + ') : ''), f: f }); }); });   /* SLS rows: lead-group generator below */
     if (on.some(function (c) { return c.id === 'C'; })) out.push({ id: 'ULS-C', ls: 'ULS', name: 'Construction (girder alone)', f: { G1: 1.2, G2: 1.2, C: 1.5 }, illustrative: true });
     var fp = {}; on.forEach(function (c) { if (c.cls === 'Permanent' || c.cls === 'Superimposed dead') fp[c.id] = 1.0; }); out.push({ id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: fp });
+    /* SLS (AS 5100.2 Cl 23.4, as the platform's generator): each transient group leads at 1.0 with every subset of the others at the
+       companion factor k1 = 0.7 (one other) or k2 = 0.5 (two or more) (standards entry AS5100.2:combination:sls_companion, unverified).
+       Groups: traffic (one model at a time, with braking / centrifugal), thermal (uniform + gradient), wind (serviceability pressures). */
+    var K1 = 0.7, K2 = 0.5, grpS = [];
+    var trS = tr.map(function (t, i) { var f = {}; f[t.id] = 1; ['BRK', 'CEN'].forEach(function (h_) { if (has(h_)) f[h_] = 1; }); return { tag: String(i + 1), name: t.id, f: f }; });
+    if (trS.length) grpS.push({ S: trS });
+    var thS = {}; ['TU', 'TEMP'].forEach(function (c) { if (has(c)) thS[c] = 1; }); if (Object.keys(thS).length) grpS.push({ S: [{ tag: 'T', name: 'temperature', f: thS }] });
+    var wS = {}; ['WVs', 'WTs'].forEach(function (c) { if (has(c)) wS[c] = 1; }); if (Object.keys(wS).length) grpS.push({ S: [{ tag: 'W', name: 'wind', f: wS }] });
+    grpS.forEach(function (L) {
+      var O = grpS.filter(function (x) { return x !== L; });
+      for (var mask = 0; mask < (1 << O.length); mask++) {
+        var oth = O.filter(function (x, i) { return mask & (1 << i); }), k = oth.length === 0 ? 1 : oth.length === 1 ? K1 : K2, sets = [[]];
+        [L].concat(oth).forEach(function (G, gi) { var nx = []; sets.forEach(function (cb) { G.S.forEach(function (s_) { nx.push(cb.concat([[s_, gi === 0 ? 1 : k]])); }); }); sets = nx; });
+        sets.forEach(function (parts) {
+          var f = perm('SLS');
+          parts.forEach(function (q) { Object.keys(q[0].f).forEach(function (c) { f[c] = (f[c] || 0) + q[0].f[c] * q[1]; }); });
+          out.push({ id: 'SLS-' + parts.map(function (q) { return q[0].tag; }).join('+'), ls: 'SLS', name: 'Permanent + ' + parts.map(function (q) { return (q[1] !== 1 ? q[1] + ' × ' : '') + q[0].name; }).join(' + '), f: f });
+        });
+      }
+    });
     /* wind: permanent + wind at its own limit-state pressure, factor 1.0 (the ultimate and serviceability pressures are separate inputs); unverified */
     if (has('WVu') || has('WTu')) { var fu = perm('ULS'); if (has('WVu')) fu.WVu = 1.0; if (has('WTu')) fu.WTu = 1.0; out.push({ id: 'ULS-W', ls: 'ULS', name: 'Permanent + wind', f: fu }); }
-    if (has('WVs') || has('WTs')) { var fw = perm('SLS'); if (has('WVs')) fw.WVs = 1.0; if (has('WTs')) fw.WTs = 1.0; out.push({ id: 'SLS-W', ls: 'SLS', name: 'Permanent + wind', f: fw }); }
     /* earthquake: permanent actions at 1.0 with 100 % of one direction and 30 % of the other (platform standards inventory, unverified) */
     if (has('EQx') || has('EQy')) [['x', 1, 0.3], ['y', 0.3, 1]].forEach(function (c) { if (!has('EQ' + c[0])) return; var fe = perm('SLS'); if (has('EQx')) fe.EQx = c[1]; if (has('EQy')) fe.EQy = c[2]; out.push({ id: 'ULS-EQ' + c[0], ls: 'ULS', name: 'Permanent + earthquake ' + (c[0] === 'x' ? 'along' : 'across') + ' the bridge (100 % + 30 %)', f: fe }); });
     /* uniform temperature: 1.25 ultimate, 1.0 serviceability (platform standards inventory, unverified) */
-    if (has('TU')) { var ft = perm('ULS'); ft.TU = 1.25; out.push({ id: 'ULS-T', ls: 'ULS', name: 'Permanent + uniform temperature', f: ft }); var fs = perm('SLS'); fs.TU = 1.0; out.push({ id: 'SLS-T', ls: 'SLS', name: 'Permanent + uniform temperature', f: fs }); }
+    if (has('TU')) { var ft = perm('ULS'); ft.TU = 1.25; out.push({ id: 'ULS-T', ls: 'ULS', name: 'Permanent + uniform temperature', f: ft }); }
     return out;
   }
 

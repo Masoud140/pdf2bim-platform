@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Temperature gradient in the Studio service checks (ADR-078)
+- Gradient stresses added to SLS combinations that include it; Generate builds the AS 5100.2 lead / companion SLS set.
+
 ## 2026-11-18 — Studio design tab complete (ADR-077)
 - Point of interest: cracked-section stage and shear / torsion detail with V–M interaction; Stages page: add your own construction stages (temporary or staying loads), used by losses, hog, stage stresses and (staying loads) the grillage SDL.
 

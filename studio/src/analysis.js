@@ -79,7 +79,8 @@ var ANALYSIS = (function () {
         if (v.max) for (var r = 0; r < nr; r++) { mx[r] += f * v.max[r]; mn[r] += f * v.min[r]; }
         else for (var r2 = 0; r2 < nr; r2++) { mx[r2] += f * v[r2]; mn[r2] += f * v[r2]; }
       });
-      return { id: cb.id, ls: cb.ls, name: cb.name, max: mx, min: mn, used: used };
+      /* the temperature gradient is not a grillage case: its factor travels with the combination and the design adds its self-equilibrating stresses */
+      return { id: cb.id, ls: cb.ls, name: cb.name, max: mx, min: mn, used: used, tg: on.TEMP ? (cb.f.TEMP || 0) : 0 };
     });
   }
   /* crack-control options for prestressed beams, AS 5100.5:2017 Cl 8.6.2.1, as the original dashboard codes them (values supplied by
@@ -202,7 +203,7 @@ var ANALYSIS = (function () {
     sk = sk || 0; var sc = A.sc, g = A.g, sp = g.spans[sk], h = hogInputs(p, A, tpl, sk), r = HOG.run(h), Lb = sp.L, n = A.m.n;
     var fs = p.strands.filter(function (q) { return q.on; }), Ap = h.Ap, Ep = h.Ep || 195000, lt = h.lt * h.db;
     var Pm0 = r.res[0].mid.Pm, PmF = r.res[r.res.length - 1].mid.Pm;   /* kN per strand at mid-span: transfer and final */
-    var final = r.res[r.res.length - 1], stations = [];
+    var final = r.res[r.res.length - 1], stations = [], TG = tempGrad(p, sc, g);   /* positive temperature gradient stresses for SLS rows with TEMP */
     var cg = function (xg) {   /* effective prestress state at x along the girder (mm from the girder end) */
       var P = 0, Pe = 0, Pt = 0, sgy = 0;
       fs.forEach(function (q, k) { var d1 = q.d || 0, d2 = q.d2 || 0, ef = Math.max(0, Math.min(1, (xg - d1) / lt, (h.L - xg - d2) / lt));
@@ -221,6 +222,7 @@ var ANALYSIS = (function () {
       A.CB.filter(function (c) { return c.ls === 'SLS'; }).forEach(function (c) {
         var k = A.RS.idx[key], Mt = c.max[k], Mnc = (c.used.indexOf('G1') >= 0 ? val(A, key, 'G1') * 1 : 0) + (c.used.indexOf('G2') >= 0 ? val(A, key, 'G2') : 0);
         st.sls[c.id] = fp(Mnc, Mt - Mnc); slsRows.push([c.id, Mnc, Mt - Mnc]);
+        if (c.tg) { var s_ = st.sls[c.id]; s_.bot += c.tg * TG.girBot; s_.top += c.tg * TG.girTop; s_.deck += c.tg * TG.deckTop; s_.tg = c.tg; }   /* + factored gradient stresses (MPa, tension +) */
       });
       /* ULS bending: composite strain compatibility (DSG engine), strands effective by transmission / debonding */
       var S = { conc: DSG.stripsFromPolygon(sc.P, sc.H, p.slab, sc.Eg, p.fcG, 'g', 10).concat(DSG.stripsFromLayers([{ h: p.slab, b1: g.s * 1000, b2: g.s * 1000, E: sc.Ed, fc: p.fcD }], 10)), bars: parseBars(p.gbars).map(function (b) { return { y: p.slab + sc.H - b.y, A: b.n * Math.PI * b.d * b.d / 4, E: 200000, fsy: 500 }; }), tend: [] };

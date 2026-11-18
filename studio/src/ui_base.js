@@ -24,7 +24,7 @@ var U = {};
   U.DEP = {
     analysis: { label: 'Grillage analysis', short: 'Analysis', needs: ['geometry', 'section', 'material', 'mesh', 'loads'], up: [] },
     combos: { label: 'Load combinations', short: 'Combinations', needs: ['combos'], up: ['analysis'] },
-    design: { label: 'Super-T design', short: 'Design', needs: ['prestress', 'detailing', 'checks'], up: ['combos'] },
+    design: { label: 'Super-T design', short: 'Design', needs: ['prestress', 'detailing', 'checks', 'thermal'], up: ['combos'] },
     piles: { label: 'Pile design', short: 'Piles', needs: ['substructure'], up: ['combos'] }
   };
   U.ORDER = ['analysis', 'combos', 'design', 'piles'];
