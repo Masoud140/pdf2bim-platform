@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-18 — Studio drawing zoom
+- Wheel zoom, drag pan and double-click reset on the section drawings.
+
 ## 2026-11-18 — Temperature gradient in the Studio service checks (ADR-078)
 - Gradient stresses added to SLS combinations that include it; Generate builds the AS 5100.2 lead / companion SLS set.
 

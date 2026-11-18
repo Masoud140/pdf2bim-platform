@@ -56,8 +56,28 @@
     var main = U.$('#bs-main'), y = window.scrollY; U._charts = {};
     try { main.innerHTML = U.RENDER[ST.tab](); } catch (e) { console.error(e); main.innerHTML = '<div class="card"><h3>This view failed to draw</h3><p class="note">' + esc(e.message) + '</p></div>'; }
     if (U.AFTER[ST.tab]) try { U.AFTER[ST.tab](); } catch (e) { console.error(e); }
+    U.$$('svg[data-zoom]').forEach(function (s) { var z = U.ZOOM[s.getAttribute('aria-label')]; s.setAttribute('data-vb0', s.getAttribute('viewBox')); if (z) s.setAttribute('viewBox', z); });   /* keep each drawing's zoom across repaints */
     window.scrollTo(0, y);
   };
+  /* zoom on section drawings (svg[data-zoom]): wheel zooms about the cursor, drag pans, double-click resets; a drag never counts as a click */
+  U.ZOOM = {};
+  var vb = function (s) { return s.getAttribute('viewBox').split(/\s+/).map(Number); }, setVb = function (s, v) { var t = v.map(function (q) { return +q.toFixed(2); }).join(' '); s.setAttribute('viewBox', t); U.ZOOM[s.getAttribute('aria-label')] = t; };
+  var toSvg = function (s, e) { var r = s.getBoundingClientRect(), v = vb(s); return [v[0] + (e.clientX - r.left) / r.width * v[2], v[1] + (e.clientY - r.top) / r.height * v[3]]; };
+  document.addEventListener('wheel', function (e) {
+    var s = e.target.closest && e.target.closest('svg[data-zoom]'); if (!s) return; e.preventDefault();
+    var v = vb(s), v0 = s.getAttribute('data-vb0').split(/\s+/).map(Number), k = e.deltaY > 0 ? 1.2 : 1 / 1.2, q = toSvg(s, e);
+    if (v[2] * k > v0[2]) { setVb(s, v0); delete U.ZOOM[s.getAttribute('aria-label')]; return; }   /* never zoom out past the full drawing */
+    setVb(s, [q[0] - (q[0] - v[0]) * k, q[1] - (q[1] - v[1]) * k, v[2] * k, v[3] * k]);
+  }, { passive: false });
+  var drag = null, dragged = false;
+  document.addEventListener('pointerdown', function (e) { var s = e.target.closest && e.target.closest('svg[data-zoom]'); drag = s ? { s: s, x: e.clientX, y: e.clientY, v: vb(s) } : null; dragged = false; });
+  document.addEventListener('pointermove', function (e) {
+    if (!drag || !(e.buttons & 1)) return; var dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (!dragged && Math.hypot(dx, dy) < 4) return; dragged = true;
+    var r = drag.s.getBoundingClientRect(), v = drag.v; setVb(drag.s, [v[0] - dx / r.width * v[2], v[1] - dy / r.height * v[3], v[2], v[3]]);
+  });
+  document.addEventListener('pointerup', function () { drag = null; });
+  document.addEventListener('click', function (e) { if (dragged) { e.stopPropagation(); e.preventDefault(); dragged = false; } }, true);
+  document.addEventListener('dblclick', function (e) { var s = e.target.closest && e.target.closest('svg[data-zoom]'); if (!s) return; s.setAttribute('viewBox', s.getAttribute('data-vb0')); delete U.ZOOM[s.getAttribute('aria-label')]; });
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-tab]'); if (t && t.closest('.bs-nav, .bs-main')) { ST.tab = t.getAttribute('data-tab'); try { localStorage.setItem('bs-tab', ST.tab); } catch (x) {} window.scrollTo(0, 0); U.paint(); return; }
     var a = e.target.closest('[data-act]'); if (!a) return; var act = a.getAttribute('data-act'), h = U.ACT[act]; if (h) h(a, e);

@@ -156,3 +156,4 @@ textarea.ask { font: inherit; width: 100%; min-height: 64px; border: 1px solid v
 .casebtn .d { font-size: 12px; color: var(--mut); }
 .prog { font-size: 12px; color: var(--acc); }
 @media (prefers-reduced-motion: no-preference) { .spin { animation: sp 1s linear infinite; } @keyframes sp { to { transform: rotate(360deg); } } }
+svg[data-zoom] { touch-action: none; }   /* wheel zoom, drag pan, double-click reset (ui_app.js) */

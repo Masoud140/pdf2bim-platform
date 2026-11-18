@@ -76,7 +76,7 @@
     var where = j === 0 || j === n ? 'Support' : j === Math.floor(n / 2) ? 'Midspan' : 'x / L = ' + f(st.x / g.spans[ST.sel.sk].L, 2);
     var poiOpts = D.stations.map(function (q, i) { return [i, (i + 1) + ' – x = ' + f(q.x, 2) + ' m' + (i === Math.floor(n / 2) ? ' (midspan)' : i === 0 || i === n ? ' (support)' : '')]; });
     var W = 1000, top = 46, k = 250 / Dp, Hh = top + Dp * k + 46, Y = function (y) { return top + (Dp - y) * k; };   /* y above the soffit */
-    var s = '<svg class="plot" viewBox="0 0 ' + W + ' ' + Hh.toFixed(0) + '" style="min-width:760px" role="img" aria-label="SLS stresses through the section">';
+    var s = '<svg class="plot" data-zoom="1" viewBox="0 0 ' + W + ' ' + Hh.toFixed(0) + '" style="min-width:760px" role="img" aria-label="SLS stresses through the section">';
     /* section */
     var half = sc.fw / 2, kx = Math.min(k, 230 / (g.s * 1000)), X0 = 130, X = function (x) { return X0 + x * kx; };
     s += '<text x="' + X0 + '" y="16" text-anchor="middle" style="font-weight:600">Section</text>';
@@ -108,7 +108,7 @@
     var ul = '';
     if (st.uls) { var q = st.uls, Wu = 1000, Hu = top + Dp * k + 40, Yd = function (d) { return top + d * k; }, T = q.lay.reduce(function (a_, l) { return a_ + l.F; }, 0), a_blk = q.gamma * q.dn;
       var yT = q.lay.reduce(function (a_, l) { return a_ + l.F * l.y; }, 0) / (T || 1), yC = yT - q.Mu * 1e3 / (T || 1), emax = Math.max.apply(null, q.lay.map(function (l) { return l.t === 'tend' ? l.e : q.ecu * (l.y - q.dn) / q.dn; }).concat([q.ecu * (Dp - q.dn) / q.dn])), ke = 200 / (emax + q.ecu), x0 = 420 + q.ecu * ke;
-      ul = '<svg class="plot" viewBox="0 0 ' + Wu + ' ' + Hu.toFixed(0) + '" style="min-width:760px" role="img" aria-label="ULS strain and force diagrams">';
+      ul = '<svg class="plot" data-zoom="1" viewBox="0 0 ' + Wu + ' ' + Hu.toFixed(0) + '" style="min-width:760px" role="img" aria-label="ULS strain and force diagrams">';
       ul += '<text x="' + X0 + '" y="16" text-anchor="middle" style="font-weight:600">Section</text><rect x="' + X(-g.s * 500) + '" y="' + Y(Dp) + '" width="' + (g.s * 1000 * kx) + '" height="' + (t * k) + '" style="fill:var(--axis);fill-opacity:.3;stroke:var(--ink)"/><path d="' + sc.P.map(function (pt, i) { return (i ? 'L' : 'M') + X(pt[0]).toFixed(1) + ' ' + Y(pt[1]).toFixed(1); }).join('') + 'Z" style="fill:var(--accs);stroke:var(--ink);stroke-width:1.2"/>';
       ul += '<rect x="' + X(-g.s * 500) + '" y="' + Yd(0) + '" width="' + (g.s * 1000 * kx) + '" height="' + (Math.min(a_blk, t) * k) + '" style="fill:var(--acc);opacity:.45"/><line x1="' + X(-g.s * 500 - 60) + '" x2="' + X(g.s * 500 + 60) + '" y1="' + Yd(q.dn) + '" y2="' + Yd(q.dn) + '" style="stroke:var(--bad);stroke-dasharray:5 3"/><text x="' + X(g.s * 500 + 60) + '" y="' + (Yd(q.dn) + 12) + '" text-anchor="end" style="fill:var(--bad)">neutral axis dn ' + f(q.dn, 0) + '</text>';
       p.strands.forEach(function (sd) { if (sd.on) ul += '<circle cx="' + X(sd.x).toFixed(1) + '" cy="' + Y(sd.y).toFixed(1) + '" r="1.6" style="fill:var(--acc)"/>'; });
@@ -132,7 +132,7 @@
     if (cr) {
       var CC = ANALYSIS.CC, Wc = 1000, Hc = top + Dp * k + 46, Yt = function (y) { return top + y * k; }, vs = cr.prof.map(function (q) { return q[1]; }).concat([0]);
       var lo2 = Math.min.apply(null, vs), hi2 = Math.max.apply(null, vs), kc = 260 / ((hi2 - lo2) || 1), Z2 = 330 + (0 - lo2) * kc, SX2 = function (v) { return 330 + (v - lo2) * kc; };
-      crk = '<svg class="plot" viewBox="0 0 ' + Wc + ' ' + Hc.toFixed(0) + '" style="min-width:760px" role="img" aria-label="Cracked-section stresses">';
+      crk = '<svg class="plot" data-zoom="1" viewBox="0 0 ' + Wc + ' ' + Hc.toFixed(0) + '" style="min-width:760px" role="img" aria-label="Cracked-section stresses">';
       crk += '<text x="' + X0 + '" y="16" text-anchor="middle" style="font-weight:600">Section</text><rect x="' + X(-g.s * 500) + '" y="' + Y(Dp) + '" width="' + (g.s * 1000 * kx) + '" height="' + (t * k) + '" style="fill:var(--axis);fill-opacity:.3;stroke:var(--ink)"/><path d="' + sc.P.map(function (pt, i) { return (i ? 'L' : 'M') + X(pt[0]).toFixed(1) + ' ' + Y(pt[1]).toFixed(1); }).join('') + 'Z" style="fill:var(--accs);stroke:var(--ink);stroke-width:1.2"/>';
       if (cr.na !== null) crk += '<rect x="' + X(-half) + '" y="' + Yt(cr.na) + '" width="' + (half * 2 * kx) + '" height="' + ((Dp - cr.na) * k) + '" style="fill:var(--bad);fill-opacity:.12"/><line x1="' + X(-g.s * 500 - 40) + '" x2="' + (SX2(hi2) + 40) + '" y1="' + Yt(cr.na) + '" y2="' + Yt(cr.na) + '" style="stroke:var(--bad);stroke-dasharray:5 3"/><text x="' + (Z2 + 6) + '" y="' + (Yt(cr.na) + 14) + '" style="fill:var(--bad)">neutral axis ' + f(cr.na, 0) + ' mm below the top</text>';
       p.strands.forEach(function (sd) { if (sd.on) crk += '<circle cx="' + X(sd.x).toFixed(1) + '" cy="' + Y(sd.y).toFixed(1) + '" r="1.6" style="fill:var(--acc)"/>'; });
