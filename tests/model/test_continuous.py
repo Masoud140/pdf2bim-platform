@@ -67,8 +67,10 @@ try:
         sups.append(build_integrated(d, geo, build_sections(d, geo, allow_proposed=True), Standards(), allow_proposed=True))
     W = join(sups)
     pier = [b for b in W["bearings"].values() if b["support"] == "P1"]
-    t("SB41 WB: the 9 pier bearings of the two spans become one set (9 links, 9 duplicates dropped)",
-      len({b["link"] for b in pier}) == 9 and len(W["dropped_links"]) == 9, f"{len({b['link'] for b in pier})} links, {len(W['dropped_links'])} dropped")
+    t("SB41 WB: the 9 pier bearings of the two spans become one set (9 records and links, 9 duplicates dropped, 9 aliases)",
+      len(pier) == 9 and len({b["link"] for b in pier}) == 9 and len(W["dropped_links"]) == 9 and sum(isinstance(a_, str) for a_ in W["alias"]) == 9,
+      f"{len(pier)} records, {len(W['dropped_links'])} dropped")
+    t("SB41 WB: supports A, P1, B — the pier kept once", sorted(W["supports"]) == ["A", "B", "P1"], str(sorted(W["supports"])))
     ss = [q["model"].solve() for q in sups]
     rr = W["model"].solve()
     tz = lambda q: sum(v[2] for v in q["reactions"].values())
@@ -76,10 +78,28 @@ try:
               for k, i in W["dropped_beams"])
     t("SB41 WB self weight: joined total = sum of the span models less the pier substructure counted twice", dup > 0 and abs(tz(rr) - (tz(ss[0]) + tz(ss[1]) - dup)) < 1e-6 * tz(rr),
       f"{tz(rr):.1f} vs {tz(ss[0]) + tz(ss[1]) - dup:.1f}")
-    Rp = sum(W["model"].link_force(l)[1][2] for l in {b["link"] for b in pier})
+    Rp = sum(W["model"].link_force(b["link"])[1][2] for b in pier)
     Rs = sum(sups[k]["model"].link_force(b["link"])[1][2] for k in (0, 1) for b in sups[k]["bearings"].values() if b["support"] == "P1")
     t("SB41 WB self weight: the pier bearings carry more when continuous than the two simply supported spans", Rp > 1.05 * Rs, f"{Rp:.0f} vs {Rs:.0f} kN")
     print(f"     pier bearings {Rp:,.0f} kN continuous vs {Rs:,.0f} kN simply supported ({100 * (Rp / Rs - 1):+.1f} %)")
+
+    # stage 2: span results (before continuity) carried onto the joined response set
+    from pdf2bim.model.responses import ResponseSet
+    from pdf2bim.model.continuous import from_spans
+    RSJ = ResponseSet(W)
+    RS = [ResponseSet(q) for q in sups]
+    vs = [RS[k].static(gravity=(0, 0, -1)) for k in (0, 1)]
+    V = from_spans(W, RSJ, [(k, RS[k], vs[k]) for k in (0, 1)])
+    fz = [i for i, nm in enumerate(RSJ.names) if nm[0] == "B" and nm[2] == "FZ" and W["bearings"][nm[1]]["support"] == "P1"]
+    t("stage 2: simply supported self weight carried onto the joined model — pier bearings = the two spans' sum",
+      abs(abs(V[fz].sum()) - Rs) < 1e-6 * Rs, f"{V[fz].sum():.1f} vs {Rs:.1f}")
+    g9 = [i for i, nm in enumerate(RSJ.names) if nm[0] == "G" and nm[1][0] == "41B-S1-09" and nm[2] == "M1"]
+    i9 = [RS[0].index[("G", (nm[1][0], nm[1][1] - 0), "M1")] for nm in (RSJ.names[i] for i in g9)]
+    t("stage 2: a girder response keeps its span value", np.allclose(V[g9], vs[0][i9]))
+    Vc = RSJ.static(gravity=(0, 0, -1))
+    sag = lambda v: max(v[g9])
+    print(f"     41B-S1-09 self weight M max: {sag(V):,.0f} kNm simply supported vs {sag(Vc):,.0f} kNm continuous")
+    t("stage 2: the continuous self weight relieves the girder sagging moment", sag(Vc) < sag(V))
 except FileNotFoundError as ex:
     t("SB41 WB descriptions present", False, str(ex))
 
