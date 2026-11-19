@@ -134,5 +134,11 @@ t("loads: generated rows equal the run's row count and every term names a regist
 LN = c.get("/api/projects/TESTBR/loads").get_json()
 t("loads: a new bridge without a run lists the register with no rows and no action on", LN["n_rows"] == 0 and not any(a["on"] for a in LN["actions"]) and len(LN["actions"]) == 52)
 
+sp = server._spans(os.path.join("projects", "B12459-S2", "B12459-S2.bridge.0.2.json"))
+t("continuous spans: a span project runs actions / design on every span in order (custom.continuous_spans, ADR-082)",
+  [os.path.basename(x) for x in sp] == ["B12459-S1.bridge.0.2.json", "B12459-S2.bridge.0.2.json"], str(sp))
+t("continuous spans: a single-span bridge keeps its own description", server._spans(os.path.join("projects", "BR13A", "BR13A.bridge.0.2.json")) == [os.path.join("projects", "BR13A", "BR13A.bridge.0.2.json")])
+cmd = dict((k, f) for k, _, f, _ in server.STEPS)["actions"]("projects/B12459-S1/B12459-S1.bridge.0.2.json", "out", [])
+t("continuous spans: the actions step command lists both descriptions", cmd[1:3] == ["projects/B12459-S1/B12459-S1.bridge.0.2.json", "projects/B12459-S2/B12459-S2.bridge.0.2.json"], str(cmd))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

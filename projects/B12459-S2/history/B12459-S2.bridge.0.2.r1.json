@@ -162,6 +162,33 @@
  "library": "library/products.json",
  "standards": "standards/AS5100-2017.json",
  "custom": {
+  "continuous_spans": {
+   "source": {
+    "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707"
+   },
+   "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707",
+   "tag": "Model",
+   "status": "accepted",
+   "value": [
+    "B12459-S1",
+    "B12459-S2"
+   ],
+   "original": {
+    "value": [
+     "B12459-S1",
+     "B12459-S2"
+    ],
+    "unit": null,
+    "tag": "Model",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "source": {
+     "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707"
+    },
+    "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707"
+   },
+   "current": "original"
+  },
   "girder_hog_table": {
    "source": {
     "doc": "DRG-0701",
@@ -1952,9 +1979,9 @@
   },
   "spans": {
    "source": {
-    "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative"
+    "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)"
    },
-   "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative",
+   "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)",
    "tag": "Model",
    "status": "accepted",
    "value": 1,
@@ -1965,9 +1992,9 @@
     "recorded_by": "AI (extraction)",
     "recorded_at": null,
     "source": {
-     "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative"
+     "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)"
     },
-    "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative"
+    "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)"
    },
    "current": "original"
   },
@@ -16158,7 +16185,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-19T07:08:26+00:00",
+  "created": "2026-11-19T10:12:14+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-17)",
   "decision_log_sha256": null
@@ -16167,6 +16194,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:de063f6215206aa787b5ffd7fd43347a2c9f1a2e465150af2b4eca7146a9c0ac"
+  "value": "sha256:82a0fe1c7648a221f22640fbb935a26dff2179e6fcb7c098cb30b3bf11a5940b"
  }
 }

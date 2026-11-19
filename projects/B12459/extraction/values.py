@@ -330,8 +330,10 @@ def build(span):
             formula=f"inside face {face:+.3f} {'-' if b == 'left' else '+'} centroid {BXC * 1000:.0f} mm outward")
 
     put("superstructure.type", "super-t", sheet="0700", view="girder layout plan", text="9 No 1515 DEEP SUPER-T (0113)")
-    put("superstructure.spans", 1, tag="Model", note=f"span {span} of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous "
-                                                      "over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative")
+    put("superstructure.spans", 1, tag="Model", note=f"span {span} of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with "
+                                                      "stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)")
+    put("custom.continuous_spans", ["B12459-S1", "B12459-S2"], tag="Model",
+        note="the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707")
     offs = {}
     for k in range(1, N + 1):
         p = f"superstructure.members[{G(k)}]"

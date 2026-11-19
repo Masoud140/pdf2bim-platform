@@ -27,13 +27,28 @@ STEPS = [
     ("sections", "Section properties (Super-T, composite, torsion)", lambda d, o, a: ["tools/build_sections.py", d, "--out", f"{o}/sections.json"] + a, "sections.json"),
     ("model", "Integrated model + self weight / SDL solution", lambda d, o, a: ["app/model_view.py", d, f"{o}/model_view.json"] + a, "model_view.json"),
     ("mct", "MIDAS Civil export (.mct)", lambda d, o, a: ["tools/export_mct.py", d, "--out", f"{o}/model.mct"] + a, "model.mct"),
-    ("actions", "Loads, combinations and combined actions", lambda d, o, a: ["tools/combined_actions.py", d, "--out", f"{o}/combined_actions.md"] + a, "combined_actions.json"),
-    ("design", "Girder design checks (SLS, ULS, shear / torsion)", lambda d, o, a: ["tools/girder_checks.py", d, "--out", f"{o}/girder_checks.md"] + a, "girder_checks.json"),
+    ("actions", "Loads, combinations and combined actions", lambda d, o, a: ["tools/combined_actions.py", *_spans(d), "--out", f"{o}/combined_actions.md"] + a, "combined_actions.json"),
+    ("design", "Girder design checks (SLS, ULS, shear / torsion)", lambda d, o, a: ["tools/girder_checks.py", *_spans(d), "--out", f"{o}/girder_checks.md"] + a, "girder_checks.json"),
     ("report", "Calculation report", lambda d, o, a: ["app/report.py", d, o] + a, "report.html"),
     ("exports", "Excel workbook and Word report", lambda d, o, a: ["app/export_files.py", d, o] + a, "workbook.xlsx"),
 ]
 JOBS = {}          # project id -> thread
 LOCK = threading.Lock()
+
+
+def _spans(desc):
+    """The descriptions the actions / design steps run on: the project's own, or every span listed in its
+    custom.continuous_spans (project ids in span order; joined continuous, ADR-082). Paths keep desc's form."""
+    v = ((json.load(open(desc)).get("custom") or {}).get("continuous_spans") or {})
+    ids = v.get("value") if isinstance(v, dict) else v
+    if not ids or len(ids) < 2:
+        return [desc]
+    P = _repo_projects()
+    miss = [i for i in ids if i not in P]
+    if miss:
+        raise ValueError(f"custom.continuous_spans: no project {miss}")
+    out = [P[i]["description"] for i in ids]
+    return [os.path.relpath(f, ROOT) for f in out] if not os.path.isabs(desc) else out
 
 
 # ---------------- projects ----------------

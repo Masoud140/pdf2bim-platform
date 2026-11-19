@@ -625,9 +625,21 @@
    "tag": "Model",
    "value": 1,
    "source": {
-    "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative"
+    "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)"
    },
-   "note": "span 2 of 2 modelled on its own and SIMPLY SUPPORTED (ADR-062): the drawings make the girders continuous over the pier with stress bars (0707 / 0709, report table 4-27) - not modelled; results indicative"
+   "note": "span 2 of 2 described on its own (ADR-062); the drawings make the girders continuous over the pier with stress bars (0707 / 0709, 0575): the chain joins both spans (custom.continuous_spans, ADR-082)"
+  },
+  {
+   "path": "custom.continuous_spans",
+   "tag": "Model",
+   "value": [
+    "B12459-S1",
+    "B12459-S2"
+   ],
+   "source": {
+    "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707"
+   },
+   "note": "the project descriptions joined continuous over the shared pier, in span order (ADR-082); continuity Direct from 0575 / 0707"
   },
   {
    "path": "superstructure.members[41B-S2-01].line_offset_A",
