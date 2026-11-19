@@ -141,6 +141,11 @@ def from_spans(J, RSJ, parts):
     return v
 
 
+def _custom(doc, key):
+    v = (doc.get("custom") or {}).get(key)
+    return v.get("value") if isinstance(v, dict) else v
+
+
 def _remap_loads(J, k, loads):
     out = {}
     for n, f in loads.items():
@@ -153,12 +158,37 @@ def _remap_imposed(J, k, imp):
     return {J["beam_map"].get((k, e), e + k * STEP): u for e, u in imp.items()}
 
 
-def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_kw=None):
+def _gravity_part(RS, part):
+    """Self weight of part of the model: part = "girder" (girder-alone share of the girder members) or "rest" (all other
+    self weight: the deck share of the girder members and every other member)."""
+    m, save = RS.m, {}
+    for i, b in m.beams.items():
+        wg = b.get("w_girder")
+        if b.get("role") == "girder" and wg is None:
+            raise ValueError(f"girder member {i}: no w_girder (model built before ADR-082 stage 4)")
+        save[i] = b["w"]
+        b["w"] = (wg if b.get("role") == "girder" else 0.0) if part == "girder" else (b["w"] - wg if b.get("role") == "girder" else b["w"])
+    try:
+        return RS.static(gravity=(0.0, 0.0, -1.0))
+    finally:
+        for i, w in save.items():
+            m.beams[i]["w"] = w
+
+
+STAGINGS = {"girder": "girder self weight on the simply supported spans; deck, SDL and later loads continuous",
+            "self_weight": "all self weight on the simply supported spans; SDL and later loads continuous"}
+
+
+def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_kw=None, staging=None):
     """Combination primitives (as combinations.primitives) on the joined model J. spans = [(doc, geo, S, sup)] in span
     order, sup = the span's build_integrated output that J was joined from.
-    Staging (shortcut: provisional default, not read from the description — owner to confirm per bridge): self weight of
-    every member acts on the simply supported spans (girders and deck before continuity, from_spans); SDL, earth pressure,
-    braking, centrifugal, thermal, wind and traffic act on the continuous structure.
+    Staging: the first span description's custom.continuity_staging ("girder" or "self_weight", STAGINGS), else the
+    argument, else "self_weight" (provisional, flagged). "girder": girder self weight on the simply supported spans, the
+    deck share of the girder members and every other member's self weight on the joined model (the deck cast after the
+    continuity is made, SB41 WB 0575 notes); "self_weight": all self weight simply supported. SDL, earth pressure,
+    braking, centrifugal, thermal, wind and traffic act on the continuous structure. The joined model's stiffness is the
+    composite one also for the wet deck (shortcut: girder-alone continuous stiffness not modelled; equal-span uniform
+    girders distribute the same way).
     Per-span cases are generated on each span model and remapped onto J. Braking and centrifugal are each span's own
     (shortcut: AS 5100.2 braking for the whole continuous deck length not formed, upgrade with the staging input).
     Traffic: one envelope over the whole joined deck (lanes and carriageway of the first span's description; shortcut:
@@ -175,8 +205,16 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     RS = ResponseSet(J)
     st = lambda **kw: RS.static(**kw)
     P, src, notc = {}, {}, []
-    prov = [{"path": "analysis.continuity_stage", "value": "self weight simply supported; SDL and later loads continuous", "author": "AI", "decision": None,
-             "reason": "construction staging of the continuity not in the description (ADR-082)"},
+    stg = _custom(spans[0][0], "continuity_staging") or staging
+    if stg is None:
+        stg = "self_weight"
+        prov = [{"path": "custom.continuity_staging", "value": STAGINGS[stg], "author": "AI", "decision": None,
+                 "reason": "construction staging of the continuity not in the description (ADR-082)"}]
+    else:
+        prov = []
+    if stg not in STAGINGS:
+        raise ValueError(f"continuity staging {stg!r}: one of {sorted(STAGINGS)}")
+    prov += [
             {"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
              "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"}]
     parts, loads, imp, ept, Ts = [], {}, {}, [], []
@@ -184,7 +222,7 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     sdl_used = set()
     for k, (doc, geo, S, sup) in enumerate(spans):
         RSk = ResponseSet(sup)
-        parts.append((k, RSk, RSk.static(gravity=(0.0, 0.0, -1.0))))
+        parts.append((k, RSk, _gravity_part(RSk, "girder") if stg == "girder" else RSk.static(gravity=(0.0, 0.0, -1.0))))
         C = sdl_case(doc, geo, sup, allow_proposed=allow_proposed, part="SDLp")
         add("SDLp", _remap_loads(J, k, C["loads"]))
         if any(a_ == "SDLs" for a_ in C["barrier_actions"].values()):
@@ -209,7 +247,9 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
         elif (W["scale"]["with_traffic"], W["scale"]["sls"]) != (r35, rS):
             raise ValueError("wind speed ratios differ between the span descriptions")
         prov += list(W.get("provisional") or [])
-    P["DLc"] = {"s": from_spans(J, RS, parts)}; src["DLc"] = "self weight of every member, on the simply supported spans (staging, provisional)"
+    ss = from_spans(J, RS, parts)
+    cont = _gravity_part(RS, "rest") if stg == "girder" else np.zeros_like(ss)
+    P["DLc"] = {"s": ss + cont}; src["DLc"] = "self weight: " + STAGINGS[stg]
     P["SDLp"] = {"s": st(loads=loads["SDLp"])}; src["SDLp"] = "SDL (surfacing, other SDL, barriers not accurately known), continuous"
     if "SDLs" in loads:
         P["SDLs"] = {"s": st(loads=loads["SDLs"])}; src["SDLs"] = "SDL special case: barriers with accurately known weight, continuous"
@@ -239,7 +279,8 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
         if p not in dedup:
             dedup.append(p)
     return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc, "provisional": dedup,
-            "cases": {"traffic": Tr, "thermal": Ts[0], "thermal_spans": Ts}, "response_set": RS}
+            "cases": {"traffic": Tr, "thermal": Ts[0], "thermal_spans": Ts}, "response_set": RS,
+            "staging": {"kind": stg, "simply_supported": ss, "continuous": cont}}
 
 
 def combined_actions(spans, J, std, allow_proposed=False, options=None, on=None, **kw):

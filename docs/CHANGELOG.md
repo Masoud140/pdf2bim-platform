@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Continuous spans, stage 4a (ADR-082)
+- Construction staging read from the SB41 WB drawings (girder self weight simply supported, deck on the continuous girders); stress bars recorded; girder checks use the staged non-composite moment.
+
 ## 2026-11-19 — Continuous spans, stage 3 (ADR-082)
 - `combined_actions` / `girder_checks` tools accept one description per span and run the joined model; girder summary shows hogging utilisation; SB41 WB continuous comparison report.
 

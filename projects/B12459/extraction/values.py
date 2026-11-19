@@ -408,8 +408,18 @@ def build(span):
     put("custom.girder_hog_table", tag="Direct", sheet="0701", view="calculated hog of girders at bridge SB41 WB", unit="mm",
         value={G(k): {"transfer": h[0], "30_days": h[1], "60_days": h[2], "100_days": h[3], "deck_slab_deflection": h[4], "mass_t": h[5]} for k, h in enumerate(HOG[span], 1)})
     put("custom.strand_MBL", 279, unit="kN", sheet="0700", view="prestressing notes"); put("custom.strand_force_after_release", 209, unit="kN", sheet="0700", view="prestressing notes")
-    put("custom.continuity", "girders made continuous over pier 1 with Ø56 VSL CT stress bars (0707 / 0709, 0575); NOT modelled", sheet="0707", view="elevation",
+    put("custom.continuity", "girders made continuous over pier 1 with Ø56 VSL CT stress bars (0707 / 0709, 0575); spans joined continuous (ADR-082)", sheet="0707", view="elevation",
         text="PROVIDE 6 OFF NOM Ø105 ID CORRUGATED GALVANISED METAL DUCT TO FACILITATE Ø56 VSL CT STRESS BAR")
+    put("custom.continuity_staging", "girder", sheet="0575", view="post tensioning notes / construction sequence",
+        text="8. GIRDERS TO BE STRESSED AT PIER PRIOR TO POURING DECK OVERLAY; DECK OVERLAY SLAB TO BE CAST AFTER STRESSING CT STRESS BARS; STEP 5 COMMENCE DECK SLAB OVERLAY",
+        note="girder self weight simply supported; deck overlay and later loads on the continuous girders (pdf2bim.model.continuous.STAGINGS)")
+    put("custom.stress_bars", {"support": "P1", "number_per_girder": 6, "diameter_mm": 56, "length_mm": 6300, "levels_below_girder_top_mm": [300, 600, 900],
+                               "offsets_from_girder_cl_mm": [-160, 160], "max_residual_force_after_lockoff_kN": 1480, "jacking_limit": "0.75 x ultimate tensile strength",
+                               "grade": "stress relieved low carbon super grade bars to AS 4672.1", "ultimate_tensile_strength": None},
+        sheet="0575", view="section 2 (1:10), post tensioning notes 2-4",
+        text="6 No VSL 56 DIA VSL CT STRESS BAR OR SIMILAR 6300 LONG; rows 300 / 300 with 600 to the middle row from the girder top; 320 between bars; "
+             "MAXIMUM RESIDUAL FORCE IMMEDIATELY AFTER LOCK-OFF SHALL BE 1480kN; UNDER NO CIRCUMSTANCES JACKING FORCE TO EXCEED 75% OF THE ULTIMATE TENSILE STRENGTH",
+        note="ultimate tensile strength of the bar not on the drawings (Missing - Flagged); levels: 600 dimension girder top -> middle row, rows at 300")
 
     for sid in (s1, s2):
         bt_, bsh, pa_, pb_, hh, part = BTYPE[sid]

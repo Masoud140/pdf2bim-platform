@@ -141,6 +141,8 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     dev = _development(p, r, std, None)["strands"]
     Lt = p["lt"] * p["db"]
     out, notes = [], []
+    stg_ = CA["primitives"].get("staging")
+    stg = {"v": np.asarray(stg_["simply_supported"]) + np.asarray(stg_["continuous"])} if stg_ else None
     th = CA["primitives"]["cases"]["thermal"]["inputs"]
     alpha, prof = th["temperature"]["alpha"], th["profiles"]
     use_dsh = _option(doc, "dsh", True)
@@ -211,6 +213,8 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         near = lo if w < 0.5 else hi
         SM = stage_moments_at(r, x0 * 1000.0)
         Mnc = fS * (SM["Msw"] + SM["Mwet"])
+        if stg is not None:   # continuous spans (ADR-082): the staged self weight of the joined model, girder-alone stage
+            Mnc = fS * interp(stg, "v", lo, hi, w)
         mt = st["materials"]
         lv = {"y_deck_bot": S["deck_thickness"], "y_gir_top": st["y_girder_top"], "Dtot": st["Dtot"], "Eg": mt["E_girder"], "Ed": mt["E_deck"], "fcg": mt["fc_girder"], "fcd": mt["fc_deck"]}
         lim = crack_limits(sec, std)
@@ -270,7 +274,8 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     if not out:
         raise MissingInput(f"girder {girder}: no open-section or solid-end station")
     notes.append(f"fpb = MBL / area = {fpb_tab:.0f} MPa (MBL: {H['source'].get('mbl')})")
-    notes.append("Mnc = simple-span girder self weight + wet deck of the losses analysis; Ms = SLS envelope without DLc")
+    notes.append(("Mnc = self weight of the joined model with its staging (" + stg_["kind"] + ", ADR-082): girder simply supported, deck as staged"
+                  if stg_ else "Mnc = simple-span girder self weight + wet deck of the losses analysis") + "; Ms = SLS envelope without DLc")
     notes.append(("deck differential shrinkage free strain %.1f x 1e-6 (losses analysis, detailed method)" % (eps_sh * 1e6)) if dsh else
                  ("deck differential shrinkage not applied (" + ("option dsh off" if not use_dsh else "simplified losses method or no deck stage") + ")"))
     notes.append("temperature-gradient primary strains with the governing SLS row's TGP / TGN factors; the governing row is chosen by the moment alone")

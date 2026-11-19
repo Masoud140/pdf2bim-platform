@@ -50,6 +50,12 @@
    "kind": "drawing"
   },
   {
+   "id": "DRG-0575",
+   "number": "SGWS1-JHSW-2000-BR-DRG-410575",
+   "revision": "00",
+   "kind": "drawing"
+  },
+  {
    "id": "DRG-0601",
    "number": "SGWS1-JHSW-2000-BR-DRG-410601",
    "revision": "00",
@@ -2630,12 +2636,52 @@
   {
    "path": "custom.continuity",
    "tag": "Direct",
-   "value": "girders made continuous over pier 1 with Ø56 VSL CT stress bars (0707 / 0709, 0575); NOT modelled",
+   "value": "girders made continuous over pier 1 with Ø56 VSL CT stress bars (0707 / 0709, 0575); spans joined continuous (ADR-082)",
    "source": {
     "doc": "DRG-0707",
     "view": "elevation",
     "text": "PROVIDE 6 OFF NOM Ø105 ID CORRUGATED GALVANISED METAL DUCT TO FACILITATE Ø56 VSL CT STRESS BAR"
    }
+  },
+  {
+   "path": "custom.continuity_staging",
+   "tag": "Direct",
+   "value": "girder",
+   "source": {
+    "doc": "DRG-0575",
+    "view": "post tensioning notes / construction sequence",
+    "text": "8. GIRDERS TO BE STRESSED AT PIER PRIOR TO POURING DECK OVERLAY; DECK OVERLAY SLAB TO BE CAST AFTER STRESSING CT STRESS BARS; STEP 5 COMMENCE DECK SLAB OVERLAY"
+   },
+   "note": "girder self weight simply supported; deck overlay and later loads on the continuous girders (pdf2bim.model.continuous.STAGINGS)"
+  },
+  {
+   "path": "custom.stress_bars",
+   "tag": "Direct",
+   "value": {
+    "support": "P1",
+    "number_per_girder": 6,
+    "diameter_mm": 56,
+    "length_mm": 6300,
+    "levels_below_girder_top_mm": [
+     300,
+     600,
+     900
+    ],
+    "offsets_from_girder_cl_mm": [
+     -160,
+     160
+    ],
+    "max_residual_force_after_lockoff_kN": 1480,
+    "jacking_limit": "0.75 x ultimate tensile strength",
+    "grade": "stress relieved low carbon super grade bars to AS 4672.1",
+    "ultimate_tensile_strength": null
+   },
+   "source": {
+    "doc": "DRG-0575",
+    "view": "section 2 (1:10), post tensioning notes 2-4",
+    "text": "6 No VSL 56 DIA VSL CT STRESS BAR OR SIMILAR 6300 LONG; rows 300 / 300 with 600 to the middle row from the girder top; 320 between bars; MAXIMUM RESIDUAL FORCE IMMEDIATELY AFTER LOCK-OFF SHALL BE 1480kN; UNDER NO CIRCUMSTANCES JACKING FORCE TO EXCEED 75% OF THE ULTIMATE TENSILE STRENGTH"
+   },
+   "note": "ultimate tensile strength of the bar not on the drawings (Missing - Flagged); levels: 600 dimension girder top -> middle row, rows at 300"
   },
   {
    "path": "bearings.items[41B-P1-01].support",

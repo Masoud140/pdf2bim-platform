@@ -276,7 +276,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
     members = []
     mid_ = [0]
 
-    def add(n1, n2, role, sec, w=0.0, E=None, line=None, releases=None, dz=0.0):
+    def add(n1, n2, role, sec, w=0.0, E=None, line=None, releases=None, dz=0.0, w_girder=None):
         """dz: centroid below the node (m, <= 0), used only with the deck-top reference (D-48)."""
         if n1 == n2:
             return
@@ -284,7 +284,8 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         Ex = E if E is not None else Ed
         off = ((0.0, 0.0, dz), (0.0, 0.0, dz)) if deck_top and dz else None
         rel = [{"i": 0, "j": 6}[k] + {"Iy": 4}[v] for k, v in (releases or {}).items()]   # solver Iy = local My (dof 4 / 10)
-        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role, off=off, rel=rel)
+        mdl.beam(mid_[0], n1, n2, Ex, nu, sec["A"], sec["Iy"], sec["Iz"], sec["J"], sec.get("Asy"), sec.get("Asz"), w=w, role=role, off=off, rel=rel,
+                 **({} if w_girder is None else {"w_girder": w_girder}))   # girder-alone share of w (staging, ADR-082)
         rec = {"id": mid_[0], "n1": n1, "n2": n2, "role": role, "line": line, "A": sec["A"], "Iy": sec["Iy"], "Iz": sec["Iz"], "J": sec["J"], "w": w, "E": Ex,
                "Asy": sec.get("Asy"), "Asz": sec.get("Asz"), "shape": sec.get("shape"), "off": off}
         if releases:
@@ -325,7 +326,7 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
                    "Asy": None, "Asz": asz,
                    "shape": ("composite", poly["outline"], poly["deck"], Ed, Gg["J"] / 1e12, asz)}   # mm polygons; .mct COMPOSITE-GEN
             top = p["D"] + Sg["haunch"] + tD * 1000            # deck top above the girder soffit, mm
-            add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"], dz=(poly["composite"]["yc"] - top) / 1000)
+            add(n1, n2, "girder", sec, w=gross * dens_g, E=Eg, line=g["id"], dz=(poly["composite"]["yc"] - top) / 1000, w_girder=Gg["A"] / 1e6 * dens_g)
 
     dummy_of = lambda gid: {k: v * DUMMY for k, v in galone[gid].items()}
     rigid_of = lambda gid: {k: v * RIGID for k, v in galone[gid].items()}

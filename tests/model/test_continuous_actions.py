@@ -37,8 +37,17 @@ t("no combination term missing; earthquake recorded as not combined", not CA["mi
   f"{CA['missing_terms']} {CA['not_combined']}")
 sdl = sum(sum(f[2] for f in sdl_case(d, g, sup, allow_proposed=True, part="SDLp")["loads"].values()) for d, g, S, sup in spans)
 t("SDLp on the joined model: bearing reactions carry the two spans' SDL exactly", abs(P["SDLp"]["s"][fz].sum() + sdl) < 1e-6 * abs(sdl), f"{P['SDLp']['s'][fz].sum():.2f} vs {-sdl:.2f}")
-parts = [(k, ResponseSet(x[3]), ResponseSet(x[3]).static(gravity=(0, 0, -1))) for k, x in enumerate(spans)]
-t("DLc staged: equal to the simply supported span results carried over", np.allclose(P["DLc"]["s"], C.from_spans(J, RS, parts)))
+stg = CA["primitives"]["staging"]
+t("staging read from the description: custom.continuity_staging = girder (0575 notes)", stg["kind"] == "girder")
+parts = [(k, RS_, C._gravity_part(RS_, "girder")) for k, RS_ in ((k, ResponseSet(x[3])) for k, x in enumerate(spans))]
+t("DLc staged: girder self weight carried over from the simply supported spans + the rest on the joined model",
+  np.allclose(P["DLc"]["s"], C.from_spans(J, RS, parts) + C._gravity_part(RS, "rest")) and np.allclose(stg["simply_supported"], C.from_spans(J, RS, parts)))
+full = [(k, RS_, RS_.static(gravity=(0, 0, -1))) for k, RS_ in ((k, ResponseSet(x[3])) for k, x in enumerate(spans))]
+pierfz = [ix[("B", k, "FZ")] for k, b in J["bearings"].items() if b["support"] == "P1"]
+t("staged self weight on the bearings = the joined model's own self weight there (only its distribution changes)",
+  abs(P["DLc"]["s"][fz].sum() - RS.static(gravity=(0, 0, -1))[fz].sum()) < 1e-6 * abs(P["DLc"]["s"][fz].sum()))
+t("deck cast on the continuous girders: pier bearings carry more than with all self weight simply supported",
+  P["DLc"]["s"][pierfz].sum() > C.from_spans(J, RS, full)[pierfz].sum(), f"{P['DLc']['s'][pierfz].sum():.0f} vs {C.from_spans(J, RS, full)[pierfz].sum():.0f}")
 gm = [i for i, n in enumerate(N) if n[0] == "G" and n[1][0] == "41B-S1-09" and n[2][0] == "M"]
 t("SDLp continuous: girder 41B-S1-09 hogs over the pier", min(P["SDLp"]["s"][gm]) < 0, f"{min(P['SDLp']['s'][gm]):.1f}")
 t("positive gradient on the continuous structure: restraint moments in the girder (non-zero)", "TGP" in P and np.abs(P["TGP"]["s"][gm]).max() > 1.0)
