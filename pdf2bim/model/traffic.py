@@ -288,6 +288,13 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
     N = int(math.floor((inf.c1 - inf.c0) / dc)) + 1
     grid = inf.c0 + dc * np.arange(N)
     env, hlp_acc = {}, None
+    hlp_pos = []
+    for row in rd.rows((doc.get("loads") or {}).get("hlp_positions"), "loads.hlp_positions", required=False):
+        o_ = float(row["offset"])
+        c = next((x for x in cws if x[0] - 1e-6 <= o_ <= x[1] + 1e-6), None)
+        if c is None:
+            raise MissingInput(f"loads.hlp_positions '{row.get('name')}': {o_} m is outside every carriageway {cws}")
+        hlp_pos.append((o_, c, float(row["range"])))
     for mn in models:
         if mn.startswith("HLP"):     # one platform vehicle, no UDL, no lane factors; register action id "HLP"
             veh[mn] = dict(veh[mn], split=len(geo["supports"]) > 2)   # the central gap is for continuous bridges only
@@ -296,8 +303,9 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
                 acc = {"veh": std.get("AS5100.2:traffic:M1600").value, "factor": 0.5, "lf": lf[1:] or lf[-1:], "cl": cl, "cr": cr}
             hlp_acc = acc
             p = q = None
-            for c in cws:   # one HLP, on any carriageway (shortcut: centred on the carriageway; marked-lane pairs not tried)
-                pc, qc = platform_effect(inf, grid, dc, veh[mn], (c[0] + c[1]) / 2, acc and dict(acc, cl=c[0], cr=c[1], others=[x for x in cws if x != c]),
+            hlp_pos = hlp_pos or [((c[0] + c[1]) / 2, c, veh[mn]["lateral_range_m"]) for c in cws]
+            for oc_, c, rg in hlp_pos:   # one HLP, at each position (loads.hlp_positions, else each carriageway centre)
+                pc, qc = platform_effect(inf, grid, dc, dict(veh[mn], lateral_range_m=rg), oc_, acc and dict(acc, cl=c[0], cr=c[1], others=[x for x in cws if x != c]),
                                          c[0], c[1], W, {"pattern": pattern, "lateral": lateral, "dla_on_udl": dla_on_udl})
                 p = pc if p is None else np.maximum(p, pc); q = qc if q is None else np.minimum(q, qc)
             env["HLP"] = {"max": p, "min": q, "vehicle": mn, "with_half_M1600": bool(acc)}
@@ -315,7 +323,7 @@ def traffic_envelope(doc, geo, mdl, std, allow_proposed=False, layout="sweep", d
             p, q = combine_lanes(eff, lf)
             mx = np.maximum(mx, p); mi = np.minimum(mi, q)
         env[mn] = {"max": mx, "min": mi}
-    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "carriageways": cws, "hlp_accompany": hlp_acc, "lanes": n,
+    return {"case": "traffic", "kind": "characteristic (DLA and lane factors included, no load factor)", "models": models, "carriageway_centre": (cl + cr) / 2, "carriageways": cws, "hlp_accompany": hlp_acc, "hlp_positions": hlp_pos, "lanes": n,
             "layouts": lays, "layout_mode": layout, "lane_factors": lf, "responses": inf.R, "env": env, "influence": inf, "vehicles": veh,
             "lane_width": W, "grid": grid,
             "settings": {"dc_m": dc, "sweep_step_m": sweep_step, "pattern_udl": pattern, "lateral_shift": lateral, "dla_on_udl": dla_on_udl, "tag": "Model"},
@@ -414,10 +422,9 @@ def _platform_state(T, r, sign):
     st_ = T["settings"]
     amp = veh["axle_line_kN"] * (1 + veh["dla"]) / len(veh["wheel_offsets_m"])
     best = None
-    for c in T["carriageways"]:
-        oc = (c[0] + c[1]) / 2
+    for oc, c, rg in T["hlp_positions"]:
         acc = T.get("hlp_accompany") and dict(T["hlp_accompany"], cl=c[0], cr=c[1], others=[x for x in T["carriageways"] if x != c])
-        b_ = _platform_state_at(T, r, sign, oc, acc, veh, grid, dc, inf, st_, amp)
+        b_ = _platform_state_at(T, r, sign, oc, acc, dict(veh, lateral_range_m=rg), grid, dc, inf, st_, amp)
         if best is None or sign * b_["value"] > sign * best["value"]:
             best = b_
     return best

@@ -159,6 +159,25 @@ d2 = copy.deepcopy(doc)
 for r in d2["loads"]["traffic_models"]["rows"]:
     r["cells"]["on"] = False
 t("no traffic model switched on: refused with the field name", raises(lambda: traffic_envelope(d2, geo, M, Standards(), allow_proposed=True, inf=Ts["influence"]), MissingInput, "traffic_models"))
+# heavy load platform positions (loads.hlp_positions, the cover sheet diagram): default = carriageway centre +-1 m
+def _hlp(rows):
+    d = copy.deepcopy(doc)
+    d["loads"]["traffic_models"]["rows"] = [{"cells": {"model": "HLP400", "on": True}, "tag": "Input-User", "status": "accepted", "current": "original", "original": {"cells": {"model": "HLP400", "on": True}, "tag": "Input-User"}}]
+    d["loads"]["hlp_positions"] = {"rows": [{"cells": {"name": n, "offset": o, "range": g}, "tag": "Input-User", "status": "accepted", "current": "original",
+                                             "original": {"cells": {"name": n, "offset": o, "range": g}, "tag": "Input-User"}} for n, o, g in rows]}
+    return d
+kw = dict(allow_proposed=True, inf=Ts["influence"], lateral=False)
+H0 = traffic_envelope(_hlp([]), geo, M, Standards(), **kw)
+cc = Ts["carriageway_centre"]
+H1 = traffic_envelope(_hlp([("centre", cc, 1.0)]), geo, M, Standards(), **kw)
+t("HLP positions: one row at the carriageway centre +-1 m equals the default", np.allclose(H0["env"]["HLP"]["max"], H1["env"]["HLP"]["max"]) and np.allclose(H0["env"]["HLP"]["min"], H1["env"]["HLP"]["min"]))
+H2 = traffic_envelope(_hlp([("centre", cc, 1.0), ("left", cc - 1.5, 0.0)]), geo, M, Standards(), **kw)
+t("HLP positions: an added position envelopes with the first (never below it) and changes some responses",
+  np.all(H2["env"]["HLP"]["max"] >= H1["env"]["HLP"]["max"] - 1e-9) and np.any(H2["env"]["HLP"]["max"] > H1["env"]["HLP"]["max"] + 1e-6))
+from pdf2bim.model.traffic import governing_state
+r_ = int(np.argmax(H2["env"]["HLP"]["max"]))
+t("HLP positions: the governing state reproduces the envelope value", abs(governing_state(H2, "HLP", r_, 1)["value"] - H2["env"]["HLP"]["max"][r_]) < 1e-6 * max(1, abs(H2["env"]["HLP"]["max"][r_])))
+t("HLP positions: a position outside every carriageway refused", raises(lambda: traffic_envelope(_hlp([("off", cc + 50, 1.0)]), geo, M, Standards(), **kw), MissingInput, "hlp_positions"))
 # engineer-defined lane layouts (P9.7): rows of loads.lane_layouts replace the sweep; a manual copy of one sweep layout is bounded by the sweep
 def _lay(rows):
     d = copy.deepcopy(doc)

@@ -208,6 +208,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 |---|---|---|---|
 | `loads.traffic_models` | table |  | Traffic load models applied — columns: model, on |
 | `loads.lane_layouts` | table |  | Engineer-defined moving-load lane layouts (one row per layout; lanes = left edges in m, carriageway frame). Empty: AS 5100.2 lanes swept across the carriageway — columns: name, lanes (m) |
+| `loads.hlp_positions` | table |  | Heavy load platform centreline positions, usually on the cover sheet diagram (offsets from the control line; each shifted ±range). Empty: the centre of each carriageway, ±the vehicle lateral range — columns: name, offset (m), range (m) |
 | `loads.design_speed` | num | km/h | Design speed (centrifugal) |
 | `loads.braking_force` | num | kN | Braking force on the bridge |
 | `loads.traffic_surcharge` | num | kPa | Earth pressure from traffic surcharge |
