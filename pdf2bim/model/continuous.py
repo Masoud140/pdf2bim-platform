@@ -138,3 +138,115 @@ def from_spans(J, RSJ, parts):
                 raise KeyError(f"span {k + 1} response {nm!r} has no joined counterpart")
             v[i] += val
     return v
+
+
+def _remap_loads(J, k, loads):
+    out = {}
+    for n, f in loads.items():
+        j = J["map"][k][n]
+        out[j] = out.get(j, np.zeros(6)) + np.asarray(f, float)
+    return out
+
+
+def _remap_imposed(J, k, imp):
+    return {J["beam_map"].get((k, e), e + k * STEP): u for e, u in imp.items()}
+
+
+def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_kw=None):
+    """Combination primitives (as combinations.primitives) on the joined model J. spans = [(doc, geo, S, sup)] in span
+    order, sup = the span's build_integrated output that J was joined from.
+    Staging (shortcut: provisional default, not read from the description — owner to confirm per bridge): self weight of
+    every member acts on the simply supported spans (girders and deck before continuity, from_spans); SDL, earth pressure,
+    braking, centrifugal, thermal, wind and traffic act on the continuous structure.
+    Per-span cases are generated on each span model and remapped onto J. Braking and centrifugal are each span's own
+    (shortcut: AS 5100.2 braking for the whole continuous deck length not formed, upgrade with the staging input).
+    Traffic: one envelope over the whole joined deck (lanes and carriageway of the first span's description; shortcut:
+    HLP central-gap variants not tried). Earthquake: not combined (RSA on the joined masses not built)."""
+    from .responses import ResponseSet
+    from .loads import sdl_case
+    from .horizontal import horizontal_cases
+    from .thermal import thermal_cases
+    from .wind import wind_cases
+    from .traffic import traffic_envelope, Influence
+    from .combinations import SOIL_ACTIONS
+    if soil_action not in SOIL_ACTIONS:
+        raise ValueError(f"soil_action {soil_action!r}: one of {SOIL_ACTIONS}")
+    RS = ResponseSet(J)
+    st = lambda **kw: RS.static(**kw)
+    P, src, notc = {}, {}, []
+    prov = [{"path": "analysis.continuity_stage", "value": "self weight simply supported; SDL and later loads continuous", "author": "AI", "decision": None,
+             "reason": "construction staging of the continuity not in the description (ADR-082)"},
+            {"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
+             "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"}]
+    parts, loads, imp, ept = [], {}, {}, []
+    add = lambda key, d: loads.setdefault(key, {}).update({n: loads[key].get(n, 0) + f for n, f in d.items()})
+    sdl_used = set()
+    for k, (doc, geo, S, sup) in enumerate(spans):
+        RSk = ResponseSet(sup)
+        parts.append((k, RSk, RSk.static(gravity=(0.0, 0.0, -1.0))))
+        C = sdl_case(doc, geo, sup, allow_proposed=allow_proposed, part="SDLp")
+        add("SDLp", _remap_loads(J, k, C["loads"]))
+        if any(a_ == "SDLs" for a_ in C["barrier_actions"].values()):
+            add("SDLs", _remap_loads(J, k, sdl_case(doc, geo, sup, allow_proposed=allow_proposed, part="SDLs")["loads"])); sdl_used.add(k)
+        H = horizontal_cases(doc, geo, sup, std, allow_proposed=allow_proposed)
+        for cid, v in H["cases"].items():
+            if cid.startswith("EPT"):
+                ept.append(st(loads=_remap_loads(J, k, v["loads"])))
+            elif cid in ("EP", "BRKp", "CEN"):
+                add(cid, _remap_loads(J, k, v["loads"]))
+        prov += list(H.get("provisional") or [])
+        T = thermal_cases(doc, geo, S, sup, allow_proposed=allow_proposed)
+        for cid, v in T["cases"].items():
+            imp.setdefault(cid, {}).update(_remap_imposed(J, k, v["imposed"]))
+        prov += list(T.get("provisional") or [])
+        W = wind_cases(doc, geo, S, sup, allow_proposed=allow_proposed)
+        for cid, v in W["cases"].items():
+            add("W" + cid, _remap_loads(J, k, v["loads"]))
+        if k == 0:
+            r35, rS = W["scale"]["with_traffic"], W["scale"]["sls"]
+        elif (W["scale"]["with_traffic"], W["scale"]["sls"]) != (r35, rS):
+            raise ValueError("wind speed ratios differ between the span descriptions")
+        prov += list(W.get("provisional") or [])
+    P["DLc"] = {"s": from_spans(J, RS, parts)}; src["DLc"] = "self weight of every member, on the simply supported spans (staging, provisional)"
+    P["SDLp"] = {"s": st(loads=loads["SDLp"])}; src["SDLp"] = "SDL (surfacing, other SDL, barriers not accurately known), continuous"
+    if "SDLs" in loads:
+        P["SDLs"] = {"s": st(loads=loads["SDLs"])}; src["SDLs"] = "SDL special case: barriers with accurately known weight, continuous"
+    P[soil_action] = {"s": st(loads=loads["EP"])}; src[soil_action] = "earth pressure on both abutment headstocks"
+    z = np.zeros(len(RS.names))
+    P["EPT"] = {"max": np.maximum.reduce(ept + [z]), "min": np.minimum.reduce(ept + [z]), "parts": ept + [z]}; src["EPT"] = "traffic surcharge behind A or behind B"
+    P["BRKR"] = {"s": st(loads=loads["BRKp"])}; src["BRKR"] = "braking toward B, each span's own (whole-deck braking not formed)"
+    P["CENR"] = {"s": st(loads=loads["CEN"])}; src["CENR"] = "centrifugal, outward"
+    for aid, cid in (("TUW", "TU+"), ("TUC", "TU-"), ("TGP", "TGP"), ("TGN", "TGN"), ("SCR", "SCR")):
+        if cid in imp:
+            P[aid] = {"s": st(imposed=imp[cid])}; src[aid] = f"thermal case {cid} on the continuous structure (restraint moments included)"
+    wc = {c[1:]: st(loads=v) for c, v in loads.items() if c.startswith("W")}
+    for sx, r in (("U", 1.0), ("35", r35), ("S", rS)):
+        P["WX_" + sx] = {"s": wc["WL+"] * r}
+        P["WY_" + sx] = {"s": wc["WT+"] * r + (wc["WTV+"] if sx == "35" else 0.0)}
+        P["WZ_" + sx] = {"max": np.maximum(wc["WVU+"], wc["WVU-"]) * r, "min": np.minimum(wc["WVU+"], wc["WVU-"]) * r, "parts": [wc["WVU+"] * r, wc["WVU-"] * r]}
+    src["WX"] = "WL+"; src["WY"] = "WT+ (+ WTV+ with traffic)"; src["WZ"] = "uplift WVU+ / WVU- envelope"
+    doc0, geo0 = spans[0][0], spans[0][1]
+    Tr = traffic_envelope(doc0, geo0, J, std, allow_proposed=allow_proposed, inf=Influence(J, responses=RS), **(traffic_kw or {}))
+    for mn, e in Tr["env"].items():
+        P[mn] = {"max": e["max"], "min": e["min"], "state": (Tr, mn)}; src[mn] = f"{mn} moving-load envelope over the joined deck"
+    prov += list(Tr.get("provisional") or [])
+    notc.append(("EQX", "earthquake on the joined model not built (continuous spans stage 2b)"))
+    notc.append(("EQY", "earthquake on the joined model not built (continuous spans stage 2b)"))
+    dedup = []
+    for p in prov:
+        if p not in dedup:
+            dedup.append(p)
+    return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc, "provisional": dedup,
+            "cases": {"traffic": Tr}, "response_set": RS}
+
+
+def combined_actions(spans, J, std, allow_proposed=False, options=None, on=None, **kw):
+    """combinations.combined_actions on the joined model (same rows, same envelopes)."""
+    from .combinations import Register, generate, combine, available_actions
+    Pr = primitives(spans, J, std, allow_proposed=allow_proposed, **kw)
+    on = set(on) if on is not None else available_actions(Pr["prim"])
+    G = generate(Register(std, on), options)
+    Cb = combine(G["rows"], Pr["prim"])
+    return {"case": "AS 5100.2 combined actions (continuous spans)", "names": Pr["names"], "envelopes": Cb, "rows": G["rows"], "capped": G["capped"],
+            "on": sorted(on), "options": G["options"], "sources": Pr["sources"], "not_combined": Pr["not_combined"], "missing_terms": Cb["missing"],
+            "standards_status": std.result_status(), "standards_used": std.usage(), "provisional": Pr["provisional"], "primitives": Pr}

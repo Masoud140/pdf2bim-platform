@@ -3,7 +3,7 @@
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
 ## 2026-11-19 — Continuous spans, stage 1 (ADR-082)
-- `pdf2bim/model/continuous.py` joins per-span models into one (shared pier nodes, members and bearings merged; optional ties across two bearing rows). Span results (before continuity) can be carried onto the joined model. Not yet used by the chain.
+- `pdf2bim/model/continuous.py` joins per-span models into one (shared pier nodes, members and bearings merged; optional ties across two bearing rows). Span results (before continuity) carried onto the joined model; combined actions (ULS / SLS envelopes) on the joined model with self weight staged simply supported. Not yet used by the chain.
 
 ## 2026-11-19 — Alignment views (ADR-081)
 - Platform geometry.json carries control-line samples and crossfall; Studio tab shows plan (MGA), profile, crossfall and set-out from it.

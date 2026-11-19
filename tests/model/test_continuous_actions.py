@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""Continuous spans stage 2b: combination primitives and envelopes on the joined SB41 WB model (pdf2bim/model/continuous.py).
+Run: python3 tests/model/test_continuous_actions.py   (coarse traffic grid to keep it to a few minutes)"""
+import json, os, sys
+import numpy as np
+R = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, R)
+from pdf2bim.geometry.bridge import build_geometry
+from pdf2bim.sections.girder import build_sections
+from pdf2bim.model.substructure import build_integrated
+from pdf2bim.model.responses import ResponseSet
+from pdf2bim.model.loads import sdl_case
+from pdf2bim.model import continuous as C
+from standards.accessor import Standards
+
+res = []
+
+
+def t(name, ok, info=""):
+    ok = bool(ok); res.append(ok)
+    print(("PASS " if ok else "FAIL ") + name + ("" if ok or not info else f"  [{info}]"))
+
+
+std, spans = Standards(), []
+for s in (1, 2):
+    d = json.load(open(os.path.join(R, f"projects/B12459-S{s}/B12459-S{s}.bridge.0.2.json")))
+    g = build_geometry(d, allow_proposed=True); S = build_sections(d, g, allow_proposed=True)
+    spans.append((d, g, S, build_integrated(d, g, S, std, allow_proposed=True)))
+J = C.join([x[3] for x in spans])
+CA = C.combined_actions(spans, J, std, allow_proposed=True, traffic_kw={"dc": 1.0, "sweep_step": 1.0, "lateral": False})
+P, N = CA["primitives"]["prim"], CA["names"]
+RS = CA["primitives"]["response_set"]
+ix = {n: i for i, n in enumerate(N)}
+fz = [ix[("B", k, "FZ")] for k in J["bearings"]]
+
+t("no combination term missing; earthquake recorded as not combined", not CA["missing_terms"] and {a for a, _ in CA["not_combined"]} == {"EQX", "EQY"},
+  f"{CA['missing_terms']} {CA['not_combined']}")
+sdl = sum(sum(f[2] for f in sdl_case(d, g, sup, allow_proposed=True, part="SDLp")["loads"].values()) for d, g, S, sup in spans)
+t("SDLp on the joined model: bearing reactions carry the two spans' SDL exactly", abs(P["SDLp"]["s"][fz].sum() + sdl) < 1e-6 * abs(sdl), f"{P['SDLp']['s'][fz].sum():.2f} vs {-sdl:.2f}")
+parts = [(k, ResponseSet(x[3]), ResponseSet(x[3]).static(gravity=(0, 0, -1))) for k, x in enumerate(spans)]
+t("DLc staged: equal to the simply supported span results carried over", np.allclose(P["DLc"]["s"], C.from_spans(J, RS, parts)))
+gm = [i for i, n in enumerate(N) if n[0] == "G" and n[1][0] == "41B-S1-09" and n[2][0] == "M"]
+t("SDLp continuous: girder 41B-S1-09 hogs over the pier", min(P["SDLp"]["s"][gm]) < 0, f"{min(P['SDLp']['s'][gm]):.1f}")
+t("positive gradient on the continuous structure: restraint moments in the girder (non-zero)", "TGP" in P and np.abs(P["TGP"]["s"][gm]).max() > 1.0)
+U = CA["envelopes"]["ULS"]
+t("ULS envelope: 41B-S1-09 sags and hogs (M max > 0 > M min)", max(U["max"][gm]) > 0 > min(U["min"][gm]), f"{max(U['max'][gm]):.0f} / {min(U['min'][gm]):.0f}")
+mv = [k for k in ("M1600", "S1600") if k in P]
+t("moving loads over the joined deck give pier hogging", mv and min(P[mv[0]]["min"][gm]) < 0)
+print(f"     41B-S1-09 ULS (coarse traffic grid): sag {max(U['max'][gm]):,.0f} kNm, hog {min(U['min'][gm]):,.0f} kNm")
+print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
+sys.exit(0 if all(res) else 1)
