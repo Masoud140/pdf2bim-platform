@@ -436,7 +436,7 @@
     "max_residual_force_after_lockoff_kN": 1480,
     "jacking_limit": "0.75 x ultimate tensile strength",
     "grade": "stress relieved low carbon super grade bars to AS 4672.1",
-    "ultimate_tensile_strength": null
+    "ultimate_tensile_strength_kN": null
    },
    "original": {
     "value": {
@@ -456,7 +456,7 @@
      "max_residual_force_after_lockoff_kN": 1480,
      "jacking_limit": "0.75 x ultimate tensile strength",
      "grade": "stress relieved low carbon super grade bars to AS 4672.1",
-     "ultimate_tensile_strength": null
+     "ultimate_tensile_strength_kN": null
     },
     "unit": null,
     "tag": "Direct",
@@ -468,6 +468,107 @@
      "text": "6 No VSL 56 DIA VSL CT STRESS BAR OR SIMILAR 6300 LONG; rows 300 / 300 with 600 to the middle row from the girder top; 320 between bars; MAXIMUM RESIDUAL FORCE IMMEDIATELY AFTER LOCK-OFF SHALL BE 1480kN; UNDER NO CIRCUMSTANCES JACKING FORCE TO EXCEED 75% OF THE ULTIMATE TENSILE STRENGTH"
     },
     "note": "ultimate tensile strength of the bar not on the drawings (Missing - Flagged); levels: 600 dimension girder top -> middle row, rows at 300"
+   },
+   "current": "original"
+  },
+  "pier_deck_bars": {
+   "derivation": {
+    "formula": "0850 plan SB41 WB, 113 bundles at 150 across the deck over pier 1: DA36 1-N32-S-150 NF + DA16 2-N32-S-150 EF (top: 2 x N32), DA35 1-N32-JJ-150 FF + DA16 EF (bottom: 2 x N32); DA16 10000 long; cover 45 (0850 general notes) + N16 transverse = 61 to the bar edge (layering at the pier not read: as the typical deck rows)",
+    "inputs": [
+     "custom.stress_bars"
+    ]
+   },
+   "tag": "Calculated",
+   "status": "accepted",
+   "value": {
+    "support": "P1",
+    "faces": [
+     {
+      "face": "top",
+      "diameters_mm": [
+       32,
+       32
+      ],
+      "spacing_mm": 150,
+      "cover_mm": 61
+     },
+     {
+      "face": "bot",
+      "diameters_mm": [
+       32,
+       32
+      ],
+      "spacing_mm": 150,
+      "cover_mm": 61
+     }
+    ],
+    "long_bars": {
+     "mark": "DA16",
+     "diameter_mm": 32,
+     "spacing_mm": 150,
+     "length_mm": 10000,
+     "cover_mm": 61,
+     "faces": "each"
+    }
+   },
+   "original": {
+    "value": {
+     "support": "P1",
+     "faces": [
+      {
+       "face": "top",
+       "diameters_mm": [
+        32,
+        32
+       ],
+       "spacing_mm": 150,
+       "cover_mm": 61
+      },
+      {
+       "face": "bot",
+       "diameters_mm": [
+        32,
+        32
+       ],
+       "spacing_mm": 150,
+       "cover_mm": 61
+      }
+     ],
+     "long_bars": {
+      "mark": "DA16",
+      "diameter_mm": 32,
+      "spacing_mm": 150,
+      "length_mm": 10000,
+      "cover_mm": 61,
+      "faces": "each"
+     }
+    },
+    "unit": null,
+    "tag": "Calculated",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "derivation": {
+     "formula": "0850 plan SB41 WB, 113 bundles at 150 across the deck over pier 1: DA36 1-N32-S-150 NF + DA16 2-N32-S-150 EF (top: 2 x N32), DA35 1-N32-JJ-150 FF + DA16 EF (bottom: 2 x N32); DA16 10000 long; cover 45 (0850 general notes) + N16 transverse = 61 to the bar edge (layering at the pier not read: as the typical deck rows)",
+     "inputs": [
+      "custom.stress_bars"
+     ]
+    }
+   },
+   "current": "original"
+  },
+  "stress_bar_uts": {
+   "note": "ultimate tensile strength of the Ø56 VSL CT stress bars: 0575 gives the grade (super grade to AS 4672.1) and the 75 % jacking limit but no value; girder_checks reports the force each bar must develop at ULS instead",
+   "tag": "Missing-Flagged",
+   "status": "open",
+   "value": null,
+   "unit": "kN",
+   "original": {
+    "value": null,
+    "unit": "kN",
+    "tag": "Missing-Flagged",
+    "recorded_by": "AI (extraction)",
+    "recorded_at": null,
+    "note": "ultimate tensile strength of the Ø56 VSL CT stress bars: 0575 gives the grade (super grade to AS 4672.1) and the 75 % jacking limit but no value; girder_checks reports the force each bar must develop at ULS instead"
    },
    "current": "original"
   },
@@ -16701,7 +16802,7 @@
  "revision": {
   "number": 1,
   "parent_hash": null,
-  "created": "2026-11-19T06:39:24+00:00",
+  "created": "2026-11-19T07:08:21+00:00",
   "author": "AI (extraction)",
   "note": "new description from extracted values (owner drawing set SGWS1-JHSW-2000-BR-DRG-COMBINED.pdf (255 sheets) + report RPT-410001 rev D, 2026-11-17)",
   "decision_log_sha256": null
@@ -16710,6 +16811,6 @@
   "algorithm": "sha256",
   "covers": "document-without-hash",
   "canonicalisation": "pdf2bim-c14n/1",
-  "value": "sha256:b5b1c26d0bf2b0e61daa8e550be05eb9c55bc7e59b6ec64073f3f76a0cd36f5f"
+  "value": "sha256:836a79eddbbbdafc1570bb52917de261fbf45f6ae017999bf1a2907643976d8f"
  }
 }

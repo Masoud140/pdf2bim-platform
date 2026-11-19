@@ -26,19 +26,24 @@ add("Girder ULS sagging M*, largest of the bridge (kNm)", 17320, "report table 4
     "simply supported: expected above the continuous design")
 g = G["41B-S1-09"]
 add("41B-S1-09 ULS M* sagging (kNm)", 17320, "report table 4-27", g["ULS"]["M_sag"]["value"], g["ULS"]["M_sag"]["gov"],
-    "continuous, self weight simply supported (staging provisional)" if CONT else "simply supported vs continuous")
+    "continuous; girder self weight simply supported, deck on the continuous girders (0575)" if CONT else "simply supported vs continuous")
 if CONT:
     add("41B-S1-09 ULS M* hogging (kNm)", 14521, "report table 4-27 (φMu 14,698)", -g["ULS"]["M_hog"]["value"], f"{g['ULS']['M_hog']['gov']}, ch {g['ULS']['M_hog']['ch']:.2f}",
-        "magnitude; continuous, staging provisional")
+        "magnitude; continuous (staging 0575)")
 else:
     add("41B-S1-09 ULS M* hogging (kNm)", 14521, "report table 4-27 (φMu 14,698)", None, "not modelled", "no continuity in the platform")
+if CONT:
+    ph = next((r["pier_hog"] for r in GC[0]["41B-S1-09"]["rows"] if r.get("pier_hog")), None)
+    if ph:
+        add("41B-S1-09 φMu hogging over the pier (kNm)", 14698, "report table 4-27", -ph["no_bars"]["phiMu"], f"x = {ph['x_m']:.2f} m, deck bars {ph['deck_bars']}",
+            f"deck reinforcement alone; with the 6 stress bars at lock-off {-ph['at_lockoff']['phiMu']:,.0f}; bar UTS Missing - Flagged")
 add("41B-S1-09 ULS V* (kN)", 2122, "report table 4-27", g["ULS"]["V"]["abs"], "platform: largest |V| along the girder", "report: design shear at its critical section")
 gr = GC[0]["41B-S1-09"]["rows"]
 mid = min((r for r in gr if r.get("conf") == "open" and (r.get("sag") or {}).get("phiMu")), key=lambda r: abs(r["t"] - 0.5))
 add("41B-S1-09 φMu at mid-span (kNm)", 17720, "report table 4-27", mid["sag"]["phiMu"], f"t = {mid['t']:.2f}, φ = {mid['sag']['phi']:.3f}",
     f"platform Muo = {mid['sag']['Muo']:,.0f}; the report value may include the deck reinforcement / stress bars")
 add("41B-S1-09 SLS soffit stress at Ms* (MPa)", 3.06, "report table 4-28 (tension; limit 3.16)", mid["sag"]["soffit_sls"], f"{mid['sag']['row_sls']}, Ms* {mid['sag']['Ms']:,.0f} kNm",
-    ("platform: continuous (staging provisional)" if CONT else "platform: simply supported") + ", uncracked composite, tension +")
+    ("platform: continuous (staging 0575)" if CONT else "platform: simply supported") + ", uncracked composite, tension +")
 pc = GC[0]["41B-S1-09"].get("prestress")
 if pc:
     top = max(pc["transfer"]["rows"], key=lambda r: max(r["top"], r["bot"]))
@@ -61,9 +66,9 @@ if acc:
     k2 = max(acc, key=lambda q: acc[q]["ULS"]); add("Pier 1 (EB P2) pile ULS N max (kN)", 9078, "0201 table 1 (P2-04)", acc[k2]["ULS"], k2, "as above")
 
 L = ["# B12459 (SB41 WB) — platform vs design report RPT-410001 rev D — INDICATIVE", ""]
-L += ([f"Run `{os.path.basename(os.path.normpath(runs[0]))}`: **both spans joined continuous over the pier (ADR-082)** — self weight on the simply supported spans, "
-       "SDL, thermal, wind and traffic on the continuous structure (staging provisional, not read from the drawings); hogging capacity = the girder section's "
-       "(deck reinforcement / stress bars not yet in the section). Missing inputs are the generic proposals D-1; standards entries unverified.", ""] if CONT else [
+L += ([f"Run `{os.path.basename(os.path.normpath(runs[0]))}`: **both spans joined continuous over the pier (ADR-082)** — girder self weight on the simply supported spans, "
+       "deck, SDL, thermal, wind and traffic on the continuous structure (staging from 0575); hogging over the pier with the 0850 deck bars and the 0575 stress bars "
+       "(bar UTS Missing - Flagged). Missing inputs are the generic proposals D-1; standards entries unverified.", ""] if CONT else [
      f"Runs `{', '.join(os.path.basename(os.path.normpath(r)) for r in runs)}` (spans 1-2; ADR-062). **The girders are continuous over the pier "
      "(stress bars, report table 4-27); the platform has no continuity, so each span runs simply supported: sagging is overstated, hogging is absent.** "
      "Missing inputs are the generic proposals D-1; standards entries unverified.", ""])
@@ -72,7 +77,7 @@ for item, ref, src, val, where, d, note in rows:
     fv = "—" if val is None else (f"{val:,.2f}" if abs(val) < 100 else f"{val:,.0f}")
     L.append(f"| {item} | {ref:,} | {src} | {fv} | {where} | {'—' if d is None else f'{d:+.1f} %'} | {note} |")
 L += ["", "Known limits of this run (whether a difference is acceptable is the engineer's call):", ""]
-L += (["- continuity: staging provisional (self weight simply supported); earthquake not combined; braking per span; span 1 carriageway along the deck (ADR-082);"] if CONT else
+L += (["- continuity (ADR-082): girder self weight simply supported, deck continuous (0575); earthquake not combined; braking per span; span 1 carriageway along the deck (ADR-082);"] if CONT else
       ["- continuity over the pier not modelled (Tier 4 'continuous spans'): not a verification of SB41 WB;"])
 L += [
       "- the girder ends stop short of the single pier bearing (X1 - chord = -180 .. -490 mm): the pier end is modelled 100 mm past the bearing (Model);",

@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Continuous spans, stage 4b (ADR-082)
+- Hogging check over the pier with the deck reinforcement (0850) and stress bars (0575); deck bars in the open-station sections on continuous runs; required stress bar force reported against the (missing) UTS.
+
 ## 2026-11-19 — Continuous spans, stage 4a (ADR-082)
 - Construction staging read from the SB41 WB drawings (girder self weight simply supported, deck on the continuous girders); stress bars recorded; girder checks use the staged non-composite moment.
 

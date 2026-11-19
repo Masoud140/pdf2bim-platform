@@ -55,6 +55,23 @@ U = CA["envelopes"]["ULS"]
 t("ULS envelope: 41B-S1-09 sags and hogs (M max > 0 > M min)", max(U["max"][gm]) > 0 > min(U["min"][gm]), f"{max(U['max'][gm]):.0f} / {min(U['min'][gm]):.0f}")
 mv = [k for k in ("M1600", "S1600") if k in P]
 t("moving loads over the joined deck give pier hogging", mv and min(P[mv[0]]["min"][gm]) < 0)
+from pdf2bim.design.girder_design import checks_along
+pier = {}
+for k, gid in ((0, "41B-S1-09"), (1, "41B-S2-09"), (1, "41B-S2-01")):
+    d, g, S, _ = spans[k]
+    CA["primitives"]["cases"]["thermal"] = CA["primitives"]["cases"]["thermal_spans"][k]
+    Rg = checks_along(d, g, S, CA, J, std, gid, allow_proposed=True, stations=[0, 0.9, 1.0] if k == 0 else [0, 0.1, 1.0])
+    pier[gid] = {r["t"]: r for r in Rg["rows"]}
+q1, q2 = pier["41B-S1-09"][1.0].get("pier_hog"), pier["41B-S2-09"][0].get("pier_hog")
+t("pier hogging check only at the girder ends over P1 (S1 end B, S2 end A)", q1 and q2 and "pier_hog" not in pier["41B-S1-09"][0] and "pier_hog" not in pier["41B-S2-09"][1.0])
+t("pier hogging M* taken at the bearing node, not the free end stub", q1["Mu"] < -1000 and q2["Mu"] < -1000, f"{q1['Mu']:.0f} / {q2['Mu']:.0f}")
+t("stress bars at lock-off raise the section capacity (Mu_cap) over the deck bars alone", abs(q1["at_lockoff"]["Mu_cap"]) > abs(q1["no_bars"]["Mu_cap"]))
+t("bar force required reported (0 when the deck bars suffice) and the UTS flagged missing", q1["F_required_kN"] is not None and q1["uts_kN"] in (None, "") and q1["why"])
+t("skewed pier: the far girder 41B-S2-01 (bearing chainage several m from the pier CL) still gets its pier check at end A",
+  pier["41B-S2-01"][0].get("pier_hog") is not None)
+h9 = pier["41B-S1-09"][0.9]["hog"]
+t("open station 0.9 on the continuous run: deck bars in the section give a hogging capacity well above the strands-only value (~1,400)", abs(h9["phiMu"]) > 5000, f"{h9['phiMu']:.0f}")
+print(f"     41B-S1-09 over P1: M* {q1['Mu']:,.0f}, phi Mu {q1['no_bars']['phiMu']:,.0f} (deck bars) / {q1['at_lockoff']['phiMu']:,.0f} (+ bars at lock-off), report phi Mu 14,698")
 print(f"     41B-S1-09 ULS (coarse traffic grid): sag {max(U['max'][gm]):,.0f} kNm, hog {min(U['min'][gm]):,.0f} kNm")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

@@ -113,6 +113,20 @@ def main():
                     L.append(f"| {r['t']:.1f} | {f0(h['Ms'])} ({h['row_sls']}) | {f0(h['MdecT'])} | {f0(h['MalT'])} | {h['uST']:.2f} | {f0(h['Mu'])} ({h['row_uls']}) | {f0(h['phiMu'])} | {h['uB']:.2f} | {f0(h['Muo_min'])} | {f0(h['Muo'])} |")
             else:
                 L.append("No station with a hogging ULS moment or an SLS moment below the top-face decompression moment.")
+            ph = [r for r in R["rows"] if r.get("pier_hog")]
+            if ph:
+                L += ["", "### Hogging over the interior support (stress bars + deck reinforcement over the pier, ADR-082)", "",
+                      "| end | x (m) | M* (ULS row) | N* | deck bars | phi Mu, no stress bars | phi Mu, bars at lock-off | M*/phi Mu (lock-off) | bar force required (kN) | UTS (kN) |",
+                      "|---|---|---|---|---|---|---|---|---|---|"]
+                for r in ph:
+                    q = r["pier_hog"]; a_, b_ = q["no_bars"] or {}, q["at_lockoff"] or {}
+                    lk = f"{f0(b_.get('phiMu'))} ({q['n_stress_bars']} x {q['lockoff_kN']:g} kN) | **{b_['uB']:.2f}**" if b_ else "— | —"
+                    fr = "—" if q["F_required_kN"] is None else f0(q["F_required_kN"])
+                    L.append(f"| {'A' if r['t'] == 0 else 'B'} | {q['x_m']:.2f} | {f0(q['Mu'])} ({q['row_uls']}) | {f0(q['Nu'])} | {q['deck_bars']} | {f0(a_.get('phiMu'))} | {lk} | "
+                             f"{fr} | {q['uts_kN'] if q['uts_kN'] not in (None, '') else '**Missing - Flagged**'} |")
+                L.append("Section at the girder end (solid end) with the strands at their decompression prestrain (none developed at the end), the deck bars over the pier and the stress bars "
+                         "at the force shown (rigid-plastic; the bar strength is not on the drawings: 'bar force required' is what each bar must develop at ULS, to compare with the supplier's UTS). "
+                         "M* at the model node on the bearing. Open stations on continuous runs include the typical deck bars and the long pier bars within their length.")
             lim = R["rows"][0]["limits"]
             L += ["", f"- crack-control limits (Table 8.6.2.1 as coded): fscr {lim['fscr']:g} MPa ({lim['why']['fscr']}), fscrT {lim['fscrT']:g} MPa ({lim['why']['fscrT']}), ftcr {lim['ftcr']:g} MPa",
                   f"- axial force with the moments: {'concurrent N of the governing row (useN)' if R['useN'] else 'not used (useN false)'}; losses method {R['hog_method']}, time {R['time_days']:g} d"]
@@ -124,6 +138,7 @@ def main():
         uS = max(r["sag"]["uS"] for r in fl); uB = max(r["sag"]["uB"] for r in fl)
         uv = [r["shear"]["u"] for r in R["rows"] if "u" in r.get("shear", {})]
         uh = [r["hog"]["uB"] for r in fl if r["hog"].get("Mu") is not None and r["hog"]["Mu"] < 0 and r["hog"].get("uB") is not None]
+        uh += [r["pier_hog"]["at_lockoff"]["uB"] for r in R["rows"] if (r.get("pier_hog") or {}).get("at_lockoff")]
         uH = f"{max(uh):.2f}{' **> 1**' if max(uh) > 1 else ''}" if uh else "—"
         S_.append(f"| {g} | {uS:.2f} | {uB:.2f}{' **> 1**' if uB > 1 else ''} | {uH} | {max(uv):.2f}{' **> 1**' if uv and max(uv) > 1 else ''} | "
                   f"{'yes' if any(not r['sag']['okMin'] for r in fl) else 'no'} |" if uv else f"| {g} | {uS:.2f} | {uB:.2f} | {uH} | — | — |")

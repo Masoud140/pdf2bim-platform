@@ -101,6 +101,107 @@ def _option(doc, item, default):
     return default
 
 
+def _custom(doc, key):
+    v = (doc.get("custom") or {}).get(key)
+    return v.get("value") if isinstance(v, dict) and "value" in v else v
+
+
+def pier_hog_uls(sec, pre0, extra_bars, sbars, F_kN, Nu, Mu, std, Eref):
+    """Hogging ULS capacity of a section over an interior support (ADR-082 stage 4b): the station section with the
+    strands at their decompression prestrain (pre0, from staged), the deck reinforcement over the support (extra_bars)
+    and the stress bars carrying a tension force F_kN each at ULS (rigid-plastic: the bar strength is not on the
+    drawings, so the check reports the force each bar must develop). N, mm; returns kN m."""
+    from .flexure import Section, Coefficients, elastic
+    from .nm import mu_at_n
+    K = Coefficients(std)
+    bars = [dict(b, e0=0.0) for b in sec.bars + extra_bars]
+    tend = [dict(t, epe=p0) for t, p0 in zip(sec.tend, pre0)] + [dict(b, fpb=F_kN * 1e3 / b["A"], E=1e9, epe=1.0, bil=True) for b in sbars]
+    Su = Section([dict(c, e0=0.0) for c in sec.conc], bars, tend)
+    yc = elastic(Section(sec.conc, bars, []), Eref)["yc"]
+    r = mu_at_n(Su, std, Nu * 1e3, "bot", yc)
+    if not r:
+        return None
+    pb = K.phi(r["kuo"])
+    pc = std.get("AS5100.5:capacity_factor:phi_compression").value
+    phi = pb if Nu >= 0 else pc     # shortcut: compression N takes phi_compression (no Nub interpolation here), conservative
+    return {"Mu_cap": r["M"] / 1e6, "phi": phi, "phiMu": phi * r["M"] / 1e6, "kuo": r["kuo"], "uB": abs(Mu) / abs(phi * r["M"] / 1e6)}
+
+
+def _pier_inputs(doc, geo, S, girder, rd):
+    """Ends of the girder over the stress-bar support, the stress bars and the deck bars over it (custom.stress_bars /
+    custom.pier_deck_bars, Direct from the drawings). {} when the description has no stress bars."""
+    sb = _custom(doc, "stress_bars")
+    if not sb:
+        return {}
+    sup = {s_["id"]: s_ for s_ in geo["supports"]}
+    if sb["support"] not in sup:
+        return {}
+    gg = next(g for g in geo["girders"] if g["id"] == girder)
+    ch = sup[sb["support"]]["ch"]
+    # the girder end on that support: the nearer bearing in chainage (skewed supports: bearing chainages differ across the deck)
+    ends = [min(("A", "B"), key=lambda e: abs(gg["bearing_" + e]["ch"] - ch))]
+    a = math.pi / 4 * float(sb["diameter_mm"]) ** 2
+    sbars = [{"lev": float(lv), "A": a} for lv in sb["levels_below_girder_top_mm"] for _ in sb["offsets_from_girder_cl_mm"]]
+    if len(sbars) != int(sb["number_per_girder"]):
+        raise MissingInput(f"custom.stress_bars: {len(sbars)} bar positions vs number_per_girder {sb['number_per_girder']}")
+    db = _custom(doc, "pier_deck_bars")
+    bm = rd.rows((doc.get("materials") or {}).get("reinforcement"), "materials.reinforcement")[0]
+    return {"ends": ends, "sbars": sbars, "lockoff_kN": float(sb["max_residual_force_after_lockoff_kN"]), "uts_kN": sb.get("ultimate_tensile_strength_kN"),
+            "half_length_m": float(sb["length_mm"]) / 2000.0, "deck": db, "fsy": float(bm["fsy"]), "Es": float(bm["Es"])}
+
+
+def deck_bars(faces, width, tD, Es, fsy):
+    """Deck longitudinal bars over a girder's deck strip (width, mm): faces = [{face top|bot, diameters_mm, spacing_mm,
+    cover_mm}] -> design-section bars (y down from the deck top) and a one-line description."""
+    out, dsc = [], []
+    for f in faces:
+        n = int(width // float(f["spacing_mm"])) + 1
+        for d in f["diameters_mm"]:
+            y = float(f["cover_mm"]) + d / 2 if f["face"] == "top" else tD - float(f["cover_mm"]) - d / 2
+            out.append({"y": y, "A": n * math.pi / 4 * d * d, "E": Es, "fsy": fsy, "grp": "deck", "d": d, "n": n})
+        dsc.append(f"{f['face']} {n} x ({' + '.join('N%g' % d for d in f['diameters_mm'])}) over {width:.0f} mm")
+    return out, dsc
+
+
+def _pier_hog_station(sec, st, lv, Mnc, std, lim, E_s, E_u, lo, hi, w, near, conc_N, interp, pier, S, girder, t):
+    """Hogging ULS at the girder end over the stress-bar support: capacity without the stress bars, at the lock-off
+    force, and the force each bar must develop at ULS for M* <= phi Mu (bisection)."""
+    from .girder_sls import staged
+    Ms = interp(E_s, "min", lo, hi, w); Mu = interp(E_u, "min", lo, hi, w)
+    gs, gu = E_s["gmin"][near[1]], E_u["gmin"][near[1]]
+    Ns, Nu = conc_N(gs, near, "min"), conc_N(gu, near, "min")
+    # strand decompression prestrain from the staged analysis; at the very girder end the strands carry no force yet
+    pre0 = staged(sec, lv, Mnc, Ms, Ns, Mu, Nu, std, lim["fscr"], lim["ftcr"], lim["fscrT"], why=lim["why"])["tend_pre0"] if sec.tend else []
+    row = S["girders"][girder]["stations"]
+    sr = min(row, key=lambda r_: abs(r_["t"] - t))
+    width = sr["deck_left"] + sr["deck_right"]                     # mm, the girder's deck strip
+    tD, yG = lv["y_deck_bot"], lv["y_gir_top"]
+    extra, dsc = deck_bars((pier["deck"] or {}).get("faces") or [], width, tD, pier["Es"], pier["fsy"])
+    sb = [{"y": yG + q["lev"], "A": q["A"]} for q in pier["sbars"]]
+    cap = lambda F: pier_hog_uls(sec, pre0, extra, sb, F, Nu, Mu, std, lv["Eg"])
+    c0, cL = cap(0.0), cap(pier["lockoff_kN"])
+    Freq = None
+    if c0 and c0["uB"] <= 1:
+        Freq = 0.0
+    else:
+        a_, b_ = 0.0, 20000.0
+        cb = cap(b_)
+        if cb and cb["uB"] <= 1:
+            for _ in range(50):
+                m_ = (a_ + b_) / 2
+                cm = cap(m_)
+                if cm and cm["uB"] <= 1:
+                    b_ = m_
+                else:
+                    a_ = m_
+            Freq = b_
+    uts = pier["uts_kN"]
+    return {"Mu": Mu, "Nu": Nu, "row_uls": gu, "deck_bars": "; ".join(dsc) or "none recorded", "n_stress_bars": len(sb),
+            "no_bars": c0, "at_lockoff": cL, "F_required_kN": Freq, "lockoff_kN": pier["lockoff_kN"], "uts_kN": uts,
+            "ok": None if (Freq is None or uts in (None, "")) else Freq <= float(uts),
+            "why": None if uts not in (None, "") else "stress bar ultimate tensile strength not on the drawings (Missing - Flagged): compare F_required with the bar supplier's UTS"}
+
+
 def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=None, stations=None):
     """P4.5 stage 6: staged SLS stresses, decompression / allowable / cracking moments, minimum strength and ULS bending
     (pdf2bim.design.girder_sls.staged) at every open-section station of the girder.
@@ -159,8 +260,10 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
     # shear / torsion inputs (P4.5 stage 8): fitments along the girder, covers, aggregate, closed-tie legs, steel properties
     sup = doc.get("superstructure") or {}
     rd_ = __import__("pdf2bim.description", fromlist=["Reader"]).Reader(doc, allow_proposed)
+    pier = _pier_inputs(doc, geo, S, girder, rd_) if stg_ else {}
     mem = next(x for x in sup.get("members") or [] if x["id"] == girder)
     T_ = next(x for x in sup.get("supert_types") or [] if x["id"] == rd_.value(mem.get("type_ref"), "type_ref"))
+    typ_deck = [q for q in rd_.rows(T_.get("deck_bars"), "deck_bars", required=False) if q.get("diameter") is not None] if pier else []
     fits = rd_.rows(T_.get("fitments"), "fitments", required=False)
     opts = {}
     for r_ in rd_.rows((doc.get("design") or {}).get("girder_options"), "design.girder_options", required=False):
@@ -216,6 +319,17 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
         if stg is not None:   # continuous spans (ADR-082): the staged self weight of the joined model, girder-alone stage
             Mnc = fS * interp(stg, "v", lo, hi, w)
         mt = st["materials"]
+        if pier and st["conf"] == "open":   # continuous runs: deck bars act with the girder (typical rows + the long pier bars in reach)
+            sr_ = min(S["girders"][girder]["stations"], key=lambda r_: abs(r_["t"] - t))
+            fc_ = [{"face": q["face"], "diameters_mm": [float(q["diameter"])], "spacing_mm": float(q["spacing"]), "cover_mm": float(q["cover"])} for q in typ_deck]
+            gg_ = next(g_ for g_ in geo["girders"] if g_["id"] == girder)
+            xb_ = (gg_["length_end_to_end"] - gg_["chord_length_bearings"]) / 2
+            dpier = min(abs(x0 - (xb_ if e_ == "A" else gg_["length_end_to_end"] - xb_)) for e_ in pier["ends"]) if pier["ends"] else 1e9
+            lng = (pier["deck"] or {}).get("long_bars") or {}
+            if lng and dpier <= float(lng["length_mm"]) / 2000.0:
+                fc_ += [{"face": f_, "diameters_mm": [float(lng["diameter_mm"])], "spacing_mm": float(lng["spacing_mm"]), "cover_mm": float(lng["cover_mm"])} for f_ in ("top", "bot")]
+            eb_, _ = deck_bars(fc_, sr_["deck_left"] + sr_["deck_right"], S["deck_thickness"], pier["Es"], pier["fsy"])
+            sec.bars = sec.bars + eb_
         lv = {"y_deck_bot": S["deck_thickness"], "y_gir_top": st["y_girder_top"], "Dtot": st["Dtot"], "Eg": mt["E_girder"], "Ed": mt["E_deck"], "fcg": mt["fc_girder"], "fcd": mt["fc_deck"]}
         lim = crack_limits(sec, std)
         res = {"t": t, "x_m": x0, "conf": st["conf"], "element": near[2][1], "end": near[3], "n_strands": len(sec.tend), "n_dev_capped": n_cap, "Mnc": Mnc, "limits": lim}
@@ -235,6 +349,16 @@ def checks_along(doc, geo, S, CA, mdl, std, girder, allow_proposed=False, time=N
             # solid end zone: SLS/flexure checks not applicable (strand development, full section not composite in the usual sense)
             res["sag"] = {"_pre0": [td.get("sp", 0.0) / (td["E"] if td["E"] else 1.0) for td in sec.tend]}
             res["hog"] = {}
+            end = "A" if t == 0 else "B" if t == 1 else None
+            if pier and end in pier["ends"]:
+                gg_ = next(g_ for g_ in geo["girders"] if g_["id"] == girder)
+                xb = (gg_["length_end_to_end"] - gg_["chord_length_bearings"]) / 2   # bearing (support CL) from this girder end, m
+                xb = xb if end == "A" else gg_["length_end_to_end"] - xb
+                d0 = min(abs(q[0] - xb) for q in ends)
+                # the model node at the bearing (the hogging peak): of the element ends there, the girder side, not the free end stub
+                nb_ = min((q for q in ends if abs(q[0] - xb) <= d0 + 0.3), key=lambda q: E_u["min"][q[1]])
+                res["pier_hog"] = _pier_hog_station(sec, st, lv, Mnc, std, lim, E_s, E_u, nb_, nb_, 0.0, nb_, conc_N, interp, pier, S, girder, t)
+                res["pier_hog"]["x_m"] = nb_[0]
         # shear and torsion at the station: the governing |V*| row at the nearer element end, concurrent T*, M*, N*
         if shear_why is None:
             fr_ = [f for f in fits if f.get("from") is not None and f["from"] - 1e-9 <= x0 <= f["to"] + 1e-9]

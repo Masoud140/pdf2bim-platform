@@ -415,11 +415,20 @@ def build(span):
         note="girder self weight simply supported; deck overlay and later loads on the continuous girders (pdf2bim.model.continuous.STAGINGS)")
     put("custom.stress_bars", {"support": "P1", "number_per_girder": 6, "diameter_mm": 56, "length_mm": 6300, "levels_below_girder_top_mm": [300, 600, 900],
                                "offsets_from_girder_cl_mm": [-160, 160], "max_residual_force_after_lockoff_kN": 1480, "jacking_limit": "0.75 x ultimate tensile strength",
-                               "grade": "stress relieved low carbon super grade bars to AS 4672.1", "ultimate_tensile_strength": None},
+                               "grade": "stress relieved low carbon super grade bars to AS 4672.1", "ultimate_tensile_strength_kN": None},
         sheet="0575", view="section 2 (1:10), post tensioning notes 2-4",
         text="6 No VSL 56 DIA VSL CT STRESS BAR OR SIMILAR 6300 LONG; rows 300 / 300 with 600 to the middle row from the girder top; 320 between bars; "
              "MAXIMUM RESIDUAL FORCE IMMEDIATELY AFTER LOCK-OFF SHALL BE 1480kN; UNDER NO CIRCUMSTANCES JACKING FORCE TO EXCEED 75% OF THE ULTIMATE TENSILE STRENGTH",
         note="ultimate tensile strength of the bar not on the drawings (Missing - Flagged); levels: 600 dimension girder top -> middle row, rows at 300")
+    put("custom.pier_deck_bars", {"support": "P1", "faces": [{"face": "top", "diameters_mm": [32, 32], "spacing_mm": 150, "cover_mm": 61},
+                                                            {"face": "bot", "diameters_mm": [32, 32], "spacing_mm": 150, "cover_mm": 61}],
+                                  "long_bars": {"mark": "DA16", "diameter_mm": 32, "spacing_mm": 150, "length_mm": 10000, "cover_mm": 61, "faces": "each"}}, tag="Calculated",
+        formula="0850 plan SB41 WB, 113 bundles at 150 across the deck over pier 1: DA36 1-N32-S-150 NF + DA16 2-N32-S-150 EF (top: 2 x N32), "
+                "DA35 1-N32-JJ-150 FF + DA16 EF (bottom: 2 x N32); DA16 10000 long; cover 45 (0850 general notes) + N16 transverse = 61 to the bar edge "
+                "(layering at the pier not read: as the typical deck rows)", inputs=["custom.stress_bars"])
+    put("custom.stress_bar_uts", tag="Missing-Flagged", unit="kN",
+        note="ultimate tensile strength of the Ø56 VSL CT stress bars: 0575 gives the grade (super grade to AS 4672.1) and the 75 % jacking limit but no value; "
+             "girder_checks reports the force each bar must develop at ULS instead")
 
     for sid in (s1, s2):
         bt_, bsh, pa_, pb_, hh, part = BTYPE[sid]
