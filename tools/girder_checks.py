@@ -41,7 +41,7 @@ def prestress_md(pc):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("description"); ap.add_argument("--allow-proposed", action="store_true"); ap.add_argument("--out", required=True)
+    ap.add_argument("description", nargs="+", help="one description, or one per span in order (continuous spans, ADR-082)"); ap.add_argument("--allow-proposed", action="store_true"); ap.add_argument("--out", required=True)
     a = ap.parse_args()
     from pdf2bim.geometry.bridge import build_geometry
     from pdf2bim.sections.girder import build_sections
@@ -50,11 +50,20 @@ def main():
     from pdf2bim.design.girder_design import checks_along
     from standards.accessor import Standards
     std = Standards()
-    doc = json.load(open(a.description))
-    geo = build_geometry(doc, allow_proposed=a.allow_proposed)
-    S = build_sections(doc, geo, allow_proposed=a.allow_proposed)
-    M = build_integrated(doc, geo, S, std, allow_proposed=a.allow_proposed)
-    CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
+    spans = []
+    for f in a.description:
+        d = json.load(open(f))
+        g = build_geometry(d, allow_proposed=a.allow_proposed)
+        S = build_sections(d, g, allow_proposed=a.allow_proposed)
+        spans.append((d, g, S, build_integrated(d, g, S, std, allow_proposed=a.allow_proposed)))
+    descs, a.description = a.description, a.description[0]
+    doc, geo, S, M = spans[0]
+    if len(spans) == 1:
+        CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
+    else:
+        from pdf2bim.model import continuous
+        M = continuous.join([x[3] for x in spans])
+        CA = continuous.combined_actions(spans, M, std, allow_proposed=a.allow_proposed)
     out = {}
 
     def tags(field):   # data-source tags of a girder-type table across the description (e.g. strand_pattern: Direct)
@@ -67,50 +76,57 @@ def main():
          f"(tags of the description){'; PROPOSED decisions used: ' + ', '.join(sorted({str(q.get('decision')) for q in M['provisional'] + S['provisional'] + geo['provisional'] if q.get('decision')})) if a.allow_proposed else ''}; "
          "standards values code-extracted-UNVERIFIED. "
          "**Not design-approved.** Free strains on the composite section: temperature-gradient primary strains (factors of the governing SLS row) and deck differential shrinkage (losses analysis). Shear / torsion by the general method. Solid-end zone stations: shear only (rectangular approx, Assumed ADR-039); flexure / SLS not applicable. Strand development not checked.", "",
+         *([f"**Continuous spans (ADR-082):** {' + '.join(f'`{x}`' for x in descs)}: actions from the joined model (self weight on the simply supported spans, later loads "
+            "continuous; staging provisional). The hogging capacity over the pier is the girder section's (deck reinforcement / stress bars not yet in the section, stage 4).", ""] if len(spans) > 1 else []),
          "SUMMARY", ""]
     i_sum = len(L)
-    for g in S["girders"]:
-        R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
-        out[g] = R
-        L += [f"## {g}", "", "### Sagging", "",
-              "| t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
-        for r in R["rows"]:
-            if r.get("conf") == "solid":
-                continue  # solid end zone: flexure / SLS checks not performed here (shear only; see shear table)
-            s = r["sag"]
-            L.append(f"| {r['t']:.1f} | {r['x_m']:.2f} | {f0(r['Mnc'])} | {f0(s['Ms'])} ({s['row_sls']}) | {s['soffit_sls']:.2f} | {'yes' if s['uncracked'] else 'no'} | {f0(s['Mdec'])} | {f0(s['Mal'])} | "
-                     f"**{s['uS']:.2f}** | {f0(s['Mcr'])} | {f0(s['Muo'])} | {f0(s['Muo_min'])}{'' if s['okMin'] else ' **FAIL**'} | {f0(s['Mu'])} ({s['row_uls']}) | {f0(s['Nu'])} | {f0(s['phiMu'])} | **{s['uB']:.2f}** |")
-        L += ["", "### Shear and torsion (general method, governing |V*| with concurrent T*, M*, N*)", ""]
-        shr = [r for r in R["rows"] if "u" in r.get("shear", {})]
-        if shr:
-            L += ["| t | V* | T* | M* | N* | row | fitments | dv | θ (deg) | kv | uCr | uV | uT | uL | **u** |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
-            for r in shr:
-                q = r["shear"]
-                L.append(f"| {r['t']:.1f} | {f0(q['V'])} | {f0(q['T'])} | {f0(q['M'])} | {f0(q['N'])} | {q['row']} | {q['fitments']} | {f0(q['dv'])} | {q['th']:.1f} | {q['kv']:.3f} | {q['uCr']:.2f} | {q['uV']:.2f} | {q['uT']:.2f} | {q['uL']:.2f} | **{q['u']:.2f}**{' FAIL' if q['u'] > 1 else ''} |")
-        else:
-            L.append("Not checked: " + "; ".join(sorted({r.get('shear', {}).get('why', '') for r in R['rows']})))
-        hog = [r for r in R["rows"] if r.get("conf") != "solid" and r["hog"].get("Ms") is not None and (r["hog"]["Ms"] < r["hog"]["MdecT"] or r["hog"]["Mu"] < 0)]
-        L += ["", "### Hogging / top face", ""]
-        if hog:
-            L += ["| t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |", "|---|---|---|---|---|---|---|---|---|---|"]
-            for r in hog:
-                h = r["hog"]
-                L.append(f"| {r['t']:.1f} | {f0(h['Ms'])} ({h['row_sls']}) | {f0(h['MdecT'])} | {f0(h['MalT'])} | {h['uST']:.2f} | {f0(h['Mu'])} ({h['row_uls']}) | {f0(h['phiMu'])} | {h['uB']:.2f} | {f0(h['Muo_min'])} | {f0(h['Muo'])} |")
-        else:
-            L.append("No station with a hogging ULS moment or an SLS moment below the top-face decompression moment.")
-        lim = R["rows"][0]["limits"]
-        L += ["", f"- crack-control limits (Table 8.6.2.1 as coded): fscr {lim['fscr']:g} MPa ({lim['why']['fscr']}), fscrT {lim['fscrT']:g} MPa ({lim['why']['fscrT']}), ftcr {lim['ftcr']:g} MPa",
-              f"- axial force with the moments: {'concurrent N of the governing row (useN)' if R['useN'] else 'not used (useN false)'}; losses method {R['hog_method']}, time {R['time_days']:g} d"]
-        L += [f"- {n}" for n in R["notes"]] + [""]
-        L += prestress_md(R["prestress"])
-    S_ = ["## Summary (largest utilisation along each girder)", "", "| Girder | Ms*/Mal (SLS) | M*/phi Mu (ULS) | shear / torsion u | Muo < 1.2 Mcr |", "|---|---|---|---|---|"]
+    for k, (doc, geo, S, _) in enumerate(spans):
+        if len(spans) > 1:
+            CA["primitives"]["cases"]["thermal"] = CA["primitives"]["cases"]["thermal_spans"][k]   # this span's gradient profiles
+        for g in S["girders"]:
+            R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
+            out[g] = R
+            L += [f"## {g}", "", "### Sagging", "",
+                  "| t | x (m) | Mnc | Ms* (SLS row) | soffit at Ms* (MPa) | uncracked | Mdec | Mal | Ms*/Mal | Mcr | Muo | 1.2 Mcr | M* (ULS row) | N* | phi Mu | M*/phi Mu |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+            for r in R["rows"]:
+                if r.get("conf") == "solid":
+                    continue  # solid end zone: flexure / SLS checks not performed here (shear only; see shear table)
+                s = r["sag"]
+                L.append(f"| {r['t']:.1f} | {r['x_m']:.2f} | {f0(r['Mnc'])} | {f0(s['Ms'])} ({s['row_sls']}) | {s['soffit_sls']:.2f} | {'yes' if s['uncracked'] else 'no'} | {f0(s['Mdec'])} | {f0(s['Mal'])} | "
+                         f"**{s['uS']:.2f}** | {f0(s['Mcr'])} | {f0(s['Muo'])} | {f0(s['Muo_min'])}{'' if s['okMin'] else ' **FAIL**'} | {f0(s['Mu'])} ({s['row_uls']}) | {f0(s['Nu'])} | {f0(s['phiMu'])} | **{s['uB']:.2f}** |")
+            L += ["", "### Shear and torsion (general method, governing |V*| with concurrent T*, M*, N*)", ""]
+            shr = [r for r in R["rows"] if "u" in r.get("shear", {})]
+            if shr:
+                L += ["| t | V* | T* | M* | N* | row | fitments | dv | θ (deg) | kv | uCr | uV | uT | uL | **u** |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+                for r in shr:
+                    q = r["shear"]
+                    L.append(f"| {r['t']:.1f} | {f0(q['V'])} | {f0(q['T'])} | {f0(q['M'])} | {f0(q['N'])} | {q['row']} | {q['fitments']} | {f0(q['dv'])} | {q['th']:.1f} | {q['kv']:.3f} | {q['uCr']:.2f} | {q['uV']:.2f} | {q['uT']:.2f} | {q['uL']:.2f} | **{q['u']:.2f}**{' FAIL' if q['u'] > 1 else ''} |")
+            else:
+                L.append("Not checked: " + "; ".join(sorted({r.get('shear', {}).get('why', '') for r in R['rows']})))
+            hog = [r for r in R["rows"] if r.get("conf") != "solid" and r["hog"].get("Ms") is not None and (r["hog"]["Ms"] < r["hog"]["MdecT"] or r["hog"]["Mu"] < 0)]
+            L += ["", "### Hogging / top face", ""]
+            if hog:
+                L += ["| t | Ms* min (SLS row) | MdecT | MalT | uST | M* min (ULS row) | phi Mu | M*/phi Mu | 1.2 McrH | Muo |", "|---|---|---|---|---|---|---|---|---|---|"]
+                for r in hog:
+                    h = r["hog"]
+                    L.append(f"| {r['t']:.1f} | {f0(h['Ms'])} ({h['row_sls']}) | {f0(h['MdecT'])} | {f0(h['MalT'])} | {h['uST']:.2f} | {f0(h['Mu'])} ({h['row_uls']}) | {f0(h['phiMu'])} | {h['uB']:.2f} | {f0(h['Muo_min'])} | {f0(h['Muo'])} |")
+            else:
+                L.append("No station with a hogging ULS moment or an SLS moment below the top-face decompression moment.")
+            lim = R["rows"][0]["limits"]
+            L += ["", f"- crack-control limits (Table 8.6.2.1 as coded): fscr {lim['fscr']:g} MPa ({lim['why']['fscr']}), fscrT {lim['fscrT']:g} MPa ({lim['why']['fscrT']}), ftcr {lim['ftcr']:g} MPa",
+                  f"- axial force with the moments: {'concurrent N of the governing row (useN)' if R['useN'] else 'not used (useN false)'}; losses method {R['hog_method']}, time {R['time_days']:g} d"]
+            L += [f"- {n}" for n in R["notes"]] + [""]
+            L += prestress_md(R["prestress"])
+    S_ = ["## Summary (largest utilisation along each girder)", "", "| Girder | Ms*/Mal (SLS) | M*/phi Mu (ULS) | hogging M*/phi Mu (ULS) | shear / torsion u | Muo < 1.2 Mcr |", "|---|---|---|---|---|---|"]
     for g, R in out.items():
         fl = [r for r in R["rows"] if r.get("conf") != "solid"]
         uS = max(r["sag"]["uS"] for r in fl); uB = max(r["sag"]["uB"] for r in fl)
         uv = [r["shear"]["u"] for r in R["rows"] if "u" in r.get("shear", {})]
-        S_.append(f"| {g} | {uS:.2f} | {uB:.2f}{' **> 1**' if uB > 1 else ''} | {max(uv):.2f}{' **> 1**' if uv and max(uv) > 1 else ''} | "
-                  f"{'yes' if any(not r['sag']['okMin'] for r in fl) else 'no'} |" if uv else f"| {g} | {uS:.2f} | {uB:.2f} | — | — |")
+        uh = [r["hog"]["uB"] for r in fl if r["hog"].get("Mu") is not None and r["hog"]["Mu"] < 0 and r["hog"].get("uB") is not None]
+        uH = f"{max(uh):.2f}{' **> 1**' if max(uh) > 1 else ''}" if uh else "—"
+        S_.append(f"| {g} | {uS:.2f} | {uB:.2f}{' **> 1**' if uB > 1 else ''} | {uH} | {max(uv):.2f}{' **> 1**' if uv and max(uv) > 1 else ''} | "
+                  f"{'yes' if any(not r['sag']['okMin'] for r in fl) else 'no'} |" if uv else f"| {g} | {uS:.2f} | {uB:.2f} | {uH} | — | — |")
     L[i_sum - 2:i_sum - 1] = S_ + [""]   # replaces the SUMMARY placeholder line
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     open(a.out, "w").write("\n".join(L) + "\n")

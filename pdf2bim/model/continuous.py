@@ -107,7 +107,8 @@ def join(sups, tol=0.005, tie=False):
                     ties.append({"id": i, "line": line, "n1": e[k], "n2": e[k + 1], "support_after_span": k + 1})
     return {"format": "pdf2bim.model/0.1+continuous", "model": M, "nodes": nodes, "members": members, "bearings": bearings,
             "map": maps, "merged": merged, "ties": ties, "dropped_links": dropped, "dropped_beams": dropped_b,
-            "supports": supports, "alias": alias, "beam_map": bmap}
+            "supports": supports, "alias": alias, "beam_map": bmap,
+            "provisional": [q for S in sups for q in (S.get("provisional") or [])]}
 
 
 def _name(J, k, nm):
@@ -178,7 +179,7 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
              "reason": "construction staging of the continuity not in the description (ADR-082)"},
             {"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
              "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"}]
-    parts, loads, imp, ept = [], {}, {}, []
+    parts, loads, imp, ept, Ts = [], {}, {}, [], []
     add = lambda key, d: loads.setdefault(key, {}).update({n: loads[key].get(n, 0) + f for n, f in d.items()})
     sdl_used = set()
     for k, (doc, geo, S, sup) in enumerate(spans):
@@ -196,6 +197,7 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
                 add(cid, _remap_loads(J, k, v["loads"]))
         prov += list(H.get("provisional") or [])
         T = thermal_cases(doc, geo, S, sup, allow_proposed=allow_proposed)
+        Ts.append(T)
         for cid, v in T["cases"].items():
             imp.setdefault(cid, {}).update(_remap_imposed(J, k, v["imposed"]))
         prov += list(T.get("provisional") or [])
@@ -237,7 +239,7 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
         if p not in dedup:
             dedup.append(p)
     return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc, "provisional": dedup,
-            "cases": {"traffic": Tr}, "response_set": RS}
+            "cases": {"traffic": Tr, "thermal": Ts[0], "thermal_spans": Ts}, "response_set": RS}
 
 
 def combined_actions(spans, J, std, allow_proposed=False, options=None, on=None, **kw):

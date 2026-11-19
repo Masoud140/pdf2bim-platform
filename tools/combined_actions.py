@@ -2,6 +2,7 @@
 """Combined-action schedule (AS 5100.2 ULS / SLS envelopes) of a bridge description on the integrated model (P3c).
 
     python3 tools/combined_actions.py projects/BR13A/BR13A.bridge.0.2.json --allow-proposed --out projects/BR13A/model/BR13A.combined_actions.md
+    python3 tools/combined_actions.py S1.bridge.0.2.json S2.bridge.0.2.json --allow-proposed --out ...   # continuous spans (ADR-082)
 
 Writes the schedule (.md) and the full data (.json): bearings (v, tr, lon), piles (|Ml|, |Mt|, N), girders (sagging /
 hogging M, |V|, |T| with chainage) and sills (My, Mz, |Vz|, |Vy|, |T| with the position along the sill), each with the
@@ -14,7 +15,7 @@ sys.path.insert(0, ROOT)
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("description"); ap.add_argument("--allow-proposed", action="store_true"); ap.add_argument("--out", required=True)
+    ap.add_argument("description", nargs="+", help="one description, or one per span in order (spans joined continuous, ADR-082)"); ap.add_argument("--allow-proposed", action="store_true"); ap.add_argument("--out", required=True)
     a = ap.parse_args()
     from pdf2bim.geometry.bridge import build_geometry
     from pdf2bim.sections.girder import build_sections
@@ -22,12 +23,21 @@ def main():
     from pdf2bim.model.combinations import combined_actions, schedule, concurrent_schedule, pile_eq_resultants
     from standards.accessor import Standards
     std = Standards()
-    raw = open(a.description, "rb").read()
-    doc = json.loads(raw)
-    geo = build_geometry(doc, allow_proposed=a.allow_proposed)
-    S = build_sections(doc, geo, allow_proposed=a.allow_proposed)
-    M = build_integrated(doc, geo, S, std, allow_proposed=a.allow_proposed)
-    CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
+    spans = []
+    for f in a.description:
+        raw_ = open(f, "rb").read()
+        d = json.loads(raw_)
+        g = build_geometry(d, allow_proposed=a.allow_proposed)
+        S = build_sections(d, g, allow_proposed=a.allow_proposed)
+        spans.append((d, g, S, build_integrated(d, g, S, std, allow_proposed=a.allow_proposed), raw_))
+    descs, a.description = a.description, a.description[0]
+    doc, geo, S, M, raw = spans[0]
+    if len(spans) == 1:
+        CA = combined_actions(doc, geo, S, M, std, allow_proposed=a.allow_proposed)
+    else:
+        from pdf2bim.model import continuous
+        M = continuous.join([x[3] for x in spans])
+        CA = continuous.combined_actions([x[:4] for x in spans], M, std, allow_proposed=a.allow_proposed)
     Z = schedule(CA)
     ZC = concurrent_schedule(CA, "ULS")
     PR = pile_eq_resultants(CA, "ULS")
@@ -36,7 +46,8 @@ def main():
         dirty = bool(subprocess.run(["git", "status", "--porcelain", "pdf2bim", "standards"], cwd=ROOT, capture_output=True, text=True).stdout.strip())
     except Exception:
         commit, dirty = None, None
-    run = {"description": os.path.relpath(a.description, ROOT), "description_sha256": hashlib.sha256(raw).hexdigest(), "engine_commit": commit,
+    run = {"description": os.path.relpath(a.description, ROOT), "description_sha256": hashlib.sha256(raw).hexdigest(),
+           "continuous_spans": [{"description": os.path.relpath(f, ROOT), "sha256": hashlib.sha256(x[4]).hexdigest()} for f, x in zip(descs, spans)] if len(spans) > 1 else None, "engine_commit": commit,
            "engine_uncommitted_changes": dirty, "allow_proposed": a.allow_proposed, "options": CA["options"], "on": CA["on"],
            "rows": {"ULS": sum(r["ls"] == "ULS" for r in CA["rows"]), "SLS": sum(r["ls"] == "SLS" for r in CA["rows"])},
            "standards_status": CA["standards_status"], "run_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")}
@@ -45,6 +56,8 @@ def main():
          "**INDICATIVE. Not design-approved.** Load factors and combination constants: code-extracted-UNVERIFIED standards entries. "
          f"Load-case inputs: Assumed / Standard-verify / Model values of the description; model {'PROVISIONAL (proposed decisions used)' if a.allow_proposed else 'from accepted values'}. "
          "Values only: no capacity check. Units kN, kN·m, m.", "",
+         *([f"**Continuous spans (ADR-082):** {' + '.join(f'`{x}`' for x in descs)} joined over the shared supports; self weight on the simply supported spans, "
+            "later loads continuous (staging provisional); bearings prefixed by span (S1:, S2:…).", ""] if len(spans) > 1 else []),
          f"Run: `{run['description']}` sha256 {run['description_sha256'][:16]}…, engine `{commit}`{' (+ uncommitted changes)' if dirty else ''}, "
          f"{run['rows']['ULS']} ULS + {run['rows']['SLS']} SLS rows; actions {', '.join(CA['on'])}.", "",
          "Not combined (no analysed case): " + ("; ".join(f"{k} — {w}" for k, w in CA["not_combined"]) or "none") + ".", "",
@@ -95,8 +108,8 @@ def main():
           "Upper = the larger; compare with the √ of the full separate envelopes (the earlier approximation).", "",
           "| Pile | earthquake ellipse | row | element / end | other rows √ bound | **upper** | √ full envelopes | upper / √ full |", "|---|---|---|---|---|---|---|---|"]
     for pid, d in sorted(PR.items()):
-        e = d["ellipse"]
-        L.append(f"| {pid} | {f0(e['resultant'])} | {e['row']} | {e['element']} / {e['end']} | {f0(d['non_eq_bound'])} | **{f0(d['resultant_upper'])}** | {f0(d['bound'])} | {d['resultant_upper'] / d['bound']:.2f} |")
+        e = d["ellipse"] or {"resultant": None, "row": "— (no earthquake case)", "element": "—", "end": "—"}   # continuous runs: earthquake not combined
+        L.append(f"| {pid} | {'—' if e['resultant'] is None else f0(e['resultant'])} | {e['row']} | {e['element']} / {e['end']} | {f0(d['non_eq_bound'])} | **{f0(d['resultant_upper'])}** | {f0(d['bound'])} | {d['resultant_upper'] / d['bound']:.2f} |")
     L += ["", "### Sills", "", "| Support | My max | Vz | Mz | T | row | My min | Vz | Mz | T | row |", "|---|---|---|---|---|---|---|---|---|---|---|"]
     for sid, d in sorted(ZC["sills"].items()):
         a_, b_ = d["My_max"], d["My_min"]

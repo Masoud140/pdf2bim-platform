@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Continuous spans, stage 3 (ADR-082)
+- `combined_actions` / `girder_checks` tools accept one description per span and run the joined model; girder summary shows hogging utilisation; SB41 WB continuous comparison report.
+
 ## 2026-11-19 — Continuous spans, stage 1 (ADR-082)
 - `pdf2bim/model/continuous.py` joins per-span models into one (shared pier nodes, members and bearings merged; optional ties across two bearing rows). Span results (before continuity) carried onto the joined model; combined actions (ULS / SLS envelopes) on the joined model with self weight staged simply supported. Not yet used by the chain.
 
