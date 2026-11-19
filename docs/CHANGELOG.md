@@ -2,6 +2,8 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — HLP central-gap variants on continuous bridges (ADR-082 stage 7)
+
 ## 2026-11-19 — App: continuous bridges (ADR-082 stage 6)
 - A span project listing its bridge's spans (`custom.continuous_spans`) runs combined actions and girder checks on the joined model; MIDAS export works without a documented base point (true survey coordinates).
 

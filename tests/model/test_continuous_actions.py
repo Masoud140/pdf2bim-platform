@@ -64,6 +64,18 @@ U = CA["envelopes"]["ULS"]
 t("ULS envelope: 41B-S1-09 sags and hogs (M max > 0 > M min)", max(U["max"][gm]) > 0 > min(U["min"][gm]), f"{max(U['max'][gm]):.0f} / {min(U['min'][gm]):.0f}")
 mv = [k for k in ("M1600", "S1600") if k in P]
 t("moving loads over the joined deck give pier hogging", mv and min(P[mv[0]]["min"][gm]) < 0)
+from pdf2bim.model.traffic import Influence, platform_effect
+hv = std.get("AS5100.2:traffic:HLP400").value
+sel = [i for i, n in enumerate(N) if n[0] == "G" and n[2][0] == "M"]
+Tr = CA["primitives"]["cases"]["traffic"]
+oc = Tr["carriageway_centre"]
+inf = Influence(J, responses=RS)
+import math as _m
+grid = inf.c0 + 1.0 * np.arange(int(_m.floor((inf.c1 - inf.c0) / 1.0)) + 1)
+one = platform_effect(inf, grid, 1.0, dict(hv, split=False), oc)
+two = platform_effect(inf, grid, 1.0, dict(hv, split=True), oc)
+t("HLP on the joined deck: central-gap variants give at least the one-train hogging and more at some girder response",
+  np.all(two[1][sel] <= one[1][sel] + 1e-9) and np.any(two[1][sel] < one[1][sel] - 1.0), f"{min(two[1][sel]):.0f} vs {min(one[1][sel]):.0f}")
 from pdf2bim.design.girder_design import checks_along
 pier = {}
 for k, gid in ((0, "41B-S1-09"), (1, "41B-S2-09"), (1, "41B-S2-01")):

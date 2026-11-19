@@ -199,8 +199,8 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     Per-span cases are generated on each span model and remapped onto J. Braking and centrifugal: the bridge force once
     (largest span value), spread over the whole deck. Earthquake: RSA on the joined model (masses lumped as ADR-046 with
     every span's SDLp; the span descriptions' loads.earthquake must agree).
-    Traffic: one envelope over the whole joined deck (lanes and carriageway of the first span's description; shortcut:
-    HLP central-gap variants not tried)."""
+    Traffic: one envelope over the whole joined deck (lanes and carriageway of the first span's description); HLP with
+    its central-gap variants, the bridge having more than two supports."""
     from .responses import ResponseSet
     from .loads import sdl_case
     from .horizontal import horizontal_cases
@@ -288,7 +288,11 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
         P["WZ_" + sx] = {"max": np.maximum(wc["WVU+"], wc["WVU-"]) * r, "min": np.minimum(wc["WVU+"], wc["WVU-"]) * r, "parts": [wc["WVU+"] * r, wc["WVU-"] * r]}
     src["WX"] = "WL+"; src["WY"] = "WT+ (+ WTV+ with traffic)"; src["WZ"] = "uplift WVU+ / WVU- envelope"
     doc0, geo0 = spans[0][0], spans[0][1]
-    Tr = traffic_envelope(doc0, geo0, J, std, allow_proposed=allow_proposed, inf=Influence(J, responses=RS), **(traffic_kw or {}))
+    sups_all = list(geo0["supports"])
+    for _, g_, *_r in spans[1:]:
+        sups_all += [x for x in g_["supports"] if x["id"] not in {y["id"] for y in sups_all}]
+    # every span's supports: > 2 makes the HLP central-gap variants run (continuous bridge, traffic.py _platform_axles)
+    Tr = traffic_envelope(doc0, dict(geo0, supports=sups_all), J, std, allow_proposed=allow_proposed, inf=Influence(J, responses=RS), **(traffic_kw or {}))
     for mn, e in Tr["env"].items():
         P[mn] = {"max": e["max"], "min": e["min"], "state": (Tr, mn)}; src[mn] = f"{mn} moving-load envelope over the joined deck"
     prov += list(Tr.get("provisional") or [])
