@@ -6079,11 +6079,59 @@
     "on": true
    },
    "source": {
-    "doc": "RPT-410001",
-    "view": "§2 road traffic loads",
-    "text": "HLP400 ... within ±1.0 m of the centreline of two marked lanes or the carriageway (SB41 WB)"
+    "doc": "DRG-0101",
+    "view": "design criteria / heavy load platform loading",
+    "text": "HEAVY LOAD PLATFORM LOADING: HLP 400 ... POSITIONED AS SHOWN ON THE DIAGRAM BELOW"
    },
-   "note": "the platform places HLP400 by its own rule; the two-marked-lanes position is not modelled"
+   "note": "positions from the 0101 diagram: loads.hlp_positions"
+  },
+  {
+   "path": "loads.hlp_positions.rows[0]",
+   "tag": "Calculated",
+   "cells": {
+    "name": "left half centre",
+    "offset": -13.319,
+    "range": 1.0
+   },
+   "derivation": {
+    "formula": "0101 diagram SB41 WB: HLP400 centreline at the middle of each half ('=' | '=' from the barrier faces to the dash-dot line) and on the dash-dot line, each 1000 | 1000 ('DIMENSIONS SHOWN REPRESENT EXTREMES OF CENTRELINE OF HLP VEHICLE WHICH INCLUDE POSITIONING ERRORS'); dash-dot = W1 / W2 break (0801 table 1) at the widest station: 0801 table 1 W1 / W2 (radial): the widest of the stations CH 658.5 .. 693.5 in span 1 (CH 658.5: W1 8.525, W2 9.588); 0800 section 1: 400 | W2 | W1 | MC90 | 1000 | 400. The deck tapers along the span (W1 + W2 15.062 .. 18.113): the platform deck is constant width (conservative for deck load)",
+    "inputs": [
+     "deck.carriageway_left",
+     "deck.carriageway_right"
+    ]
+   }
+  },
+  {
+   "path": "loads.hlp_positions.rows[1]",
+   "tag": "Calculated",
+   "cells": {
+    "name": "W1 / W2 break (dash-dot)",
+    "offset": -8.525,
+    "range": 1.0
+   },
+   "derivation": {
+    "formula": "0101 diagram SB41 WB: HLP400 centreline at the middle of each half ('=' | '=' from the barrier faces to the dash-dot line) and on the dash-dot line, each 1000 | 1000 ('DIMENSIONS SHOWN REPRESENT EXTREMES OF CENTRELINE OF HLP VEHICLE WHICH INCLUDE POSITIONING ERRORS'); dash-dot = W1 / W2 break (0801 table 1) at the widest station: 0801 table 1 W1 / W2 (radial): the widest of the stations CH 658.5 .. 693.5 in span 1 (CH 658.5: W1 8.525, W2 9.588); 0800 section 1: 400 | W2 | W1 | MC90 | 1000 | 400. The deck tapers along the span (W1 + W2 15.062 .. 18.113): the platform deck is constant width (conservative for deck load)",
+    "inputs": [
+     "deck.carriageway_left",
+     "deck.carriageway_right"
+    ]
+   }
+  },
+  {
+   "path": "loads.hlp_positions.rows[2]",
+   "tag": "Calculated",
+   "cells": {
+    "name": "right half centre",
+    "offset": -3.763,
+    "range": 1.0
+   },
+   "derivation": {
+    "formula": "0101 diagram SB41 WB: HLP400 centreline at the middle of each half ('=' | '=' from the barrier faces to the dash-dot line) and on the dash-dot line, each 1000 | 1000 ('DIMENSIONS SHOWN REPRESENT EXTREMES OF CENTRELINE OF HLP VEHICLE WHICH INCLUDE POSITIONING ERRORS'); dash-dot = W1 / W2 break (0801 table 1) at the widest station: 0801 table 1 W1 / W2 (radial): the widest of the stations CH 658.5 .. 693.5 in span 1 (CH 658.5: W1 8.525, W2 9.588); 0800 section 1: 400 | W2 | W1 | MC90 | 1000 | 400. The deck tapers along the span (W1 + W2 15.062 .. 18.113): the platform deck is constant width (conservative for deck load)",
+    "inputs": [
+     "deck.carriageway_left",
+     "deck.carriageway_right"
+    ]
+   }
   },
   {
    "path": "loads.traffic_models.rows[3]",

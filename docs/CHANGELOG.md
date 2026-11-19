@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — HLP from the cover sheet (ADR-084)
+- `loads.hlp_positions`; SB41 WB three cover-sheet positions; BR13A HLP400 added (D-49, proposed); other bridges checked.
+
 ## 2026-11-20 — HLP central-gap variants on continuous bridges (ADR-082 stage 7)
 
 ## 2026-11-19 — App: continuous bridges (ADR-082 stage 6)

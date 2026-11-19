@@ -147,14 +147,14 @@ Ts = traffic_envelope(doc, geo, M, std, allow_proposed=True, layout="sweep")
 Tl = traffic_envelope(doc, geo, M, Standards(), allow_proposed=True, layout="left", inf=Ts["influence"])
 t("BR13A: 2 lanes of 3.2 m on the 8.4 m carriageway; sweep has 21 positions (0.1 m)", Ts["lanes"] == 2 and len(Ts["layouts"]) == 21, f"{Ts['lanes']}, {len(Ts['layouts'])}")
 t("BR13A: the sweep envelope contains the left-packed layout (every response, both signs)",
-  all((Ts["env"][mn]["max"] >= Tl["env"][mn]["max"] - 1e-9).all() and (Ts["env"][mn]["min"] <= Tl["env"][mn]["min"] + 1e-9).all() for mn in Ts["models"]))
+  all((Ts["env"][mn]["max"] >= Tl["env"][mn]["max"] - 1e-9).all() and (Ts["env"][mn]["min"] <= Tl["env"][mn]["min"] + 1e-9).all() for mn in Ts["env"]))
 t("BR13A: results carry the UNVERIFIED standards label and list the traffic entries used",
   Ts["standards_status"].startswith("UNVERIFIED") and {"AS5100.2:traffic:M1600", "AS5100.2:traffic:lane_width", "AS5100.2:traffic:accompanying_lane_factors"} <= {k for k, _ in Ts["standards_used"]})
 Rb = [i for i, r in enumerate(Ts["responses"]) if r["t"] == "B"]
 t("BR13A: bearing traffic reactions are compressive maxima (max > 0) and M1600 > S1600 at every bearing",
   all(Ts["env"]["M1600"]["max"][i] > Ts["env"]["S1600"]["max"][i] > 0 for i in Rb))
-t("BR13A: the result carries the model's provisional list (empty: D-39 ... D-41 accepted, ADR-040)",
-  isinstance(Ts["provisional"], list) and not [p for p in Ts["provisional"] if p.get("decision")])
+t("BR13A: the result carries the model's provisional list (D-39 ... D-41 accepted, ADR-040; only D-49 HLP400 from the cover sheet pending)",
+  isinstance(Ts["provisional"], list) and {p.get("decision") for p in Ts["provisional"] if p.get("decision")} <= {"D-49"}, str([p.get("decision") for p in Ts["provisional"]]))
 d2 = copy.deepcopy(doc)
 for r in d2["loads"]["traffic_models"]["rows"]:
     r["cells"]["on"] = False

@@ -513,8 +513,15 @@ def build(span):
 
     put("loads.traffic_models.rows[0]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "M1600", "on": True})
     put("loads.traffic_models.rows[1]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "S1600", "on": True})
-    put("loads.traffic_models.rows[2]", sheet="RPT", view="§2 road traffic loads", text="HLP400 ... within ±1.0 m of the centreline of two marked lanes or the carriageway (SB41 WB)",
-        cells={"model": "HLP400", "on": True}, note="the platform places HLP400 by its own rule; the two-marked-lanes position is not modelled")
+    put("loads.traffic_models.rows[2]", sheet="0101", view="design criteria / heavy load platform loading", text="HEAVY LOAD PLATFORM LOADING: HLP 400 ... POSITIONED AS SHOWN ON THE DIAGRAM BELOW",
+        cells={"model": "HLP400", "on": True}, note="positions from the 0101 diagram: loads.hlp_positions")
+    # 0101 cover diagram, SB41 WB: three centreline positions, each +-1000 (positioning errors): the middle of the left half, the
+    # dash-dot line between the halves (the W1 / W2 break, 0801) and the middle of the right half ('=' dimensions barrier face .. dash-dot .. barrier face)
+    HLPTXT = ("0101 diagram SB41 WB: HLP400 centreline at the middle of each half ('=' | '=' from the barrier faces to the dash-dot line) and on the dash-dot line, "
+              "each 1000 | 1000 ('DIMENSIONS SHOWN REPRESENT EXTREMES OF CENTRELINE OF HLP VEHICLE WHICH INCLUDE POSITIONING ERRORS'); dash-dot = W1 / W2 break (0801 table 1) at the widest station: " + WTXT)
+    for i, (nm, off) in enumerate((("left half centre", -w[1] - w[2] / 2), ("W1 / W2 break (dash-dot)", -w[1]), ("right half centre", (-w[1] + CR_) / 2))):
+        put(f"loads.hlp_positions.rows[{i}]", tag="Calculated", cells={"name": nm, "offset": round(off, 3), "range": 1.0}, formula=HLPTXT,
+            inputs=["deck.carriageway_left", "deck.carriageway_right"])
     put("loads.traffic_models.rows[3]", sheet="RPT", view="§2 road traffic loads", text="accompanying lane factor 1.0 for HLP400 with one half of SM1600",
         cells={"model": "HLP400_with_half_M1600", "on": True})
     put("loads.design_speed", 10, unit="km/h", sheet="0101", view="HLP400 loading", text="HLP400 at 10 km/h", note="road design speed not read (query)")

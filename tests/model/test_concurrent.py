@@ -137,7 +137,7 @@ TB = traffic_envelope(doc, geo, M, std, allow_proposed=True, inf=Influence(M, re
 rng = np.random.default_rng(7)
 sel = sorted(set(rng.choice(len(RS.names), 12, replace=False).tolist()) | {RS.index[("BL", sorted(M["bearings"])[0], "v")]})
 bad, outside, eq = 0.0, 0.0, 0.0
-for mn_ in TB["models"]:
+for mn_ in TB["env"]:
     E = TB["env"][mn_]
     for r in sel:
         for sg, k in ((1, "max"), (-1, "min")):
