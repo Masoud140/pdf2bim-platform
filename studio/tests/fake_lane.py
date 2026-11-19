@@ -1,7 +1,8 @@
 # Python side of the lane_effect port check: the platform's own function on a synthetic influence object.
 import json, math, sys, numpy as np
 sys.path.insert(0, ".")
-from pdf2bim.model.traffic import lane_effect, combine_lanes
+from pdf2bim.model.traffic import lane_effect, combine_lanes, platform_effect
+from standards.accessor import Standards
 class F:
     def __init__(s): s.R = list(range(5))
     def line(s, o, grid): return np.array([[math.sin(0.3 * x * (r + 1) + o * (r + 2)) * math.exp(-0.01 * x) for r in range(5)] for x in grid])
@@ -9,4 +10,10 @@ veh = {"wheel_kN": 60.0, "track_m": 2.0, "axle_spacing_m": 1.25, "gap_12_m": 3.7
 grid = [i * 0.25 for i in range(160)]
 e = [lane_effect(F(), grid, 0.25, veh, a, 3.2) for a in (-5.0, -1.8, 1.4)]
 c = combine_lanes(e, [1.0, 0.8, 0.4])
-print(json.dumps({"lanes": [[list(p), list(n)] for p, n in e], "comb": [list(c[0]), list(c[1])]}))
+std = Standards()
+hv = dict(std.get("AS5100.2:traffic:HLP400").value, split=False)
+h0 = platform_effect(F(), np.array(grid), 0.25, hv, 0.3)                                   # platform alone
+acc = {"veh": std.get("AS5100.2:traffic:M1600").value, "factor": 0.5, "lf": [0.8, 0.4], "cl": -6.0, "cr": 6.0}
+h1 = platform_effect(F(), np.array(grid), 0.25, hv, 0.3, acc, -6.0, 6.0, 3.2, {"pattern": True, "lateral": True, "dla_on_udl": False})
+print(json.dumps({"lanes": [[list(p), list(n)] for p, n in e], "comb": [list(c[0]), list(c[1])], "hlp": [list(h0[0]), list(h0[1])], "hlp_half": [list(h1[0]), list(h1[1])],
+                  "hlp_veh": {k: hv[k] for k in ("axle_rows", "axle_line_spacing_m", "axle_line_kN", "wheel_offsets_m", "dla", "lateral_range_m")}}))

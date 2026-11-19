@@ -9,6 +9,8 @@ var CORE = (function () {
   var STD = {
     M1600: { wheel_kN: 60, track_m: 2.0, axle_spacing_m: 1.25, gap_12_m: 3.75, gap_23_min_m: 6.25, gap_34_m: 5.0, udl_kN_per_m: 6.0, dla: 0.3 },
     S1600: { wheel_kN: 40, track_m: 2.0, axle_spacing_m: 1.25, gap_12_m: 3.75, gap_23_min_m: 6.25, gap_34_m: 5.0, udl_kN_per_m: 24.0, dla: 0.0 },
+    /* heavy load platform (AS 5100.2 entry AS5100.2:traffic:HLP400, load factors AS5100.2:load_factor:HLP; the platform engine's pdf2bim/model/traffic.py) */
+    HLP400: { axle_rows: 16, axle_line_spacing_m: 1.8, axle_line_kN: 250.0, wheel_offsets_m: [-2.0, -1.1, 1.1, 2.0], dla: 0.1, lateral_range_m: 1.0, overall_width_m: 4.5, uls: 1.5, sls: 1.0 },
     ALF: [1.0, 0.8, 0.4], laneW: 3.2,
     status: 'code-extracted-unverified (platform standards inventory, AS 5100.2)'
   };
@@ -22,7 +24,7 @@ var CORE = (function () {
     fcG: 50, fcT: 45, fcD: 40, db: 15.2, jack: 0.75,
     stage: { tau: 7, pour: 60, dhard: 7, sidlA: 100, final: 3650 }, stageLoads: [],
     fitD: 16, fitLegs: 2, fitS: 125, fsyf: 500, dg: 20, Jf: 1.0, bars: 'N16 @ 150 top and bottom of deck',
-    vehicles: { M1600: true, S1600: true }, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
+    vehicles: { M1600: true, S1600: true }, hlpHalf: true, dlaUDL: false, laneMode: 'sweep', laneOffs: [],
     windVu: 1.0, windVs: 0.5, windT35: 3.2, dTtop: 20, dTdepth: 300, dTneg: -10, dTnegD: 300, alphaT: 11, dTuni: 25, gbars: '',
     piles: { n: 6, rows: 1, s: 2.4, D: 900, fc: 40, cover: 75, nBar: 16, dBar: 28, Lf: 6.0, H_brake: 0, ecc: 0.3, gl: 1.5, L: 18 },
     eq: { kp: 1.0, Z: 0.08, site: 'Ce', Rf: 1.0 },
@@ -61,7 +63,7 @@ var CORE = (function () {
     girder: 'section', slab: 'section', gap: 'section',
     fcG: 'material', fcT: 'material', fcD: 'material', gConc: 'loads', gGirder: 'loads',
     nEl: 'mesh', nTrans: 'mesh', Jf: 'mesh', sweep: 'loads',
-    barrierLoad: 'loads', stageLoads: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads', windVu: 'loads', windVs: 'loads', dTtop: 'thermal', dTdepth: 'thermal', dTneg: 'thermal', dTnegD: 'thermal', windT35: 'combos', alphaT: 'thermal', dTuni: 'thermal',
+    barrierLoad: 'loads', stageLoads: 'loads', surf: 'loads', gSurf: 'loads', utilities: 'loads', constLL: 'loads', vehicles: 'loads', hlpHalf: 'loads', dlaUDL: 'loads', cases: 'loads', laneMode: 'loads', laneOffs: 'loads', windVu: 'loads', windVs: 'loads', dTtop: 'thermal', dTdepth: 'thermal', dTneg: 'thermal', dTnegD: 'thermal', windT35: 'combos', alphaT: 'thermal', dTuni: 'thermal',
     combos: 'combos',
     strands: 'prestress', gStr: 'prestress', db: 'prestress', jack: 'prestress', stage: 'prestress',
     fitD: 'detailing', fitLegs: 'detailing', fitS: 'detailing', fsyf: 'detailing', dg: 'detailing', gbars: 'detailing',
@@ -401,6 +403,73 @@ var CORE = (function () {
     });
     return { max: mx, min: mn, layouts: lays.length, lanes: lays[0].length, lays: lays };
   }
+  /* ---- port of traffic.py _platform_scan / platform_effect: heavy load platform (simply supported spans: no central gap) ---- */
+  function hlpShifts(veh) { var R = veh.lateral_range_m, n = Math.round(2 * R / 0.1), o = []; for (var i = 0; i <= n; i++) o.push(Math.round((-R + 0.1 * i) * 1e10) / 1e10); return o; }
+  function accompanyLanes(cl, cr, W, c, occ) {   /* standard lanes outside the strip the platform occupies, packed outward from it */
+    var out = [], a = c - occ / 2 - W;
+    while (a >= cl - 1e-9) { out.push(a); a -= W; }
+    a = c + occ / 2;
+    while (a + W <= cr + 1e-9) { out.push(a); a += W; }
+    return out;
+  }
+  function hlpScan(inf, grid, dc, veh, oc, dv) {   /* platform alone at one lateral shift: [max, min] per response, zero-clipped */
+    var nr = inf.nr, N = grid.length, nw = veh.wheel_offsets_m.length, amp = veh.axle_line_kN * (1 + veh.dla) / nw, offs = [], i, r, k;
+    for (k = 0; k < veh.axle_rows; k++) offs.push(Math.round(k * veh.axle_line_spacing_m / dc));
+    var PAD = offs[offs.length - 1] + 2, ln = N + 2 * PAD, Z = new Float64Array(ln * nr), vp = new Float64Array(nr), vn = new Float64Array(nr), E = new Float64Array(nr);
+    veh.wheel_offsets_m.forEach(function (w) { var L = inf.line(oc + dv + w, grid); for (i = 0; i < N; i++) { var row = L[i], o = (PAD + i) * nr; for (r = 0; r < nr; r++) Z[o + r] += amp * row[r]; } });
+    for (var j = 0; j < ln; j++) {   /* the platform's first axle line at grid step j - PAD (also partly off the deck) */
+      E.fill(0);
+      for (k = 0; k < offs.length; k++) { var q = j + offs[k]; if (q >= ln) break; var o2 = q * nr; for (r = 0; r < nr; r++) E[r] += Z[o2 + r]; }
+      for (r = 0; r < nr; r++) { if (E[r] > vp[r]) vp[r] = E[r]; if (E[r] < vn[r]) vn[r] = E[r]; }
+    }
+    return [vp, vn];
+  }
+  function hlpEffect(inf, grid, dc, veh, oc, acc, cl, cr, W, dlaUDL) {   /* acc: {veh: M1600, factor: 0.5}: half M1600 in the unobstructed lanes, ranked with ALF[1:] */
+    var nr = inf.nr, mx = new Float64Array(nr), mn = new Float64Array(nr), memo = {}, occ = Math.min(2 * W, cr - cl);
+    hlpShifts(veh).forEach(function (dv) {
+      var pq = hlpScan(inf, grid, dc, veh, oc, dv), p = pq[0], q = pq[1], r;
+      if (acc) {
+        var eff = accompanyLanes(cl, cr, W, oc + dv, occ).map(function (a) { var key = Math.round(a * 1000); if (!memo[key]) { var e = laneEffect(inf, grid, dc, acc.veh, a, W, dlaUDL); memo[key] = [e[0].map(function (v) { return acc.factor * v; }), e[1].map(function (v) { return acc.factor * v; })]; } return memo[key]; });
+        if (eff.length) { var c = combineLanes(eff, STD.ALF.slice(1)); for (r = 0; r < nr; r++) { p[r] += c[0][r]; q[r] += c[1][r]; } }
+      }
+      for (r = 0; r < nr; r++) { if (p[r] > mx[r]) mx[r] = p[r]; if (q[r] < mn[r]) mn[r] = q[r]; }
+    });
+    return [mx, mn];
+  }
+  function hlpEnvelope(m, g, IM, veh, opt, RS) {   /* per span, as trafficEnvelope: one platform about the carriageway centre */
+    opt = opt || {}; var dc = 0.25, nrAll = IM[0].length, W = STD.laneW, oc = (g.cwL + g.cwR) / 2, mx = new Float64Array(nrAll), mn = new Float64Array(nrAll);
+    var acc = opt.half ? { veh: STD.M1600, factor: 0.5 } : null;
+    g.spans.forEach(function (sp, k) {
+      var cols = []; RS.R.forEach(function (r, q) { if (r.k === k) cols.push(q); });
+      var e = hlpEffect(new Inf(m, g, IM, cols, k), spanGrid(g, sp, dc), dc, veh, oc, acc, g.cwL, g.cwR, W, opt.dlaUDL);
+      cols.forEach(function (q, r) { mx[q] = e[0][r]; mn[q] = e[1][r]; });
+    });
+    return { max: mx, min: mn, oc: oc, half: !!acc, lays: [] };
+  }
+  function hlpState(m, g, IM, RS, veh, opt, key, sign) {   /* the platform position (and accompanying half M1600 lanes) behind env[key] */
+    var q = RS.idx[key], k = RS.R[q].k, dc = 0.25, W = STD.laneW, grid = spanGrid(g, g.spans[k], dc), inf = new Inf(m, g, IM, [q], k), oc = (g.cwL + g.cwR) / 2;
+    var nw = veh.wheel_offsets_m.length, amp = veh.axle_line_kN * (1 + veh.dla) / nw, N = grid.length, offs = [], best = null, occ = Math.min(2 * W, g.cwR - g.cwL), i;
+    for (i = 0; i < veh.axle_rows; i++) offs.push(Math.round(i * veh.axle_line_spacing_m / dc));
+    var PAD = offs[offs.length - 1] + 2;
+    hlpShifts(veh).forEach(function (dv) {
+      var Z = new Float64Array(N + 2 * PAD);
+      veh.wheel_offsets_m.forEach(function (w) { var L = inf.line(oc + dv + w, grid); for (i = 0; i < N; i++) Z[PAD + i] += amp * L[i][0]; });
+      var bv = 0, bj = null;
+      for (var j = 0; j < N + 2 * PAD; j++) { var e = 0; offs.forEach(function (o) { if (j + o < N + 2 * PAD) e += Z[j + o]; }); if (sign * e > sign * bv) { bv = e; bj = j; } }
+      var lanes = [], val = bv, loads = [];
+      if (bj !== null) offs.forEach(function (o) { var g_ = bj + o - PAD; if (g_ >= 0 && g_ < N) veh.wheel_offsets_m.forEach(function (w) { loads.push([grid[g_], oc + dv + w, amp]); }); });
+      if (opt.half) {
+        var eff = accompanyLanes(g.cwL, g.cwR, W, oc + dv, occ).map(function (a) { var e = laneState(inf, grid, dc, STD.M1600, a, W, sign, opt.dlaUDL); return { a: a, e: e }; });
+        eff.sort(function (x, y) { return sign * y.e.v - sign * x.e.v; }).forEach(function (o, rank) {
+          var fk = 0.5 * STD.ALF.slice(1)[Math.min(rank, STD.ALF.length - 2)];
+          if (sign * o.e.v > 0) { val += fk * o.e.v; o.e.loads.forEach(function (L) { loads.push([L[0], L[1], L[2] * fk]); }); lanes.push({ a: o.a, f: fk, v: o.e.v, udl: o.e.udl, axles: o.e.axles, dv: o.e.dv }); }
+          else lanes.push({ a: o.a, f: 0, v: o.e.v, udl: [], axles: [], dv: 0 });
+        });
+      }
+      if (!best || sign * val > sign * best.value) best = { value: val, loads: loads.filter(function (L) { return weights(m, g, L[0], L[1], k).length; }), layout: lanes.map(function (l) { return l.a; }), lanes: lanes, grid: grid, hlp: { oc: oc, dv: dv, start: bj === null ? null : grid[0] + (bj - PAD) * dc, platform: bv } };
+    });
+    return best;
+  }
   /* ---- port of traffic.py _lane_state / governing_state: the load position behind one envelope value ---- */
   function laneState(inf, grid, dc, veh, a, W, sign, dlaUDL) {   /* inf holds ONE response; returns {v, loads: [[x, y, P kN]]} */
     var N = grid.length, ns = 8, fu = (dlaUDL ? 1 + veh.dla : 1) * veh.udl_kN_per_m * dc / ns, offs = [], f = new Float64Array(N), i, s;
@@ -555,7 +624,7 @@ var CORE = (function () {
     { id: 'S1600', name: 'S1600 stationary traffic', cls: 'Traffic', act: 'S1600', on: true },
     { id: 'WVu', name: 'Wind, vertical on the deck (ultimate)', cls: 'Wind', act: 'W', on: false, note: 'Vertical wind pressure on the deck plan, upward or downward (enveloped). Transverse wind is not modelled in this vertical-load grillage.' },
     { id: 'WVs', name: 'Wind, vertical on the deck (serviceability)', cls: 'Wind', act: 'W', on: false },
-    { id: 'HLP', name: 'HLP 320 / 400 heavy load platform', cls: 'Traffic', act: 'HLP', on: false, proposed: true, note: 'Platform app only: needs the platform vehicle, its lane rules and co-existing half M1600.' },
+    { id: 'HLP', name: 'HLP400 heavy load platform', cls: 'Traffic', act: 'HLP', on: false, note: 'One HLP400 (16 axle lines × 250 kN, 4 wheels each, DLA 0.1) about the carriageway centre, shifted ±1.0 m; with half M1600 in the unobstructed lanes if chosen on the Moving loads page. ULS factor 1.5, no braking (platform engine rule).' },
     { id: 'PED', name: 'Pedestrian load', cls: 'Traffic', act: 'PED', on: false, proposed: true, note: 'Platform app only: no footpath in the Studio deck.' },
     { id: 'BRK', name: 'Braking force', cls: 'Horizontal', act: 'BRKR', on: true, note: 'Along the bridge, either direction, on each span; goes with the traffic models.' },
     { id: 'CEN', name: 'Centrifugal force', cls: 'Horizontal', act: 'CENR', on: false, note: 'Across the bridge, either direction, on each span; goes with the traffic models.' },
@@ -590,7 +659,8 @@ var CORE = (function () {
     var on = cases.filter(function (c) { return c.on && !c.proposed; }), tr = on.filter(function (c) { return c.cls === 'Traffic'; }), out = [];
     var perm = function (ls) { var f = {}; on.forEach(function (c) { if (c.cls === 'Permanent') f[c.id] = ls === 'ULS' ? 1.2 : 1.0; if (c.id === 'SDLs') f[c.id] = ls === 'ULS' ? 1.4 : 1.0; if (c.id === 'SDLp') f[c.id] = ls === 'ULS' ? 2.0 : 1.3; }); return f; };
     var has = function (id) { return on.some(function (c) { return c.id === id; }); };
-    tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls), tf = ls === 'ULS' ? 1.8 : 1.0, hz = []; f[t.id] = tf; ['BRK', 'CEN'].forEach(function (h) { if (has(h)) { f[h] = tf; hz.push(h === 'BRK' ? 'braking' : 'centrifugal'); } });   /* braking and centrifugal are traffic actions: same factor */
+    var TF = function (id, ls) { return id === 'HLP' ? (ls === 'ULS' ? STD.HLP400.uls : STD.HLP400.sls) : (ls === 'ULS' ? 1.8 : 1.0); }, HZ = function (id) { return id !== 'HLP'; };   /* HLP: own factor, no braking / centrifugal (platform engine) */
+    tr.forEach(function (t, i) { ['ULS', 'SLS'].forEach(function (ls) { var f = perm(ls), tf = TF(t.id, ls), hz = []; f[t.id] = tf; if (HZ(t.id)) ['BRK', 'CEN'].forEach(function (h) { if (has(h)) { f[h] = tf; hz.push(h === 'BRK' ? 'braking' : 'centrifugal'); } });   /* braking and centrifugal are traffic actions: same factor */
       if (ls === 'ULS') out.push({ id: ls + '-' + (i + 1), ls: ls, name: 'Permanent + ' + t.id + (hz.length ? ' + ' + hz.join(' + ') : ''), f: f }); }); });   /* SLS rows: lead-group generator below */
     if (on.some(function (c) { return c.id === 'C'; })) out.push({ id: 'ULS-C', ls: 'ULS', name: 'Construction (girder alone)', f: { G1: 1.2, G2: 1.2, C: 1.5 }, illustrative: true });
     var fp = {}; on.forEach(function (c) { if (c.cls === 'Permanent' || c.cls === 'Superimposed dead') fp[c.id] = 1.0; }); out.push({ id: 'SLS-P', ls: 'SLS', name: 'Permanent only', f: fp });
@@ -598,7 +668,7 @@ var CORE = (function () {
        companion factor k1 = 0.7 (one other) or k2 = 0.5 (two or more) (standards entry AS5100.2:combination:sls_companion, unverified).
        Groups: traffic (one model at a time, with braking / centrifugal), thermal (uniform + gradient), wind (serviceability pressures). */
     var K1 = 0.7, K2 = 0.5, grpS = [];
-    var trS = tr.map(function (t, i) { var f = {}; f[t.id] = 1; ['BRK', 'CEN'].forEach(function (h_) { if (has(h_)) f[h_] = 1; }); return { tag: String(i + 1), name: t.id, f: f }; });
+    var trS = tr.map(function (t, i) { var f = {}; f[t.id] = 1; if (HZ(t.id)) ['BRK', 'CEN'].forEach(function (h_) { if (has(h_)) f[h_] = 1; }); return { tag: String(i + 1), name: t.id, f: f }; });
     if (trS.length) grpS.push({ S: trS });
     /* thermal states: uniform temperature with ONE gradient at a time (positive 'T', negative 'Tn'), as therm_k / therm01 */
     var GR = [['TEMP', 'T', '+'], ['TEMPN', 'Tn', '−']].filter(function (q) { return has(q[0]); }), THS = GR.length ? GR.map(function (q) { var f = {}; if (has('TU')) f.TU = 1; f[q[0]] = 1; return { tag: q[1], name: 'temperature (' + q[2] + ' gradient)', f: f }; }) : (has('TU') ? [{ tag: 'T', name: 'temperature', f: { TU: 1 } }] : []);
@@ -629,7 +699,7 @@ var CORE = (function () {
     tr.forEach(function (t, i) {
       [null].concat(THS).forEach(function (th) { [null].concat(WW).forEach(function (w) {
         if (!th && !w) return;
-        var f = perm('ULS'), nm = ['1.8 × ' + t.id]; f[t.id] = 1.8; ['BRK', 'CEN'].forEach(function (h_) { if (has(h_)) f[h_] = 1.8; });
+        var tu = TF(t.id, 'ULS'), f = perm('ULS'), nm = [tu + ' × ' + t.id]; f[t.id] = tu; if (HZ(t.id)) ['BRK', 'CEN'].forEach(function (h_) { if (has(h_)) f[h_] = tu; });
         [th, w].forEach(function (s_) { if (s_) { Object.keys(s_.f).forEach(function (c) { f[c] = (f[c] || 0) + s_.f[c]; }); nm.push(s_.name); } });
         out.push({ id: 'ULS-' + (i + 1) + (th ? '+' + th.tag : '') + (w ? '+W' : ''), ls: 'ULS', name: 'Permanent + ' + nm.join(' + '), f: f });
       }); });
@@ -645,6 +715,7 @@ var CORE = (function () {
     'Girder and wet-deck weight and construction load act on the girder alone (non-composite), computed as a simply supported beam.',
     'Superimposed dead load and traffic act on the composite grillage. Barrier weight is applied at the deck edge as a line load plus its torque on the edge girder.',
     'Traffic: M1600 and S1600 moving-load envelopes by influence surfaces, lanes swept across the carriageway at 0.1 m, accompanying lane factors 1.0 / 0.8 / 0.4 (port of the platform engine).',
+    'HLP400 heavy load platform (when switched on): 16 axle lines at 1.8 m, 250 kN each on 4 wheels, DLA 0.1, about the carriageway centre and shifted ±1.0 m in 0.1 m steps, every position along the span (also partly off it); optionally with half M1600 in the unobstructed lanes (factors 0.8 / 0.4 of the remaining ranks); ULS factor 1.5, SLS 1.0, no braking (port of the platform engine, unverified).',
     'Torsion constant of the Super-T closed cell: Bredt thin-wall approximation. Slab strips: I = b t³/12, J = b t³/6.',
     'Prestress losses, camber and transfer stresses: AS 5100.5 time-dependent engine of the original dashboard (verified to 1e-9 against it).',
     'Section strength: AS 5100.5 strain-compatibility and general shear method engines of the original dashboard.',
@@ -653,7 +724,7 @@ var CORE = (function () {
 
   return { STD: STD, CASES: CASES, BASE: BASE, GROUPS: GROUPS, NODES: NODES, FIELD: FIELD, stamp: stamp, deep: deep, strandDefault: strandDefault,
     geometry: geometry, sections: sections, mesh: mesh, build: build, solve: solve, elForces: elForces, responses: responses, evalResponses: evalResponses,
-    influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
+    influence: influence, weights: weights, Inf: Inf, laneEffect: laneEffect, combineLanes: combineLanes, trafficEnvelope: trafficEnvelope, hlpEffect: hlpEffect, hlpEnvelope: hlpEnvelope, hlpState: hlpState, accompanyLanes: accompanyLanes, laneLayouts: laneLayouts, laneState: laneState, governingState: governingState, influenceLine: influenceLine,
     sdlLoads: sdlLoads, windLoads: windLoads, ND: ND, pileK: pileK, hzLoads: hzLoads, thermalLoads: thermalLoads, deckShare: deckShare, nodalMass: nodalMass, modes: modes, modesF: modesF, frameMass: frameMass, G_ACC: G_ACC, girderAlone: girderAlone, CASES_DEF: CASES_DEF, defaultCombos: defaultCombos, generateCombos: generateCombos, METHOD: METHOD, Ec: Ec };
 })();
 if (typeof module !== 'undefined') module.exports = CORE;

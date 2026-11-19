@@ -64,6 +64,11 @@ var ANALYSIS = (function () {
       log(vk + ' moving-load envelope (' + g.lanes + ' lanes)');
       var e = C.trafficEnvelope(m, g, IM, C.STD[vk], { dlaUDL: p.dlaUDL, step: p.sweep, layouts: C.laneLayouts(g, p) }, RS); V[vk] = { max: e.max, min: e.min }; env[vk] = e;
     });
+    if (on.HLP) {
+      if (!IM) { log('Influence surfaces (' + m.nodes.length + ' unit loads)'); IM = C.influence(m, S, RS); }
+      log('HLP400 heavy load platform envelope' + (p.hlpHalf !== false ? ' (+ half M1600 in the unobstructed lanes)' : ''));
+      var eh = C.hlpEnvelope(m, g, IM, C.STD.HLP400, { half: p.hlpHalf !== false, dlaUDL: p.dlaUDL }, RS); V.HLP = { max: eh.max, min: eh.min }; env.HLP = eh;
+    }
     log('Combinations');
     var CB = combine(V, combos, cases, nr);
     log('Done');

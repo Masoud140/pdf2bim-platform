@@ -38,6 +38,7 @@ t('influence matrix row = direct solve of a unit load', maxd < 1e-9);
 // Maxwell reciprocity: deflection at a due to load at b = deflection at b due to load at a
 const a = 10, b = 50; t('reciprocity of deflections (Maxwell)', near(IM[a][RS0.idx['w:' + b]], IM[b][RS0.idx['w:' + a]], 1e-9));
 
+let IMc_; const IMc0 = () => IMc_ || (IMc_ = C.influence(M, SS, RS));
 // 3. moving-load port against the platform's Python lane_effect on the same synthetic influence lines
 const py = JSON.parse(cp.execFileSync('python3', [path.join(__dirname, 'fake_lane.py')], { cwd: path.join(__dirname, '..', '..') }).toString());
 const fake = { nr: 5, line: (o, grid) => grid.map(x => Float64Array.from([0, 1, 2, 3, 4], rr => Math.sin(0.3 * x * (rr + 1) + o * (rr + 2)) * Math.exp(-0.01 * x))) };
@@ -47,8 +48,22 @@ let dmax = 0; js.forEach((e, l) => [0, 1].forEach(s => e[s].forEach((v, k) => dm
 t('lane_effect port equals the Python engine (UDL + vehicle, both directions, lateral shifts)', dmax < 1e-9, dmax.toExponential(2));
 const cj = C.combineLanes(js, C.STD.ALF); let dc = 0; [0, 1].forEach(s => cj[s].forEach((v, k) => dc = Math.max(dc, Math.abs(v - py.comb[s][k]))));
 t('combine_lanes port equals the Python engine (accompanying lane factors)', dc < 1e-9);
+// 3b. HLP400 port against the platform's platform_effect (alone, and with half M1600 in the unobstructed lanes)
+const hv = C.STD.HLP400;
+t('HLP400 data in the Studio equal the platform standards entry', Object.keys(py.hlp_veh).every(k => JSON.stringify(py.hlp_veh[k]) === JSON.stringify(hv[k])));
+const h0 = C.hlpEffect(fake, grid, 0.25, hv, 0.3, null, -6, 6, 3.2), h1 = C.hlpEffect(fake, grid, 0.25, hv, 0.3, { veh: C.STD.M1600, factor: 0.5 }, -6, 6, 3.2);
+let dh = 0; [[h0, py.hlp], [h1, py.hlp_half]].forEach(([j, q]) => [0, 1].forEach(s => j[s].forEach((v, k) => dh = Math.max(dh, Math.abs(v - q[s][k])))));
+t('HLP400 port equals the Python engine (platform alone and with half M1600)', dh < 1e-9, dh.toExponential(2));
+t('half M1600 in the free lanes adds to the platform alone', h1[0].every((v, k) => v >= h0[0][k] - 1e-12) && h1[0].some((v, k) => v > h0[0][k] + 1e-6));
+const eh = C.hlpEnvelope(M, g, IMc0(), hv, { half: true }, RS), mh = [...Array(g.ng).keys()].map(i => eh.max[RS.idx['M:0:' + i + ':' + (M.n / 2 - 1) + ':b']]);
+t('HLP envelope on Case 01: positive mid-span moments in every girder', mh.every(v => v > 0), mh.map(v => v.toFixed(0)).join(' '));
+{ const key = 'M:0:' + Math.floor(g.ng / 2) + ':' + (M.n / 2 - 1) + ':b', st = C.hlpState(M, g, IMc0(), RS, hv, { half: true }, key, 1);
+  t('HLP governing state reproduces its envelope value', near(st.value, eh.max[RS.idx[key]], 1e-9), st.value.toFixed(2) + ' vs ' + eh.max[RS.idx[key]].toFixed(2)); }
+{ const cs = C.deep(C.CASES_DEF); cs.forEach(c => { if (c.id === 'HLP') c.on = true; }); const cb = C.generateCombos(cs, p), hu = cb.filter(c => c.ls === 'ULS' && c.f.HLP), hs = cb.filter(c => c.ls === 'SLS' && c.f.HLP);
+  t('HLP in the generated combinations: ULS factor 1.5 (1.0 in the wind-with-traffic row), SLS 1.0, never with braking or centrifugal', hu.length && hu.every(c => (c.id.startsWith('ULS-W+') ? c.f.HLP === 1 : c.f.HLP === 1.5) && !c.f.BRK && !c.f.CEN) && hs.length && hs.some(c => c.f.HLP === 1) && hs.every(c => !c.f.BRK),
+    hu.map(c => c.id).join(' ')); }
 // 4. traffic envelope on Case 01 runs and gives positive mid-span moments in every girder
-const IMc = C.influence(M, SS, RS), env = C.trafficEnvelope(M, g, IMc, C.STD.M1600, {}, RS);
+const IMc = IMc0(), env = C.trafficEnvelope(M, g, IMc, C.STD.M1600, {}, RS);
 const mids = [...Array(g.ng).keys()].map(i => env.max[RS.idx['M:0:' + i + ':' + (M.n / 2 - 1) + ':b']]);
 t('M1600 envelope: every girder has a positive mid-span moment; ' + env.lanes + ' lanes, ' + env.layouts + ' layouts', mids.every(v => v > 0), mids.map(v => v.toFixed(0)).join(' '));
 console.log(`\n${pass} passed, ${fail} failed`); process.exit(fail ? 1 : 0);

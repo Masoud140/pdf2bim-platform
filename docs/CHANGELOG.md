@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Bridge Studio: HLP400 (ADR-083)
+- HLP400 heavy load platform in the Studio (ported from the platform engine, checked equal), with optional half M1600, its own combinations and the Moving / Live-load pages. Studio v22.
+
 ## 2026-11-19 — Continuous spans, stage 5 (ADR-082)
 - Earthquake RSA on the joined model; braking and centrifugal applied once for the whole bridge.
 
