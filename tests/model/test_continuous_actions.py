@@ -33,8 +33,17 @@ RS = CA["primitives"]["response_set"]
 ix = {n: i for i, n in enumerate(N)}
 fz = [ix[("B", k, "FZ")] for k in J["bearings"]]
 
-t("no combination term missing; earthquake recorded as not combined", not CA["missing_terms"] and {a for a, _ in CA["not_combined"]} == {"EQX", "EQY"},
+t("no combination term missing; earthquake combined (RSA on the joined model)", not CA["missing_terms"] and not CA["not_combined"] and "EQX" in CA["primitives"]["prim"],
   f"{CA['missing_terms']} {CA['not_combined']}")
+Q = CA["primitives"]["cases"]["earthquake"]
+t("earthquake on the joined model: longitudinal and transverse modal effective mass fractions above 50 % (L and T)",
+  all(Q["resp"][d_]["effective_mass_fraction"] > 0.5 for d_ in ("L", "T")), str({d_: round(Q["resp"][d_]["effective_mass_fraction"], 3) for d_ in ("L", "T")}))
+from pdf2bim.model.horizontal import horizontal_cases
+Fb = max(horizontal_cases(d, g, sup, std, allow_proposed=True)["cases"]["BRKp"]["total"] for d, g, S, sup in spans)
+fx = [ix[("B", k, c)] for k in J["bearings"] for c in ("FX", "FY")]
+brk_long = np.hypot(sum(P["BRKR"]["s"][ix[("B", k, "FX")]] for k in J["bearings"]), sum(P["BRKR"]["s"][ix[("B", k, "FY")]] for k in J["bearings"]))
+t("braking: the bridge force once over the whole deck (bearing horizontal resultant <= the braking force, not twice it)",
+  brk_long <= Fb * 1.001 + 1e-6, f"{brk_long:.1f} vs {Fb}")
 sdl = sum(sum(f[2] for f in sdl_case(d, g, sup, allow_proposed=True, part="SDLp")["loads"].values()) for d, g, S, sup in spans)
 t("SDLp on the joined model: bearing reactions carry the two spans' SDL exactly", abs(P["SDLp"]["s"][fz].sum() + sdl) < 1e-6 * abs(sdl), f"{P['SDLp']['s'][fz].sum():.2f} vs {-sdl:.2f}")
 stg = CA["primitives"]["staging"]

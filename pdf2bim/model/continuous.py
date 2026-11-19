@@ -10,6 +10,8 @@ members and links (span k: id + k * STEP) and then:
 Loads applied to the joined model act on the continuous structure. Construction staging (girder and wet-deck weight on
 simply supported girders, later loads continuous) is the caller's job: solve those cases on the span models (stage 2).
 """
+import json
+
 import numpy as np
 
 from .solver import Model
@@ -179,7 +181,12 @@ STAGINGS = {"girder": "girder self weight on the simply supported spans; deck, S
             "self_weight": "all self weight on the simply supported spans; SDL and later loads continuous"}
 
 
-def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_kw=None, staging=None):
+def _eq_rows(js):
+    d = json.loads(js) or {}
+    return sorted((r.get("cells") or {}).get("item", "") + "=" + str((r.get("cells") or {}).get("value")) for r in d.get("rows") or [])
+
+
+def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_kw=None, staging=None, eq_kw=None):
     """Combination primitives (as combinations.primitives) on the joined model J. spans = [(doc, geo, S, sup)] in span
     order, sup = the span's build_integrated output that J was joined from.
     Staging: the first span description's custom.continuity_staging ("girder" or "self_weight", STAGINGS), else the
@@ -189,10 +196,11 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     braking, centrifugal, thermal, wind and traffic act on the continuous structure. The joined model's stiffness is the
     composite one also for the wet deck (shortcut: girder-alone continuous stiffness not modelled; equal-span uniform
     girders distribute the same way).
-    Per-span cases are generated on each span model and remapped onto J. Braking and centrifugal are each span's own
-    (shortcut: AS 5100.2 braking for the whole continuous deck length not formed, upgrade with the staging input).
+    Per-span cases are generated on each span model and remapped onto J. Braking and centrifugal: the bridge force once
+    (largest span value), spread over the whole deck. Earthquake: RSA on the joined model (masses lumped as ADR-046 with
+    every span's SDLp; the span descriptions' loads.earthquake must agree).
     Traffic: one envelope over the whole joined deck (lanes and carriageway of the first span's description; shortcut:
-    HLP central-gap variants not tried). Earthquake: not combined (RSA on the joined masses not built)."""
+    HLP central-gap variants not tried)."""
     from .responses import ResponseSet
     from .loads import sdl_case
     from .horizontal import horizontal_cases
@@ -217,7 +225,7 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     prov += [
             {"path": "loads (earth pressure fill category)", "value": soil_action, "author": "AI", "decision": None,
              "reason": "fill category (controlled fill SOc / other SOo) not in the description; SOo has the larger ULS factor and the smaller relieving factor"}]
-    parts, loads, imp, ept, Ts = [], {}, {}, [], []
+    parts, loads, imp, ept, Ts, Hs = [], {}, {}, [], [], []
     add = lambda key, d: loads.setdefault(key, {}).update({n: loads[key].get(n, 0) + f for n, f in d.items()})
     sdl_used = set()
     for k, (doc, geo, S, sup) in enumerate(spans):
@@ -231,8 +239,9 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
         for cid, v in H["cases"].items():
             if cid.startswith("EPT"):
                 ept.append(st(loads=_remap_loads(J, k, v["loads"])))
-            elif cid in ("EP", "BRKp", "CEN"):
+            elif cid == "EP":
                 add(cid, _remap_loads(J, k, v["loads"]))
+        Hs.append(H)
         prov += list(H.get("provisional") or [])
         T = thermal_cases(doc, geo, S, sup, allow_proposed=allow_proposed)
         Ts.append(T)
@@ -256,8 +265,19 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     P[soil_action] = {"s": st(loads=loads["EP"])}; src[soil_action] = "earth pressure on both abutment headstocks"
     z = np.zeros(len(RS.names))
     P["EPT"] = {"max": np.maximum.reduce(ept + [z]), "min": np.minimum.reduce(ept + [z]), "parts": ept + [z]}; src["EPT"] = "traffic surcharge behind A or behind B"
-    P["BRKR"] = {"s": st(loads=loads["BRKp"])}; src["BRKR"] = "braking toward B, each span's own (whole-deck braking not formed)"
-    P["CENR"] = {"s": st(loads=loads["CEN"])}; src["CENR"] = "centrifugal, outward"
+    # braking and centrifugal are forces on the whole bridge (loads.braking_force; one M1600 on the sharpest curve): the
+    # largest span value once, spread evenly over every span's deck-line nodes
+    N = sum(H["deck_nodes"] for H in Hs)
+    for cid in ("BRKp", "CEN"):
+        Fb = max(H["cases"][cid]["total"] for H in Hs)
+        for k, H in enumerate(Hs):
+            Fk = H["cases"][cid]["total"]
+            if Fk:
+                add(cid, {n: f * (H["deck_nodes"] / N) * (Fb / Fk) for n, f in _remap_loads(J, k, H["cases"][cid]["loads"]).items()})
+            else:
+                loads.setdefault(cid, {})
+    P["BRKR"] = {"s": st(loads=loads["BRKp"])}; src["BRKR"] = "braking toward B: the bridge braking force once, over the whole deck"
+    P["CENR"] = {"s": st(loads=loads["CEN"])}; src["CENR"] = "centrifugal, outward: the largest span value once, over the whole deck"
     for aid, cid in (("TUW", "TU+"), ("TUC", "TU-"), ("TGP", "TGP"), ("TGN", "TGN"), ("SCR", "SCR")):
         if cid in imp:
             P[aid] = {"s": st(imposed=imp[cid])}; src[aid] = f"thermal case {cid} on the continuous structure (restraint moments included)"
@@ -272,14 +292,23 @@ def primitives(spans, J, std, allow_proposed=False, soil_action="SOo", traffic_k
     for mn, e in Tr["env"].items():
         P[mn] = {"max": e["max"], "min": e["min"], "state": (Tr, mn)}; src[mn] = f"{mn} moving-load envelope over the joined deck"
     prov += list(Tr.get("provisional") or [])
-    notc.append(("EQX", "earthquake on the joined model not built (continuous spans stage 2b)"))
-    notc.append(("EQY", "earthquake on the joined model not built (continuous spans stage 2b)"))
+    from .earthquake import earthquake_rsa
+    eqs = [json.dumps((d.get("loads") or {}).get("earthquake"), sort_keys=True, default=str) for d, *_ in spans]
+    if any(_eq_rows(e) != _eq_rows(eqs[0]) for e in eqs):
+        raise ValueError("loads.earthquake differs between the span descriptions")
+    geo_b = {"supports": [spans[0][1]["supports"][0], spans[-1][1]["supports"][-1]]}   # the bridge's end supports: the longitudinal direction
+    Q = earthquake_rsa(doc0, geo_b, J, std, sdl_loads=loads["SDLp"], allow_proposed=allow_proposed, **(eq_kw or {}))
+    if Q["names"] != RS.names:
+        raise ValueError("earthquake responses and the response set differ")
+    P["EQX"] = {"max": Q["resp"]["L"]["R"], "min": -Q["resp"]["L"]["R"], "eq": (Q, "L")}; P["EQY"] = {"max": Q["resp"]["T"]["R"], "min": -Q["resp"]["T"]["R"], "eq": (Q, "T")}
+    src["EQX"] = "RSA on the joined model, longitudinal (abutment A to B) alone"; src["EQY"] = "RSA on the joined model, transverse alone"
+    prov += list(Q.get("provisional") or [])
     dedup = []
     for p in prov:
         if p not in dedup:
             dedup.append(p)
     return {"prim": P, "names": RS.names, "meta": RS.meta, "sources": src, "not_combined": notc, "provisional": dedup,
-            "cases": {"traffic": Tr, "thermal": Ts[0], "thermal_spans": Ts}, "response_set": RS,
+            "cases": {"traffic": Tr, "thermal": Ts[0], "thermal_spans": Ts, "earthquake": Q}, "response_set": RS,
             "staging": {"kind": stg, "simply_supported": ss, "continuous": cont}}
 
 

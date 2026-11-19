@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-19 — Continuous spans, stage 5 (ADR-082)
+- Earthquake RSA on the joined model; braking and centrifugal applied once for the whole bridge.
+
 ## 2026-11-19 — Continuous spans, stage 4b (ADR-082)
 - Hogging check over the pier with the deck reinforcement (0850) and stress bars (0575); deck bars in the open-station sections on continuous runs; required stress bar force reported against the (missing) UTS.
 
