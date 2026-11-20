@@ -1,6 +1,6 @@
 # B12459 (SB41 WB) — platform vs design report RPT-410001 rev D — INDICATIVE
 
-Run (engine de7c40f): **both spans joined continuous over the pier (ADR-082)** — girder self weight on the simply supported spans, deck, SDL, thermal, wind and traffic on the continuous structure (staging from 0575); hogging over the pier with the 0850 deck bars and the 0575 stress bars (bar UTS Missing - Flagged). Missing inputs are the generic proposals D-1; standards entries unverified.
+Run (engine 5257ac8, HLP at the three 0101 positions): **both spans joined continuous over the pier (ADR-082)** — girder self weight on the simply supported spans, deck, SDL, thermal, wind and traffic on the continuous structure (staging from 0575); hogging over the pier with the 0850 deck bars and the 0575 stress bars (bar UTS Missing - Flagged). Missing inputs are the generic proposals D-1; standards entries unverified.
 
 | Item | Report / drawing | Source | Platform | Where | Difference | Note |
 |---|---|---|---|---|---|---|
@@ -14,7 +14,7 @@ Run (engine de7c40f): **both spans joined continuous over the pier (ADR-082)** �
 | 41B-S1-09 transfer compression (MPa) | 23.54 | report table 4-28 (compression; limit 24) | 28.29 | x = 8.44 m, limit 23.5 | +20.2 % | girder alone at transfer, f'cp 40 (0700) |
 | Pile SLS N max, A-05/A-06/A-07/A-08 (kN) | 4,686 | 0201 table 1 | 3,134 | A-08 | -33.1 % |  |
 | Pile ULS N max, A-05/A-06/A-07/A-08 (kN) | 6,606 | 0201 table 1 | 4,519 | A-08 | -31.6 % |  |
-| Pile SLS N max, A-09/A-10 (kN) | 3,702 | 0201 table 1 | 2,928 | A-09 | -20.9 % |  |
+| Pile SLS N max, A-09/A-10 (kN) | 3,702 | 0201 table 1 | 2,946 | A-09 | -20.4 % |  |
 | Pile ULS N max, A-09/A-10 (kN) | 4,931 | 0201 table 1 | 4,265 | A-09 | -13.5 % |  |
 | Pile SLS N max, B-05/B-06/B-07/B-08 (kN) | 5,189 | 0201 table 1 | 3,884 | B-08 | -25.1 % |  |
 | Pile ULS N max, B-05/B-06/B-07/B-08 (kN) | 7,840 | 0201 table 1 | 5,851 | B-05 | -25.4 % |  |
@@ -32,4 +32,4 @@ Known limits of this run (whether a difference is acceptable is the engineer's c
 - headstock ends of the shared abutments = end bearings ± 1 m (Model); barrier section as SB41 EB (query);
 - skew above 35° at abutment B; HLP400 placed by the platform's rule, not the two-marked-lanes position.
 
-Girder checks of this run: sagging ULS u ≤ 1.02 (41B-S1-01, the overhang noted above); hogging over P1 with the stress bars at lock-off u 0.65–1.01; **span 2 open stations 3.5–10 m from the pier: hogging u up to 1.90 (41B-S2-01).** The DA35 / DA36 N32 stay inside the pier stitch (0852 sections 6 / 7), so only the typical N16 and the 10 m DA16 N32 act there — not a missing-bar artefact. At 41B-S2-01, 5.5 m from the pier, the ULS hogging is mostly M1600 (−2,400 kNm) and the negative gradient restraint (−1,260 kNm, uncracked stiffness). Owner query: the report's hogging envelope there. Earthquake (RSA on the joined model) and whole-bridge braking now included; abutment piles 14–33 % below 0201, pier piles 33 % above (wall weight and the SB41 EB share excluded, as noted).
+Girder checks of this run: sagging ULS u ≤ 1.02 (41B-S1-01, the overhang noted above); hogging over P1 with the stress bars at lock-off u 0.65–1.01; **span 2 open stations 3.5–10 m from the pier: hogging u up to 1.90 (41B-S2-01)** — the DA35 / DA36 N32 stay inside the pier stitch (0852 sections 6 / 7), so only the typical N16 and the 10 m DA16 N32 act there; mostly M1600 and the negative gradient restraint (uncracked stiffness). Owner query: the report's hogging envelope there. HLP400 at the three 0101 positions (ADR-084) does not govern any girder envelope. Run time 36 min (traffic-state export 13 min after the HLP speed fix).

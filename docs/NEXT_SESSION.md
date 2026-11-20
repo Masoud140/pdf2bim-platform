@@ -8,8 +8,8 @@
 
 **A. No owner input — do in order**
 1. ~~SB01 (B12452) HLP positions~~ — checked 2026-11-20: lane widths not in the set → `custom.hlp_lane_lines` Missing - Flagged, moved to B (owner).
-2. **SB41 WB continuous re-run** with the three cover-sheet HLP positions — girder_checks done 2026-11-20 (results unchanged: HLP does not govern; span 2 hogging up to 1.90 as before). **combined_actions is slow: its traffic.json export (HLP governing states × 3 positions × central-gap variants) ran > 90 min (was 27 min total) — speed it up (cache the platform states per position) before the next app run of SB41 WB.**
-3. **Plank decks (14c)**: plan ADR-085 — stage 1 plank sections → 2 side-by-side grillage (bearings or integral) → 3 plank design → 4 SB43 (needs PD6694 soil stiffness from the owner for the integral abutments).
+2. ~~SB41 WB continuous re-run~~ — done 2026-11-20 (comparison refreshed; HLP does not govern). HLP state export sped up (one response's lines only): combined actions 36 min (was > 100).
+3. **Plank decks (14c)**: stages 1 / 1b done (sections); next stage 2 — builder: plank grillage (the builder is Super-T specific: shear areas from webs `tw`, solid ends); plan ADR-085 — stage 1 plank sections → 2 side-by-side grillage (bearings or integral) → 3 plank design → 4 SB43 (needs PD6694 soil stiffness from the owner for the integral abutments).
 4. Optional Studio extras from the dashboard inventory (ADR-068/069): N–M interaction diagram (D-10), section designer (D-13), barrier bolts (D-12), more export formats (D-15).
 
 **B. Waiting on the owner (do not start)**
