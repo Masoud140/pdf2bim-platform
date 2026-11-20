@@ -72,27 +72,33 @@ def hog_inputs(doc, geo, S, girder, std, allow_proposed=False, partial=False):
     if mem is None:
         raise MissingInput(f"superstructure.members[{girder}] not found")
     tref = rd.value(mem.get("type_ref"), f"superstructure.members[{girder}].type_ref")
-    T = next(x for x in sup.get("supert_types") or [] if x["id"] == tref)
-    tp = f"superstructure.supert_types[{tref}]"
-    gg = next(g for g in geo["girders"] if g["id"] == girder)
     G = S["girders"][girder]
+    plank = G["type"] == "plank"
+    kind = "plank_types" if plank else "supert_types"
+    T = next(x for x in sup.get(kind) or [] if x["id"] == tref)
+    tp = f"superstructure.{kind}[{tref}]"
+    gg = next(g for g in geo["girders"] if g["id"] == girder)
     L = gg["length_end_to_end"] * 1000.0
     put("L", L, "P1 girder length end to end")
     put("a", (gg["length_end_to_end"] - gg["chord_length_bearings"]) / 2 * 1000.0, "P1 (length - bearing chord) / 2")
     row = min(G["stations"], key=lambda r: abs(r["t"] - 0.5))
-    sec = supert_section(G["params"], row["w_left"], row["w_right"], "open")
+    sec = {"A": row["girder"]["A"], "yc": row["girder"]["yc"], "Ix": row["girder"]["Ix"], "outline": row["outline"]} if plank else \
+        supert_section(G["params"], row["w_left"], row["w_right"], "open")
     put("A", sec["A"], "P2 girder section (open, midspan)"); put("yb", sec["yc"], "P2"); put("I", sec["Ix"], "P2"); put("H", G["params"]["D"], "P2 depth D")
     o = sec["outline"]
     put("outline", [list(q) for q in o], "P2 girder outline (open, midspan; x centred, y from soffit)")
     ue = sum(math.dist(o[i], o[(i + 1) % len(o)]) for i in range(len(o)))
-    put("ue", ue, "Calculated: P2 outline perimeter")
-    put("ueC", _ueC(o, G["params"]["D"], ue), "Calculated: perimeter - flange tops - half the trough interior (as the dashboard)")
+    put("ue", ue, "Calculated: P2 outline perimeter" + (" (plank: voids not counted)" if plank else ""))
+    if plank:   # the topping covers the plank top; shortcut: void surfaces not drying perimeter, refine for vented voids
+        put("ueC", ue - (G["params"]["width"] if row.get("deck") else 0.0), "Calculated: plank perimeter - plank top (under the topping)")
+    else:
+        put("ueC", _ueC(o, G["params"]["D"], ue), "Calculated: perimeter - flange tops - half the trough interior (as the dashboard)")
     put("uesw", abs(p["ueC"] - ue) > 1e-6, "Calculated")
     # concrete
     conc = {}
     for r in rd.rows((doc.get("materials") or {}).get("concrete"), "materials.concrete"):
         el = (r.get("element") or "").lower()
-        conc["girder" if "super-t" in el else "deck" if "deck" in el else el] = r
+        conc["girder" if ("plank" if plank else "super-t") in el else "deck" if "deck" in el else el] = r
     fc = rd.value(T.get("concrete_28d"), tp + ".concrete_28d", required=False) or (conc.get("girder") or {}).get("fc")
     fci = rd.value(T.get("concrete_transfer"), tp + ".concrete_transfer", required=False)
     if fc is None:

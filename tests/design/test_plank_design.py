@@ -89,9 +89,8 @@ ti = interface_shear(sec, 500.0)
 t("interface shear flow V Q / (I b) at the plank top (transformed topping, uncracked)", abs(ti - tau) < 2e-3 * tau, f"{ti:.1f} vs {tau:.1f} kPa")
 
 pd["superstructure"]["plank_types"][0]["strand_pattern"] = tab([{"y": 60.0, "x": 0.0, "diameter": 15.2, "on": True}])
-try:
-    plank_section_design(pd, Sx, P, True); t("prestressed plank refused (stage 3c)", False)
-except MissingInput as ex:
-    t("prestressed plank refused (stage 3c)", "3c" in str(ex))
+pd["superstructure"]["plank_types"][0]["bars"] = {"rows": []}
+sec, lv = plank_section_design(pd, Sx, P, True)
+t("prestressed plank without bars accepted (strands carried for the staged check, stage 3c-2)", len(lv["strands"]) == 1 and not sec.bars)
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

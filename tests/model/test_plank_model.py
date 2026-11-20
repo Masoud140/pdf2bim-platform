@@ -63,6 +63,25 @@ t("plank shear / torsion by the general method at every end (fitments + girder_o
   all("u" in q for q in sh) and gv["u_shear"] > 0 and gv["tau_interface_kPa"] > 0, str(sh[0]))
 print(f"     {g['line']}: phiMu sag {PC['phiMu_sag']:.0f} / hog {PC['phiMu_hog']:.0f} kNm; governing {', '.join(f'{k} {v:.2f}' for k, v in gv.items())}")
 
+# stage 3c-2: the same plank prestressed (20 x 15.2 strands in two rows), losses analysis + staged SLS / ULS
+cell = lambda c: {"cells": c, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"cells": c, "tag": "Input-user"}}
+T0 = pd["superstructure"]["plank_types"][0]
+T0["strand_pattern"] = {"rows": [cell({"y": y, "x": -540.0 + 120.0 * k, "diameter": 15.2, "debond_left": 0.0, "debond_right": 0.0, "on": True}) for y in (60.0, 110.0) for k in range(10)]}
+for k_, v_ in (("jacking_ratio", 0.75), ("age_at_transfer", 3.0), ("age_deck_cast", 60.0), ("concrete_transfer", 32.0), ("concrete_28d", 50.0)):
+    T0[k_] = rec(v_)
+PP = plank_checks(pd, geo, Sx, CA, MI, std, g["line"], allow_proposed=True)
+mid = min(PP["rows"], key=lambda r: abs(r["t"] - 0.5))
+T0["strand_pattern"]["rows"] = T0["strand_pattern"]["rows"][:10]
+P10 = plank_checks(pd, geo, Sx, CA, MI, std, g["line"], allow_proposed=True)
+T0["strand_pattern"] = {"rows": [cell({"y": y, "x": -540.0 + 120.0 * k, "diameter": 15.2, "debond_left": 0.0, "debond_right": 0.0, "on": True}) for y in (60.0, 110.0) for k in range(10)]}
+m10 = min(P10["rows"], key=lambda r: abs(r["t"] - 0.5))
+t("prestressed plank: losses analysis, more strands -> higher decompression moment (Mdec < 0 here: BR13A's 30 m span self weight exceeds the prestress), "
+  "minimum strength checked, shear with the strands",
+  PP["prestressed"] and mid["sag"]["Mdec"] > m10["sag"]["Mdec"] and isinstance(mid["sag"]["okMin"], bool) and mid["n_strands"] == 20 and "u" in mid["shear"] and PP["hog"]["times"],
+  f"Mdec {mid['sag']['Mdec']:.0f}, okMin {mid['sag']['okMin']}, shear {mid['shear'].get('u')}")
+t("prestressed plank: phi Mu sagging above the RC plank's (strands added to the same bars)", PP["phiMu_sag"] > PC["phiMu_sag"], f"{PP['phiMu_sag']:.0f} vs {PC['phiMu_sag']:.0f}")
+print(f"     prestressed {g['line']}: Mdec {mid['sag']['Mdec']:.0f} kNm, Mal {mid['sag']['Mal']:.0f}, phiMu {mid['sag']['phiMu']:.0f}; hog final {max(PP['hog']['times'][-1]['hog_mm']):.1f} mm")
+
 # stage 2b: integral abutments (both ends cast into the headstock, backfill springs behind)
 from pdf2bim.description import MissingInput
 from pdf2bim.model.thermal import thermal_cases

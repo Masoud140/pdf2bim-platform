@@ -87,13 +87,13 @@ def main():
         for g in S["girders"]:
             if S["girders"][g]["type"] == "plank":     # ADR-085 stage 3: RC plank checks
                 out[g] = R = plank_checks(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
-                L += [f"## {g} (plank)", "", f"phi Mu sagging {f0(R['phiMu_sag'])} kNm, hogging {f0(R['phiMu_hog'])} kNm; crack control fscr {R['fscr']:g} / fscrT {R['fscrT']:g} MPa", "",
-                      "| x (m) | M* sag (row) | u | M* hog (row) | u | SLS M max / min | fs sag / hog (MPa) | u SLS | V* (row) | T* | shear u | interface tau* (kPa) |",
+                L += [f"## {g} (plank)", "", f"{'prestressed' if R['prestressed'] else 'reinforced'}; phi Mu sagging {f0(R['phiMu_sag'])} kNm, hogging {f0(R['phiMu_hog'])} kNm; crack control fscr {R['fscr']:g} / fscrT {R['fscrT']:g} MPa", "",
+                      "| x (m) | M* sag (row) | u | M* hog (row) | u | SLS M max / min | fs sag / hog (MPa), or Mdec / Mal (prestressed) | u SLS | V* (row) | T* | shear u | interface tau* (kPa) |",
                       "|---|---|---|---|---|---|---|---|---|---|---|---|"]
                 for r in R["rows"]:
                     q = r["shear"]
                     L.append(f"| {r['x_m']:.2f} | {f0(r['M_sag'])} ({r['row_sag']}) | **{r['u_sag']:.2f}** | {f0(r['M_hog'])} ({r['row_hog']}) | **{r['u_hog']:.2f}** | {f0(r['Ms_sls'])} / {f0(r['Mh_sls'])} | "
-                             f"{r['fs_sag']:.0f} / {r['fs_hog']:.0f} | **{max(r['u_sls_sag'], r['u_sls_hog']):.2f}** | {f0(r['V'])} ({r['row_V']}) | {f0(r['T'])} | "
+                             f"{('%.0f / %.0f' % (r['fs_sag'], r['fs_hog'])) if r['fs_sag'] is not None else ('Mdec %.0f / Mal %.0f' % (r['sag']['Mdec'], r['sag']['Mal']))} | **{max(r['u_sls_sag'], r['u_sls_hog']):.2f}** | {f0(r['V'])} ({r['row_V']}) | {f0(r['T'])} | "
                              f"{'**%.2f**' % q['u'] if 'u' in q else q.get('why')} | {f0(r['tau_interface_kPa'])} |")
                 L += [""] + [f"- {n}" for n in R["notes"]] + ["- interface shear capacity: **Missing - Flagged** (the clause is not in the standards data)", ""]
                 continue
@@ -149,7 +149,8 @@ def main():
     for g, R in out.items():
         if "plank" in R:
             G_ = R["governing"]
-            S_.append(f"| {g} (plank) | {max(G_['u_sls_sag'], G_['u_sls_hog']):.2f} | {G_['u_sag']:.2f} | {G_['u_hog']:.2f} | {G_['u_shear']:.2f} | not checked |")
+            mf = sum(1 for r in R["rows"] if r["sag"].get("okMin") is False)
+            S_.append(f"| {g} (plank) | {max(G_['u_sls_sag'], G_['u_sls_hog']):.2f} | {G_['u_sag']:.2f} | {G_['u_hog']:.2f} | {G_['u_shear']:.2f} | {('yes (%d)' % mf if mf else 'no') if R['prestressed'] else 'not checked'} |")
             continue
         fl = [r for r in R["rows"] if r.get("conf") != "solid"]
         uS = max(r["sag"]["uS"] for r in fl); uB = max(r["sag"]["uB"] for r in fl)

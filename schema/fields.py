@@ -121,6 +121,9 @@ PLANK = {
     'concrete_transfer': ('num', 'MPa', "f'cp at transfer"),
     'concrete_28d': ('num', 'MPa', "f'c plank"),
     'strand_pattern': ('table', '', 'Strands', {'y': ('num', 'mm'), 'x': ('num', 'mm'), 'diameter': ('num', 'mm'), 'debond_left': ('num', 'mm'), 'debond_right': ('num', 'mm'), 'on': ('bool', '')}),
+    'jacking_ratio': ('num', '', 'Jacking stress / f_pb'),
+    'age_at_transfer': ('num', 'days', 'Age at transfer'),
+    'age_deck_cast': ('num', 'days', 'Age when the topping is cast'),
     'bars': ('table', '', 'Longitudinal reinforcement', {'y': ('num', 'mm'), 'diameter': ('num', 'mm'), 'number': ('int', '')}),
     'fitments': ('table', '', 'Fitments', {'from': ('num', 'm'), 'to': ('num', 'm'), 'diameter': ('num', 'mm'), 'legs': ('int', ''), 'spacing': ('num', 'mm')}),
 }

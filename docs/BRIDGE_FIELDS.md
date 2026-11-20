@@ -137,6 +137,9 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.plank_types[].concrete_transfer` | num | MPa | f'cp at transfer |
 | `superstructure.plank_types[].concrete_28d` | num | MPa | f'c plank |
 | `superstructure.plank_types[].strand_pattern` | table |  | Strands — columns: y (mm), x (mm), diameter (mm), debond_left (mm), debond_right (mm), on |
+| `superstructure.plank_types[].jacking_ratio` | num |  | Jacking stress / f_pb |
+| `superstructure.plank_types[].age_at_transfer` | num | days | Age at transfer |
+| `superstructure.plank_types[].age_deck_cast` | num | days | Age when the topping is cast |
 | `superstructure.plank_types[].bars` | table |  | Longitudinal reinforcement — columns: y (mm), diameter (mm), number |
 | `superstructure.plank_types[].fitments` | table |  | Fitments — columns: from (m), to (m), diameter (mm), legs, spacing (mm) |
 
