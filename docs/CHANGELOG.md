@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — Plank decks: grillage on bearings (ADR-085 stage 2a)
+- Builder and thermal take plank lines; combined actions run on a plank deck.
+
 ## 2026-11-20 — HLP from the cover sheet (ADR-084)
 - `loads.hlp_positions`; SB41 WB three cover-sheet positions; BR13A HLP400 added (D-49, proposed); other bridges checked.
 

@@ -1,5 +1,7 @@
 # Current status — 2026-11-10
 
+- 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; test_plank_model 4/4. Next: stage 2b integral connection.
+
 **2026-11-10:**
 - Prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md`.
   - Studio (ADR-064): TfNSW 50 % + adjacency debonding rule, transfer limit 0.5 / 0.6 f'cp chosen by stress distribution, development-length information row.

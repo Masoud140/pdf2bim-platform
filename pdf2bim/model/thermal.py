@@ -165,7 +165,8 @@ def thermal_cases(doc, geo, S, mdl, allow_proposed=False):
             p = G["params"]
             key = (gid, solid, tuple(round(st[k], 1) for k in ("w_left", "w_right", "deck_left", "deck_right")), cid)
             if key not in cache:
-                gs = supert_section(p, st["w_left"], st["w_right"], "solid" if solid else "open")
+                # planks (ADR-085) are prismatic: their outline (shortcut: voids ignored in the gradient strains, refine for deep voids)
+                gs = {"outline": G["stations"][0]["outline"]} if G["type"] == "plank" else supert_section(p, st["w_left"], st["w_right"], "solid" if solid else "open")
                 y0 = p["D"] + G["haunch"]
                 deck = [(-st["deck_left"], y0), (st["deck_right"], y0), (st["deck_right"], y0 + tD), (-st["deck_left"], y0 + tD)]
                 parts = [(gs["outline"], Eg), (deck, Ed)]

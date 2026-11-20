@@ -124,13 +124,17 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
 
     # ---- longitudinal lines (as 2D line objects or offset curves) ----
     p0 = S["girders"][girders[0]["id"]]["params"]
-    th = p0["tw"] * math.sqrt(1 + 1 / p0["S"] ** 2)
-    W = (p0["bw"] / 2 + p0["D"] / p0["S"] - th / 2) / 1000  # web centreline at the girder top (dashboard P.web)
+    plank = S["girders"][girders[0]["id"]]["type"] == "plank"
+    if plank:   # side-by-side planks (ADR-085): one line per plank, no web lines / rigid arms
+        W = None
+    else:
+        th = p0["tw"] * math.sqrt(1 + 1 / p0["S"] ** 2)
+        W = (p0["bw"] / 2 + p0["D"] / p0["S"] - th / 2) / 1000  # web centreline at the girder top (dashboard P.web)
     lines = [{"id": "EDGE_L", "role": "edge", "kind": "curve", "o": eL}]
     for g in girders:
         A_, B_ = (g["bearing_A"]["E"], g["bearing_A"]["N"]), (g["bearing_B"]["E"], g["bearing_B"]["N"])
         t = g["unit_t"]; nR = (t[1], -t[0])
-        for sfx, off, role in (("W1", -W, "web"), ("", 0.0, "girder"), ("W2", W, "web")):
+        for sfx, off, role in (((("", 0.0, "girder"),) if W is None else (("W1", -W, "web"), ("", 0.0, "girder"), ("W2", W, "web")))):
             lines.append({"id": g["id"] + sfx, "role": role, "kind": "line", "P": (A_[0] + off * nR[0], A_[1] + off * nR[1]), "d": t, "girder": g["id"]})
     lines.append({"id": "EDGE_R", "role": "edge", "kind": "curve", "o": eR})
 
@@ -300,8 +304,11 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
         mid_st = _interp_station(st, 0.5, "girder")
         galone[g["id"]] = {"A": mid_st["A"] / 1e6, "Iy": mid_st["Ix"] / 1e12, "Iz": mid_st["Iy"] / 1e12, "J": mid_st["J"] / 1e12}
         p = Sg["params"]
-        th_ = p["tw"] * math.sqrt(1 + 1 / p["S"] ** 2)
-        Asz = 2 * th_ * ((p["D"] - p["ttf"]) - (p["d2"] + p["d1"])) / 1e6   # webs only (lesson: never bottom width x depth)
+        if plank:   # shortcut: 5/6 of the net plank area (solid rectangle rule); voided planks: refine with the webs between voids
+            Asz = 5 / 6 * mid_st["A"] / 1e6
+        else:
+            th_ = p["tw"] * math.sqrt(1 + 1 / p["S"] ** 2)
+            Asz = 2 * th_ * ((p["D"] - p["ttf"]) - (p["d2"] + p["d1"])) / 1e6   # webs only (lesson: never bottom width x depth)
         seq = sorted(by_line[g["id"]])
         bo_a = [x for x, (E, N, lab) in special[g["id"]].items() if lab == "bearing_A"][0]
         for (x1, n1), (x2, n2) in zip(seq, seq[1:]):
