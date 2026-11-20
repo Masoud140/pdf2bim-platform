@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — Plank decks: RC plank flexure and SLS bar stress (ADR-085 stage 3a)
+- `pdf2bim/design/plank_design.py`.
+
 ## 2026-11-20 — Plank decks: integral abutments (ADR-085 stage 2b)
 - `supports[].abutment_spring`; integral supports fix the plank-to-headstock connection and add backfill springs.
 

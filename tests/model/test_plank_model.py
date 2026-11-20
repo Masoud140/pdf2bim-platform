@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Plank decks, stage 2 (ADR-085): the grillage and the combined actions on a plank deck.  Run: python3 tests/model/test_plank_model.py
 Synthetic case: BR13A's description with its four lines switched to 1200 x 700 solid planks with a topping."""
-import copy, json, os, sys
+import copy, json, math, os, sys
 import numpy as np
 R = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, R)
@@ -46,6 +46,17 @@ MI = build_integrated(pd, geo, Sx, std, allow_proposed=True)
 CA = combined_actions(pd, geo, Sx, MI, std, allow_proposed=True)
 t("combined actions run on the plank deck (traffic, thermal with the plank outline, wind, earthquake, ...)",
   not CA["missing_terms"] and {a for a, _ in CA["not_combined"]} <= {"PED", "FLH", "COLX"}, str(CA["not_combined"]))
+
+# stage 3a: RC plank checks along a plank line from these combined actions
+from pdf2bim.design.plank_design import plank_checks
+pd["superstructure"]["plank_types"][0]["bars"] = {"rows": [{"cells": c, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"cells": c, "tag": "Input-user"}}
+                                                           for c in ({"y": 60.0, "diameter": 24.0, "number": 6}, {"y": 850.0, "diameter": 16.0, "number": 8})]}
+gl0 = [x for x in MI['members'] if x['role'] == 'girder' and x['line'] == g['line']]
+PC = plank_checks(pd, geo, Sx, CA, MI, std, g["line"], allow_proposed=True)
+gv = PC["governing"]
+t("plank checks run at every plank element end: ULS sag / hog, SLS bar stress (cracked)",
+  len(PC["rows"]) == 2 * len(gl0) and all(0 <= v < math.inf for v in gv.values()) and gv["u_sag"] > 0 and gv["u_sls_sag"] > 0, str({k: round(v, 3) for k, v in gv.items()}))
+print(f"     {g['line']}: phiMu sag {PC['phiMu_sag']:.0f} / hog {PC['phiMu_hog']:.0f} kNm; governing {', '.join(f'{k} {v:.2f}' for k, v in gv.items())}")
 
 # stage 2b: integral abutments (both ends cast into the headstock, backfill springs behind)
 from pdf2bim.description import MissingInput

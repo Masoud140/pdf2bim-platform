@@ -1,6 +1,6 @@
 # Current status — 2026-11-10
 
-- 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; stage 2b integral abutments (fixed plank-to-headstock links, backfill springs `supports[].abutment_spring`); test_plank_model 10/10. Next: stage 3 plank design.
+- 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; stage 2b integral abutments (fixed plank-to-headstock links, backfill springs `supports[].abutment_spring`); test_plank_model 10/10; stage 3a RC plank flexure + SLS bar stress (test_plank_design 7/7). Next: stage 3b shear / torsion.
 
 **2026-11-10:**
 - Prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md`.
