@@ -51,11 +51,16 @@ t("combined actions run on the plank deck (traffic, thermal with the plank outli
 from pdf2bim.design.plank_design import plank_checks
 pd["superstructure"]["plank_types"][0]["bars"] = {"rows": [{"cells": c, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"cells": c, "tag": "Input-user"}}
                                                            for c in ({"y": 60.0, "diameter": 24.0, "number": 6}, {"y": 850.0, "diameter": 16.0, "number": 8})]}
+pd["superstructure"]["plank_types"][0]["fitments"] = {"rows": [{"cells": c, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"cells": c, "tag": "Input-user"}}
+                                                               for c in ({"from": 0.0, "to": 40.0, "diameter": 12.0, "legs": 2, "spacing": 150.0},)]}
 gl0 = [x for x in MI['members'] if x['role'] == 'girder' and x['line'] == g['line']]
 PC = plank_checks(pd, geo, Sx, CA, MI, std, g["line"], allow_proposed=True)
 gv = PC["governing"]
 t("plank checks run at every plank element end: ULS sag / hog, SLS bar stress (cracked)",
   len(PC["rows"]) == 2 * len(gl0) and all(0 <= v < math.inf for v in gv.values()) and gv["u_sag"] > 0 and gv["u_sls_sag"] > 0, str({k: round(v, 3) for k, v in gv.items()}))
+sh = [r["shear"] for r in PC["rows"]]
+t("plank shear / torsion by the general method at every end (fitments + girder_options), interface shear demand reported",
+  all("u" in q for q in sh) and gv["u_shear"] > 0 and gv["tau_interface_kPa"] > 0, str(sh[0]))
 print(f"     {g['line']}: phiMu sag {PC['phiMu_sag']:.0f} / hog {PC['phiMu_hog']:.0f} kNm; governing {', '.join(f'{k} {v:.2f}' for k, v in gv.items())}")
 
 # stage 2b: integral abutments (both ends cast into the headstock, backfill springs behind)

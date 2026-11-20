@@ -68,10 +68,30 @@ t("hogging Mu = At fsy (d - a/2) on the upside-down section (block in the plank 
 f_h, _ = bar_stress(sec, -100.0)
 t("SLS hogging: the topping bars are the tension bars", f_h > 0)
 
+# stage 3b: shear geometry and the interface shear flow (closed forms)
+from pdf2bim.design.plank_design import shear_geometry, interface_shear
+pd["superstructure"]["plank_types"][0]["bars"] = tab([{"y": 60.0, "diameter": 24.0, "number": 6}])
+sec, lv = plank_section_design(pd, Sx, P, True)
+g_ = shear_geometry(sec, lv, 40.0, 45.0, 12.0)
+boh, yoh = 1200 - 2 * 46, H - 40 - 45 - 12
+t("shear geometry of a solid plank: bv = b, closed tie at cover + tie/2, Ao = 0.9 Aoh (Assumed), Acp / uc of b x D",
+  g_["bv"] == 1200 and abs(g_["Aoh"] - boh * yoh) < 1e-6 and abs(g_["Ao"] - 0.9 * boh * yoh) < 1e-6 and abs(g_["uh"] - 2 * (boh + yoh)) < 1e-9
+  and g_["Acp"] == 1200 * H and g_["uc"] == 2 * (1200 + H))
+Ep_ = next(c["E"] for c in sec.conc if c["grp"] == "girder")
+nd, ns = Ed / Ep_, Es / Ep_
+A1, y1 = nd * b * tD, tD / 2
+A2, y2 = 1200 * 700, tD + 350
+A3, y3 = (ns - 1) * As, H - 60
+A = A1 + A2 + A3; yc = (A1 * y1 + A2 * y2 + A3 * y3) / A
+I = A1 * (y1 - yc) ** 2 + nd * b * tD ** 3 / 12 + A2 * (y2 - yc) ** 2 + 1200 * 700 ** 3 / 12 + A3 * (y3 - yc) ** 2
+tau = 500e3 * A1 * (yc - y1) / (I * 1200) * 1e3
+ti = interface_shear(sec, 500.0)
+t("interface shear flow V Q / (I b) at the plank top (transformed topping, uncracked)", abs(ti - tau) < 2e-3 * tau, f"{ti:.1f} vs {tau:.1f} kPa")
+
 pd["superstructure"]["plank_types"][0]["strand_pattern"] = tab([{"y": 60.0, "x": 0.0, "diameter": 15.2, "on": True}])
 try:
-    plank_section_design(pd, Sx, P, True); t("prestressed plank refused (stage 3b)", False)
+    plank_section_design(pd, Sx, P, True); t("prestressed plank refused (stage 3c)", False)
 except MissingInput as ex:
-    t("prestressed plank refused (stage 3b)", "3b" in str(ex))
+    t("prestressed plank refused (stage 3c)", "3c" in str(ex))
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

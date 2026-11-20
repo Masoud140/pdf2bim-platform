@@ -15,12 +15,20 @@ Checks at every plank element end (the plank is prismatic, so the section is the
 - SLS bar stress on the cracked section (sls.solve, no concrete tension) under the SLS envelope maximum / minimum,
   against AS5100.5:crack_control:table_8_6_2_1 by the bar diameter at the tension face (girder_sls.crack_limits). An RC
   plank has no prestress, so the stress increment above decompression is the stress itself.
-NOT here (stage 3b / 3c): prestressed planks (strand_pattern given -> refused), shear and torsion, interface
-(longitudinal) shear, minimum strength, deck slab transverse design. Standards values code-extracted-unverified.
+- shear and torsion (stage 3b): the general method (shear.shear) with the governing |V*| ULS row at the end and its
+  concurrent T*, M*, N* (combinations.concurrent_row); fitments plank_types[].fitments, covers / aggregate / tie legs
+  design.girder_options as the Super-T; geometry shear_geometry (rectangle);
+- interface shear: the elastic shear flow V* Q / (I b) at the plank / topping interface (demand only).
+NOT here (stage 3c): prestressed planks (strand_pattern given -> refused), the interface shear capacity, minimum
+strength, deck slab transverse design. Standards values code-extracted-unverified.
 """
-import copy, math
+import math
+import numpy as np
 from ..description import Reader, MissingInput
-from .flexure import Section, uls_bend
+from ..model.combinations import concurrent_row
+from .flexure import Section, uls_bend, elastic
+from .shear import shear as shear_check
+from .girder_shear import shear_inputs
 from .sls import solve
 from .girder_sls import crack_limits
 from .girder_design import _element_ends
@@ -56,7 +64,7 @@ def plank_section_design(doc, S, plank, allow_proposed=False, dz=2.0):
     T = next(x for x in sup.get("plank_types") or [] if x["id"] == tref)
     tp = f"superstructure.plank_types[{tref}]"
     if rd.rows(T.get("strand_pattern"), tp + ".strand_pattern", required=False):
-        raise MissingInput(f"{tp}: prestressed planks are not designed yet (ADR-085 stage 3b)")
+        raise MissingInput(f"{tp}: prestressed planks are not designed yet (ADR-085 stage 3c)")
     st = G["stations"][len(G["stations"]) // 2]
     h = G["params"]["depth"]
     tD = S["deck_thickness"] if st["deck"] else 0.0
@@ -84,7 +92,7 @@ def plank_section_design(doc, S, plank, allow_proposed=False, dz=2.0):
         k = int(r.get("number") or 1)
         bars.append({"y": tD + h - y, "A": k * math.pi / 4 * float(r["diameter"]) ** 2, "E": float(bm["Es"]), "fsy": float(bm["fsy"]),
                      "grp": "girder" if y <= h else "deck", "d": float(r["diameter"]), "n": k})
-    return Section(conc, bars), {"Dtot": tD + h, "tD": tD, "h": h, "provisional": rd.provisional}
+    return Section(conc, bars), {"Dtot": tD + h, "tD": tD, "h": h, "fcg": fcp, "Eg": Ep, "type": T, "tp": tp, "bm": bm, "provisional": rd.provisional}
 
 
 def _flip(sec, H):
@@ -104,6 +112,36 @@ def bar_stress(sec, M):
     return max(s)
 
 
+def shear_geometry(sec, lv, cover_side, cover_top, tie_d):
+    """Shear / torsion geometry of a plank + topping (rectangle, the plank width): bv = the narrowest plank strip (a
+    voided plank: the width less its voids); Acp, uc of the plank-width rectangle over the full depth; closed tie at
+    cover + tie_d / 2 from the sides, the soffit and the deck top; Ao = 0.9 Aoh as the Super-T solid ends (Assumed, ADR-039).
+    shortcut: voids ignored in Ao / Acp (a voided plank is not a thin-walled cell here), refine for large voids."""
+    pl = [c for c in sec.conc if c["grp"] == "girder"]
+    b, D = max(c["b"] for c in pl), lv["Dtot"]
+    boh = b - 2 * (cover_side + tie_d / 2)
+    yoh = D - cover_side - cover_top - tie_d
+    if boh <= 0 or yoh <= 0:
+        raise MissingInput("plank shear geometry: covers leave no closed tie")
+    Aoh = boh * yoh
+    return {"bv": min(c["b"] for c in pl), "Ao": 0.9 * Aoh, "Aoh": Aoh, "Acp": b * D, "uc": 2 * (b + D), "uh": 2 * (boh + yoh), "y1": yoh, "b": b}
+
+
+def interface_shear(sec, V):
+    """Elastic shear flow at the plank / topping interface (kPa): tau = V Q / (I b), Q the transformed topping area
+    moment about the uncracked centroid, b the plank top width. Demand only (the capacity clause is not in the
+    standards data)."""
+    Eref = next(c["E"] for c in sec.conc if c["grp"] == "girder")
+    el = elastic(sec, Eref)
+    deck = [c for c in sec.conc if c["grp"] == "deck"]
+    if not deck:
+        return None
+    Q = sum(c["E"] / Eref * c["b"] * c["h"] * (el["yc"] - c["y"]) for c in deck)
+    Q += sum((b["E"] / Eref - c_["E"] / Eref) * b["A"] * (el["yc"] - b["y"]) for b in sec.bars if b["grp"] == "deck" for c_ in [sec.strip_at(b["y"])] if c_)
+    bi = min((c for c in sec.conc if c["grp"] == "girder"), key=lambda c: c["y"])["b"]
+    return abs(V) * 1e3 * Q / (el["I"] * bi) * 1e3
+
+
 def plank_checks(doc, geo, S, CA, mdl, std, plank, allow_proposed=False):
     sec, lv = plank_section_design(doc, S, plank, allow_proposed)
     H = lv["Dtot"]
@@ -112,6 +150,14 @@ def plank_checks(doc, geo, S, CA, mdl, std, plank, allow_proposed=False):
     lim = crack_limits(sec, std)
     ends = _element_ends(CA, mdl, geo, plank)
     U, Sv = CA["envelopes"]["ULS"], CA["envelopes"]["SLS"]
+    # shear / torsion inputs (as the Super-T checks): fitments of the plank type, covers / aggregate in design.girder_options
+    rd = Reader(doc, allow_proposed)
+    fits = rd.rows(lv["type"].get("fitments"), lv["tp"] + ".fitments", required=False)
+    opts = {r_.get("item"): r_.get("value") for r_ in rd.rows((doc.get("design") or {}).get("girder_options"), "design.girder_options", required=False)}
+    need = [k for k in ("fitment_cover_side", "fitment_cover_top", "aggregate_size") if opts.get(k) in (None, "")]
+    shear_why = (lv["tp"] + ".fitments missing") if not fits else ("design.girder_options missing: " + ", ".join(need)) if need else None
+    ix = {n_: k for k, n_ in enumerate(CA["names"])}
+    prim, byname = CA["primitives"]["prim"], {q["name"]: q for q in CA["rows"]}
     rows = []
     for d, i, (_, eid), end in sorted(ends):
         Ms, Mh = float(U["max"][i]), float(U["min"][i])
@@ -122,9 +168,33 @@ def plank_checks(doc, geo, S, CA, mdl, std, plank, allow_proposed=False):
                      "u_sag": max(Ms, 0.0) / sag["phiMu"], "u_hog": max(-Mh, 0.0) / hog["phiMu"],
                      "Ms_sls": Ss, "Mh_sls": Sh, "fs_sag": fs_s, "fs_hog": fs_h,
                      "u_sls_sag": fs_s / lim["fscr"], "u_sls_hog": fs_h / lim["fscrT"]})
+        iV = ix[("G", (plank, eid), f"V{end}")]
+        which = "max" if abs(U["max"][iV]) >= abs(U["min"][iV]) else "min"
+        rowV = U["g" + which][iV]
+        cv = np.asarray(concurrent_row(prim, byname[rowV], iV, which)["v"])
+        Vs, Ts = float(cv[iV]), float(cv[ix[("G", (plank, eid), f"T{end}")]])
+        Mv, Nv = float(cv[ix[("G", (plank, eid), f"M{end}")]]), float(cv[ix[("G", (plank, eid), f"N{end}")]])
+        rows[-1].update({"V": Vs, "T": Ts, "M_V": Mv, "N_V": Nv, "row_V": rowV, "tau_interface_kPa": interface_shear(sec, Vs)})
+        if shear_why:
+            rows[-1]["shear"] = {"why": shear_why}
+            continue
+        fr = [f for f in fits if f.get("from") is not None and f["from"] - 1e-9 <= d <= f["to"] + 1e-9]
+        if not fr:
+            rows[-1]["shear"] = {"why": f"no fitment row covers x = {d:.2f} m"}
+            continue
+        f0 = fr[0]
+        fit = {"d": float(f0["diameter"]), "legs": int(f0["legs"]), "s": float(f0["spacing"]), "tie_d": float(f0["diameter"]),
+               "tie_legs": int(float(opts.get("torsion_tie_legs") or 0)), "tie_s": float(f0["spacing"]), "fsyf": float(lv["bm"]["fsy"]), "dg": float(opts["aggregate_size"])}
+        g_ = shear_geometry(sec, lv, float(opts["fitment_cover_side"]), float(opts["fitment_cover_top"]), fit["tie_d"])
+        Q = shear_inputs(sec, g_, lv, fit, {"fsy": float(lv["bm"]["fsy"]), "Es": float(lv["bm"]["Es"]), "Ep": 0.0}, [], face="top" if Mv >= 0 else "bottom")
+        sh = shear_check(Q, {"V": Vs, "T": Ts, "M": Mv, "N": Nv}, std)
+        rows[-1]["shear"] = {"fitments": f"N{fit['d']:g} x {fit['legs']} legs @ {fit['s']:g}", "dv": Q["dv"], "bv": Q["bv"], "Ao": Q["Ao"],
+                             **{k: sh.get(k) for k in ("ex", "th", "kv", "Vuc", "Vus", "Vumax", "Tcr", "uCr", "uV", "uT", "uL", "u", "minV")}}
     return {"plank": plank, "phiMu_sag": sag["phiMu"], "phiMu_hog": hog["phiMu"], "kuo_sag": sag["kuo"], "kuo_hog": hog["kuo"],
             "fscr": lim["fscr"], "fscrT": lim["fscrT"], "why": lim["why"], "rows": rows,
-            "governing": {k: max(r[k] for r in rows) for k in ("u_sag", "u_hog", "u_sls_sag", "u_sls_hog")},
-            "notes": ["RC planks: ULS flexure (sagging / hogging) and SLS cracked bar stress only; shear, torsion, interface shear, "
-                      "prestressed planks and minimum strength not yet checked (ADR-085 stage 3b / 3c)"],
+            "governing": dict({k: max(r[k] for r in rows) for k in ("u_sag", "u_hog", "u_sls_sag", "u_sls_hog")},
+                              u_shear=max((r["shear"].get("u", 0.0) for r in rows), default=0.0), tau_interface_kPa=max((r["tau_interface_kPa"] or 0.0) for r in rows)),
+            "shear_why": shear_why,
+            "notes": ["RC planks: ULS flexure, SLS cracked bar stress, shear / torsion (general method) and the interface shear DEMAND; "
+                      "the interface shear capacity (clause not in the standards data), prestressed planks and minimum strength are not checked (ADR-085 stage 3c)"],
             "provisional": lv["provisional"], "standards_status": std.result_status()}
