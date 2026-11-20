@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — SB43 survey (ADR-085 stage 4a, ADR-086 proposed)
+- `projects/B12468/extraction/`: SURVEY.md, Table 1 plank supports (91 planks).
+
 ## 2026-11-20 — Prestressed planks (ADR-085 stage 3c-2)
 - Losses analysis and staged SLS / ULS on plank lines; plank fields jacking_ratio, age_at_transfer, age_deck_cast.
 

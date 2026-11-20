@@ -1,0 +1,749 @@
+{
+ "source": "SGWS1-JHSW-2000-BR-DRG-410605 rev 00 (sheet 0605) Table 1 - Plank supports; combined PDF page index 111; text layer",
+ "tag": "Direct",
+ "notes": [
+  "chainage 'x' on MCH0 = plank setout point (on MCH0); bearing = plank direction (decimal degrees)",
+  "setout levels at abutment B / C ends; slope along plank -0.020 % on every row as printed",
+  "radial distance setout point to the plank end: 8850 towards abutment B, 9850 towards abutment C (plank setout detail, same sheet)"
+ ],
+ "steps": {
+  "d_chainage_m": [
+   0.8759999999999764,
+   0.8770000000000095
+  ],
+  "d_bearing_deg": [
+   0.2789999999999999,
+   0.27900000000000347
+  ]
+ },
+ "rows": [
+  {
+   "id": "PL-01",
+   "ch_MCH0": 458.035,
+   "bearing_deg": 29.187,
+   "level_setout_B": 8.984,
+   "level_setout_C": 8.61,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-02",
+   "ch_MCH0": 457.159,
+   "bearing_deg": 28.908,
+   "level_setout_B": 8.976,
+   "level_setout_C": 8.602,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-03",
+   "ch_MCH0": 456.282,
+   "bearing_deg": 28.629,
+   "level_setout_B": 8.967,
+   "level_setout_C": 8.593,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-04",
+   "ch_MCH0": 455.406,
+   "bearing_deg": 28.35,
+   "level_setout_B": 8.959,
+   "level_setout_C": 8.585,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-05",
+   "ch_MCH0": 454.529,
+   "bearing_deg": 28.071,
+   "level_setout_B": 8.951,
+   "level_setout_C": 8.577,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-06",
+   "ch_MCH0": 453.653,
+   "bearing_deg": 27.792,
+   "level_setout_B": 8.943,
+   "level_setout_C": 8.569,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-07",
+   "ch_MCH0": 452.776,
+   "bearing_deg": 27.513,
+   "level_setout_B": 8.937,
+   "level_setout_C": 8.563,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-08",
+   "ch_MCH0": 451.9,
+   "bearing_deg": 27.234,
+   "level_setout_B": 8.933,
+   "level_setout_C": 8.559,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-09",
+   "ch_MCH0": 451.024,
+   "bearing_deg": 26.955,
+   "level_setout_B": 8.932,
+   "level_setout_C": 8.558,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-10",
+   "ch_MCH0": 450.147,
+   "bearing_deg": 26.676,
+   "level_setout_B": 8.947,
+   "level_setout_C": 8.572,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-11",
+   "ch_MCH0": 449.271,
+   "bearing_deg": 26.397,
+   "level_setout_B": 8.961,
+   "level_setout_C": 8.587,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-12",
+   "ch_MCH0": 448.394,
+   "bearing_deg": 26.118,
+   "level_setout_B": 8.976,
+   "level_setout_C": 8.602,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-13",
+   "ch_MCH0": 447.518,
+   "bearing_deg": 25.839,
+   "level_setout_B": 8.991,
+   "level_setout_C": 8.617,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-14",
+   "ch_MCH0": 446.641,
+   "bearing_deg": 25.56,
+   "level_setout_B": 9.03,
+   "level_setout_C": 8.656,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-15",
+   "ch_MCH0": 445.765,
+   "bearing_deg": 25.281,
+   "level_setout_B": 9.039,
+   "level_setout_C": 8.665,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-16",
+   "ch_MCH0": 444.889,
+   "bearing_deg": 25.002,
+   "level_setout_B": 8.982,
+   "level_setout_C": 8.607,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-17",
+   "ch_MCH0": 444.012,
+   "bearing_deg": 24.723,
+   "level_setout_B": 8.916,
+   "level_setout_C": 8.541,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-18",
+   "ch_MCH0": 443.136,
+   "bearing_deg": 24.444,
+   "level_setout_B": 8.853,
+   "level_setout_C": 8.478,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-19",
+   "ch_MCH0": 442.259,
+   "bearing_deg": 24.165,
+   "level_setout_B": 8.791,
+   "level_setout_C": 8.417,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-20",
+   "ch_MCH0": 441.383,
+   "bearing_deg": 23.886,
+   "level_setout_B": 8.766,
+   "level_setout_C": 8.391,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-21",
+   "ch_MCH0": 440.506,
+   "bearing_deg": 23.607,
+   "level_setout_B": 8.788,
+   "level_setout_C": 8.414,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-22",
+   "ch_MCH0": 439.63,
+   "bearing_deg": 23.328,
+   "level_setout_B": 8.794,
+   "level_setout_C": 8.42,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-23",
+   "ch_MCH0": 438.753,
+   "bearing_deg": 23.049,
+   "level_setout_B": 8.801,
+   "level_setout_C": 8.427,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-24",
+   "ch_MCH0": 437.877,
+   "bearing_deg": 22.77,
+   "level_setout_B": 8.809,
+   "level_setout_C": 8.434,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-25",
+   "ch_MCH0": 437.001,
+   "bearing_deg": 22.491,
+   "level_setout_B": 8.817,
+   "level_setout_C": 8.443,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-26",
+   "ch_MCH0": 436.124,
+   "bearing_deg": 22.212,
+   "level_setout_B": 8.825,
+   "level_setout_C": 8.451,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-27",
+   "ch_MCH0": 435.248,
+   "bearing_deg": 21.933,
+   "level_setout_B": 8.834,
+   "level_setout_C": 8.46,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-28",
+   "ch_MCH0": 434.371,
+   "bearing_deg": 21.654,
+   "level_setout_B": 8.844,
+   "level_setout_C": 8.47,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-29",
+   "ch_MCH0": 433.495,
+   "bearing_deg": 21.375,
+   "level_setout_B": 8.854,
+   "level_setout_C": 8.48,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-30",
+   "ch_MCH0": 432.618,
+   "bearing_deg": 21.096,
+   "level_setout_B": 8.864,
+   "level_setout_C": 8.49,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-31",
+   "ch_MCH0": 431.742,
+   "bearing_deg": 20.817,
+   "level_setout_B": 8.875,
+   "level_setout_C": 8.501,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-32",
+   "ch_MCH0": 430.865,
+   "bearing_deg": 20.538,
+   "level_setout_B": 8.886,
+   "level_setout_C": 8.512,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-33",
+   "ch_MCH0": 429.989,
+   "bearing_deg": 20.259,
+   "level_setout_B": 8.897,
+   "level_setout_C": 8.523,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-34",
+   "ch_MCH0": 429.112,
+   "bearing_deg": 19.98,
+   "level_setout_B": 8.909,
+   "level_setout_C": 8.535,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-35",
+   "ch_MCH0": 428.236,
+   "bearing_deg": 19.701,
+   "level_setout_B": 8.921,
+   "level_setout_C": 8.546,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-36",
+   "ch_MCH0": 427.359,
+   "bearing_deg": 19.422,
+   "level_setout_B": 8.933,
+   "level_setout_C": 8.559,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-37",
+   "ch_MCH0": 426.483,
+   "bearing_deg": 19.143,
+   "level_setout_B": 8.945,
+   "level_setout_C": 8.571,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-38",
+   "ch_MCH0": 425.607,
+   "bearing_deg": 18.864,
+   "level_setout_B": 8.958,
+   "level_setout_C": 8.584,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-39",
+   "ch_MCH0": 424.73,
+   "bearing_deg": 18.585,
+   "level_setout_B": 8.971,
+   "level_setout_C": 8.597,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-40",
+   "ch_MCH0": 423.854,
+   "bearing_deg": 18.306,
+   "level_setout_B": 8.984,
+   "level_setout_C": 8.61,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-41",
+   "ch_MCH0": 422.977,
+   "bearing_deg": 18.027,
+   "level_setout_B": 8.997,
+   "level_setout_C": 8.623,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-42",
+   "ch_MCH0": 422.101,
+   "bearing_deg": 17.748,
+   "level_setout_B": 9.01,
+   "level_setout_C": 8.636,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-43",
+   "ch_MCH0": 421.224,
+   "bearing_deg": 17.469,
+   "level_setout_B": 9.023,
+   "level_setout_C": 8.649,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-44",
+   "ch_MCH0": 420.348,
+   "bearing_deg": 17.19,
+   "level_setout_B": 9.036,
+   "level_setout_C": 8.662,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-45",
+   "ch_MCH0": 419.472,
+   "bearing_deg": 16.911,
+   "level_setout_B": 9.049,
+   "level_setout_C": 8.675,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-46",
+   "ch_MCH0": 418.595,
+   "bearing_deg": 16.632,
+   "level_setout_B": 9.062,
+   "level_setout_C": 8.687,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-47",
+   "ch_MCH0": 417.719,
+   "bearing_deg": 16.353,
+   "level_setout_B": 9.074,
+   "level_setout_C": 8.7,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-48",
+   "ch_MCH0": 416.842,
+   "bearing_deg": 16.074,
+   "level_setout_B": 9.086,
+   "level_setout_C": 8.712,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-49",
+   "ch_MCH0": 415.966,
+   "bearing_deg": 15.795,
+   "level_setout_B": 9.08,
+   "level_setout_C": 8.706,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-50",
+   "ch_MCH0": 415.089,
+   "bearing_deg": 15.516,
+   "level_setout_B": 9.057,
+   "level_setout_C": 8.683,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-51",
+   "ch_MCH0": 414.213,
+   "bearing_deg": 15.237,
+   "level_setout_B": 9.034,
+   "level_setout_C": 8.66,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-52",
+   "ch_MCH0": 413.336,
+   "bearing_deg": 14.958,
+   "level_setout_B": 9.011,
+   "level_setout_C": 8.637,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-53",
+   "ch_MCH0": 412.46,
+   "bearing_deg": 14.679,
+   "level_setout_B": 8.988,
+   "level_setout_C": 8.614,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-54",
+   "ch_MCH0": 411.584,
+   "bearing_deg": 14.4,
+   "level_setout_B": 8.965,
+   "level_setout_C": 8.591,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-55",
+   "ch_MCH0": 410.707,
+   "bearing_deg": 14.121,
+   "level_setout_B": 8.942,
+   "level_setout_C": 8.568,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-56",
+   "ch_MCH0": 409.831,
+   "bearing_deg": 13.842,
+   "level_setout_B": 8.92,
+   "level_setout_C": 8.545,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-57",
+   "ch_MCH0": 408.954,
+   "bearing_deg": 13.563,
+   "level_setout_B": 8.897,
+   "level_setout_C": 8.523,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-58",
+   "ch_MCH0": 408.078,
+   "bearing_deg": 13.284,
+   "level_setout_B": 8.875,
+   "level_setout_C": 8.5,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-59",
+   "ch_MCH0": 407.201,
+   "bearing_deg": 13.005,
+   "level_setout_B": 8.852,
+   "level_setout_C": 8.478,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-60",
+   "ch_MCH0": 406.325,
+   "bearing_deg": 12.726,
+   "level_setout_B": 8.83,
+   "level_setout_C": 8.456,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-61",
+   "ch_MCH0": 405.449,
+   "bearing_deg": 12.447,
+   "level_setout_B": 8.808,
+   "level_setout_C": 8.433,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-62",
+   "ch_MCH0": 404.572,
+   "bearing_deg": 12.168,
+   "level_setout_B": 8.789,
+   "level_setout_C": 8.415,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-63",
+   "ch_MCH0": 403.695,
+   "bearing_deg": 11.889,
+   "level_setout_B": 8.793,
+   "level_setout_C": 8.419,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-64",
+   "ch_MCH0": 402.819,
+   "bearing_deg": 11.61,
+   "level_setout_B": 8.795,
+   "level_setout_C": 8.421,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-65",
+   "ch_MCH0": 401.942,
+   "bearing_deg": 11.331,
+   "level_setout_B": 8.797,
+   "level_setout_C": 8.423,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-66",
+   "ch_MCH0": 401.066,
+   "bearing_deg": 11.052,
+   "level_setout_B": 8.799,
+   "level_setout_C": 8.425,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-67",
+   "ch_MCH0": 400.189,
+   "bearing_deg": 10.773,
+   "level_setout_B": 8.802,
+   "level_setout_C": 8.428,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-68",
+   "ch_MCH0": 399.313,
+   "bearing_deg": 10.494,
+   "level_setout_B": 8.805,
+   "level_setout_C": 8.431,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-69",
+   "ch_MCH0": 398.437,
+   "bearing_deg": 10.215,
+   "level_setout_B": 8.808,
+   "level_setout_C": 8.434,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-70",
+   "ch_MCH0": 397.56,
+   "bearing_deg": 9.936,
+   "level_setout_B": 8.812,
+   "level_setout_C": 8.438,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-71",
+   "ch_MCH0": 396.684,
+   "bearing_deg": 9.657,
+   "level_setout_B": 8.815,
+   "level_setout_C": 8.441,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-72",
+   "ch_MCH0": 395.807,
+   "bearing_deg": 9.378,
+   "level_setout_B": 8.819,
+   "level_setout_C": 8.445,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-73",
+   "ch_MCH0": 394.931,
+   "bearing_deg": 9.099,
+   "level_setout_B": 8.823,
+   "level_setout_C": 8.449,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-74",
+   "ch_MCH0": 394.054,
+   "bearing_deg": 8.82,
+   "level_setout_B": 8.827,
+   "level_setout_C": 8.453,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-75",
+   "ch_MCH0": 393.178,
+   "bearing_deg": 8.541,
+   "level_setout_B": 8.831,
+   "level_setout_C": 8.457,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-76",
+   "ch_MCH0": 392.302,
+   "bearing_deg": 8.262,
+   "level_setout_B": 8.835,
+   "level_setout_C": 8.461,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-77",
+   "ch_MCH0": 391.425,
+   "bearing_deg": 7.983,
+   "level_setout_B": 8.84,
+   "level_setout_C": 8.465,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-78",
+   "ch_MCH0": 390.549,
+   "bearing_deg": 7.704,
+   "level_setout_B": 8.845,
+   "level_setout_C": 8.471,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-79",
+   "ch_MCH0": 389.672,
+   "bearing_deg": 7.425,
+   "level_setout_B": 8.849,
+   "level_setout_C": 8.475,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-80",
+   "ch_MCH0": 388.796,
+   "bearing_deg": 7.146,
+   "level_setout_B": 8.854,
+   "level_setout_C": 8.479,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-81",
+   "ch_MCH0": 387.919,
+   "bearing_deg": 6.867,
+   "level_setout_B": 8.859,
+   "level_setout_C": 8.484,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-82",
+   "ch_MCH0": 387.043,
+   "bearing_deg": 6.588,
+   "level_setout_B": 8.864,
+   "level_setout_C": 8.49,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-83",
+   "ch_MCH0": 386.166,
+   "bearing_deg": 6.309,
+   "level_setout_B": 8.868,
+   "level_setout_C": 8.494,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-84",
+   "ch_MCH0": 385.29,
+   "bearing_deg": 6.03,
+   "level_setout_B": 8.874,
+   "level_setout_C": 8.499,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-85",
+   "ch_MCH0": 384.414,
+   "bearing_deg": 5.751,
+   "level_setout_B": 8.879,
+   "level_setout_C": 8.505,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-86",
+   "ch_MCH0": 383.537,
+   "bearing_deg": 5.472,
+   "level_setout_B": 8.884,
+   "level_setout_C": 8.51,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-87",
+   "ch_MCH0": 382.661,
+   "bearing_deg": 5.193,
+   "level_setout_B": 8.889,
+   "level_setout_C": 8.515,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-88",
+   "ch_MCH0": 381.784,
+   "bearing_deg": 4.914,
+   "level_setout_B": 8.895,
+   "level_setout_C": 8.521,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-89",
+   "ch_MCH0": 380.908,
+   "bearing_deg": 4.635,
+   "level_setout_B": 8.9,
+   "level_setout_C": 8.526,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-90",
+   "ch_MCH0": 380.031,
+   "bearing_deg": 4.356,
+   "level_setout_B": 8.906,
+   "level_setout_C": 8.531,
+   "slope_pct": -0.02
+  },
+  {
+   "id": "PL-91",
+   "ch_MCH0": 379.155,
+   "bearing_deg": 4.077,
+   "level_setout_B": 8.911,
+   "level_setout_C": 8.537,
+   "slope_pct": -0.02
+  }
+ ]
+}
