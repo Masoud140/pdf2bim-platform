@@ -420,7 +420,11 @@ put("custom.drainage", "Ø225 FRC pipe under the deck along the median, 150 scup
 put("loads.traffic_models.rows[0]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "M1600", "on": True})
 put("loads.traffic_models.rows[1]", sheet="0101", view="design criteria", text="ROAD TRAFFIC LOADING: SM1600", cells={"model": "S1600", "on": True})
 put("loads.traffic_models.rows[2]", sheet="RPT", view="table 2-7", text="SB01 | 6 | ± 1 m either side of the centreline of any two marked travel lanes in each direction",
-    cells={"model": "HLP400", "on": True}, note="platform: HLP centred on each carriageway ±1 m (marked-lane pairs not tried: shortcut in traffic.py)")
+    cells={"model": "HLP400", "on": True}, note="positions on the 000101 cover diagram (lane lines; see custom.hlp_lane_lines): not entered, the platform uses each carriageway centre ±1 m")
+put("custom.hlp_lane_lines", tag="Missing-Flagged",
+    note="000101 cover diagram SB01: HLP400 centreline on the TL1/TL2 and TL2/TL3 lane lines of each carriageway (SH TL TL TL SH), and on the '℄ of bridge deck for HLP 400' "
+         "(rev E), each 1000 | 1000; the travel-lane (TL) widths are not dimensioned on the cover, on 0701 or in RPT-000001 (table 2-7 points to the cover): "
+         "the lane-line offsets cannot be calculated - owner query (road design lane widths); loads.hlp_positions left empty")
 put("loads.traffic_models.rows[3]", sheet="RPT", view="table 2-7", text="0.5x SM1600 on any adjacent unoccupied travel lane, in conjunction with the HLP400 loading",
     cells={"model": "HLP400_with_half_M1600", "on": True})
 put("loads.design_speed", 90, unit="km/h", sheet="0101", view="design criteria", text="DESIGN TRAFFIC SPEED: 90 km/h")

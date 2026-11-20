@@ -7,13 +7,14 @@
 ## Work queue (owner 2026-11-20: items that need no owner input first, in this order)
 
 **A. No owner input — do in order**
-1. **SB01 (B12452) HLP positions** from the 000101 cover diagram: positions on the lane lines of each carriageway and the "℄ of bridge deck for HLP400" (rev D), ±1000; travel-lane widths from the typical deck section (ADR-084).
+1. ~~SB01 (B12452) HLP positions~~ — checked 2026-11-20: lane widths not in the set → `custom.hlp_lane_lines` Missing - Flagged, moved to B (owner).
 2. **SB41 WB continuous re-run** (`tools/combined_actions.py` + `tools/girder_checks.py` with both span descriptions, ~30 min) with the three cover-sheet HLP positions; refresh `projects/B12459/model/COMPARISON_REPORT_CONTINUOUS.md` (`compare_report.py RUN`).
 3. **Plank decks (14c)**: platform support for plank superstructures (SB43 / B12468 then in scope).
 4. Optional Studio extras from the dashboard inventory (ADR-068/069): N–M interaction diagram (D-10), section designer (D-13), barrier bolts (D-12), more export formats (D-15).
 
 **B. Waiting on the owner (do not start)**
 - BR13A D-49: HLP400 alone or with half SM1600 (cover sheet silent).
+- SB01: travel-lane widths for the HLP lane-line positions (000101 diagram; not dimensioned in the set).
 - SB41 WB: stress bar UTS (not on the drawings); span-2 hogging u up to 1.90 at 3.5–10 m from the pier vs the report's envelope; deck bars in single-span girder capacity (would shift benchmarks).
 - Older benchmark queries: table 4-29 Mu or φMu; SLS combination / limit; transfer-stress basis (SB42); f'cp in table 4-32 (SB41 EB); MC80 bearing typo; SB01 drawing items.
 - MIDAS moving-load export: one native .mct with a moving load (never guess the syntax).
