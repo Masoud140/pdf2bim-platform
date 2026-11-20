@@ -786,6 +786,16 @@
 - **Findings for the owner:** B12452 transfer compression u = 1.09 (bottom 25.2 MPa at midspan region, f'cp 40). SB42 42-S1-05: platform transfer compression about 20.5–21.8 MPa vs the report's 19.3 MPa (limit 24 = 0.6 f'cp); report tension 3.15 MPa (limit 3.16 = 0.5 √40) vs platform about 1.0 MPa. The report's transfer basis (support positions, losses at transfer) is unknown.
 - **Tests:** `tests/design/test_prestress_checks.py` 13/13; `tests/standards/test_standards.py` 30/30; `tools/girder_checks.py` run on B12452 (both girders) end to end.
 
+## ADR-085 Plank decks: scope and stages (plan, 2026-11-20)
+- **Why:** queue item A3 (no owner input first). The only plank bridge in the sets is SB43 (B12468): 700 deep side-by-side planks set radially on MCH0, 19 m span, **integral portal frame** with abutments B and C (rotationally fixed), deck 200–700 mm varying, abutment soil stiffness to PD6694-1 (thermal ratcheting); report table 4-34 (plank ULS M* 2,285 / φMu 2,630 kNm, SLS steel stress increment 89 / 160 MPa, longitudinal shear 1,933 / 2,024 kPa, V* 478 / 1,268 kN, T* 103 kNm) and 4-35 (deck slab). The planks are designed as cracked reinforced / partially prestressed members (steel stress increment), not as Super-T.
+- **Stages (each tested and checkpointed):**
+  1. Sections: plank library shapes (solid / voided, `superstructure.plank_types`, schema fields already in `PLANK`), composite with the deck overlay; properties and torsion as P2 (finite-difference J).
+  2. Model: side-by-side plank grillage (one longitudinal member per plank, transverse members from the overlay and the plank-to-plank connection, Hambly / BD 2011 conventions as `grillage_modelling_reference.md`); support either on bearings (simply supported, existing builder path) or **integral** (rigid plank-to-headstock connection, abutment as a frame member with horizontal soil springs).
+  3. Design: plank flexure (RC and prestressed), SLS steel stress increment / crack control, shear and torsion, interface (longitudinal) shear, deck slab; reuses `pdf2bim/design` where the AS 5100.5 clause is the same.
+  4. SB43: survey → values → description → chain → comparison against tables 4-34 / 4-35.
+- **Owner inputs for SB43 (stage 4 only):** the integral abutment soil stiffness (PD6694-1 K* from the geotechnical report — not in the set): without it SB43 runs only as an indicative bound (pinned / fixed) or is flagged. Stages 1–3 need no input.
+- **Status:** plan only; next session starts stage 1.
+
 ## ADR-084 Heavy load platform from the cover sheet (2026-11-20)
 - **Owner rule:** the cover sheet (sheet 0101 / 000101 / 202001) summarises the design loads; when it shows HLP loading, the bridge is designed for it and the platform applies it, at the positions of its diagram.
 - **Engine:** new field `loads.hlp_positions` (table: name, offset from the control line, range ±m); `traffic_envelope` / `governing_state` run one platform at every listed position (each inside a carriageway, else refused); empty = the centre of each carriageway ±the vehicle range (unchanged). HLP rows are in the combined actions and girder checks of every bridge with HLP400 on (ULS 1.5, SLS 1.0, no braking: `AS5100.2:load_factor:HLP`).
