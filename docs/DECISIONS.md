@@ -794,7 +794,7 @@
   3. Design: plank flexure (RC and prestressed), SLS steel stress increment / crack control, shear and torsion, interface (longitudinal) shear, deck slab; reuses `pdf2bim/design` where the AS 5100.5 clause is the same.
   4. SB43: survey → values → description → chain → comparison against tables 4-34 / 4-35.
 - **Owner inputs for SB43 (stage 4 only):** the integral abutment soil stiffness (PD6694-1 K* from the geotechnical report — not in the set): without it SB43 runs only as an indicative bound (pinned / fixed) or is flagged. Stages 1–3 need no input.
-- **Status:** plan only; next session starts stage 1.
+- **Status:** stage 1 started 2026-11-20: `pdf2bim/sections/plank.py` `plank_section` (solid / voided plank, overlay composite, J by finite differences); tests/sections/test_plank.py 6/6 against closed forms. Next: wire `superstructure.plank_types` into `build_sections`, then stage 2.
 
 ## ADR-084 Heavy load platform from the cover sheet (2026-11-20)
 - **Owner rule:** the cover sheet (sheet 0101 / 000101 / 202001) summarises the design loads; when it shows HLP loading, the bridge is designed for it and the platform applies it, at the positions of its diagram.
