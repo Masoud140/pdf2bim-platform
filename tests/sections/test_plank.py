@@ -45,5 +45,28 @@ try:
 except ValueError:
     t("a void outside the plank refused", True)
 
+# build_sections on a plank deck: BR13A's description with its four lines switched to a 1200 x 700 plank with a topping
+import copy, json
+from pdf2bim.geometry.bridge import build_geometry
+from pdf2bim.sections.girder import build_sections
+R_ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+doc = json.load(open(os.path.join(R_, "projects", "BR13A", "BR13A.bridge.0.2.json")))
+rec = lambda v: {"value": v, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"value": v, "tag": "Input-user"}}
+pd = copy.deepcopy(doc)
+pd["superstructure"]["plank_types"] = [{"id": "PK1", "width": rec(1200.0), "depth": rec(700.0), "topping": rec(True), "voids": {"rows": []}}]
+pd["superstructure"]["supert_types"] = []
+for m in pd["superstructure"]["members"]:
+    m["type_ref"] = rec("PK1")
+row = copy.deepcopy(pd["materials"]["concrete"]["rows"][0]); row["cells"]["element"] = "Planks"; row["original"]["cells"]["element"] = "Planks"
+pd["materials"]["concrete"]["rows"].append(row)
+geo = build_geometry(pd, allow_proposed=True)
+Sx = build_sections(pd, geo, allow_proposed=True)
+g0 = next(iter(Sx["girders"].values())); st = g0["stations"][len(g0["stations"]) // 2]
+tD, nn, dl, dr = Sx["deck_thickness"], Sx["modular_ratio_deck"], st["deck_left"], st["deck_right"]
+A2 = 1200 * 700 + nn * (dl + dr) * tD
+yc2 = (1200 * 700 * 350 + nn * (dl + dr) * tD * (700 + tD / 2)) / A2
+t("build_sections on a plank deck: plank lines get the plank alone (bh) and the composite with their deck strip (exact A, yc)",
+  g0["type"] == "plank" and close(st["girder"]["A"], 1200 * 700, 1e-12) and close(st["composite"]["A_transformed"], A2, 1e-12) and close(st["composite"]["yc"], yc2, 1e-9),
+  f"{st['composite']['yc']:.3f} vs {yc2:.3f}")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

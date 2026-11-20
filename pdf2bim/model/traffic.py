@@ -171,10 +171,16 @@ class Influence:
         key = round(o * 1000)
         if key in self.cache:
             return self.cache[key][:, r]
+        rc = self.__dict__.setdefault("rcache", {"r": None, "v": {}})
+        if rc["r"] != r:                                     # one response at a time: its lines reused across shifts and lanes
+            rc["r"], rc["v"] = r, {}
+        if key in rc["v"]:
+            return rc["v"][key]
         wc = self.__dict__.setdefault("wcache", {})
         if key not in wc:
             wc[key] = self.weights(np.column_stack([grid, np.full(len(grid), o)]))
-        return np.asarray(wc[key] @ self.IM[r]).ravel()
+        rc["v"][key] = v = np.asarray(wc[key] @ self.IM[r]).ravel()
+        return v
 
 
 def _shift(A, s):
@@ -358,8 +364,10 @@ def _platform_scan(inf, grid, dc, veh, oc, r=None, lat=None):
     nr = len(inf.R)
     vp = np.zeros(nr); vn = np.zeros(nr); best = {1: (0.0, None), -1: (0.0, None)}
     for dv in lat:
-        A = sum(inf.line(oc + dv + w, grid) for w in veh["wheel_offsets_m"]) * amp
-        A = A if r is None else A[:, [r]]
+        if r is None:
+            A = sum(inf.line(oc + dv + w, grid) for w in veh["wheel_offsets_m"]) * amp
+        else:                                            # one response: its column only (the full line is all responses)
+            A = (sum(inf.line_r(oc + dv + w, grid, r) for w in veh["wheel_offsets_m"]) * amp)[:, None]
         Z = np.zeros((N + 2 * PAD, A.shape[1])); Z[PAD:PAD + N] = A
         for g, offs in ax:
             E = sum(_shift(Z, o) for o in offs)

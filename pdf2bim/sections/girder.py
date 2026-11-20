@@ -31,20 +31,49 @@ def _material(rd, doc, which):
     rows = rd.rows((doc.get("materials") or {}).get("concrete"), "materials.concrete")
     for r in rows:
         el = (r.get("element") or "").lower()
-        if (which == "girder" and "super-t" in el) or (which == "deck" and "deck" in el):
+        if (which == "girder" and "super-t" in el) or (which == "deck" and "deck" in el) or (which == "plank" and "plank" in el):
             if r.get("E") is None:
                 raise MissingInput(f"materials.concrete[{r.get('element')}].E missing")
             return float(r["E"]), r
     raise MissingInput(f"materials.concrete: no row for the {which}")
 
 
+def _plank(rd, T, tref, g, tD, n, gap, torsion_h, stations):
+    """A plank line (ADR-085): the plank section (solid / voided) with the deck overlay over its tributary strip when
+    plank_types[].topping, same per-station layout as a Super-T girder (no solid end zones: planks are prismatic)."""
+    from .plank import plank_section
+    tp = f"superstructure.plank_types[{tref}]"
+    b, h = rd.value(T.get("width"), tp + ".width"), rd.value(T.get("depth"), tp + ".depth")
+    voids = rd.rows(T.get("voids"), tp + ".voids", required=False)
+    top = rd.value(T.get("topping"), tp + ".topping")
+    rows, base = [], None
+    for f in g["flange"]:
+        if stations is not None and not any(abs(f["t"] - s) < 1e-9 for s in stations):
+            continue
+        dl = f["left"] + (gap / 2 if not f["left_to"].startswith("deck edge") else 0.0)
+        dr = f["right"] + (gap / 2 if not f["right_to"].startswith("deck edge") else 0.0)
+        ps = plank_section(b, h, voids, overlay=tD if top else 0.0, strip=dl + dr, n_deck=n, torsion_h=torsion_h)
+        if top and abs(dl - dr) > 1e-6:   # off-centre strip: shift the overlay to the plank's tributary edges
+            from .polygon import props as _props, Part as _Part
+            deck = [(-dl, h), (dr, h), (dr, h + tD), (-dl, h + tD)]
+            ps["composite"] = _props([_Part(ps["outline"])] + [_Part(v, void=True) for v in ps["voids"]] + [_Part(deck, n=n)])
+        c = ps.get("composite") or ps["plank"]
+        rows.append({"t": f["t"], "w_left": b / 2, "w_right": b / 2, "deck_left": dl, "deck_right": dr,
+                     "girder": {"A": ps["plank"]["A"], "yc": ps["plank"]["yc"], "Ix": ps["plank"]["Ix"], "Iy": ps["plank"]["Iy"], "J": ps["J_plank"]},
+                     "composite": {"A_transformed": c["A"], "yc": c["yc"], "xc": c["xc"], "Ix": c["Ix"], "Iy": c["Iy"], "J_geometric": ps.get("J_composite", ps["J_plank"])},
+                     "outline": ps["outline"], "voids": ps["voids"], "deck": [(-dl, h), (dr, h), (dr, h + tD), (-dl, h + tD)] if top else None})
+    return {"type": "plank", "type_ref": tref, "params": {"width": b, "depth": h, "D": h}, "param_source": {}, "haunch": 0.0, "stations": rows,
+            "zones": [], "solid_end": {}, "length_end_to_end": g.get("length_end_to_end")}
+
+
 def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None):
     rd = Reader(doc, allow_proposed)
     S = doc.get("superstructure") or {}
     types = {t["id"]: t for t in (S.get("supert_types") or [])}
+    ptypes = {t["id"]: t for t in (S.get("plank_types") or [])}
     lib = library()
     tD = rd.value((doc.get("deck") or {}).get("slab_thickness"), "deck.slab_thickness")
-    Eg, _ = _material(rd, doc, "girder")
+    Eg, _ = _material(rd, doc, "plank" if ptypes and not types else "girder")
     Ed, _ = _material(rd, doc, "deck")
     n = Ed / Eg
     gap = rd.value(S.get("flange_gap"), "superstructure.flange_gap")
@@ -53,6 +82,9 @@ def build_sections(doc, geo, allow_proposed=False, torsion_h=5.0, stations=None)
     for g in geo["girders"]:
         m = members[g["id"]]
         tref = rd.value(m.get("type_ref"), f"superstructure.members[{g['id']}].type_ref")
+        if tref in ptypes:
+            out[g["id"]] = _plank(rd, ptypes[tref], tref, g, tD, n, gap, torsion_h, stations)
+            continue
         T = types.get(tref)
         if T is None:
             raise MissingInput(f"superstructure.supert_types[{tref}] not found")
