@@ -48,6 +48,7 @@ def main():
     from pdf2bim.model.substructure import build_integrated
     from pdf2bim.model.combinations import combined_actions
     from pdf2bim.design.girder_design import checks_along
+    from pdf2bim.design.plank_design import plank_checks
     from standards.accessor import Standards
     std = Standards()
     spans = []
@@ -84,6 +85,18 @@ def main():
         if len(spans) > 1:
             CA["primitives"]["cases"]["thermal"] = CA["primitives"]["cases"]["thermal_spans"][k]   # this span's gradient profiles
         for g in S["girders"]:
+            if S["girders"][g]["type"] == "plank":     # ADR-085 stage 3: RC plank checks
+                out[g] = R = plank_checks(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
+                L += [f"## {g} (plank)", "", f"phi Mu sagging {f0(R['phiMu_sag'])} kNm, hogging {f0(R['phiMu_hog'])} kNm; crack control fscr {R['fscr']:g} / fscrT {R['fscrT']:g} MPa", "",
+                      "| x (m) | M* sag (row) | u | M* hog (row) | u | SLS M max / min | fs sag / hog (MPa) | u SLS | V* (row) | T* | shear u | interface tau* (kPa) |",
+                      "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+                for r in R["rows"]:
+                    q = r["shear"]
+                    L.append(f"| {r['x_m']:.2f} | {f0(r['M_sag'])} ({r['row_sag']}) | **{r['u_sag']:.2f}** | {f0(r['M_hog'])} ({r['row_hog']}) | **{r['u_hog']:.2f}** | {f0(r['Ms_sls'])} / {f0(r['Mh_sls'])} | "
+                             f"{r['fs_sag']:.0f} / {r['fs_hog']:.0f} | **{max(r['u_sls_sag'], r['u_sls_hog']):.2f}** | {f0(r['V'])} ({r['row_V']}) | {f0(r['T'])} | "
+                             f"{'**%.2f**' % q['u'] if 'u' in q else q.get('why')} | {f0(r['tau_interface_kPa'])} |")
+                L += [""] + [f"- {n}" for n in R["notes"]] + ["- interface shear capacity: **Missing - Flagged** (the clause is not in the standards data)", ""]
+                continue
             R = checks_along(doc, geo, S, CA, M, std, g, allow_proposed=a.allow_proposed)
             out[g] = R
             L += [f"## {g}", "", "### Sagging", "",
@@ -134,6 +147,10 @@ def main():
             L += prestress_md(R["prestress"])
     S_ = ["## Summary (largest utilisation along each girder)", "", "| Girder | Ms*/Mal (SLS) | M*/phi Mu (ULS) | hogging M*/phi Mu (ULS) | shear / torsion u | Muo < 1.2 Mcr |", "|---|---|---|---|---|---|"]
     for g, R in out.items():
+        if "plank" in R:
+            G_ = R["governing"]
+            S_.append(f"| {g} (plank) | {max(G_['u_sls_sag'], G_['u_sls_hog']):.2f} | {G_['u_sag']:.2f} | {G_['u_hog']:.2f} | {G_['u_shear']:.2f} | not checked |")
+            continue
         fl = [r for r in R["rows"] if r.get("conf") != "solid"]
         uS = max(r["sag"]["uS"] for r in fl); uB = max(r["sag"]["uB"] for r in fl)
         uv = [r["shear"]["u"] for r in R["rows"] if "u" in r.get("shear", {})]

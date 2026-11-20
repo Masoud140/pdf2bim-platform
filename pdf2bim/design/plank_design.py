@@ -149,6 +149,7 @@ def plank_checks(doc, geo, S, CA, mdl, std, plank, allow_proposed=False):
     hog = uls_bend(_flip(sec, H), std)
     lim = crack_limits(sec, std)
     ends = _element_ends(CA, mdl, geo, plank)
+    Lg = S["girders"][plank]["length_end_to_end"]
     U, Sv = CA["envelopes"]["ULS"], CA["envelopes"]["SLS"]
     # shear / torsion inputs (as the Super-T checks): fitments of the plank type, covers / aggregate in design.girder_options
     rd = Reader(doc, allow_proposed)
@@ -164,10 +165,12 @@ def plank_checks(doc, geo, S, CA, mdl, std, plank, allow_proposed=False):
         Ss, Sh = float(Sv["max"][i]), float(Sv["min"][i])
         fs_s, _ = bar_stress(sec, max(Ss, 0.0))
         fs_h, _ = bar_stress(sec, min(Sh, 0.0))
-        rows.append({"x_m": d, "element": eid, "end": end, "M_sag": Ms, "row_sag": U["gmax"][i], "M_hog": Mh, "row_hog": U["gmin"][i],
+        rows.append({"t": d / Lg, "conf": "open", "x_m": d, "element": eid, "end": end, "M_sag": Ms, "row_sag": U["gmax"][i], "M_hog": Mh, "row_hog": U["gmin"][i],
                      "u_sag": max(Ms, 0.0) / sag["phiMu"], "u_hog": max(-Mh, 0.0) / hog["phiMu"],
                      "Ms_sls": Ss, "Mh_sls": Sh, "fs_sag": fs_s, "fs_hog": fs_h,
                      "u_sls_sag": fs_s / lim["fscr"], "u_sls_hog": fs_h / lim["fscrT"]})
+        r_ = rows[-1]   # the Super-T row keys the app / reports read (minimum strength not checked: okMin None)
+        r_["sag"], r_["hog"] = {"uB": r_["u_sag"], "uS": r_["u_sls_sag"], "okMin": None}, {"uB": r_["u_hog"], "uS": r_["u_sls_hog"]}
         iV = ix[("G", (plank, eid), f"V{end}")]
         which = "max" if abs(U["max"][iV]) >= abs(U["min"][iV]) else "min"
         rowV = U["g" + which][iV]

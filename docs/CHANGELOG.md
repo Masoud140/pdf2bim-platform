@@ -2,6 +2,8 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-20 — Plank decks in the girder checks tool and the app (ADR-085 stage 3c-1)
+
 ## 2026-11-20 — Plank decks: shear / torsion and interface shear demand (ADR-085 stage 3b)
 
 ## 2026-11-20 — Plank decks: RC plank flexure and SLS bar stress (ADR-085 stage 3a)

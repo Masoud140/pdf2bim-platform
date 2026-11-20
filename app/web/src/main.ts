@@ -450,7 +450,7 @@ async function design(id: string) {
   const sel = h("select", { onchange: (e: Event) => showG((e.target as HTMLSelectElement).value) }, gs.map((g) => h("option", { value: g }, g)));
   const showG = (g: string) => detail.replaceChildren(table(["t", "x (m)", "zone", "strands", "Ms*/Mal", "M*/φMu sag", "M*/φMu hog", "Muo ≥ 1.2Mcr", "shear/torsion u"],
     gc[g].rows.map((x: any) => [fmt(x.t, 2), fmt(x.x_m, 2), x.conf, x.n_strands ?? "", uc(x.sag?.uS), uc(x.sag?.uB), uc(x.hog?.uB),
-      x.conf === "solid" || !x.sag ? h("span", { class: "muted" }, "n/a") : x.sag.okMin ? "ok" : h("b", { class: "bad" }, "FAIL"), uc(x.shear?.u)]), "num"),
+      x.conf === "solid" || !x.sag || x.sag.okMin == null ? h("span", { class: "muted" }, "n/a") : x.sag.okMin ? "ok" : h("b", { class: "bad" }, "FAIL"), uc(x.shear?.u)]), "num"),
     h("p", { class: "small muted" }, "Solid end zones: shear only (flexure / SLS not checked there)."));
   setTimeout(() => showG(gs[0]));
   const notes = (gc[gs[0]].notes || []) as string[];
