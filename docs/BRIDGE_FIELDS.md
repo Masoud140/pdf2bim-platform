@@ -177,6 +177,7 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `supports[].piles[]` | list | | Piles / columns (fields below) |
 | `supports[].soil_layers` | table |  | Soil profile at the support (top RL of each layer) — columns: name, rl_top (m), kh (MN/m3), gamma (kN/m3), phi (deg) |
 | `supports[].rock_kh` | num | MN/m3 | Lateral modulus of the rock socket |
+| `supports[].abutment_spring` | num | kN/m/m | Integral abutment only: horizontal backfill stiffness behind the abutment per metre of abutment length (e.g. from PD6694-1 K* in the geotechnical report), acting square to the support line |
 | `supports[].backfill` | table |  | Fill retained by the headstock — columns: gamma (kN/m3), phi (deg), K, retained_height (m) |
 
 #### `supports[].piles[]` — each item has an `id` plus:

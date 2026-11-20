@@ -190,6 +190,8 @@ SUPPORT = {
     'soil_layers': ('table', '', 'Soil profile at the support (top RL of each layer)',
                     {'name': ('str', ''), 'rl_top': ('num', 'm'), 'kh': ('num', 'MN/m3'), 'gamma': ('num', 'kN/m3'), 'phi': ('num', 'deg')}),
     'rock_kh': ('num', 'MN/m3', 'Lateral modulus of the rock socket'),
+    'abutment_spring': ('num', 'kN/m/m', 'Integral abutment only: horizontal backfill stiffness behind the abutment per metre of abutment length '
+                        '(e.g. from PD6694-1 K* in the geotechnical report), acting square to the support line'),
     'backfill': ('table', '', 'Fill retained by the headstock', {'gamma': ('num', 'kN/m3'), 'phi': ('num', 'deg'), 'K': ('enum', ''), 'retained_height': ('num', 'm')}),
 }
 

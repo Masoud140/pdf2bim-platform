@@ -9,7 +9,7 @@
 **A. No owner input — do in order**
 1. ~~SB01 (B12452) HLP positions~~ — checked 2026-11-20: lane widths not in the set → `custom.hlp_lane_lines` Missing - Flagged, moved to B (owner).
 2. ~~SB41 WB continuous re-run~~ — done 2026-11-20 (comparison refreshed; HLP does not govern). HLP state export sped up (one response's lines only): combined actions 36 min (was > 100).
-3. **Plank decks (14c)**: stages 1 / 1b (sections) and 2a (grillage on bearings, test_plank_model 4/4) done; next stage 2b — integral plank-to-headstock connection (abutment frame + horizontal soil springs; stiffness value is SB43's owner input, the mechanism is not); plan ADR-085 — stage 1 plank sections → 2 side-by-side grillage (bearings or integral) → 3 plank design → 4 SB43 (needs PD6694 soil stiffness from the owner for the integral abutments).
+3. **Plank decks (14c)**: stages 1 / 1b (sections) 2a (grillage on bearings) and 2b (integral abutments, `supports[].abutment_spring`) done, test_plank_model 10/10; next stage 3 — plank design (RC / partially prestressed flexure, SLS steel stress increment, shear, torsion, interface shear; reuse pdf2bim/design); plan ADR-085 — stage 1 plank sections → 2 side-by-side grillage (bearings or integral) → 3 plank design → 4 SB43 (needs PD6694 soil stiffness from the owner for the integral abutments).
 4. Optional Studio extras from the dashboard inventory (ADR-068/069): N–M interaction diagram (D-10), section designer (D-13), barrier bolts (D-12), more export formats (D-15).
 
 **B. Waiting on the owner (do not start)**

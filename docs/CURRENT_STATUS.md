@@ -1,6 +1,6 @@
 # Current status — 2026-11-10
 
-- 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; test_plank_model 4/4. Next: stage 2b integral connection.
+- 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; stage 2b integral abutments (fixed plank-to-headstock links, backfill springs `supports[].abutment_spring`); test_plank_model 10/10. Next: stage 3 plank design.
 
 **2026-11-10:**
 - Prestress/debonding rules fact-checked: `docs/PRESTRESS_DESIGN_RULES.md`.

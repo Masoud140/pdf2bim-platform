@@ -226,6 +226,21 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         rig.update({"Asy": None, "Asz": None})
         for a, bnode in zip(sill_nodes, sill_nodes[1:]):
             beam(a, bnode, "sill", sec_sb, w=Asb * dens, support=sid)
+        integral = str(inp.v(ds.get("kind"), f"supports[{sid}].kind", required=False) or "").strip().lower() == "integral abutment"
+        soil = []
+        if integral:
+            # backfill behind the abutment: one horizontal spring per sill node, square to the support line, tributary sill length
+            kb = inp.v(ds.get("abutment_spring"), f"supports[{sid}].abutment_spring (integral abutment backfill stiffness, kN/m per m)")
+            us = [uu for uu, _ in merged]
+            ax = np.array([[vs[0], vs[1], 0.0], [u[0], u[1], 0.0], [0.0, 0.0, 1.0]])
+            for i, k in enumerate(sill_nodes):
+                trib = ((us[i + 1] if i + 1 < len(us) else us[i]) - (us[i - 1] if i else us[i])) / 2
+                n = nodes[k]
+                g_ = node(n["E"], n["N"], n["Z"], "ground", support=sid)
+                mdl.fix(g_)
+                lid = len(mdl.links) + 1
+                mdl.link(lid, g_, k, (kb * trib, 0, 0, 0, 0, 0), axes=ax, role="abutment_soil")
+                soil.append({"link": lid, "node": k, "ground": g_, "trib_m": trib, "k": kb * trib})
         # piles
         prec = []
         for p in piles:
@@ -295,13 +310,16 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             t = bb["unit_t"]
             beta = math.degrees(math.atan2(t[1], t[0]))
             lid = len(mdl.links) + 1
-            mdl.link(lid, seat, top, (ks["Kv"], kd[bb["transverse"]], kd[bb["longitudinal"]], 0, 0, 0), beta=beta, dry=0.5, drz=0.5, role="bearing")
+            # integral abutment: the plank is cast into the headstock -> the connection is fixed in all six directions
+            # shortcut: rotations held by kfix (kNm/rad, same number as the kN/m fixity), refine if a joint stiffness is detailed
+            kk = (kfix,) * 6 if integral else (ks["Kv"], kd[bb["transverse"]], kd[bb["longitudinal"]], 0, 0, 0)
+            mdl.link(lid, seat, top, kk, beta=beta, dry=0.5, drz=0.5, role="integral" if integral else "bearing")
             gap = top_z - seat_rl
             recs["bearings"][bid] = {"link": lid, "seat": seat, "top": top, "girder_node": bb["node"], "support": sid, "girder": bb["girder"],
                                      "longitudinal": bb["longitudinal"], "transverse": bb["transverse"], "Kv": ks["Kv"], "Ks": ks["Ks"],
                                      "k_along": kd[bb["longitudinal"]], "k_across": kd[bb["transverse"]], "beta": beta,
                                      "seat_rl": seat_rl, "soffit_rl": top_z, "gap_m": gap, "height_input_m": None if hgt is None else hgt / 1000,
-                                     "u": bu[bid], "stiffness": ks}
+                                     "u": bu[bid], "stiffness": ks, "integral": integral}
             if top_rl is not None:
                 checks.append({"id": f"{bid}: top of bearing below the girder soffit (attachment plate + epoxy block)", "model": (top_z - top_rl) * 1000, "description": None,
                                "diff_mm": None, "ok": top_z - top_rl >= 0})
@@ -310,7 +328,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
                                "diff_mm": gap * 1000 - hgt, "ok": abs(gap * 1000 - hgt) <= 10.0})
         recs["supports"][sid] = {"sill_nodes": sill_nodes, "sill": {"b": b, "d": d, "centroid_offset": c, "start": so["start"], "end": so["end"],
                                                                      "soffit_z0": float(z0), "soffit_slope": float(slope)},
-                                 "piles": prec}
+                                 "piles": prec, "integral": integral, "abutment_springs": soil}
     return {"format": "pdf2bim.model/0.1", "kind": "integrated", "model": mdl, "nodes": nodes, "members": sup["members"] + members,
             "superstructure_members": len(sup["members"]), "node_above_girder_top": sup["node_above_girder_top"], "bearings": recs["bearings"], "supports": recs["supports"], "springs": springs,
             "checks": checks, "inputs": inp.used, "settings": dict(sup["settings"], bearing_fixed_stiffness=kfix, pile_toe=toe_mode,

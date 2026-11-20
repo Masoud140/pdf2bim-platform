@@ -46,5 +46,49 @@ MI = build_integrated(pd, geo, Sx, std, allow_proposed=True)
 CA = combined_actions(pd, geo, Sx, MI, std, allow_proposed=True)
 t("combined actions run on the plank deck (traffic, thermal with the plank outline, wind, earthquake, ...)",
   not CA["missing_terms"] and {a for a, _ in CA["not_combined"]} <= {"PED", "FLH", "COLX"}, str(CA["not_combined"]))
+
+# stage 2b: integral abutments (both ends cast into the headstock, backfill springs behind)
+from pdf2bim.description import MissingInput
+from pdf2bim.model.thermal import thermal_cases
+ip = copy.deepcopy(pd)
+for s_ in ip["supports"]:
+    s_["kind"] = rec("integral abutment")
+try:
+    build_integrated(ip, geo, Sx, std, allow_proposed=True); t("integral abutment without the backfill stiffness refused", False)
+except MissingInput as ex:
+    t("integral abutment without the backfill stiffness refused", "abutment_spring" in str(ex), str(ex))
+gl = [x for x in MI["members"] if x["role"] == "girder" and x["line"] == g["line"]]
+
+
+def run(kb):
+    for s_ in ip["supports"]:
+        s_["abutment_spring"] = rec(kb)
+    M = build_integrated(ip, geo, Sx, std, allow_proposed=True)
+    mm = M["model"]
+    sw = mm.solve()
+    gn = next(b["girder_node"] for b in M["bearings"].values() if b["girder"] == g["line"] and b["support"] == "A")
+    Mend = abs(mm.end_forces(next(x["id"] for x in gl if x["n1"] == gn))[4])
+    C = thermal_cases(ip, geo, Sx, M, allow_proposed=True)
+    mm.solve(gravity=(0, 0, 0), loads={}, imposed=C["cases"]["TU+"]["imposed"])
+    soil = [q for v in M["supports"].values() for q in v["abutment_springs"]]
+    H = sum(abs(mm.link_force(q["link"])[0][0]) for q in soil)
+    N = abs(mm.end_forces(gl[len(gl) // 2]["id"])[0])
+    return {"M": M, "sw": sw, "Mend": Mend, "soil": soil, "H": H, "N": N}
+
+
+A1 = run(1.0e4)
+mm = A1["M"]["model"]
+t("integral: plank-to-headstock links fixed in six directions, one backfill spring per sill node",
+  not any(L["role"] == "bearing" for L in mm.links.values()) and len(A1["soil"]) == sum(len(v["sill_nodes"]) for v in A1["M"]["supports"].values()))
+W1 = sum(b["w"] * np.linalg.norm(mm.nodes[b["n1"]] - mm.nodes[b["n2"]]) for b in mm.beams.values())
+t("integral self weight: vertical reactions = the member weights", abs(sum(v[2] for v in A1["sw"]["reactions"].values()) - W1) < 1e-6 * W1)
+gnb = next(b["girder_node"] for b in MI["bearings"].values() if b["girder"] == g["line"] and b["support"] == "A")
+mb = MI["model"]; mb.solve(); Mend_b = abs(mb.end_forces(next(x["id"] for x in gl if x["n1"] == gnb))[4])
+t("integral self weight: the plank end takes a moment (fixed into the headstock); on bearings much less (only the bearing eccentricity)",
+  A1["Mend"] > 2 * Mend_b, f"{A1['Mend']:.1f} vs {Mend_b:.1f} kNm")
+t("integral TU+: the backfill springs resist the deck expansion", A1["H"] > 1.0, f"{A1['H']:.1f} kN")
+A2 = run(1.0e5)
+t("integral TU+: stiffer backfill -> more spring force and more plank axial force", A2["H"] > A1["H"] and A2["N"] > A1["N"],
+  f"H {A1['H']:.0f} -> {A2['H']:.0f} kN, N {A1['N']:.0f} -> {A2['N']:.0f} kN")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)
