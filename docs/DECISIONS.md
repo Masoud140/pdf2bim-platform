@@ -786,6 +786,20 @@
 - **Findings for the owner:** B12452 transfer compression u = 1.09 (bottom 25.2 MPa at midspan region, f'cp 40). SB42 42-S1-05: platform transfer compression about 20.5–21.8 MPa vs the report's 19.3 MPa (limit 24 = 0.6 f'cp); report tension 3.15 MPa (limit 3.16 = 0.5 √40) vs platform about 1.0 MPa. The report's transfer basis (support positions, losses at transfer) is unknown.
 - **Tests:** `tests/design/test_prestress_checks.py` 13/13; `tests/standards/test_standards.py` 30/30; `tools/girder_checks.py` run on B12452 (both girders) end to end.
 
+## ADR-087 Independent FEA engines as cross-checks only (2026-11-23)
+- **Decision (owner approved 2026-11-23):** add three items to the work queue.
+  - PyNite: an independent cross-check of the grillage solver in the tests.
+  - OpenSeesPy: reference runs for earthquake, nonlinear and staged checks.
+  - XC: watch only.
+- **Why:** the solver is verified against closed forms, but not against a second, widely used engine.
+- **Licences, checked 2026-11-23:**
+  - PyNite: MIT.
+  - OpenSees: free for internal and noncommercial use; incorporating it in a product for commercial distribution needs a UC Office of Technology Licensing licence.
+  - XC: GPL-3.
+  - Consequence: none of them is bundled in the product. They stay as test or development dependencies.
+- **Not picked:** CalculiX, code_aster, MYSTRAN, FEniCSx, OOFEM, Kratos, Frame3DD. They are solid / shell or general frameworks, or GPL frame solvers that duplicate PyNite.
+- **Source:** LinkedIn post by Xuan Hung Le listing ten open-source FEA engines.
+
 ## ADR-086 Radial-member geometry for SB43 (proposed, 2026-11-20)
 - **Why:** the SB43 survey (`projects/B12468/extraction/SURVEY.md`, ADR-085 stage 4a) shows 91 planks fanned radially off MCH0. The control line runs along the curved abutments, so the span is across it. The geometry schema (members as offsets between two straight support lines along the control line) cannot describe this.
 - **Proposal (PROVISIONAL default, reversible):**
