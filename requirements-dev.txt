@@ -1,0 +1,3 @@
+# Test / verification only (never imported by the platform). ADR-087.
+-r requirements.txt
+PyniteFEA>=3.2

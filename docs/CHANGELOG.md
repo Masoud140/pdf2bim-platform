@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-23 — Solver cross-checked against PyNite (ADR-087)
+- `tests/verification/` converter + test; `requirements-dev.txt`.
+
 ## 2026-11-20 — SB43 survey (ADR-085 stage 4a, ADR-086 proposed)
 - `projects/B12468/extraction/`: SURVEY.md, Table 1 plank supports (91 planks).
 

@@ -799,6 +799,14 @@
   - Consequence: none of them is bundled in the product. They stay as test or development dependencies.
 - **Not picked:** CalculiX, code_aster, MYSTRAN, FEniCSx, OOFEM, Kratos, Frame3DD. They are solid / shell or general frameworks, or GPL frame solvers that duplicate PyNite.
 - **Source:** LinkedIn post by Xuan Hung Le listing ten open-source FEA engines.
+- **Done 2026-11-23 (PyNite):**
+  - `tests/verification/test_pynite_crosscheck.py` passes 6/6.
+  - The BR13A superstructure grillage agrees with PyNite to within 0.01 %: displacements to about 1e-5 relative, reactions to 0.004 kN.
+  - Finding: PyNite joins members at collinear nodes by default. The converter switches this off; with it on, results differed by 60 %.
+  - Remaining:
+    - the integrated-model links;
+    - modal analysis;
+    - OpenSeesPy (4b) when earthquake time-history or staged analysis is needed.
 
 ## ADR-086 Radial-member geometry for SB43 (proposed, 2026-11-20)
 - **Why:** the SB43 survey (`projects/B12468/extraction/SURVEY.md`, ADR-085 stage 4a) shows 91 planks fanned radially off MCH0. The control line runs along the curved abutments, so the span is across it. The geometry schema (members as offsets between two straight support lines along the control line) cannot describe this.

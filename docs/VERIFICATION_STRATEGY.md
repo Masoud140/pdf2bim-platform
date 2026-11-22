@@ -11,6 +11,7 @@
 | **V3 Regression** | BR13A snapshot of key outputs with run record (`baseline/BR13A/`, P0.1); compare new runs to it | Every commit that touches C–F | T1 exact, or the difference is explained and the snapshot is updated by a reviewed commit |
 | **V4 Benchmarks** | Independent solutions: textbook / worked examples, closed-form beams, MIDAS models built independently, Hambly-type grillage cases | Per module, before switching to it | Within stated tolerance |
 | **V5 Cross-implementation** | Python core against the JavaScript dashboard on the same input during migration | Per migrated module | Within tolerance; differences explained |
+| **V4b Independent engine** | The same model solved by an independent, widely used FE engine (PyNite, ADR-087): `tests/verification/test_pynite_crosscheck.py` | Per solver / builder change | Displacements and reactions within 0.01 % of the largest (Euler-Bernoulli copy; shear deformation covered by V4 closed forms) |
 | **V6 Engineer review** | Engineer reviews results, decisions and approximations | At each stage gate | Recorded as a decision |
 
 ## 2. Model checks (V2), run on every built model
@@ -124,6 +125,29 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
   - an independent MIDAS model of the integrated structure (T10);
   - the P1 geometry cases (T2–T3);
   - automatic V2 model checks on every build.
+
+## 5b. Independent engine cross-check (ADR-087, executed 2026-11-23)
+
+- **Test:** `tests/verification/test_pynite_crosscheck.py` — 6/6 pass.
+- **Engine:** PyNite 3.2.1 (MIT), installed with `pip install PyniteFEA`. It is a test-only dependency (`requirements-dev.txt`); the test SKIPs without it.
+- **Converter:** `tests/verification/pynite_model.py`.
+  - PyNite is Y-up, so coordinates are mapped (x, y, z) → (x, z, −y), with the Iy / Iz swap.
+  - Rigid end offsets become stiff stubs, one per (node, offset).
+  - Ground links become axial springs along each link axis.
+  - PyNite's automatic member splitting at collinear nodes is switched off. With it on, offset centroid lines passing through other offset points were wrongly joined and the results differed by 60 %.
+- **Cases:**
+  - A cantilever, solved by both engines: equals the closed form PL³/3EI exactly, in both bending planes.
+  - The BR13A superstructure grillage (514 beams, 275 nodes: girders, webs, slab strips, cross girders, offsets, skew bearings), under self weight plus eccentric point loads:
+    - translations agree to 2.0e-7 m of 18.6 mm;
+    - rotations agree to 2.2e-8 rad of 1.9e-3 rad;
+    - bearing reactions agree to 0.004 kN of 970 kN;
+    - total reaction 4,761.07 kN in both engines.
+  - The residual difference comes from the stub approximation of rigid offsets.
+- **Not covered yet:**
+  - integrated models (elastomer links between non-ground nodes, pile springs, piles);
+  - releases;
+  - modal analysis;
+  - shear deformation (PyNite is Euler-Bernoulli).
 
 ## 6. Gates before design use
 
