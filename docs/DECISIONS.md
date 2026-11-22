@@ -830,8 +830,23 @@
       - the deck strip is half the normal distance to each neighbouring chord. Shortcut: an edge member mirrors its inner side.
     - tests/geometry/test_radial.py 7/7, against closed forms on an R 180 arc: radial lines through the centre, end arcs at R ± d, chord spacing, strip = r tan Δθ / 2.
     - test_geometry 38/38 unchanged.
+  - **Stage 4b-2 done (radial grillage).**
+    - `pdf2bim/model/radial.py`, called by `build_superstructure` when `geo["radial"]`.
+    - Each plank is one line with nodes at its ends, at its bearings, and at n equal stations (the same n on every plank).
+    - Plank members: composite section, 5/6 A shear area.
+    - Slab strips join facing stations of neighbouring planks; the strip width is the mean of the two planks' tributary lengths.
+    - Deck-end dummies at the ends; cross girders on the bearing lines (or dummies when no cross girder is given).
+    - Node level = `level_A/B` (plank soffit, per the SB43 setout detail) + plank depth (+ topping with the deck-top reference).
+    - Bearings are ground links in plank axes.
+    - tests/model/test_radial_model.py 6/6 on a synthetic 7-plank fan:
+      - topology;
+      - levels;
+      - self weight = reactions;
+      - middle plank carries its own weight within 10 %;
+      - strip wider at end A;
+      - PyNite agrees within 0.01 %.
+    - Regression: test_builder 20/20, test_plank_model 14/14.
   - **Next:**
-    - 4b-2: a radial grillage builder (plank lines, transverse strips between same-station nodes, levels from `level_A/B`);
     - 4b-3: the substructure along polyline supports;
     - then the SB43 description, once the MCH0 alignment is supplied.
 

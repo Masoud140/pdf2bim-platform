@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Radial plank grillage (ADR-086 stage 4b-2).  Run: python3 tests/model/test_radial_model.py
+Synthetic SB43-like deck: BR13A's description (materials, deck, settings) with its members replaced by 7 planks
+(600 x 700, topping) fanned off an R 180 m arc at 0.877 m steps, 8.85 m / 9.85 m to the ends, bearings 75 mm in,
+levels from a 2 % fall; bearings fixed at A, free along the member at B."""
+import copy, json, math, os, sys
+import numpy as np
+R_ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, R_)
+from pdf2bim.geometry.bridge import build_geometry
+from pdf2bim.sections.girder import build_sections
+from pdf2bim.model.builder import build_superstructure
+
+res = []
+
+
+def t(name, ok, info=""):
+    ok = bool(ok); res.append(ok)
+    print(("PASS " if ok else "FAIL ") + name + ("" if ok or not info else f"  [{info}]"))
+
+
+rec = lambda v: {"value": v, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"value": v, "tag": "Input-user"}}
+tab = lambda rows: {"rows": [{"cells": c, "tag": "Input-user", "status": "accepted", "current": "original", "original": {"cells": c, "tag": "Input-user"}} for c in rows]}
+
+
+def radial_doc(npl=7):
+    d = copy.deepcopy(json.load(open(os.path.join(R_, "projects", "BR13A", "BR13A.bridge.0.2.json"))))
+    Rr, b0, L, E0, N0, ch0 = 180.0, 120.0, 100.0, 330850.0, 6244900.0, 370.0
+    c = 2 * Rr * math.sin(L / (2 * Rr)); cb = math.radians(b0) + L / (2 * Rr)
+    d["alignment"]["horizontal"] = tab([{"element": "arc", "ch_start": ch0, "length": L, "radius": Rr, "direction": "right", "E_start": E0, "N_start": N0},
+                                        {"element": "tangent", "ch_start": ch0 + L, "length": None, "radius": None, "direction": None,
+                                         "E_start": E0 + c * math.sin(cb), "N_start": N0 + c * math.cos(cb)}])
+    S = d["superstructure"]
+    d["alignment"].pop("vertical", None)   # radial members take their levels from the setout table
+    S["plank_types"] = [{"id": "PK1", "width": rec(600.0), "depth": rec(700.0), "topping": rec(True), "voids": {"rows": []}}]
+    S["supert_types"] = []
+    S["members"] = []
+    items = []
+    for k in range(npl):
+        ch = 400.0 + 0.877 * k
+        th = b0 + math.degrees((ch - ch0) / Rr) + 90.0
+        gid = f"PL-{k + 1:02d}"
+        S["members"].append({"id": gid, "type_ref": rec("PK1"), "setout_ch": rec(ch), "setout_bearing": rec(th), "setout_to_A": rec(8.85), "setout_to_B": rec(9.85),
+                             "bearing_offset_A": rec(75.0), "bearing_offset_B": rec(75.0), "level_A": rec(8.984), "level_B": rec(8.984 - 0.02 * 18.7)})
+        for sid, rl in (("A", "fixed"), ("B", "free")):
+            items.append({"id": f"{sid}-{gid}", "support": rec(sid), "member": rec(gid), "restraint_longitudinal": rec(rl), "restraint_transverse": rec("fixed")})
+    d["bearings"]["items"] = items
+    row = copy.deepcopy(d["materials"]["concrete"]["rows"][0]); row["cells"]["element"] = "Planks"; row["original"]["cells"]["element"] = "Planks"
+    d["materials"]["concrete"]["rows"].append(row)
+    return d
+
+
+if __name__ == "__main__":
+    d = radial_doc()
+    geo = build_geometry(d, allow_proposed=True)
+    S = build_sections(d, geo, allow_proposed=True)
+    B = build_superstructure(d, geo, S, allow_proposed=True)
+    m = B["model"]
+    roles = {}
+    for x in B["members"]:
+        roles[x["role"]] = roles.get(x["role"], 0) + 1
+    npl, nst = 7, B["settings"]["stations"]
+    t("radial grillage: one line per plank, slab strips between facing stations, end / support lines",
+      roles.get("girder") == npl * (nst + 1) and roles.get("slab") == (npl - 1) * (nst - 2) and roles.get("deck_end") == 2 * (npl - 1) and roles.get("cross_girder") == 2 * (npl - 1),
+      str(roles))
+    g0 = geo["girders"][3]
+    seq = [k for k, v in B["nodes"].items() if v["line"] == g0["id"]]
+    ze = [B["nodes"][k]["Z"] - B["nodes"][k]["x"] * (-0.02) for k in seq]
+    t("node levels: setout level (plank soffit) + plank depth, falling 2 % along the plank", max(ze) - min(ze) < 1e-9 and abs(ze[0] - (8.984 + 0.7 + B["node_above_girder_top"])) < 1e-9,
+      f"{ze[0]:.4f}")
+    r = m.solve()
+    W = sum(b["w"] * np.linalg.norm(m.nodes[b["n1"]] - m.nodes[b["n2"]]) for b in m.beams.values())
+    Rz = sum(v[2] for v in r["reactions"].values())
+    t("self weight: bearing reactions = member weights", abs(Rz - W) < 1e-6 * W, f"{Rz:.2f} vs {W:.2f}")
+    # each plank carries about its own weight (fan: wider strips at A); middle plank reaction close to wL/2 per end
+    mids = [b for b in B["bearings"].values() if b["girder"] == g0["id"]]
+    tot = sum(r["reactions"][b["ground"]][2] for b in mids)
+    Wg = sum(x["w"] * np.linalg.norm(m.nodes[x["n1"]] - m.nodes[x["n2"]]) for x in B["members"] if x["role"] == "girder" and x["line"] == g0["id"])
+    t("middle plank: its two bearings carry its own weight within 10 % (little transverse sharing under uniform load)", abs(tot - Wg) < 0.1 * Wg, f"{tot:.1f} vs {Wg:.1f} kN")
+    lw = [b["w"] for b in B["members"] if b["role"] == "girder" and b["line"] == g0["id"]]
+    t("fan: the plank's deck strip (and weight per m) is wider at end A than at end B", lw[1] > lw[-2], f"{lw[1]:.3f} vs {lw[-2]:.3f} kN/m")
+    try:   # independent engine on the radial model (ADR-087), when PyNite is installed
+        sys.path.insert(0, os.path.join(R_, "tests", "verification"))
+        from pynite_model import convert, displacements, euler_copy
+        me = euler_copy(m)
+        ro = me.solve()
+        P = convert(me); P.analyze_linear(check_statics=False, check_stability=False)
+        up = displacements(P, me)
+        du = max(np.abs(up[k][:3] - ro["u"][k][:3]).max() for k in up); um = max(np.abs(ro["u"][k][:3]).max() for k in up)
+        t("radial grillage solved by PyNite: displacements agree within 0.01 % of the largest", du < 1e-4 * um, f"{du:.2e} of {um:.2e} m")
+    except ImportError:
+        print("SKIP PyNite cross-check (pip install PyniteFEA)")
+    print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
+    sys.exit(0 if all(res) else 1)

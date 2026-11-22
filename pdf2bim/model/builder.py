@@ -68,6 +68,9 @@ def build_superstructure(doc, geo, S, allow_proposed=False, spacing=None, bearin
     bearings = "none": no bearing supports are added (the caller attaches the substructure, P3b).
     rd: an existing description Reader to share (so provisional uses are listed once)."""
     rd = rd or Reader(doc, allow_proposed)
+    if geo.get("radial"):   # fanned members (ADR-086)
+        from .radial import build_radial
+        return build_radial(doc, geo, S, rd, spacing=spacing, bearings=bearings)
     al = geo["_alignment"]
     D = doc.get("deck") or {}
     SS = doc.get("superstructure") or {}
