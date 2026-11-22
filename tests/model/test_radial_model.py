@@ -12,6 +12,7 @@ from pdf2bim.sections.girder import build_sections
 from pdf2bim.model.builder import build_superstructure
 
 res = []
+cross2 = lambda a, b: a[0] * b[1] - a[1] * b[0]
 
 
 def t(name, ok, info=""):
@@ -79,6 +80,50 @@ if __name__ == "__main__":
     t("middle plank: its two bearings carry its own weight within 10 % (little transverse sharing under uniform load)", abs(tot - Wg) < 0.1 * Wg, f"{tot:.1f} vs {Wg:.1f} kN")
     lw = [b["w"] for b in B["members"] if b["role"] == "girder" and b["line"] == g0["id"]]
     t("fan: the plank's deck strip (and weight per m) is wider at end A than at end B", lw[1] > lw[-2], f"{lw[1]:.3f} vs {lw[-2]:.3f} kN/m")
+    # stage 4b-3: integrated model on the curved (polyline) supports, integral abutments with backfill springs
+    from pdf2bim.model.substructure import build_integrated
+    from standards.accessor import Standards
+    br = copy.deepcopy(d["bearings"]["items"])
+    tpl = json.load(open(os.path.join(R_, "projects", "BR13A", "BR13A.bridge.0.2.json")))
+    b0r = tpl["bearings"]["items"][0]
+    for it in d["bearings"]["items"]:
+        for k_ in ("type", "plan_a", "plan_b", "elastomer_thickness", "shear_modulus", "layer_thickness", "bearing_height"):
+            it[k_] = copy.deepcopy(b0r[k_])
+        it["seat_rl"] = rec((8.984 if it["support"]["value"] == "A" else 8.984 - 0.02 * 18.7) - 0.05)
+        it.pop("top_rl", None)
+    hd = 1.2
+    for sp_, gs in zip(d["supports"], geo["supports"]):
+        pl = np.array(gs["polyline"]); Ltot = float(np.hypot(*np.diff(pl, axis=0).T).sum())
+        sp_["kind"] = rec("integral abutment"); sp_["abutment_spring"] = rec(1.0e4)
+        sp_["headstock_setout"] = tab([{"edge": "front", "value": 600}, {"edge": "back", "value": -600}, {"edge": "start", "value": -500}, {"edge": "end", "value": Ltot * 1000 + 500}])
+        sp_["headstock"] = tab([{"width": 1200, "depth": hd * 1000, "length": None, "rl_top": None, "rl_soffit": None}])
+        lvl = 8.984 if sp_["id"] == "A" else 8.984 - 0.02 * 18.7
+        sp_["piles"] = [{"id": f"{sp_['id']}{j}", "E": rec(float(pl[i][0])), "N": rec(float(pl[i][1])), "diameter": rec(900.0), "rl_top": rec(lvl - 0.05 - hd),
+                         "rl_rock": rec(lvl - 12.0), "rl_toe": rec(lvl - 16.0), "ground_rl": rec(lvl - 0.05 - hd)} for j, i in enumerate((0, 3, 6))]
+        sp_["soil_layers"] = {"rows": []}
+    MI = build_integrated(d, geo, S, Standards(), allow_proposed=True)
+    mi = MI["model"]
+    ri = mi.solve()
+    Wi = sum(b["w"] * np.linalg.norm(mi.nodes[b["n1"]] - mi.nodes[b["n2"]]) for b in mi.beams.values())
+    t("integrated on curved supports: builds, self weight = reactions (piles, sills, planks)", abs(sum(v[2] for v in ri["reactions"].values()) - Wi) < 1e-6 * Wi,
+      f"{sum(v[2] for v in ri['reactions'].values()):.1f} vs {Wi:.1f}")
+    sA = MI["supports"][geo["supports"][0]["id"]]
+    plA = np.array(geo["supports"][0]["polyline"])
+    dist = []
+    for k_ in sA["sill_nodes"]:
+        q = mi.nodes[k_][:2]
+        dist.append(min(abs(cross2(plA[i + 1] - plA[i], q - plA[i]) / np.linalg.norm(plA[i + 1] - plA[i])) for i in range(len(plA) - 1)))
+    t("sill on the curved headstock: every sill node on the member-end polyline (centroid offset 0), integral links, a spring per sill node",
+      max(dist) < 1e-6 and all(L["role"] != "bearing" for L in mi.links.values()) and len(sA["abutment_springs"]) == len(sA["sill_nodes"]), f"{max(dist):.2e} m")
+    ang = []
+    for q in sA["abutment_springs"]:
+        ax0 = mi.links[q["link"]]["R"][0][:2]
+        k_ = q["node"]; P = mi.nodes[k_][:2]
+        i = min(range(len(plA) - 1), key=lambda i: abs(cross2(plA[i + 1] - plA[i], P - plA[i]) / np.linalg.norm(plA[i + 1] - plA[i])) + 1e3 * (
+            max(0.0, -np.dot(P - plA[i], plA[i + 1] - plA[i])) + max(0.0, np.dot(P - plA[i + 1], plA[i + 1] - plA[i]))))
+        tt = (plA[i + 1] - plA[i]) / np.linalg.norm(plA[i + 1] - plA[i])
+        ang.append(abs(np.dot(ax0, tt)))
+    t("backfill springs act square to the local headstock segment", max(ang) < 1e-9, f"{max(ang):.2e}")
     try:   # independent engine on the radial model (ADR-087), when PyNite is installed
         sys.path.insert(0, os.path.join(R_, "tests", "verification"))
         from pynite_model import convert, displacements, euler_copy

@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-23 — Substructure on curved supports (ADR-086 stage 4b-3)
+- Sill, piles, bearings and backfill springs along polyline supports; equal-station label fix.
+
 ## 2026-11-23 — Radial plank grillage (ADR-086 stage 4b-2)
 - `pdf2bim/model/radial.py`.
 

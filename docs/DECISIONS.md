@@ -846,6 +846,14 @@
       - strip wider at end A;
       - PyNite agrees within 0.01 %.
     - Regression: test_builder 20/20, test_plank_model 14/14.
+  - **Stage 4b-3 done (substructure on curved supports).**
+    - `substructure._support_curve` gives the plan curve of each support:
+      - straight lines unchanged;
+      - polyline supports use the arc length u along the member-end polyline and v square to the local segment.
+    - Piles, bearings, sill nodes and backfill springs use it. Spring axes are square to the local headstock segment.
+    - Bug fixed on the way: a bearing projecting exactly onto a pile station lost its sill node (KeyError). Labels at equal u are now all kept (straight supports too).
+    - test_radial_model 9/9: integrated self weight = reactions; sill nodes on the polyline; integral links; one spring per sill node, square to the local segment.
+    - Regression: substructure 39/39, continuous 12/12, plank model 14/14, horizontal 22/22.
   - **Next:**
     - 4b-3: the substructure along polyline supports;
     - then the SB43 description, once the MCH0 alignment is supplied.

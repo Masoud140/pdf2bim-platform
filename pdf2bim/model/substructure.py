@@ -5,7 +5,8 @@
     mdl['model'] -> pdf2bim.model.solver.Model (kN, m; MGA plan coordinates, RL levels)
 
 Per support (supports[], with geometry support_lines from P1):
-- SILL BEAM (headstock): a straight line of beam elements parallel to the line of bearings, at the centroid of its plan
+- SILL BEAM (headstock): a line of beam elements parallel to the line of bearings (a polyline for radial decks, ADR-086:
+  u = arc length along the member-end polyline, v square to its local segment), at the centroid of its plan
   setout (supports[].headstock_setout: front / back faces square to the line of bearings, start / end along it, from the
   support setout point SOP). Level: the sill SOFFIT is the least-squares straight line through the pile-head RLs
   (supports[].piles[].rl_top) along the line of bearings; centroid = soffit + depth / 2. Section b x d from
@@ -106,6 +107,37 @@ def _overlap(lo, hi, a, b):
     return max(0.0, min(hi, b) - max(lo, a))
 
 
+def _support_curve(gs, other):
+    """Plan curve of a support's line of bearings, arc-length u from its start: (point(u), tangent(u), normal toward the
+    span(u), project(E, N) -> (u, v)). Straight support line: the setout point SOP and the bearing; polyline (radial
+    decks, ADR-086): the polyline through the member ends, u from its first point, v square to the local segment."""
+    oc = np.array([other["E"], other["N"]])
+    if gs.get("kind") != "polyline":
+        P0 = np.array([gs["E"], gs["N"]])
+        u = np.array([math.sin(math.radians(gs["bearing"])), math.cos(math.radians(gs["bearing"]))])
+        nR = np.array([u[1], -u[0]])
+        vs = nR * (1.0 if np.dot(oc - P0, nR) > 0 else -1.0)   # toward the span
+        return (lambda uu: P0 + uu * u), (lambda uu: u), (lambda uu: vs), (lambda E, N: (float((np.array([E, N]) - P0) @ u), float((np.array([E, N]) - P0) @ vs)))
+    pts = np.array(gs["polyline"], float)
+    seg = np.diff(pts, axis=0); L = np.hypot(seg[:, 0], seg[:, 1]); s0 = np.concatenate([[0.0], np.cumsum(L)])
+    T = seg / L[:, None]
+    sgn = 1.0 if np.dot(oc - pts.mean(axis=0), np.array([T[0][1], -T[0][0]])) > 0 else -1.0
+    Nv = sgn * np.column_stack([T[:, 1], -T[:, 0]])
+    k = lambda uu: int(min(max(np.searchsorted(s0, uu, side="right") - 1, 0), len(L) - 1))
+    point = lambda uu: pts[k(uu)] + (uu - s0[k(uu)]) * T[k(uu)]
+
+    def proj(E, N):
+        best = None
+        for i in range(len(L)):
+            r = np.array([E, N]) - pts[i]
+            a = float(np.clip(r @ T[i], 0.0, L[i]))
+            dv = r - a * T[i]
+            if best is None or np.hypot(*dv) < best[0]:
+                best = (float(np.hypot(*dv)), s0[i] + a, float(r @ Nv[i]))
+        return best[1], best[2]
+    return point, (lambda uu: T[k(uu)]), (lambda uu: Nv[k(uu)]), proj
+
+
 def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
     rd = Reader(doc, allow_proposed)
     inp = _Inputs(rd)
@@ -149,11 +181,8 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         ds = dsup.get(sid)
         if ds is None:
             raise MissingInput(f"supports: no support {sid!r}")
-        P0 = np.array([gs["E"], gs["N"]])
-        u = np.array([math.sin(math.radians(gs["bearing"])), math.cos(math.radians(gs["bearing"]))])
-        nR = np.array([u[1], -u[0]])
         other = next(v for k, v in gsup.items() if k != sid)
-        vs = nR * (1.0 if np.dot(np.array([other["E"], other["N"]]) - P0, nR) > 0 else -1.0)   # toward the span
+        at, tan_, nrm, proj = _support_curve(gs, other)
         so = {r["edge"]: float(r["value"]) / 1000 for r in inp.rows(ds.get("headstock_setout"), f"supports[{sid}].headstock_setout")}
         for e in ("front", "back", "start", "end"):
             if e not in so:
@@ -173,8 +202,7 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             q["ground"] = inp.v(p.get("ground_rl"), f"supports[{sid}].piles[{pid}].ground_rl", required=False)
             q["t"] = inp.v(p.get("wall_thickness"), f"supports[{sid}].piles[{pid}].wall_thickness", required=False)
             q["id"] = pid
-            rel = np.array([q["E"], q["N"]]) - P0
-            q["u"], q["v"] = float(rel @ u), float(rel @ vs)
+            q["u"], q["v"] = proj(q["E"], q["N"])
             piles.append(q)
         if not piles:
             raise MissingInput(f"supports[{sid}].piles: none")
@@ -196,25 +224,23 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
         bu = {}
         for bid, bb in brgs:
             n = nodes[bb["node"]]
-            bu[bid] = float((np.array([n["E"], n["N"]]) - P0) @ u)
+            bu[bid] = proj(n["E"], n["N"])[0]
         # sill nodes
-        stations = {so["start"]: ("end_start", None), so["end"]: ("end_end", None)}
-        for p in piles:
-            stations[p["u"]] = ("pile", p["id"])
-        for bid, uu in bu.items():
-            stations.setdefault(uu, ("bearing", bid))
-        keys = sorted(stations)
+        # every label kept, even at an equal u (a bearing projecting exactly onto a pile station)
+        stations = sorted([(so["start"], ("end_start", None)), (so["end"], ("end_end", None))] + [(p["u"], ("pile", p["id"])) for p in piles]
+                          + [(uu, ("bearing", bid)) for bid, uu in bu.items()], key=lambda q: q[0])
+        keys = [q[0] for q in stations]
         merged = []
-        for k in keys:
+        for k, lab in stations:
             if merged and k - merged[-1][0] < 0.001:
-                merged[-1][1].append(stations[k])
+                merged[-1][1].append(lab)
             else:
-                merged.append([k, [stations[k]]])
+                merged.append([k, [lab]])
         if keys[0] < so["start"] - 1e-6 or keys[-1] > so["end"] + 1e-6:
             raise MissingInput(f"supports[{sid}]: a pile or bearing lies outside the sill ends ({so['start']:.3f} .. {so['end']:.3f} m)")
         sill_at, sill_nodes = {}, []
         for uu, labs in merged:
-            Pp = P0 + uu * u + c * vs
+            Pp = at(uu) + c * nrm(uu)
             k = node(float(Pp[0]), float(Pp[1]), soffit(uu) + d / 2, "sill", support=sid, u=uu)
             sill_nodes.append(k)
             for lab in labs:
@@ -232,8 +258,9 @@ def build_integrated(doc, geo, S, std, allow_proposed=False, spacing=None):
             # backfill behind the abutment: one horizontal spring per sill node, square to the support line, tributary sill length
             kb = inp.v(ds.get("abutment_spring"), f"supports[{sid}].abutment_spring (integral abutment backfill stiffness, kN/m per m)")
             us = [uu for uu, _ in merged]
-            ax = np.array([[vs[0], vs[1], 0.0], [u[0], u[1], 0.0], [0.0, 0.0, 1.0]])
             for i, k in enumerate(sill_nodes):
+                vv, tt = nrm(us[i]), tan_(us[i])
+                ax = np.array([[vv[0], vv[1], 0.0], [tt[0], tt[1], 0.0], [0.0, 0.0, 1.0]])
                 trib = ((us[i + 1] if i + 1 < len(us) else us[i]) - (us[i - 1] if i else us[i])) / 2
                 n = nodes[k]
                 g_ = node(n["E"], n["N"], n["Z"], "ground", support=sid)
