@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-23 — Radial (fanned) member geometry (ADR-086 stage 4b-1)
+- Member setout fields; `build_geometry` radial mode.
+
 ## 2026-11-23 — Solver cross-checked against PyNite (ADR-087)
 - `tests/verification/` converter + test; `requirements-dev.txt`.
 

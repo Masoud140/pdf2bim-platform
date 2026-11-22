@@ -95,6 +95,12 @@ Every field is a tagged value (value, unit, tag, source / derivation / ref, stat
 | `superstructure.members[].line_offset_B` | num | m | Offset at support B |
 | `superstructure.members[].straight` | bool |  | Straight between bearings (true) or following the control line |
 | `superstructure.members[].length` | num | m | Overall precast length |
+| `superstructure.members[].setout_ch` | num | m | Radial / fanned members (ADR-086): chainage of the member setout point on the control line (replaces line_offset_A/B) |
+| `superstructure.members[].setout_bearing` | num | deg | Radial members: member direction (bearing, decimal degrees) from end A towards end B |
+| `superstructure.members[].setout_to_A` | num | m | Radial members: distance from the setout point back to the member end at A |
+| `superstructure.members[].setout_to_B` | num | m | Radial members: distance from the setout point to the member end at B |
+| `superstructure.members[].level_A` | num | m | Radial members: setout level at the A end (as tabulated) |
+| `superstructure.members[].level_B` | num | m | Radial members: setout level at the B end |
 | `superstructure.members[].bearing_offset_A` | num | mm | Bearing centre from the girder end at A |
 | `superstructure.members[].bearing_offset_B` | num | mm | Bearing centre from the girder end at B |
 | `superstructure.members[].type_ref` | str |  | Which girder type definition applies (id in supert_types / plank_types) |

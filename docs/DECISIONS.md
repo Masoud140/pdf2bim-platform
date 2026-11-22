@@ -821,6 +821,19 @@
   - The model builder is chainage / offset based throughout. Levels, deck edges, cross-girder lines and node stations all come from the control line (27 places), so a transverse-span deck is an architecture change, about 3–5 sessions.
   - The MCH0 alignment is not in the drawing set, so the plank setout cannot be placed in MGA even once the code exists.
   - Paused pending the owner's choice (NEXT_SESSION B).
+- **2026-11-23 — owner: "build it, alignment later".**
+  - **Stage 4b-1 done (geometry).**
+    - New member fields: `setout_ch`, `setout_bearing`, `setout_to_A`, `setout_to_B`, `level_A`, `level_B`.
+    - When every member has `setout_ch`, `build_geometry` uses `_radial`:
+      - ends and bearings come from the setout point;
+      - supports are the polylines through the member ends, named by the description's two supports;
+      - the deck strip is half the normal distance to each neighbouring chord. Shortcut: an edge member mirrors its inner side.
+    - tests/geometry/test_radial.py 7/7, against closed forms on an R 180 arc: radial lines through the centre, end arcs at R ± d, chord spacing, strip = r tan Δθ / 2.
+    - test_geometry 38/38 unchanged.
+  - **Next:**
+    - 4b-2: a radial grillage builder (plank lines, transverse strips between same-station nodes, levels from `level_A/B`);
+    - 4b-3: the substructure along polyline supports;
+    - then the SB43 description, once the MCH0 alignment is supplied.
 
 ## ADR-085 Plank decks: scope and stages (plan, 2026-11-20)
 - **Why:** queue item A3 (no owner input first). The only plank bridge in the sets is SB43 (B12468): 700 deep side-by-side planks set radially on MCH0, 19 m span, **integral portal frame** with abutments B and C (rotationally fixed), deck 200–700 mm varying, abutment soil stiffness to PD6694-1 (thermal ratcheting); report table 4-34 (plank ULS M* 2,285 / φMu 2,630 kNm, SLS steel stress increment 89 / 160 MPa, longitudinal shear 1,933 / 2,024 kPa, V* 478 / 1,268 kN, T* 103 kNm) and 4-35 (deck slab). The planks are designed as cracked reinforced / partially prestressed members (steel stress increment), not as Super-T.

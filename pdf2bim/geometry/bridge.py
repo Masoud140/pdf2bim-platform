@@ -116,6 +116,70 @@ def _samples(al, chs, pad=5.0, n=200):
     return out
 
 
+def _radial(doc, rd, al, checks, allow_proposed, stations):
+    """Radial / fanned members (ADR-086, e.g. SB43 planks): each member from its setout point on the control line
+    (setout_ch), direction setout_bearing, ends setout_to_A back / setout_to_B ahead, bearings bearing_offset_A/B in
+    from the ends. Supports "A" / "B" become polylines through the member ends (ordered as the members). Deck strip
+    widths: half the distance to the neighbouring member chords; an edge member mirrors its inner side.
+    shortcut: edge strip mirrored (no deck-edge overhang input for radial decks), refine when an edge offset is given."""
+    S = doc.get("superstructure") or {}
+    girders = []
+    for m in S["members"]:
+        gid, p = m["id"], f"superstructure.members[{m['id']}]"
+        ch = rd.value(m.get("setout_ch"), p + ".setout_ch")
+        b = rd.value(m.get("setout_bearing"), p + ".setout_bearing")
+        dA, dB = rd.value(m.get("setout_to_A"), p + ".setout_to_A"), rd.value(m.get("setout_to_B"), p + ".setout_to_B")
+        bo_a, bo_b = rd.value(m.get("bearing_offset_A"), p + ".bearing_offset_A") / 1000, rd.value(m.get("bearing_offset_B"), p + ".bearing_offset_B") / 1000
+        E0, N0, _ = al.point(ch)
+        t = (math.sin(math.radians(b)), math.cos(math.radians(b)))
+        eA, eB = (E0 - dA * t[0], N0 - dA * t[1]), (E0 + dB * t[0], N0 + dB * t[1])
+        pt = lambda P: dict(zip(("E", "N"), P), **dict(zip(("ch", "offset"), al.station(*P, guess=ch))))
+        PA, PB = pt((eA[0] + bo_a * t[0], eA[1] + bo_a * t[1])), pt((eB[0] - bo_b * t[0], eB[1] - bo_b * t[1]))
+        lv = {k: rd.value(m.get(k), f"{p}.{k}", required=False) for k in ("level_A", "level_B")}
+        g = {"id": gid, "radial": True, "setout": {"ch": ch, "E": E0, "N": N0, "bearing": b}, "levels": lv,
+             "bearing_A": PA, "bearing_B": PB, "chord_length_bearings": dA + dB - bo_a - bo_b, "chord_bearing": b % 360, "unit_t": t,
+             "end_A": {"E": eA[0], "N": eA[1]}, "end_B": {"E": eB[0], "N": eB[1]}, "length_end_to_end": dA + dB}
+        g["midchord_station"] = al.station((PA["E"] + PB["E"]) / 2, (PA["N"] + PB["N"]) / 2, guess=ch)
+        girders.append(g)
+    for j, g in enumerate(girders):
+        PA, PB, t = g["bearing_A"], g["bearing_B"], g["unit_t"]
+        nR = (t[1], -t[0])
+        rows = []
+        for f in stations:
+            P = (PA["E"] + f * (PB["E"] - PA["E"]), PA["N"] + f * (PB["N"] - PA["N"]))
+            out = {"t": f}
+            for nb in (girders[k] for k in (j - 1, j + 1) if 0 <= k < len(girders)):   # members in setout order: side by sign
+                dist = _ray_to_line(P, nR, (nb["bearing_A"]["E"], nb["bearing_A"]["N"]), (nb["bearing_B"]["E"], nb["bearing_B"]["N"]))
+                if dist is not None:
+                    side = "right" if dist > 0 else "left"
+                    out[side], out[side + "_to"] = abs(dist) / 2 * 1000, nb["id"]
+            for side, other in (("right", "left"), ("left", "right")):
+                if side not in out:
+                    out[side], out[side + "_to"] = out.get(other), "mirrored (edge member)"
+            out["width"] = (out["left"] or 0) + (out["right"] or 0) if out["left"] is not None and out["right"] is not None else None
+            rows.append(out)
+        g["flange"] = rows
+    sups = []
+    for sid, key in (("A", "end_A"), ("B", "end_B")):
+        pl = [(g[key]["E"], g[key]["N"]) for g in girders]
+        E, N = sum(q[0] for q in pl) / len(pl), sum(q[1] for q in pl) / len(pl)
+        chs = al.station(E, N, guess=girders[len(girders) // 2]["setout"]["ch"])
+        sups.append({"id": sid, "kind": "polyline", "polyline": pl, "E": E, "N": N, "ch": chs[0], "offset": chs[1],
+                     "bearing": math.degrees(math.atan2(pl[-1][0] - pl[0][0], pl[-1][1] - pl[0][1])) % 180})
+    S0 = doc.get("supports") or []
+    names = [x["id"] for x in S0]
+    if len(names) == 2:   # the description's own support ids (e.g. SB43 abutments B and C) in member order A -> B
+        for s_, nm in zip(sups, names):
+            s_["id"] = nm
+    return {"format": "pdf2bim.geometry/0.1", "coordinates": "MGA (as in the description), metres; members set out radially (ADR-086)",
+            "input_hash": content_hash(doc), "input_format": doc.get("format"), "allow_proposed": allow_proposed, "provisional": rd.provisional,
+            "radial": True,
+            "alignment": {"seed_bearing": al.seed_bearing, "seed_derivation": al.seed_derivation, "misclosure": al.misclosure(),
+                          "samples": _samples(al, [g["setout"]["ch"] for g in girders]), "crossfall": None},
+            "supports": sups, "girders": girders, "deck": {"edges": {}, "missing": ["radial deck: edges = the edge members (ADR-086)"]},
+            "checks": checks, "_alignment": al}
+
+
 def build_geometry(doc, allow_proposed=False, stations=(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0)):
     rd = Reader(doc, allow_proposed)
     A = doc.get("alignment") or {}
@@ -126,6 +190,11 @@ def build_geometry(doc, allow_proposed=False, stations=(0, 0.1, 0.2, 0.3, 0.4, 0
     for m in al.misclosure():
         checks.append({"id": f"alignment.misclosure.row{m['row']}", "what": f"integrated vs tabulated start point of element {m['row']} (ch {m['ch']})",
                        "value_m": m["dist"], "limit_m": 0.005, "pass": m["dist"] <= 0.005, "basis": "CONTROL_LINE_RECONSTRUCTION_METHOD §5 (<5 mm)"})
+
+    S_ = doc.get("superstructure") or {}
+    radial = bool(S_.get("members")) and all(m.get("setout_ch") is not None for m in S_["members"])
+    if radial:   # ADR-086: members set out by chainage + bearing; the support lines are the polylines through their ends
+        return _radial(doc, rd, al, checks, allow_proposed, stations)
 
     # ---- supports ----
     sup = {}
