@@ -67,6 +67,13 @@ Page = 0-based index into the combined PDF. The owner's files are not committed.
 
 Deck slab (table 4-35): ULS M 39.1 / 101 kNm, SLS M 22 / 64 kNm, shear 102 / 276 kN, punching 202 / 417 kN (W80).
 
+### Stage 4b check (2026-11-23)
+
+- **MCH0 horizontal alignment: not in the drawing set — Missing – Flagged.**
+  - Only chainage labels and the HTP / IP legend appear (sheets 0110 and 0605). No IP / radius / tangent table.
+  - Without it the plank setout points (chainage on MCH0) cannot be placed in MGA. It is probably on the road design drawings.
+- **Information only (Calculated, not a substitute):** Δchainage / Δbearing over PL-01 … PL-91 = (458.035 − 379.155) / (29.187° − 4.077° in rad) = **179.99 m**. This is consistent with MCH0 being a circular arc of R ≈ 180 m through the setout points, with the planks radial to it.
+
 ## 4. What the platform needs before SB43 can run
 
 1. **Radial-member geometry (stage 4b):**

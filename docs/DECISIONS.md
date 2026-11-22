@@ -817,6 +817,10 @@
   - The existing straight-line path is unchanged for every other bridge.
 - **Traffic:** the SB41 / SB42 carriageways that cross the planks are lanes defined by their own control lines (MCR0, MC90, MC80). This is a stage after the geometry.
 - **Status:** proposed, not implemented. Inputs so far: `plank_supports.json` (Table 1, Direct, self-checked).
+- **2026-11-23 — scope found; owner decision needed:**
+  - The model builder is chainage / offset based throughout. Levels, deck edges, cross-girder lines and node stations all come from the control line (27 places), so a transverse-span deck is an architecture change, about 3–5 sessions.
+  - The MCH0 alignment is not in the drawing set, so the plank setout cannot be placed in MGA even once the code exists.
+  - Paused pending the owner's choice (NEXT_SESSION B).
 
 ## ADR-085 Plank decks: scope and stages (plan, 2026-11-20)
 - **Why:** queue item A3 (no owner input first). The only plank bridge in the sets is SB43 (B12468): 700 deep side-by-side planks set radially on MCH0, 19 m span, **integral portal frame** with abutments B and C (rotationally fixed), deck 200–700 mm varying, abutment soil stiffness to PD6694-1 (thermal ratcheting); report table 4-34 (plank ULS M* 2,285 / φMu 2,630 kNm, SLS steel stress increment 89 / 160 MPa, longitudinal shear 1,933 / 2,024 kPa, V* 478 / 1,268 kN, T* 103 kNm) and 4-35 (deck slab). The planks are designed as cracked reinforced / partially prestressed members (steel stress increment), not as Super-T.
