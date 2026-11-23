@@ -118,7 +118,7 @@ def convert(m, loads=None, gravity=True):
                 P.def_support_spring(name(n), d, float(v))
     for eid, b in m.beams.items():
         mat, sec = f"M{eid}", f"S{eid}"
-        P.add_material(mat, b["E"], b["G"], b["E"] / (2 * b["G"]) - 1, 0.0)
+        P.add_material(mat, b["E"], b["G"], b["E"] / (2 * b["G"]) - 1, b["w"] / b["A"] if b["A"] else 0.0)   # rho = weight density (modal mass)
         P.add_section(sec, b["A"], b["Iz"], b["Iy"], b["J"])
         i, j = name(b["n1"]), name(b["n2"])
         if b.get("off") is not None:
@@ -153,6 +153,30 @@ def convert(m, loads=None, gravity=True):
         pm.descritize = types.MethodType(_ends_only, pm)
     P.add_load_combo("C", {"SW": 1.0, "PL": 1.0})
     return P
+
+
+def frequencies(m, n=6, g=9.80665):
+    """First n natural frequencies (Hz) of the model by PyNite: consistent member mass from the members' weight
+    (rho = w / A, self-weight case as the mass), links / springs / arms massless (as the solver)."""
+    P = convert(m, gravity=False)
+    from Pynite.Member3D import Member3D
+    orig = Member3D.consistent_m
+
+    def polar(mem, *a, **k):   # rotary (torsional) inertia from Iy + Iz, as the solver (PyNite uses J)
+        J0 = mem.section.J
+        mem.section.J = mem.section.Iy + mem.section.Iz
+        try:
+            return orig(mem, *a, **k)
+        finally:
+            mem.section.J = J0
+    P.add_member_self_weight("FY", -1.0, case="MASS")
+    P.add_load_combo("MC", {"MASS": 1.0})
+    Member3D.consistent_m = polar
+    try:
+        P.analyze_modal(num_modes=n, mass_combo_name="MC", mass_direction="Y", gravity=g, check_stability=False)
+    finally:
+        Member3D.consistent_m = orig
+    return sorted(float(f) for f in P.frequencies)[:n]
 
 
 def displacements(P, m):

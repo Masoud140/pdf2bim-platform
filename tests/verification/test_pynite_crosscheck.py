@@ -70,6 +70,16 @@ t("BR13A grillage: total vertical reaction equal (statics, both engines)", abs(s
   f"{sum(Rp.values()):.2f} vs {sum(Ro.values()):.2f} kN")
 print(f"     max |u| {umax * 1000:.2f} mm, diff {du * 1000:.4f} mm; bearings {', '.join(f'{Ro[n]:.0f}/{Rp[n]:.0f}' for n in sorted(k))} kN (ours / PyNite)")
 
+# natural frequencies of the superstructure grillage (consistent member mass from the weights). PyNite's torsional rotary
+# inertia uses J / A, ours the polar (Iy + Iz) / A (physically right for the mass); frequencies() aligns PyNite to it —
+# with PyNite's own convention modes 2-6 come out 1-10 % higher (14.88 vs 16.40 Hz for mode 3)
+from pynite_model import frequencies
+fo = [md["f"] for md in me.modes(n=6)["modes"]]
+fp = frequencies(me, 6)
+df = max(abs(a_ - b_) / b_ for a_, b_ in zip(fp, fo))
+t("BR13A grillage: first 6 natural frequencies agree within 0.05 % (same rotary-inertia convention)", df < 5e-4, ", ".join(f"{a_:.3f}/{b_:.3f}" for a_, b_ in zip(fo, fp)))
+print("     frequencies (Hz, ours / PyNite): " + ", ".join(f"{a_:.3f}/{b_:.3f}" for a_, b_ in zip(fo, fp)))
+
 # 3. (0.05 %: the residual is a uniform ~3 um deck slide on the soft elastomer shear springs — PyNite's conditioning with the
 #    stiff arms; stiffer arms make it worse, 1e5 x gives 3 %)
 # BR13A integrated model: + elastomeric bearing links (seat -> top, shear springs at mid-height), sills, rigid arms,

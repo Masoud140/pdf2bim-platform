@@ -2,7 +2,7 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
-## 2026-11-23 — PyNite cross-check extended to the integrated model (ADR-087)
+## 2026-11-23 — PyNite cross-check: integrated model and natural frequencies (ADR-087)
 
 ## 2026-11-23 — Plank design on the radial model (ADR-086 stage 4b-5)
 

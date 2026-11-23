@@ -149,9 +149,12 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
     - displacements to 7e-6 m of 18 mm;
     - pile toe reactions to 0.15 of 1,334 kN.
   - The residual is a uniform ~3 µm deck slide on the soft elastomer shear springs: PyNite's conditioning with the stiff arms. Stiffer arms make it worse.
+- **2026-11-23: natural frequencies added (9/9).**
+  - The first 6 frequencies of the BR13A grillage agree to 0.001 Hz (4.288, 8.198, 14.880, 16.546, 20.646, 23.011 Hz) once PyNite uses the same torsional rotary inertia as the solver, the polar (Iy + Iz) / A.
+  - With PyNite's own J / A convention, modes 2–6 come out 1–10 % higher.
+  - The solver's polar inertia is the physically right mass. PyNite's J (the torsion constant) underestimates the rotary inertia of open or wide sections.
 - **Not covered yet:**
   - releases;
-  - modal analysis;
   - shear deformation (PyNite is Euler-Bernoulli).
 
 ## 6. Gates before design use
