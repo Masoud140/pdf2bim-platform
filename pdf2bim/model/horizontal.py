@@ -21,6 +21,7 @@ As the dashboard (src/sub2.js slCases), generalised:
 import math
 import numpy as np
 from ..description import Reader, MissingInput
+from .substructure import _support_curve
 from .loads import LOAD_LINE_ROLES
 
 G_ACC = 9.80665
@@ -71,18 +72,16 @@ def horizontal_cases(doc, geo, mdl, std, allow_proposed=False):
         soffit0 = sl["soffit_z0"]
         if bf.get("retained_height") not in (None, ""):
             H = float(bf["retained_height"]); Htag = "description"
-        else:
+        elif gsup[sid].get("RL") is not None:
             H = gsup[sid]["RL"] - soffit0; Htag = "Calculated: road level at the setout point - sill soffit there"
+        else:
+            raise MissingInput(f"supports[{sid}].backfill.retained_height (no road level at this support's setout point, e.g. a radial deck)")
         d = sl["d"]
-        P0 = np.array([gsup[sid]["E"], gsup[sid]["N"]])
         other = next(x for k, x in gsup.items() if k != sid)
-        u = np.array([math.sin(math.radians(gsup[sid]["bearing"])), math.cos(math.radians(gsup[sid]["bearing"]))])
-        n = np.array([u[1], -u[0]])
-        if np.dot(np.array([other["E"], other["N"]]) - P0, n) < 0:
-            n = -n                                            # toward the span
+        _, _, nrm, proj = _support_curve(gsup[sid], other)   # straight line or polyline support (ADR-086); normal toward the span
         sn = S_["sill_nodes"]
-        s = [float((m.nodes[k][:2] - P0) @ u) for k in sn]
-        geom[sid] = {"H": H, "H_source": Htag, "K": K, "K_kind": kk, "gamma": gam, "phi_deg": math.degrees(phi), "sill_length": s[-1] - s[0], "n": n.tolist()}
+        s = [proj(*m.nodes[k][:2])[0] for k in sn]
+        geom[sid] = {"H": H, "H_source": Htag, "K": K, "K_kind": kk, "gamma": gam, "phi_deg": math.degrees(phi), "sill_length": s[-1] - s[0], "n": nrm(s[len(s) // 2]).tolist()}
         for kind, e, zr in (("EP", 0.5 * K * gam * H * H, H / 3), ("EPT", K * q_sur * H, H / 2)):
             dz = zr - d / 2
             L = EP if kind == "EP" else EPT.setdefault(sid, {})
@@ -90,6 +89,7 @@ def horizontal_cases(doc, geo, mdl, std, allow_proposed=False):
                 a = (s[i] - s[i - 1]) / 2 if i > 0 else 0.0
                 b = (s[i + 1] - s[i]) / 2 if i < len(sn) - 1 else 0.0
                 F = e * (a + b)
+                n = nrm(s[i])
                 f = np.array([F * n[0], F * n[1], 0.0])
                 mm = np.cross([0.0, 0.0, dz], f)
                 L[k] = L.get(k, np.zeros(6)) + np.concatenate([f, mm])

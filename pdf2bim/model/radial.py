@@ -7,6 +7,8 @@ Same return structure as builder.build_superstructure (which calls this when geo
   (ADR-085 shortcut);
 - transverse slab strips between station i of neighbouring members: b x tD, b = the mean of the two members' tributary
   lengths at that station, J = b tD^3 / 6 (as the builder, ADR-040), weight 0 (the deck weight is in the planks);
+- deck-edge lines: the first / last member's chord moved out by half its deck strip, dummy members, slab strips to the
+  member (loads up to the deck edge land on nodes);
 - end lines: members' end nodes joined by deck-end dummies, bearing nodes by cross girders (superstructure.cross_girders
   of that support) or dummies when none is given;
 - levels: the member's level_A / level_B (setout level, at the plank SOFFIT per the SB43 setout detail) linear along it, plus
@@ -98,6 +100,26 @@ def build_radial(doc, geo, S, rd, spacing=None, bearings="ground"):
             add(a, b, "girder", sec, w=(Gg["A"] / 1e6 + dw * tD) * dens_g, E=Eg, line=g["id"], dz=(poly["composite"]["yc"] - topmm) / 1000,
                 w_girder=Gg["A"] / 1e6 * dens_g)
 
+    # deck-edge lines beyond the first / last member: its chord moved out by half its deck strip (the strip edge), so
+    # loads up to the deck edge land on nodes (as the builder's edge lines); dummy longitudinal members, massless
+    edges = []
+    for g, nb in ((girders[0], girders[1]), (girders[-1], girders[-2])):
+        u = g["unit_t"]; n_ = (u[1], -u[0])
+        if (nb["setout"]["E"] - g["setout"]["E"]) * n_[0] + (nb["setout"]["N"] - g["setout"]["N"]) * n_[1] > 0:
+            n_ = (-n_[0], -n_[1])
+        h = g["flange"][len(g["flange"]) // 2]["width"] / 2000
+        seq = []
+        for k in lines[g["id"]]:
+            q = nodes[k]
+            E, N = q["E"] + h * n_[0], q["N"] + h * n_[1]
+            kk = len(nodes) + 1
+            ch, o = al.station(E, N, guess=q["ch"])
+            nodes[kk] = dict(q, id=kk, E=E, N=N, ch=ch, o=o, role="edge", line=f"EDGE_{g['id']}")
+            mdl.node(kk, E, N, q["Z"])
+            seq.append(kk)
+        lines[f"EDGE_{g['id']}"] = seq
+        edges.append((g, seq))
+
     # transverse slab strips: station i of neighbouring members
     def trib(seq, j):
         xs_ = [nodes[k]["x"] for k in seq]
@@ -126,6 +148,18 @@ def build_radial(doc, geo, S, rd, spacing=None, bearings="ground"):
             sec = {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": bt * tD ** 3 / 6, "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6,
                    "shape": ("rect", tD, bt)}
             add(ka, kb, "slab", sec, line=f"T{key}" if isinstance(key, int) else f"SUP_{key}", dz=-tD / 2)
+
+    for g, seq in edges:
+        gs = galone[g["id"]]
+        for a, b in zip(seq, seq[1:]):
+            add(a, b, "edge", {k: v * DUMMY for k, v in gs.items()}, line=f"EDGE_{g['id']}")
+        for j, (ke, kg) in enumerate(zip(seq, lines[g["id"]])):
+            if nodes[kg]["special"] in ("end_A", "end_B"):
+                add(ke, kg, "deck_end", {k: v * DUMMY for k, v in gs.items()}, line="END")
+                continue
+            bt = trib(lines[g["id"]], j)
+            add(kg, ke, "slab", {"A": bt * tD, "Iy": bt * tD ** 3 / 12, "Iz": tD * bt ** 3 / 12, "J": bt * tD ** 3 / 6, "Asy": bt * tD * 5 / 6, "Asz": bt * tD * 5 / 6,
+                                 "shape": ("rect", tD, bt)}, line="EDGE_SLAB", dz=-tD / 2)
 
     bear = {}
     items = (doc.get("bearings") or {}).get("items") or []

@@ -111,7 +111,7 @@ def main():
     # engine verification: the dashboard's distribution rule replicated (one-node lines included), then without the one-node lines (H-5)
     from pdf2bim.model.traffic import Influence
     from pdf2bim.model.loads import deck_end_lines, _side
-    al = geo["_alignment"]; ends = deck_end_lines(geo)
+    al = geo["_alignment"]; ends = deck_end_lines(geo)[0]
     inside = lambda c, o: all(_side(*ends[k], al.point(c, o)[:2]) >= -1e-6 for k in ends)
     D = json.load(open(os.path.join(ROOT, "tests/model/fixtures/br13a_dashboard_traffic_sweep.json")))
     rep = {}

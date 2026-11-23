@@ -85,7 +85,7 @@ comp = {c["name"]: c for c in Cs["components"]}
 dk = doc["deck"]
 cl, cr = dk["carriageway_left"]["value"], dk["carriageway_right"]["value"]
 q = dk["surfacing_density"]["value"] * dk["surfacing_thickness"]["value"] / 1000
-ends = deck_end_lines(geo)
+ends = deck_end_lines(geo)[0]
 sA, sB = geo["supports"][0], geo["supports"][-1]
 # independent carriageway plan area: boundary polygon (offset curves sampled every 10 mm + the end lines)
 bnd = []

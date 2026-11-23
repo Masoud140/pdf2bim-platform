@@ -61,8 +61,8 @@ if __name__ == "__main__":
     for x in B["members"]:
         roles[x["role"]] = roles.get(x["role"], 0) + 1
     npl, nst = 7, B["settings"]["stations"]
-    t("radial grillage: one line per plank, slab strips between facing stations, end / support lines",
-      roles.get("girder") == npl * (nst + 1) and roles.get("slab") == (npl - 1) * (nst - 2) and roles.get("deck_end") == 2 * (npl - 1) and roles.get("cross_girder") == 2 * (npl - 1),
+    t("radial grillage: one line per plank + two deck-edge lines, slab strips between facing stations, end / support lines",
+      roles.get("girder") == npl * (nst + 1) and roles.get("slab") == (npl - 1) * (nst - 2) + 2 * nst and roles.get("deck_end") == 2 * (npl - 1) + 4 and roles.get("edge") == 2 * (nst + 1) and roles.get("cross_girder") == 2 * (npl - 1),
       str(roles))
     g0 = geo["girders"][3]
     seq = [k for k, v in B["nodes"].items() if v["line"] == g0["id"]]
@@ -101,6 +101,7 @@ if __name__ == "__main__":
         sp_["piles"] = [{"id": f"{sp_['id']}{j}", "E": rec(float(pl[i][0])), "N": rec(float(pl[i][1])), "diameter": rec(900.0), "rl_top": rec(lvl - 0.05 - hd),
                          "rl_rock": rec(lvl - 12.0), "rl_toe": rec(lvl - 16.0), "ground_rl": rec(lvl - 0.05 - hd)} for j, i in enumerate((0, 3, 6))]
         sp_["soil_layers"] = {"rows": []}
+        bf = sp_["backfill"]["rows"][0]; bf["cells"]["retained_height"] = 2.0; bf["original"]["cells"]["retained_height"] = 2.0
     MI = build_integrated(d, geo, S, Standards(), allow_proposed=True)
     mi = MI["model"]
     ri = mi.solve()
@@ -124,6 +125,19 @@ if __name__ == "__main__":
         tt = (plA[i + 1] - plA[i]) / np.linalg.norm(plA[i + 1] - plA[i])
         ang.append(abs(np.dot(ax0, tt)))
     t("backfill springs act square to the local headstock segment", max(ang) < 1e-9, f"{max(ang):.2e}")
+    # stage 4b-4: all primitive load cases and the combinations on the radial integrated model
+    from pdf2bim.model.combinations import combined_actions
+    from pdf2bim.model.wind import wind_cases
+    CA = combined_actions(d, geo, S, MI, Standards(), allow_proposed=True)
+    t("combined actions on the radial model: every term analysed (traffic, SDL, thermal, wind, EQ, earth pressure ...)",
+      not CA["missing_terms"] and {a_ for a_, _ in CA["not_combined"]} <= {"PED", "FLH", "COLX"}, str(CA["not_combined"]))
+    W = wind_cases(d, geo, S, MI, allow_proposed=True)
+    ec = [v["ch"] for v in MI["nodes"].values() if v.get("role") == "edge"]
+    FT = sum(np.linalg.norm(f[:2]) for f in W["cases"]["WT+"]["loads"].values())
+    t("radial wind: transverse wind total = wT x deck length along the control line (edge-line chainage range)", abs(FT - W["values"]["wT"] * (max(ec) - min(ec))) < 1e-9 * FT,
+      f"{FT:.3f} vs {W['values']['wT'] * (max(ec) - min(ec)):.3f} kN")
+    Fv = sum(f[2] for f in W["cases"]["WVU+"]["loads"].values())
+    t("radial wind: vertical wind total = wV x deck length", abs(Fv - W["values"]["wV"] * (max(ec) - min(ec))) < 1e-9 * abs(Fv))
     try:   # independent engine on the radial model (ADR-087), when PyNite is installed
         sys.path.insert(0, os.path.join(R_, "tests", "verification"))
         from pynite_model import convert, displacements, euler_copy

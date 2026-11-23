@@ -33,20 +33,37 @@ SNAP_MAX = 0.05   # m: largest distance a load point may be moved onto the node 
 
 
 def deck_end_lines(geo):
-    """The two deck-end lines (through the girder ends, parallel to the support line): {support: (P, u, interior_sign)}."""
+    """The two deck-end lines (through the girder ends, parallel to the support line): ({support: (P, u, interior_sign)},
+    {support: chainage near which the line crosses the control line})."""
     sups = geo["supports"]
     out = {}
+    if geo.get("radial"):
+        # fanned members (ADR-086): the deck ends along the control line are the outer edges of the first / last member
+        # (its chord moved out by half its deck strip); listed under the support ids in the same A / B order
+        G = geo["girders"]
+        for s, g, nb in ((sups[0], G[0], G[1]), (sups[-1], G[-1], G[-2])):
+            P0 = (g["setout"]["E"], g["setout"]["N"]); u = g["unit_t"]
+            n = (u[1], -u[0])
+            if (nb["setout"]["E"] - P0[0]) * n[0] + (nb["setout"]["N"] - P0[1]) * n[1] > 0:
+                n = (-n[0], -n[1])
+            h = g["flange"][len(g["flange"]) // 2]["width"] / 2000
+            out[s["id"]] = [(P0[0] + h * n[0], P0[1] + h * n[1]), u, 0.0, g["setout"]["ch"]]
+    else:
+        for s in (sups[0], sups[-1]):
+            out[s["id"]] = None
     for s, key in ((sups[0], "end_A"), (sups[-1], "end_B")):
+        if out[s["id"]] is not None:
+            continue
         pts = [(g[key]["E"], g[key]["N"]) for g in geo["girders"]]
         u = (math.sin(math.radians(s["bearing"])), math.cos(math.radians(s["bearing"])))
         P = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
-        out[s["id"]] = [P, u, 0.0]
+        out[s["id"]] = [P, u, 0.0, s["ch"]]
     ids = list(out)
     for a, b in ((ids[0], ids[1]), (ids[1], ids[0])):
-        P, u, _ = out[a]
+        P, u = out[a][0], out[a][1]
         Q = out[b][0]
         out[a][2] = 1.0 if (Q[0] - P[0]) * u[1] - (Q[1] - P[1]) * u[0] > 0 else -1.0
-    return {k: tuple(v) for k, v in out.items()}
+    return {k: tuple(v[:3]) for k, v in out.items()}, {k: v[3] for k, v in out.items()}
 
 
 def _side(P, u, sg, X):
@@ -183,14 +200,15 @@ def sdl_case(doc, geo, mdl, allow_proposed=False, dc=0.2, do=0.1, part=None):
 
     al = geo["_alignment"]
     D = doc.get("deck") or {}
-    ends = deck_end_lines(geo)
+    ends, guess = deck_end_lines(geo)
     sA, sB = geo["supports"][0], geo["supports"][-1]
     eA, eB = ends[sA["id"]], ends[sB["id"]]
     dist = Distributor(mdl["nodes"])
     comps = []
 
     def ch_range(o):
-        return _end_chainage(al, eA, o, sA["ch"]), _end_chainage(al, eB, o, sB["ch"])
+        a, b = _end_chainage(al, eA, o, guess[sA["id"]]), _end_chainage(al, eB, o, guess[sB["id"]])
+        return (a, b) if a <= b else (b, a)
 
     def area_load(name, oL, oR, q, recs):
         if q == 0:

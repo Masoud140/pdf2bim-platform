@@ -41,7 +41,12 @@ def wind_cases(doc, geo, S, mdl, allow_proposed=False, lever_datum="node"):
         raise MissingInput("deck.barriers: none (barrier height sets the exposed depth)")
     hBar = max(hb)
     gd = max(G["params"]["D"] + G["haunch"] for G in S["girders"].values()) / 1000
-    eL_, eR_ = geo["deck"]["edge_left_offset"], geo["deck"]["edge_right_offset"]
+    nodes = mdl["nodes"]
+    if geo.get("radial"):   # fanned members (ADR-086): deck width across the control line = the member-node offset range
+        oo = [v["o"] for v in nodes.values() if v.get("role") in ("girder", "edge") and "o" in v]
+        eL_, eR_ = min(oo), max(oo)
+    else:
+        eL_, eR_ = geo["deck"]["edge_left_offset"], geo["deck"]["edge_right_offset"]
     b = eR_ - eL_
     oc = (eL_ + eR_) / 2
     q = 0.5 * rows["air_density"] * rows["V_uls"] ** 2 / 1000
@@ -55,7 +60,6 @@ def wind_cases(doc, geo, S, mdl, allow_proposed=False, lever_datum="node"):
     wT, wV = q * rows["Cd"] * dExp, q * rows["CL"] * b
     wL = rows["longitudinal_fraction"] * wT
     al = geo["_alignment"]
-    nodes = mdl["nodes"]
     lines = {}
     for k, v in nodes.items():
         if v.get("role") == "girder" and v.get("line") is not None and "ch" in v:
@@ -68,6 +72,20 @@ def wind_cases(doc, geo, S, mdl, allow_proposed=False, lever_datum="node"):
             a = (nodes[k]["ch"] - nodes[ks[i - 1]]["ch"]) / 2 if i > 0 else 0.0
             bb = (nodes[ks[i + 1]]["ch"] - nodes[k]["ch"]) / 2 if i < len(ks) - 1 else 0.0
             trib[k] = a + bb
+    if geo.get("radial"):
+        # members run ACROSS the control line: per-metre wind acts over the deck length along it (Lch, the chainage range of
+        # the edge lines); each girder node's share = its plan area (tributary length along the member x its deck strip),
+        # scaled so that sum(t) / nG = Lch — the formulas below then give the exact totals
+        gw = {g_["id"]: g_["flange"][len(g_["flange"]) // 2]["width"] / 1000 for g_ in geo["girders"]}
+        lines = {g: sorted(ks, key=lambda k: nodes[k]["x"]) for g, ks in lines.items()}   # along the member, not by chainage
+        for g, ks in lines.items():
+            xs_ = [nodes[k]["x"] for k in ks]
+            for i, k in enumerate(ks):
+                trib[k] = ((xs_[i + 1] if i + 1 < len(xs_) else xs_[i]) - (xs_[i - 1] if i else xs_[i])) / 2 * gw[g]
+        ec = [v["ch"] for v in nodes.values() if v.get("role") == "edge"]
+        Lch = max(ec) - min(ec)
+        sa = sum(trib.values())
+        trib = {k: t_ * nG * Lch / sa for k, t_ in trib.items()}
     St = sum(trib.values())
     Lbar = St / nG                                                             # mean girder-line length
     cg = sum(t * nodes[k]["o"] for k, t in trib.items()) / St                  # tributary-weighted centroid of the girder-line nodes
@@ -81,9 +99,7 @@ def wind_cases(doc, geo, S, mdl, allow_proposed=False, lever_datum="node"):
         for i, k in enumerate(ks):
             y = nodes[k]["o"] - cg
             c = nodes[k]["ch"]
-            a = (c - nodes[ks[i - 1]]["ch"]) / 2 if i > 0 else 0.0
-            bb = (nodes[ks[i + 1]]["ch"] - c) / 2 if i < len(ks) - 1 else 0.0
-            t = a + bb
+            t = trib[k]
             if t <= 0:
                 continue
             br = math.radians(al.point(c)[2])

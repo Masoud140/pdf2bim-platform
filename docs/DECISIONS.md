@@ -854,6 +854,14 @@
     - Bug fixed on the way: a bearing projecting exactly onto a pile station lost its sill node (KeyError). Labels at equal u are now all kept (straight supports too).
     - test_radial_model 9/9: integrated self weight = reactions; sill nodes on the polyline; integral links; one spring per sill node, square to the local segment.
     - Regression: substructure 39/39, continuous 12/12, plank model 14/14, horizontal 22/22.
+  - **Stage 4b-4 done (all load cases on the radial model).**
+    - Radial builder: deck-edge lines (the edge member's chord moved out by half its deck strip, dummy members, slab strips to the member), so area loads up to the deck edge land on nodes.
+    - `loads.deck_end_lines`: for a radial deck the deck ends along the control line are those edge lines. It now also returns the chainage near each one (callers updated).
+    - `horizontal`: earth pressure along the support curve (`_support_curve`), with the normal per sill node. A radial deck needs `backfill.retained_height` (no road RL at a polyline setout).
+    - `wind`: for a radial deck, node shares = plan area (tributary along the member × strip), scaled so the totals are w × the deck length along the control line. The deck width across it is the node offset range.
+    - Traffic, thermal, earthquake and the combinations run unchanged.
+    - test_radial_model 12/12: combined actions with every term; wind totals exact.
+    - Regression: wind 14/14, loads 25/25, horizontal 22/22, combinations 35/35, continuous actions 19/19.
   - **Next:**
     - 4b-3: the substructure along polyline supports;
     - then the SB43 description, once the MCH0 alignment is supplied.

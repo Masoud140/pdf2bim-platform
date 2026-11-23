@@ -1,7 +1,7 @@
 # Current status — 2026-11-10
 
 - 2026-11-23: Independent cross-check of the solver against PyNite (ADR-087): BR13A superstructure grillage agrees within 0.01 % (test_pynite_crosscheck 6/6). Next: SB43 stage 4b.
-- 2026-11-23: SB43 stage 4b-1 radial-member geometry (ADR-086), test_radial 7/7; 4b-2 radial plank grillage (test_radial_model 6/6, PyNite-checked). 4b-3 substructure on curved supports (9/9). Next: 4b-4 combined actions on the radial model.
+- 2026-11-23: SB43 stage 4b-1 radial-member geometry (ADR-086), test_radial 7/7; 4b-2 radial plank grillage (test_radial_model 6/6, PyNite-checked). 4b-3 substructure on curved supports (9/9). 4b-4 every load case + combinations on the radial model (12/12). Next: 4b-5 plank checks on the radial model.
 - 2026-11-20: Plank decks stage 2a (ADR-085): plank grillage on bearings in the builder and thermal cases; combined actions run on a plank deck; stage 2b integral abutments (fixed plank-to-headstock links, backfill springs `supports[].abutment_spring`); test_plank_model 10/10; stage 3a RC plank flexure + SLS bar stress (test_plank_design 7/7); stage 3b shear / torsion + interface shear demand (9/9, model 12/12). Stage 3c-1: girder_checks tool and the app handle plank lines. Stage 3c-2: prestressed planks (losses + staged SLS / ULS). Stage 4a: SB43 survey (portal roof, 91 radial planks → ADR-086 geometry needed). Next: stage 4b radial-member geometry.
 
 **2026-11-10:**

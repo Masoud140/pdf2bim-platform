@@ -2,6 +2,9 @@
 
 Meaningful project changes, newest first. Details are in the linked documents and commits.
 
+## 2026-11-23 — Load cases on the radial model (ADR-086 stage 4b-4)
+- Radial deck-edge lines; deck-end lines, earth pressure and wind generalised.
+
 ## 2026-11-23 — Substructure on curved supports (ADR-086 stage 4b-3)
 - Sill, piles, bearings and backfill springs along polyline supports; equal-station label fix.
 
