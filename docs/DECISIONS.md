@@ -803,7 +803,7 @@
   - `tests/verification/test_pynite_crosscheck.py` passes 6/6.
   - The BR13A superstructure grillage agrees with PyNite to within 0.01 %: displacements to about 1e-5 relative, reactions to 0.004 kN.
   - Finding: PyNite joins members at collinear nodes by default. The converter switches this off; with it on, results differed by 60 %.
-  - 2026-11-23: integrated BR13A model added (links, piles, soil springs): agreement within 0.05 % (test 8/8). Natural frequencies added: the first 6 agree to 0.001 Hz with the same rotary-inertia convention (9/9).
+  - 2026-11-23: integrated BR13A model added (links, piles, soil springs): agreement within 0.05 % (test 8/8). Natural frequencies added: the first 6 agree to 0.001 Hz with the same rotary-inertia convention (9/9). Rotational (integral) link springs converted; rigid arms sized from their length (fixed stiff arms ill-conditioned PyNite: 7 % on the radial integral model); BR13A integrated now within 0.01 %, radial integral model within 0.05 %.
   - Remaining:
     - OpenSeesPy (4b) when earthquake time-history or staged analysis is needed.
 

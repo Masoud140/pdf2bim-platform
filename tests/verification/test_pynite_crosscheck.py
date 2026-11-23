@@ -80,8 +80,8 @@ df = max(abs(a_ - b_) / b_ for a_, b_ in zip(fp, fo))
 t("BR13A grillage: first 6 natural frequencies agree within 0.05 % (same rotary-inertia convention)", df < 5e-4, ", ".join(f"{a_:.3f}/{b_:.3f}" for a_, b_ in zip(fo, fp)))
 print("     frequencies (Hz, ours / PyNite): " + ", ".join(f"{a_:.3f}/{b_:.3f}" for a_, b_ in zip(fo, fp)))
 
-# 3. (0.05 %: the residual is a uniform ~3 um deck slide on the soft elastomer shear springs — PyNite's conditioning with the
-#    stiff arms; stiffer arms make it worse, 1e5 x gives 3 %)
+# 3. (rigid arms sized from their length, pynite_model.convert: fixed-size stiff arms ill-conditioned PyNite — 0.05 % here,
+#    7 % on the radial integral model)
 # BR13A integrated model: + elastomeric bearing links (seat -> top, shear springs at mid-height), sills, rigid arms,
 #    piles, soil / rock springs, pile toes
 from pdf2bim.model.substructure import build_integrated
@@ -96,13 +96,13 @@ P.analyze_linear(check_statics=False, check_stability=False)
 up = displacements(P, mi)
 ns = [n for n in up if n in ri["u"]]
 du = max(np.abs(up[n][:3] - ri["u"][n][:3]).max() for n in ns); umax = max(np.abs(ri["u"][n][:3]).max() for n in ns)
-t(f"BR13A integrated ({len(mi.beams)} beams, {len(mi.links)} links, {len(mi.springs)} spring nodes): translations within 0.05 % of the largest", du < 5e-4 * umax,
+t(f"BR13A integrated ({len(mi.beams)} beams, {len(mi.links)} links, {len(mi.springs)} spring nodes): translations within 0.01 % of the largest", du < 1e-4 * umax,
   f"max diff {du:.3e} of {umax:.3e} m")
 toes = [p_["toe"] for s_ in MI["supports"].values() for p_ in s_["piles"]]
 Ro = {n: ri["reactions"][n][2] for n in toes}
 Rp = {n: from_py([P.nodes[f"N{n}"].RxnFX["C"], P.nodes[f"N{n}"].RxnFY["C"], P.nodes[f"N{n}"].RxnFZ["C"]])[2] for n in toes}
 dR = max(abs(Rp[n] - Ro[n]) for n in toes); Rm = max(abs(v) for v in Ro.values())
-t("BR13A integrated: pile toe vertical reactions within 0.05 % of the largest", dR < 5e-4 * Rm, f"max diff {dR:.3f} of {Rm:.1f} kN")
+t("BR13A integrated: pile toe vertical reactions within 0.01 % of the largest", dR < 1e-4 * Rm, f"max diff {dR:.3f} of {Rm:.1f} kN")
 print(f"     pile toes {', '.join(f'{Ro[n]:.0f}/{Rp[n]:.0f}' for n in toes)} kN (ours / PyNite)")
 print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")
 sys.exit(0 if all(res) else 1)

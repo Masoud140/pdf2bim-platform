@@ -163,6 +163,13 @@ if __name__ == "__main__":
         up = displacements(P, me)
         du = max(np.abs(up[k][:3] - ro["u"][k][:3]).max() for k in up); um = max(np.abs(ro["u"][k][:3]).max() for k in up)
         t("radial grillage solved by PyNite: displacements agree within 0.01 % of the largest", du < 1e-4 * um, f"{du:.2e} of {um:.2e} m")
+        mie = euler_copy(MI["model"])
+        ri_ = mie.solve()
+        P = convert(mie); P.analyze_linear(check_statics=False, check_stability=False)
+        up = displacements(P, mie)
+        du = max(np.abs(up[k][:3] - ri_["u"][k][:3]).max() for k in up); um = max(np.abs(ri_["u"][k][:3]).max() for k in up)
+        t("radial integrated model (integral links with rotational fixity, backfill springs, piles) solved by PyNite: within 0.05 %", du < 5e-4 * um,
+          f"{du:.2e} of {um:.2e} m")
     except ImportError:
         print("SKIP PyNite cross-check (pip install PyniteFEA)")
     print(f"\n{sum(res)} passed, {len(res) - sum(res)} failed")

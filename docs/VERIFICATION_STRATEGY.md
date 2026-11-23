@@ -149,6 +149,12 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
     - displacements to 7e-6 m of 18 mm;
     - pile toe reactions to 0.15 of 1,334 kN.
   - The residual is a uniform ~3 µm deck slide on the soft elastomer shear springs: PyNite's conditioning with the stiff arms. Stiffer arms make it worse.
+- **2026-11-23: rotational link springs and arm conditioning.**
+  - Rotational link springs (integral connections) are now converted: a 1 m torsion-only member along each axis between rigid arms.
+  - The rigid arms are sized from their length, so each stiffness is 1e6 × the stiffest link or spring. Fixed-size stiff arms ill-conditioned PyNite: a 7 % error on the radial integral model, with unbalanced horizontal reactions, and 0.05 % on BR13A.
+  - Now:
+    - BR13A integrated agrees within 0.01 %: 8e-7 m of 18 mm, toes 0.04 of 1,334 kN;
+    - the radial integral model (integral links, backfill springs, piles) agrees within 0.05 % (test_radial_model 15/15).
 - **2026-11-23: natural frequencies added (9/9).**
   - The first 6 frequencies of the BR13A grillage agree to 0.001 Hz (4.288, 8.198, 14.880, 16.546, 20.646, 23.011 Hz) once PyNite uses the same torsional rotary inertia as the solver, the polar (Iy + Iz) / A.
   - With PyNite's own J / A convention, modes 2–6 come out 1–10 % higher.

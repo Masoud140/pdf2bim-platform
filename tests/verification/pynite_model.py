@@ -8,7 +8,8 @@ Mapping:
 - Rigid end offsets (off): an extra node at node + o, joined by a stiff member (E x 1e4 of the element's, A / I 10 x).
 - Links (no rotational stiffness): each translational spring = a PyNite axial spring along its link axis, from a point
   rigidly carried by n1 to a point 1 m further along the axis rigidly carried by n2, both at the spring's location
-  (the shear springs at dry / drz of the length, as the solver). Rotational link stiffness (integral) is refused.
+  (the shear springs at dry / drz of the length, as the solver). Each rotational spring = a 1 m torsion-only member along
+  its axis between rigid arms carried by n1 and n2 (GJ / L = k).
 - Nodal springs (global k per dof) -> PyNite support springs; fixed dofs -> PyNite supports.
 - PyNite's automatic splitting of members at nodes on their line is switched off (_ends_only), as ours never joins them.
 - Self weight w (kN/m, gravity -z) -> a global FY distributed load -w on the flexible member.
@@ -76,9 +77,12 @@ def convert(m, loads=None, gravity=True):
     for n, x in m.nodes.items():
         P.add_node(name(n), *to(x))
     stubs = {}
-    Eref = max(b["E"] for b in m.beams.values()) * 1e4
-    P.add_material("RIG", Eref, Eref / 2.4, 0.2, 0.0)
-    P.add_section("RIGS", 1e3, 1e3, 1e3, 1e3)   # arms far stiffer than the 1e9 kN/m fixity springs
+    # rigid arms: each arm's section sized from its length so that its axial, shear and torsional stiffness are c = 1e6 x
+    # the stiffest link / spring (c L / E, c L^3 / 12 E, c L / G) — absolute "very stiff" arms ill-condition PyNite's solve
+    # (a 7 % error on a radial integral model with 1e3 m^2 / m^4 sections; 1e-5 with this sizing)
+    kmax = max([1e6] + [float(v) for l in m.links.values() for v in l["k"]] + [float(v) for k_ in m.springs.values() for v in k_])
+    c, Er = 1e6 * kmax, 1e9
+    P.add_material("RIG", Er, Er / 2.4, 0.2, 0.0)
 
     def arm(n_from, X, tag):
         """A node at X rigidly attached to node n_from (a stiff member; the node itself when X is on it)."""
@@ -88,16 +92,28 @@ def convert(m, loads=None, gravity=True):
         if key not in stubs:
             nid = stubs[key] = f"A{len(stubs)}"
             P.add_node(nid, *to(X))
-            P.add_member(f"RA{nid}", name(n_from), nid, "RIG", "RIGS")
+            L = float(np.linalg.norm(X - m.nodes[n_from]))
+            P.add_section(f"RS{nid}", c * L / Er, c * L ** 3 / (12 * Er), c * L ** 3 / (12 * Er), c * L / (Er / 2.4))
+            P.add_member(f"RA{nid}", name(n_from), nid, "RIG", f"RS{nid}")
         return stubs[key]
 
     for k, l in m.links.items():
         # each translational link spring = a PyNite axial spring along its link axis between two points at the spring's
         # location, one rigidly carried by n1, the other (1 m further along the axis) by n2: its elongation is the relative
         # displacement along the axis at that point, as the solver's link (shear springs at dry / drz with the end rotations)
-        if np.any(l["k"][3:]):
-            raise ValueError(f"link {k}: rotational link stiffness not converted (integral connections)")
         R, Py, Pz = _link_axes(m, l)
+        for a_, kr in enumerate(l["k"][3:]):
+            # rotational spring about link axis a_: a 1 m torsion-only member along the axis between rigid arms carried by n1
+            # and n2 (its twist = the relative rotation about the axis); bending / axial stiffness negligible (1e-9)
+            if not kr:
+                continue
+            X = m.nodes[l["n1"]]
+            A_ = arm(l["n1"], X, f"L{k}r{a_}")
+            Q = arm(l["n2"], X + R[a_], f"L{k}rq{a_}")
+            mt, st_ = f"TM{k}_{a_}", f"TS{k}_{a_}"
+            P.add_material(mt, 1.0, 1.0, 0.0, 0.0)
+            P.add_section(st_, 1e-9, 1e-9, 1e-9, float(kr))     # G J / L = kr with G = 1, L = 1
+            P.add_member(f"T{k}_{a_}", A_, Q, mt, st_)
         for a_, kk in enumerate(l["k"][:3]):
             if not kk:
                 continue
