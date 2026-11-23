@@ -143,8 +143,13 @@ Each case has hand-checked coordinates. Transverse members are not assumed perpe
     - bearing reactions agree to 0.004 kN of 970 kN;
     - total reaction 4,761.07 kN in both engines.
   - The residual difference comes from the stub approximation of rigid offsets.
+- **2026-11-23: integrated model added (8/8).**
+  - General link conversion: each translational spring is a PyNite axial spring between rigid arms at the spring's location (shear springs at mid-height, as the solver).
+  - The BR13A integrated model (696 beams, 8 elastomeric bearing links, 148 soil-spring nodes, piles) agrees within 0.05 %:
+    - displacements to 7e-6 m of 18 mm;
+    - pile toe reactions to 0.15 of 1,334 kN.
+  - The residual is a uniform ~3 µm deck slide on the soft elastomer shear springs: PyNite's conditioning with the stiff arms. Stiffer arms make it worse.
 - **Not covered yet:**
-  - integrated models (elastomer links between non-ground nodes, pile springs, piles);
   - releases;
   - modal analysis;
   - shear deformation (PyNite is Euler-Bernoulli).

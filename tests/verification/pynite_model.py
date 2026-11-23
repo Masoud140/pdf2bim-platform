@@ -6,8 +6,9 @@ Mapping:
 - Horizontal members: PyNite local y = global Y (up), so PyNite Iz (about local z, horizontal) = our Iy (vertical bending)
   and PyNite Iy = our Iz. PyNite is Euler-Bernoulli: compare with our model stripped of Asy / Asz (euler_copy).
 - Rigid end offsets (off): an extra node at node + o, joined by a stiff member (E x 1e4 of the element's, A / I 10 x).
-- Links: only those from a fully fixed ground node to a coincident node with no rotational stiffness (the superstructure
-  bearings): one PyNite axial spring per link axis to a fixed node 1 m along it; anything else is refused.
+- Links (no rotational stiffness): each translational spring = a PyNite axial spring along its link axis, from a point
+  rigidly carried by n1 to a point 1 m further along the axis rigidly carried by n2, both at the spring's location
+  (the shear springs at dry / drz of the length, as the solver). Rotational link stiffness (integral) is refused.
 - Nodal springs (global k per dof) -> PyNite support springs; fixed dofs -> PyNite supports.
 - PyNite's automatic splitting of members at nodes on their line is switched off (_ends_only), as ours never joins them.
 - Self weight w (kN/m, gravity -z) -> a global FY distributed load -w on the flexible member.
@@ -49,34 +50,62 @@ def euler_copy(m):
     return c
 
 
+def _link_axes(m, l):
+    """Link axes and the shear points, exactly as solver.Model.solve: (R rows x, y, z; point of the y / z shear springs)."""
+    p1, p2 = m.nodes[l["n1"]], m.nodes[l["n2"]]
+    Ll = float(np.linalg.norm(p2 - p1))
+    if l["R"] is not None or Ll == 0:
+        if Ll > 1e-9:
+            raise ValueError("link with given axes between separate nodes: not converted (no case in the platform)")
+        return (l["R"] if l["R"] is not None else np.eye(3)), p1, p1
+    x = (p2 - p1) / Ll
+    b = np.radians(l["beta"] or 0.0)
+    if np.hypot(x[0], x[1]) < 1e-6:
+        z0 = np.array([np.cos(b), np.sin(b), 0.0]); y = np.cross(z0, x); y /= np.linalg.norm(y); z = np.cross(x, y)
+    else:
+        y0 = np.cross([0, 0, 1.0], x); y0 /= np.linalg.norm(y0); z1 = np.cross(x, y0)
+        y = np.cos(b) * y0 + np.sin(b) * z1; z = np.cross(x, y)
+    return np.array([x, y, z]), p1 + l["dry"] * Ll * x, p1 + l["drz"] * Ll * x
+
+
 def convert(m, loads=None, gravity=True):
     P = FEModel3D()
     name = lambda n: f"N{n}"
-    ground = {l["n1"] for l in m.links.values()}
     x0 = next(iter(m.nodes.values()))       # local origin: survey coordinates (1e6 m) cost PyNite its precision
     to = lambda x: to_py(np.asarray(x, float) - x0)
     for n, x in m.nodes.items():
-        if n in ground:
-            continue
         P.add_node(name(n), *to(x))
     stubs = {}
+    Eref = max(b["E"] for b in m.beams.values()) * 1e4
+    P.add_material("RIG", Eref, Eref / 2.4, 0.2, 0.0)
+    P.add_section("RIGS", 1e3, 1e3, 1e3, 1e3)   # arms far stiffer than the 1e9 kN/m fixity springs
+
+    def arm(n_from, X, tag):
+        """A node at X rigidly attached to node n_from (a stiff member; the node itself when X is on it)."""
+        if np.linalg.norm(X - m.nodes[n_from]) < 1e-9:
+            return name(n_from)
+        key = ("arm", n_from, tuple(np.round(X, 9)), tag)
+        if key not in stubs:
+            nid = stubs[key] = f"A{len(stubs)}"
+            P.add_node(nid, *to(X))
+            P.add_member(f"RA{nid}", name(n_from), nid, "RIG", "RIGS")
+        return stubs[key]
+
     for k, l in m.links.items():
-        # a fixed-ground coincident link = one axial spring per translational link axis, from the node to a fixed node 1 m
-        # away along that axis (exact for a linear analysis); rotational link stiffness is refused
-        if l["n1"] not in m.fixed or len(m.fixed[l["n1"]]) != 6 or np.linalg.norm(m.nodes[l["n1"]] - m.nodes[l["n2"]]) > 1e-9:
-            raise ValueError(f"link {k}: only fixed-ground, coincident links are converted")
+        # each translational link spring = a PyNite axial spring along its link axis between two points at the spring's
+        # location, one rigidly carried by n1, the other (1 m further along the axis) by n2: its elongation is the relative
+        # displacement along the axis at that point, as the solver's link (shear springs at dry / drz with the end rotations)
         if np.any(l["k"][3:]):
-            raise ValueError(f"link {k}: rotational link stiffness not converted")
-        Rl = l["R"] if l["R"] is not None else np.eye(3)
+            raise ValueError(f"link {k}: rotational link stiffness not converted (integral connections)")
+        R, Py, Pz = _link_axes(m, l)
         for a_, kk in enumerate(l["k"][:3]):
-            if kk:
-                gnode = f"G{k}_{a_}"
-                P.add_node(gnode, *to(m.nodes[l["n2"]] + Rl[a_]))
-                P.def_support(gnode, True, True, True, True, True, True)
-                P.add_spring(f"K{k}_{a_}", name(l["n2"]), gnode, float(kk))
+            if not kk:
+                continue
+            X = (m.nodes[l["n1"]], Py, Pz)[a_]
+            A_ = arm(l["n1"], X, f"L{k}a")
+            Q = arm(l["n2"], X + R[a_], f"L{k}q{a_}")
+            P.add_spring(f"K{k}_{a_}", A_, Q, float(kk))
     for n, ds in m.fixed.items():
-        if n in ground:
-            continue
         fl = [False] * 6
         for d in ds:
             fl[d] = True
@@ -127,11 +156,8 @@ def convert(m, loads=None, gravity=True):
 
 
 def displacements(P, m):
-    ground = {l["n1"] for l in m.links.values()}
     out = {}
     for n in m.nodes:
-        if n in ground:
-            continue
         N = P.nodes[f"N{n}"]
         out[n] = np.concatenate([from_py([N.DX["C"], N.DY["C"], N.DZ["C"]]), from_py([N.RX["C"], N.RY["C"], N.RZ["C"]])])
     return out
