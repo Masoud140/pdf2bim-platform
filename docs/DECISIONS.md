@@ -862,6 +862,10 @@
     - Traffic, thermal, earthquake and the combinations run unchanged.
     - test_radial_model 12/12: combined actions with every term; wind totals exact.
     - Regression: wind 14/14, loads 25/25, horizontal 22/22, combinations 35/35, continuous actions 19/19.
+  - **Stage 4b-5 done (plank design on the radial model).**
+    - `plank_checks` runs on radial planks unchanged, both RC and prestressed. The losses analysis uses the plank chord.
+    - test_radial_model 14/14 (+2).
+    - `tools/girder_checks.py` ran end to end on the synthetic radial deck: 7 planks. The utilisation pattern is symmetric, highest at the two edge planks. These numbers mean nothing for a real bridge (BR13A loads on a 7-plank test fan).
   - **Next:**
     - 4b-3: the substructure along polyline supports;
     - then the SB43 description, once the MCH0 alignment is supplied.

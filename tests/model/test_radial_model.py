@@ -138,6 +138,22 @@ if __name__ == "__main__":
       f"{FT:.3f} vs {W['values']['wT'] * (max(ec) - min(ec)):.3f} kN")
     Fv = sum(f[2] for f in W["cases"]["WVU+"]["loads"].values())
     t("radial wind: vertical wind total = wV x deck length", abs(Fv - W["values"]["wV"] * (max(ec) - min(ec))) < 1e-9 * abs(Fv))
+    # stage 4b-5: plank design along a radial plank (RC, then prestressed) from these combined actions
+    from pdf2bim.design.plank_design import plank_checks
+    T_ = d["superstructure"]["plank_types"][0]
+    T_["bars"] = tab([{"y": 55.0, "diameter": 20.0, "number": 4}, {"y": 850.0, "diameter": 16.0, "number": 4}])
+    T_["fitments"] = tab([{"from": 0.0, "to": 19.0, "diameter": 12.0, "legs": 2, "spacing": 150.0}])
+    gl = geo["girders"][3]["id"]
+    ne = sum(1 for x in MI["members"] if x["role"] == "girder" and x["line"] == gl)
+    PC = plank_checks(d, geo, S, CA, MI, Standards(), gl, allow_proposed=True)
+    t("RC plank checks along a radial plank: every element end, flexure / SLS / shear / interface", len(PC["rows"]) == 2 * ne and all("u" in r["shear"] for r in PC["rows"]),
+      str({k: round(v, 2) for k, v in PC["governing"].items()}))
+    T_["strand_pattern"] = tab([{"y": y, "x": -225.0 + 50 * k, "diameter": 15.2, "debond_left": 0.0, "debond_right": 0.0, "on": True} for y in (55.0, 105.0) for k in (0, 1, 8, 9)])
+    for k_, v_ in (("jacking_ratio", 0.75), ("age_at_transfer", 3.0), ("age_deck_cast", 60.0), ("concrete_transfer", 35.0), ("concrete_28d", 50.0)):
+        T_[k_] = rec(v_)
+    PP = plank_checks(d, geo, S, CA, MI, Standards(), gl, allow_proposed=True)
+    t("prestressed plank checks on the radial plank (losses on its chord): phi Mu above the RC plank's", PP["prestressed"] and PP["phiMu_sag"] > PC["phiMu_sag"],
+      f"{PP['phiMu_sag']:.0f} vs {PC['phiMu_sag']:.0f} kNm")
     try:   # independent engine on the radial model (ADR-087), when PyNite is installed
         sys.path.insert(0, os.path.join(R_, "tests", "verification"))
         from pynite_model import convert, displacements, euler_copy
